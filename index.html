@@ -2596,11 +2596,13 @@ function ZonePicker(_ref8) {
     }
   }, /*#__PURE__*/React.createElement("div", {
     id: "aiu-heatmap",
+    ref: function(node){ if(node && typeof window.__aiuRenderHeatmap === "function"){ window.__aiuRenderHeatmap(node); } },
     style: {
       background: WHITE,
       border: "1px solid " + BORDER,
       borderTop: "4px solid " + CR,
-      padding: "26px 28px"
+      padding: "26px 28px",
+      minHeight: 120
     }
   })), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2625,6 +2627,7 @@ function ZonePicker(_ref8) {
     }
   }, "Advancing AI literacy across every generation"), /*#__PURE__*/React.createElement("p", {
     id: "visitor-counter-react",
+    ref: function(node){ if(node && typeof window.__aiuRenderCounter === "function"){ window.__aiuRenderCounter(node); } },
     style: {
       fontSize: 11,
       color: "#8C8680",
@@ -5981,12 +5984,13 @@ window.addEventListener('scroll',function(){
   function computeTotal(){
     return BASE + organicEstimate() + getTotalVisits();
   }
-  function render(){
+  function render(node){
     var total = computeTotal();
     var fmt = total.toLocaleString('en-IN');
-    var el = document.getElementById('visitor-counter-react');
+    var el = (node && node.nodeType === 1) ? node : document.getElementById('visitor-counter-react');
     if(el){ el.textContent = fmt + ' learners have visited AI University \u00B7 ' + myViews + ' views this session'; }
   }
+  window.__aiuRenderCounter = render;
 
   // Expose a global so React navigation can bump the counter live
   window.__aiuBumpView = function(){
@@ -5994,13 +5998,17 @@ window.addEventListener('scroll',function(){
     render();
   };
 
-  // Poll to render once React mounts the footer element
-  var tries = 0;
-  var iv = setInterval(function(){
-    render();
-    tries++;
-    if(tries > 30) clearInterval(iv);
-  }, 300);
+  // Persistent render so counter re-fills when React re-mounts the footer
+  function ensureCounter(){
+    var el = document.getElementById("visitor-counter-react");
+    if(el){ render(el); }
+  }
+  if(typeof MutationObserver !== "undefined"){
+    var cObs = new MutationObserver(function(){ ensureCounter(); });
+    var rootEl2 = document.getElementById("root");
+    if(rootEl2){ cObs.observe(rootEl2, {childList:true, subtree:true}); }
+  }
+  setInterval(ensureCounter, 500);
   render();
 })();
 </script>
@@ -6041,8 +6049,8 @@ window.addEventListener('scroll',function(){
     }
   };
 
-  function renderHeatmap(){
-    var container = document.getElementById("aiu-heatmap");
+  function renderHeatmap(node){
+    var container = (node && node.nodeType === 1) ? node : document.getElementById("aiu-heatmap");
     if(!container) return;
     var d = getData();
     var maxVisits = 1, maxSecs = 1;
@@ -6086,13 +6094,23 @@ window.addEventListener('scroll',function(){
     Object.keys(enterTimes).forEach(function(z){ window.__aiuEndZone(z); });
   });
 
-  // Render whenever the home page heatmap element appears
-  var tries = 0;
-  var iv = setInterval(function(){
-    renderHeatmap();
-    tries++;
-    if(tries > 40) clearInterval(iv);
-  }, 400);
+  // Persistent rendering: observe DOM changes so heatmap re-fills every time
+  // React re-mounts the home page (after navigating back from a zone/page).
+  function ensureRendered(){
+    var el = document.getElementById("aiu-heatmap");
+    if(el){ renderHeatmap(el); }
+  }
+  // MutationObserver catches React re-mounting the heatmap element
+  if(typeof MutationObserver !== "undefined"){
+    var observer = new MutationObserver(function(){ ensureRendered(); });
+    var rootEl = document.getElementById("root");
+    if(rootEl){ observer.observe(rootEl, {childList:true, subtree:true}); }
+  }
+  // Also a lightweight permanent interval as a fallback (never cleared)
+  setInterval(ensureRendered, 500);
+  // Expose for manual refresh after zone tracking
+  window.__aiuRenderHeatmap = renderHeatmap;
+  renderHeatmap();
 })();
 </script>
 
