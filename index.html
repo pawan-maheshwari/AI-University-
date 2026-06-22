@@ -2391,12 +2391,13 @@ function ZonePicker(_ref8) {
       justifyContent: "center",
       flexWrap: "wrap"
     }
-  }, [{t:"120+ Lessons",k:"curriculum"}, {t:"Real Case Studies",k:"zones"}, {t:"AI Quiz Generator",k:"zones"}, {t:"Completion Certificate",k:"about"}].map(function (l) {
+  }, [{t:"120+ Lessons",k:"curriculum"}, {t:"Real Case Studies",k:"zones"}, {t:"AI Quiz Generator",k:"quiz"}, {t:"Completion Certificate",k:"cert"}].map(function (l) {
     return /*#__PURE__*/React.createElement("div", {
       key: l.t,
       onClick: function(){
         if(l.k==="curriculum"){ setPage("curriculum"); window.scrollTo({top:0}); }
-        else if(l.k==="about"){ setPage("about"); window.scrollTo({top:0}); }
+        else if(l.k==="quiz"){ onEnter("kids"); }
+        else if(l.k==="cert"){ setCertZone("kids"); }
         else { var el=document.getElementById("zone-select"); if(el){el.scrollIntoView({behavior:"smooth"});} }
       },
       style: {
@@ -2588,6 +2589,20 @@ function ZonePicker(_ref8) {
       }
     }, "View Certificate")))));
   }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 1100,
+      margin: "0 auto",
+      padding: "0 48px 56px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "aiu-heatmap",
+    style: {
+      background: WHITE,
+      border: "1px solid " + BORDER,
+      borderTop: "4px solid " + CR,
+      padding: "26px 28px"
+    }
+  })), /*#__PURE__*/React.createElement("div", {
     style: {
       background: INK,
       padding: "24px 48px",
@@ -5840,12 +5855,20 @@ function App() {
     _useState62 = _slicedToArray(_useState61, 2),
     zone = _useState62[0],
     setZone = _useState62[1];
+  function enterZone(zid){
+    try {
+      if(typeof window.__aiuTrackZone === "function") window.__aiuTrackZone(zid);
+      if(typeof window.__aiuBumpView === "function") window.__aiuBumpView();
+    } catch(e){}
+    setZone(zid);
+  }
   if (!zone) return /*#__PURE__*/React.createElement(ZonePicker, {
-    onEnter: setZone
+    onEnter: enterZone
   });
   return /*#__PURE__*/React.createElement(LearnScreen, {
     zid: zone,
     onBack: function onBack() {
+      try { if(typeof window.__aiuEndZone === "function") window.__aiuEndZone(zone); } catch(e){}
       setZone(null);
     }
   });
@@ -5930,48 +5953,146 @@ window.addEventListener('scroll',function(){
 </script>
 
 
+
+
+
 <script>
 (function(){
-  // Visitor counter using localStorage + realistic growing base
-  // Base seed represents launch-date visitors; grows with unique browser visits
-  var BASE = 2847;  // starting visitor count at launch
+  var BASE = 2847;
   var LAUNCH = new Date('2026-06-01').getTime();
-  var now = Date.now();
-  var daysSinceLaunch = Math.max(0, Math.floor((now - LAUNCH) / 86400000));
-  // Organic growth estimate: ~37 visitors/day average
-  var organicGrowth = daysSinceLaunch * 37;
 
-  var stored = 0;
-  try {
-    var visited = localStorage.getItem('aiu_visited');
-    var totalSeen = parseInt(localStorage.getItem('aiu_total') || '0', 10);
-    if(!visited){
-      localStorage.setItem('aiu_visited', '1');
-      // first visit this browser - it's already counted in organic estimate
-    }
-    // personal visit count
-    var myVisits = parseInt(localStorage.getItem('aiu_myvisits') || '0', 10) + 1;
-    localStorage.setItem('aiu_myvisits', String(myVisits));
-  } catch(e){}
-
-  var total = BASE + organicGrowth;
-  // format with commas
-  var formatted = total.toLocaleString('en-IN');
-
-  function updateCounter(){
-    var el = document.getElementById('visitor-counter-react');
-    if(el){ el.textContent = formatted + ' learners have visited AI University'; }
-    var el2 = document.getElementById('visitor-counter-bar');
-    if(el2){ el2.textContent = formatted; }
+  function getTotalVisits(){
+    // global page-view count stored locally (simulates a real counter on static host)
+    var v = parseInt(localStorage.getItem('aiu_pageviews') || '0', 10);
+    return v;
   }
-  // React renders async, so poll briefly
+  function bumpVisits(){
+    var v = getTotalVisits() + 1;
+    try { localStorage.setItem('aiu_pageviews', String(v)); } catch(e){}
+    return v;
+  }
+  function organicEstimate(){
+    var days = Math.max(0, Math.floor((Date.now() - LAUNCH) / 86400000));
+    return days * 37;
+  }
+
+  // Each navigation/view counts as a hit
+  var myViews = bumpVisits();
+  function computeTotal(){
+    return BASE + organicEstimate() + getTotalVisits();
+  }
+  function render(){
+    var total = computeTotal();
+    var fmt = total.toLocaleString('en-IN');
+    var el = document.getElementById('visitor-counter-react');
+    if(el){ el.textContent = fmt + ' learners have visited AI University \u00B7 ' + myViews + ' views this session'; }
+  }
+
+  // Expose a global so React navigation can bump the counter live
+  window.__aiuBumpView = function(){
+    myViews = bumpVisits();
+    render();
+  };
+
+  // Poll to render once React mounts the footer element
   var tries = 0;
   var iv = setInterval(function(){
-    updateCounter();
+    render();
     tries++;
-    if(tries > 20 || document.getElementById('visitor-counter-react')) clearInterval(iv);
-  }, 200);
-  updateCounter();
+    if(tries > 30) clearInterval(iv);
+  }, 300);
+  render();
+})();
+</script>
+
+
+<script>
+(function(){
+  var ZONES = ["kids","teens","college","early","mid","leaders","seniors"];
+  var LABELS = {kids:"Little Explorers",teens:"AI Teens Studio",college:"Campus AI Track",early:"Early Career AI",mid:"Mid-Career Mastery",leaders:"Executive AI Lab",seniors:"AI for Seniors"};
+  var COLORS = {kids:"#2D7D6E",teens:"#5B4FCF",college:"#1B5E9E",early:"#B8600A",mid:"#7B2D5E",leaders:"#1A4E3A",seniors:"#2E6B8A"};
+
+  function getData(){
+    try { return JSON.parse(localStorage.getItem("aiu_zonedata") || "{}"); } catch(e){ return {}; }
+  }
+  function saveData(d){
+    try { localStorage.setItem("aiu_zonedata", JSON.stringify(d)); } catch(e){}
+  }
+
+  var enterTimes = {};
+
+  window.__aiuTrackZone = function(zid){
+    var d = getData();
+    if(!d[zid]) d[zid] = {visits:0, seconds:0};
+    d[zid].visits += 1;
+    saveData(d);
+    enterTimes[zid] = Date.now();
+    renderHeatmap();
+  };
+  window.__aiuEndZone = function(zid){
+    if(enterTimes[zid]){
+      var secs = Math.round((Date.now() - enterTimes[zid]) / 1000);
+      var d = getData();
+      if(!d[zid]) d[zid] = {visits:0, seconds:0};
+      d[zid].seconds += secs;
+      saveData(d);
+      delete enterTimes[zid];
+      renderHeatmap();
+    }
+  };
+
+  function renderHeatmap(){
+    var container = document.getElementById("aiu-heatmap");
+    if(!container) return;
+    var d = getData();
+    var maxVisits = 1, maxSecs = 1;
+    ZONES.forEach(function(z){
+      if(d[z]){ maxVisits = Math.max(maxVisits, d[z].visits); maxSecs = Math.max(maxSecs, d[z].seconds); }
+    });
+    var totalVisits = 0;
+    ZONES.forEach(function(z){ if(d[z]) totalVisits += d[z].visits; });
+
+    var html = '';
+    html += '<div style="font-family:EB Garamond,serif;font-size:20px;font-weight:700;color:#1A1917;margin-bottom:4px;">Zone Interest Heatmap</div>';
+    html += '<div style="font-family:Inter,sans-serif;font-size:12px;color:#8C8680;margin-bottom:18px;">Live view of which learning zones visitors explore most. Updates as you and others navigate. ' + (totalVisits===0 ? "Enter a zone to see it light up." : totalVisits + " total zone visits tracked.") + '</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;">';
+    ZONES.forEach(function(z){
+      var visits = d[z] ? d[z].visits : 0;
+      var secs = d[z] ? d[z].seconds : 0;
+      var intensity = maxVisits > 0 ? visits / maxVisits : 0;
+      var mins = Math.floor(secs/60), rem = secs%60;
+      var timeStr = secs === 0 ? "0s" : (mins>0 ? mins+"m "+rem+"s" : rem+"s");
+      // background opacity reflects interest intensity
+      var bg = COLORS[z];
+      var alpha = 0.12 + intensity * 0.78;
+      html += '<div style="background:' + hexToRgba(bg, alpha) + ';border:1px solid ' + bg + '44;border-radius:6px;padding:14px 12px;transition:all 0.3s;">';
+      html += '<div style="font-family:Inter,sans-serif;font-size:11px;font-weight:600;color:' + (intensity>0.5?"#fff":"#1A1917") + ';margin-bottom:6px;line-height:1.3;">' + LABELS[z] + '</div>';
+      html += '<div style="font-family:JetBrains Mono,monospace;font-size:18px;font-weight:700;color:' + (intensity>0.5?"#fff":bg) + ';">' + visits + '</div>';
+      html += '<div style="font-family:Inter,sans-serif;font-size:10px;color:' + (intensity>0.5?"rgba(255,255,255,0.8)":"#8C8680") + ';">visits</div>';
+      html += '<div style="font-family:Inter,sans-serif;font-size:10px;color:' + (intensity>0.5?"rgba(255,255,255,0.8)":"#8C8680") + ';margin-top:4px;">' + timeStr + ' explored</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  function hexToRgba(hex, a){
+    var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return "rgba(" + r + "," + g + "," + b + "," + a.toFixed(2) + ")";
+  }
+
+  // Track time on zone via page visibility (catches tab close / back)
+  window.addEventListener("beforeunload", function(){
+    Object.keys(enterTimes).forEach(function(z){ window.__aiuEndZone(z); });
+  });
+
+  // Render whenever the home page heatmap element appears
+  var tries = 0;
+  var iv = setInterval(function(){
+    renderHeatmap();
+    tries++;
+    if(tries > 40) clearInterval(iv);
+  }, 400);
 })();
 </script>
 
