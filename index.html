@@ -24,6 +24,37 @@ body{background:#f9f7f4}
 </style>
 </head>
 <body>
+<style>
+/* Mobile hamburger menu */
+#mobile-menu-btn{display:none;}
+#mobile-menu-overlay{display:none;position:fixed;inset:0;background:rgba(26,25,23,0.97);z-index:9998;flex-direction:column;padding:80px 32px 32px;}
+#mobile-menu-overlay.open{display:flex;}
+#mobile-menu-overlay a, #mobile-menu-overlay button{background:none;border:none;color:#F9F7F4;font-family:Georgia,serif;font-size:24px;text-align:left;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.1);cursor:pointer;text-decoration:none;width:100%;display:block;}
+#mobile-menu-overlay .support-link{color:#B8962E;font-weight:700;}
+#mobile-menu-close{position:absolute;top:24px;right:24px;background:rgba(255,255,255,0.12)!important;border-radius:50%!important;width:44px!important;height:44px!important;font-size:22px!important;padding:0!important;display:flex!important;align-items:center;justify-content:center;border-bottom:none!important;}
+@media(max-width:720px){
+  #mobile-menu-btn{display:flex!important;position:fixed;top:10px;right:14px;z-index:9997;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:6px;width:40px;height:36px;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;}
+  #mobile-menu-btn span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;}
+}
+</style>
+<div id="mobile-menu-btn" onclick="document.getElementById('mobile-menu-overlay').classList.add('open')">
+  <span></span><span></span><span></span>
+</div>
+<div id="mobile-menu-overlay">
+  <button id="mobile-menu-close" onclick="document.getElementById('mobile-menu-overlay').classList.remove('open')">&#x2715;</button>
+  <a href="#" onclick="event.preventDefault();mNav('curriculum')">Curriculum</a>
+  <a href="#" onclick="event.preventDefault();mNav('research')">Research</a>
+  <a href="#" onclick="event.preventDefault();mNav('policy')">Policy Lab</a>
+  <a href="#" onclick="event.preventDefault();mNav('about')">About</a>
+  <button class="support-link" onclick="document.getElementById('mobile-menu-overlay').classList.remove('open');if(typeof openSupport==='function')openSupport();">&#9829; Support AI University</button>
+</div>
+<script>
+function mNav(page){
+  document.getElementById('mobile-menu-overlay').classList.remove('open');
+  if(typeof window.__aiuSetPage === 'function'){ window.__aiuSetPage(page); window.scrollTo({top:0}); }
+}
+</script>
+
 
 <!-- DISCLAIMER BAR -->
 <div id="disclaimer-bar" style="background:#1A1917;color:#9CA3AF;text-align:center;padding:8px 20px;font-size:11px;font-family:Inter,sans-serif;line-height:1.5;position:relative;z-index:200;">
@@ -2180,6 +2211,7 @@ function ZonePicker(_ref8) {
     _useState8 = _slicedToArray(_useState7, 2),
     page = _useState8[0],
     setPage = _useState8[1];
+  if (typeof window !== "undefined") { window.__aiuSetPage = setPage; }
   if (page === "curriculum") return /*#__PURE__*/React.createElement(CurriculumPage, {
     onHome: function onHome() {
       setPage(null);
@@ -2213,6 +2245,9 @@ function ZonePicker(_ref8) {
   }, {
     label: "About",
     key: "about"
+  }, {
+    label: "\u2665 Support",
+    key: "__support__"
   }];
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2268,11 +2303,14 @@ function ZonePicker(_ref8) {
     return /*#__PURE__*/React.createElement("span", {
       key: l.key,
       onClick: function onClick() {
+        if(l.key === "__support__") { if(typeof openSupport === "function") openSupport(); return; }
         setPage(l.key);
       },
       style: {
         cursor: "pointer",
-        opacity: 0.85,
+        opacity: l.key === "__support__" ? 1 : 0.85,
+        color: l.key === "__support__" ? GOLD : "inherit",
+        fontWeight: l.key === "__support__" ? 600 : 400,
         borderBottom: "1px solid transparent",
         paddingBottom: 2,
         transition: "all 0.15s"
@@ -5797,7 +5835,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(
 <div id="support-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;">
   <div style="background:#F9F7F4;max-width:420px;width:100%;border-radius:4px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.4);">
     <!-- Header -->
-    <div style="background:#8C1515;padding:24px 28px;color:white;font-family:Georgia,serif;">
+    <div style="background:#8C1515;padding:24px 28px;color:white;font-family:Georgia,serif;position:relative;">
+      <button onclick="document.getElementById('support-overlay').style.display='none'" style="position:absolute;top:16px;right:18px;background:rgba(255,255,255,0.15);border:none;color:white;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">&#x2715;</button>
       <div style="font-size:22px;font-weight:700;margin-bottom:4px;">Support AI University</div>
       <div style="font-size:13px;opacity:0.8;font-family:Inter,sans-serif;">Help us grow and add more courses</div>
     </div>
@@ -5848,37 +5887,8 @@ document.getElementById('support-overlay').addEventListener('click', function(e)
 });
 </script>
 
-<style>
-#support-fab {{
-  position:fixed;
-  bottom:24px;
-  right:20px;
-  z-index:1000;
-  background:#8C1515;
-  color:white;
-  border:none;
-  border-radius:30px;
-  padding:12px 20px;
-  font-size:13px;
-  font-weight:600;
-  cursor:pointer;
-  font-family:Inter,sans-serif;
-  box-shadow:0 4px 20px rgba(140,21,21,0.4);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  letter-spacing:0.3px;
-  transition:all 0.2s;
-}}
-#support-fab:hover {{
-  background:#6A0F0F;
-  transform:translateY(-2px);
-  box-shadow:0 8px 28px rgba(140,21,21,0.5);
-}}
-</style>
-<button id="support-fab" onclick="openSupport()">
-  &#9829; Support AI University
-</button>
+
+
 
 
 <style>
