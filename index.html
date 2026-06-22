@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>AI University - Dean's Programme</title>
-<meta name="description" content="Free AI education for everyone. Six age-calibrated learning zones from curious children to C-suite executives. Lessons, videos, case studies and AI-powered quizzes. Open access."/>
+<meta name="description" content="Free AI education for everyone. Seven age-calibrated learning zones from curious children to C-suite executives. Lessons, videos, case studies and AI-powered quizzes. Open access."/>
 <meta name="theme-color" content="#8C1515"/>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI0I4OTYyRSIvPgogIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSIjOEMxNTE1Ii8+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzIiIGZpbGw9IiNGOUY3RjQiLz4KICA8dGV4dCB4PSI1MCIgeT0iNDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzhDMTUxNSI+QUk8L3RleHQ+CiAgPHRleHQgeD0iNTAiIHk9IjYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSI3IiBmaWxsPSIjOEMxNTE1IiBsZXR0ZXItc3BhY2luZz0iMSI+VU5JVjwvdGV4dD4KPC9zdmc+"/>
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI0I4OTYyRSIvPgogIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSIjOEMxNTE1Ii8+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzIiIGZpbGw9IiNGOUY3RjQiLz4KICA8dGV4dCB4PSI1MCIgeT0iNDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzhDMTUxNSI+QUk8L3RleHQ+CiAgPHRleHQgeD0iNTAiIHk9IjYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSI3IiBmaWxsPSIjOEMxNTE1IiBsZXR0ZXItc3BhY2luZz0iMSI+VU5JVjwvdGV4dD4KPC9zdmc+"/>
@@ -1429,6 +1429,12 @@ function CurriculumPage(_ref4) {
     level: "Executive",
     credits: "5 modules",
     desc: "Board-level AI governance, global policy landscape, AI legal liability, geopolitics and ISO 42001 frameworks."
+  }, {
+    id: "seniors",
+    icon: "[silver]",
+    level: "Accessible",
+    credits: "5 modules",
+    desc: "AI made simple for the 60+ generation. Voice assistants, staying connected with family, health and safety tools, hobbies, and staying safe online \u2014 in warm, plain language."
   }];
   var _useState = useState(null),
     _useState2 = _slicedToArray(_useState, 2),
@@ -1662,6 +1668,7 @@ function ResearchPage(_ref5) {
     summary: "The world's first binding comprehensive AI regulation. Risk-tiered approach from prohibited AI to minimal-risk. Sets the global compliance standard via Brussels Effect.",
     link: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689"
   }];
+  papers.sort(function(a,b){ return parseInt(b.year) - parseInt(a.year); });
   return /*#__PURE__*/React.createElement(PageShell, {
     title: "Research Library",
     subtitle: "AI University \xB7 Foundational Papers & Policy",
@@ -2377,24 +2384,29 @@ function ZonePicker(_ref8) {
       margin: "0 auto 28px",
       lineHeight: 1.75
     }
-  }, "Six age-calibrated tracks. Lessons, videos, case studies, interactive games and AI quizzes. Open access."), /*#__PURE__*/React.createElement("div", {
+  }, "Seven age-calibrated tracks. Lessons, videos, case studies, interactive games and AI quizzes. Open access."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 10,
       justifyContent: "center",
       flexWrap: "wrap"
     }
-  }, ["120+ Lessons", "Real Case Studies", "AI Quiz Generator", "Completion Certificate"].map(function (l) {
+  }, [{t:"120+ Lessons",k:"curriculum"}, {t:"Real Case Studies",k:"curriculum"}, {t:"AI Quiz Generator",k:"curriculum"}, {t:"Completion Certificate",k:"about"}].map(function (l) {
     return /*#__PURE__*/React.createElement("div", {
-      key: l,
+      key: l.t,
+      onClick: function(){ if(l.k==="curriculum"){setPage("curriculum");} else {setPage("about");} window.scrollTo({top:0}); },
       style: {
         background: "rgba(255,255,255,0.1)",
         border: "1px solid rgba(255,255,255,0.2)",
         padding: "7px 18px",
         fontSize: 12,
-        color: "rgba(255,255,255,0.9)"
-      }
-    }, l);
+        color: "rgba(255,255,255,0.9)",
+        cursor: "pointer",
+        transition: "all 0.15s"
+      },
+      onMouseEnter: function(e){ e.currentTarget.style.background="rgba(255,255,255,0.22)"; e.currentTarget.style.borderColor=GOLD; },
+      onMouseLeave: function(e){ e.currentTarget.style.background="rgba(255,255,255,0.1)"; e.currentTarget.style.borderColor="rgba(255,255,255,0.2)"; }
+    }, l.t);
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "48px",
