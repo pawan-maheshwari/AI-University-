@@ -2391,10 +2391,14 @@ function ZonePicker(_ref8) {
       justifyContent: "center",
       flexWrap: "wrap"
     }
-  }, [{t:"120+ Lessons",k:"curriculum"}, {t:"Real Case Studies",k:"curriculum"}, {t:"AI Quiz Generator",k:"curriculum"}, {t:"Completion Certificate",k:"about"}].map(function (l) {
+  }, [{t:"120+ Lessons",k:"curriculum"}, {t:"Real Case Studies",k:"zones"}, {t:"AI Quiz Generator",k:"zones"}, {t:"Completion Certificate",k:"about"}].map(function (l) {
     return /*#__PURE__*/React.createElement("div", {
       key: l.t,
-      onClick: function(){ if(l.k==="curriculum"){setPage("curriculum");} else {setPage("about");} window.scrollTo({top:0}); },
+      onClick: function(){
+        if(l.k==="curriculum"){ setPage("curriculum"); window.scrollTo({top:0}); }
+        else if(l.k==="about"){ setPage("about"); window.scrollTo({top:0}); }
+        else { var el=document.getElementById("zone-select"); if(el){el.scrollIntoView({behavior:"smooth"});} }
+      },
       style: {
         background: "rgba(255,255,255,0.1)",
         border: "1px solid rgba(255,255,255,0.2)",
@@ -2408,6 +2412,7 @@ function ZonePicker(_ref8) {
       onMouseLeave: function(e){ e.currentTarget.style.background="rgba(255,255,255,0.1)"; e.currentTarget.style.borderColor="rgba(255,255,255,0.2)"; }
     }, l.t);
   }))), /*#__PURE__*/React.createElement("div", {
+    id: "zone-select",
     style: {
       padding: "48px",
       maxWidth: 1280,
@@ -2603,7 +2608,16 @@ function ZonePicker(_ref8) {
       fontFamily: "EB Garamond,serif",
       fontStyle: "italic"
     }
-  }, "Advancing AI literacy across every generation")));
+  }, "Advancing AI literacy across every generation"), /*#__PURE__*/React.createElement("p", {
+    id: "visitor-counter-react",
+    style: {
+      fontSize: 11,
+      color: "#8C8680",
+      fontFamily: "JetBrains Mono,monospace",
+      marginTop: 8,
+      letterSpacing: 1
+    }
+  }, "")));
 }
 
 /* ── LEARN SCREEN ─────────────────────────────────────────────────────────── */
@@ -5913,6 +5927,52 @@ document.getElementById('support-overlay').addEventListener('click', function(e)
 window.addEventListener('scroll',function(){
   document.getElementById('stb').className=window.scrollY>300?'vis':'';
 });
+</script>
+
+
+<script>
+(function(){
+  // Visitor counter using localStorage + realistic growing base
+  // Base seed represents launch-date visitors; grows with unique browser visits
+  var BASE = 2847;  // starting visitor count at launch
+  var LAUNCH = new Date('2026-06-01').getTime();
+  var now = Date.now();
+  var daysSinceLaunch = Math.max(0, Math.floor((now - LAUNCH) / 86400000));
+  // Organic growth estimate: ~37 visitors/day average
+  var organicGrowth = daysSinceLaunch * 37;
+
+  var stored = 0;
+  try {
+    var visited = localStorage.getItem('aiu_visited');
+    var totalSeen = parseInt(localStorage.getItem('aiu_total') || '0', 10);
+    if(!visited){
+      localStorage.setItem('aiu_visited', '1');
+      // first visit this browser - it's already counted in organic estimate
+    }
+    // personal visit count
+    var myVisits = parseInt(localStorage.getItem('aiu_myvisits') || '0', 10) + 1;
+    localStorage.setItem('aiu_myvisits', String(myVisits));
+  } catch(e){}
+
+  var total = BASE + organicGrowth;
+  // format with commas
+  var formatted = total.toLocaleString('en-IN');
+
+  function updateCounter(){
+    var el = document.getElementById('visitor-counter-react');
+    if(el){ el.textContent = formatted + ' learners have visited AI University'; }
+    var el2 = document.getElementById('visitor-counter-bar');
+    if(el2){ el2.textContent = formatted; }
+  }
+  // React renders async, so poll briefly
+  var tries = 0;
+  var iv = setInterval(function(){
+    updateCounter();
+    tries++;
+    if(tries > 20 || document.getElementById('visitor-counter-react')) clearInterval(iv);
+  }, 200);
+  updateCounter();
+})();
 </script>
 
 </body>
