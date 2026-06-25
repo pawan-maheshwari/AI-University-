@@ -1317,18 +1317,40 @@ var VIDS = {
 };
 
 // ===== Visitor counter (localStorage based) =====
-function getVisitorCount(){
+var useEffect = React.useEffect;
+
+// Global real-time visitor count via Abacus (free, no signup, CORS-enabled).
+// /hit increments by 1 and returns the new global total in one call.
+// Fallback to a baseline if the network/API is unavailable.
+var AIU_COUNT_URL = "https://abacus.jasoncameron.dev/hit/ai-university-pawan/total-visits";
+var AIU_COUNT_BASE = 2847; // presentation baseline; real hits are added on top
+function fetchVisitorCount(cb){
   try {
-    var base = 2847;
-    var launch = new Date('2026-06-01').getTime();
-    var days = Math.max(0, Math.floor((Date.now()-launch)/86400000));
-    var organic = days*37;
-    var local = parseInt(localStorage.getItem('aiu_pv')||'0',10);
-    return base + organic + local;
-  } catch(e){ return 2847; }
+    fetch(AIU_COUNT_URL)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && typeof d.value !== "undefined" && d.value !== null){
+          cb(AIU_COUNT_BASE + Number(d.value));
+        } else { cb(null); }
+      })
+      .catch(function(){ cb(null); });
+  } catch(e){ cb(null); }
 }
-function bumpVisitor(){ try{ var v=parseInt(localStorage.getItem('aiu_pv')||'0',10)+1; localStorage.setItem('aiu_pv',String(v)); }catch(e){} }
-bumpVisitor();
+
+function VisitorCounter(){
+  var s = useState(null);
+  var count = s[0], setCount = s[1];
+  useEffect(function(){
+    var alive = true;
+    fetchVisitorCount(function(v){ if(alive && v !== null) setCount(v); });
+    return function(){ alive = false; };
+  }, []);
+  var label = (count === null)
+    ? "Counting visitors\u2026"
+    : Number(count).toLocaleString('en-IN') + " learners have visited AI University";
+  return h("p",{style:{color:"rgba(255,255,255,0.4)",fontSize:11,fontFamily:"JetBrains Mono,monospace",marginTop:12}}, label);
+}
+
 
 // ===== Quiz =====
 function QuizView(props){
@@ -1586,7 +1608,7 @@ function Home(props){
     h("div",{style:{background:INK,padding:"32px 24px",textAlign:"center"}},
       h("p",{style:{color:"rgba(255,255,255,0.5)",fontSize:12}},"2026 AI University \u00B7 Dean's Programme \u00B7 Open Access"),
       h("p",{style:{color:GOLD,fontSize:13,fontStyle:"italic",fontFamily:"EB Garamond,serif",marginTop:8}},"Advancing AI literacy across every generation"),
-      h("p",{style:{color:"rgba(255,255,255,0.4)",fontSize:11,fontFamily:"JetBrains Mono,monospace",marginTop:12}},getVisitorCount().toLocaleString('en-IN')+" learners have visited AI University")));
+      h(VisitorCounter,null)));
 }
 
 // ===== Page wrapper for nav pages =====
