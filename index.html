@@ -11,6 +11,58 @@
 body{background:#F9F7F4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 em{font-style:italic}
 @media(max-width:720px){.desktop-nav{display:none!important}.hamburger{display:flex!important}}
+
+/* Zone image animation: slow ken-burns zoom + lift on hover */
+.zone-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;animation:kenburns 18s ease-in-out infinite alternate;}
+.zone-card-wrap:hover .zone-img{transform:scale(1.12);}
+@keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.06) translate(-1%,-1%)}}
+@media(prefers-reduced-motion:reduce){.zone-img{animation:none}}
+
+/* Scroll-to-top arrow */
+#scrollTop{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;
+  background:#8C1515;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);opacity:0;pointer-events:none;transition:opacity 0.3s, transform 0.2s;z-index:9000;font-size:22px;line-height:1;}
+#scrollTop.show{opacity:1;pointer-events:auto;}
+#scrollTop:hover{transform:translateY(-3px);background:#A01717;}
+
+/* Chatbot widget */
+#chatFab{position:fixed;bottom:24px;left:24px;width:64px;height:64px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%, #A81A1A 0%, #8C1515 45%, #6E1010 100%);
+  border:2px solid rgba(184,150,46,0.85);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(140,21,21,0.45), inset 0 2px 6px rgba(255,255,255,0.15);
+  z-index:9000;transition:transform 0.25s ease, box-shadow 0.25s ease;overflow:visible;}
+#chatFab:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 32px rgba(140,21,21,0.6), 0 0 0 6px rgba(184,150,46,0.18);}
+#chatFab:active{transform:scale(1.02);}
+#chatFab svg{position:relative;z-index:2;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25));}
+#chatFab .bot-eye{animation:botblink 4.5s infinite;transform-origin:center;}
+@keyframes botblink{0%,92%,100%{transform:scaleY(1)}95%,97%{transform:scaleY(0.1)}}
+/* pulsing ring to draw attention */
+#chatFabPing{position:absolute;inset:-2px;border-radius:50%;border:2px solid #B8962E;
+  animation:fabping 2.4s ease-out infinite;z-index:1;pointer-events:none;}
+@keyframes fabping{0%{transform:scale(1);opacity:0.7}70%{transform:scale(1.45);opacity:0}100%{opacity:0}}
+/* online status dot */
+#chatFabDot{position:absolute;top:4px;right:4px;width:13px;height:13px;border-radius:50%;
+  background:#2ECC71;border:2px solid #fff;z-index:3;box-shadow:0 0 6px rgba(46,204,113,0.8);}
+@media(prefers-reduced-motion:reduce){#chatFab .bot-eye{animation:none}#chatFabPing{animation:none;opacity:0}}
+#chatPanel{position:fixed;bottom:92px;left:24px;width:340px;max-width:calc(100vw - 48px);height:460px;max-height:70vh;
+  background:#fff;border-radius:14px;box-shadow:0 12px 48px rgba(0,0,0,0.3);z-index:9001;display:none;flex-direction:column;overflow:hidden;border:1px solid #E5E0D8;}
+#chatPanel.open{display:flex;}
+#chatHead{background:linear-gradient(135deg,#8C1515,#6e1010);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+#chatHead .ct{font-family:'EB Garamond',serif;font-weight:700;font-size:17px;}
+#chatHead .cs{font-size:11px;opacity:0.8;}
+#chatClose{background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;}
+#chatBody{flex:1;overflow-y:auto;padding:16px;background:#F9F7F4;}
+.cmsg{margin-bottom:12px;max-width:85%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.55;}
+.cmsg.bot{background:#fff;border:1px solid #E5E0D8;color:#2C2A26;border-bottom-left-radius:4px;}
+.cmsg.user{background:#8C1515;color:#fff;margin-left:auto;border-bottom-right-radius:4px;}
+.cchips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid #E5E0D8;background:#fff;}
+.cchip{background:#F0EDE8;border:1px solid #E5E0D8;color:#8C1515;font-size:12px;padding:6px 11px;border-radius:16px;cursor:pointer;}
+.cchip:hover{background:#8C1515;color:#fff;}
+#chatForm{display:flex;border-top:1px solid #E5E0D8;background:#fff;}
+#chatInput{flex:1;border:none;padding:13px 14px;font-size:14px;outline:none;font-family:inherit;}
+#chatSend{background:#8C1515;color:#fff;border:none;padding:0 18px;cursor:pointer;font-weight:600;}
+@media(max-width:720px){#chatPanel{left:12px;bottom:84px;}#chatFab{left:16px;bottom:16px;}#scrollTop{right:16px;bottom:80px;}}
 </style>
 </head>
 <body>
@@ -45,6 +97,117 @@ em{font-style:italic}
   </div>
 </div>
 <script>function openSupport(){document.getElementById('support-overlay').style.display='flex';}window.openSupport=openSupport;</script>
+
+<!-- Scroll to top arrow -->
+<button id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<!-- AI University Chatbot -->
+<button id="chatFab" aria-label="Open AI University assistant">
+  <span id="chatFabPing"></span>
+  <span id="chatFabDot"></span>
+  <svg width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+    <!-- antenna -->
+    <circle cx="24" cy="6" r="3" fill="#fff"/>
+    <rect x="23" y="8" width="2" height="5" rx="1" fill="#fff"/>
+    <!-- head -->
+    <rect x="9" y="13" width="30" height="24" rx="8" fill="#fff"/>
+    <!-- eyes -->
+    <circle class="bot-eye" cx="18.5" cy="24" r="3.4" fill="#8C1515"/>
+    <circle class="bot-eye" cx="29.5" cy="24" r="3.4" fill="#8C1515"/>
+    <circle cx="19.6" cy="22.9" r="1" fill="#fff"/>
+    <circle cx="30.6" cy="22.9" r="1" fill="#fff"/>
+    <!-- smile -->
+    <path d="M18 30 Q24 34 30 30" stroke="#B8962E" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <!-- ears -->
+    <rect x="5.5" y="20" width="3.5" height="8" rx="1.75" fill="#fff"/>
+    <rect x="39" y="20" width="3.5" height="8" rx="1.75" fill="#fff"/>
+  </svg>
+</button>
+<div id="chatPanel" role="dialog" aria-label="AI University assistant">
+  <div id="chatHead">
+    <div><div class="ct">AI University Assistant</div><div class="cs">Ask me about the platform</div></div>
+    <button id="chatClose" aria-label="Close chat">&#10005;</button>
+  </div>
+  <div id="chatBody"></div>
+  <div class="cchips" id="chatChips"></div>
+  <form id="chatForm" autocomplete="off">
+    <input id="chatInput" placeholder="Type your question..." aria-label="Type your question">
+    <button id="chatSend" type="submit">Send</button>
+  </form>
+</div>
+<script>
+(function(){
+  // ===== Knowledge base: keyword-matched answers about AI University =====
+  var KB = [
+    {k:["zone","track","category","age","who is it for","levels"],a:"AI University has 7 age-calibrated learning zones: Little Explorers (5-12), AI Teens Studio (13-17), Campus AI Track (university), Early Career (0-3 yrs), Mid-Career Mastery (4-15 yrs), Executive AI Lab (C-suite), and AI for Seniors (60+). Pick the one that matches you and start learning!"},
+    {k:["certificate","certify","completion","download certificate"],a:"Yes! Log in, then complete all lessons in any zone. Once you reach 100%, you can download a personalised certificate with your name in both PNG and PDF formats, signed by the Dean."},
+    {k:["login","log in","sign up","signup","account","register"],a:"Click 'Log in' in the top menu and enter your name and email. This creates a local profile on your device to track your lesson progress and unlock certificates. No password needed."},
+    {k:["quiz","test","questions","assessment"],a:"Each lesson has an 'AI Quiz' tab. Click 'Generate AI Quiz' to get multiple-choice questions that test your understanding, with instant feedback and explanations."},
+    {k:["video","youtube","watch"],a:"Every lesson includes a curated video lesson. Open a lesson and click the 'Video' tab to watch it on YouTube via the thumbnail."},
+    {k:["free","cost","price","pay","subscription"],a:"AI University is completely free and open-access for everyone. If you'd like to support it, there's a 'Support' option in the menu, but it's entirely optional."},
+    {k:["progress","track progress","my lessons"],a:"Once logged in, your progress is saved automatically as you mark lessons complete. A progress bar in each zone shows how far you've come. Note: progress is saved on your current device."},
+    {k:["research","paper","library"],a:"The Research Library lists landmark AI papers (newest first), each with a summary and a link to read the full paper, including 'Attention Is All You Need' and Constitutional AI."},
+    {k:["policy","law","regulation","governance","eu ai act"],a:"The Policy Lab covers global AI governance: the EU AI Act, UK Bletchley Declaration, US Executive Order, China's rules, OECD Principles, and UNESCO's AI Ethics recommendation, each with a link to learn more."},
+    {k:["who","dean","founder","behind","pawan","ashutosh","bhavin","team"],a:"AI University was created by Pawan Maheshwari (Dean), with Dr. Ashutosh Maheshwari as Learning Director. It was inspired by Bhavin Maheshwari, whose belief that 'AI is a birthright of every curious mind' sparked the platform. See the About page for more."},
+    {k:["aishorts","ai shorts","news"],a:"AIShorts is our daily AI news companion, distilling the fast-moving world of AI into bite-sized updates. Look for the AIShorts frame on the home page or visit aishorts.biz."},
+    {k:["start","begin","how do i start","get started"],a:"Just scroll to 'Select your track' on the home page, pick the zone that fits you, and open the first lesson. Log in first if you want to track progress and earn a certificate!"},
+    {k:["teen","teenager","13","high school"],a:"The AI Teens Studio (ages 13-17) has lessons on the types of machine learning, how neural networks learn, building your first AI project, and AI ethics, plus videos and quizzes."},
+    {k:["senior","elderly","60","old"],a:"AI for Seniors (60+) covers AI in everyday life, staying connected with family, health and safety, hobbies, and online safety, all explained gently and clearly."},
+    {k:["contact","email","reach","support"],a:"You can use the 'Support' option in the menu. AI University is an independent educational initiative led by Dean Pawan Maheshwari."},
+    {k:["mobile","phone","app"],a:"AI University works right in your mobile browser, in both portrait and landscape. There's no separate app to install, just open the website."}
+  ];
+  var GREET = "Hi! I'm the AI University assistant. Ask me anything about our zones, certificates, quizzes, or how to get started.";
+  var FALLBACK = "I'm not sure about that one, but I can help with our learning zones, certificates, login, quizzes, videos, research, policy, or how to get started. Try one of the suggestions below, or visit the About page.";
+  var CHIPS = ["What are the zones?","How do I get a certificate?","Is it free?","How do I start?","Who created this?"];
+
+  var panel=document.getElementById('chatPanel'), fab=document.getElementById('chatFab'),
+      body=document.getElementById('chatBody'), form=document.getElementById('chatForm'),
+      input=document.getElementById('chatInput'), chips=document.getElementById('chatChips'),
+      closeBtn=document.getElementById('chatClose');
+  var greeted=false;
+
+  function addMsg(text, who){
+    var d=document.createElement('div'); d.className='cmsg '+who; d.textContent=text;
+    body.appendChild(d); body.scrollTop=body.scrollHeight;
+  }
+  function answer(q){
+    var lc=q.toLowerCase();
+    var best=null, bestScore=0;
+    KB.forEach(function(item){
+      var score=0;
+      item.k.forEach(function(kw){ if(lc.indexOf(kw)>-1) score+=kw.length; });
+      if(score>bestScore){ bestScore=score; best=item; }
+    });
+    return bestScore>0 ? best.a : FALLBACK;
+  }
+  function ask(q){
+    addMsg(q,'user');
+    setTimeout(function(){ addMsg(answer(q),'bot'); }, 250);
+  }
+  function buildChips(){
+    chips.innerHTML='';
+    CHIPS.forEach(function(c){
+      var b=document.createElement('button'); b.className='cchip'; b.type='button'; b.textContent=c;
+      b.onclick=function(){ ask(c); }; chips.appendChild(b);
+    });
+  }
+  function openChat(){
+    panel.classList.add('open');
+    if(!greeted){ addMsg(GREET,'bot'); buildChips(); greeted=true; }
+    setTimeout(function(){ input.focus(); }, 100);
+  }
+  function closeChat(){ panel.classList.remove('open'); }
+  fab.onclick=function(){ panel.classList.contains('open')?closeChat():openChat(); };
+  closeBtn.onclick=closeChat;
+  form.onsubmit=function(e){ e.preventDefault(); var v=input.value.trim(); if(!v)return; ask(v); input.value=''; };
+
+  // Scroll-to-top arrow visibility
+  var stb=document.getElementById('scrollTop');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>400){ stb.classList.add('show'); } else { stb.classList.remove('show'); }
+  });
+})();
+</script>
 
 <script>
 /**
@@ -1968,8 +2131,8 @@ function Home(props){
       h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:26,color:INK2,marginBottom:24}},"Select your track"),
       h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(100%,280px),1fr))",gap:20}},
         ZONES.map(function(z){var zc=ZC[z.id];
-          return h("div",{key:z.id,onClick:function(){props.onEnter(z);},style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",cursor:"pointer",boxShadow:"0 1px 3px rgba(0,0,0,0.06)"}},
-            h("div",{style:{height:160,overflow:"hidden",background:zc.bg}},h("img",{src:IMG[z.id],style:{width:"100%",height:"100%",objectFit:"cover"},alt:z.label})),
+          return h("div",{key:z.id,className:"zone-card-wrap",onClick:function(){props.onEnter(z);},style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",cursor:"pointer",boxShadow:"0 1px 3px rgba(0,0,0,0.06)"}},
+            h("div",{style:{height:160,overflow:"hidden",background:zc.bg}},h("img",{src:IMG[z.id],className:"zone-img",alt:z.label})),
             h("div",{style:{padding:"18px 20px"}},
               h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:6}},z.age),
               h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700,color:INK,marginBottom:8}},z.label),
