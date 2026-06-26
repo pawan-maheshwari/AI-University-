@@ -382,23 +382,24 @@ var ZC = {
 
 // Research papers (newest first)
 var PAPERS = [
-  {year:"2024",cat:"Large Language Models",title:"Scaling Laws for Neural Language Models",authors:"Kaplan et al.",note:"Foundational work on how model performance scales with size, data and compute."},
-  {year:"2024",cat:"AI Governance",title:"EU AI Act: Regulatory Framework",authors:"European Commission",note:"The world's first comprehensive legal framework for artificial intelligence."},
-  {year:"2023",cat:"Multimodal AI",title:"GPT-4 Technical Report",authors:"OpenAI",note:"Large-scale multimodal model accepting image and text inputs."},
-  {year:"2023",cat:"Alignment",title:"Constitutional AI: Harmlessness from AI Feedback",authors:"Anthropic",note:"Training AI systems to be helpful and harmless using a set of principles."},
-  {year:"2022",cat:"Reasoning",title:"Chain-of-Thought Prompting",authors:"Wei et al.",note:"Eliciting step-by-step reasoning dramatically improves complex task performance."},
-  {year:"2022",cat:"Diffusion Models",title:"High-Resolution Image Synthesis with Latent Diffusion",authors:"Rombach et al.",note:"The architecture behind Stable Diffusion and modern image generation."},
-  {year:"2017",cat:"Architecture",title:"Attention Is All You Need",authors:"Vaswani et al.",note:"Introduced the Transformer architecture underpinning all modern LLMs."},
-  {year:"2015",cat:"Computer Vision",title:"Deep Residual Learning (ResNet)",authors:"He et al.",note:"Residual connections enabling training of very deep neural networks."}
+  {year:"2024",cat:"Large Language Models",title:"Scaling Laws for Neural Language Models",authors:"Kaplan et al., OpenAI",note:"Established that model performance improves predictably as a power-law function of model size, dataset size and compute. This insight justified the massive scaling that led to GPT-3 and beyond, showing bigger models trained on more data reliably get better.",link:"https://arxiv.org/abs/2001.08361"},
+  {year:"2023",cat:"Multimodal AI",title:"GPT-4 Technical Report",authors:"OpenAI",note:"Introduced a large-scale multimodal model accepting both image and text inputs. Demonstrated human-level performance on many professional and academic benchmarks, including passing a simulated bar exam in the top 10% of test-takers.",link:"https://arxiv.org/abs/2303.08774"},
+  {year:"2022",cat:"Alignment",title:"Constitutional AI: Harmlessness from AI Feedback",authors:"Bai et al., Anthropic",note:"Proposed training AI to be helpful and harmless using a written set of principles (a 'constitution') rather than relying solely on human feedback. The model critiques and revises its own responses, reducing the need for human labelling of harmful content.",link:"https://arxiv.org/abs/2212.08073"},
+  {year:"2022",cat:"Reasoning",title:"Chain-of-Thought Prompting Elicits Reasoning",authors:"Wei et al., Google",note:"Showed that prompting a model to reason step-by-step before answering dramatically improves performance on arithmetic, commonsense and symbolic reasoning tasks, unlocking abilities that simply did not appear with direct prompting.",link:"https://arxiv.org/abs/2201.11903"},
+  {year:"2022",cat:"Diffusion Models",title:"High-Resolution Image Synthesis with Latent Diffusion",authors:"Rombach et al.",note:"Introduced latent diffusion models, the architecture behind Stable Diffusion. By running diffusion in a compressed latent space rather than pixel space, it made high-quality image generation efficient enough to run on consumer hardware.",link:"https://arxiv.org/abs/2112.10752"},
+  {year:"2020",cat:"Few-Shot Learning",title:"Language Models are Few-Shot Learners (GPT-3)",authors:"Brown et al., OpenAI",note:"Demonstrated that a 175-billion-parameter model could perform new tasks from just a few examples in its prompt, without any fine-tuning. This 'in-context learning' reshaped how people interact with AI.",link:"https://arxiv.org/abs/2005.14165"},
+  {year:"2017",cat:"Architecture",title:"Attention Is All You Need",authors:"Vaswani et al., Google",note:"The single most influential paper in modern AI. It introduced the Transformer architecture, replacing recurrence with self-attention. Every major language model today, from GPT to Claude to Gemini, is built on this foundation.",link:"https://arxiv.org/abs/1706.03762"},
+  {year:"2015",cat:"Computer Vision",title:"Deep Residual Learning (ResNet)",authors:"He et al., Microsoft",note:"Introduced residual (skip) connections that allowed neural networks to be trained with hundreds of layers without degrading. ResNet won the 2015 ImageNet competition and remains a backbone of computer vision.",link:"https://arxiv.org/abs/1512.03385"}
 ];
 
 // Policy entries
 var POLICY = [
-  {region:"European Union",title:"EU AI Act",desc:"Risk-based regulation classifying AI systems into unacceptable, high, limited and minimal risk tiers. Enforced from 2024."},
-  {region:"United Kingdom",title:"Pro-Innovation Approach + Bletchley Declaration",desc:"Principles-based, sector-led regulation. Hosted the first global AI Safety Summit at Bletchley Park (2023)."},
-  {region:"United States",title:"Executive Order on Safe AI",desc:"Federal directives on AI safety testing, watermarking and civil rights protections."},
-  {region:"China",title:"Generative AI Measures",desc:"Regulations requiring security assessments and content controls for public-facing generative AI."},
-  {region:"Multilateral",title:"OECD AI Principles",desc:"International consensus principles for trustworthy AI adopted by 40+ countries."}
+  {region:"European Union",title:"EU AI Act",desc:"The world's first comprehensive AI law, in force from 2024. It classifies AI systems into four risk tiers: unacceptable (banned outright, e.g. social scoring), high-risk (strict requirements, e.g. medical or hiring AI), limited-risk (transparency duties, e.g. chatbots must disclose they are AI), and minimal-risk (largely unregulated). Penalties reach up to 7% of global annual turnover.",link:"https://artificialintelligenceact.eu/"},
+  {region:"United Kingdom",title:"Pro-Innovation Approach & Bletchley Declaration",desc:"The UK favours a flexible, principles-based model where existing regulators apply AI rules within their sectors, rather than one central AI law. In 2023 it hosted the first global AI Safety Summit at Bletchley Park, where 28 countries plus the EU signed the Bletchley Declaration recognising the risks of frontier AI.",link:"https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration"},
+  {region:"United States",title:"Executive Order on Safe, Secure & Trustworthy AI",desc:"Issued in 2023, it directed federal agencies on AI safety testing, requiring developers of the most powerful models to share safety results with the government. It also addressed watermarking of AI content, civil rights protections, and AI's impact on workers. (Note: US federal AI policy continues to evolve across administrations.)",link:"https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence"},
+  {region:"China",title:"Generative AI Measures",desc:"China's regulations (effective 2023) require providers of public-facing generative AI to undergo security assessments, label AI-generated content, and ensure outputs align with core socialist values. Providers must also take responsibility for the legitimacy of their training data.",link:"https://www.chinalawtranslate.com/en/generative-ai-interim/"},
+  {region:"Multilateral",title:"OECD AI Principles",desc:"Adopted in 2019 by over 40 countries, these were the first intergovernmental standards for AI. They promote AI that is innovative, trustworthy and respects human rights and democratic values, built on five principles including transparency, robustness and accountability. They later informed the G20 AI Principles.",link:"https://oecd.ai/en/ai-principles"},
+  {region:"Global",title:"UNESCO Recommendation on AI Ethics",desc:"Adopted by all 193 UNESCO member states in 2021, this is the first global standard-setting instrument on AI ethics. It centres human rights, human dignity, environmental sustainability and gender equality, and calls for action on data governance, education and culture.",link:"https://www.unesco.org/en/artificial-intelligence/recommendation-ethics"}
 ];
 
 // Team
@@ -1172,8 +1173,16 @@ var CURRICULUM = {
         q: "AlphaGo improved by playing millions of games and getting rewards for winning. Which type is this?",
         o: ["Supervised", "Unsupervised", "Reinforcement", "Semi-supervised"],
         a: 2,
-        e: "Reinforcement learning uses trial, error and reward signals — no labelled data. The environment (the game) provides the learning signal through win/loss outcomes."
-      }]
+        e: "Reinforcement learning uses trial, error and reward signals — no labelled data. The environment (the game) provides the learning signal through win/loss outcomes."}]
+    },{
+      id: "t2", num: "02", title: "How Neural Networks Learn", vk: "t2",
+      reading: "# How Neural Networks Learn\n\n## The Big Idea\n\nA neural network is loosely inspired by the brain. It is made of layers of tiny units called **neurons**, each holding a number and passing signals forward. By adjusting the strength of the connections between them, the network slowly gets better at a task.\n\n## Layers, Weights and Biases\n\nEvery connection has a **weight**, a number saying how important one neuron's signal is to the next. Each neuron also has a **bias** that shifts its output. Learning is the process of finding good weights and biases.\n\n- **Input layer** takes the raw data, such as the pixels of an image\n- **Hidden layers** combine and transform those signals\n- **Output layer** gives the final answer, such as identifying a cat\n\n## Training by Trial and Error\n\nThe network makes a guess, measures how wrong it was using a **loss function**, then nudges its weights to reduce the error. Repeat this millions of times and the network becomes accurate. This nudging is called **gradient descent**.\n\n## Why It Matters\n\nThe same idea powers face recognition, language translation and the chatbots you use every day."
+    },{
+      id: "t3", num: "03", title: "Build Your First AI Project", vk: "t3",
+      reading: "# Build Your First AI Project\n\n## You Don't Need to Be an Expert\n\nYou can build a working AI project today using free, beginner-friendly tools, no advanced maths required. The goal is to learn by doing.\n\n## Great Starter Tools\n\n- **Teachable Machine** by Google, to train an image, sound or pose model in your browser\n- **Scratch with AI extensions**, drag-and-drop coding with machine learning blocks\n- **Python with Google Colab**, when you are ready for real code it runs free in your browser\n\n## A Simple First Project: Gesture Detector\n\n1. Open Teachable Machine and choose an **Image Project**\n2. Create three classes: Rock, Paper, Scissors\n3. Use your webcam to capture 30 or more examples of each hand shape\n4. Click **Train Model** and watch it learn\n5. Test it live, the model now recognises your hand gestures\n\n## Tips for Success\n\n- More examples means better accuracy\n- Vary the lighting and angle so the model generalises\n- If it confuses two classes, add more distinct examples\n\n## What You Learned\n\nYou collected data, trained a model and tested it, the exact workflow professional ML engineers use, only scaled up."
+    },{
+      id: "t5", num: "04", title: "AI Ethics: Using AI Responsibly", vk: "t5",
+      reading: "# AI Ethics: Using AI Responsibly\n\n## Why Ethics Matter\n\nAI is powerful, and with power comes responsibility. Knowing how to use it wisely protects you and the people around you.\n\n## Bias in AI\n\nAI learns from data created by humans, and humans have biases. If the training data is unfair, the AI can be unfair too. A hiring AI trained mostly on one group's applications may rank others lower.\n\n## Privacy and Your Data\n\n- Think before sharing personal information with AI tools\n- Many free tools use your conversations to train future models\n- Never share passwords, addresses or other people's private details\n\n## Misinformation and Deepfakes\n\nAI can generate fake images, voices and videos that look real. Always ask: where did this come from, and can I verify it from a trusted source?\n\n## Using AI Honestly at School\n\nAI is a great study partner for explaining concepts, checking your work and brainstorming. But submitting AI-written work as your own is cheating, and you miss the real learning. Use it to **understand**, not to **replace** your thinking.\n\n## The Golden Rule\n\nUse AI to help people, respect privacy, verify before you trust, and always keep a human in charge of important decisions."
     }]
   }],
   seniors: [{
@@ -1584,6 +1593,67 @@ function CertModal(props){
     ));
 }
 
+// ===== Lightweight Markdown Renderer (headers, bold, italic, lists, paragraphs) =====
+function renderMarkdown(md){
+  if(!md) return null;
+  var lines = md.split("\n");
+  var blocks = [];
+  var i = 0;
+  function inline(text){
+    // Split on **bold** and *italic* and `code`
+    var parts = [];
+    var rx = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g;
+    var last = 0, m;
+    while((m = rx.exec(text)) !== null){
+      if(m.index > last) parts.push(text.slice(last, m.index));
+      var tok = m[0];
+      if(tok.indexOf("**")===0) parts.push(h("strong",{key:parts.length,style:{fontWeight:700,color:INK}},tok.slice(2,-2)));
+      else if(tok.indexOf("`")===0) parts.push(h("code",{key:parts.length,style:{background:"#F0EDE8",padding:"1px 6px",borderRadius:4,fontFamily:"monospace",fontSize:"0.9em",color:CR}},tok.slice(1,-1)));
+      else parts.push(h("em",{key:parts.length,style:{fontStyle:"italic"}},tok.slice(1,-1)));
+      last = m.index + tok.length;
+    }
+    if(last < text.length) parts.push(text.slice(last));
+    return parts.length ? parts : text;
+  }
+  while(i < lines.length){
+    var line = lines[i];
+    var trimmed = line.trim();
+    if(trimmed === ""){ i++; continue; }
+    // Headers
+    if(trimmed.indexOf("### ")===0){ blocks.push(h("h4",{key:blocks.length,style:{fontFamily:"EB Garamond,serif",fontSize:17,fontWeight:700,color:INK,margin:"16px 0 6px"}},inline(trimmed.slice(4)))); i++; continue; }
+    if(trimmed.indexOf("## ")===0){ blocks.push(h("h3",{key:blocks.length,style:{fontFamily:"EB Garamond,serif",fontSize:20,fontWeight:700,color:CR,margin:"20px 0 8px"}},inline(trimmed.slice(3)))); i++; continue; }
+    if(trimmed.indexOf("# ")===0){ blocks.push(h("h2",{key:blocks.length,style:{fontFamily:"EB Garamond,serif",fontSize:24,fontWeight:700,color:INK,margin:"8px 0 12px",borderBottom:"2px solid "+GOLD,paddingBottom:6}},inline(trimmed.slice(2)))); i++; continue; }
+    // Bullet list
+    if(trimmed.indexOf("- ")===0 || trimmed.indexOf("* ")===0){
+      var items = [];
+      while(i < lines.length && (lines[i].trim().indexOf("- ")===0 || lines[i].trim().indexOf("* ")===0)){
+        items.push(h("li",{key:items.length,style:{marginBottom:6,lineHeight:1.7}},inline(lines[i].trim().slice(2))));
+        i++;
+      }
+      blocks.push(h("ul",{key:blocks.length,style:{margin:"8px 0 12px",paddingLeft:22,color:INK2}},items));
+      continue;
+    }
+    // Numbered list
+    if(/^\d+\.\s/.test(trimmed)){
+      var nitems = [];
+      while(i < lines.length && /^\d+\.\s/.test(lines[i].trim())){
+        nitems.push(h("li",{key:nitems.length,style:{marginBottom:6,lineHeight:1.7}},inline(lines[i].trim().replace(/^\d+\.\s/,""))));
+        i++;
+      }
+      blocks.push(h("ol",{key:blocks.length,style:{margin:"8px 0 12px",paddingLeft:22,color:INK2}},nitems));
+      continue;
+    }
+    // Paragraph (gather consecutive non-empty, non-special lines)
+    var para = [line];
+    i++;
+    while(i < lines.length && lines[i].trim() !== "" && lines[i].trim().indexOf("#")!==0 && lines[i].trim().indexOf("- ")!==0 && lines[i].trim().indexOf("* ")!==0 && !/^\d+\.\s/.test(lines[i].trim())){
+      para.push(lines[i]); i++;
+    }
+    blocks.push(h("p",{key:blocks.length,style:{margin:"0 0 12px",lineHeight:1.8,color:INK2}},inline(para.join(" "))));
+  }
+  return blocks;
+}
+
 function LessonView(props){
   var lesson=props.lesson,zone=props.zone;
   var t=useState("reading");var tab=t[0],setTab=t[1];var zc=ZC[zone.id];
@@ -1597,8 +1667,17 @@ function LessonView(props){
     h("div",{style:{display:"flex",borderBottom:"1px solid "+BORDER}},
       [["reading","Reading"],["video","Video"],["quiz","AI Quiz"]].map(function(tb){
         return h("div",{key:tb[0],onClick:function(){setTab(tb[0]);},style:{padding:"12px 20px",cursor:"pointer",fontSize:13,fontWeight:tab===tb[0]?700:400,color:tab===tb[0]?CR:SLATE,borderBottom:tab===tb[0]?"2px solid "+CR:"2px solid transparent"}},tb[1]);})),
-    tab==="reading"?h("div",{style:{padding:24,fontSize:15,lineHeight:1.8,color:INK2,whiteSpace:"pre-wrap"}},lesson.reading):null,
-    tab==="video"?h("div",{style:{padding:40,textAlign:"center"}},lesson.vk?h("a",{href:"https://www.youtube.com/watch?v="+(typeof VIDS!=="undefined"&&VIDS[lesson.vk]?VIDS[lesson.vk]:lesson.vk),target:"_blank",rel:"noopener",style:{color:CR,fontWeight:600,textDecoration:"none"}},"Watch on YouTube"):h("p",{style:{color:SLATE}},"Video coming soon")):null,
+    tab==="reading"?h("div",{style:{padding:"24px 26px",fontSize:15}},renderMarkdown(lesson.reading)):null,
+    tab==="video"?h("div",{style:{padding:"24px 26px",textAlign:"center"}},
+      lesson.vk && (typeof VIDS!=="undefined") && VIDS[lesson.vk] ?
+        h("a",{href:"https://www.youtube.com/watch?v="+VIDS[lesson.vk],target:"_blank",rel:"noopener",style:{display:"block",textDecoration:"none",position:"relative",borderRadius:10,overflow:"hidden",maxWidth:480,margin:"0 auto",boxShadow:"0 6px 20px rgba(0,0,0,0.18)"}},
+          h("img",{src:"https://img.youtube.com/vi/"+VIDS[lesson.vk]+"/hqdefault.jpg",alt:lesson.title+" video thumbnail",style:{width:"100%",display:"block",aspectRatio:"16/9",objectFit:"cover",background:"#000"},onError:function(ev){ev.target.src="https://img.youtube.com/vi/"+VIDS[lesson.vk]+"/0.jpg";}}),
+          h("div",{style:{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,0.18)"}},
+            h("div",{style:{width:66,height:66,borderRadius:"50%",background:"rgba(140,21,21,0.92)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 14px rgba(0,0,0,0.4)"}},
+              h("div",{style:{width:0,height:0,borderTop:"13px solid transparent",borderBottom:"13px solid transparent",borderLeft:"22px solid #fff",marginLeft:5}}))),
+          h("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"linear-gradient(transparent,rgba(0,0,0,0.75))",color:"#fff",padding:"24px 14px 12px",textAlign:"left",fontSize:13,fontWeight:600}},"\u25B6 Watch on YouTube"))
+        : h("p",{style:{color:SLATE,padding:30}},"Video coming soon")
+    ):null,
     tab==="quiz"?h(QuizView,{title:lesson.title,zoneLabel:zone.label,zoneId:zone.id}):null,
     // Mark complete bar
     h("div",{style:{padding:"14px 20px",borderTop:"1px solid "+BORDER,background:IVORY,textAlign:"right"}},
@@ -1680,7 +1759,8 @@ function ResearchPage(){
         h("span",{style:{fontSize:13,color:GOLD,fontWeight:700,fontFamily:"JetBrains Mono,monospace"}},p.year)),
       h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:19,fontWeight:700,color:INK,marginBottom:4}},p.title),
       h("div",{style:{fontSize:12,color:SLATE,marginBottom:8,fontStyle:"italic"}},p.authors),
-      h("p",{style:{fontSize:14,color:INK3,lineHeight:1.6}},p.note));
+      h("p",{style:{fontSize:14,color:INK3,lineHeight:1.6,marginBottom:10}},p.note),
+      p.link?h("a",{href:p.link,target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:6,fontSize:13,color:CR,fontWeight:600,textDecoration:"none"}},"Read the paper \u2192"):null);
     }));
 }
 function PolicyPage(){
@@ -1690,7 +1770,8 @@ function PolicyPage(){
     POLICY.map(function(p,i){return h("div",{key:i,style:{background:"#fff",border:"1px solid "+BORDER,borderTop:"3px solid "+CR,padding:"20px 24px",marginBottom:12,borderRadius:4}},
       h("div",{style:{fontSize:11,color:CR,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:6}},p.region),
       h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:19,fontWeight:700,color:INK,marginBottom:8}},p.title),
-      h("p",{style:{fontSize:14,color:INK3,lineHeight:1.6}},p.desc));
+      h("p",{style:{fontSize:14,color:INK3,lineHeight:1.6,marginBottom:10}},p.desc),
+      p.link?h("a",{href:p.link,target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:6,fontSize:13,color:CR,fontWeight:600,textDecoration:"none"}},"Learn more \u2192"):null);
     }));
 }
 function AboutPage(){
