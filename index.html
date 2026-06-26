@@ -1389,57 +1389,203 @@ function QuizView(props){
 // ===== Certificate Modal =====
 function CertModal(props){
   var zone=props.zone;
+  var user = props.user || getUser();
+  var name = user ? user.name : "Your Name";
+  var completed = zone ? isZoneComplete(zone.id) : false;
+  var dl = useState(""); var dlMsg = dl[0], setDlMsg = dl[1];
+  var zoneLabel = zone ? zone.label : "AI Foundations";
+  var dateStr = new Date().toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
+
+  // Render the certificate to a canvas, then export PNG or PDF
+  function buildCanvas(cb){
+    var W=1200, H=850;
+    var canvas=document.createElement('canvas'); canvas.width=W; canvas.height=H;
+    var ctx=canvas.getContext('2d');
+    // background
+    ctx.fillStyle="#F9F7F4"; ctx.fillRect(0,0,W,H);
+    // outer border
+    ctx.strokeStyle="#B8962E"; ctx.lineWidth=8; ctx.strokeRect(30,30,W-60,H-60);
+    ctx.strokeStyle="#8C1515"; ctx.lineWidth=2; ctx.strokeRect(48,48,W-96,H-96);
+    ctx.textAlign="center";
+    // header
+    ctx.fillStyle="#B8962E"; ctx.font="bold 22px Georgia"; ctx.fillText("CERTIFICATE OF COMPLETION", W/2, 150);
+    ctx.fillStyle="#1A1917"; ctx.font="bold 56px Georgia"; ctx.fillText("AI University", W/2, 230);
+    ctx.fillStyle="#6B6560"; ctx.font="20px Georgia"; ctx.fillText("This certifies that", W/2, 310);
+    // name
+    ctx.fillStyle="#8C1515"; ctx.font="bold 48px Georgia"; ctx.fillText(name, W/2, 385);
+    ctx.strokeStyle="#B8962E"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(W/2-220,405); ctx.lineTo(W/2+220,405); ctx.stroke();
+    // body
+    ctx.fillStyle="#3D3933"; ctx.font="20px Georgia"; ctx.fillText("has successfully completed all lessons in the", W/2, 460);
+    ctx.fillStyle="#8C1515"; ctx.font="bold 34px Georgia"; ctx.fillText(zoneLabel+" Track", W/2, 515);
+    ctx.fillStyle="#6B6560"; ctx.font="italic 18px Georgia"; ctx.fillText("Issued "+dateStr, W/2, 565);
+    // signatures
+    ctx.fillStyle="#1A1917"; ctx.font="bold 20px Georgia";
+    ctx.fillText("Pawan Maheshwari", W/2-220, 690);
+    ctx.fillText("Dr. Ashutosh Maheshwari", W/2+220, 690);
+    ctx.strokeStyle="#999"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(W/2-340,700); ctx.lineTo(W/2-100,700); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(W/2+100,700); ctx.lineTo(W/2+340,700); ctx.stroke();
+    ctx.fillStyle="#6B6560"; ctx.font="13px Georgia";
+    ctx.fillText("Dean, AI University", W/2-220, 725);
+    ctx.fillText("Learning Director", W/2+220, 725);
+    cb(canvas);
+  }
+  function downloadPNG(){
+    buildCanvas(function(canvas){
+      var link=document.createElement('a');
+      link.download="AI-University-Certificate-"+(zone?zone.id:"foundations")+".png";
+      link.href=canvas.toDataURL("image/png"); link.click();
+      setDlMsg("PNG downloaded.");
+    });
+  }
+  function downloadPDF(){
+    buildCanvas(function(canvas){
+      var img=canvas.toDataURL("image/jpeg",0.92);
+      // Minimal single-page PDF embedding the JPEG (landscape)
+      var w=842, hgt=595; // A4 landscape pts
+      function asciiToBytes(s){var a=[];for(var i=0;i<s.length;i++)a.push(s.charCodeAt(i)&0xff);return a;}
+      var jpegData=atob(img.split(',')[1]);
+      var jbytes=[];for(var i=0;i<jpegData.length;i++)jbytes.push(jpegData.charCodeAt(i)&0xff);
+      var objs=[];
+      objs.push("<< /Type /Catalog /Pages 2 0 R >>");
+      objs.push("<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+      objs.push("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+w+" "+hgt+"] /Resources << /XObject << /Im0 5 0 R >> >> /Contents 4 0 R >>");
+      var content="q "+w+" 0 0 "+hgt+" 0 0 cm /Im0 Do Q";
+      objs.push("<< /Length "+content.length+" >>\nstream\n"+content+"\nendstream");
+      var imgHeader="<< /Type /XObject /Subtype /Image /Width "+canvas.width+" /Height "+canvas.height+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+jbytes.length+" >>\nstream\n";
+      // Build PDF bytes
+      var head="%PDF-1.4\n";
+      var bytes=asciiToBytes(head);
+      var offsets=[];
+      for(var oi=0; oi<objs.length; oi++){
+        offsets.push(bytes.length);
+        var objStr=(oi+1)+" 0 obj\n"+objs[oi]+"\nendobj\n";
+        bytes=bytes.concat(asciiToBytes(objStr));
+      }
+      // image object (obj 5)
+      offsets.push(bytes.length);
+      bytes=bytes.concat(asciiToBytes("5 0 obj\n"+imgHeader));
+      bytes=bytes.concat(jbytes);
+      bytes=bytes.concat(asciiToBytes("\nendstream\nendobj\n"));
+      var xrefStart=bytes.length;
+      var xref="xref\n0 "+(objs.length+2)+"\n0000000000 65535 f \n";
+      for(var xi=0; xi<offsets.length; xi++){
+        var off=("0000000000"+offsets[xi]).slice(-10);
+        xref+=off+" 00000 n \n";
+      }
+      bytes=bytes.concat(asciiToBytes(xref));
+      bytes=bytes.concat(asciiToBytes("trailer\n<< /Size "+(objs.length+2)+" /Root 1 0 R >>\nstartxref\n"+xrefStart+"\n%%EOF"));
+      var ua=new Uint8Array(bytes);
+      var blob=new Blob([ua],{type:"application/pdf"});
+      var link=document.createElement('a');
+      link.download="AI-University-Certificate-"+(zone?zone.id:"foundations")+".pdf";
+      link.href=URL.createObjectURL(blob); link.click();
+      setDlMsg("PDF downloaded.");
+    });
+  }
+
   return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20},onClick:function(e){if(e.target===e.currentTarget)props.onClose();}},
-    h("div",{style:{background:"#fff",maxWidth:600,width:"100%",borderRadius:6,overflow:"hidden"}},
+    h("div",{style:{background:"#fff",maxWidth:600,width:"100%",borderRadius:6,overflow:"hidden",maxHeight:"92vh",overflowY:"auto"}},
       h("div",{style:{position:"relative",padding:"40px",border:"3px double "+GOLD,margin:16,textAlign:"center"}},
         h("button",{onClick:props.onClose,style:{position:"absolute",top:8,right:8,background:CR,color:"#fff",border:"none",width:30,height:30,borderRadius:"50%",cursor:"pointer",fontSize:15}},"\u2715"),
-        h("img",{src:IMG.logoCert,style:{width:80,height:80,objectFit:"contain",margin:"0 auto 16px"},alt:""}),
+        h("img",{src:IMG.logoCert,style:{width:72,height:72,objectFit:"contain",margin:"0 auto 14px"},alt:""}),
         h("div",{style:{fontSize:11,letterSpacing:3,color:GOLD,textTransform:"uppercase",marginBottom:8}},"Certificate of Completion"),
         h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:28,color:INK,marginBottom:6}},"AI University"),
-        h("p",{style:{color:SLATE,fontSize:13,marginBottom:20}},"This certifies completion of the"),
-        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,color:CR,fontWeight:700,marginBottom:24}},zone?zone.label:"AI Foundations"+" Track"),
-        h("p",{style:{color:INK3,fontSize:13,marginBottom:30,fontStyle:"italic"}},"Sample certificate \u2014 complete all lessons in a zone to earn your personalised certificate."),
-        h("div",{style:{display:"flex",justifyContent:"space-around",borderTop:"1px solid "+BORDER,paddingTop:20}},
+        h("p",{style:{color:SLATE,fontSize:13,marginBottom:10}},"This certifies that"),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:26,color:CR,fontWeight:700,marginBottom:6}},name),
+        h("p",{style:{color:INK3,fontSize:13,marginBottom:6}},"has completed the"),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:20,color:CR,fontWeight:700,marginBottom:18}},zoneLabel+" Track"),
+        h("div",{style:{display:"flex",justifyContent:"space-around",borderTop:"1px solid "+BORDER,paddingTop:18,marginBottom:20}},
           h("div",null,h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:14,color:INK}},"Pawan Maheshwari"),h("div",{style:{fontSize:10,color:SLATE}},"Dean, AI University")),
-          h("div",null,h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:14,color:INK}},"Dr. Ashutosh Maheshwari"),h("div",{style:{fontSize:10,color:SLATE}},"Learning Director"))
-        )
+          h("div",null,h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:14,color:INK}},"Dr. Ashutosh Maheshwari"),h("div",{style:{fontSize:10,color:SLATE}},"Learning Director"))),
+        // Status + download
+        (!user)
+          ? h("p",{style:{color:CR,fontSize:13,fontStyle:"italic"}},"Log in and complete a zone to download your personalised certificate.")
+          : (zone && !completed)
+            ? h("p",{style:{color:SLATE,fontSize:13,fontStyle:"italic"}},"Complete all "+zoneLessonTotal(zone.id)+" lessons in this zone ("+zoneCompletedCount(zone.id)+" done) to unlock your certificate download.")
+            : zone
+              ? h("div",null,
+                  h("div",{style:{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}},
+                    h("button",{onClick:downloadPNG,style:{background:CR,color:"#fff",border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download PNG"),
+                    h("button",{onClick:downloadPDF,style:{background:GOLD,color:INK,border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download PDF")),
+                  dlMsg ? h("p",{style:{color:"#2E7D32",fontSize:12,marginTop:10}},dlMsg) : null)
+              : h("p",{style:{color:INK3,fontSize:13,fontStyle:"italic"}},"Sample certificate \u2014 complete a zone to earn your own.")
       )
     ));
 }
 
-// ===== Lesson View =====
 function LessonView(props){
   var lesson=props.lesson,zone=props.zone;
   var t=useState("reading");var tab=t[0],setTab=t[1];var zc=ZC[zone.id];
+  var done = props.complete;
   return h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:4,overflow:"hidden",marginBottom:16}},
-    h("div",{style:{background:zc.bg,padding:"16px 20px",borderBottom:"1px solid "+BORDER}},
-      h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1}},"LESSON "+lesson.num),
-      h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:20,fontWeight:700,color:zc.tx}},lesson.title)),
+    h("div",{style:{background:zc.bg,padding:"16px 20px",borderBottom:"1px solid "+BORDER,display:"flex",justifyContent:"space-between",alignItems:"center",gap:10,flexWrap:"wrap"}},
+      h("div",null,
+        h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1}},"LESSON "+lesson.num),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:20,fontWeight:700,color:zc.tx}},lesson.title)),
+      done ? h("span",{style:{background:"#2E7D32",color:"#fff",fontSize:11,fontWeight:700,padding:"4px 12px",borderRadius:20,whiteSpace:"nowrap"}},"\u2713 Completed") : null),
     h("div",{style:{display:"flex",borderBottom:"1px solid "+BORDER}},
       [["reading","Reading"],["video","Video"],["quiz","AI Quiz"]].map(function(tb){
         return h("div",{key:tb[0],onClick:function(){setTab(tb[0]);},style:{padding:"12px 20px",cursor:"pointer",fontSize:13,fontWeight:tab===tb[0]?700:400,color:tab===tb[0]?CR:SLATE,borderBottom:tab===tb[0]?"2px solid "+CR:"2px solid transparent"}},tb[1]);})),
     tab==="reading"?h("div",{style:{padding:24,fontSize:15,lineHeight:1.8,color:INK2,whiteSpace:"pre-wrap"}},lesson.reading):null,
     tab==="video"?h("div",{style:{padding:40,textAlign:"center"}},lesson.vk?h("a",{href:"https://www.youtube.com/watch?v="+lesson.vk,target:"_blank",rel:"noopener",style:{color:CR,fontWeight:600,textDecoration:"none"}},"Watch on YouTube"):h("p",{style:{color:SLATE}},"Video coming soon")):null,
-    tab==="quiz"?h(QuizView,{title:lesson.title,zoneLabel:zone.label}):null);
+    tab==="quiz"?h(QuizView,{title:lesson.title,zoneLabel:zone.label}):null,
+    // Mark complete bar
+    h("div",{style:{padding:"14px 20px",borderTop:"1px solid "+BORDER,background:IVORY,textAlign:"right"}},
+      done
+        ? h("button",{onClick:function(){props.onToggle(false);},style:{background:"transparent",color:SLATE,border:"1px solid "+BORDER,padding:"8px 18px",fontSize:13,cursor:"pointer",borderRadius:4}},"Mark as not done")
+        : h("button",{onClick:function(){props.onToggle(true);},style:{background:zc.a,color:"#fff",border:"none",padding:"8px 20px",fontSize:13,fontWeight:600,cursor:"pointer",borderRadius:4}},"Mark Lesson Complete"))
+  );
 }
 
-// ===== Learn Screen =====
+
 function LearnScreen(props){
   var zone=props.zone;var zc=ZC[zone.id];
   var lessons=(CURRICULUM[zone.id]&&CURRICULUM[zone.id][0]&&CURRICULUM[zone.id][0].lessons)?CURRICULUM[zone.id][0].lessons:[];
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
+  // progress state for this zone
+  var pr=useState(getProgress());var prog=pr[0],setProg=pr[1];
+  var user = props.user;
+  function toggle(idx, val){
+    var p = getProgress();
+    if(!p[zone.id]) p[zone.id] = {};
+    if(val) p[zone.id][idx] = true; else { delete p[zone.id][idx]; }
+    saveProgress(p);
+    setProg(Object.assign({}, p));
+  }
+  var doneCount = (prog[zone.id]) ? Object.keys(prog[zone.id]).filter(function(k){return prog[zone.id][k];}).length : 0;
+  var total = lessons.length;
+  var allDone = total>0 && doneCount>=total;
+  var pct = total>0 ? Math.round(doneCount/total*100) : 0;
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
-    showCert?h(CertModal,{zone:zone,onClose:function(){setShowCert(false);}}):null,
+    showCert?h(CertModal,{zone:zone,user:user,onClose:function(){setShowCert(false);}}):null,
     h("div",{style:{background:zc.a,padding:"16px 20px",display:"flex",alignItems:"center",gap:16,flexWrap:"wrap",position:"sticky",top:0,zIndex:10}},
       h("button",{onClick:props.onBack,style:{background:"rgba(255,255,255,0.2)",color:"#fff",border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600}},"\u2190 Back to Zones"),
       h("img",{src:IMG.logoNav,style:{width:36,height:36,objectFit:"contain"},alt:""}),
-      h("div",{style:{flex:1}},h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:18}},zone.label),h("div",{style:{color:"rgba(255,255,255,0.85)",fontSize:12}},zone.age)),
-      h("button",{onClick:function(){setShowCert(true);},style:{background:GOLD,color:INK,border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:13}},"View Certificate")),
+      h("div",{style:{flex:1,minWidth:120}},h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:18}},zone.label),h("div",{style:{color:"rgba(255,255,255,0.85)",fontSize:12}},zone.age)),
+      h("button",{onClick:function(){setShowCert(true);},style:{background:allDone?GOLD:"rgba(255,255,255,0.25)",color:allDone?INK:"#fff",border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:13}}, allDone?"\u2605 Get Certificate":"View Certificate")),
     h("div",{style:{maxWidth:760,margin:"0 auto",padding:"32px 20px"}},
       h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:28,color:INK,marginBottom:8}},"Curriculum"),
-      h("p",{style:{color:SLATE,marginBottom:24,fontSize:14}},lessons.length+" lessons \u00B7 Reading \u00B7 Video \u00B7 AI Quiz"),
-      lessons.length?lessons.map(function(l,i){return h(LessonView,{key:i,lesson:l,zone:zone});}):h("p",{style:{color:SLATE}},"Content coming soon.")));
+      // Progress bar (only if logged in)
+      user ? h("div",{style:{marginBottom:24}},
+        h("div",{style:{display:"flex",justifyContent:"space-between",fontSize:13,color:SLATE,marginBottom:6}},
+          h("span",null,"Your progress: "+doneCount+" / "+total+" lessons"),
+          h("span",{style:{fontWeight:700,color:allDone?"#2E7D32":zc.a}},pct+"%")),
+        h("div",{style:{height:8,background:BORDER,borderRadius:4,overflow:"hidden"}},
+          h("div",{style:{height:"100%",width:pct+"%",background:allDone?"#2E7D32":zc.a,transition:"width 0.3s"}})),
+        allDone ? h("div",{style:{marginTop:14,padding:"14px 18px",background:"#E8F5E9",border:"1px solid #A5D6A7",borderRadius:6,textAlign:"center"}},
+          h("p",{style:{color:"#1B5E20",fontWeight:600,fontSize:14,marginBottom:8}},"\ud83c\udf93 You've completed this track!"),
+          h("button",{onClick:function(){setShowCert(true);},style:{background:"#2E7D32",color:"#fff",border:"none",padding:"10px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download Your Certificate")) : null
+      ) : h("div",{style:{marginBottom:24,padding:"14px 18px",background:"#FFF8E1",border:"1px solid "+GOLD,borderRadius:6}},
+        h("p",{style:{fontSize:13,color:INK3,lineHeight:1.6}},"Log in to track your progress through these lessons and earn a certificate when you finish. ",
+          h("span",{onClick:props.onLoginPrompt,style:{color:CR,fontWeight:700,cursor:"pointer",textDecoration:"underline"}},"Log in / Sign up"))),
+      h("p",{style:{color:SLATE,marginBottom:24,fontSize:14}},total+" lessons \u00B7 Reading \u00B7 Video \u00B7 AI Quiz"),
+      lessons.length?lessons.map(function(l,i){
+        var done = !!(prog[zone.id] && prog[zone.id][i]);
+        return h(LessonView,{key:i,lesson:l,zone:zone,complete:done,onToggle:function(val){toggle(i,val);}});
+      }):h("p",{style:{color:SLATE}},"Content coming soon.")));
 }
+
 
 // ===== Nav Pages =====
 function CurriculumPage(props){
@@ -1496,6 +1642,81 @@ function AboutPage(){
       h("p",{style:{fontSize:14,color:INK2,lineHeight:1.85,fontStyle:"italic",borderLeft:"3px solid "+GOLD,paddingLeft:16,marginBottom:16}},"\"AI is not a privilege of the few \u2014 it is a birthright of every curious mind.\""),
       h("p",{style:{fontSize:13,color:INK3,lineHeight:1.8,marginBottom:14}},"Bhavin Maheshwari is the visionary whose conviction lit the flame that became AI University. It was his persistent belief that AI must be understood by everyone \u2014 not just engineers and executives \u2014 that gave birth to these seven learning zones. AI University exists because Bhavin believed, before anything was built, that AI is indeed for everyone."),
       h("a",{href:"https://www.linkedin.com/in/bhavin-maheshwari-244961409",target:"_blank",rel:"noopener",style:{display:"inline-block",background:GOLD,color:INK,padding:"10px 20px",textDecoration:"none",fontWeight:700,fontSize:12,borderRadius:2}},"Connect on LinkedIn \u2192")));
+}
+
+
+// ===== Auth + Progress Store (browser localStorage) =====
+// NOTE: This is a lightweight local account for tracking learning progress on this
+// device only. It is NOT secure authentication. Progress does not sync across devices.
+var AIU_USER_KEY = "aiu_user";
+var AIU_PROGRESS_KEY = "aiu_progress";
+function getUser(){
+  try { var u = localStorage.getItem(AIU_USER_KEY); return u ? JSON.parse(u) : null; } catch(e){ return null; }
+}
+function saveUser(user){
+  try { localStorage.setItem(AIU_USER_KEY, JSON.stringify(user)); } catch(e){}
+}
+function clearUser(){
+  try { localStorage.removeItem(AIU_USER_KEY); } catch(e){}
+}
+function getProgress(){
+  try { var p = localStorage.getItem(AIU_PROGRESS_KEY); return p ? JSON.parse(p) : {}; } catch(e){ return {}; }
+}
+function saveProgress(p){
+  try { localStorage.setItem(AIU_PROGRESS_KEY, JSON.stringify(p)); } catch(e){}
+}
+// Mark a lesson complete: progress[zoneId] = { "lessonIndex": true, ... }
+function markLessonComplete(zoneId, lessonIdx){
+  var p = getProgress();
+  if(!p[zoneId]) p[zoneId] = {};
+  p[zoneId][lessonIdx] = true;
+  saveProgress(p);
+  return p;
+}
+function zoneCompletedCount(zoneId){
+  var p = getProgress();
+  if(!p[zoneId]) return 0;
+  var n = 0; for(var k in p[zoneId]){ if(p[zoneId][k]) n++; } return n;
+}
+function zoneLessonTotal(zoneId){
+  return (CURRICULUM[zoneId] && CURRICULUM[zoneId][0] && CURRICULUM[zoneId][0].lessons) ? CURRICULUM[zoneId][0].lessons.length : 0;
+}
+function isZoneComplete(zoneId){
+  var total = zoneLessonTotal(zoneId);
+  return total > 0 && zoneCompletedCount(zoneId) >= total;
+}
+
+// ===== Login / Signup Modal =====
+function AuthModal(props){
+  var n = useState(""); var name = n[0], setName = n[1];
+  var e = useState(""); var email = e[0], setEmail = e[1];
+  var er = useState(""); var err = er[0], setErr = er[1];
+  function submit(){
+    var nm = name.trim(), em = email.trim();
+    if(nm.length < 2){ setErr("Please enter your full name."); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ setErr("Please enter a valid email address."); return; }
+    var user = { name: nm, email: em, joined: new Date().toISOString() };
+    saveUser(user);
+    props.onAuth(user);
+  }
+  return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:20},onClick:function(ev){if(ev.target===ev.currentTarget)props.onClose();}},
+    h("div",{style:{background:"#fff",maxWidth:420,width:"100%",borderRadius:8,overflow:"hidden"}},
+      h("div",{style:{background:CR,padding:"22px 26px",color:"#fff",position:"relative"}},
+        h("button",{onClick:props.onClose,style:{position:"absolute",top:14,right:16,background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",width:30,height:30,borderRadius:"50%",cursor:"pointer",fontSize:15}},"\u2715"),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700}},"Join AI University"),
+        h("div",{style:{fontSize:12,opacity:0.85,marginTop:2}},"Track your progress and earn certificates")),
+      h("div",{style:{padding:"26px"}},
+        h("label",{style:{display:"block",fontSize:12,color:SLATE,fontWeight:600,marginBottom:6}},"Full Name"),
+        h("input",{value:name,onChange:function(ev){setName(ev.target.value);setErr("");},placeholder:"Your name",
+          style:{width:"100%",padding:"11px 14px",border:"1px solid "+BORDER,borderRadius:6,fontSize:15,marginBottom:16,boxSizing:"border-box"}}),
+        h("label",{style:{display:"block",fontSize:12,color:SLATE,fontWeight:600,marginBottom:6}},"Email"),
+        h("input",{value:email,type:"email",onChange:function(ev){setEmail(ev.target.value);setErr("");},placeholder:"you@example.com",
+          style:{width:"100%",padding:"11px 14px",border:"1px solid "+BORDER,borderRadius:6,fontSize:15,marginBottom:16,boxSizing:"border-box"}}),
+        err ? h("p",{style:{color:CR,fontSize:13,marginBottom:12}},err) : null,
+        h("button",{onClick:submit,style:{width:"100%",background:CR,color:"#fff",border:"none",padding:"13px",fontSize:15,fontWeight:700,cursor:"pointer",borderRadius:6}},"Sign Up / Log In"),
+        h("p",{style:{fontSize:11,color:SLATE,marginTop:14,lineHeight:1.6,textAlign:"center"}},"Your details are stored only on this device to track your learning. This is not a secure account \u2014 please don't enter a sensitive password anywhere on this site."))
+    )
+  );
 }
 
 // ===== AIShorts Frame =====
@@ -1569,14 +1790,14 @@ function Home(props){
       // Desktop nav
       h("div",{className:"desktop-nav",style:{display:"flex",gap:22,fontSize:13,alignItems:"center"}},
         navItems.map(function(n){return h("span",{key:n[0],onClick:function(){go(n[0]);},style:{color:"rgba(255,255,255,0.85)",cursor:"pointer"}},n[1]);}),
-        h("span",{onClick:function(){if(window.openSupport)window.openSupport();},style:{color:GOLD,fontWeight:600,cursor:"pointer"}},"\u2665 Support")),
+        h("span",{onClick:function(){if(window.openSupport)window.openSupport();},style:{color:GOLD,fontWeight:600,cursor:"pointer"}},"\u2665 Support"), props.user ? h("span",{onClick:props.onLogout,style:{color:"#fff",cursor:"pointer",borderLeft:"1px solid rgba(255,255,255,0.3)",paddingLeft:18}},props.user.name.split(" ")[0]+" \u00B7 Log out") : h("span",{onClick:props.onLogin,style:{background:CR,color:"#fff",padding:"6px 16px",borderRadius:4,cursor:"pointer",fontWeight:600}},"Log in")),
       // Hamburger
       h("div",{className:"hamburger",onClick:function(){setMenu(!menuOpen);},style:{display:"none",flexDirection:"column",gap:4,cursor:"pointer",padding:8}},
         h("span",{style:{width:22,height:2,background:"#fff"}}),h("span",{style:{width:22,height:2,background:"#fff"}}),h("span",{style:{width:22,height:2,background:"#fff"}}))),
     // Mobile menu
     menuOpen?h("div",{style:{background:INK2,padding:"8px 24px 16px"}},
       navItems.map(function(n){return h("div",{key:n[0],onClick:function(){go(n[0]);},style:{color:"#fff",padding:"12px 0",borderBottom:"1px solid rgba(255,255,255,0.1)",cursor:"pointer",fontSize:15}},n[1]);}),
-      h("div",{onClick:function(){setMenu(false);if(window.openSupport)window.openSupport();},style:{color:GOLD,padding:"12px 0",cursor:"pointer",fontSize:15,fontWeight:600}},"\u2665 Support AI University")):null,
+      h("div",{onClick:function(){setMenu(false);if(window.openSupport)window.openSupport();},style:{color:GOLD,padding:"12px 0",cursor:"pointer",fontSize:15,fontWeight:600}},"\u2665 Support AI University"), props.user ? h("div",{onClick:function(){setMenu(false);props.onLogout();},style:{color:"#fff",padding:"12px 0",cursor:"pointer",fontSize:15}},"Log out ("+props.user.name.split(" ")[0]+")") : h("div",{onClick:function(){setMenu(false);props.onLogin();},style:{color:"#fff",padding:"12px 0",cursor:"pointer",fontSize:15,fontWeight:600}},"Log in / Sign up")):null,
     // Hero
     h("div",{style:{background:"linear-gradient(135deg,"+INK+" 0%,"+CR+" 100%)",padding:"60px 24px",textAlign:"center"}},
       h("img",{src:IMG.logoHero,style:{width:80,height:80,objectFit:"contain",marginBottom:20},alt:""}),
@@ -1626,13 +1847,19 @@ function PageShell(props){
 function App(){
   var z=useState(null);var zone=z[0],setZone=z[1];
   var p=useState("home");var page=p[0],setPage=p[1];
+  var u=useState(getUser());var user=u[0],setUser=u[1];
+  var a=useState(false);var showAuth=a[0],setShowAuth=a[1];
   function enter(zoneObj){setZone(zoneObj);window.scrollTo(0,0);}
-  if(zone)return h(LearnScreen,{zone:zone,onBack:function(){setZone(null);window.scrollTo(0,0);}});
-  if(page==="curriculum")return h(PageShell,{onHome:function(){setPage("home");}},h(CurriculumPage,{onEnter:enter}));
-  if(page==="research")return h(PageShell,{onHome:function(){setPage("home");}},h(ResearchPage));
-  if(page==="policy")return h(PageShell,{onHome:function(){setPage("home");}},h(PolicyPage));
-  if(page==="about")return h(PageShell,{onHome:function(){setPage("home");}},h(AboutPage));
-  return h(Home,{onEnter:enter,onNav:function(pg){setPage(pg);window.scrollTo(0,0);}});
+  function login(usr){setUser(usr);setShowAuth(false);}
+  function logout(){clearUser();setUser(null);}
+  var authModal = showAuth ? h(AuthModal,{onClose:function(){setShowAuth(false);},onAuth:login}) : null;
+  var navProps = {user:user, onLogin:function(){setShowAuth(true);}, onLogout:logout};
+  if(zone)return h("div",null, authModal, h(LearnScreen,{zone:zone,user:user,onBack:function(){setZone(null);window.scrollTo(0,0);},onLoginPrompt:function(){setShowAuth(true);}}));
+  if(page==="curriculum")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(CurriculumPage,{onEnter:enter})));
+  if(page==="research")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(ResearchPage)));
+  if(page==="policy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PolicyPage)));
+  if(page==="about")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(AboutPage)));
+  return h("div",null, authModal, h(Home,Object.assign({onEnter:enter,onNav:function(pg){setPage(pg);window.scrollTo(0,0);}}, navProps)));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(h(App));
 
