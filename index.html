@@ -1352,20 +1352,90 @@ function VisitorCounter(){
 }
 
 
+
+// ===== Local Quiz Bank (works offline, no API key needed) =====
+// Each zone has a pool of questions; QuizView picks 4 at random per generation.
+var QUIZBANK = {
+  kids: [
+    {q:"What does AI stand for?",options:["Artificial Intelligence","Automatic Internet","Amazing Ideas","Apple Industries"],answer:0,explain:"AI means Artificial Intelligence \u2014 machines that can think and learn."},
+    {q:"Which of these uses AI?",options:["A voice assistant like Alexa","A wooden chair","A paper book","A glass of water"],answer:0,explain:"Voice assistants use AI to understand and answer you."},
+    {q:"Can AI learn from examples?",options:["Yes, by looking at lots of data","No, it never learns","Only on weekends","Only if you ask nicely"],answer:0,explain:"AI learns patterns by studying many examples."},
+    {q:"Is a robot the same as AI?",options:["Not always \u2014 AI is the 'brain', a robot is the body","Yes, exactly the same","Robots are smarter","AI is only in robots"],answer:0,explain:"AI is the thinking part; a robot is one machine that might use AI."},
+    {q:"What should you always do with AI answers?",options:["Think about whether they are correct","Believe everything","Never check","Share your password"],answer:0,explain:"AI can make mistakes, so always think critically."},
+    {q:"Which helps a computer 'see' pictures?",options:["Computer vision","A telescope","Reading glasses","A flashlight"],answer:0,explain:"Computer vision lets AI recognise what is in an image."}
+  ],
+  teens: [
+    {q:"What is machine learning?",options:["AI that improves by learning from data","Building physical machines","A type of video game","Fixing computers"],answer:0,explain:"Machine learning lets systems improve from data without being explicitly programmed."},
+    {q:"What is a neural network inspired by?",options:["The human brain","A spider web","The internet","A calculator"],answer:0,explain:"Neural networks are loosely inspired by how brain neurons connect."},
+    {q:"What is 'training data'?",options:["Examples used to teach an AI model","A gym workout","Computer hardware","A coding language"],answer:0,explain:"Training data is the set of examples a model learns from."},
+    {q:"Why can AI be biased?",options:["It learns from data that may contain bias","It has feelings","It dislikes people","It is always fair"],answer:0,explain:"If training data is biased, the model can reflect that bias."},
+    {q:"What does a chatbot like ChatGPT do?",options:["Generates human-like text responses","Prints documents","Charges your phone","Stores photos only"],answer:0,explain:"Large language models generate text by predicting likely words."},
+    {q:"Which is a good habit when using AI for schoolwork?",options:["Verify facts and cite sources","Copy everything blindly","Never read the output","Submit without checking"],answer:0,explain:"Always verify AI output \u2014 it can be confidently wrong."}
+  ],
+  college: [
+    {q:"What architecture underpins modern large language models?",options:["The Transformer","Decision trees","K-means","Linear regression"],answer:0,explain:"The 2017 Transformer architecture powers today's LLMs."},
+    {q:"What does 'attention' do in a Transformer?",options:["Weighs the relevance of different tokens","Saves battery","Compresses images","Encrypts data"],answer:0,explain:"Self-attention lets the model focus on relevant parts of the input."},
+    {q:"What is gradient descent?",options:["An optimization method to minimize loss","A type of neural layer","A dataset","A GPU brand"],answer:0,explain:"Gradient descent iteratively adjusts weights to reduce error."},
+    {q:"What is overfitting?",options:["Model memorizes training data, fails to generalize","Model is too small","Too little training","A hardware fault"],answer:0,explain:"Overfitting means the model performs well on training data but poorly on new data."},
+    {q:"What does backpropagation compute?",options:["Gradients of the loss w.r.t. weights","The internet speed","Pixel colors","Random numbers"],answer:0,explain:"Backpropagation computes how each weight contributed to the error."},
+    {q:"What is a token in an LLM?",options:["A chunk of text the model processes","A security key","A coin","A user account"],answer:0,explain:"Text is split into tokens (words/subwords) the model reads."}
+  ],
+  early: [
+    {q:"What is a practical first step to use AI at work?",options:["Identify repetitive tasks it can assist with","Replace your whole team","Ignore it","Only use it for games"],answer:0,explain:"Start by augmenting repetitive or time-consuming tasks."},
+    {q:"What is 'prompt engineering'?",options:["Crafting clear instructions for an AI","Building hardware","Writing legal contracts","Designing buildings"],answer:0,explain:"Good prompts produce better, more reliable AI output."},
+    {q:"Why verify AI-generated content at work?",options:["It can produce confident but wrong answers","It is always perfect","To waste time","It is required by law everywhere"],answer:0,explain:"AI can hallucinate; verification protects quality."},
+    {q:"Which is a responsible use of AI with company data?",options:["Avoid pasting confidential data into public tools","Share everything publicly","Post client data online","Ignore privacy"],answer:0,explain:"Never feed sensitive data into public AI tools."},
+    {q:"How can AI help your productivity?",options:["Drafting, summarizing, and brainstorming","Doing nothing","Slowing you down","Only entertainment"],answer:0,explain:"AI is strong at drafting, summarizing and ideation."},
+    {q:"What skill stays valuable alongside AI?",options:["Critical thinking and judgment","Memorizing trivia","Avoiding all tech","Typing speed only"],answer:0,explain:"Human judgment guides and checks AI effectively."}
+  ],
+  mid: [
+    {q:"How should a manager approach AI adoption?",options:["Start with clear use-cases and measure impact","Adopt everything at once","Ban it entirely","Hide it from the team"],answer:0,explain:"Targeted use-cases with measurable ROI work best."},
+    {q:"What is a key AI governance concern?",options:["Data privacy and responsible use","Office furniture","Lunch menus","Parking"],answer:0,explain:"Governance covers privacy, bias, security and accountability."},
+    {q:"What is 'human-in-the-loop'?",options:["Humans review/approve AI decisions","AI replaces all humans","No oversight","Only machines decide"],answer:0,explain:"Keeping humans in the loop maintains oversight on important decisions."},
+    {q:"How to measure AI project success?",options:["Tie it to business metrics and outcomes","By how new it looks","By cost alone","Randomly"],answer:0,explain:"Link AI initiatives to concrete business outcomes."},
+    {q:"What is a risk of over-relying on AI?",options:["Unchecked errors propagate at scale","Too much accuracy","Lower electricity use","Nothing"],answer:0,explain:"At scale, unverified AI errors can compound."},
+    {q:"What helps teams trust AI tools?",options:["Transparency and explainability","Secrecy","Marketing hype","Ignoring concerns"],answer:0,explain:"Explainable, transparent systems build trust."}
+  ],
+  leaders: [
+    {q:"At board level, AI strategy should align with what?",options:["Long-term business value and risk appetite","Short-term hype","Competitor logos","Personal preference"],answer:0,explain:"AI strategy must serve enterprise value and managed risk."},
+    {q:"What is a core executive responsibility for AI?",options:["Ethical and responsible deployment","Writing the code","Buying the most GPUs","Avoiding all AI"],answer:0,explain:"Leaders own responsible, ethical AI deployment."},
+    {q:"Which is a strategic AI risk to oversee?",options:["Regulatory, reputational and security risk","Office snacks","Wi-Fi speed","Desk layout"],answer:0,explain:"Boards oversee regulatory, reputational and security exposure."},
+    {q:"How can leaders foster AI literacy?",options:["Invest in training across the organization","Keep knowledge with one person","Avoid the topic","Outsource all thinking"],answer:0,explain:"Broad AI literacy reduces risk and unlocks value."},
+    {q:"What signals mature AI governance?",options:["Clear policies, accountability and review","No rules","One-off projects","Ad-hoc decisions"],answer:0,explain:"Mature governance has policy, accountability and ongoing review."},
+    {q:"Why is data strategy central to AI?",options:["Quality data underpins reliable AI","Data is irrelevant","Only algorithms matter","It slows AI down"],answer:0,explain:"Reliable AI depends on well-governed, quality data."}
+  ],
+  seniors: [
+    {q:"How can AI help in everyday life?",options:["Reminders, navigation, and answering questions","Only playing music","Nothing useful","Replacing family"],answer:0,explain:"AI assists with reminders, directions, questions and more."},
+    {q:"What is a voice assistant?",options:["A tool you speak to that responds","A telephone operator","A radio","A TV remote"],answer:0,explain:"Voice assistants like Siri or Alexa respond to spoken requests."},
+    {q:"How can you stay safe online with AI?",options:["Never share passwords or bank details","Trust every message","Click all links","Share personal info freely"],answer:0,explain:"Protect personal and financial information always."},
+    {q:"Can AI help you stay connected with family?",options:["Yes \u2014 video calls and messaging made easier","No","Only by letter","Never"],answer:0,explain:"AI features simplify calls, captions and messaging."},
+    {q:"If an AI message asks for your bank OTP, you should:",options:["Never share it \u2014 it is likely a scam","Share immediately","Reply with your PIN","Call them back with details"],answer:0,explain:"Legitimate services never ask for your OTP \u2014 it's fraud."},
+    {q:"How can AI support hobbies?",options:["Finding recipes, tips, and tutorials","Only for work","It cannot","By doing nothing"],answer:0,explain:"AI can suggest recipes, gardening tips, tutorials and more."}
+  ]
+};
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function localQuiz(zoneId){
+  var pool = QUIZBANK[zoneId] || QUIZBANK.kids;
+  return shuffle(pool).slice(0, Math.min(4, pool.length));
+}
+
 // ===== Quiz =====
 function QuizView(props){
   var s=useState({loading:false,questions:null,answers:{},submitted:false,error:null});
   var st=s[0],set=s[1];
   function gen(){
     set({loading:true,questions:null,answers:{},submitted:false,error:null});
-    fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,messages:[{role:"user",content:"Generate 4 multiple-choice quiz questions about: "+props.title+" (level: "+props.zoneLabel+"). Return ONLY JSON no markdown: {\"questions\":[{\"q\":\"\",\"options\":[\"\",\"\",\"\",\"\"],\"answer\":0,\"explain\":\"\"}]}"}]})
-    }).then(function(r){return r.json();}).then(function(d){
-      try{var t="";for(var i=0;i<d.content.length;i++){if(d.content[i].type==="text")t+=d.content[i].text;}
-        t=t.replace(/```json/g,"").replace(/```/g,"").trim();var p=JSON.parse(t);
-        set({loading:false,questions:p.questions,answers:{},submitted:false,error:null});
-      }catch(e){set({loading:false,questions:null,answers:{},submitted:false,error:"Could not generate. Try again."});}
-    }).catch(function(){set({loading:false,questions:null,answers:{},submitted:false,error:"Network error. Try again."});});
+    // Local quiz bank: instant, reliable, works offline (no API/CORS dependency).
+    var zid = props.zoneId || "kids";
+    setTimeout(function(){
+      try {
+        var qs = localQuiz(zid);
+        if(qs && qs.length){ set({loading:false,questions:qs,answers:{},submitted:false,error:null}); }
+        else { set({loading:false,questions:null,answers:{},submitted:false,error:"No questions available yet."}); }
+      } catch(e){
+        set({loading:false,questions:null,answers:{},submitted:false,error:"Could not load quiz. Please try again."});
+      }
+    }, 350); // small delay so the "Generating..." state is visible
   }
   if(!st.questions&&!st.loading)return h("div",{style:{padding:24,textAlign:"center"}},
     h("p",{style:{color:INK3,marginBottom:16,fontSize:14}},"Test your understanding with AI-generated questions."),
@@ -1528,8 +1598,8 @@ function LessonView(props){
       [["reading","Reading"],["video","Video"],["quiz","AI Quiz"]].map(function(tb){
         return h("div",{key:tb[0],onClick:function(){setTab(tb[0]);},style:{padding:"12px 20px",cursor:"pointer",fontSize:13,fontWeight:tab===tb[0]?700:400,color:tab===tb[0]?CR:SLATE,borderBottom:tab===tb[0]?"2px solid "+CR:"2px solid transparent"}},tb[1]);})),
     tab==="reading"?h("div",{style:{padding:24,fontSize:15,lineHeight:1.8,color:INK2,whiteSpace:"pre-wrap"}},lesson.reading):null,
-    tab==="video"?h("div",{style:{padding:40,textAlign:"center"}},lesson.vk?h("a",{href:"https://www.youtube.com/watch?v="+lesson.vk,target:"_blank",rel:"noopener",style:{color:CR,fontWeight:600,textDecoration:"none"}},"Watch on YouTube"):h("p",{style:{color:SLATE}},"Video coming soon")):null,
-    tab==="quiz"?h(QuizView,{title:lesson.title,zoneLabel:zone.label}):null,
+    tab==="video"?h("div",{style:{padding:40,textAlign:"center"}},lesson.vk?h("a",{href:"https://www.youtube.com/watch?v="+(typeof VIDS!=="undefined"&&VIDS[lesson.vk]?VIDS[lesson.vk]:lesson.vk),target:"_blank",rel:"noopener",style:{color:CR,fontWeight:600,textDecoration:"none"}},"Watch on YouTube"):h("p",{style:{color:SLATE}},"Video coming soon")):null,
+    tab==="quiz"?h(QuizView,{title:lesson.title,zoneLabel:zone.label,zoneId:zone.id}):null,
     // Mark complete bar
     h("div",{style:{padding:"14px 20px",borderTop:"1px solid "+BORDER,background:IVORY,textAlign:"right"}},
       done
@@ -1592,7 +1662,7 @@ function CurriculumPage(props){
   return h("div",{style:{maxWidth:1100,margin:"0 auto",padding:"40px 24px"}},
     h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:32,color:INK,marginBottom:8}},"Full Curriculum"),
     h("p",{style:{color:SLATE,marginBottom:32}},"Seven age-calibrated tracks. Click any to start learning."),
-    h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:16}},
+    h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(100%,300px),1fr))",gap:16}},
       ZONES.map(function(z){var zc=ZC[z.id];
         return h("div",{key:z.id,onClick:function(){props.onEnter(z);},style:{background:"#fff",border:"1px solid "+BORDER,borderLeft:"4px solid "+zc.a,padding:"20px 22px",cursor:"pointer",borderRadius:4}},
           h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:6}},z.age),
@@ -1627,7 +1697,7 @@ function AboutPage(){
   return h("div",{style:{maxWidth:1000,margin:"0 auto",padding:"40px 24px"}},
     h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:32,color:INK,marginBottom:8}},"About AI University"),
     h("p",{style:{color:INK3,marginBottom:32,fontSize:15,lineHeight:1.7,maxWidth:700}},"AI University is an independent educational initiative making artificial intelligence understandable to everyone \u2014 from curious children to C-suite executives. Free, open, and built with the conviction that AI is for everyone."),
-    h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:16,marginBottom:32}},
+    h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(100%,300px),1fr))",gap:16,marginBottom:32}},
       TEAM.map(function(m,i){return h("div",{key:i,style:{background:"#fff",border:"1px solid "+BORDER,borderTop:"4px solid "+CR,padding:"24px 26px",borderRadius:4}},
         h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:20,fontWeight:700,color:INK,marginBottom:4}},m.name),
         h("div",{style:{fontSize:11,color:CR,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:14}},m.role),
@@ -1700,7 +1770,7 @@ function AuthModal(props){
     props.onAuth(user);
   }
   return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:20},onClick:function(ev){if(ev.target===ev.currentTarget)props.onClose();}},
-    h("div",{style:{background:"#fff",maxWidth:420,width:"100%",borderRadius:8,overflow:"hidden"}},
+    h("div",{style:{background:"#fff",maxWidth:420,width:"100%",borderRadius:8,overflow:"hidden",maxHeight:"92vh",overflowY:"auto"}},
       h("div",{style:{background:CR,padding:"22px 26px",color:"#fff",position:"relative"}},
         h("button",{onClick:props.onClose,style:{position:"absolute",top:14,right:16,background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",width:30,height:30,borderRadius:"50%",cursor:"pointer",fontSize:15}},"\u2715"),
         h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700}},"Join AI University"),
@@ -1815,7 +1885,7 @@ function Home(props){
     // Zones
     h(AIShortsFrame,null), h("div",{id:"zone-select",style:{maxWidth:1200,margin:"0 auto",padding:"48px 24px"}},
       h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:26,color:INK2,marginBottom:24}},"Select your track"),
-      h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:20}},
+      h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(100%,280px),1fr))",gap:20}},
         ZONES.map(function(z){var zc=ZC[z.id];
           return h("div",{key:z.id,onClick:function(){props.onEnter(z);},style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",cursor:"pointer",boxShadow:"0 1px 3px rgba(0,0,0,0.06)"}},
             h("div",{style:{height:160,overflow:"hidden",background:zc.bg}},h("img",{src:IMG[z.id],style:{width:"100%",height:"100%",objectFit:"cover"},alt:z.label})),
