@@ -1851,6 +1851,121 @@ function LessonView(props){
 }
 
 
+// ===== Digital Achievement Badge (SVG, per zone) =====
+// Recreates the crimson-shield medallion in each zone's accent color.
+function zoneBadgeSVG(zone, zoneColor, ageLabel){
+  var GOLDC="#B8962E", GOLDL="#E3CB7A", GOLDD="#8A6E1E", CRIM="#8C1515", CRIMD="#5E0E0E";
+  // Build a self-contained SVG string (used for both display and PNG export)
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 460" width="400" height="460">'
+    + '<defs>'
+    + '<radialGradient id="bgg" cx="50%" cy="42%" r="60%"><stop offset="0%" stop-color="'+lighten(zoneColor)+'"/><stop offset="100%" stop-color="'+zoneColor+'"/></radialGradient>'
+    + '<linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="50%" stop-color="'+GOLDC+'"/><stop offset="100%" stop-color="'+GOLDD+'"/></linearGradient>'
+    + '<linearGradient id="ribg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="100%" stop-color="'+GOLDC+'"/></linearGradient>'
+    + '<linearGradient id="shg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+CRIM+'"/><stop offset="100%" stop-color="'+CRIMD+'"/></linearGradient>'
+    + '</defs>'
+    // outer gold ring
+    + '<circle cx="200" cy="190" r="170" fill="url(#goldg)"/>'
+    + '<circle cx="200" cy="190" r="158" fill="'+zoneColor+'"/>'
+    + '<circle cx="200" cy="190" r="150" fill="url(#bgg)" stroke="'+GOLDD+'" stroke-width="1"/>'
+    + '<circle cx="200" cy="190" r="120" fill="none" stroke="url(#goldg)" stroke-width="3" opacity="0.65"/>'
+    // arched AI UNIVERSITY text
+    + '<path id="arc" d="M 70 190 A 130 130 0 0 1 330 190" fill="none"/>'
+    + '<text font-family="Georgia,serif" font-size="30" font-weight="bold" fill="url(#goldg)" letter-spacing="3"><textPath href="#arc" startOffset="50%" text-anchor="middle">AI UNIVERSITY</textPath></text>'
+    // laurel wreath (two curved branches)
+    + laurel(120, 215, false) + laurel(280, 215, true)
+    // central crimson shield
+    + '<path d="M200 120 L250 138 L250 210 Q250 250 200 272 Q150 250 150 210 L150 138 Z" fill="url(#shg)" stroke="url(#goldg)" stroke-width="4"/>'
+    // open book on shield
+    + '<g stroke="'+GOLDL+'" stroke-width="2.5" fill="none">'
+    + '<path d="M200 165 Q178 156 160 162 L160 205 Q178 199 200 207 Z" fill="rgba(227,203,122,0.15)"/>'
+    + '<path d="M200 165 Q222 156 240 162 L240 205 Q222 199 200 207 Z" fill="rgba(227,203,122,0.15)"/>'
+    + '<line x1="200" y1="165" x2="200" y2="207"/>'
+    + '<line x1="168" y1="172" x2="192" y2="178"/><line x1="168" y1="184" x2="192" y2="190"/>'
+    + '<line x1="208" y1="178" x2="232" y2="172"/><line x1="208" y1="190" x2="232" y2="184"/>'
+    + '</g>'
+    // small AI nodes above book (neural motif)
+    + '<g fill="'+GOLDL+'"><circle cx="185" cy="150" r="3"/><circle cx="215" cy="150" r="3"/><circle cx="200" cy="138" r="3"/>'
+    + '<line x1="185" y1="150" x2="200" y2="138" stroke="'+GOLDL+'" stroke-width="1.2"/><line x1="215" y1="150" x2="200" y2="138" stroke="'+GOLDL+'" stroke-width="1.2"/><line x1="185" y1="150" x2="215" y2="150" stroke="'+GOLDL+'" stroke-width="1.2"/></g>'
+    // ribbon banner
+    + '<path d="M60 350 L60 395 L40 408 L60 405 L60 420 L200 420 L340 420 L340 405 L360 408 L340 395 L340 350 Q270 372 200 372 Q130 372 60 350 Z" fill="url(#ribg)" stroke="'+GOLDD+'" stroke-width="2"/>'
+    + '<text x="200" y="388" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="'+CRIMD+'" text-anchor="middle" letter-spacing="1">'+escapeXml(ageLabel.toUpperCase())+'</text>'
+    + '<text x="200" y="410" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="'+CRIM+'" text-anchor="middle">'+escapeXml(zone)+'</text>'
+    + '<text x="200" y="448" font-family="Georgia,serif" font-size="12" font-style="italic" fill="'+zoneColor+'" text-anchor="middle">Certified Achievement \u00B7 ai-university.co.in</text>'
+    + '</svg>';
+  function lighten(c){ return c; }
+}
+function escapeXml(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function laurel(cx, baseY, flip){
+  var s = flip ? -1 : 1;
+  var leaves = '';
+  for(var i=0;i<7;i++){
+    var t = i/6;
+    var ly = baseY - t*120;
+    var lx = cx + s*(Math.sin(t*Math.PI)*22 - 8);
+    var rot = s*(40 - t*30);
+    leaves += '<ellipse cx="'+lx+'" cy="'+ly+'" rx="5" ry="11" fill="#C9A94A" opacity="0.92" transform="rotate('+rot+' '+lx+' '+ly+')"/>';
+  }
+  return '<g>'+leaves+'</g>';
+}
+
+function ZoneBadge(props){
+  var zc = ZC[props.zone.id];
+  var color = zc.a;
+  var ageLabel = props.zone.age || "Certified";
+  var svgStr = zoneBadgeSVG(props.zone.label, color, ageLabel);
+  var msg = useState(""); var note=msg[0], setNote=msg[1];
+
+  function svgToDataUrl(){ return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr); }
+  function downloadPNG(){
+    try{
+      var img = new Image();
+      img.onload = function(){
+        var canvas = document.createElement('canvas'); canvas.width=800; canvas.height=920;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle="#F9F7F4"; ctx.fillRect(0,0,800,920);
+        ctx.drawImage(img,0,0,800,920);
+        canvas.toBlob(function(blob){
+          var url=URL.createObjectURL(blob); var a=document.createElement('a');
+          a.href=url; a.download="AI-University-Badge-"+props.zone.id+".png"; a.click();
+          setNote("Badge downloaded! Share it anywhere.");
+        });
+      };
+      img.onerror=function(){ setNote("Could not render badge. Try again."); };
+      img.src = svgToDataUrl();
+    }catch(e){ setNote("Could not render badge."); }
+  }
+  var shareUrl = "https://ai-university.co.in";
+  var shareText = "I earned the "+props.zone.label+" badge at AI University! \uD83C\uDF93 Learning AI, one step at a time.";
+  function shareNative(){
+    if(navigator.share){
+      navigator.share({title:"AI University Badge", text:shareText, url:shareUrl}).catch(function(){});
+    } else { setNote("Use the buttons below to share on your favourite platform."); }
+  }
+  function shareTo(platform){
+    var u=encodeURIComponent(shareUrl), t=encodeURIComponent(shareText), link="";
+    if(platform==="linkedin") link="https://www.linkedin.com/sharing/share-offsite/?url="+u;
+    else if(platform==="x") link="https://twitter.com/intent/tweet?text="+t+"&url="+u;
+    else if(platform==="whatsapp") link="https://wa.me/?text="+t+"%20"+u;
+    else if(platform==="facebook") link="https://www.facebook.com/sharer/sharer.php?u="+u;
+    window.open(link,"_blank","noopener,noreferrer");
+  }
+
+  return h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:12,padding:"24px",marginBottom:24,textAlign:"center"}},
+    h("div",{style:{fontSize:11,letterSpacing:2,color:GOLD,textTransform:"uppercase",fontWeight:700,marginBottom:4}},"\u2605 Achievement Unlocked"),
+    h("h3",{style:{fontFamily:"EB Garamond,serif",fontSize:22,color:INK,marginBottom:16}},"Your "+props.zone.label+" Badge"),
+    h("div",{style:{maxWidth:280,margin:"0 auto 18px",filter:"drop-shadow(0 8px 20px rgba(0,0,0,0.18))"},dangerouslySetInnerHTML:{__html:svgStr}}),
+    h("p",{style:{color:SLATE,fontSize:13,marginBottom:16,lineHeight:1.6}},"Congratulations! You've completed this track. Download your badge and share your achievement."),
+    h("div",{style:{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:14}},
+      h("button",{onClick:downloadPNG,style:{background:CR,color:"#fff",border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:6,fontSize:13}},"\u2B07 Download Badge"),
+      (typeof navigator!=="undefined"&&navigator.share)?h("button",{onClick:shareNative,style:{background:GOLD,color:INK,border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:6,fontSize:13}},"Share"):null),
+    h("div",{style:{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}},
+      [["linkedin","LinkedIn","#0A66C2"],["x","X","#000000"],["whatsapp","WhatsApp","#25D366"],["facebook","Facebook","#1877F2"]].map(function(p){
+        return h("button",{key:p[0],onClick:function(){shareTo(p[0]);},style:{background:p[2],color:"#fff",border:"none",padding:"8px 16px",fontWeight:600,cursor:"pointer",borderRadius:6,fontSize:12}},p[1]);
+      })),
+    note?h("p",{style:{color:"#2E7D32",fontSize:12,marginTop:12}},note):null);
+}
+
+
 function LearnScreen(props){
   var zone=props.zone;var zc=ZC[zone.id];
   var lessons=(CURRICULUM[zone.id]&&CURRICULUM[zone.id][0]&&CURRICULUM[zone.id][0].lessons)?CURRICULUM[zone.id][0].lessons:[];
@@ -1892,6 +2007,7 @@ function LearnScreen(props){
         h("p",{style:{fontSize:13,color:INK3,lineHeight:1.6}},"Log in to track your progress through these lessons and earn a certificate when you finish. ",
           h("span",{onClick:props.onLoginPrompt,style:{color:CR,fontWeight:700,cursor:"pointer",textDecoration:"underline"}},"Log in / Sign up"))),
       h("p",{style:{color:SLATE,marginBottom:24,fontSize:14}},total+" lessons \u00B7 Reading \u00B7 Video \u00B7 AI Quiz"),
+      (allDone && user)?h(ZoneBadge,{zone:zone}):null,
       lessons.length?lessons.map(function(l,i){
         var done = !!(prog[zone.id] && prog[zone.id][i]);
         return h(LessonView,{key:i,lesson:l,zone:zone,complete:done,onToggle:function(val){toggle(i,val);}});
