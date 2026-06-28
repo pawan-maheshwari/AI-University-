@@ -11,6 +11,7 @@
 body{background:#F9F7F4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
 em{font-style:italic}
 @media(max-width:720px){.desktop-nav{display:none!important}.hamburger{display:flex!important}}
+@media(max-width:760px){.lab-grid{grid-template-columns:1fr!important}}
 
 /* Zone image animation: slow ken-burns zoom + lift on hover */
 .zone-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;animation:kenburns 18s ease-in-out infinite alternate;}
@@ -4515,77 +4516,107 @@ function LessonView(props){
 
 
 // ===== Digital Achievement Badge (SVG, per zone) =====
-// Recreates the crimson-shield medallion in each zone's accent color, matching the
-// reference badge sheet: double gold ring, arched AI UNIVERSITY, laurel wreaths
-// hugging a crimson shield (open book + neural motif), an inner motto sub-banner,
-// and a two-line ribbon (age label + zone name).
+// Faithful recreation of the reference badge sheet: beveled metallic gold ring,
+// a coloured text-band with arched "AI UNIVERSITY", dense gold laurel wreaths
+// hugging a crimson shield (neural triangle + open book), an inner motto
+// sub-banner, and a two-line gold ribbon (age label + zone name).
 function zoneBadgeSVG(zone, zoneColor, ageLabel){
-  var GOLDC="#B8962E", GOLDL="#E3CB7A", GOLDD="#8A6E1E", CRIM="#8C1515", CRIMD="#5E0E0E";
-  function lighten(hex){
-    try{ var c=hex.replace('#',''); if(c.length===3){c=c[0]+c[0]+c[1]+c[1]+c[2]+c[2];}
-      var r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);
-      r=Math.min(255,Math.round(r+(255-r)*0.32)); g=Math.min(255,Math.round(g+(255-g)*0.32)); b=Math.min(255,Math.round(b+(255-b)*0.32));
-      return 'rgb('+r+','+g+','+b+')';
+  var GOLDC="#C2A24C", GOLDL="#F2E0A0", GOLDM="#CBA94E", GOLDD="#8A6E1E", GOLDDD="#6E5614";
+  var CRIM="#8C1515", CRIMD="#5E0E0E", CRIML="#A8312B";
+  function clampHex(c){ c=c.replace('#',''); if(c.length===3){c=c[0]+c[0]+c[1]+c[1]+c[2]+c[2];} return c; }
+  function shade(hex, pct){ // pct>0 lighten, pct<0 darken
+    try{ var c=clampHex(hex); var r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);
+      if(pct>0){ r=r+(255-r)*pct; g=g+(255-g)*pct; b=b+(255-b)*pct; }
+      else { r=r*(1+pct); g=g*(1+pct); b=b*(1+pct); }
+      return 'rgb('+Math.round(r)+','+Math.round(g)+','+Math.round(b)+')';
     }catch(e){ return hex; }
   }
-  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 460" width="400" height="460">'
+  var fieldLight=shade(zoneColor,0.46), fieldDark=shade(zoneColor,-0.30), bandColor=shade(zoneColor,-0.16);
+  var cx=200, cy=192;
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 442" width="400" height="442">'
     + '<defs>'
-    + '<radialGradient id="bgg" cx="50%" cy="40%" r="62%"><stop offset="0%" stop-color="'+lighten(zoneColor)+'"/><stop offset="100%" stop-color="'+zoneColor+'"/></radialGradient>'
-    + '<linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="50%" stop-color="'+GOLDC+'"/><stop offset="100%" stop-color="'+GOLDD+'"/></linearGradient>'
-    + '<linearGradient id="ribg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="100%" stop-color="'+GOLDC+'"/></linearGradient>'
-    + '<linearGradient id="mottog" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="100%" stop-color="'+GOLDC+'"/></linearGradient>'
-    + '<linearGradient id="shg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+CRIM+'"/><stop offset="100%" stop-color="'+CRIMD+'"/></linearGradient>'
+    + '<radialGradient id="fieldg" cx="50%" cy="36%" r="66%"><stop offset="0%" stop-color="'+fieldLight+'"/><stop offset="55%" stop-color="'+zoneColor+'"/><stop offset="100%" stop-color="'+fieldDark+'"/></radialGradient>'
+    + '<linearGradient id="ringg" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="38%" stop-color="'+GOLDC+'"/><stop offset="62%" stop-color="'+GOLDM+'"/><stop offset="100%" stop-color="'+GOLDDD+'"/></linearGradient>'
+    + '<linearGradient id="ringhi" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF6D8"/><stop offset="100%" stop-color="'+GOLDC+'"/></linearGradient>'
+    + '<linearGradient id="leafg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="55%" stop-color="'+GOLDC+'"/><stop offset="100%" stop-color="'+GOLDD+'"/></linearGradient>'
+    + '<linearGradient id="ribg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="45%" stop-color="'+GOLDC+'"/><stop offset="100%" stop-color="'+GOLDD+'"/></linearGradient>'
+    + '<linearGradient id="ribfold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDM+'"/><stop offset="100%" stop-color="'+GOLDDD+'"/></linearGradient>'
+    + '<linearGradient id="mottog" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+GOLDL+'"/><stop offset="100%" stop-color="'+GOLDM+'"/></linearGradient>'
+    + '<linearGradient id="shg" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="'+CRIML+'"/><stop offset="45%" stop-color="'+CRIM+'"/><stop offset="100%" stop-color="'+CRIMD+'"/></linearGradient>'
+    + '<filter id="sft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.28"/></filter>'
     + '</defs>'
-    // double gold ring with colored band
-    + '<circle cx="200" cy="190" r="172" fill="url(#goldg)"/>'
-    + '<circle cx="200" cy="190" r="160" fill="'+GOLDD+'"/>'
-    + '<circle cx="200" cy="190" r="156" fill="url(#bgg)"/>'
-    + '<circle cx="200" cy="190" r="128" fill="none" stroke="url(#goldg)" stroke-width="2.5" opacity="0.7"/>'
-    + '<circle cx="200" cy="190" r="124" fill="none" stroke="'+GOLDD+'" stroke-width="0.8" opacity="0.5"/>'
-    // arched AI UNIVERSITY text
-    + '<path id="arc" d="M 78 200 A 122 122 0 0 1 322 200" fill="none"/>'
-    + '<text font-family="Georgia,serif" font-size="29" font-weight="bold" fill="url(#goldg)" letter-spacing="3"><textPath href="#arc" startOffset="50%" text-anchor="middle">AI UNIVERSITY</textPath></text>'
-    // laurel wreaths hugging the shield
-    + laurel(126, 250, false) + laurel(274, 250, true)
-    // central crimson shield
-    + '<path d="M200 116 L252 136 L252 212 Q252 254 200 278 Q148 254 148 212 L148 136 Z" fill="url(#shg)" stroke="url(#goldg)" stroke-width="4.5"/>'
-    + '<path d="M200 124 L245 141 L245 209 Q245 246 200 268 Q155 246 155 209 L155 141 Z" fill="none" stroke="'+GOLDL+'" stroke-width="0.8" opacity="0.6"/>'
-    // open book on shield
-    + '<g stroke="'+GOLDL+'" stroke-width="2.6" fill="none" stroke-linejoin="round">'
-    + '<path d="M200 168 Q177 158 158 165 L158 210 Q177 203 200 212 Z" fill="rgba(227,203,122,0.12)"/>'
-    + '<path d="M200 168 Q223 158 242 165 L242 210 Q223 203 200 212 Z" fill="rgba(227,203,122,0.12)"/>'
-    + '<line x1="200" y1="168" x2="200" y2="212"/>'
-    + '<line x1="166" y1="176" x2="192" y2="182"/><line x1="166" y1="188" x2="192" y2="194"/>'
-    + '<line x1="208" y1="182" x2="234" y2="176"/><line x1="208" y1="194" x2="234" y2="188"/>'
+    // ---- beveled metallic gold ring ----
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="168" fill="url(#ringg)" filter="url(#sft)"/>'
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="168" fill="none" stroke="url(#ringhi)" stroke-width="2" opacity="0.85"/>'
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="154" fill="none" stroke="'+GOLDDD+'" stroke-width="2"/>'
+    // ---- coloured text band ----
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="151" fill="'+bandColor+'"/>'
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="123" fill="none" stroke="url(#ringg)" stroke-width="7"/>'
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="118" fill="none" stroke="'+GOLDDD+'" stroke-width="1"/>'
+    // ---- inner field ----
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="118" fill="url(#fieldg)"/>'
+    // ---- arched AI UNIVERSITY ----
+    + '<path id="arcpath" d="M '+(cx-131)+' '+(cy-56)+' A 150 150 0 0 1 '+(cx+131)+' '+(cy-56)+'" fill="none"/>'
+    + '<text font-family="Georgia,serif" font-size="30" font-weight="bold" fill="#F6EEC8" stroke="#6E5614" stroke-width="0.6" letter-spacing="3.5"><textPath href="#arcpath" startOffset="50%" text-anchor="middle">AI UNIVERSITY</textPath></text>'
+    // ---- laurel wreaths hugging the shield ----
+    + laurel(cx, cy, -1) + laurel(cx, cy, 1)
+    // ---- crimson shield ----
+    + '<path d="M'+cx+' 110 L256 132 L256 214 Q256 262 '+cx+' 288 Q144 262 144 214 L144 132 Z" fill="url(#shg)" stroke="url(#ringg)" stroke-width="5"/>'
+    + '<path d="M'+cx+' 119 L249 138 L249 211 Q249 254 '+cx+' 277 Q151 254 151 211 L151 138 Z" fill="none" stroke="'+GOLDL+'" stroke-width="1" opacity="0.55"/>'
+    // neural triangle motif (top of shield)
+    + '<g stroke="'+GOLDL+'" stroke-width="1.6" fill="'+GOLDL+'">'
+    + '<line x1="178" y1="158" x2="222" y2="158"/><line x1="178" y1="158" x2="'+cx+'" y2="138"/><line x1="222" y1="158" x2="'+cx+'" y2="138"/>'
+    + '<line x1="'+cx+'" y1="138" x2="'+cx+'" y2="158"/>'
+    + '<circle cx="178" cy="158" r="3.6"/><circle cx="222" cy="158" r="3.6"/><circle cx="'+cx+'" cy="138" r="3.6"/><circle cx="'+cx+'" cy="158" r="2.6"/>'
     + '</g>'
-    // neural nodes above book
-    + '<g fill="'+GOLDL+'"><circle cx="184" cy="152" r="3.2"/><circle cx="216" cy="152" r="3.2"/><circle cx="200" cy="139" r="3.2"/>'
-    + '<line x1="184" y1="152" x2="200" y2="139" stroke="'+GOLDL+'" stroke-width="1.3"/><line x1="216" y1="152" x2="200" y2="139" stroke="'+GOLDL+'" stroke-width="1.3"/><line x1="184" y1="152" x2="216" y2="152" stroke="'+GOLDL+'" stroke-width="1.3"/></g>'
-    // inner motto sub-banner (small gold ribbon under the shield)
-    + '<path d="M126 296 L274 296 L268 312 L132 312 Z" fill="url(#mottog)" stroke="'+GOLDD+'" stroke-width="1.2"/>'
-    + '<text x="200" y="307" font-family="Georgia,serif" font-size="9.5" font-weight="bold" fill="'+CRIMD+'" text-anchor="middle" letter-spacing="2">ASTRA \u00B7 SCIENTIA \u00B7 FUTURA</text>'
-    // main ribbon banner (two lines: age + zone name)
-    + '<path d="M58 352 L58 398 L38 412 L58 408 L58 424 L200 424 L342 424 L342 408 L362 412 L342 398 L342 352 Q271 374 200 374 Q129 374 58 352 Z" fill="url(#ribg)" stroke="'+GOLDD+'" stroke-width="2"/>'
-    + '<path d="M70 360 L70 416 M330 360 L330 416" stroke="'+GOLDD+'" stroke-width="0.8" opacity="0.4"/>'
-    + '<text x="200" y="390" font-family="Arial,sans-serif" font-size="12.5" font-weight="bold" fill="'+CRIMD+'" text-anchor="middle" letter-spacing="1">'+escapeXml(ageLabel.toUpperCase())+'</text>'
-    + '<text x="200" y="412" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="'+CRIM+'" text-anchor="middle">'+escapeXml(zone)+'</text>'
-    + '<text x="200" y="448" font-family="Georgia,serif" font-size="12" font-style="italic" fill="'+zoneColor+'" text-anchor="middle">Certified Achievement \u00B7 ai-university.co.in</text>'
+    // open book (below neural motif)
+    + '<g stroke="'+GOLDL+'" stroke-width="2.4" fill="rgba(242,224,160,0.12)" stroke-linejoin="round">'
+    + '<path d="M'+cx+' 178 Q176 168 156 175 L156 222 Q176 214 '+cx+' 224 Z"/>'
+    + '<path d="M'+cx+' 178 Q224 168 244 175 L244 222 Q224 214 '+cx+' 224 Z"/>'
+    + '</g>'
+    + '<g stroke="'+GOLDL+'" stroke-width="1.5" opacity="0.9">'
+    + '<line x1="164" y1="186" x2="192" y2="192"/><line x1="164" y1="197" x2="192" y2="203"/><line x1="164" y1="208" x2="192" y2="213"/>'
+    + '<line x1="208" y1="192" x2="236" y2="186"/><line x1="208" y1="203" x2="236" y2="197"/><line x1="208" y1="213" x2="236" y2="208"/>'
+    + '<line x1="'+cx+'" y1="178" x2="'+cx+'" y2="224" stroke-width="2"/></g>'
+    // ---- inner motto sub-banner ----
+    + '<path d="M150 250 L250 250 L243 265 L157 265 Z" fill="url(#mottog)" stroke="'+GOLDDD+'" stroke-width="1"/>'
+    + '<path d="M150 250 L157 265 L150 265 Z M250 250 L243 265 L250 265 Z" fill="'+GOLDDD+'" opacity="0.6"/>'
+    + '<text x="'+cx+'" y="261" font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="'+CRIMD+'" text-anchor="middle" letter-spacing="1.5">SAPIENTIA ET MACHINA</text>'
+    // ---- main ribbon banner (two lines) ----
+    + '<path d="M44 392 L18 408 L44 404 L44 392 Z" fill="url(#ribfold)" stroke="'+GOLDDD+'" stroke-width="1.5"/>'
+    + '<path d="M356 392 L382 408 L356 404 L356 392 Z" fill="url(#ribfold)" stroke="'+GOLDDD+'" stroke-width="1.5"/>'
+    + '<path d="M52 356 L52 402 L36 414 L52 410 L52 426 L'+cx+' 426 L348 426 L348 410 L364 414 L348 402 L348 356 Q274 380 '+cx+' 380 Q126 380 52 356 Z" fill="url(#ribg)" stroke="'+GOLDDD+'" stroke-width="2" filter="url(#sft)"/>'
+    + '<text x="'+cx+'" y="392" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="bold" fill="'+CRIMD+'" text-anchor="middle" letter-spacing="1.2">'+escapeXml(ageLabel.toUpperCase())+'</text>'
+    + '<text x="'+cx+'" y="416" font-family="Georgia,\'Times New Roman\',serif" font-size="21" font-weight="bold" fill="'+CRIM+'" text-anchor="middle">'+escapeXml(zone)+'</text>'
     + '</svg>';
 }
 function escapeXml(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-function laurel(cx, baseY, flip){
-  var s = flip ? -1 : 1;
-  var leaves = '';
-  // main branch
-  for(var i=0;i<9;i++){
-    var t = i/8;
-    var ly = baseY - t*150;
-    var lx = cx + s*(Math.sin(t*Math.PI)*16 - 4);
-    var rot = s*(48 - t*36);
-    var rx = 4.6 - t*0.8, ry = 11 - t*1.5;
-    leaves += '<ellipse cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" rx="'+rx.toFixed(1)+'" ry="'+ry.toFixed(1)+'" fill="#C9A94A" opacity="0.95" transform="rotate('+rot.toFixed(1)+' '+lx.toFixed(1)+' '+ly.toFixed(1)+')"/>';
+function laurel(cx, cy, side){
+  // Cradling laurel wreath: a branch that joins at bottom-centre and opens at the top.
+  // Cubic bezier hugging the side of the shield. side=-1 left, +1 right.
+  var S ={x:cx+side*6,   y:cy+118};      // bottom-centre join
+  var C1={x:cx+side*78,  y:cy+126};      // sweep out along the bottom
+  var C2={x:cx+side*130, y:cy+26};       // up the side, far out
+  var E ={x:cx+side*86,  y:cy-66};       // open near the top
+  function bez(t){var u=1-t;return{x:u*u*u*S.x+3*u*u*t*C1.x+3*u*t*t*C2.x+t*t*t*E.x, y:u*u*u*S.y+3*u*u*t*C1.y+3*u*t*t*C2.y+t*t*t*E.y};}
+  function dbez(t){var u=1-t;return{x:3*u*u*(C1.x-S.x)+6*u*t*(C2.x-C1.x)+3*t*t*(E.x-C2.x), y:3*u*u*(C1.y-S.y)+6*u*t*(C2.y-C1.y)+3*t*t*(E.y-C2.y)};}
+  var stem='<path d="M'+S.x.toFixed(1)+' '+S.y.toFixed(1)+' C'+C1.x.toFixed(1)+' '+C1.y.toFixed(1)+' '+C2.x.toFixed(1)+' '+C2.y.toFixed(1)+' '+E.x.toFixed(1)+' '+E.y.toFixed(1)+'" fill="none" stroke="#8A6E1E" stroke-width="2.8"/>';
+  var leaves='';
+  var N=17;
+  for(var i=1;i<=N;i++){
+    var t=i/(N+1);
+    var p=bez(t), d=dbez(t);
+    var ang=Math.atan2(d.y,d.x)*180/Math.PI;       // tangent direction along branch
+    var len=14.0 - t*3.4, wdt=6.2 - t*1.1;
+    // leaves alternate slightly for a natural, overlapping wreath; all point outward (away from centre)
+    var rotO=ang - side*52;                         // outer leaf opens toward the rim
+    leaves+='<ellipse cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" rx="'+wdt.toFixed(1)+'" ry="'+len.toFixed(1)+'" fill="url(#leafg)" stroke="#7A6018" stroke-width="0.4" transform="rotate('+rotO.toFixed(1)+' '+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"/>';
+    var rotI=ang - side*116;                        // inner leaf fills toward the shield
+    leaves+='<ellipse cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" rx="'+(wdt*0.92).toFixed(1)+'" ry="'+(len*0.86).toFixed(1)+'" fill="url(#leafg)" stroke="#7A6018" stroke-width="0.4" opacity="0.97" transform="rotate('+rotI.toFixed(1)+' '+p.x.toFixed(1)+' '+p.y.toFixed(1)+')"/>';
   }
-  return '<g>'+leaves+'</g>';
+  // small berry cluster at the bottom join (only draw once, on the right pass)
+  var berry = side>0 ? '<circle cx="'+cx+'" cy="'+(cy+120)+'" r="3.6" fill="url(#leafg)" stroke="#7A6018" stroke-width="0.4"/>' : '';
+  return '<g>'+stem+leaves+berry+'</g>';
 }
 
 function ZoneBadge(props){
@@ -4645,11 +4676,72 @@ function ZoneBadge(props){
     note?h("p",{style:{color:"#2E7D32",fontSize:12,marginTop:12}},note):null);
 }
 
+// ===== Badge Modal (popup viewer for the digital badge) =====
+function BadgeModal(props){
+  var zone=props.zone;
+  var zc=ZC[zone.id]; var color=zc.a;
+  var ageLabel=zone.age||"Certified";
+  var svgStr=zoneBadgeSVG(zone.label, color, ageLabel);
+  var msg=useState(""); var note=msg[0], setNote=msg[1];
+  var user=props.user||getUser();
+  var earned = isZoneComplete(zone.id);
+
+  function downloadPNG(){
+    try{
+      var img=new Image();
+      img.onload=function(){
+        var W=800,H=884; var canvas=document.createElement('canvas'); canvas.width=W; canvas.height=H;
+        var ctx=canvas.getContext('2d');
+        ctx.fillStyle="#F9F7F4"; ctx.fillRect(0,0,W,H);
+        ctx.drawImage(img,0,0,W,H);
+        canvas.toBlob(function(blob){
+          var url=URL.createObjectURL(blob); var a=document.createElement('a');
+          a.href=url; a.download="AI-University-Badge-"+zone.id+".png"; a.click();
+          setNote("Badge downloaded! Share it anywhere.");
+        });
+      };
+      img.onerror=function(){ setNote("Could not render badge. Try again."); };
+      img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr);
+    }catch(e){ setNote("Could not render badge."); }
+  }
+  var shareUrl="https://ai-university.co.in";
+  var shareText="I earned the "+zone.label+" badge at AI University! \uD83C\uDF93 Learning AI, one step at a time.";
+  function shareTo(platform){
+    var u=encodeURIComponent(shareUrl), t=encodeURIComponent(shareText), link="";
+    if(platform==="linkedin") link="https://www.linkedin.com/sharing/share-offsite/?url="+u;
+    else if(platform==="x") link="https://twitter.com/intent/tweet?text="+t+"&url="+u;
+    else if(platform==="whatsapp") link="https://wa.me/?text="+t+"%20"+u;
+    else if(platform==="facebook") link="https://www.facebook.com/sharer/sharer.php?u="+u;
+    window.open(link,"_blank","noopener,noreferrer");
+  }
+
+  return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20},onClick:function(e){if(e.target===e.currentTarget)props.onClose();}},
+    h("div",{style:{background:"#fff",maxWidth:440,width:"100%",borderRadius:10,overflow:"hidden",maxHeight:"92vh",overflowY:"auto",position:"relative"}},
+      h("button",{onClick:props.onClose,style:{position:"absolute",top:10,right:10,background:CR,color:"#fff",border:"none",width:30,height:30,borderRadius:"50%",cursor:"pointer",fontSize:15,zIndex:2}},"\u2715"),
+      h("div",{style:{padding:"26px 24px 22px",textAlign:"center"}},
+        h("div",{style:{fontSize:11,letterSpacing:2,color:GOLD,textTransform:"uppercase",fontWeight:700,marginBottom:4}},earned?"\u2605 Achievement Unlocked":"Digital Badge"),
+        h("h3",{style:{fontFamily:"EB Garamond,serif",fontSize:21,color:INK,marginBottom:14}},zone.label+" Badge"),
+        h("div",{style:{maxWidth:300,margin:"0 auto 16px",filter:"drop-shadow(0 8px 20px rgba(0,0,0,0.18))"},dangerouslySetInnerHTML:{__html:svgStr}}),
+        earned
+          ? h("div",null,
+              h("p",{style:{color:SLATE,fontSize:13,marginBottom:16,lineHeight:1.6}},"Congratulations! You've completed this track. Download your badge and share your achievement."),
+              h("div",{style:{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:14}},
+                h("button",{onClick:downloadPNG,style:{background:CR,color:"#fff",border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:6,fontSize:13}},"\u2B07 Download Badge")),
+              h("div",{style:{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}},
+                [["linkedin","LinkedIn","#0A66C2"],["x","X","#000000"],["whatsapp","WhatsApp","#25D366"],["facebook","Facebook","#1877F2"]].map(function(p){
+                  return h("button",{key:p[0],onClick:function(){shareTo(p[0]);},style:{background:p[2],color:"#fff",border:"none",padding:"8px 16px",fontWeight:600,cursor:"pointer",borderRadius:6,fontSize:12}},p[1]);
+                })),
+              note?h("p",{style:{color:"#2E7D32",fontSize:12,marginTop:12}},note):null)
+          : h("p",{style:{color:SLATE,fontSize:13,fontStyle:"italic",lineHeight:1.6}},"This is the badge you'll earn for the "+zone.label+" track. Complete all "+zoneLessonTotal(zone.id)+" lessons ("+zoneCompletedCount(zone.id)+" done) to unlock it for download and sharing.")
+      )));
+}
+
 
 function LearnScreen(props){
   var zone=props.zone;var zc=ZC[zone.id];
   var lessons=(CURRICULUM[zone.id]&&CURRICULUM[zone.id][0]&&CURRICULUM[zone.id][0].lessons)?CURRICULUM[zone.id][0].lessons:[];
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
+  var bd=useState(false);var showBadge=bd[0],setShowBadge=bd[1];
   // progress state for this zone
   var pr=useState(getProgress());var prog=pr[0],setProg=pr[1];
   var user = props.user;
@@ -4666,10 +4758,12 @@ function LearnScreen(props){
   var pct = total>0 ? Math.round(doneCount/total*100) : 0;
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
     showCert?h(CertModal,{zone:zone,user:user,onClose:function(){setShowCert(false);}}):null,
+    showBadge?h(BadgeModal,{zone:zone,user:user,onClose:function(){setShowBadge(false);}}):null,
     h("div",{style:{background:zc.a,padding:"16px 20px",display:"flex",alignItems:"center",gap:16,flexWrap:"wrap",position:"sticky",top:0,zIndex:10}},
       h("button",{onClick:props.onBack,style:{background:"rgba(255,255,255,0.2)",color:"#fff",border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600}},"\u2190 Back to Zones"),
       h("img",{src:IMG.logoNav,style:{width:36,height:36,objectFit:"contain"},alt:""}),
       h("div",{style:{flex:1,minWidth:120}},h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:18}},zone.label),h("div",{style:{color:"rgba(255,255,255,0.85)",fontSize:12}},zone.age)),
+      h("button",{onClick:function(){setShowBadge(true);},style:{background:allDone?"#fff":"rgba(255,255,255,0.25)",color:allDone?zc.a:"#fff",border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:13}}, allDone?"\u2605 View Badge":"View Badge"),
       h("button",{onClick:function(){setShowCert(true);},style:{background:allDone?GOLD:"rgba(255,255,255,0.25)",color:allDone?INK:"#fff",border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:13}}, allDone?"\u2605 Get Certificate":"View Certificate")),
     h("div",{style:{maxWidth:760,margin:"0 auto",padding:"32px 20px"}},
       h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:28,color:INK,marginBottom:8}},"Curriculum"),
@@ -5013,11 +5107,232 @@ function EvolutionPage(){
 }
 
 
+// ===== Practice Lab : Prompt Engineering =====
+// Analyse a prompt against prompt-engineering best practices (instant, local),
+// then run it against a free, no-key LLM (Pollinations) to show the result.
+function analysePrompt(p){
+  var text=(p||"").trim();
+  var lower=text.toLowerCase();
+  var words=text?text.split(/\s+/).length:0;
+  var checks=[];
+  function add(ok,label,tip){ checks.push({ok:ok,label:label,tip:tip}); }
+
+  // 1. Enough detail
+  add(words>=12, "Sufficient detail",
+    "Your prompt is quite short ("+words+" words). Add more detail about exactly what you want \u2014 vague prompts give vague answers.");
+  // 2. Role / persona
+  var hasRole=/(act as|you are|as an? |imagine you|pretend you|in the role of|play the role)/i.test(text);
+  add(hasRole, "Assigns a role / persona",
+    "Give the model a role, e.g. \u201CAct as an experienced data scientist\u2026\u201D. A clear persona sharpens tone and expertise.");
+  // 3. Context / background
+  var hasContext=/(context|background|i am|i'm|we are|my (project|company|goal|audience)|for a|the situation)/i.test(text);
+  add(hasContext || words>40, "Provides context",
+    "Add background \u2014 who it's for, the situation, any constraints. Context helps the model tailor the response.");
+  // 4. Clear task / action verb
+  var hasVerb=/\b(write|create|explain|summari[sz]e|list|generate|analy[sz]e|compare|translate|draft|design|describe|outline|suggest|improve|rewrite|classify|extract|calculate|plan|review|critique)\b/i.test(text);
+  add(hasVerb, "Clear task (action verb)",
+    "State the action plainly with a verb like \u201Cwrite\u201D, \u201Csummarise\u201D or \u201Ccompare\u201D so the model knows what to do.");
+  // 5. Output format
+  var hasFormat=/(bullet|list|table|json|markdown|paragraph|steps|step-by-step|format|in \d+ words|word limit|headings|outline|csv|essay|email|tweet|code|column)/i.test(text);
+  add(hasFormat, "Specifies output format",
+    "Tell it the format you want \u2014 a bulleted list, a table, JSON, \u201Cin under 100 words\u201D, etc. Otherwise you get an unpredictable shape.");
+  // 6. Audience / tone
+  var hasAudience=/(audience|beginner|expert|child|student|layman|non-technical|professional|tone|formal|casual|friendly|for (a|an) )/i.test(text);
+  add(hasAudience, "Defines audience / tone",
+    "Name your audience and tone, e.g. \u201Cfor a non-technical manager, friendly tone\u201D, so the level and style fit.");
+  // 7. Examples (few-shot)
+  var hasExamples=/(for example|e\.g\.|such as|like this|example:|here(?:'s| is) an example)/i.test(text);
+  add(hasExamples, "Includes an example (few-shot)",
+    "Show one example of the input/output you expect. Even a single example dramatically improves consistency.");
+  // 8. Vague filler words
+  var vague=(lower.match(/\b(good|nice|stuff|things|something|some|various|etc|a lot|better|interesting)\b/g)||[]);
+  add(vague.length===0, "Avoids vague words",
+    "Replace vague words ("+(vague.length?Array.from(new Set(vague)).slice(0,4).join(", "):"e.g. \u201Cgood\u201D, \u201Cstuff\u201D")+") with concrete specifics.");
+  // 9. Step-by-step for complex asks
+  var complex=words>30 || /\b(analy[sz]e|plan|strategy|design|solve|reason|compare|evaluate)\b/i.test(text);
+  var hasCoT=/(step by step|step-by-step|think through|reasoning|explain your|show your work|walk me through)/i.test(text);
+  add(!complex || hasCoT, "Asks for step-by-step reasoning",
+    "For complex tasks, add \u201Cthink step by step\u201D \u2014 it pushes the model to reason before answering, improving accuracy.");
+
+  var passed=checks.filter(function(c){return c.ok;}).length;
+  var score=Math.round(passed/checks.length*100);
+  return {checks:checks, score:score, passed:passed, total:checks.length, words:words};
+}
+
+// Build an improved prompt locally by layering in the missing best practices.
+function buildImprovedPrompt(p, a){
+  var base=(p||"").trim(); if(!base) return "";
+  var add=[];
+  var has={};
+  a.checks.forEach(function(c){ has[c.label]=c.ok; });
+  var pre="";
+  if(!has["Assigns a role / persona"]) pre="Act as an expert in the relevant field. ";
+  var lines=[pre+base];
+  var extras=[];
+  if(!has["Provides context"]) extras.push("Context: [add who this is for and any relevant background].");
+  if(!has["Defines audience / tone"]) extras.push("Audience & tone: write for [your audience] in a [formal/friendly] tone.");
+  if(!has["Specifies output format"]) extras.push("Format: respond as [a concise bulleted list / a table / under 150 words].");
+  if(!has["Includes an example (few-shot)"]) extras.push("Example of what good looks like: [paste one short example].");
+  if(!has["Asks for step-by-step reasoning"]) extras.push("Think step by step before giving your final answer.");
+  if(extras.length){ lines.push(""); lines=lines.concat(extras); }
+  return lines.join("\n");
+}
+
+function PracticeLabPage(){
+  var pr=useState(""); var prompt=pr[0], setPrompt=pr[1];
+  var rs=useState(""); var result=rs[0], setResult=rs[1];
+  var ld=useState(false); var loading=ld[0], setLoading=ld[1];
+  var er=useState(""); var error=er[0], setError=er[1];
+  var md=useState("openai"); var model=md[0], setModel=md[1];
+  var ai=useState(""); var aiTip=ai[0], setAiTip=ai[1];
+  var al=useState(false); var aiLoading=al[0], setAiLoading=al[1];
+
+  var analysis = analysePrompt(prompt);
+
+  var EXAMPLES=[
+    "Write a short poem about the ocean.",
+    "Act as a career coach. I have 8 years in clinical research and want to move into AI product management. In a concise bulleted list, give me a 90-day plan to make the switch, written for a busy professional. Think step by step.",
+    "Explain machine learning."
+  ];
+
+  function callLLM(text, cb, errcb){
+    // Pollinations: free, no API key, CORS-enabled. Try OpenAI-style POST, fall back to GET.
+    fetch("https://text.pollinations.ai/openai",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:model, messages:[{role:"user",content:text}], seed:Math.floor(Math.random()*100000)})
+    }).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+      .then(function(d){
+        var out=(d&&d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)?d.choices[0].message.content:"";
+        if(out) cb(out); else throw new Error("Empty response");
+      })
+      .catch(function(){
+        // GET fallback
+        fetch("https://text.pollinations.ai/"+encodeURIComponent(text)+"?model="+encodeURIComponent(model))
+          .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.text(); })
+          .then(function(t){ if(t&&t.trim()) cb(t); else throw new Error("Empty response"); })
+          .catch(function(e){ errcb(e); });
+      });
+  }
+
+  function run(){
+    if(!prompt.trim()){ setError("Type a prompt first."); return; }
+    setError(""); setResult(""); setLoading(true);
+    callLLM(prompt, function(out){ setResult(out); setLoading(false); },
+      function(){ setLoading(false); setError("The free model is busy or unreachable right now. Please try again in a moment (this calls a public, no-cost AI service that occasionally rate-limits)."); });
+  }
+
+  function askAiToImprove(){
+    if(!prompt.trim()){ setError("Type a prompt first."); return; }
+    setAiTip(""); setAiLoading(true);
+    var meta="You are a prompt-engineering coach. Rewrite the user's prompt to be clearer and more effective, then briefly explain in 2-3 bullet points what you changed and why. Keep it practical.\n\nUSER PROMPT:\n"+prompt;
+    callLLM(meta, function(out){ setAiTip(out); setAiLoading(false); },
+      function(){ setAiLoading(false); setAiTip(""); setError("Couldn't reach the AI coach right now \u2014 the local suggestions on the right still apply."); });
+  }
+
+  function useImproved(){ setPrompt(buildImprovedPrompt(prompt, analysis)); setAiTip(""); }
+
+  var scoreColor = analysis.score>=80 ? "#2E7D32" : analysis.score>=50 ? GOLD : CR;
+  var suggestions = analysis.checks.filter(function(c){return !c.ok;});
+
+  var card={background:"#fff",border:"1px solid "+BORDER,borderRadius:10,padding:"20px"};
+
+  return h("div",{style:{maxWidth:1100,margin:"0 auto",padding:"36px 20px 60px"}},
+    h("div",{style:{textAlign:"center",marginBottom:8}},
+      h("div",{style:{fontSize:11,letterSpacing:3,color:GOLD,textTransform:"uppercase",fontWeight:700}},"Practice Lab")),
+    h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:34,color:INK,textAlign:"center",marginBottom:8}},"Prompt Engineering Practice"),
+    h("p",{style:{color:SLATE,fontSize:15,textAlign:"center",maxWidth:680,margin:"0 auto 28px",lineHeight:1.7}},"Write a prompt, run it against a free AI model, and get instant, highlighted suggestions to make your prompt sharper. Learning by doing \u2014 no sign-up, no API key."),
+
+    h("div",{className:"lab-grid",style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:22,alignItems:"start"}},
+
+      // ---- Left column : input + result ----
+      h("div",null,
+        h("div",{style:card},
+          h("label",{style:{display:"block",fontWeight:700,color:INK,marginBottom:8,fontSize:14}},"Your prompt"),
+          h("textarea",{value:prompt,onChange:function(e){setPrompt(e.target.value);},placeholder:"e.g. Act as a nutritionist and create a simple 3-day vegetarian meal plan for a beginner, as a bulleted list...",
+            style:{width:"100%",minHeight:150,padding:"12px 14px",border:"1px solid "+BORDER,borderRadius:8,fontSize:14,fontFamily:"inherit",resize:"vertical",boxSizing:"border-box",lineHeight:1.6}}),
+          h("div",{style:{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap",marginTop:12}},
+            h("label",{style:{fontSize:13,color:SLATE}},"Model:"),
+            h("select",{value:model,onChange:function(e){setModel(e.target.value);},style:{padding:"8px 10px",border:"1px solid "+BORDER,borderRadius:6,fontSize:13,background:"#fff"}},
+              h("option",{value:"openai"},"OpenAI (GPT-4o-mini)"),
+              h("option",{value:"mistral"},"Mistral"),
+              h("option",{value:"llama"},"Llama")),
+            h("button",{onClick:run,disabled:loading,style:{background:CR,color:"#fff",border:"none",padding:"10px 22px",fontWeight:700,cursor:loading?"default":"pointer",borderRadius:6,fontSize:14,opacity:loading?0.7:1}},loading?"Running\u2026":"\u25B6 Run Prompt")),
+          h("div",{style:{marginTop:12,fontSize:12,color:SLATE}},"Try an example: ",
+            EXAMPLES.map(function(ex,i){ return h("span",{key:i,onClick:function(){setPrompt(ex);},style:{color:CR,cursor:"pointer",textDecoration:"underline",marginRight:12}},["Simple","Strong","Vague"][i]); })),
+          error?h("p",{style:{color:CR,fontSize:13,marginTop:12,background:"#FFF3F3",border:"1px solid #F3C9C9",padding:"10px 12px",borderRadius:6}},error):null
+        ),
+        // Result
+        (loading||result)?h("div",{style:Object.assign({},card,{marginTop:18})},
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}},
+            h("div",{style:{fontWeight:700,color:INK,fontSize:14}},"AI Result"),
+            result?h("button",{onClick:function(){try{navigator.clipboard.writeText(result);}catch(e){}},style:{background:"none",border:"1px solid "+BORDER,borderRadius:5,padding:"4px 10px",fontSize:12,cursor:"pointer",color:SLATE}},"Copy"):null),
+          loading?h("p",{style:{color:SLATE,fontSize:14,fontStyle:"italic"}},"Thinking\u2026 the free model is generating a response."):
+            h("div",{style:{whiteSpace:"pre-wrap",fontSize:14,lineHeight:1.7,color:INK2}},result)
+        ):null
+      ),
+
+      // ---- Right column : highlighted suggestions ----
+      h("div",null,
+        h("div",{style:card},
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}},
+            h("div",{style:{fontWeight:700,color:INK,fontSize:14}},"Prompt strength"),
+            h("div",{style:{fontWeight:800,fontSize:22,color:scoreColor}},analysis.score+"%")),
+          h("div",{style:{height:8,background:BORDER,borderRadius:5,overflow:"hidden",marginBottom:6}},
+            h("div",{style:{height:"100%",width:analysis.score+"%",background:scoreColor,transition:"width 0.3s"}})),
+          h("p",{style:{fontSize:12,color:SLATE,marginBottom:16}},analysis.passed+" of "+analysis.total+" best practices applied \u00B7 "+analysis.words+" words"),
+
+          suggestions.length
+            ? h("div",null,
+                h("div",{style:{fontSize:11,letterSpacing:1.5,color:CR,fontWeight:700,textTransform:"uppercase",marginBottom:10}},"\u26A1 Suggestions to improve"),
+                suggestions.map(function(c,i){
+                  return h("div",{key:i,style:{background:"#FFFBEC",borderLeft:"4px solid "+GOLD,borderRadius:"0 6px 6px 0",padding:"10px 14px",marginBottom:10}},
+                    h("div",{style:{fontWeight:700,color:INK,fontSize:13,marginBottom:3}},c.label),
+                    h("div",{style:{fontSize:12.5,color:INK3,lineHeight:1.55}},c.tip));
+                }))
+            : h("div",{style:{background:"#EAF6EC",borderLeft:"4px solid #2E7D32",borderRadius:"0 6px 6px 0",padding:"12px 14px"}},
+                h("div",{style:{fontWeight:700,color:"#1B5E20",fontSize:13}},"\u2714 Excellent prompt!"),
+                h("div",{style:{fontSize:12.5,color:"#2E5530",lineHeight:1.55,marginTop:3}},"You've applied all the core best practices. Run it and compare results.")),
+
+          // what's already good
+          (analysis.passed>0)?h("div",{style:{marginTop:14}},
+            h("div",{style:{fontSize:11,letterSpacing:1.5,color:"#2E7D32",fontWeight:700,textTransform:"uppercase",marginBottom:8}},"\u2714 Already strong"),
+            h("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},
+              analysis.checks.filter(function(c){return c.ok;}).map(function(c,i){
+                return h("span",{key:i,style:{fontSize:11.5,background:"#EAF6EC",color:"#1B5E20",padding:"4px 9px",borderRadius:20}},c.label);
+              }))):null,
+
+          h("div",{style:{display:"flex",gap:10,marginTop:18,flexWrap:"wrap"}},
+            h("button",{onClick:useImproved,disabled:!prompt.trim()||suggestions.length===0,style:{background:GOLD,color:INK,border:"none",padding:"9px 16px",fontWeight:700,cursor:(!prompt.trim()||suggestions.length===0)?"default":"pointer",borderRadius:6,fontSize:13,opacity:(!prompt.trim()||suggestions.length===0)?0.5:1}},"\u2728 Apply suggestions"),
+            h("button",{onClick:askAiToImprove,disabled:aiLoading||!prompt.trim(),style:{background:"#fff",color:CR,border:"1px solid "+CR,padding:"9px 16px",fontWeight:700,cursor:(aiLoading||!prompt.trim())?"default":"pointer",borderRadius:6,fontSize:13,opacity:(aiLoading||!prompt.trim())?0.6:1}},aiLoading?"Asking AI\u2026":"Ask AI coach"))
+        ),
+        aiTip?h("div",{style:Object.assign({},card,{marginTop:18,background:"#FBF7FF",border:"1px solid #E2D4F0"})},
+          h("div",{style:{fontWeight:700,color:"#5B2A86",fontSize:14,marginBottom:8}},"\uD83E\uDDE0 AI coach feedback"),
+          h("div",{style:{whiteSpace:"pre-wrap",fontSize:13.5,lineHeight:1.7,color:INK2}},aiTip)):null,
+
+        // tips reference
+        h("div",{style:Object.assign({},card,{marginTop:18})},
+          h("div",{style:{fontWeight:700,color:INK,fontSize:14,marginBottom:10}},"The 6 pillars of a great prompt"),
+          [["Role","Tell it who to be \u2014 \u201CAct as a\u2026\u201D"],
+           ["Task","One clear instruction with an action verb"],
+           ["Context","Background, audience and goal"],
+           ["Format","List, table, JSON, word limit\u2026"],
+           ["Example","Show one sample of the ideal output"],
+           ["Reasoning","\u201CThink step by step\u201D for hard tasks"]].map(function(t,i){
+            return h("div",{key:i,style:{display:"flex",gap:10,marginBottom:8}},
+              h("span",{style:{color:GOLD,fontWeight:800,minWidth:74,fontSize:13}},t[0]),
+              h("span",{style:{fontSize:13,color:SLATE,lineHeight:1.5}},t[1]));
+          }))
+      )
+    ),
+    h("p",{style:{textAlign:"center",color:SLATE,fontSize:11.5,marginTop:26,fontStyle:"italic"}},"Powered by a free, public AI service (Pollinations.ai) \u00B7 responses may vary and the service occasionally rate-limits. For sensitive or production work, use a dedicated provider.")
+  );
+}
+
 // ===== Home =====
 function Home(props){
   var m=useState(false);var menuOpen=m[0],setMenu=m[1];
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
-  var navItems=[["curriculum","Curriculum"],["evolution","AI Evolution"],["research","Research"],["policy","Policy Lab"],["about","About"]];
+  var navItems=[["curriculum","Curriculum"],["practice","Practice Lab"],["evolution","AI Evolution"],["research","Research"],["policy","Policy Lab"],["about","About"]];
   function go(p){setMenu(false);props.onNav(p);}
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
     showCert?h(CertModal,{zone:null,onClose:function(){setShowCert(false);}}):null,
@@ -5044,10 +5359,11 @@ function Home(props){
       h("h1",{style:{fontFamily:"EB Garamond,serif",fontSize:42,color:"#fff",marginBottom:16,fontWeight:400}},"Where do you fit ",h("em",{style:{color:GOLD}},"in AI?")),
       h("p",{style:{color:"rgba(255,255,255,0.75)",fontSize:16,maxWidth:520,margin:"0 auto 24px",lineHeight:1.7}},"Seven age-calibrated tracks. Lessons, videos, case studies and AI quizzes. Open access for everyone."),
       h("div",{style:{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}},
-        [["120+ Lessons","curriculum"],["Research Library","research"],["AI Quiz Generator","zones"],["Completion Certificate","cert"]].map(function(b){
+        [["120+ Lessons","curriculum"],["Practice Lab","practice"],["AI Quiz Generator","zones"],["Completion Certificate","cert"]].map(function(b){
           return h("div",{key:b[0],onClick:function(){
             if(b[1]==="curriculum")props.onNav("curriculum");
             else if(b[1]==="research")props.onNav("research");
+            else if(b[1]==="practice")props.onNav("practice");
             else if(b[1]==="cert")setShowCert(true);
             else{var el=document.getElementById("zone-select");if(el)el.scrollIntoView({behavior:"smooth"});}
           },style:{background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.25)",padding:"8px 16px",fontSize:12,color:"#fff",cursor:"pointer",borderRadius:4}},b[0]);
@@ -5096,6 +5412,7 @@ function App(){
   var navProps = {user:user, onLogin:function(){setShowAuth(true);}, onLogout:logout};
   if(zone)return h("div",null, authModal, h(LearnScreen,{zone:zone,user:user,onBack:function(){setZone(null);window.scrollTo(0,0);},onLoginPrompt:function(){setShowAuth(true);}}));
   if(page==="curriculum")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(CurriculumPage,{onEnter:enter})));
+  if(page==="practice")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PracticeLabPage)));
   if(page==="research")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(ResearchPage)));
   if(page==="policy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PolicyPage)));
   if(page==="evolution")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(EvolutionPage)));
