@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 ML Pet Trainer • AI Odyssey Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', system_ui, sans-serif; }
+        .ml-bg { background: linear-gradient(180deg, #052e16 0%, #14532d 100%); }
+        .card { transition: all 0.2s ease; }
+        .pop { animation: pop 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
+        @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .pet-bounce { display:inline-block; animation: bounce 2.2s ease-in-out infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    </style>
+</head>
+<body class="ml-bg text-emerald-100 min-h-screen">
+    <div class="max-w-5xl mx-auto px-5 py-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-x-3">
+                <a href="index.html" class="flex items-center text-emerald-300 hover:text-white text-sm font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+                </a>
+                <div class="px-3.5 py-1 bg-white/10 text-xs font-bold tracking-[1px] rounded-2xl">GAME 4 / 5</div>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <div class="bg-white/10 px-5 py-2 rounded-2xl flex items-center text-sm">
+                    <span class="font-extrabold text-2xl text-emerald-400" id="total-score">0</span>
+                    <span class="text-white/50 ml-1.5">/ 250</span>
+                </div>
+                <div class="bg-white/10 px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-x-2">
+                    <i class="fas fa-robot"></i>
+                    <span>ACCURACY: <span id="accuracy">0</span>%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <div class="text-6xl pet-bounce mb-1">🐶</div>
+            <h1 class="text-5xl font-extrabold tracking-tighter">ML Pet Trainer</h1>
+            <p class="text-emerald-300 mt-1">Teach your AI pet to tell yummy <b>snacks</b> from fun <b>toys</b> — then test what it learned!</p>
+        </div>
+
+        <!-- STEP 1: Training -->
+        <div class="bg-white/95 text-emerald-950 rounded-3xl p-6 mb-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-2xl font-bold"><span class="text-emerald-600">Step 1 ·</span> Training Examples</h2>
+                <div id="count" class="text-emerald-600 font-medium">0 / 8 labeled</div>
+            </div>
+            <p class="text-sm text-emerald-700/80 mb-4">Tap <b>SNACK</b> or <b>TOY</b> for each item. Your pet learns only from what YOU teach it — so label carefully! (Label at least one snack <i>and</i> one toy.)</p>
+            <div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+            <button onclick="trainPet()" id="trainBtn" class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 py-4 rounded-2xl text-xl font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed" disabled>🧠 TRAIN MY PET!</button>
+        </div>
+
+        <!-- STEP 2: Final Exam (10 new items) -->
+        <div id="examSection" class="hidden bg-white/95 text-emerald-950 rounded-3xl p-6 mb-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-2xl font-bold"><span class="text-emerald-600">Step 2 ·</span> Pet's Final Exam 🎓</h2>
+                <div id="examProgress" class="text-emerald-600 font-medium">0 / 10 correct</div>
+            </div>
+            <p class="text-sm text-emerald-700/80 mb-4">Here are <b>10 brand-new items your pet has never seen</b>. Using only what it learned in training, your pet will guess each one as a Snack or Toy. Get all 10 right for <b>100% trained</b>!</p>
+            <div id="examGrid" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
+            <button onclick="runExam()" id="examBtn" class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 py-4 rounded-2xl text-xl font-bold text-white">🔮 LET MY PET ANSWER!</button>
+            <div id="examResult" class="hidden mt-6 p-5 rounded-2xl text-center"></div>
+        </div>
+
+        <!-- Completion -->
+        <div id="completion-screen" class="hidden text-center bg-white text-emerald-950 rounded-3xl p-9 shadow-2xl mb-8">
+            <div class="text-7xl mb-3">🏆</div>
+            <h2 class="text-4xl font-extrabold tracking-tight">Training 100% Complete!</h2>
+            <p class="mt-2 text-xl text-emerald-600 font-semibold">Your pet aced all 10 questions!</p>
+            <p class="text-lg text-emerald-700 font-medium">Final Score: <span id="final-score" class="font-extrabold"></span>/250</p>
+
+            <div class="my-7 inline-flex bg-gradient-to-r from-emerald-400 to-teal-400 text-white px-8 py-3.5 rounded-3xl items-center gap-x-4 shadow-inner">
+                <i class="fas fa-graduation-cap text-3xl"></i>
+                <div class="text-left">
+                    <div class="font-extrabold text-lg tracking-wider">ML PET TRAINER</div>
+                    <div class="text-xs -mt-0.5 opacity-90">Master Pet Teacher · 100% Accuracy</div>
+                </div>
+            </div>
+
+            <div class="max-w-md mx-auto text-sm text-emerald-700 mb-6">You just trained a real machine-learning idea: the pet studied your labeled examples, found a pattern, and used it to sort things it had never seen before. That's how AI learns!</div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="restartGame()" class="px-8 py-3.5 border border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-extrabold rounded-2xl">PLAY AGAIN</button>
+                <a href="index.html" class="px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-2xl flex items-center justify-center">BACK TO HUB</a>
+            </div>
+        </div>
+
+        <!-- Replay (always available) -->
+        <div class="text-center mt-2 mb-10">
+            <button onclick="restartGame()" class="px-8 py-3 border border-emerald-400 text-emerald-300 hover:bg-white/10 rounded-2xl">RESTART GAME</button>
+        </div>
+    </div>
+
+    <script>
+        // Each item has two kid-friendly "features": how SWEET (0-10) and how FUN-TO-PLAY (0-10) it is.
+        // The pet learns a snack-prototype and a toy-prototype from YOUR labels, then classifies new items
+        // by whichever prototype they are closest to (a simple nearest-centroid classifier).
+        let trainingData = [
+            { name: "Apple",      emoji: "🍎", truth: "snack", sweet: 8,  fun: 2,  label: null },
+            { name: "Chocolate",  emoji: "🍫", truth: "snack", sweet: 10, fun: 3,  label: null },
+            { name: "Carrot",     emoji: "🥕", truth: "snack", sweet: 5,  fun: 1,  label: null },
+            { name: "Teddy Bear", emoji: "🧸", truth: "toy",   sweet: 1,  fun: 9,  label: null },
+            { name: "Toy Car",    emoji: "🚗", truth: "toy",   sweet: 0,  fun: 10, label: null },
+            { name: "Banana",     emoji: "🍌", truth: "snack", sweet: 7,  fun: 2,  label: null },
+            { name: "Balloon",    emoji: "🎈", truth: "toy",   sweet: 0,  fun: 8,  label: null },
+            { name: "Peanuts",    emoji: "🥜", truth: "snack", sweet: 4,  fun: 2,  label: null }
+        ];
+
+        // 10 brand-new items the pet has never seen during training.
+        const examData = [
+            { name: "Pizza",      emoji: "🍕", truth: "snack", sweet: 6,  fun: 3  },
+            { name: "Kite",       emoji: "🪁", truth: "toy",   sweet: 0,  fun: 9  },
+            { name: "Grapes",     emoji: "🍇", truth: "snack", sweet: 8,  fun: 2  },
+            { name: "Soccer Ball",emoji: "⚽", truth: "toy",   sweet: 0,  fun: 10 },
+            { name: "Donut",      emoji: "🍩", truth: "snack", sweet: 9,  fun: 3  },
+            { name: "Puzzle",     emoji: "🧩", truth: "toy",   sweet: 1,  fun: 8  },
+            { name: "Ice Cream",  emoji: "🍦", truth: "snack", sweet: 10, fun: 4  },
+            { name: "Paint Set",  emoji: "🎨", truth: "toy",   sweet: 1,  fun: 7  },
+            { name: "Strawberry", emoji: "🍓", truth: "snack", sweet: 8,  fun: 2  },
+            { name: "Boomerang",  emoji: "🪃", truth: "toy",   sweet: 0,  fun: 9  }
+        ];
+
+        let model = null;          // { snack:{sweet,fun}, toy:{sweet,fun} }
+        let examPredictions = [];  // predicted labels for examData
+        const TRAIN_POINTS = 50;   // awarded once for training the pet
+        const PER_ANSWER = 20;     // per correct exam answer  => 50 + 10*20 = 250 max
+        let trainScore = 0;
+        let examScore = 0;
+
+        /* ---------- STEP 1: TRAINING ---------- */
+        function renderGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            trainingData.forEach((item, i) => {
+                const div = document.createElement('div');
+                div.className = `card bg-emerald-50 border-2 ${item.label ? (item.label === 'snack' ? 'border-emerald-400' : 'border-orange-400') : 'border-emerald-100'} p-4 rounded-3xl text-center`;
+                div.innerHTML = `
+                    <div class="text-5xl mb-2">${item.emoji}</div>
+                    <div class="font-bold text-sm mb-3">${item.name}</div>
+                    <div class="flex gap-1.5 justify-center">
+                        <button onclick="labelItem(${i}, 'snack')" class="flex-1 py-1.5 rounded-xl text-xs font-bold ${item.label === 'snack' ? 'bg-emerald-600 text-white' : 'bg-white text-emerald-700 border border-emerald-200'}">SNACK</button>
+                        <button onclick="labelItem(${i}, 'toy')" class="flex-1 py-1.5 rounded-xl text-xs font-bold ${item.label === 'toy' ? 'bg-orange-500 text-white' : 'bg-white text-orange-600 border border-orange-200'}">TOY</button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+            const labeled = trainingData.filter(i => i.label).length;
+            const hasSnack = trainingData.some(i => i.label === 'snack');
+            const hasToy   = trainingData.some(i => i.label === 'toy');
+            document.getElementById('count').textContent = `${labeled} / 8 labeled`;
+            document.getElementById('trainBtn').disabled = !(hasSnack && hasToy);
+        }
+
+        function labelItem(i, choice) {
+            // tap again to un-label
+            trainingData[i].label = (trainingData[i].label === choice) ? null : choice;
+            renderGrid();
+        }
+
+        function centroid(arr) {
+            return {
+                sweet: arr.reduce((a, i) => a + i.sweet, 0) / arr.length,
+                fun:   arr.reduce((a, i) => a + i.fun, 0) / arr.length
+            };
+        }
+
+        function trainPet() {
+            const snacks = trainingData.filter(i => i.label === 'snack');
+            const toys   = trainingData.filter(i => i.label === 'toy');
+            if (!snacks.length || !toys.length) {
+                alert("Please label at least one SNACK and one TOY so your pet has both kinds of examples to learn from!");
+                return;
+            }
+            // Build the pet's "brain": one prototype per class.
+            model = { snack: centroid(snacks), toy: centroid(toys) };
+
+            trainScore = TRAIN_POINTS;
+            updateScore();
+
+            // Reveal the exam
+            document.getElementById('examSection').classList.remove('hidden');
+            document.getElementById('examResult').classList.add('hidden');
+            document.getElementById('examBtn').disabled = false;
+            examPredictions = [];
+            renderExamGrid();
+            document.getElementById('examSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* ---------- STEP 2: FINAL EXAM ---------- */
+        function predict(item) {
+            const dist = (a, b) => Math.hypot(a.sweet - b.sweet, a.fun - b.fun);
+            return dist(item, model.snack) <= dist(item, model.toy) ? 'snack' : 'toy';
+        }
+
+        function renderExamGrid() {
+            const grid = document.getElementById('examGrid');
+            grid.innerHTML = '';
+            examData.forEach((item, i) => {
+                const pred = examPredictions[i];
+                let footer = `<div class="mt-2 text-xs text-emerald-400 font-medium">Pet thinking…</div>`;
+                let ring = 'border-emerald-100';
+                if (pred) {
+                    const correct = pred === item.truth;
+                    ring = correct ? 'border-emerald-400' : 'border-rose-400';
+                    footer = `
+                        <div class="mt-2 pop">
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${pred === 'snack' ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}">${pred.toUpperCase()}</span>
+                            <div class="text-xs mt-1 font-bold ${correct ? 'text-emerald-600' : 'text-rose-600'}">
+                                ${correct ? '✅ Correct' : '❌ Oops — it was ' + item.truth.toUpperCase()}
+                            </div>
+                        </div>`;
+                }
+                const div = document.createElement('div');
+                div.className = `bg-emerald-50 border-2 ${ring} p-4 rounded-3xl text-center`;
+                div.innerHTML = `
+                    <div class="text-4xl mb-1">${item.emoji}</div>
+                    <div class="text-xs font-semibold">${item.name}</div>
+                    ${footer}
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function runExam() {
+            if (!model) { alert("Train your pet first!"); return; }
+
+            // Pet answers all 10 new items from what it learned.
+            examPredictions = examData.map(item => predict(item));
+            renderExamGrid();
+
+            const correct = examData.filter((item, i) => examPredictions[i] === item.truth).length;
+            const acc = Math.round((correct / examData.length) * 100);
+
+            examScore = correct * PER_ANSWER;
+            updateScore();
+            document.getElementById('accuracy').innerText = acc;
+            document.getElementById('examProgress').innerText = `${correct} / 10 correct`;
+
+            const box = document.getElementById('examResult');
+            box.classList.remove('hidden');
+            if (correct === examData.length) {
+                box.className = 'mt-6 p-5 rounded-2xl text-center bg-emerald-100 border border-emerald-300';
+                box.innerHTML = `<div class="text-3xl mb-1">🎉</div><div class="font-extrabold text-emerald-800 text-lg">Perfect! 10 / 10 — Training is 100% complete!</div>`;
+                document.getElementById('examBtn').disabled = true;
+                setTimeout(showCompletion, 900);
+            } else {
+                box.className = 'mt-6 p-5 rounded-2xl text-center bg-amber-50 border border-amber-200';
+                box.innerHTML = `
+                    <div class="font-extrabold text-amber-800 text-lg mb-1">Your pet got ${correct} / 10 right (${acc}%).</div>
+                    <div class="text-sm text-amber-700">Your pet only knows what you taught it. If some training labels were wrong, it learns the wrong pattern! Fix your labels in Step 1, then <b>Train</b> again to reach 100%.</div>
+                    <button onclick="backToTraining()" class="mt-3 px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-sm">↑ FIX LABELS & RETRAIN</button>
+                `;
+            }
+        }
+
+        function backToTraining() {
+            document.getElementById('grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showCompletion() {
+            const screen = document.getElementById('completion-screen');
+            screen.classList.remove('hidden');
+            document.getElementById('final-score').innerText = trainScore + examScore;
+            screen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            launchConfetti();
+        }
+
+        /* ---------- SHARED ---------- */
+        function updateScore() {
+            document.getElementById('total-score').innerText = trainScore + examScore;
+        }
+
+        function restartGame() {
+            trainingData.forEach(i => i.label = null);
+            model = null;
+            examPredictions = [];
+            trainScore = 0;
+            examScore = 0;
+            document.getElementById('total-score').innerText = '0';
+            document.getElementById('accuracy').innerText = '0';
+            document.getElementById('examProgress').innerText = '0 / 10 correct';
+            document.getElementById('examSection').classList.add('hidden');
+            document.getElementById('examResult').classList.add('hidden');
+            document.getElementById('completion-screen').classList.add('hidden');
+            document.getElementById('examBtn').disabled = false;
+            renderGrid();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function launchConfetti() {
+            const colors = ['#10b981', '#34d399', '#f59e0b', '#22c55e', '#fbbf24'];
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.style.cssText = `position:fixed;left:${Math.random()*window.innerWidth}px;top:-25px;width:11px;height:11px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};z-index:99999`;
+                    document.body.appendChild(c);
+                    c.animate([
+                        { transform: `translateY(0) rotate(0deg)` },
+                        { transform: `translateY(${window.innerHeight + 80}px) rotate(${Math.random()*180-90}deg)` }
+                    ], { duration: 2400 + Math.random()*900, easing: 'ease-out' }).onfinish = () => c.remove();
+                }, i * 1.6);
+            }
+        }
+
+        // Init
+        renderGrid();
+        console.log('%c[ML Pet Trainer] Fixed: score reaches 250, real nearest-centroid learning, 10-item exam + 100% completion.', 'color:#10b981');
+    </script>
+</body>
+</html>

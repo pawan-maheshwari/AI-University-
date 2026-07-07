@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕵️ Bias Buster • AI Odyssey Games (FIXED)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', system_ui, sans-serif; }
+        .fun-font { font-family: 'Fredoka', system_ui, sans-serif; }
+        .detective-bg { background: linear-gradient(180deg, #0f172a 0%, #1e1135 100%); }
+        .case-card { transition: all 0.3s ease; }
+        .bias-highlight { background: #fef08c; color: #713f12; padding: 1px 4px; border-radius: 3px; cursor: pointer; font-weight: 600; }
+        .bias-highlight:hover { background: #fde047; }
+        .bias-highlight.selected { background: #f59e0b; color: white; }
+        .score-pop { animation: pop 0.4s ease forwards; }
+        @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="detective-bg text-slate-200 min-h-screen">
+    <div class="max-w-4xl mx-auto px-5 py-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-x-3">
+                <a href="index.html" class="flex items-center text-amber-300 hover:text-white text-sm font-medium transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+                </a>
+                <div class="px-3.5 py-1 bg-white/10 text-xs font-bold tracking-[1px] rounded-2xl">GAME 2 / 5</div>
+            </div>
+            <div class="flex items-center gap-x-4">
+                <div class="bg-white/10 px-5 py-2 rounded-2xl flex items-center text-sm">
+                    <span class="font-extrabold text-2xl text-emerald-400" id="total-score">0</span>
+                    <span class="text-white/50 ml-1.5">/ 280</span>
+                </div>
+                <div class="bg-white/10 px-4 py-2 rounded-2xl text-sm font-bold flex items-center gap-x-2">
+                    <i class="fas fa-search text-amber-400"></i>
+                    <span id="case-progress">CASE 1/4</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-7">
+            <div class="inline-flex w-16 h-16 items-center justify-center bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl mb-3 shadow-2xl">
+                <span class="text-5xl">🕵️</span>
+            </div>
+            <h1 class="text-5xl font-extrabold tracking-tighter">Bias Buster</h1>
+            <p class="text-amber-300 mt-1">Spot unfair stereotypes • Fix AI outputs • Become a fairness hero!</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="max-w-lg mx-auto mb-8">
+            <div class="h-2.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-2.5 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500" style="width: 25%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-white/50 mt-1 px-0.5">
+                <div>START</div>
+                <div>FAIRNESS MASTER</div>
+            </div>
+        </div>
+
+        <!-- Current Case -->
+        <div id="case-area" class="bg-white text-slate-900 rounded-3xl p-7 shadow-2xl mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <span id="case-badge" class="px-4 py-1 text-xs font-extrabold tracking-widest bg-orange-100 text-orange-700 rounded-2xl">CASE #1</span>
+                </div>
+                <div class="text-xs text-slate-400 font-medium">FIND THE BIAS • EARN POINTS</div>
+            </div>
+
+            <h2 id="case-title" class="font-extrabold text-2xl tracking-tight mb-3"></h2>
+            <p id="case-intro" class="text-slate-600 mb-5 text-[15px]"></p>
+
+            <!-- AI Output Text -->
+            <div class="mb-5">
+                <div class="uppercase text-xs font-extrabold tracking-[1.5px] text-slate-500 mb-2 px-1">AI GENERATED OUTPUT</div>
+                <div id="ai-output" class="bg-slate-50 border border-slate-200 p-5 rounded-2xl text-[15.2px] leading-relaxed">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-2 px-1">
+                    <div class="text-xs font-extrabold text-slate-500">CLICK ON BIASED WORDS OR PHRASES YOU SPOT</div>
+                    <div id="found-count" class="text-xs font-bold text-emerald-600"></div>
+                </div>
+                
+                <!-- Interactive text with clickable spans -->
+                <div id="interactive-text" class="bg-white border-2 border-dashed border-amber-200 p-5 rounded-2xl text-[15px] leading-relaxed min-h-[118px]">
+                    <!-- JS inserts clickable spans -->
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button onclick="checkFindings()" 
+                        class="flex items-center justify-center gap-x-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all text-white font-extrabold py-[17px] rounded-2xl text-base shadow-lg">
+                    <i class="fas fa-check-double"></i>
+                    <span>CHECK MY FINDINGS</span>
+                </button>
+                
+                <button onclick="showHint()" class="border-2 border-slate-300 hover:bg-slate-50 font-bold py-[17px] px-5 rounded-2xl text-sm flex items-center justify-center gap-x-2 text-slate-700">
+                    <i class="fas fa-question-circle"></i> <span>HINT</span>
+                </button>
+                
+                <button onclick="resetCase()" class="border-2 border-slate-300 hover:bg-slate-50 font-bold py-[17px] px-5 rounded-2xl text-sm flex items-center justify-center gap-x-2 text-slate-700">
+                    <i class="fas fa-redo"></i> <span>RESET</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Modal-like -->
+        <div id="results-panel" class="hidden bg-white text-slate-900 rounded-3xl p-7 shadow-2xl mb-6">
+            <div class="flex justify-between items-start mb-5">
+                <div>
+                    <span class="font-extrabold text-2xl">Case Results</span>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-slate-500">POINTS EARNED</div>
+                    <div class="font-extrabold text-5xl text-emerald-600" id="case-score">+85</div>
+                </div>
+            </div>
+
+            <div id="findings-summary" class="mb-6 text-sm"></div>
+
+            <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl mb-5 text-sm">
+                <div class="font-bold text-emerald-700 mb-1 flex items-center gap-x-2"><i class="fas fa-graduation-cap"></i> WHAT WE LEARNED</div>
+                <div id="learning-point" class="text-emerald-800"></div>
+            </div>
+
+            <div class="flex gap-x-3">
+                <button onclick="nextCase()" class="flex-1 py-4 bg-emerald-600 hover:bg-emerald-700 transition text-white font-extrabold rounded-2xl flex items-center justify-center gap-x-2">
+                    NEXT CASE <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+                <button onclick="document.getElementById('results-panel').classList.add('hidden'); document.getElementById('case-area').classList.remove('hidden')" 
+                        class="px-8 py-4 border-2 border-slate-300 rounded-2xl font-bold text-sm">REVIEW AGAIN</button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div id="completion-screen" class="hidden text-center bg-white text-slate-900 rounded-3xl p-9 shadow-2xl">
+            <div class="text-6xl mb-3">🦸</div>
+            <h2 class="text-4xl font-extrabold tracking-tight">Fairness Champion!</h2>
+            <p class="mt-2 text-xl text-emerald-600 font-semibold">Total Score: <span id="final-score"></span>/280</p>
+            
+            <div class="my-7 inline-flex bg-gradient-to-r from-emerald-400 to-teal-400 text-white px-8 py-3.5 rounded-3xl items-center gap-x-4 shadow-inner">
+                <i class="fas fa-medal text-3xl"></i>
+                <div class="text-left">
+                    <div class="font-extrabold text-lg tracking-wider">BIAS BUSTER</div>
+                    <div class="text-xs -mt-0.5 opacity-90">Junior Fairness Detective</div>
+                </div>
+            </div>
+
+            <div class="max-w-xs mx-auto text-xs text-slate-500 mb-6">You now know how to spot stereotypes in AI and how to ask AI to be fairer and more inclusive.</div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="restartGame()" class="px-8 py-3.5 border border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-extrabold rounded-2xl">PLAY AGAIN</button>
+                <a href="index.html" class="px-8 py-3.5 bg-emerald-600 text-white font-extrabold rounded-2xl flex items-center justify-center">BACK TO HUB</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cases = [
+            {
+                id: 1,
+                title: "The Helpful Robot at School",
+                intro: "An AI wrote this story for a class 5 project. Can you find the unfair parts?",
+                aiText: "Riya wanted to become a doctor when she grew up. Her brother Aarav wanted to become an engineer. The teacher said Riya should help the nurse and Aarav should help the science teacher build robots.",
+                biasSpans: [
+                    { text: "help the nurse", biasType: "Gender Stereotype", explanation: "Assumes girls help nurses (female role) while boys do science/robotics." },
+                    { text: "build robots", biasType: "Gender Stereotype", explanation: "Boys are pushed toward STEM/engineering roles; girls toward caring roles." }
+                ],
+                correctBiasCount: 2,
+                learning: "AI often copies old stereotypes from training data. Good prompt: 'Write a story where both boys and girls can become doctors, engineers, or anything they dream of, with equal encouragement.'"
+            },
+            {
+                id: 2,
+                title: "Career Day Recommendations",
+                intro: "The school AI career bot gave these suggestions. Spot the bias!",
+                aiText: "For the boys in class: You will be great at cricket, coding, and becoming pilots. For the girls: You will enjoy art, dance, teaching, and helping in the kitchen at home.",
+                biasSpans: [
+                    { text: "cricket, coding, and becoming pilots", biasType: "Gender + Activity Bias", explanation: "Limits boys to 'active/male' activities and STEM." },
+                    { text: "art, dance, teaching, and helping in the kitchen", biasType: "Gender Stereotype", explanation: "Pushes girls only into creative/caring/domestic roles." }
+                ],
+                correctBiasCount: 2,
+                learning: "This is classic gender bias. Better prompt: 'Give career ideas for all students without assuming what boys or girls like. Include many different options like doctor, artist, scientist, teacher, athlete for everyone.'"
+            },
+            {
+                id: 3,
+                title: "The Smart Student Story",
+                intro: "AI wrote this paragraph about a smart student. Find the hidden bias.",
+                aiText: "The smartest student in the class was a boy named Rohan. He always answered first. Priya was quiet but also knew the answers. The teacher gave Rohan the Science Star award because he was confident.",
+                biasSpans: [
+                    { text: "The smartest student in the class was a boy named Rohan", biasType: "Gender + Confidence Bias", explanation: "Assumes the smartest/most visible student is male." },
+                    { text: "gave Rohan the Science Star award because he was confident", biasType: "Bias in Recognition", explanation: "Rewards loud confidence over quiet knowledge. Often disadvantages girls and introverted kids." }
+                ],
+                correctBiasCount: 2,
+                learning: "AI can reinforce that 'smart = loud boy'. Better prompt: 'Write about two smart students — one boy and one girl. Show different ways of being smart and confident. Both get recognition.'"
+            },
+            {
+                id: 4,
+                title: "Festival Celebration",
+                intro: "AI created this description of a school festival. Can you catch the unfair parts?",
+                aiText: "During the annual day, the boys performed a powerful martial arts show. The girls performed a graceful classical dance. Everyone clapped loudly for the boys' energetic performance.",
+                biasSpans: [
+                    { text: "powerful martial arts show", biasType: "Gender Stereotype", explanation: "Boys = strong/powerful/active. Girls = graceful/delicate." },
+                    { text: "graceful classical dance", biasType: "Gender Stereotype", explanation: "Limits girls to 'pretty' performances while boys get 'powerful' ones." },
+                    { text: "clapped loudly for the boys' energetic performance", biasType: "Unequal Praise", explanation: "Gives more excitement and attention to boys' activity." }
+                ],
+                correctBiasCount: 3,
+                learning: "Even in celebrations, AI can show bias. Better prompt: 'Describe a school festival where boys and girls perform different activities but both are celebrated equally for their talent, energy and creativity.'"
+            }
+        ];
+
+        let currentCase = 0;
+        let totalScore = 0;
+        let selectedBiases = [];
+
+        function updateProgress() {
+            const progress = ((currentCase) / cases.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('case-progress').innerText = `CASE ${currentCase + 1}/${cases.length}`;
+            document.getElementById('total-score').innerText = totalScore;
+        }
+
+        function loadCase(caseIndex) {
+            const c = cases[caseIndex];
+            document.getElementById('case-badge').innerText = `CASE #${c.id}`;
+            document.getElementById('case-title').innerText = c.title;
+            document.getElementById('case-intro').innerText = c.intro;
+            
+            // AI output
+            document.getElementById('ai-output').innerHTML = c.aiText;
+            
+            // Create interactive text with clickable bias spans
+            const interactive = document.getElementById('interactive-text');
+            interactive.innerHTML = '';
+            selectedBiases = [];
+            
+            let html = c.aiText;
+            
+            // Replace bias phrases with clickable spans
+            c.biasSpans.forEach((bias, idx) => {
+                const spanId = `bias-${idx}`;
+                const regex = new RegExp(bias.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+                html = html.replace(regex, `<span id="${spanId}" class="bias-highlight px-1 rounded cursor-pointer" data-idx="${idx}">${bias.text}</span>`);
+            });
+            
+            interactive.innerHTML = html;
+            
+            // Add click listeners
+            c.biasSpans.forEach((bias, idx) => {
+                const span = document.getElementById(`bias-${idx}`);
+                if (span) {
+                    span.onclick = () => toggleBiasSelection(span, idx, bias);
+                }
+            });
+            
+            document.getElementById('found-count').innerText = `0 / ${c.correctBiasCount} found`;
+            document.getElementById('case-area').classList.remove('hidden');
+            document.getElementById('results-panel').classList.add('hidden');
+            
+            updateProgress();
+        }
+
+        function toggleBiasSelection(span, idx, biasInfo) {
+            if (selectedBiases.includes(idx)) {
+                // Deselect
+                selectedBiases = selectedBiases.filter(i => i !== idx);
+                span.classList.remove('selected', 'bg-orange-500', 'text-white');
+                span.classList.add('bias-highlight');
+            } else {
+                selectedBiases.push(idx);
+                span.classList.add('selected', 'bg-orange-500', 'text-white');
+                span.classList.remove('bias-highlight');
+            }
+            
+            const c = cases[currentCase];
+            document.getElementById('found-count').innerText = `${selectedBiases.length} / ${c.correctBiasCount} found`;
+        }
+
+        function checkFindings() {
+            const c = cases[currentCase];
+            let correct = 0;
+            let wrong = 0;
+            
+            selectedBiases.forEach(idx => {
+                if (idx < c.biasSpans.length) correct++;
+            });
+            
+            // Calculate score (adjusted for realistic max ~280)
+            let caseScore = Math.round((correct / c.correctBiasCount) * 70);
+            if (selectedBiases.length > c.correctBiasCount) caseScore -= 15; // penalty for extra clicks
+            
+            caseScore = Math.max(caseScore, 15);
+            totalScore += caseScore;
+            
+            // Show results
+            document.getElementById('case-area').classList.add('hidden');
+            document.getElementById('results-panel').classList.remove('hidden');
+            
+            document.getElementById('case-score').innerText = `+${caseScore}`;
+            
+            // Summary
+            let summaryHTML = `<div class="font-bold mb-2">You found <span class="text-emerald-600">${correct}</span> out of <span class="font-extrabold">${c.correctBiasCount}</span> biased parts.</div>`;
+            
+            summaryHTML += `<div class="space-y-3 mt-4">`;
+            c.biasSpans.forEach((bias, idx) => {
+                const found = selectedBiases.includes(idx);
+                summaryHTML += `
+                    <div class="flex gap-x-3 ${found ? 'text-emerald-700' : 'text-slate-400'}">
+                        <div class="mt-0.5">${found ? '✅' : '❌'}</div>
+                        <div class="flex-1">
+                            <span class="font-semibold">"${bias.text}"</span><br>
+                            <span class="text-xs">${bias.explanation}</span>
+                        </div>
+                    </div>`;
+            });
+            summaryHTML += `</div>`;
+            
+            document.getElementById('findings-summary').innerHTML = summaryHTML;
+            document.getElementById('learning-point').innerHTML = c.learning;
+            
+            updateProgress();
+        }
+
+        function showHint() {
+            const c = cases[currentCase];
+            alert("🕵️ BIAS BUSTER HINT:\n\nLook for words that assume boys do 'active/STEM' things and girls do 'pretty/caring' things.\n\nAlso watch for who gets more praise or opportunities.");
+        }
+
+        function nextCase() {
+            currentCase++;
+            if (currentCase >= cases.length) {
+                document.getElementById('results-panel').classList.add('hidden');
+                document.getElementById('completion-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = totalScore;
+                launchConfetti();
+            } else {
+                loadCase(currentCase);
+            }
+        }
+
+        function resetCase() {
+            loadCase(currentCase);
+        }
+
+        function restartGame() {
+            currentCase = 0;
+            totalScore = 0;
+            document.getElementById('completion-screen').classList.add('hidden');
+            loadCase(0);
+            updateProgress();
+        }
+
+        function launchConfetti() {
+            const colors = ['#f59e0b', '#ea580c', '#22c55e', '#eab308'];
+            for (let i = 0; i < 48; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.style.cssText = `position:fixed;left:${Math.random()*window.innerWidth}px;top:-20px;width:11px;height:11px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:50%;z-index:99999`;
+                    document.body.appendChild(c);
+                    c.animate([
+                        {transform: `translateY(0) rotate(0)`},
+                        {transform: `translateY(${window.innerHeight+60}px) rotate(${Math.random()*90-20}deg)`}
+                    ], {duration: 2400 + Math.random()*700, easing:'ease-out'}).onfinish = () => c.remove();
+                }, i*2);
+            }
+        }
+
+        function initGame() {
+            loadCase(0);
+            updateProgress();
+            
+            // Keyboard hint
+            document.addEventListener('keydown', function(e) {
+                if (e.key.toLowerCase() === '?' && document.getElementById('case-area').classList.contains('hidden') === false) {
+                    e.preventDefault();
+                    showHint();
+                }
+            });
+            
+            console.log('%c[Bias Buster FIXED] Score total now matches realistic max (280). Perfect play = 280/280.', 'color:#64748b');
+        }
+        
+        window.onload = initGame;
+    </script>
+</body>
+</html>

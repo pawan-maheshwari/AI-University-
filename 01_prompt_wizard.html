@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧙 Prompt Wizard • AI Odyssey Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;family=Fredoka:wght@400;500;600&amp;display=swap');
+        body { font-family: 'Poppins', system_ui, sans-serif; }
+        .fun-font { font-family: 'Fredoka', 'Poppins', system_ui, sans-serif; font-weight: 600; }
+        .wizard-bg { background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%); }
+        .magic-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .magic-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        .prompt-input { font-size: 15px; line-height: 1.5; }
+        .score-bar { transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .level-badge { background: linear-gradient(90deg, #7c3aed, #c026ff); }
+        .tip-box { background: #fefce8; border-left: 5px solid #eab308; }
+        .genie { font-size: 4.5rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .story-text { font-size: 15px; line-height: 1.65; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 wizard-bg min-h-screen">
+    <div class="max-w-4xl mx-auto px-5 py-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-x-4">
+                <a href="index.html" class="flex items-center gap-x-2 text-violet-300 hover:text-white transition-colors text-sm font-medium">
+                    <i class="fas fa-arrow-left mr-1"></i> <span>Back to Hub</span>
+                </a>
+                <div class="h-3 w-px bg-white/20"></div>
+                <div>
+                    <span class="px-3 py-1 bg-white/10 text-xs font-bold tracking-widest rounded-full">GAME 1 / 5</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <div class="px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-2xl text-sm flex items-center gap-x-2">
+                    <i class="fas fa-tachometer-alt text-emerald-400"></i>
+                    <span class="font-bold" id="total-score">0</span>
+                    <span class="text-white/50">/ 300</span>
+                </div>
+                <div class="px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-2xl text-sm flex items-center gap-x-2">
+                    <span id="level-indicator" class="font-extrabold">LEVEL 1</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-violet-400 to-fuchsia-400 rounded-3xl mb-4 shadow-xl">
+                <span class="genie">🧞</span>
+            </div>
+            <h1 class="text-5xl font-extrabold tracking-tighter">Prompt Wizard</h1>
+            <p class="text-xl text-violet-200 mt-1">Master the magic of talking to AI!</p>
+            <p class="text-sm text-white/60 mt-2 max-w-md mx-auto">Write the best prompts so the Genie gives you exactly what you want. Great prompts = amazing results!</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="max-w-md mx-auto mb-8">
+            <div class="flex justify-between text-xs mb-1.5 px-1">
+                <div class="font-semibold">PROGRESS</div>
+                <div><span id="levels-completed">0</span>/3 Levels</div>
+            </div>
+            <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-3 bg-gradient-to-r from-violet-400 to-fuchsia-400 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Current Scenario -->
+        <div id="game-area" class="bg-white text-slate-900 rounded-3xl shadow-2xl p-7 mb-6">
+            <div class="flex items-center gap-x-3 mb-4">
+                <div class="px-4 py-1 bg-violet-100 text-violet-700 font-extrabold text-sm rounded-2xl flex items-center w-fit">
+                    <i class="fas fa-scroll mr-2"></i> 
+                    <span id="scenario-number">SCENARIO 1</span>
+                </div>
+                <div id="difficulty-badge" class="px-3 py-1 text-xs font-bold rounded-2xl bg-emerald-100 text-emerald-700">EASY</div>
+            </div>
+
+            <h2 id="scenario-title" class="font-extrabold text-2xl tracking-tight mb-3"></h2>
+            <div id="scenario-desc" class="text-[15px] text-slate-600 mb-5 leading-relaxed"></div>
+
+            <!-- Prompt Input -->
+            <div class="mb-4">
+                <label class="block text-xs font-extrabold tracking-widest text-slate-500 mb-2 px-1">YOUR PROMPT TO THE GENIE</label>
+                <textarea id="prompt-input" rows="4" 
+                          class="prompt-input w-full border-2 border-violet-200 focus:border-violet-400 transition-colors px-5 py-4 rounded-2xl text-base resize-y"
+                          placeholder="Example: Write a fun 8-sentence adventure story about a 10-year-old girl from Bengaluru who finds a magic lamp during Diwali..."></textarea>
+                <div class="flex justify-between text-[10px] text-slate-400 px-1 mt-1">
+                    <div>Tip: Be specific • Add age • Say the style • Mention beginning-middle-end</div>
+                    <div id="char-count">0 / 280</div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <button onclick="submitPrompt()" 
+                        class="magic-btn flex-1 flex items-center justify-center gap-x-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white font-extrabold py-4 px-8 text-lg rounded-2xl shadow-xl">
+                    <i class="fas fa-magic"></i>
+                    <span>SEND TO GENIE</span>
+                </button>
+                
+                <button onclick="giveHint()" 
+                        class="magic-btn flex items-center justify-center gap-x-2 border-2 border-violet-300 hover:bg-violet-50 text-violet-700 font-bold py-4 px-6 rounded-2xl text-sm">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>HINT</span>
+                </button>
+                
+                <button onclick="resetLevel()" 
+                        class="magic-btn flex items-center justify-center gap-x-2 border-2 border-slate-300 hover:bg-slate-50 text-slate-600 font-bold py-4 px-5 rounded-2xl text-sm">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Area (hidden initially) -->
+        <div id="results-area" class="hidden bg-white text-slate-900 rounded-3xl shadow-2xl p-7 mb-6">
+            <div class="flex items-center justify-between mb-5">
+                <div>
+                    <span class="font-extrabold text-xl">Genie's Response</span>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-slate-500">YOUR PROMPT SCORE</div>
+                    <div class="flex items-baseline justify-end gap-x-1">
+                        <span id="prompt-score" class="font-extrabold text-5xl text-emerald-600">92</span>
+                        <span class="text-emerald-600">/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl mb-5 story-text" id="genie-response">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Score Breakdown -->
+            <div class="mb-6">
+                <div class="text-xs font-extrabold tracking-widest text-slate-500 mb-3 px-1">PROMPT BREAKDOWN</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="score-breakdown">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="tip-box p-4 rounded-2xl mb-5 text-sm" id="feedback-tips">
+                <!-- JS feedback -->
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="nextLevel()" id="next-btn"
+                        class="flex-1 magic-btn bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-4 rounded-2xl flex items-center justify-center gap-x-2 text-lg">
+                    <span>NEXT LEVEL</span> <i class="fas fa-arrow-right"></i>
+                </button>
+                <button onclick="tryAgain()" 
+                        class="magic-btn border-2 border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-4 px-8 rounded-2xl">
+                    TRY AGAIN
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion Screen -->
+        <div id="completion-screen" class="hidden text-center bg-white text-slate-900 rounded-3xl shadow-2xl p-9">
+            <div class="text-7xl mb-4">🏆</div>
+            <h2 class="text-4xl font-extrabold tracking-tight mb-2">You are a Prompt Master!</h2>
+            <p class="text-xl text-emerald-600 font-semibold mb-6">Final Score: <span id="final-score" class="font-extrabold"></span>/300</p>
+            
+            <div class="max-w-xs mx-auto mb-8">
+                <div class="text-xs uppercase tracking-[1.5px] text-emerald-600 font-bold mb-2">BADGE EARNED</div>
+                <div class="inline-flex items-center gap-x-3 bg-gradient-to-r from-emerald-400 to-teal-400 text-white px-7 py-3 rounded-3xl shadow-inner">
+                    <i class="fas fa-magic text-2xl"></i>
+                    <div class="text-left">
+                        <div class="font-extrabold tracking-wider">PROMPT WIZARD</div>
+                        <div class="text-xs -mt-0.5 opacity-90">Level 3 Master</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="restartGame()" class="px-9 py-3.5 border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-extrabold rounded-2xl flex-1 sm:flex-none">PLAY AGAIN</button>
+                <a href="index.html" class="px-9 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-2xl flex-1 sm:flex-none flex items-center justify-center">BACK TO HUB</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent', '#7c3aed');
+        }
+        
+        // Game Data
+        const scenarios = [
+            {
+                id: 1,
+                title: "Diwali Magic Story",
+                desc: "The Genie wants to write a fun story for your 9-year-old cousin. It should be about a brave girl in Bengaluru who finds a magic diya during Diwali and helps her neighborhood.",
+                difficulty: "EASY",
+                targetWords: ["detailed", "fun", "for 9 year old", "beginning", "middle", "end", "Bengaluru", "Diwali", "brave", "exciting"],
+                baseStory: "Once upon a time in Bengaluru, a girl named Anika found a shiny golden diya during Diwali. It sparkled and granted her one wish...",
+                goodPromptTips: "Add age, location, beginning-middle-end structure, and words like 'fun', 'exciting' or 'brave'."
+            },
+            {
+                id: 2,
+                title: "Explain Photosynthesis Simply",
+                desc: "Your little brother (class 4) needs help understanding how plants make food. The Genie should explain it in very simple words, with one easy example from a mango tree, and maybe a fun activity.",
+                difficulty: "MEDIUM",
+                targetWords: ["simple", "class 4", "easy words", "example", "mango tree", "step by step", "fun activity", "plants make food"],
+                baseStory: "Plants are like little factories! They use sunlight, water from roots, and air (carbon dioxide) to make their own food called glucose...",
+                goodPromptTips: "Use 'step by step', 'for class 4', 'simple example with mango tree', and ask for a fun activity at the end."
+            },
+            {
+                id: 3,
+                title: "Future City Invention",
+                desc: "Create an exciting 2-paragraph description of a cool invention a 11-year-old student from Mysuru could build for the school science fair in 2030. It should help solve traffic or waste problems and be fun to read.",
+                difficulty: "HARD",
+                targetWords: ["11 year old", "Mysuru", "science fair", "invention", "2030", "traffic", "waste", "fun", "creative", "two paragraphs"],
+                baseStory: "In the year 2030, a clever student from Mysuru invented the 'Eco-Drone'. It flies over the city, picks up plastic waste using gentle arms, and plants new trees using seed bombs...",
+                goodPromptTips: "Specify age, city, year, purpose (traffic/waste), length (two paragraphs), and ask for creativity."
+            }
+        ];
+
+        let currentLevel = 0;
+        let totalScore = 0;
+        let levelsCompleted = 0;
+
+        function updateProgress() {
+            const progress = (levelsCompleted / 3) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('levels-completed').innerText = levelsCompleted;
+            document.getElementById('total-score').innerText = totalScore;
+        }
+
+        function loadScenario(levelIndex) {
+            const scenario = scenarios[levelIndex];
+            document.getElementById('scenario-number').innerText = `SCENARIO ${scenario.id}`;
+            document.getElementById('scenario-title').innerText = scenario.title;
+            document.getElementById('scenario-desc').innerText = scenario.desc;
+            document.getElementById('difficulty-badge').innerText = scenario.difficulty;
+            document.getElementById('difficulty-badge').className = 
+                `px-3 py-1 text-xs font-bold rounded-2xl ${scenario.difficulty === 'EASY' ? 'bg-emerald-100 text-emerald-700' : scenario.difficulty === 'MEDIUM' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}`;
+            
+            document.getElementById('prompt-input').value = '';
+            document.getElementById('char-count').innerText = '0 / 280';
+            
+            // Show game area, hide results
+            document.getElementById('game-area').classList.remove('hidden');
+            document.getElementById('results-area').classList.add('hidden');
+            document.getElementById('completion-screen').classList.add('hidden');
+            
+            // Update level indicator
+            document.getElementById('level-indicator').innerHTML = `LEVEL ${scenario.id} <span class="text-xs align-super">/3</span>`;
+        }
+
+        function updateCharCount() {
+            const input = document.getElementById('prompt-input');
+            const countEl = document.getElementById('char-count');
+            const len = input.value.length;
+            countEl.innerText = `${len} / 280`;
+            if (len > 280) countEl.style.color = '#ef4444';
+            else countEl.style.color = '';
+        }
+
+        function calculatePromptScore(prompt) {
+            const lower = prompt.toLowerCase().trim();
+            let score = 0;
+            const breakdown = {};
+            const scenario = scenarios[currentLevel];
+            
+            // Length (max 20 to match the /20 shown in the breakdown)
+            if (lower.length > 45) { score += 20; breakdown.length = 20; } 
+            else if (lower.length > 25) { score += 12; breakdown.length = 12; }
+            else { breakdown.length = 5; score += 5; }
+            
+            // Specificity keywords
+            let spec = 0;
+            if (lower.includes('detailed') || lower.includes('vivid') || lower.includes('colorful')) spec += 12;
+            if (lower.includes('step by step') || lower.includes('beginning') || lower.includes('middle') || lower.includes('end')) spec += 14;
+            if (lower.includes('for ') && (lower.includes('year') || lower.includes('class') || lower.includes('kid'))) spec += 13;
+            breakdown.specificity = Math.min(spec, 25);
+            score += breakdown.specificity;
+            
+            // Creativity / fun
+            let creat = 0;
+            if (lower.includes('fun') || lower.includes('exciting') || lower.includes('adventure') || lower.includes('magic')) creat += 10;
+            if (lower.includes('brave') || lower.includes('clever') || lower.includes('surprise')) creat += 8;
+            breakdown.creativity = Math.min(creat, 18);
+            score += breakdown.creativity;
+            
+            // Constraints & examples
+            let cons = 0;
+            if (lower.includes('example') || lower.includes('like')) cons += 9;
+            if (lower.includes('two paragraph') || lower.includes('8 sentence') || lower.includes('short')) cons += 8;
+            if (lower.includes('bengaluru') || lower.includes('mysuru') || lower.includes('diwali') || lower.includes('mango')) cons += 10;
+            breakdown.constraints = Math.min(cons, 20);
+            score += breakdown.constraints;
+            
+            // Bonus for very good prompts — lets a truly strong, detailed prompt reach a full 100
+            if (score >= 70 && lower.length > 60) score = Math.min(score + 17, 100);
+            else if (score > 55 && lower.length > 45) score = Math.min(score + 8, 100);
+            
+            return { score: Math.min(Math.max(score, 25), 100), breakdown, promptLower: lower };
+        }
+
+        function generateGenieResponse(promptLower, scenario, score) {
+            let response = scenario.baseStory;
+            
+            // Enhance based on score and keywords
+            if (score >= 80) {
+                response = scenario.baseStory + 
+                    " The story had a wonderful beginning, an exciting middle with a challenge, and a happy ending where everyone celebrated together. It was written especially for a " + 
+                    (promptLower.includes('9 year') || promptLower.includes('class 4') ? "young reader" : "curious 11-year-old") + 
+                    " and included lots of colorful details and magic!";
+            } else if (score >= 55) {
+                response = scenario.baseStory + " It was a nice story but could have been more exciting with a clear beginning, middle and end.";
+            } else {
+                response = "The genie tried its best but the story came out a bit short and plain. Next time try adding more details and structure!";
+            }
+            
+            // Add specific touches
+            if (promptLower.includes('bengaluru')) response = response.replace('Bengaluru', '<strong>Bengaluru</strong>');
+            if (promptLower.includes('diwali')) response = response.replace('Diwali', '<strong>Diwali</strong>');
+            if (promptLower.includes('mango')) response = response.replace('mango tree', '<strong>mango tree</strong>');
+            
+            return response;
+        }
+
+        function submitPrompt() {
+            const input = document.getElementById('prompt-input').value.trim();
+            if (!input || input.length < 12) {
+                alert("Please write a longer prompt! The genie needs more instructions.");
+                return;
+            }
+            
+            const scenario = scenarios[currentLevel];
+            const { score, breakdown } = calculatePromptScore(input);
+            
+            // Show results
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('results-area').classList.remove('hidden');
+            
+            // Score
+            document.getElementById('prompt-score').innerText = score;
+            document.getElementById('prompt-score').className = score >= 80 ? 'font-extrabold text-5xl text-emerald-600' : 
+                                                                   score >= 55 ? 'font-extrabold text-5xl text-amber-600' : 'font-extrabold text-5xl text-rose-600';
+            
+            // Genie response
+            document.getElementById('genie-response').innerHTML = generateGenieResponse(input.toLowerCase(), scenario, score);
+            
+            // Breakdown
+            const breakdownEl = document.getElementById('score-breakdown');
+            breakdownEl.innerHTML = `
+                <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-2xl">
+                    <div class="text-xs text-emerald-600 font-bold">LENGTH &amp; DETAIL</div>
+                    <div class="font-extrabold text-3xl text-emerald-700">${breakdown.length || 0}<span class="text-xs align-super">/20</span></div>
+                </div>
+                <div class="bg-violet-50 border border-violet-100 p-3 rounded-2xl">
+                    <div class="text-xs text-violet-600 font-bold">SPECIFICITY</div>
+                    <div class="font-extrabold text-3xl text-violet-700">${breakdown.specificity || 0}<span class="text-xs align-super">/25</span></div>
+                </div>
+                <div class="bg-amber-50 border border-amber-100 p-3 rounded-2xl">
+                    <div class="text-xs text-amber-600 font-bold">CREATIVITY</div>
+                    <div class="font-extrabold text-3xl text-amber-700">${breakdown.creativity || 0}<span class="text-xs align-super">/18</span></div>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 p-3 rounded-2xl">
+                    <div class="text-xs text-sky-600 font-bold">CONSTRAINTS</div>
+                    <div class="font-extrabold text-3xl text-sky-700">${breakdown.constraints || 0}<span class="text-xs align-super">/20</span></div>
+                </div>
+            `;
+            
+            // Feedback
+            let feedbackHTML = `<div class="font-bold mb-1">💡 Genie says:</div>`;
+            if (score >= 80) {
+                feedbackHTML += `Amazing prompt! You gave clear instructions, mentioned the age, and added structure. The story turned out rich and fun. Keep this up!`;
+            } else if (score >= 55) {
+                feedbackHTML += `Good effort! ${scenario.goodPromptTips} Try adding more descriptive words next time.`;
+            } else {
+                feedbackHTML += `The prompt was a bit short or vague. ${scenario.goodPromptTips} Be more specific about what you want.`;
+            }
+            document.getElementById('feedback-tips').innerHTML = feedbackHTML;
+            
+            // Update score
+            totalScore += score;
+            updateProgress();
+        }
+
+        function giveHint() {
+            const scenario = scenarios[currentLevel];
+            const hints = [
+                "Try starting with: 'Write a fun story for a 9 year old...'",
+                "Include words like 'detailed', 'exciting', 'step by step', and the child's age.",
+                "Tell the genie the structure: beginning, middle and happy ending.",
+                "Mention the city (Bengaluru or Mysuru) and festival (Diwali) to make it special."
+            ];
+            alert("🧙 PROMPT TIP:\n\n" + scenario.goodPromptTips + "\n\n" + hints[currentLevel]);
+        }
+
+        function nextLevel() {
+            levelsCompleted++;
+            currentLevel++;
+            
+            if (currentLevel >= scenarios.length) {
+                // Game complete
+                document.getElementById('results-area').classList.add('hidden');
+                document.getElementById('completion-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = totalScore;
+                
+                // Confetti
+                launchConfetti();
+            } else {
+                loadScenario(currentLevel);
+            }
+            updateProgress();
+        }
+
+        function tryAgain() {
+            document.getElementById('results-area').classList.add('hidden');
+            document.getElementById('game-area').classList.remove('hidden');
+            document.getElementById('prompt-input').focus();
+        }
+
+        function resetLevel() {
+            document.getElementById('prompt-input').value = '';
+            document.getElementById('char-count').innerText = '0 / 280';
+        }
+
+        function restartGame() {
+            currentLevel = 0;
+            totalScore = 0;
+            levelsCompleted = 0;
+            updateProgress();
+            loadScenario(0);
+            document.getElementById('completion-screen').classList.add('hidden');
+        }
+
+        function launchConfetti() {
+            const colors = ['#7c3aed', '#c026ff', '#22c55e', '#eab308'];
+            for (let i = 0; i < 55; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.style.position = 'fixed';
+                    c.style.left = Math.random() * window.innerWidth + 'px';
+                    c.style.top = '-30px';
+                    c.style.width = '13px';
+                    c.style.height = '13px';
+                    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+                    c.style.borderRadius = Math.random() > 0.6 ? '50%' : '2px';
+                    c.style.zIndex = '99999';
+                    c.style.opacity = Math.random() * 0.8 + 0.4;
+                    document.body.appendChild(c);
+                    
+                    const rot = (Math.random() * 80) - 40;
+                    c.animate([
+                        { transform: `translateY(0) rotate(0deg)` },
+                        { transform: `translateY(${window.innerHeight + 80}px) rotate(${rot * 3}deg)` }
+                    ], { duration: 2600 + Math.random()*900, easing: 'ease-out' }).onfinish = () => c.remove();
+                }, i * 1.5);
+            }
+        }
+
+        // Init
+        function initGame() {
+            initTailwind();
+            
+            // Char count listener
+            const input = document.getElementById('prompt-input');
+            input.addEventListener('input', updateCharCount);
+            
+            // Load first scenario
+            loadScenario(0);
+            updateProgress();
+            
+            // Keyboard support
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    submitPrompt();
+                }
+            });
+            
+            // Welcome toast
+            setTimeout(() => {
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-5 right-5 bg-white/95 text-slate-800 shadow-xl border border-violet-100 px-5 py-3 rounded-2xl text-sm flex items-center gap-x-3';
+                toast.innerHTML = `<div><span class="font-bold">Pro tip:</span> Press Ctrl+Enter to send prompt quickly!</div>`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.style.transition = 'all 0.4s', 10);
+                setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 4200);
+            }, 5200);
+            
+            console.log('%c[Prompt Wizard] Game ready — fully client-side. Great for teaching prompt engineering!', 'color:#64748b');
+        }
+        
+        window.onload = initGame;
+    </script>
+</body>
+</html>

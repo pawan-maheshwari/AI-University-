@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethics Guardian • AI Odyssey Games (FIXED)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', system_ui, sans-serif; }
+        .ethics-bg { background: linear-gradient(180deg, #431407 0%, #78350f 100%); }
+        .scenario-card { transition: all 0.3s ease; }
+        .choice-btn { transition: all 0.2s ease; }
+        .choice-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2); }
+        .pillar { transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+        .ethics-badge { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    </style>
+</head>
+<body class="ethics-bg text-amber-100 min-h-screen">
+    <div class="max-w-4xl mx-auto px-5 py-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-x-3">
+                <a href="index.html" class="flex items-center text-amber-300 hover:text-white text-sm font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+                </a>
+                <div class="px-3.5 py-1 bg-white/10 text-xs font-bold tracking-[1px] rounded-2xl">GAME 5 / 5</div>
+            </div>
+            <div class="flex items-center gap-x-4">
+                <div class="bg-white/10 px-5 py-2 rounded-2xl flex items-center text-sm">
+                    <span class="font-extrabold text-2xl text-amber-400" id="total-score">0</span>
+                    <span class="text-white/50 ml-1.5">/ 300</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-7">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl mb-3 shadow-xl">
+                <span class="text-6xl">🛡️</span>
+            </div>
+            <h1 class="text-5xl font-extrabold tracking-tighter">Ethics Guardian</h1>
+            <p class="text-amber-300 mt-1">You are the AI Guardian of Future School in 2035. Make wise choices!</p>
+        </div>
+
+        <!-- Pillars Dashboard -->
+        <div class="bg-white/95 text-amber-950 rounded-3xl p-5 mb-6 shadow-xl">
+            <div class="text-xs font-extrabold tracking-widest text-amber-600 mb-3 px-1">YOUR RESPONSIBLE AI SCORECARD</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="pillars">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Scenario Area -->
+        <div id="scenario-area" class="bg-white text-amber-950 rounded-3xl p-7 shadow-2xl mb-6">
+            <div class="flex items-center gap-x-3 mb-4">
+                <span id="scenario-badge" class="px-4 py-1 text-xs font-extrabold tracking-widest bg-amber-100 text-amber-700 rounded-2xl"></span>
+                <span class="text-xs text-amber-500">DILEMMA <span id="scenario-num">1</span>/5</span>
+            </div>
+
+            <h2 id="scenario-title" class="font-extrabold text-2xl tracking-tight mb-3"></h2>
+            <div id="scenario-story" class="text-[15px] leading-relaxed text-amber-800 mb-6"></div>
+
+            <div class="text-xs font-extrabold tracking-widest text-amber-600 mb-2 px-1">WHAT DO YOU DECIDE?</div>
+            
+            <div id="choices-container" class="space-y-3">
+                <!-- Choice buttons populated by JS -->
+            </div>
+        </div>
+
+        <!-- Feedback after choice -->
+        <div id="feedback-area" class="hidden bg-white text-amber-950 rounded-3xl p-6 shadow-2xl mb-6">
+            <div class="flex items-start gap-x-4">
+                <div class="text-4xl" id="feedback-emoji"></div>
+                <div class="flex-1">
+                    <div class="font-extrabold text-xl mb-1" id="feedback-title"></div>
+                    <div class="text-sm text-amber-700 mb-3" id="feedback-text"></div>
+                    
+                    <div class="text-xs font-bold text-amber-600 mb-1">IMPACT ON YOUR SCORECARD</div>
+                    <div id="impact-badges" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+            
+            <div class="mt-5 flex justify-end">
+                <button onclick="nextScenario()" class="px-8 py-3 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white font-extrabold rounded-2xl flex items-center gap-x-2">
+                    CONTINUE TO NEXT DILEMMA <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div id="completion-screen" class="hidden text-center bg-white text-amber-950 rounded-3xl p-8 shadow-2xl">
+            <div class="text-6xl mb-3">🌟</div>
+            <h2 class="text-3xl font-extrabold tracking-tight">You are a True AI Ethics Guardian!</h2>
+            <p class="mt-2 text-xl text-amber-600 font-semibold">Final Score: <span id="final-score"></span>/300</p>
+            
+            <div class="my-6 inline-flex bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-3.5 rounded-3xl items-center gap-x-4">
+                <i class="fas fa-balance-scale text-3xl"></i>
+                <div class="text-left">
+                    <div class="font-extrabold tracking-wider">RESPONSIBLE AI LEADER</div>
+                    <div class="text-xs -mt-0.5 opacity-90">Future School Guardian</div>
+                </div>
+            </div>
+
+            <div class="max-w-sm mx-auto text-sm text-amber-700 mb-6">You understand fairness, privacy, transparency and human oversight. These are the most important skills for the AI age!</div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="restartGame()" class="px-8 py-3.5 border border-amber-600 text-amber-700 hover:bg-amber-50 font-extrabold rounded-2xl">PLAY AGAIN</button>
+                <a href="index.html" class="px-8 py-3.5 bg-amber-600 text-white font-extrabold rounded-2xl flex items-center justify-center">BACK TO HUB</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pillars = [
+            { id: 'fairness', name: 'Fairness', icon: '⚖️', value: 50, color: 'from-pink-500 to-rose-500' },
+            { id: 'privacy', name: 'Privacy & Safety', icon: '🔒', value: 50, color: 'from-sky-500 to-indigo-500' },
+            { id: 'transparency', name: 'Transparency', icon: '👁️', value: 50, color: 'from-emerald-500 to-teal-500' },
+            { id: 'human', name: 'Human Oversight', icon: '🤝', value: 50, color: 'from-violet-500 to-purple-500' }
+        ];
+
+        const scenarios = [
+            {
+                id: 1,
+                badge: "HOMEWORK HELP",
+                title: "The Too-Perfect Homework",
+                story: "Your classmate Aarav used an AI tool to write his entire history project on the 'Quit India Movement'. It got full marks, but the teacher suspects it might not be his own work. Aarav says he only used AI for 'ideas'. What do you do as AI Guardian?",
+                choices: [
+                    { 
+                        text: "Tell the teacher to give zero marks — AI should never be used for homework.", 
+                        impact: { fairness: -10, transparency: -5, human: +5 },
+                        feedback: "Too strict! AI can help with ideas and research, but students must do the thinking and writing themselves.",
+                        emoji: "😕"
+                    },
+                    { 
+                        text: "Say nothing. It's not your problem.", 
+                        impact: { fairness: -5, transparency: -10 },
+                        feedback: "Ignoring problems doesn't make them go away. As Guardian you should help create fair rules.",
+                        emoji: "😐"
+                    },
+                    { 
+                        text: "Suggest a class rule: AI can help with research & ideas, but students must write in their own words + mention 'AI assisted'. Teacher verifies understanding.", 
+                        impact: { fairness: +15, transparency: +15, human: +10 },
+                        feedback: "Excellent! This balances helpful AI with human effort and honesty. This is responsible use.",
+                        emoji: "🌟"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                badge: "SCHOOL SAFETY",
+                title: "The Always-Watching Camera",
+                story: "The school wants to install AI cameras that detect 'unusual behavior' and alert teachers. It can recognize faces, track where every student goes, and even listen to conversations. Some parents are worried about privacy. What is your decision?",
+                choices: [
+                    { 
+                        text: "Approve full AI cameras. Safety is more important than privacy.", 
+                        impact: { privacy: -20, fairness: -5, human: -5 },
+                        feedback: "Too much surveillance harms trust and privacy. Kids need space to learn and make mistakes.",
+                        emoji: "😟"
+                    },
+                    { 
+                        text: "Ban all cameras. Students should have complete privacy at school.", 
+                        impact: { privacy: +5, human: -10 },
+                        feedback: "Complete ban is extreme. Some cameras for safety (like entrance) can be okay with rules.",
+                        emoji: "😕"
+                    },
+                    { 
+                        text: "Allow cameras only at entrances & corridors with clear rules: no face recognition for students, no listening to talks, data deleted after 30 days, and a student committee reviews any alerts.", 
+                        impact: { privacy: +15, transparency: +10, human: +15, fairness: +5 },
+                        feedback: "Wise balance! Privacy-respecting, transparent, and humans stay in control. Great Guardian decision!",
+                        emoji: "🛡️"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                badge: "CAREER GUIDANCE",
+                title: "The Biased Career Bot",
+                story: "The new AI career advisor at school recommends: 'Boys should focus on engineering, coding, and cricket. Girls are better at art, teaching, nursing and helping at home.' Many students feel sad or limited. What do you do?",
+                choices: [
+                    { 
+                        text: "Do nothing — the AI must be right because it's smart.", 
+                        impact: { fairness: -20, transparency: -5 },
+                        feedback: "This is harmful gender bias! AI learned old stereotypes from data. You must fix it.",
+                        emoji: "😠"
+                    },
+                    { 
+                        text: "Tell everyone to ignore the AI and choose whatever they like.", 
+                        impact: { fairness: +5, transparency: -5 },
+                        feedback: "Good intention but not enough. The AI needs to be corrected so it doesn't spread bias.",
+                        emoji: "🙂"
+                    },
+                    { 
+                        text: "Immediately pause the AI. Work with teachers & parents to retrain it with fair data. Add rule: 'AI must show many options for all genders and never assume what boys/girls like.'", 
+                        impact: { fairness: +20, transparency: +15, human: +10 },
+                        feedback: "Perfect Guardian move! You stopped harm and improved the system for everyone.",
+                        emoji: "🌟"
+                    }
+                ]
+            },
+            {
+                id: 4,
+                badge: "DEEPFAKE DANGER",
+                title: "The Fake Video of Your Principal",
+                story: "Someone created a deepfake video of your principal saying mean things about students and posted it online. Many students are upset and angry. The video looks completely real. What should the school do?",
+                choices: [
+                    { 
+                        text: "Share the video more so everyone knows it's fake.", 
+                        impact: { transparency: -10, privacy: -5 },
+                        feedback: "Sharing deepfakes makes the problem worse. Always verify before spreading.",
+                        emoji: "😕"
+                    },
+                    { 
+                        text: "Ignore it. It's just a joke.", 
+                        impact: { fairness: -10, human: -5 },
+                        feedback: "Deepfakes can damage people's reputation and trust. Ignoring is not responsible.",
+                        emoji: "😟"
+                    },
+                    { 
+                        text: "School should: 1) Clearly tell everyone it's fake with proof. 2) Teach all students how to spot deepfakes. 3) Have strict rules against creating harmful fake content of real people.", 
+                        impact: { transparency: +15, fairness: +10, human: +15, privacy: +5 },
+                        feedback: "Outstanding! Education + clear rules + transparency = best way to fight deepfakes.",
+                        emoji: "🛡️"
+                    }
+                ]
+            },
+            {
+                id: 5,
+                badge: "FINAL TEST",
+                title: "The Perfect AI Teacher Assistant",
+                story: "A new AI can grade all homework, give instant feedback, and even teach difficult topics better than some teachers. The school wants to let it replace two human teachers to save money. Many teachers are worried about losing jobs. Students like the fast feedback. What is your final decision as Guardian?",
+                choices: [
+                    { 
+                        text: "Let the AI replace the teachers. It's cheaper and faster.", 
+                        impact: { fairness: -10, human: -20, transparency: -5 },
+                        feedback: "AI should help teachers, not replace the human connection, care, and mentorship students need.",
+                        emoji: "😟"
+                    },
+                    { 
+                        text: "Ban the AI completely from teaching.", 
+                        impact: { transparency: -5, human: +5 },
+                        feedback: "AI can be a great helper. Banning it completely misses the opportunity to improve learning.",
+                        emoji: "😕"
+                    },
+                    { 
+                        text: "Use AI as a powerful assistant: AI handles grading & basic explanations. Human teachers focus on mentoring, discussions, creativity, and emotional support. Teachers get training on using AI well. No jobs lost.", 
+                        impact: { fairness: +10, transparency: +10, human: +20, privacy: +5 },
+                        feedback: "You are a true Guardian! AI + Human teamwork is the best future. This protects jobs while improving education.",
+                        emoji: "🌟"
+                    }
+                ]
+            }
+        ];
+
+        let currentScenario = 0;
+        let totalScore = 0;
+
+        function updatePillars() {
+            const container = document.getElementById('pillars');
+            container.innerHTML = '';
+            
+            pillars.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'bg-white border border-amber-100 p-3 rounded-2xl';
+                div.innerHTML = `
+                    <div class="flex justify-between items-center mb-1.5">
+                        <div class="flex items-center gap-x-2">
+                            <span class="text-xl">${p.icon}</span>
+                            <span class="font-extrabold text-sm">${p.name}</span>
+                        </div>
+                        <span class="font-mono text-xs font-bold text-amber-600">${p.value}</span>
+                    </div>
+                    <div class="h-2.5 bg-amber-100 rounded-full overflow-hidden">
+                        <div class="pillar h-2.5 rounded-full bg-gradient-to-r ${p.color}" style="width: ${p.value}%"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updatePillarValues(impact) {
+            Object.keys(impact).forEach(key => {
+                const pillar = pillars.find(p => p.id === key);
+                if (pillar) {
+                    pillar.value = Math.max(0, Math.min(100, pillar.value + impact[key]));
+                }
+            });
+            updatePillars();
+        }
+
+        function loadScenario(index) {
+            const s = scenarios[index];
+            document.getElementById('scenario-badge').innerText = s.badge;
+            document.getElementById('scenario-num').innerText = s.id;
+            document.getElementById('scenario-title').innerText = s.title;
+            document.getElementById('scenario-story').innerText = s.story;
+            
+            const container = document.getElementById('choices-container');
+            container.innerHTML = '';
+            
+            s.choices.forEach((choice, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `choice-btn w-full text-left px-5 py-4 border-2 border-amber-200 hover:border-amber-400 rounded-2xl flex gap-x-4 items-start bg-white`;
+                btn.innerHTML = `
+                    <div class="mt-0.5 w-6 h-6 flex-shrink-0 rounded-full border-2 border-amber-300 flex items-center justify-center text-xs font-extrabold text-amber-500">${String.fromCharCode(65 + idx)}</div>
+                    <div class="text-sm leading-snug">${choice.text}</div>
+                `;
+                btn.onclick = () => makeChoice(choice, btn);
+                container.appendChild(btn);
+            });
+            
+            document.getElementById('scenario-area').classList.remove('hidden');
+            document.getElementById('feedback-area').classList.add('hidden');
+        }
+
+        function makeChoice(choice, btnElement) {
+            // Disable all buttons
+            document.querySelectorAll('#choices-container button').forEach(b => b.disabled = true);
+            
+            // Raw impact sum (used for feedback wording)
+            let choiceScore = 0;
+            Object.values(choice.impact).forEach(v => choiceScore += v);
+
+            // Normalize so the BEST choice in each dilemma is worth 60 points.
+            // 5 dilemmas x 60 = 300, so perfect play reaches the full 300. Weak
+            // choices still earn a small floor of 15.
+            const s = scenarios[currentScenario];
+            const bestSum = Math.max(...s.choices.map(c =>
+                Object.values(c.impact).reduce((a, b) => a + b, 0)));
+            let points = bestSum > 0 ? Math.round((choiceScore / bestSum) * 60) : 20;
+            points = Math.max(points, 15);
+            totalScore += points;
+            document.getElementById('total-score').innerText = totalScore;
+            
+            // Update pillars
+            updatePillarValues(choice.impact);
+            
+            // Show feedback
+            document.getElementById('scenario-area').classList.add('hidden');
+            document.getElementById('feedback-area').classList.remove('hidden');
+            
+            document.getElementById('feedback-emoji').innerText = choice.emoji;
+            document.getElementById('feedback-title').innerText = choiceScore >= 30 ? "Wise Guardian Decision!" : 
+                                                                   choiceScore >= 10 ? "Good Thinking" : "Room to Improve";
+            document.getElementById('feedback-text').innerText = choice.feedback;
+            
+            // Impact badges
+            const impactContainer = document.getElementById('impact-badges');
+            impactContainer.innerHTML = '';
+            Object.entries(choice.impact).forEach(([key, val]) => {
+                if (val === 0) return;
+                const p = pillars.find(pp => pp.id === key);
+                const badge = document.createElement('div');
+                badge.className = `px-3 py-1 text-xs font-extrabold rounded-2xl flex items-center gap-x-1.5 ${val > 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`;
+                badge.innerHTML = `${p.icon} ${p.name} ${val > 0 ? '+' : ''}${val}`;
+                impactContainer.appendChild(badge);
+            });
+        }
+
+        function nextScenario() {
+            currentScenario++;
+            if (currentScenario >= scenarios.length) {
+                document.getElementById('feedback-area').classList.add('hidden');
+                document.getElementById('completion-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = totalScore;
+                
+                // Final badge based on pillars
+                const avg = Math.round(pillars.reduce((a, p) => a + p.value, 0) / 4);
+                if (avg >= 80) {
+                    launchConfetti();
+                }
+            } else {
+                loadScenario(currentScenario);
+            }
+        }
+
+        function restartGame() {
+            currentScenario = 0;
+            totalScore = 0;
+            pillars.forEach(p => p.value = 50);
+            
+            document.getElementById('total-score').innerText = '0';
+            document.getElementById('completion-screen').classList.add('hidden');
+            document.getElementById('feedback-area').classList.add('hidden');
+            
+            updatePillars();
+            loadScenario(0);
+        }
+
+        function launchConfetti() {
+            const colors = ['#f59e0b', '#d97706', '#fbbf24', '#fcd34d'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.style.cssText = `position:fixed;left:${Math.random()*window.innerWidth}px;top:-25px;width:10px;height:10px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:3px;z-index:99999`;
+                    document.body.appendChild(c);
+                    c.animate([
+                        { transform: `translateY(0) rotate(0)` },
+                        { transform: `translateY(${window.innerHeight + 90}px) rotate(${Math.random()*80 - 20}deg)` }
+                    ], { duration: 2400 + Math.random()*700 }).onfinish = () => c.remove();
+                }, i * 2.5);
+            }
+        }
+
+        function initGame() {
+            updatePillars();
+            loadScenario(0);
+            
+            // Keyboard support
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '?' && !document.getElementById('scenario-area').classList.contains('hidden')) {
+                    e.preventDefault();
+                    alert("🛡️ ETHICS TIP:\n\nAlways choose options that keep humans in control, protect privacy, are fair to everyone, and are open about how AI is used.");
+                }
+            });
+            
+            console.log('%c[Ethics Guardian FIXED] Score total now matches realistic max (~300).', 'color:#64748b');
+        }
+        
+        window.onload = initGame;
+    </script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕰️ AI Time Travelers • AI Odyssey Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', system_ui, sans-serif; }
+        .time-bg { background: linear-gradient(180deg, #0f172a 0%, #1e1135 100%); }
+        .timeline-item { transition: all 0.3s ease; }
+        .timeline-item:hover { transform: translateX(6px); }
+        .era-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .era-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .stamp { animation: stamp-pop 0.4s ease forwards; }
+        @keyframes stamp-pop { 0% { transform: scale(0.3) rotate(-12deg); } 70% { transform: scale(1.15) rotate(8deg); } 100% { transform: scale(1) rotate(0); } }
+    </style>
+</head>
+<body class="time-bg text-slate-200 min-h-screen">
+    <div class="max-w-5xl mx-auto px-5 py-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-x-3">
+                <a href="index.html" class="flex items-center text-sky-300 hover:text-white text-sm font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Hub
+                </a>
+                <div class="px-3.5 py-1 bg-white/10 text-xs font-bold tracking-[1px] rounded-2xl">GAME 3 / 5</div>
+            </div>
+            <div class="flex items-center gap-x-4">
+                <div class="bg-white/10 px-5 py-2 rounded-2xl flex items-center text-sm">
+                    <span class="font-extrabold text-2xl text-sky-400" id="total-score">0</span>
+                    <span class="text-white/50 ml-1.5">/ 300</span>
+                </div>
+                <div class="bg-white/10 px-4 py-2 rounded-2xl text-sm font-bold">STAMPS: <span id="stamps-collected">0</span>/6</div>
+            </div>
+        </div>
+
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-3xl mb-4 shadow-xl">
+                <span class="text-6xl">🕰️</span>
+            </div>
+            <h1 class="text-5xl font-extrabold tracking-tighter">AI Time Travelers</h1>
+            <p class="text-sky-300 mt-1">Journey through 70+ years of Artificial Intelligence history!</p>
+        </div>
+
+        <!-- Timeline -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-3 px-1">
+                <div class="uppercase text-xs tracking-[2px] font-extrabold text-sky-400">THE JOURNEY</div>
+                <div class="text-xs text-white/50">Click any era to explore &amp; earn a stamp</div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                <!-- Timeline items populated by JS -->
+            </div>
+        </div>
+
+        <!-- Current Era Detail -->
+        <div id="era-detail" class="hidden bg-white text-slate-900 rounded-3xl p-7 shadow-2xl mb-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <div class="flex items-center gap-x-3">
+                        <span id="era-year" class="font-mono text-4xl font-extrabold text-sky-600"></span>
+                        <span id="era-badge" class="px-4 py-1 text-xs font-extrabold tracking-widest rounded-2xl"></span>
+                    </div>
+                    <h2 id="era-title" class="font-extrabold text-3xl tracking-tight mt-1"></h2>
+                </div>
+                <button onclick="closeEra()" class="text-slate-400 hover:text-slate-600 text-3xl leading-none">&times;</button>
+            </div>
+
+            <div class="my-5 text-[15px] text-slate-600" id="era-desc"></div>
+
+            <!-- Quiz -->
+            <div class="bg-sky-50 border border-sky-100 rounded-2xl p-5">
+                <div class="font-extrabold text-sky-700 mb-3 flex items-center gap-x-2">
+                    <i class="fas fa-question-circle"></i> 
+                    <span>QUICK QUIZ — Earn your stamp!</span>
+                </div>
+                
+                <div id="quiz-question" class="font-semibold mb-3 text-lg"></div>
+                
+                <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                
+                <div id="quiz-feedback" class="hidden mt-4 p-4 rounded-2xl text-sm"></div>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div id="completion-screen" class="hidden text-center bg-white text-slate-900 rounded-3xl p-9 shadow-2xl">
+            <div class="text-6xl mb-3">🌟</div>
+            <h2 class="text-4xl font-extrabold tracking-tight">Time Travel Master!</h2>
+            <p class="mt-2 text-xl text-sky-600 font-semibold">Final Score: <span id="final-score"></span>/300</p>
+            
+            <div class="my-6 inline-flex bg-gradient-to-r from-sky-400 to-cyan-400 text-white px-7 py-3.5 rounded-3xl items-center gap-x-4">
+                <i class="fas fa-globe text-3xl"></i>
+                <div class="text-left">
+                    <div class="font-extrabold tracking-wider">AI HISTORIAN</div>
+                    <div class="text-xs -mt-0.5 opacity-90">6 Stamps Collected</div>
+                </div>
+            </div>
+
+            <p class="max-w-xs mx-auto text-sm text-slate-500 mb-7">You now know how AI evolved from simple ideas in the 1950s to powerful tools like ChatGPT today!</p>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="restartGame()" class="px-8 py-3.5 border border-sky-600 text-sky-700 hover:bg-sky-50 font-extrabold rounded-2xl">PLAY AGAIN</button>
+                <a href="index.html" class="px-8 py-3.5 bg-sky-600 text-white font-extrabold rounded-2xl flex items-center justify-center">BACK TO HUB</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const eras = [
+            {
+                id: 1,
+                year: "1950",
+                title: "Alan Turing & The Turing Test",
+                badge: "THE BEGINNING",
+                color: "bg-violet-100 text-violet-700",
+                desc: "Alan Turing, a British mathematician, asked: 'Can machines think?' He created the famous Turing Test — if a machine can chat with a human and the human can't tell it's a machine, then it has intelligence!",
+                quizQ: "What did Alan Turing create to test if machines can think?",
+                options: [
+                    { text: "The Turing Test", correct: true },
+                    { text: "The first computer game", correct: false },
+                    { text: "The internet", correct: false },
+                    { text: "Robots that walk", correct: false }
+                ],
+                fact: "Turing also helped crack secret codes during World War II!"
+            },
+            {
+                id: 2,
+                year: "1966",
+                title: "ELIZA — The First Chatbot",
+                badge: "EARLY CHAT",
+                color: "bg-emerald-100 text-emerald-700",
+                desc: "ELIZA was created at MIT. It pretended to be a therapist and repeated what you said in questions. Many people thought it was a real human! It showed how pattern matching can feel like conversation.",
+                quizQ: "What was special about ELIZA?",
+                options: [
+                    { text: "It was the first chatbot that felt like talking to a person", correct: true },
+                    { text: "It could play chess", correct: false },
+                    { text: "It was a real doctor", correct: false },
+                    { text: "It invented the smartphone", correct: false }
+                ],
+                fact: "ELIZA used simple rules but tricked many people into thinking it understood them."
+            },
+            {
+                id: 3,
+                year: "1997",
+                title: "Deep Blue Beats Chess Champion",
+                badge: "GAME CHANGER",
+                color: "bg-rose-100 text-rose-700",
+                desc: "IBM's Deep Blue supercomputer defeated world chess champion Garry Kasparov. It could think 200 million moves per second! This proved computers could beat humans at complex games using smart search.",
+                quizQ: "What game did Deep Blue master in 1997?",
+                options: [
+                    { text: "Chess", correct: true },
+                    { text: "Football", correct: false },
+                    { text: "Cricket", correct: false },
+                    { text: "Video games", correct: false }
+                ],
+                fact: "Deep Blue was the size of a large refrigerator and had 30 processors!"
+            },
+            {
+                id: 4,
+                year: "2011",
+                title: "Watson Wins on Jeopardy!",
+                badge: "KNOWLEDGE",
+                color: "bg-amber-100 text-amber-700",
+                desc: "IBM Watson defeated two human champions on the quiz show Jeopardy!. It understood natural language questions and answered in seconds using huge amounts of information. This showed AI could handle real-world knowledge.",
+                quizQ: "What TV quiz show did IBM Watson win in 2011?",
+                options: [
+                    { text: "Jeopardy!", correct: true },
+                    { text: "Who Wants to Be a Millionaire", correct: false },
+                    { text: "Kaun Banega Crorepati", correct: false },
+                    { text: "Mastermind", correct: false }
+                ],
+                fact: "Watson later helped doctors with cancer diagnosis and even created recipes!"
+            },
+            {
+                id: 5,
+                year: "2016",
+                title: "AlphaGo Defeats Go Champion",
+                badge: "DEEP LEARNING",
+                color: "bg-sky-100 text-sky-700",
+                desc: "Google DeepMind's AlphaGo beat Lee Sedol, one of the world's best Go players. Go is much harder than chess for computers. AlphaGo used deep neural networks and learned by playing millions of games against itself!",
+                quizQ: "Which game did AlphaGo master using deep learning?",
+                options: [
+                    { text: "The ancient board game Go", correct: true },
+                    { text: "Chess", correct: false },
+                    { text: "Poker", correct: false },
+                    { text: "Tennis", correct: false }
+                ],
+                fact: "AlphaGo's famous move 37 in game 2 was so creative that human players were shocked!"
+            },
+            {
+                id: 6,
+                year: "2022",
+                title: "ChatGPT Changes Everything",
+                badge: "GEN AI ERA",
+                color: "bg-fuchsia-100 text-fuchsia-700",
+                desc: "OpenAI released ChatGPT. It could write stories, code, explain things, and chat naturally. Millions of people started using it every day. This marked the beginning of Generative AI that everyone can use!",
+                quizQ: "What made ChatGPT special when it launched in late 2022?",
+                options: [
+                    { text: "It was easy for anyone to talk to and it could create text, stories & code", correct: true },
+                    { text: "It could only play games", correct: false },
+                    { text: "It was the first computer ever", correct: false },
+                    { text: "It only worked in laboratories", correct: false }
+                ],
+                fact: "Within 2 months, ChatGPT had 100 million users — the fastest growing app ever!"
+            }
+        ];
+
+        let totalScore = 0;
+        let stamps = 0;
+        let completedEras = new Set();
+
+        function renderTimeline() {
+            const container = document.querySelector('.grid-cols-2');
+            container.innerHTML = '';
+            
+            eras.forEach(era => {
+                const isDone = completedEras.has(era.id);
+                const div = document.createElement('div');
+                div.className = `timeline-item era-card bg-white/95 text-slate-900 rounded-2xl p-4 border cursor-pointer ${isDone ? 'border-emerald-300' : 'border-white/30'}`;
+                div.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-mono text-3xl font-extrabold text-sky-600">${era.year}</div>
+                            <div class="font-extrabold text-base leading-tight mt-1 pr-2">${era.title}</div>
+                        </div>
+                        ${isDone ? `<div class="text-emerald-500"><i class="fas fa-check-circle text-xl"></i></div>` : ''}
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-xs px-3 py-px rounded-xl ${era.color}">${era.badge}</span>
+                    </div>
+                `;
+                div.onclick = () => showEra(era);
+                container.appendChild(div);
+            });
+        }
+
+        function showEra(era) {
+            document.getElementById('era-detail').classList.remove('hidden');
+            document.getElementById('era-year').innerText = era.year;
+            document.getElementById('era-title').innerText = era.title;
+            document.getElementById('era-badge').innerText = era.badge;
+            document.getElementById('era-badge').className = `px-4 py-1 text-xs font-extrabold tracking-widest rounded-2xl ${era.color}`;
+            document.getElementById('era-desc').innerHTML = era.desc + `<div class="mt-3 text-xs text-sky-600 font-medium">Fun fact: ${era.fact}</div>`;
+            
+            // Quiz
+            const qEl = document.getElementById('quiz-question');
+            qEl.innerText = era.quizQ;
+            
+            const optContainer = document.getElementById('quiz-options');
+            optContainer.innerHTML = '';
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            
+            era.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = `text-left px-5 py-[13px] border-2 border-sky-200 hover:border-sky-400 rounded-2xl text-sm font-semibold transition-all ${opt.correct ? 'correct-answer' : ''}`;
+                btn.innerHTML = opt.text;
+                btn.onclick = () => answerQuiz(btn, opt.correct, era);
+                optContainer.appendChild(btn);
+            });
+            
+            // Scroll into view
+            document.getElementById('era-detail').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function answerQuiz(buttonEl, isCorrect, era) {
+            const feedback = document.getElementById('quiz-feedback');
+            const allBtns = document.querySelectorAll('#quiz-options button');
+            
+            allBtns.forEach(b => b.disabled = true);
+            
+            if (isCorrect) {
+                buttonEl.classList.add('!border-emerald-500', '!bg-emerald-50', 'text-emerald-700');
+                feedback.innerHTML = `<div class="flex gap-x-3"><div class="text-emerald-600"><i class="fas fa-check-circle text-xl"></i></div> <div><span class="font-extrabold text-emerald-700">Correct!</span> You earned a stamp for this era.<br><span class="text-xs">+50 points</span></div></div>`;
+                feedback.className = `mt-4 p-4 rounded-2xl text-sm bg-emerald-50 border border-emerald-200`;
+                
+                if (!completedEras.has(era.id)) {
+                    completedEras.add(era.id);
+                    stamps++;
+                    totalScore += 50;
+                    document.getElementById('total-score').innerText = totalScore;
+                    document.getElementById('stamps-collected').innerText = stamps;
+                    
+                    // Stamp animation
+                    const stamp = document.createElement('div');
+                    stamp.className = `stamp absolute text-emerald-500 text-4xl`;
+                    stamp.style.right = '20px';
+                    stamp.style.top = '20px';
+                    stamp.innerHTML = '✅';
+                    buttonEl.parentNode.style.position = 'relative';
+                    buttonEl.parentNode.appendChild(stamp);
+                    setTimeout(() => stamp.remove(), 1200);
+                }
+                
+                // Update timeline
+                setTimeout(() => {
+                    renderTimeline();
+                }, 800);
+                
+                // Check for completion
+                if (stamps === eras.length) {
+                    setTimeout(() => {
+                        document.getElementById('era-detail').classList.add('hidden');
+                        document.getElementById('completion-screen').classList.remove('hidden');
+                        document.getElementById('final-score').innerText = totalScore;
+                        launchConfetti();
+                    }, 1600);
+                }
+            } else {
+                buttonEl.classList.add('!border-rose-400', '!bg-rose-50', 'text-rose-600');
+                feedback.innerHTML = `<div class="flex gap-x-3"><div class="text-rose-500"><i class="fas fa-times-circle text-xl"></i></div> <div><span class="font-extrabold">Not quite.</span> The correct answer was highlighted in green. Try the next era!</div></div>`;
+                feedback.className = `mt-4 p-4 rounded-2xl text-sm bg-rose-50 border border-rose-200`;
+                
+                // Highlight correct
+                allBtns.forEach(b => {
+                    if (b.classList.contains('correct-answer')) {
+                        b.classList.add('!border-emerald-500', '!bg-emerald-50', 'text-emerald-700');
+                    }
+                });
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+
+        function closeEra() {
+            document.getElementById('era-detail').classList.add('hidden');
+        }
+
+        function restartGame() {
+            completedEras.clear();
+            stamps = 0;
+            totalScore = 0;
+            document.getElementById('total-score').innerText = '0';
+            document.getElementById('stamps-collected').innerText = '0';
+            document.getElementById('completion-screen').classList.add('hidden');
+            document.getElementById('era-detail').classList.add('hidden');
+            renderTimeline();
+        }
+
+        function launchConfetti() {
+            const colors = ['#0ea5e9', '#22d3ee', '#64748b', '#f472b6'];
+            for (let i = 0; i < 55; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.style.cssText = `position:fixed;left:${Math.random()*window.innerWidth}px;top:-25px;width:10px;height:10px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:3px;z-index:99999`;
+                    document.body.appendChild(c);
+                    c.animate([
+                        { transform: `translateY(0) rotate(0deg)` },
+                        { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*120 - 40}deg)` }
+                    ], { duration: 2300 + Math.random() * 900, easing: 'ease-out' }).onfinish = () => c.remove();
+                }, i * 1.8);
+            }
+        }
+
+        function initGame() {
+            renderTimeline();
+            document.getElementById('total-score').innerText = totalScore;
+            document.getElementById('stamps-collected').innerText = stamps;
+            
+            // Easter egg: press 't' to see all stamps
+            document.addEventListener('keypress', function(e) {
+                if (e.key.toLowerCase() === 't' && stamps < eras.length) {
+                    eras.forEach(era => completedEras.add(era.id));
+                    stamps = eras.length;
+                    totalScore = 300;
+                    document.getElementById('total-score').innerText = totalScore;
+                    document.getElementById('stamps-collected').innerText = stamps;
+                    renderTimeline();
+                    alert('All stamps unlocked for demo! (In real play, answer quizzes to earn them)');
+                }
+            });
+            
+            console.log('%c[AI Time Travelers] History game ready. Kids learn key milestones in AI development.', 'color:#64748b');
+        }
+        
+        window.onload = initGame;
+    </script>
+</body>
+</html>

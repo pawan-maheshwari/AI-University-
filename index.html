@@ -196,6 +196,7 @@ em{font-style:italic}
   var KB = [
     {k:["zone","track","category","age","who is it for","levels"],page:"home",a:"AI University has 8 learning zones: Little Explorers (5-12), AI Teens Studio (13-17), AI for Teachers (educators, via the free AI Samarth Course), Campus AI Track (university), Early Career (0-3 yrs), Mid-Career Mastery (4-15 yrs), Executive AI Lab (C-suite), and AI for Seniors (60+). Pick the one that matches you and start learning!"},
     {k:["teacher","teachers","educator","ai samarth","samarth","teaching","classroom","school staff","faculty"],page:"home",a:"The AI for Teachers zone offers the AI Samarth Course \u2014 free for every teacher. It covers an Introduction, Understanding AI, Essential Concepts of AI, Social Impact and Ethics of AI, and Practical Applications of AI in daily life, with two quizzes along the way. No coding needed. You can enrol and earn your certificate for the full course at aisamarth.centa.org."},
+    {k:["game","games","game zone","play","kids game","little explorers game","ai odyssey","prompt wizard","bias buster","time travelers","pet trainer","ethics guardian"],page:"home",a:"The Little Explorers zone has a Game Zone with five AI Odyssey games: Prompt Wizard, Bias Buster, AI Time Travelers, ML Pet Trainer, and Ethics Guardian. Open the Little Explorers track and scroll to the Game Zone \u2014 you can play any game in a pop-up or open it in a new tab. The AI for Teachers zone also has its own AI Spark Quest game."},
     {k:["certificate","certify","completion","download certificate"],page:"home",a:"Yes! Log in, then complete all lessons in any zone. Once you reach 100%, you can download a personalised certificate with your name in both PNG and PDF formats, signed by the Dean."},
     {k:["login","log in","sign up","signup","account","register"],a:"Click 'Log in' in the top menu and enter your name and email. This creates a local profile on your device to track your lesson progress and unlock certificates. No password needed."},
     {k:["quiz","test","questions","assessment"],a:"Each lesson has an 'AI Quiz' tab. Click 'Generate AI Quiz' to get multiple-choice questions that test your understanding, with instant feedback and explanations."},
@@ -4850,12 +4851,24 @@ function BadgeModal(props){
 }
 
 
+// ===== Kids Game Zone catalogue =====
+// The AI Odyssey five-game AI-literacy suite. Each game is a standalone HTML
+// file kept in the same root folder as this index; we reference it by filename.
+var KIDS_GAMES = [
+  {file:"01_prompt_wizard.html",   icon:"\ud83e\uddd9", title:"Prompt Wizard",    tag:"Master the magic of talking to AI \u2014 write great prompts and the Genie grants great answers.", color:"#7C3AED"},
+  {file:"02_bias_buster.html",     icon:"\ud83d\udd75\ufe0f", title:"Bias Buster",      tag:"Spot unfair stereotypes, fix biased AI outputs, and become a fairness hero.",                  color:"#2563EB"},
+  {file:"03_ai_time_travelers.html",icon:"\ud83d\udd70\ufe0f",title:"AI Time Travelers", tag:"Journey through 70+ years of AI history and meet the ideas that shaped it.",                  color:"#D97706"},
+  {file:"04_ml_pet_trainer.html",  icon:"\ud83d\udc3e", title:"ML Pet Trainer",    tag:"Teach your AI pet to tell snacks from toys \u2014 then test what it really learned.",             color:"#DB2777"},
+  {file:"05_ethics_guardian.html", icon:"\ud83d\udee1\ufe0f",title:"Ethics Guardian",  tag:"Be the AI Guardian of Future School in 2035 and make wise, fair choices.",                    color:"#059669"}
+];
+
 function LearnScreen(props){
   var zone=props.zone;var zc=ZC[zone.id];
   var lessons=(CURRICULUM[zone.id]&&CURRICULUM[zone.id][0]&&CURRICULUM[zone.id][0].lessons)?CURRICULUM[zone.id][0].lessons:[];
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
   var bd=useState(false);var showBadge=bd[0],setShowBadge=bd[1];
-  var gm=useState(false);var showGame=gm[0],setShowGame=gm[1];
+  // gameModal holds {file, title} for whichever game is playing in the pop-up, or null.
+  var gm=useState(null);var gameModal=gm[0],setGameModal=gm[1];
   var GAME_FILE="AI%20Spark%20Quest%20Teachers.html";
   // progress state for this zone
   var pr=useState(getProgress());var prog=pr[0],setProg=pr[1];
@@ -4874,14 +4887,14 @@ function LearnScreen(props){
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
     showCert?h(CertModal,{zone:zone,user:user,onClose:function(){setShowCert(false);}}):null,
     showBadge?h(BadgeModal,{zone:zone,user:user,onClose:function(){setShowBadge(false);}}):null,
-    showGame?h("div",{onClick:function(){setShowGame(false);},style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.6)",zIndex:9500,display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}},
+    gameModal?h("div",{onClick:function(){setGameModal(null);},style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.6)",zIndex:9500,display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}},
       h("div",{onClick:function(e){e.stopPropagation();},style:{background:"#fff",borderRadius:10,width:"100%",maxWidth:960,height:"88vh",display:"flex",flexDirection:"column",overflow:"hidden",boxShadow:"0 20px 60px rgba(0,0,0,0.4)"}},
-        h("div",{style:{background:zc.a,padding:"12px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,flexWrap:"wrap"}},
-          h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:17}},"\ud83c\udfae AI Spark Quest \u2014 Teachers"),
+        h("div",{style:{background:(gameModal.color||zc.a),padding:"12px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,flexWrap:"wrap"}},
+          h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:17}},"\ud83c\udfae "+gameModal.title),
           h("div",{style:{display:"flex",gap:8}},
-            h("button",{onClick:function(){window.open(GAME_FILE,"_blank","noopener");},style:{background:"#fff",color:zc.a,border:"none",padding:"7px 14px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:12.5}},"\u2197 Open in new tab"),
-            h("button",{onClick:function(){setShowGame(false);},style:{background:"rgba(255,255,255,0.25)",color:"#fff",border:"none",padding:"7px 12px",borderRadius:4,cursor:"pointer",fontWeight:700,fontSize:14}},"\u2715"))),
-        h("iframe",{src:GAME_FILE,title:"AI Spark Quest Teachers",style:{flex:1,width:"100%",border:"none"}}))):null,
+            h("button",{onClick:function(){window.open(gameModal.file,"_blank","noopener");},style:{background:"#fff",color:(gameModal.color||zc.a),border:"none",padding:"7px 14px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:12.5}},"\u2197 Open in new tab"),
+            h("button",{onClick:function(){setGameModal(null);},style:{background:"rgba(255,255,255,0.25)",color:"#fff",border:"none",padding:"7px 12px",borderRadius:4,cursor:"pointer",fontWeight:700,fontSize:14}},"\u2715"))),
+        h("iframe",{src:gameModal.file,title:gameModal.title,style:{flex:1,width:"100%",border:"none"}}))):null,
     h("div",{style:{background:zc.a,padding:"16px 20px",display:"flex",alignItems:"center",gap:16,flexWrap:"wrap",position:"sticky",top:0,zIndex:10}},
       h("button",{onClick:props.onBack,style:{background:"rgba(255,255,255,0.2)",color:"#fff",border:"none",padding:"8px 16px",borderRadius:4,cursor:"pointer",fontWeight:600}},"\u2190 Back to Zones"),
       h("img",{src:IMG.logoNav,style:{width:36,height:36,objectFit:"contain"},alt:""}),
@@ -4910,8 +4923,23 @@ function LearnScreen(props){
         h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700,color:INK,marginBottom:6}},"AI Spark Quest \u2014 for Teachers"),
         h("p",{style:{fontSize:14,color:SLATE,lineHeight:1.6,marginBottom:16}},"A quick, playful way to test and sharpen your AI knowledge. Play it right here in a pop-up, or open it in a new tab for a full-screen experience."),
         h("div",{style:{display:"flex",gap:10,flexWrap:"wrap"}},
-          h("button",{onClick:function(){setShowGame(true);},style:{background:zc.a,color:"#fff",border:"none",padding:"11px 24px",borderRadius:5,cursor:"pointer",fontWeight:700,fontSize:14}},"\u25B6 Play Game"),
+          h("button",{onClick:function(){setGameModal({file:GAME_FILE,title:"AI Spark Quest \u2014 Teachers",color:zc.a});},style:{background:zc.a,color:"#fff",border:"none",padding:"11px 24px",borderRadius:5,cursor:"pointer",fontWeight:700,fontSize:14}},"\u25B6 Play Game"),
           h("button",{onClick:function(){window.open(GAME_FILE,"_blank","noopener");},style:{background:"#fff",color:zc.a,border:"1px solid "+zc.a,padding:"11px 20px",borderRadius:5,cursor:"pointer",fontWeight:600,fontSize:14}},"\u2197 Open in new tab"))):null,
+      // Game Zone (Little Explorers / Kids only) \u2014 the AI Odyssey five-game suite
+      (zone.id==="kids")?h("div",{style:{marginBottom:28,padding:"22px 24px",background:"linear-gradient(135deg,"+zc.bg+" 0%,#fff 100%)",border:"1px solid "+zc.br,borderRadius:8}},
+        h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:6}},"\ud83c\udfae Game Zone"),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700,color:INK,marginBottom:6}},"AI Odyssey Games"),
+        h("p",{style:{fontSize:14,color:SLATE,lineHeight:1.6,marginBottom:18}},"Five playful adventures that teach real AI ideas \u2014 from writing clever prompts to spotting bias and training your own smart pet. Play any game right here in a pop-up, or open it in a new tab for full screen."),
+        h("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(100%,240px),1fr))",gap:14}},
+          KIDS_GAMES.map(function(g){
+            return h("div",{key:g.file,style:{background:"#fff",border:"1px solid "+BORDER,borderTop:"4px solid "+g.color,borderRadius:8,padding:"16px 16px 14px",display:"flex",flexDirection:"column",boxShadow:"0 1px 3px rgba(0,0,0,0.05)"}},
+              h("div",{style:{fontSize:30,lineHeight:1,marginBottom:8}},g.icon),
+              h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:18,fontWeight:700,color:INK,marginBottom:5}},g.title),
+              h("p",{style:{fontSize:12.5,color:SLATE,lineHeight:1.55,marginBottom:14,flex:1}},g.tag),
+              h("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
+                h("button",{onClick:function(){setGameModal({file:g.file,title:g.title,color:g.color});},style:{background:g.color,color:"#fff",border:"none",padding:"8px 16px",borderRadius:5,cursor:"pointer",fontWeight:700,fontSize:13}},"\u25B6 Play"),
+                h("button",{onClick:function(){window.open(g.file,"_blank","noopener");},style:{background:"#fff",color:g.color,border:"1px solid "+g.color,padding:"8px 12px",borderRadius:5,cursor:"pointer",fontWeight:600,fontSize:12.5}},"\u2197 New tab")));
+          }))):null,
       (allDone && user)?h(ZoneBadge,{zone:zone}):null,
       lessons.length?lessons.map(function(l,i){
         var done = !!(prog[zone.id] && prog[zone.id][i]);
