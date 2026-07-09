@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AETHERFORGE — AI Business Flight Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --void:#060B14; --bezel:#0C1524; --panel:#132038; --panel-2:#182b49;
+    --line:#243a5e; --line-soft:#1b2c47;
+    --phosphor:#FFB627; --phosphor-dim:#a9741a; --phosphor-glow:rgba(255,182,39,.18);
+    --thrust:#2DD4A7; --caution:#FF6B4A; --sky:#5BA8FF;
+    --ivory:#ECE6D6; --muted:#8ba0c2; --muted-2:#5f7291;
+    --ring:0 0 0 1px var(--line);
+    --shadow:0 24px 60px -30px rgba(0,0,0,.9);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 700px at 78% -8%, rgba(91,168,255,.10), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(45,212,167,.07), transparent 55%),
+      linear-gradient(160deg,#070D18 0%, #05090F 100%);
+    color:var(--ivory); font-family:'IBM Plex Sans',system-ui,sans-serif;
+    min-height:100vh; -webkit-font-smoothing:antialiased; letter-spacing:.1px;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .display{font-family:'Chakra Petch',sans-serif}
+  h1,h2,h3{font-family:'Chakra Petch',sans-serif;margin:0;letter-spacing:.5px}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,select{font-family:inherit}
+  a{color:var(--sky)}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.32em;font-size:11px;color:var(--phosphor-dim)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:60;background:rgba(6,11,20,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+  .nav-in{display:flex;justify-content:space-between;align-items:center;height:60px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .roundel{width:34px;height:34px;border-radius:50%;position:relative;flex:none;
+    background:radial-gradient(circle at 50% 50%, var(--phosphor) 0 30%, var(--void) 31% 46%, var(--phosphor) 47% 62%, var(--void) 63% 100%);
+    box-shadow:0 0 0 1px var(--line), 0 0 18px var(--phosphor-glow)}
+  .brand .name{font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:2px}
+  .brand .sub{font-size:10px;letter-spacing:.28em;color:var(--muted-2);font-family:'IBM Plex Mono'}
+  .nav-actions{display:flex;align-items:center;gap:6px}
+  .nav-btn{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:9px;font-size:13px;color:var(--muted);
+    border:1px solid transparent;transition:.15s}
+  .nav-btn:hover{color:var(--ivory);background:var(--panel);border-color:var(--line-soft)}
+  .nav-btn.danger:hover{color:var(--caution)}
+  .nav-btn .ic{width:15px;height:15px;display:inline-block}
+
+  /* generic panel */
+  .panel{background:linear-gradient(180deg,var(--panel),#0f1a2f);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+  .panel-pad{padding:22px}
+  .hair{height:1px;background:var(--line-soft);border:none;margin:0}
+
+  /* SCREENS */
+  .screen{display:none;animation:fade .5s ease both}
+  .screen.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  /* START */
+  .hero{padding:70px 0 40px;text-align:center;position:relative}
+  .hero .kicker{display:inline-flex;gap:10px;align-items:center;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(19,32,56,.6);margin-bottom:26px}
+  .hero .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--thrust);box-shadow:0 0 10px var(--thrust)}
+  .hero h1{font-size:clamp(38px,7vw,78px);font-weight:700;line-height:.98;letter-spacing:1px}
+  .hero h1 .amber{color:var(--phosphor);text-shadow:0 0 34px var(--phosphor-glow)}
+  .hero p{max-width:600px;margin:22px auto 0;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.6}
+  .cta{display:inline-flex;align-items:center;gap:12px;margin-top:38px;padding:16px 34px;border-radius:12px;font-family:'Chakra Petch';font-weight:600;font-size:17px;letter-spacing:1px;
+    color:#05090F;background:linear-gradient(180deg,#ffc74d,var(--phosphor));box-shadow:0 12px 40px -12px var(--phosphor-glow),inset 0 1px 0 rgba(255,255,255,.4);transition:.15s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 18px 50px -14px var(--phosphor-glow)}
+  .cta.ghost{background:transparent;color:var(--ivory);border:1px solid var(--line);box-shadow:none}
+  .cta.ghost:hover{border-color:var(--phosphor);color:var(--phosphor)}
+  .feature-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+  .feat{background:rgba(19,32,56,.5);border:1px solid var(--line-soft);border-radius:14px;padding:20px;text-align:left}
+  .feat h3{font-size:15px;color:var(--phosphor);margin-bottom:6px;letter-spacing:.5px}
+  .feat p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+
+  /* SETUP */
+  .setup{max-width:720px;margin:36px auto}
+  label.fld{display:block;margin-bottom:18px}
+  label.fld .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.16em;margin-bottom:8px;display:block}
+  .inp{width:100%;padding:14px 16px;background:var(--void);border:1px solid var(--line);border-radius:11px;color:var(--ivory);font-size:15px}
+  .inp:focus{outline:none;border-color:var(--phosphor);box-shadow:0 0 0 3px var(--phosphor-glow)}
+  .ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .ind{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--void);text-align:left;transition:.15s;position:relative}
+  .ind:hover{border-color:var(--muted-2)}
+  .ind.sel{border-color:var(--phosphor);background:linear-gradient(180deg,rgba(255,182,39,.09),var(--void))}
+  .ind .t{font-family:'Chakra Petch';font-weight:600;font-size:15px;margin-bottom:4px}
+  .ind .d{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .ind .tag{position:absolute;top:12px;right:12px;font-family:'IBM Plex Mono';font-size:10px;color:var(--phosphor);opacity:0;transition:.15s}
+  .ind.sel .tag{opacity:1}
+  .mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .mode{padding:18px 14px;border:1px solid var(--line);border-radius:12px;background:var(--void);text-align:center;transition:.15s}
+  .mode:hover{border-color:var(--muted-2)}
+  .mode.sel{border-color:var(--thrust);background:linear-gradient(180deg,rgba(45,212,167,.10),var(--void))}
+  .mode .m{font-family:'Chakra Petch';font-weight:600;font-size:15px}
+  .mode .s{font-size:11px;color:var(--muted);margin-top:3px}
+  #p2wrap{display:none}
+
+  /* HUD strip */
+  .hudbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;justify-content:space-between;margin:14px 0 20px;padding:16px 20px;
+    background:linear-gradient(180deg,var(--panel),#0e1a30);border:1px solid var(--line);border-radius:16px}
+  .hud-co{display:flex;flex-direction:column;gap:2px}
+  .hud-co .cn{font-family:'Chakra Petch';font-weight:700;font-size:22px;letter-spacing:.5px;line-height:1}
+  .hud-co .meta{font-size:11px;color:var(--muted);font-family:'IBM Plex Mono';letter-spacing:.05em}
+  .readouts{display:flex;gap:10px;flex-wrap:wrap}
+  .ro{min-width:118px;padding:9px 14px;border:1px solid var(--line-soft);border-radius:11px;background:rgba(6,11,20,.55)}
+  .ro .k{font-size:9.5px;letter-spacing:.22em;color:var(--muted-2);text-transform:uppercase;font-family:'IBM Plex Mono'}
+  .ro .v{font-family:'IBM Plex Mono';font-weight:600;font-size:19px;margin-top:3px;color:var(--ivory);line-height:1}
+  .ro .v.amber{color:var(--phosphor)} .ro .v.thrust{color:var(--thrust)} .ro .v.caution{color:var(--caution)}
+  .delta{font-size:11px;margin-left:6px;font-family:'IBM Plex Mono';font-weight:500}
+  .delta.up{color:var(--thrust)} .delta.down{color:var(--caution)}
+
+  /* LAYOUT */
+  .deck{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+  @media(max-width:960px){.deck{grid-template-columns:1fr}}
+
+  /* INSTRUMENT CLUSTER */
+  .cluster{position:sticky;top:76px}
+  .horizon-shell{padding:18px}
+  .horizon-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .horizon-title .st{font-size:11px;color:var(--muted);font-family:'IBM Plex Mono';letter-spacing:.12em}
+  .adi-wrap{position:relative;width:100%;aspect-ratio:1/1;max-width:300px;margin:0 auto;border-radius:50%;overflow:hidden;
+    box-shadow:inset 0 0 0 6px #0a1220, inset 0 0 40px rgba(0,0,0,.7), 0 0 0 1px var(--line);background:#000}
+  #adi{display:block;width:100%;height:100%}
+  .annunciators{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+  .ann{padding:8px 6px;border:1px solid var(--line-soft);border-radius:9px;text-align:center;background:rgba(6,11,20,.5);transition:.2s}
+  .ann .an{font-size:9px;letter-spacing:.14em;color:var(--muted-2);font-family:'IBM Plex Mono';text-transform:uppercase}
+  .ann .av{font-family:'IBM Plex Mono';font-weight:600;font-size:15px;margin-top:2px}
+  .ann.warn{border-color:var(--caution);background:rgba(255,107,74,.12);animation:pulse 1.1s infinite}
+  .ann.good{border-color:var(--thrust)}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,74,.4)}50%{box-shadow:0 0 0 5px rgba(255,107,74,0)}}
+
+  .gauges{margin-top:16px;display:flex;flex-direction:column;gap:11px}
+  .gauge .gh{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px}
+  .gauge .gh .gn{color:var(--muted);letter-spacing:.04em}
+  .gauge .gh .gv{font-family:'IBM Plex Mono';font-weight:600}
+  .track{height:8px;border-radius:6px;background:#0a1424;overflow:hidden;position:relative;border:1px solid var(--line-soft)}
+  .fill{height:100%;border-radius:6px;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .thrust-panel{margin-top:16px;padding:12px 14px;border:1px solid var(--line-soft);border-radius:11px;background:rgba(6,11,20,.5)}
+  .thrust-panel .th{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px;font-family:'IBM Plex Mono';letter-spacing:.08em}
+  .thrust-bars{display:flex;gap:4px}
+  .tb{flex:1;height:14px;border-radius:3px;background:#0a1424;border:1px solid var(--line-soft)}
+  .tb.on{background:linear-gradient(180deg,#4be3bd,var(--thrust));border-color:transparent;box-shadow:0 0 10px rgba(45,212,167,.5)}
+
+  /* DECISIONS */
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+  .sec-h h2{font-size:17px;letter-spacing:.6px}
+  .sec-h .hint{font-size:11.5px;color:var(--muted)}
+  .budget-panel{padding:18px}
+  .budget-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .budget-top .lab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+  .budget-top .val{font-family:'IBM Plex Mono';font-weight:600;font-size:22px;color:var(--phosphor)}
+  .rng{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:5px;background:#0a1424;border:1px solid var(--line-soft);margin:10px 0}
+  .rng::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffd98a,var(--phosphor));border:2px solid #0a1424;box-shadow:0 0 12px var(--phosphor-glow);cursor:pointer}
+  .rng::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--phosphor);border:2px solid #0a1424;cursor:pointer}
+  .rng.teal::-webkit-slider-thumb{background:radial-gradient(circle at 40% 35%,#8ff0d8,var(--thrust));box-shadow:0 0 12px rgba(45,212,167,.5)}
+  .rng.teal::-moz-range-thumb{background:var(--thrust)}
+  .alloc{display:grid;gap:12px;margin-top:4px}
+  .lever{padding:13px 15px;border:1px solid var(--line-soft);border-radius:12px;background:rgba(6,11,20,.4)}
+  .lever .lt{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+  .lever .lt .ln{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:500}
+  .lever .lt .ln .chip{width:10px;height:10px;border-radius:3px}
+  .lever .lt .lv{font-family:'IBM Plex Mono';font-weight:600;font-size:14px;color:var(--phosphor)}
+  .lever .desc{font-size:11px;color:var(--muted-2);margin-top:2px}
+  .spend-note{display:flex;justify-content:space-between;margin-top:10px;font-size:11.5px;font-family:'IBM Plex Mono';color:var(--muted)}
+  .spend-note b{color:var(--ivory)}
+
+  /* strategic cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+  @media(max-width:640px){.cards{grid-template-columns:1fr}}
+  .card{position:relative;padding:15px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(180deg,var(--panel-2),#0f1a30);
+    transition:.15s;text-align:left;display:flex;flex-direction:column;min-height:150px}
+  .card:hover{border-color:var(--muted-2);transform:translateY(-2px)}
+  .card.sel{border-color:var(--phosphor);box-shadow:0 0 0 1px var(--phosphor),0 12px 30px -18px var(--phosphor-glow)}
+  .card.locked{opacity:.42;filter:saturate(.5);cursor:not-allowed}
+  .card.locked:hover{transform:none;border-color:var(--line)}
+  .card .ct{font-family:'Chakra Petch';font-weight:600;font-size:14px;margin-bottom:5px;line-height:1.2}
+  .card .cd{font-size:11.5px;color:var(--muted);line-height:1.45;flex:1}
+  .card .cf{display:flex;justify-content:space-between;align-items:center;margin-top:11px;font-family:'IBM Plex Mono';font-size:11px}
+  .card .cost{color:var(--phosphor)} .card .cost.free{color:var(--thrust)}
+  .card .selmark{position:absolute;top:10px;right:11px;font-family:'IBM Plex Mono';font-size:10px;color:var(--phosphor);opacity:0}
+  .card.sel .selmark{opacity:1}
+  .card .lockmsg{font-size:10px;color:var(--caution);font-family:'IBM Plex Mono';margin-top:6px}
+
+  /* rivals */
+  .rivals{margin-top:4px}
+  .rival-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--line-soft);border-radius:11px;background:rgba(6,11,20,.4);margin-bottom:8px}
+  .rival-row.you{border-color:var(--phosphor);background:linear-gradient(90deg,rgba(255,182,39,.08),rgba(6,11,20,.4))}
+  .rk{font-family:'Chakra Petch';font-weight:700;font-size:16px;color:var(--muted-2);width:24px;text-align:center}
+  .rival-row.you .rk{color:var(--phosphor)}
+  .rname{flex:1;font-size:14px;font-weight:500}
+  .rname .tagme{font-size:10px;color:var(--phosphor);font-family:'IBM Plex Mono';margin-left:6px}
+  .rmeta{display:flex;gap:16px;font-family:'IBM Plex Mono';font-size:12px}
+  .rmeta .rm{text-align:right}
+  .rmeta .rm .rl{font-size:9px;color:var(--muted-2);letter-spacing:.1em}
+  .rmeta .rm .rvv{font-weight:600}
+  @media(max-width:520px){.rmeta{display:none}}
+
+  /* log */
+  .log{margin-top:20px;max-height:240px;overflow-y:auto;padding:4px 2px}
+  .log::-webkit-scrollbar{width:8px}.log::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+  .log-item{display:flex;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line-soft)}
+  .log-item:last-child{border-bottom:none}
+  .log-q{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--phosphor-dim);flex:none;width:52px;padding-top:2px}
+  .log-body{font-size:13px;color:var(--muted);line-height:1.5}
+  .log-body b{color:var(--ivory);font-weight:500}
+  .log-body .g{color:var(--thrust)} .log-body .r{color:var(--caution)} .log-body .a{color:var(--phosphor)}
+
+  /* advance button */
+  .commit{width:100%;margin-top:20px;padding:18px;border-radius:14px;font-family:'Chakra Petch';font-weight:600;font-size:17px;letter-spacing:1px;
+    color:#05130e;background:linear-gradient(180deg,#4be3bd,var(--thrust));box-shadow:0 14px 40px -16px rgba(45,212,167,.6),inset 0 1px 0 rgba(255,255,255,.35);transition:.15s;
+    display:flex;align-items:center;justify-content:center;gap:12px}
+  .commit:hover{transform:translateY(-2px)}
+  .commit:disabled{opacity:.5;cursor:not-allowed;transform:none;filter:grayscale(.4)}
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(3,6,12,.8);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;animation:fade .25s both}
+  .modal-bg.on{display:flex}
+  .modal{width:100%;max-width:560px;max-height:88vh;overflow-y:auto;background:linear-gradient(180deg,var(--panel),#0d182c);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+  .modal-h{padding:22px 24px;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center}
+  .modal-h h2{font-size:19px}
+  .modal-h .x{width:32px;height:32px;border-radius:8px;color:var(--muted);border:1px solid var(--line-soft);font-size:16px}
+  .modal-h .x:hover{color:var(--caution);border-color:var(--caution)}
+  .modal-b{padding:22px 24px}
+  .event-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+  .event-tag.market{background:rgba(91,168,255,.12);color:var(--sky);border:1px solid rgba(91,168,255,.3)}
+  .event-tag.risk{background:rgba(255,107,74,.12);color:var(--caution);border:1px solid rgba(255,107,74,.3)}
+  .event-tag.boon{background:rgba(45,212,167,.12);color:var(--thrust);border:1px solid rgba(45,212,167,.3)}
+  .modal-b p{color:var(--muted);line-height:1.6;font-size:14.5px}
+  .modal-choices{display:grid;gap:10px;margin-top:16px}
+  .mc{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--void);text-align:left;transition:.15s}
+  .mc:hover{border-color:var(--phosphor);background:rgba(255,182,39,.06)}
+  .mc .mct{font-weight:600;font-size:14px;margin-bottom:3px}
+  .mc .mcd{font-size:12px;color:var(--muted-2)}
+  .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  .rc{padding:12px 14px;border:1px solid var(--line-soft);border-radius:11px;background:rgba(6,11,20,.5)}
+  .rc .rck{font-size:10px;color:var(--muted-2);text-transform:uppercase;letter-spacing:.12em;font-family:'IBM Plex Mono'}
+  .rc .rcv{font-family:'IBM Plex Mono';font-weight:600;font-size:17px;margin-top:3px}
+  .guide-list{counter-reset:g;display:grid;gap:14px}
+  .guide-list .gi{display:flex;gap:14px}
+  .guide-list .gi .gnum{counter-increment:g;flex:none;width:30px;height:30px;border-radius:8px;background:rgba(255,182,39,.12);color:var(--phosphor);
+    display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono';font-weight:600;font-size:13px}
+  .guide-list .gi .gnum::before{content:counter(g,decimal-leading-zero)}
+  .guide-list .gi .gt{font-weight:600;font-size:14px;margin-bottom:3px}
+  .guide-list .gi .gtx{font-size:13px;color:var(--muted);line-height:1.5}
+
+  /* DEBRIEF */
+  .debrief{max-width:900px;margin:30px auto}
+  .grade-hero{text-align:center;padding:40px 20px}
+  .grade-badge{font-family:'Chakra Petch';font-weight:700;font-size:88px;line-height:1;letter-spacing:2px}
+  .final-val{font-family:'IBM Plex Mono';font-weight:600;font-size:clamp(34px,6vw,56px);color:var(--phosphor);margin:6px 0}
+  .verdict{color:var(--muted);max-width:560px;margin:12px auto 0;line-height:1.6;font-size:15px}
+  .debrief-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+  @media(max-width:760px){.debrief-grid{grid-template-columns:1fr}}
+  #trajectory{width:100%;height:220px;display:block}
+
+  .toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+  .toast{padding:11px 20px;border-radius:999px;font-size:13px;font-weight:500;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);animation:tin .3s both}
+  .toast.amber{border-color:var(--phosphor-dim);color:var(--phosphor)}
+  .toast.teal{border-color:var(--thrust);color:var(--thrust)}
+  .toast.red{border-color:var(--caution);color:var(--caution)}
+  @keyframes tin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001s!important;transition-duration:.05s!important}
+  }
+  :focus-visible{outline:2px solid var(--phosphor);outline-offset:2px;border-radius:6px}
+  .foot{text-align:center;color:var(--muted-2);font-size:11.5px;padding:34px 0 20px;font-family:'IBM Plex Mono';letter-spacing:.05em}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand">
+      <div class="roundel" aria-hidden="true"></div>
+      <div>
+        <div class="name">AETHERFORGE</div>
+        <div class="sub">AI BUSINESS FLIGHT SIM</div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="toggleMusic()" aria-pressed="false" id="music-btn">
+        <span class="ic" id="music-ic">♪</span><span id="music-label">Audio off</span>
+      </button>
+      <button class="nav-btn" onclick="openGuide()"><span class="ic">❔</span>Guide</button>
+      <button class="nav-btn danger" onclick="restart()">Restart</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- START -->
+  <section id="s-start" class="screen on">
+    <div class="hero">
+      <div class="kicker mono"><span class="dot"></span>FLIGHT SYSTEMS NOMINAL · v2.0</div>
+      <h1>Fly your enterprise<br>through the <span class="amber">AI transition</span></h1>
+      <p>You're in the captain's seat of a company navigating GenAI disruption. Set the budget, work the instruments, read the market, and out-manoeuvre AI-run rivals across twelve quarters — without stalling into a crash.</p>
+      <button class="cta" onclick="go('setup')">Begin pre-flight <span aria-hidden="true">→</span></button>
+      <div class="feature-row">
+        <div class="feat"><h3>Real cause &amp; effect</h3><p>Every allocation moves margin, growth, talent and risk through a live economic model — no dice rolls deciding your fate.</p></div>
+        <div class="feat"><h3>Live AI rivals</h3><p>Competitors run their own strategies, contest your market share, and climb the same valuation leaderboard you do.</p></div>
+        <div class="feat"><h3>Turbulence ahead</h3><p>Regulators, breaches, talent raids and breakthroughs hit mid-flight. Govern your risk or get grounded.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="s-setup" class="screen">
+    <div class="setup">
+      <div class="eyebrow" style="margin-bottom:8px">PRE-FLIGHT CONFIGURATION</div>
+      <h2 style="font-size:30px;margin-bottom:24px">Configure your company</h2>
+      <div class="panel panel-pad">
+        <label class="fld">
+          <span class="lbl">Company name</span>
+          <input id="company-name" class="inp" value="Nexus Dynamics" maxlength="26" />
+        </label>
+
+        <label class="fld">
+          <span class="lbl">Sector — sets your starting instruments &amp; the turbulence you'll face</span>
+        </label>
+        <div class="ind-grid" id="ind-grid">
+          <button class="ind sel" data-ind="BFSI" onclick="pickIndustry(this)">
+            <span class="tag">SELECTED</span>
+            <div class="t">BFSI</div>
+            <div class="d">Cash-rich, heavily regulated. Risk &amp; trust run hot — compliance events bite hardest.</div>
+          </button>
+          <button class="ind" data-ind="Cloud" onclick="pickIndustry(this)">
+            <span class="tag">SELECTED</span>
+            <div class="t">Cloud Services</div>
+            <div class="d">High growth, brutal competition. Two aggressive rivals and fast-moving innovation.</div>
+          </button>
+          <button class="ind" data-ind="Healthcare" onclick="pickIndustry(this)">
+            <span class="tag">SELECTED</span>
+            <div class="t">Healthcare</div>
+            <div class="d">Trust is everything, growth is slow. Lower baseline risk, unforgiving on breaches.</div>
+          </button>
+        </div>
+
+        <div style="height:22px"></div>
+        <label class="fld"><span class="lbl">Flight mode</span></label>
+        <div class="mode-grid" id="mode-grid">
+          <button class="mode sel" data-mode="solo" onclick="pickMode(this)"><div class="m">Solo</div><div class="s">Ambient market</div></button>
+          <button class="mode" data-mode="vsai" onclick="pickMode(this)"><div class="m">Vs AI</div><div class="s">2 live rivals</div></button>
+          <button class="mode" data-mode="multi" onclick="pickMode(this)"><div class="m">Hot-seat</div><div class="s">2 players</div></button>
+        </div>
+
+        <div id="p2wrap">
+          <div style="height:18px"></div>
+          <label class="fld">
+            <span class="lbl">Player 2 company (hot-seat)</span>
+            <input id="p2-name" class="inp" value="Vertex Labs" maxlength="26" />
+          </label>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:26px">
+          <button class="cta ghost" onclick="go('start')" style="flex:none">← Back</button>
+          <button class="cta" onclick="launch()" style="flex:1;justify-content:center">Launch flight</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="s-game" class="screen">
+    <div class="hudbar">
+      <div class="hud-co">
+        <div class="cn" id="hud-name">Nexus Dynamics</div>
+        <div class="meta" id="hud-meta">BFSI · Solo · Quarter 1 / 12</div>
+      </div>
+      <div class="readouts" id="readouts"></div>
+    </div>
+
+    <div class="deck">
+      <!-- INSTRUMENT CLUSTER -->
+      <div class="cluster">
+        <div class="panel horizon-shell">
+          <div class="horizon-title">
+            <div class="eyebrow">ATTITUDE · COMPANY HEALTH</div>
+            <div class="st" id="adi-status">CLIMB</div>
+          </div>
+          <div class="adi-wrap"><canvas id="adi" width="300" height="300"></canvas></div>
+          <div class="annunciators" id="annunciators"></div>
+          <div class="gauges" id="gauges"></div>
+          <div class="thrust-panel">
+            <div class="th"><span>GROWTH THRUST · MOMENTUM</span><span id="mom-val">0</span></div>
+            <div class="thrust-bars" id="thrust-bars"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DECISIONS -->
+      <div>
+        <div class="sec-h"><h2>Transformation budget</h2><div class="hint" id="cash-hint"></div></div>
+        <div class="panel budget-panel">
+          <div class="budget-top">
+            <span class="lab">Capital deployed this quarter</span>
+            <span class="val" id="budget-val">$0M</span>
+          </div>
+          <input type="range" class="rng" id="budget-slider" min="0" max="100" value="40" step="1" oninput="onBudget()" aria-label="Capital deployed this quarter" />
+          <div class="alloc" id="alloc"></div>
+          <div class="spend-note">
+            <span>Deploying <b id="spend-total">$0M</b> of <b id="spend-cap">$0M</b> available</span>
+            <span id="spend-left">Retaining <b>$0M</b> as reserve</span>
+          </div>
+        </div>
+
+        <div class="sec-h" style="margin-top:22px"><h2>Strategic play</h2><div class="hint">Pick one bold move — or hold position</div></div>
+        <div class="cards" id="cards"></div>
+
+        <div id="rivals-wrap" style="display:none">
+          <div class="sec-h" style="margin-top:22px"><h2>Market leaderboard</h2><div class="hint">Ranked by valuation</div></div>
+          <div class="rivals" id="rivals"></div>
+        </div>
+
+        <div class="sec-h" style="margin-top:22px"><h2>Flight log</h2><div class="hint">What the market did with your last call</div></div>
+        <div class="panel" style="padding:6px 16px"><div class="log" id="log"></div></div>
+
+        <button class="commit" id="commit-btn" onclick="commitQuarter()">
+          <span id="commit-label">Commit &amp; advance to Q2</span> <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEBRIEF -->
+  <section id="s-debrief" class="screen">
+    <div class="debrief">
+      <div class="panel">
+        <div class="grade-hero">
+          <div class="eyebrow" id="debrief-reason">FLIGHT COMPLETE · 12 QUARTERS</div>
+          <div class="grade-badge" id="grade">A</div>
+          <div class="final-val" id="final-val">$0M</div>
+          <div class="eyebrow" style="color:var(--muted-2)">FINAL ENTERPRISE VALUATION</div>
+          <p class="verdict" id="verdict"></p>
+        </div>
+        <hr class="hair" />
+        <div class="panel-pad">
+          <div class="eyebrow" style="margin-bottom:12px">VALUATION TRAJECTORY</div>
+          <canvas id="trajectory"></canvas>
+        </div>
+        <hr class="hair" />
+        <div class="panel-pad">
+          <div class="eyebrow" style="margin-bottom:12px" id="board-title">FINAL STANDINGS</div>
+          <div id="debrief-board"></div>
+        </div>
+        <div class="panel-pad" style="display:flex;gap:12px;padding-top:0">
+          <button class="cta ghost" style="flex:1;justify-content:center" onclick="restart()">New company</button>
+          <button class="cta" style="flex:1;justify-content:center" onclick="replaySame()">Fly again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">AETHERFORGE · a strategy flight simulator · built for decisive operators</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal">
+    <div class="modal-h"><h2 id="modal-title">Title</h2><button class="x" onclick="closeModal()" aria-label="Close">✕</button></div>
+    <div class="modal-b" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   AETHERFORGE — Simulation Engine (pure, testable)
+   Exposed as window.SIM so it can be unit-tested headlessly.
+   ============================================================ */
+(function(){
+  "use strict";
+
+  const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+  const round=(v,d=0)=>{const m=Math.pow(10,d);return Math.round(v*m)/m;};
+  // deterministic-friendly RNG wrapper (Math.random by default; injectable for tests)
+  function mulberry32(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+  const INDUSTRIES={
+    BFSI:{ label:"BFSI", cash:170, revenue:44, share:20, efficiency:56, innovation:42, talent:60, risk:44, trust:64,
+           g0:0.045, opexFrac:0.34, fineMult:1.6, regWeight:2.2, rivals:["Meridian Bank AI","Sterling Capital"], seedGrowth:0.9 },
+    Cloud:{ label:"Cloud Services", cash:120, revenue:50, share:17, efficiency:58, innovation:54, talent:54, risk:40, trust:58,
+           g0:0.07, opexFrac:0.30, fineMult:1.0, regWeight:1.0, rivals:["Cumulus Systems","HyperScale.ai"], seedGrowth:1.25, aggressiveRivals:true },
+    Healthcare:{ label:"Healthcare", cash:110, revenue:40, share:19, efficiency:54, innovation:46, talent:62, risk:34, trust:70,
+           g0:0.04, opexFrac:0.33, fineMult:1.9, regWeight:2.0, rivals:["Vitalis Health","CuraNet"], seedGrowth:0.8 }
+  };
+
+  const RIVAL_PERSONAS={
+    aggressor:{inv:{ops:.25,inno:.3,talent:.15,gov:.1,share:.2}, riskDrift:2.0, label:"aggressor"},
+    innovator:{inv:{ops:.15,inno:.45,talent:.25,gov:.15,share:0}, riskDrift:1.4, label:"innovator"},
+    steady:   {inv:{ops:.3,inno:.2,talent:.25,gov:.25,share:0}, riskDrift:0.8, label:"steady"}
+  };
+
+  // diminishing-returns gain from dollars d toward a per-quarter cap
+  function gain(d, cap, halfSat=16){ if(d<=0) return 0; return cap * (d/(d+halfSat)); }
+
+  function newState(cfg,rng){
+    rng=rng||Math.random;
+    const ind=INDUSTRIES[cfg.industry]||INDUSTRIES.BFSI;
+    const co={
+      name:cfg.name||"Nexus Dynamics",
+      industry:cfg.industry, mode:cfg.mode||"solo",
+      cash:ind.cash, revenue:ind.revenue, share:ind.share,
+      efficiency:ind.efficiency, innovation:ind.innovation, talent:ind.talent,
+      risk:ind.risk, trust:ind.trust,
+      momentum:0, valuation:0, insolventStreak:0, valMultAdj:0, breakthroughs:0, incidents:0,
+      lastGrowth:0
+    };
+    co.valuation=valuation(co,ind);
+    const rivals=[];
+    if(cfg.mode==="vsai"){
+      const personas=ind.aggressiveRivals?["aggressor","aggressor"]:["aggressor","innovator"];
+      ind.rivals.forEach((rn,i)=>{
+        rivals.push(makeRival(rn, personas[i], ind, rng));
+      });
+    } else if(cfg.mode==="multi"){
+      // player 2 handled as a second player-state at controller level; no AI rivals
+    }
+    return {
+      cfg, ind, quarter:1, totalQuarters:cfg.quarters||12,
+      co, rivals, over:false, endReason:null, history:[snapshot(co)],
+      pendingEvent:null
+    };
+  }
+
+  function makeRival(name, personaKey, ind, rng){
+    rng=rng||Math.random;
+    const p=RIVAL_PERSONAS[personaKey];
+    const jitter=(base,amt)=>base+(rng()*2-1)*amt;
+    const r={
+      name, persona:personaKey,
+      revenue:round(jitter(ind.revenue,6),1), share:round(jitter(ind.share,3),1),
+      efficiency:jitter(ind.efficiency,8), innovation:jitter(ind.innovation,8),
+      talent:jitter(ind.talent,6), risk:jitter(ind.risk,6), trust:jitter(ind.trust,6),
+      cash:jitter(ind.cash,20), momentum:0
+    };
+    r.valuation=valuation(r,ind);
+    return r;
+  }
+
+  function strength(x){ return 0.5*x.innovation + 0.3*x.trust + 0.2*x.efficiency + (x.momentum||0)*1.2; }
+
+  function valuation(x,ind){
+    const annual=x.revenue*4;
+    const g=x.lastGrowth||0;
+    let mult=6 + 10*(x.innovation/100) + 26*Math.max(0,g) - 5*(x.risk/100) + 0.4*(x.momentum||0) + (x.valMultAdj||0);
+    mult=clamp(mult,3,26);
+    let v=annual*mult + Math.max(-60,x.cash);
+    return round(Math.max(0,v),0);
+  }
+
+  // Advance rivals one quarter (simplified internal economy)
+  function stepRival(r, ind, marketPressure){
+    const p=RIVAL_PERSONAS[r.persona], inv=p.inv;
+    const budget=Math.max(8, r.revenue*0.4);
+    r.efficiency=clamp(r.efficiency-2 + gain(budget*inv.ops,10), 0,100);
+    r.innovation=clamp(r.innovation-3 + gain(budget*inv.inno,13), 0,100);
+    r.talent=clamp(r.talent-2 + gain(budget*inv.talent,11), 0,100);
+    r.risk=clamp(r.risk + p.riskDrift - gain(budget*inv.gov,11), 0,100);
+    r.trust=clamp(r.trust-1 + gain(budget*inv.gov,10)*0.4, 0,100);
+    const exec=0.5+0.5*(r.talent/100);
+    let g=ind.g0 + 0.10*(r.innovation/100-0.5) + 0.05*(r.talent/100-0.5) - marketPressure*0.5;
+    g*=exec;
+    r.momentum = g>0 ? Math.min(6,r.momentum+1) : Math.max(0,r.momentum-2);
+    g*=(1+0.03*r.momentum);
+    r.lastGrowth=g;
+    r.revenue=Math.max(4, r.revenue*(1+g));
+    const margin=clamp(0.20+0.45*(r.efficiency/100)-0.15*(r.risk/100),0.05,0.7);
+    r.cash += r.revenue*margin - r.revenue*ind.opexFrac - budget;
+    r.valuation=valuation(r,ind);
+    return r;
+  }
+
+  /* Core quarter simulation for the human company.
+     decision = { budget:$M, weights:{ops,inno,talent,gov}, card:cardObj|null,
+                  eventChoice: fn|null } ; rng optional for determinism */
+  function simulateQuarter(state, decision, rng){
+    rng=rng||Math.random;
+    const ind=state.ind, co=state.co;
+    const before=snapshot(co);
+    const logs=[];
+    const events=[];
+
+    // --- entropy / decay ---
+    co.efficiency=clamp(co.efficiency-2,0,100);
+    co.innovation=clamp(co.innovation-3,0,100);
+    co.talent=clamp(co.talent-2,0,100);
+    co.trust=clamp(co.trust-1,0,100);
+    co.risk=clamp(co.risk+3,0,100);
+
+    // --- budget allocation ---
+    const budget=clamp(decision.budget||0,0,Math.max(0,co.cash));
+    const w=decision.weights||{ops:1,inno:1,talent:1,gov:1};
+    const tw=(w.ops+w.inno+w.talent+w.gov)||1;
+    const d={ops:budget*w.ops/tw, inno:budget*w.inno/tw, talent:budget*w.talent/tw, gov:budget*w.gov/tw};
+    const exec=0.5+0.5*(co.talent/100); // low talent throttles execution
+    co.efficiency=clamp(co.efficiency+gain(d.ops,12)*exec,0,100);
+    co.innovation=clamp(co.innovation+gain(d.inno,14)*exec,0,100);
+    co.talent=clamp(co.talent+gain(d.talent,12),0,100);
+    co.risk=clamp(co.risk-gain(d.gov,12),0,100);
+    co.trust=clamp(co.trust+gain(d.gov,12)*0.4,0,100);
+    co.cash-=budget;
+
+    // --- strategic card ---
+    if(decision.card && decision.card.apply){
+      const note=decision.card.apply(co,ind,rng);
+      logs.push({q:qlabel(state),html:`<span class="a">▲ ${decision.card.title}:</span> ${note}`});
+    }
+
+    // --- market pressure from rivals ---
+    let marketPressure=0;
+    if(state.rivals.length){
+      const avgStr=state.rivals.reduce((s,r)=>s+strength(r),0)/state.rivals.length;
+      marketPressure=clamp((avgStr-strength(co))/220,-0.04,0.06);
+    } else {
+      marketPressure=0.015; // ambient competition even in solo
+    }
+
+    // --- growth & economics ---
+    let g=ind.g0 + 0.11*(co.innovation/100-0.5) + 0.06*(co.talent/100-0.5) - marketPressure;
+    g*=exec;
+    if(co.pendingGrowthPenalty){ g-=co.pendingGrowthPenalty; co.pendingGrowthPenalty=0; }
+    co.momentum = g>0 ? Math.min(6,co.momentum+1) : Math.max(0,co.momentum-2);
+    g*=(1+0.03*co.momentum);
+    co.lastGrowth=g;
+    co.revenue=Math.max(4, co.revenue*(1+g));
+
+    const margin=clamp(0.20+0.45*(co.efficiency/100)-0.15*(co.risk/100),0.05,0.72);
+    const opex=co.revenue*ind.opexFrac;
+    const profit=co.revenue*margin - opex;
+    co.cash+=profit;
+
+    // --- market share redistribution ---
+    const field=[co,...state.rivals];
+    const avgS=field.reduce((s,x)=>s+strength(x),0)/field.length;
+    let shareDelta=clamp(3.2*(strength(co)-avgS)/Math.max(avgS,1),-4,4);
+    co.share=clamp(co.share+shareDelta,3,78);
+
+    // rivals move
+    state.rivals.forEach(r=>stepRival(r,ind,-marketPressure*0.4));
+    // rivals share drift toward their strength
+    if(state.rivals.length){
+      state.rivals.forEach(r=>{
+        let sd=clamp(2.6*(strength(r)-avgS)/Math.max(avgS,1),-3.5,3.5);
+        r.share=clamp(r.share+sd,3,78);
+      });
+    }
+
+    // --- random market event ---
+    const ev=maybeEvent(state,rng,decision);
+    if(ev){ events.push(ev); }
+
+    // --- AI risk / compliance incident ---
+    const incidentChance=clamp((co.risk/100)*0.55 - (co.trust/100)*0.22 + (ind.regWeight-1)*0.03, 0, 0.85);
+    if(rng()<incidentChance){
+      const sev=0.4+0.6*rng();
+      const trustHit=round((8+18*sev),0);
+      const fine=round((co.revenue*0.25*sev*ind.fineMult),0);
+      const valShockNote=`data/compliance incident — trust −${trustHit}, $${fine}M penalty`;
+      co.trust=clamp(co.trust-trustHit,0,100);
+      co.cash-=fine;
+      co.pendingGrowthPenalty=0.04*sev;
+      co.incidents++;
+      logs.push({q:qlabel(state),html:`<span class="r">⚠ Incident:</span> ${valShockNote}. Governance debt caught up with you.`});
+      events.push({type:"risk",tag:"risk",title:"AI incident on the wire",
+        body:`A ${sev>0.75?"serious":"contained"} incident hit ${co.name}. Trust dropped ${trustHit} points and regulators levied a $${fine}M penalty. ${co.risk>60?"Your risk gauge is deep in the red — fund governance now.":"Tighten governance before the next one lands harder."}`,
+        effects:[["Trust",`−${trustHit}`],["Penalty",`−$${fine}M`]]});
+      if(co.trust<12 && sev>0.8){ state.over=true; state.endReason="catastrophe"; }
+    }
+
+    // --- valuation refresh ---
+    co.valuation=valuation(co,ind);
+    state.rivals.forEach(r=>r.valuation=valuation(r,ind));
+
+    // --- fail-state checks ---
+    if(co.cash < -45){ co.insolventStreak++; } else { co.insolventStreak=0; }
+    if(co.insolventStreak>=2){ state.over=true; state.endReason="insolvency"; }
+    if(co.talent<=4){ state.over=true; state.endReason="exodus"; }
+
+    // --- summary log line ---
+    const gpct=round(g*100,1);
+    const dv=round(co.valuation-before.valuation,0);
+    logs.push({q:qlabel(state),html:
+      `Revenue ${g>=0?'<span class="g">+':'<span class="r">'}${gpct}%</span> to <b>$${round(co.revenue,0)}M</b>. `+
+      `Margin <b>${round(margin*100,0)}%</b>, cash ${profit>=0?'<span class="g">+':'<span class="r">'}$${round(profit,0)}M</span>. `+
+      `Share <b>${round(co.share,1)}%</b>. Valuation ${dv>=0?'<span class="g">+':'<span class="r">'}$${Math.abs(dv)}M</span>.`});
+
+    state.history.push(snapshot(co));
+    state.quarter++;
+    if(state.quarter>state.totalQuarters && !state.over){ state.over=true; state.endReason="complete"; }
+
+    return {before, after:snapshot(co), logs, events, growth:g, profit, margin, marketPressure};
+  }
+
+  function maybeEvent(state,rng,decision){
+    if(rng()>0.5) return null; // ~50% chance of a flavor event
+    const co=state.co, ind=state.ind;
+    const deck=[
+      {type:"boon",tag:"boon",title:"Model breakthrough",cond:()=>true,weight:1,
+       apply:()=>{const b=round(6+6*rng(),0);co.innovation=clamp(co.innovation+b,0,100);co.breakthroughs++;return{effects:[["Innovation",`+${b}`]],body:`A research thread paid off. Innovation jumped ${b} points and the org has fresh momentum.`};}},
+      {type:"risk",tag:"risk",title:"Talent poaching wave",cond:()=>true,weight:1,
+       apply:()=>{const b=round(5+7*rng(),0);co.talent=clamp(co.talent-b,0,100);return{effects:[["Talent",`−${b}`]],body:`A rival opened a war chest for AI engineers. You lost ${b} points of talent depth this quarter.`};}},
+      {type:"market",tag:"market",title:"Sector demand surge",cond:()=>true,weight:1,
+       apply:()=>{const b=round(4+5*rng(),0);co.revenue=co.revenue*(1+b/100);return{effects:[["Revenue",`+${b}%`]],body:`Demand in ${ind.label} spiked. Revenue got a ${b}% tailwind — ride it while it lasts.`};}},
+      {type:"risk",tag:"risk",title:"Regulatory tightening",cond:()=>ind.regWeight>1.5,weight:1.6,
+       apply:()=>{const b=round(6+6*rng(),0);co.risk=clamp(co.risk+b,0,100);return{effects:[["Risk",`+${b}`]],body:`New AI rules dropped in ${ind.label}. Unmanaged, your risk gauge climbed ${b} points.`};}},
+      {type:"market",tag:"market",title:"Economic downturn",cond:()=>true,weight:0.8,
+       apply:()=>{co.pendingGrowthPenalty=(co.pendingGrowthPenalty||0)+0.03;return{effects:[["Next Q growth","−3%"]],body:`Macro headwinds building. Expect a drag on next quarter's growth — lean on efficiency.`};}},
+      {type:"boon",tag:"boon",title:"Viral product moment",cond:()=>co.innovation>55,weight:1.2,
+       apply:()=>{const b=round(2+3*rng(),1);co.share=clamp(co.share+b,3,78);co.trust=clamp(co.trust+4,0,100);return{effects:[["Share",`+${b}%`],["Trust","+4"]],body:`Your latest AI feature went viral. Market share climbed ${b} points and trust ticked up.`};}}
+    ];
+    const pool=deck.filter(e=>e.cond());
+    const total=pool.reduce((s,e)=>s+e.weight,0);
+    let roll=rng()*total, chosen=pool[0];
+    for(const e of pool){ roll-=e.weight; if(roll<=0){chosen=e;break;} }
+    const out=chosen.apply();
+    co.valuation=valuation(co,ind);
+    return {type:chosen.type,tag:chosen.tag,title:chosen.title,body:out.body,effects:out.effects};
+  }
+
+  /* Strategic card catalog — filtered by affordability/prereqs each quarter */
+  function cardCatalog(){
+    return [
+      {id:"copilot",title:"Launch AI Customer Copilot",cost:32,req:c=>c.innovation>=52,reqText:"Needs Innovation ≥ 52",
+        desc:"Ship a flagship GenAI product. Big revenue and share, but it raises your risk surface.",
+        apply:(c,ind,rng)=>{c.revenue=c.revenue*1.08;c.innovation=clamp(c.innovation+6,0,100);c.share=clamp(c.share+3,3,78);c.risk=clamp(c.risk+7,0,100);c.momentum=Math.min(6,c.momentum+1);return "revenue +8%, share +3, but risk +7 — govern it.";}},
+      {id:"acquire",title:"Acquire an AI startup",cost:55,req:c=>c.cash>=55,reqText:"Needs $55M cash",
+        desc:"Buy capability outright. Innovation leaps, but integration drags on your people.",
+        apply:(c)=>{c.innovation=clamp(c.innovation+13,0,100);c.talent=clamp(c.talent-6,0,100);c.risk=clamp(c.risk+5,0,100);return "innovation +13, talent −6 (integration pain).";}},
+      {id:"price",title:"Aggressive price cut",cost:0,req:()=>true,reqText:"",
+        desc:"Trade margin for market share. Grabs ground fast, hurts this quarter's cash.",
+        apply:(c)=>{c.share=clamp(c.share+5,3,78);c.revenue=c.revenue*0.94;c.cash-=8;return "share +5, revenue −6%, cash −$8M.";}},
+      {id:"trust",title:"Trust & safety campaign",cost:15,req:c=>c.cash>=15,reqText:"Needs $15M cash",
+        desc:"Invest in governance visibly. Rebuilds trust and pulls risk down hard.",
+        apply:(c)=>{c.trust=clamp(c.trust+12,0,100);c.risk=clamp(c.risk-7,0,100);return "trust +12, risk −7.";}},
+      {id:"restructure",title:"Restructure & streamline",cost:0,req:()=>true,reqText:"",
+        desc:"Cut costs to refill the war chest. Frees cash, bruises morale and trust.",
+        apply:(c)=>{c.cash+=42;c.talent=clamp(c.talent-13,0,100);c.trust=clamp(c.trust-6,0,100);c.efficiency=clamp(c.efficiency+5,0,100);return "cash +$42M, efficiency +5, talent −13.";}},
+      {id:"moonshot",title:"Moonshot research bet",cost:35,req:c=>c.cash>=35,reqText:"Needs $35M cash",
+        desc:"High-variance R&D gamble. Half the time it's a breakthrough — half it's burned cash.",
+        apply:(c,ind,rng)=>{if((rng||Math.random)()<0.5){c.innovation=clamp(c.innovation+18,0,100);c.breakthroughs++;return '<span class="g">breakthrough! innovation +18.</span>';}c.innovation=clamp(c.innovation+3,0,100);return '<span class="r">the bet fizzled — only +3 innovation.</span>';}},
+      {id:"poach",title:"Poach elite AI talent",cost:25,req:c=>c.cash>=25,reqText:"Needs $25M cash",
+        desc:"Buy the best people in the market. Talent surges immediately.",
+        apply:(c)=>{c.talent=clamp(c.talent+12,0,100);c.efficiency=clamp(c.efficiency+3,0,100);return "talent +12, efficiency +3.";}},
+      {id:"partner",title:"Strategic partnership",cost:10,req:c=>c.cash>=10,reqText:"Needs $10M cash",
+        desc:"Co-sell with a platform giant. Steady, low-cost lift across the board.",
+        apply:(c)=>{c.revenue=c.revenue*1.05;c.share=clamp(c.share+2,3,78);c.trust=clamp(c.trust+4,0,100);return "revenue +5%, share +2, trust +4.";}},
+      {id:"raise",title:"Raise a growth round",cost:0,req:c=>c.cash<60,reqText:"Only when cash < $60M",
+        desc:"Bring in capital to stay aloft. Big cash injection, but dilution weighs on your multiple.",
+        apply:(c)=>{c.cash+=80;c.valMultAdj=(c.valMultAdj||0)-1.2;c.risk=clamp(c.risk+3,0,100);return "cash +$80M, but valuation multiple −1.2 for the rest of the flight.";}},
+      {id:"hold",title:"Hold position",cost:0,req:()=>true,reqText:"",
+        desc:"Bank the cash, consolidate, and let the org catch its breath this quarter.",
+        apply:(c)=>{c.trust=clamp(c.trust+2,0,100);return "no bold move — trust +2, reserves preserved.";}}
+    ];
+  }
+
+  function snapshot(c){return {revenue:round(c.revenue,1),share:round(c.share,1),efficiency:round(c.efficiency,0),
+    innovation:round(c.innovation,0),talent:round(c.talent,0),risk:round(c.risk,0),trust:round(c.trust,0),
+    cash:round(c.cash,0),valuation:round(c.valuation,0),momentum:c.momentum,growth:round((c.lastGrowth||0)*100,1)};}
+
+  function qlabel(state){const q=state.quarter;return `Q${(q-1)%4+1} Y${Math.floor((q-1)/4)+1}`;}
+
+  window.SIM={INDUSTRIES,newState,simulateQuarter,cardCatalog,valuation,snapshot,strength,gain,clamp,round,qlabel,mulberry32,makeRival,stepRival};
+})();
+
+/* ============================================================
+   CONTROLLER / UI
+   ============================================================ */
+(function(){
+  "use strict";
+  const $=(s)=>document.querySelector(s);
+  const R=(v,d=0)=>SIM.round(v,d);
+
+  let cfg={name:"Nexus Dynamics",industry:"BFSI",mode:"solo",quarters:12,p2name:"Vertex Labs"};
+  let state=null;
+  let players=null;         // for hot-seat: [stateP1, stateP2]
+  let activePlayer=0;
+  let hand=[];              // strategic cards offered this quarter
+  let selectedCard=null;
+  let budgetPct=40;
+  let weights={ops:5,inno:5,talent:5,gov:5};
+  let adiAnim=null, adiTarget={pitch:0,roll:0}, adiCur={pitch:0,roll:0};
+  let audio=null, audioOn=false;
+
+  const LEVERS=[
+    {key:"ops",name:"Operations Automation",color:"#5BA8FF",desc:"→ efficiency & margin"},
+    {key:"inno",name:"AI Product & R&D",color:"#FFB627",desc:"→ innovation & growth"},
+    {key:"talent",name:"Talent & Upskilling",color:"#2DD4A7",desc:"→ execution capacity"},
+    {key:"gov",name:"Governance & Safety",color:"#c084fc",desc:"→ lowers risk, builds trust"}
+  ];
+
+  /* ---------- navigation ---------- */
+  window.go=function(screen){
+    ["start","setup","game","debrief"].forEach(s=>$("#s-"+s).classList.toggle("on",s===screen));
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+  window.restart=function(){ if(state && !state.over){ if(!confirm("Abandon the current flight and start over?")) return; } location.reload(); };
+  window.replaySame=function(){ boot(cfg); go("game"); };
+
+  window.pickIndustry=function(el){document.querySelectorAll(".ind").forEach(b=>b.classList.remove("sel"));el.classList.add("sel");cfg.industry=el.dataset.ind;};
+  window.pickMode=function(el){document.querySelectorAll(".mode").forEach(b=>b.classList.remove("sel"));el.classList.add("sel");cfg.mode=el.dataset.mode;$("#p2wrap").style.display=cfg.mode==="multi"?"block":"none";};
+
+  window.launch=function(){
+    cfg.name=($("#company-name").value||"Nexus Dynamics").trim();
+    cfg.p2name=($("#p2-name").value||"Vertex Labs").trim();
+    boot(cfg);
+    go("game");
+    toast("Cleared for departure. Quarter 1 begins.","teal");
+  };
+
+  function boot(config){
+    if(config.mode==="multi"){
+      players=[
+        SIM.newState({name:config.name,industry:config.industry,mode:"multi",quarters:config.quarters}),
+        SIM.newState({name:config.p2name,industry:config.industry,mode:"multi",quarters:config.quarters})
+      ];
+      activePlayer=0;
+      state=players[0];
+    } else {
+      state=SIM.newState({name:config.name,industry:config.industry,mode:config.mode,quarters:config.quarters});
+      players=null; activePlayer=0;
+    }
+    budgetPct=40; weights={ops:5,inno:5,talent:5,gov:5}; selectedCard=null;
+    dealHand();
+    renderAll();
+    startADI();
+  }
+
+  /* ---------- rendering ---------- */
+  function renderAll(){ renderHUD(); renderReadouts(); renderInstruments(); renderBudget(); renderCards(); renderRivals(); renderLog(); renderCommit(); }
+
+  function renderHUD(){
+    const co=state.co;
+    $("#hud-name").textContent=co.name;
+    const modeLabel=state.co.mode==="vsai"?"Vs AI":state.co.mode==="multi"?`Hot-seat · P${activePlayer+1}`:"Solo";
+    $("#hud-meta").textContent=`${state.ind.label} · ${modeLabel} · Quarter ${state.quarter} / ${state.totalQuarters}`;
+  }
+
+  function renderReadouts(){
+    const co=state.co, prev=state.history[state.history.length-2];
+    const cards=[
+      {k:"Valuation",v:"$"+fmt(co.valuation)+"M",cls:"amber",delta:prev?co.valuation-prev.valuation:0,money:true},
+      {k:"Revenue / Q",v:"$"+fmt(R(co.revenue,0))+"M",cls:"",delta:prev?R(co.revenue,0)-prev.revenue:0,money:true},
+      {k:"Cash",v:"$"+fmt(R(co.cash,0))+"M",cls:co.cash<0?"caution":"",delta:prev?R(co.cash,0)-prev.cash:0,money:true},
+      {k:"Market share",v:R(co.share,1)+"%",cls:"thrust",delta:prev?R(co.share-prev.share,1):0,pct:true}
+    ];
+    $("#readouts").innerHTML=cards.map(c=>{
+      let d="";
+      if(prev && Math.abs(c.delta)>0.05){
+        const up=c.delta>0;
+        const dn=Math.abs(R(c.delta, c.pct?1:0));
+        d=`<span class="delta ${up?'up':'down'}">${up?'▲':'▼'}${c.money?'$':''}${c.money?fmt(dn):dn}${c.pct?'%':c.money?'M':''}</span>`;
+      }
+      return `<div class="ro"><div class="k">${c.k}</div><div class="v ${c.cls}">${c.v}${d}</div></div>`;
+    }).join("");
+  }
+
+  function renderInstruments(){
+    const co=state.co;
+    // annunciators
+    const ann=[
+      {n:"Risk",v:R(co.risk,0),warn:co.risk>=62,good:co.risk<32},
+      {n:"Trust",v:R(co.trust,0),warn:co.trust<=35,good:co.trust>=70},
+      {n:"Talent",v:R(co.talent,0),warn:co.talent<=25,good:co.talent>=72}
+    ];
+    $("#annunciators").innerHTML=ann.map(a=>{
+      const c=a.warn?"warn":a.good?"good":"";
+      const col=a.warn?"var(--caution)":a.good?"var(--thrust)":"var(--ivory)";
+      return `<div class="ann ${c}"><div class="an">${a.n}</div><div class="av" style="color:${col}">${a.v}</div></div>`;
+    }).join("");
+    // gauges
+    const gs=[
+      {n:"Efficiency",v:co.efficiency,c:"#5BA8FF"},
+      {n:"Innovation",v:co.innovation,c:"#FFB627"},
+      {n:"Talent",v:co.talent,c:"#2DD4A7"},
+      {n:"Trust",v:co.trust,c:"#c084fc"}
+    ];
+    $("#gauges").innerHTML=gs.map(g=>`
+      <div class="gauge">
+        <div class="gh"><span class="gn">${g.n}</span><span class="gv" style="color:${g.c}">${R(g.v,0)}</span></div>
+        <div class="track"><div class="fill" style="width:${SIM.clamp(g.v,0,100)}%;background:linear-gradient(90deg,${g.c}55,${g.c})"></div></div>
+      </div>`).join("");
+    // thrust bars
+    $("#mom-val").textContent=co.momentum;
+    let tb="";for(let i=0;i<6;i++){tb+=`<div class="tb ${i<co.momentum?'on':''}"></div>`;}
+    $("#thrust-bars").innerHTML=tb;
+    // ADI target
+    const g=co.lastGrowth||0;
+    adiTarget.pitch=SIM.clamp(g*260,-26,26);            // growth → climb/dive
+    adiTarget.roll=SIM.clamp((co.risk-40)*0.7,-30,30);  // risk → bank angle
+    const status=co.risk>=62?"CAUTION · HIGH RISK":g>0.02?"CLIMB":g<-0.005?"DESCENT":"LEVEL";
+    $("#adi-status").textContent=status;
+    $("#adi-status").style.color=co.risk>=62?"var(--caution)":g>0.02?"var(--thrust)":"var(--muted)";
+  }
+
+  function renderBudget(){
+    const co=state.co;
+    const cap=Math.max(0,Math.round(Math.min(co.cash*0.6, 120)));
+    $("#cash-hint").textContent=`Cash on hand: $${fmt(R(co.cash,0))}M`;
+    const budget=Math.round(cap*budgetPct/100);
+    $("#budget-slider").max=100;
+    $("#budget-val").textContent="$"+fmt(budget)+"M";
+    $("#spend-cap").textContent="$"+fmt(cap)+"M";
+    $("#spend-total").textContent="$"+fmt(budget)+"M";
+    $("#spend-left").innerHTML=`Retaining <b>$${fmt(R(co.cash,0)-budget)}M</b> as reserve`;
+    // levers
+    const tw=(weights.ops+weights.inno+weights.talent+weights.gov)||1;
+    $("#alloc").innerHTML=LEVERS.map(l=>{
+      const dollars=Math.round(budget*weights[l.key]/tw);
+      return `<div class="lever">
+        <div class="lt">
+          <span class="ln"><span class="chip" style="background:${l.color}"></span>${l.name}</span>
+          <span class="lv">$${fmt(dollars)}M</span>
+        </div>
+        <div class="desc">${l.desc}</div>
+        <input type="range" class="rng teal" min="0" max="10" value="${weights[l.key]}" step="1"
+          oninput="setWeight('${l.key}',this.value)" aria-label="${l.name} emphasis" />
+      </div>`;
+    }).join("");
+  }
+
+  window.onBudget=function(){ budgetPct=parseInt($("#budget-slider").value,10); renderBudget(); };
+  window.setWeight=function(key,val){ weights[key]=parseInt(val,10); renderBudget(); };
+
+  function renderCards(){
+    const co=state.co;
+    $("#cards").innerHTML=hand.map((c,i)=>{
+      const affordable=c.req(co);
+      const sel=selectedCard&&selectedCard.id===c.id;
+      const cost=c.cost>0?`$${c.cost}M`:"No cash";
+      return `<button class="card ${sel?'sel':''} ${affordable?'':'locked'}" ${affordable?`onclick="selectCard('${c.id}')"`:''} aria-pressed="${sel}">
+        <span class="selmark">◉ SELECTED</span>
+        <div class="ct">${c.title}</div>
+        <div class="cd">${c.desc}</div>
+        ${!affordable&&c.reqText?`<div class="lockmsg">${c.reqText}</div>`:''}
+        <div class="cf"><span class="cost ${c.cost>0?'':'free'}">${cost}</span><span style="color:var(--muted-2)">${affordable?'available':'locked'}</span></div>
+      </button>`;
+    }).join("");
+  }
+
+  window.selectCard=function(id){ selectedCard = (selectedCard&&selectedCard.id===id)?null:hand.find(c=>c.id===id); renderCards(); blip(660); };
+
+  function renderRivals(){
+    const wrap=$("#rivals-wrap");
+    let board=[];
+    if(state.co.mode==="vsai" && state.rivals.length){
+      board=[{name:state.co.name,valuation:state.co.valuation,share:state.co.share,rev:state.co.revenue,you:true},
+        ...state.rivals.map(r=>({name:r.name,valuation:r.valuation,share:r.share,rev:r.revenue,you:false}))];
+    } else if(state.co.mode==="multi" && players){
+      board=players.map((p,i)=>({name:p.co.name,valuation:p.co.valuation,share:p.co.share,rev:p.co.revenue,you:i===activePlayer}));
+    } else { wrap.style.display="none"; return; }
+    wrap.style.display="block";
+    board.sort((a,b)=>b.valuation-a.valuation);
+    $("#rivals").innerHTML=board.map((b,i)=>`
+      <div class="rival-row ${b.you?'you':''}">
+        <div class="rk">${i+1}</div>
+        <div class="rname">${b.name}${b.you?'<span class="tagme">YOU</span>':''}</div>
+        <div class="rmeta">
+          <div class="rm"><div class="rl">VAL</div><div class="rvv">$${fmt(b.valuation)}M</div></div>
+          <div class="rm"><div class="rl">SHARE</div><div class="rvv">${R(b.share,1)}%</div></div>
+          <div class="rm"><div class="rl">REV</div><div class="rvv">$${fmt(R(b.rev,0))}M</div></div>
+        </div>
+      </div>`).join("");
+  }
+
+  function renderLog(){
+    const items=(state.logEntries||[]).slice(-14).reverse();
+    if(!items.length){ $("#log").innerHTML=`<div class="log-item"><div class="log-q">Q1 Y1</div><div class="log-body">Pre-flight complete. Set your budget, pick a play, and commit the quarter. The market is watching.</div></div>`; return; }
+    $("#log").innerHTML=items.map(e=>`<div class="log-item"><div class="log-q">${e.q}</div><div class="log-body">${e.html}</div></div>`).join("");
+  }
+
+  function renderCommit(){
+    const btn=$("#commit-btn");
+    if(state.co.mode==="multi"){
+      const last=state.quarter>state.totalQuarters;
+      $("#commit-label").textContent = last?`Finish P${activePlayer+1}'s flight`:`Commit Q${state.quarter} · pass to P${activePlayer===0?2:1}`;
+    } else {
+      $("#commit-label").textContent = state.quarter>=state.totalQuarters?`Commit final quarter`:`Commit & advance to Q${state.quarter+1}`;
+    }
+  }
+
+  /* ---------- turn logic ---------- */
+  function dealHand(){
+    const all=SIM.cardCatalog();
+    // always include a couple of stabilizers, then random picks
+    const guaranteed=all.filter(c=>c.id==="hold");
+    const raise=all.find(c=>c.id==="raise");
+    const rest=all.filter(c=>c.id!=="hold" && c.id!=="raise");
+    // shuffle rest
+    for(let i=rest.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rest[i],rest[j]]=[rest[j],rest[i]];}
+    hand=rest.slice(0,4);
+    if(state.co.cash<60) hand.push(raise);
+    hand.push(guaranteed[0]);
+    selectedCard=null;
+  }
+
+  window.commitQuarter=function(){
+    const co=state.co;
+    const cap=Math.max(0,Math.round(Math.min(co.cash*0.6,120)));
+    const budget=Math.round(cap*budgetPct/100);
+    const decision={budget, weights:{...weights}, card:selectedCard};
+    const res=SIM.simulateQuarter(state,decision);
+
+    // accumulate logs
+    state.logEntries=(state.logEntries||[]).concat(res.logs);
+
+    blip(440);
+    if(audioOn && res.growth>0) blip(880,0.05);
+
+    // handle events sequentially via modal queue, then finalize
+    const queue=res.events.slice();
+    finalizeAfterEvents(queue);
+  };
+
+  function finalizeAfterEvents(queue){
+    if(queue.length){
+      const ev=queue.shift();
+      showEventModal(ev,()=>finalizeAfterEvents(queue));
+      return;
+    }
+    // update instruments & board
+    renderAll();
+
+    // hot-seat: one handler covers swap, continue, crash and completion
+    if(state.co.mode==="multi" && players){ multiNext(); return; }
+
+    if(state.over){ showDebrief(); return; }
+
+    dealHand();
+    renderAll();
+    toast(`Quarter committed. ${SIM.qlabel(state)} underway.`,"amber");
+  }
+
+  // Robust hot-seat turn director. "over" covers both a crash and a completed flight.
+  function multiNext(){
+    const p0=players[0], p1=players[1];
+    if(p0.over && p1.over){ showMultiDebrief(); return; }
+    // next seat = a player who is NOT out; prefer whoever has played fewer quarters
+    let cand;
+    if(p0.over) cand=1;
+    else if(p1.over) cand=0;
+    else cand = (p0.quarter<=p1.quarter) ? 0 : 1;
+    const switching = cand!==activePlayer;
+    activePlayer=cand; state=players[cand];
+    dealHand(); renderAll();
+    if(switching){
+      const otherLanded = players[cand===0?1:0].over;
+      openModal("Pass the controls",
+        `<p>${otherLanded?`<b>${players[cand===0?1:0].co.name}</b> has landed. `:''}Hand the device to <b>${state.co.name}</b> — their instruments stay hidden until they take the seat.</p>
+         <div class="modal-choices"><button class="mc" onclick="closeModal()">
+           <div class="mct">I'm ${state.co.name} — take the seat</div>
+           <div class="mcd">Quarter ${state.quarter} of ${state.totalQuarters}</div></button></div>`);
+    } else {
+      toast(`${state.co.name}: continue your flight — ${SIM.qlabel(state)}.`,"amber");
+    }
+  }
+
+  /* ---------- modals ---------- */
+  function showEventModal(ev,next){
+    const effects=(ev.effects||[]).map(e=>`<div class="rc"><div class="rck">${e[0]}</div><div class="rcv">${e[1]}</div></div>`).join("");
+    openModal(ev.title,
+      `<span class="event-tag ${ev.tag}">${ev.tag==='risk'?'⚠ Turbulence':ev.tag==='boon'?'▲ Tailwind':'◇ Market signal'}</span>
+       <p>${ev.body}</p>
+       ${effects?`<div class="result-grid">${effects}</div>`:''}
+       <div class="modal-choices"><button class="mc" onclick="__eventAck()"><div class="mct">Acknowledge</div><div class="mcd">Continue the quarter</div></button></div>`);
+    window.__eventAck=function(){ closeModal(); setTimeout(next,180); };
+  }
+
+  window.openGuide=function(){
+    openModal("Flight manual",`
+      <p style="margin-top:0">You're piloting a company through the GenAI transition over ${cfg.quarters} quarters. Grow enterprise valuation — and don't stall into a crash.</p>
+      <div class="guide-list" style="margin-top:18px">
+        <div class="gi"><div class="gnum"></div><div><div class="gt">Set the budget</div><div class="gtx">The master dial sets how much cash you deploy. The four emphasis sliders split it across efficiency, innovation, talent and governance. Every lever has diminishing returns — spreading too thin wastes capital.</div></div></div>
+        <div class="gi"><div class="gnum"></div><div><div class="gt">Read the attitude indicator</div><div class="gtx">The artificial horizon pitches up when you're growing and banks over as risk climbs. When it rolls hard and the caution light flashes, fund governance before an incident grounds you.</div></div></div>
+        <div class="gi"><div class="gnum"></div><div><div class="gt">Play one strategic card</div><div class="gtx">Each quarter offers bold, lumpy moves — acquisitions, price wars, moonshots. Some need cash or an innovation threshold. "Hold position" is always valid when you need to rebuild reserves.</div></div></div>
+        <div class="gi"><div class="gnum"></div><div><div class="gt">Mind the three failure modes</div><div class="gtx">Sustained insolvency, a talent exodus, or a catastrophic AI incident ends the flight early. Balance short-term share grabs against long-term innovation and trust.</div></div></div>
+        <div class="gi"><div class="gnum"></div><div><div class="gt">Beat the board</div><div class="gtx">In Vs AI, rivals run their own strategies and contest your share every quarter. Out-innovate and out-govern them to top the valuation leaderboard.</div></div></div>
+      </div>`);
+  };
+
+  function openModal(title,bodyHTML){ $("#modal-title").innerHTML=title; $("#modal-body").innerHTML=bodyHTML; $("#modal-bg").classList.add("on"); }
+  window.closeModal=function(){ $("#modal-bg").classList.remove("on"); };
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+
+  /* ---------- debrief ---------- */
+  function grade(val, start){
+    const mult=val/Math.max(start,1);
+    if(mult>=3.0) return {g:"S",c:"var(--phosphor)"};
+    if(mult>=2.2) return {g:"A",c:"var(--thrust)"};
+    if(mult>=1.6) return {g:"B",c:"var(--sky)"};
+    if(mult>=1.1) return {g:"C",c:"var(--ivory)"};
+    if(mult>=0.7) return {g:"D",c:"#e0a458"};
+    return {g:"F",c:"var(--caution)"};
+  }
+  function reasonText(state){
+    switch(state.endReason){
+      case "insolvency":return "GROUNDED · INSOLVENCY";
+      case "exodus":return "GROUNDED · TALENT EXODUS";
+      case "catastrophe":return "GROUNDED · CATASTROPHIC INCIDENT";
+      default:return `FLIGHT COMPLETE · ${state.totalQuarters} QUARTERS`;
+    }
+  }
+  function verdictText(state,gr){
+    const co=state.co;
+    if(state.endReason==="insolvency") return `${co.name} ran out of runway. Cash stayed underwater two quarters straight and the board pulled the plug. Next flight: keep a reserve and don't over-deploy every quarter.`;
+    if(state.endReason==="exodus") return `${co.name} lost its people. With talent gutted, the org couldn't execute and the flight ended early. Protect morale even while chasing growth.`;
+    if(state.endReason==="catastrophe") return `A catastrophic AI incident destroyed trust in ${co.name}. Governance debt is the silent killer — it compounds until it doesn't.`;
+    const parts=[];
+    if(co.innovation>65) parts.push("a genuine innovation edge");
+    if(co.risk<35) parts.push("disciplined risk governance");
+    if(co.share>30) parts.push("commanding market share");
+    if(co.trust>72) parts.push("deep customer trust");
+    const strengths=parts.length?parts.join(", "):"a steady hand on the controls";
+    return `${co.name} landed with ${strengths}. Grade ${gr.g} reflects a ${gr.g==='S'||gr.g==='A'?'standout':gr.g==='B'||gr.g==='C'?'solid':'rough'} transformation. ${co.incidents>0?`You weathered ${co.incidents} incident${co.incidents>1?'s':''} along the way.`:'You flew a clean flight with no incidents.'}`;
+  }
+
+  function showDebrief(){
+    stopADI();
+    const start=state.history[0].valuation;
+    const gr=grade(state.co.valuation,start);
+    $("#debrief-reason").textContent=reasonText(state);
+    $("#grade").textContent=gr.g; $("#grade").style.color=gr.c;
+    $("#final-val").textContent="$"+fmt(state.co.valuation)+"M";
+    $("#verdict").textContent=verdictText(state,gr);
+    drawTrajectory();
+    // standings
+    let board=[{name:state.co.name,valuation:state.co.valuation,you:true}];
+    if(state.co.mode==="vsai") board=board.concat(state.rivals.map(r=>({name:r.name,valuation:r.valuation,you:false})));
+    board.sort((a,b)=>b.valuation-a.valuation);
+    $("#board-title").textContent = state.co.mode==="vsai"?"FINAL STANDINGS":"YOUR RESULT";
+    $("#debrief-board").innerHTML=board.map((b,i)=>`
+      <div class="rival-row ${b.you?'you':''}"><div class="rk">${i+1}</div>
+      <div class="rname">${b.name}${b.you?'<span class="tagme">YOU</span>':''}</div>
+      <div class="rmeta"><div class="rm"><div class="rl">VALUATION</div><div class="rvv">$${fmt(b.valuation)}M</div></div></div></div>`).join("");
+    go("debrief");
+  }
+
+  function showMultiDebrief(){
+    stopADI();
+    const p=players;
+    const winner=p[0].co.valuation>=p[1].co.valuation?0:1;
+    const gr={g:"—",c:"var(--phosphor)"};
+    $("#debrief-reason").textContent="HOT-SEAT RESULT";
+    $("#grade").textContent="VS"; $("#grade").style.color="var(--phosphor)";
+    $("#final-val").textContent=p[winner].co.name+" wins";
+    $("#verdict").textContent=`${p[winner].co.name} landed at $${fmt(p[winner].co.valuation)}M versus $${fmt(p[winner===0?1:0].co.valuation)}M. ${Math.abs(p[0].co.valuation-p[1].co.valuation)<200?'A photo finish.':'A decisive flight.'}`;
+    state=players[winner];
+    drawTrajectoryMulti();
+    let board=[{name:p[0].co.name,valuation:p[0].co.valuation,you:true},{name:p[1].co.name,valuation:p[1].co.valuation,you:false}].sort((a,b)=>b.valuation-a.valuation);
+    $("#board-title").textContent="FINAL STANDINGS";
+    $("#debrief-board").innerHTML=board.map((b,i)=>`
+      <div class="rival-row ${i===0?'you':''}"><div class="rk">${i+1}</div>
+      <div class="rname">${b.name}${i===0?'<span class="tagme">WINNER</span>':''}</div>
+      <div class="rmeta"><div class="rm"><div class="rl">VALUATION</div><div class="rvv">$${fmt(b.valuation)}M</div></div></div></div>`).join("");
+    go("debrief");
+  }
+
+  /* ---------- trajectory chart (native canvas, no deps) ---------- */
+  function drawTrajectory(){
+    const series=[{label:state.co.name,data:state.history.map(h=>h.valuation),color:"#FFB627"}];
+    lineChart($("#trajectory"),series);
+  }
+  function drawTrajectoryMulti(){
+    const series=[
+      {label:players[0].co.name,data:players[0].history.map(h=>h.valuation),color:"#FFB627"},
+      {label:players[1].co.name,data:players[1].history.map(h=>h.valuation),color:"#2DD4A7"}
+    ];
+    lineChart($("#trajectory"),series);
+  }
+  function lineChart(canvas,series){
+    const dpr=window.devicePixelRatio||1;
+    const w=canvas.clientWidth||canvas.parentElement.clientWidth-4, h=220;
+    canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.height=h+"px";
+    const ctx=canvas.getContext("2d"); if(!ctx) return; ctx.scale(dpr,dpr);
+    ctx.clearRect(0,0,w,h);
+    const pad={l:52,r:16,t:16,b:26};
+    const allv=series.flatMap(s=>s.data); const maxV=Math.max(...allv,1), minV=Math.min(...allv,0);
+    const n=series[0].data.length;
+    const X=i=>pad.l+(w-pad.l-pad.r)*(n<=1?0:i/(n-1));
+    const Y=v=>pad.t+(h-pad.t-pad.b)*(1-(v-minV)/Math.max(maxV-minV,1));
+    // grid
+    ctx.strokeStyle="rgba(36,58,94,.5)"; ctx.lineWidth=1; ctx.font="10px 'IBM Plex Mono',monospace"; ctx.fillStyle="#5f7291";
+    for(let g=0;g<=4;g++){const val=minV+(maxV-minV)*g/4;const y=Y(val);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillText("$"+fmt(Math.round(val)),6,y+3);}
+    // x labels
+    for(let i=0;i<n;i+=Math.ceil(n/6)){ctx.fillText("Q"+(i+1),X(i)-6,h-8);}
+    // lines
+    series.forEach(s=>{
+      ctx.strokeStyle=s.color; ctx.lineWidth=2.4; ctx.beginPath();
+      s.data.forEach((v,i)=>{const x=X(i),y=Y(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}); ctx.stroke();
+      // fill
+      const grad=ctx.createLinearGradient(0,pad.t,0,h-pad.b); grad.addColorStop(0,s.color+"33"); grad.addColorStop(1,s.color+"00");
+      ctx.lineTo(X(n-1),h-pad.b); ctx.lineTo(X(0),h-pad.b); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+      ctx.fillStyle=s.color; s.data.forEach((v,i)=>{ctx.beginPath();ctx.arc(X(i),Y(v),2.6,0,7);ctx.fill();});
+    });
+    // legend
+    let lx=pad.l;
+    series.forEach(s=>{ctx.fillStyle=s.color;ctx.fillRect(lx,4,10,10);ctx.fillStyle="#8ba0c2";ctx.font="11px 'IBM Plex Sans'";ctx.fillText(s.label,lx+14,13);lx+=ctx.measureText(s.label).width+40;});
+  }
+
+  /* ---------- Attitude Indicator (artificial horizon) ---------- */
+  function startADI(){ stopADI(); const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(reduce){ adiCur={...adiTarget}; drawADI(); return; } loopADI(); }
+  function stopADI(){ if(adiAnim) cancelAnimationFrame(adiAnim); adiAnim=null; }
+  function loopADI(){ adiCur.pitch+=(adiTarget.pitch-adiCur.pitch)*0.08; adiCur.roll+=(adiTarget.roll-adiCur.roll)*0.08; drawADI(); adiAnim=requestAnimationFrame(loopADI); }
+  function drawADI(){
+    const cv=$("#adi"); if(!cv) return; const ctx=cv.getContext("2d"); if(!ctx) return;
+    const S=cv.width, c=S/2; ctx.clearRect(0,0,S,S);
+    ctx.save(); ctx.translate(c,c); ctx.rotate(adiCur.roll*Math.PI/180);
+    const off=adiCur.pitch*3.4;
+    // sky
+    ctx.fillStyle="#1c3a63"; ctx.fillRect(-S,-S+off,S*2,S*1.5);
+    // ground
+    ctx.fillStyle="#3a2a17"; ctx.fillRect(-S,off,S*2,S*1.5);
+    // horizon line
+    ctx.strokeStyle="#ECE6D6"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(-S,off); ctx.lineTo(S,off); ctx.stroke();
+    // pitch ladder
+    ctx.strokeStyle="rgba(236,230,214,.55)"; ctx.fillStyle="rgba(236,230,214,.7)"; ctx.lineWidth=1.4; ctx.font="9px 'IBM Plex Mono'"; ctx.textAlign="center";
+    for(let p=-30;p<=30;p+=10){ if(p===0) continue; const y=off - p*3.4; const wln=p%20===0?34:20;
+      ctx.beginPath(); ctx.moveTo(-wln,y); ctx.lineTo(wln,y); ctx.stroke(); }
+    ctx.restore();
+    // fixed aircraft symbol
+    ctx.strokeStyle="#FFB627"; ctx.lineWidth=3.4; ctx.lineCap="round";
+    ctx.beginPath(); ctx.moveTo(c-46,c); ctx.lineTo(c-16,c); ctx.moveTo(c+16,c); ctx.lineTo(c+46,c); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(c-16,c); ctx.lineTo(c,c+12); ctx.lineTo(c+16,c); ctx.stroke();
+    ctx.fillStyle="#FFB627"; ctx.beginPath(); ctx.arc(c,c,2.6,0,7); ctx.fill();
+    // bezel ticks
+    ctx.strokeStyle="rgba(236,230,214,.5)"; ctx.lineWidth=2;
+    [-30,-20,-10,0,10,20,30].forEach(a=>{const r=a*Math.PI/180 - Math.PI/2;ctx.beginPath();ctx.moveTo(c+Math.cos(r)*(c-6),c+Math.sin(r)*(c-6));ctx.lineTo(c+Math.cos(r)*(c-14),c+Math.sin(r)*(c-14));ctx.stroke();});
+    // roll pointer
+    const rr=(-90+adiCur.roll)*Math.PI/180; ctx.fillStyle="#FFB627"; ctx.beginPath();
+    ctx.moveTo(c+Math.cos(rr)*(c-6),c+Math.sin(rr)*(c-6));
+    ctx.lineTo(c+Math.cos(rr-0.03)*(c-16),c+Math.sin(rr-0.03)*(c-16));
+    ctx.lineTo(c+Math.cos(rr+0.03)*(c-16),c+Math.sin(rr+0.03)*(c-16));
+    ctx.closePath(); ctx.fill();
+  }
+
+  /* ---------- audio (procedural, Web Audio) ---------- */
+  window.toggleMusic=function(){
+    if(!audio){ try{ audio=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ toast("Audio not supported here.","red"); return; } }
+    audioOn=!audioOn;
+    $("#music-btn").setAttribute("aria-pressed",audioOn);
+    $("#music-ic").textContent=audioOn?"♫":"♪";
+    $("#music-label").textContent=audioOn?"Audio on":"Audio off";
+    if(audioOn){ if(audio.state==="suspended")audio.resume(); startHum(); toast("Cockpit ambience engaged.","teal"); }
+    else{ stopHum(); }
+  };
+  let hum=null;
+  function startHum(){ stopHum(); if(!audio) return;
+    const g=audio.createGain(); g.gain.value=0.0; g.connect(audio.destination);
+    const o1=audio.createOscillator(); o1.type="sine"; o1.frequency.value=55;
+    const o2=audio.createOscillator(); o2.type="sine"; o2.frequency.value=82.4;
+    const lfo=audio.createOscillator(); lfo.type="sine"; lfo.frequency.value=0.08;
+    const lg=audio.createGain(); lg.gain.value=6; lfo.connect(lg); lg.connect(o2.frequency);
+    o1.connect(g); o2.connect(g); o1.start(); o2.start(); lfo.start();
+    g.gain.linearRampToValueAtTime(0.05, audio.currentTime+1.2);
+    hum={g,o1,o2,lfo};
+  }
+  function stopHum(){ if(!hum||!audio) return; try{ hum.g.gain.linearRampToValueAtTime(0,audio.currentTime+0.4);
+    setTimeout(()=>{try{hum.o1.stop();hum.o2.stop();hum.lfo.stop();}catch(e){}},500);}catch(e){} hum=null; }
+  function blip(freq,dur=0.08){ if(!audioOn||!audio) return; try{ const o=audio.createOscillator(),g=audio.createGain();
+    o.type="triangle"; o.frequency.value=freq; g.gain.value=0.0001; o.connect(g); g.connect(audio.destination);
+    o.start(); g.gain.exponentialRampToValueAtTime(0.06,audio.currentTime+0.01); g.gain.exponentialRampToValueAtTime(0.0001,audio.currentTime+dur);
+    o.stop(audio.currentTime+dur+0.02);}catch(e){} }
+
+  /* ---------- utils ---------- */
+  function fmt(n){ return Math.round(n).toLocaleString("en-US"); }
+  function toast(msg,kind=""){ const t=document.createElement("div"); t.className="toast "+kind; t.textContent=msg;
+    $("#toast-wrap").appendChild(t); setTimeout(()=>{t.style.opacity="0";t.style.transition="opacity .4s";setTimeout(()=>t.remove(),400);},2600); }
+  window.__toast=toast;
+
+  // redraw chart on resize (debrief)
+  window.addEventListener("resize",()=>{ if($("#s-debrief").classList.contains("on")){ if(players&&players[0]&&players[0].over&&players[1]&&players[1].over) drawTrajectoryMulti(); else if(state&&state.history) drawTrajectory(); } });
+
+})();
+</script>
+</body>
+</html>

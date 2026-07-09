@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESYNCED • Visual AI & Logistics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #22d3ee;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system_ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        #gameCanvas {
+            image-rendering: crisp-edges;
+            box-shadow: 0 30px 70px -15px rgb(0 0 0 / 0.6),
+                        0 0 0 1px rgba(255,255,255,0.06) inset;
+            background: #050505;
+            border-radius: 28px;
+            border: 1px solid #27272a;
+            /* Scale to fit smaller viewports while preserving 4:3 aspect. */
+            width: 100%;
+            max-width: 960px;
+            height: auto;
+            /* Prevent the browser's own pan/zoom from fighting drag gestures. */
+            touch-action: none;
+        }
+
+        .sci-fi-panel {
+            background: rgba(17, 17, 19, 0.95);
+            border: 1px solid rgba(39, 39, 42, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .node {
+            transition: all 0.2s cubic-bezier(0.23, 1.0, 0.32, 1);
+        }
+
+        .node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.15), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border-color: #3f3f46;
+        }
+
+        .drone {
+            transition: filter 0.2s cubic-bezier(0.23, 1.0, 0.32, 1);
+        }
+
+        .section-header {
+            font-size: 0.6875rem;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            color: #71717a;
+            text-transform: uppercase;
+        }
+
+        .resource-bar {
+            height: 5px;
+            background: linear-gradient(90deg, #22d3ee, #14b8a6);
+            border-radius: 9999px;
+            box-shadow: 0 0 6px rgba(34, 211, 238, 0.5);
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(24px);
+        }
+
+        .premium-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3),
+                        0 4px 6px -4px rgb(0 0 0 / 0.3);
+        }
+
+        .modal {
+            animation: modalPop 0.25s cubic-bezier(0.23, 1.0, 0.32, 1);
+        }
+
+        @keyframes modalPop {
+            from { 
+                transform: scale(0.96) translateY(30px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: scale(1) translateY(0); 
+                opacity: 1; 
+            }
+        }
+
+        .node-card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            transition: all 0.15s cubic-bezier(0.23, 1.0, 0.32, 1);
+        }
+
+        .node-card:hover {
+            border-color: #3f3f46;
+            box-shadow: 0 10px 10px -3px rgb(0 0 0 / 0.2);
+        }
+
+        .apple-button {
+            transition: all 0.15s cubic-bezier(0.23, 1.0, 0.32, 1);
+            font-weight: 500;
+        }
+
+        .apple-button:active {
+            transform: scale(0.985);
+        }
+
+        .stat-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .subtle-grid {
+            background-image: 
+                linear-gradient(rgba(63, 66, 75, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(63, 66, 75, 0.08) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        /* === Custom scrollbars for side panes === */
+        .custom-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: #3f3f46 transparent;
+            scroll-behavior: smooth;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 4px 0;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #3f3f46, #27272a);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #52525b, #3f3f46);
+        }
+
+        /* === Collapsible side panes === */
+        .side-pane {
+            transition: width 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        .side-pane.pane-collapsed {
+            width: 3.25rem !important;
+        }
+        .side-pane.pane-collapsed .pane-body {
+            display: none;
+        }
+        .side-pane:not(.pane-collapsed) .pane-rail {
+            display: none !important;
+        }
+
+        .pane-toggle {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(39, 39, 42, 0.6);
+            color: #a1a1aa;
+            transition: all 0.18s ease;
+            flex-shrink: 0;
+        }
+        .pane-toggle:hover {
+            background: rgba(34, 211, 238, 0.12);
+            border-color: rgba(34, 211, 238, 0.4);
+            color: #67e8f9;
+        }
+
+        .rail-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 0.625rem;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: #52525b;
+            margin-top: 4px;
+            user-select: none;
+        }
+        .rail-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: rgba(39, 39, 42, 0.5);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200 overflow-x-hidden">
+    <!-- Header -->
+    <header class="border-b border-zinc-800/70 bg-zinc-950/95 backdrop-blur-2xl z-50">
+        <div class="max-w-[1480px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-x-4">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="relative w-9 h-9">
+                        <img src="https://picsum.photos/id/1015/128/128" alt="Desynced Logo" class="w-9 h-9 rounded-2xl object-cover shadow-[0_0_0_1px_rgba(255,255,255,0.2)_inset] ring-1 ring-white/10">
+                        <!-- Subtle glow overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-teal-400/20 rounded-2xl pointer-events-none"></div>
+                    </div>
+                    <div class="flex items-baseline gap-x-1.5">
+                        <span class="font-display text-[27px] font-semibold tracking-[-0.04em] text-white">DESYNCED</span>
+                        <span class="text-[10px] font-mono tracking-[1.5px] text-cyan-400/60 mt-1">v0.9</span>
+                    </div>
+                </div>
+                
+                <div class="ml-1 px-3.5 py-1 text-xs rounded-3xl bg-white/5 border border-white/10 flex items-center gap-x-2">
+                    <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span class="text-emerald-400/90 text-xs font-medium tracking-wide">SANDBOX</span>
+                </div>
+            </div>
+
+            <!-- Global Resources -->
+            <div class="flex items-center gap-x-9">
+                <div class="flex items-center gap-x-7 text-sm">
+                    <!-- Iron -->
+                    <div class="flex items-center gap-x-2.5">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-cube text-amber-400/90 text-lg"></i>
+                            <span class="font-semibold text-amber-300 tracking-tight">IRON</span>
+                        </div>
+                        <div class="font-mono text-2xl font-semibold tabular-nums tracking-tighter" id="iron-count">0</div>
+                    </div>
+                    
+                    <!-- Drones -->
+                    <div class="flex items-center gap-x-2.5">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-drone text-cyan-400/90 text-lg"></i>
+                            <span class="font-semibold text-cyan-300 tracking-tight">DRONES</span>
+                        </div>
+                        <div class="font-mono text-2xl font-semibold tabular-nums tracking-tighter" id="drone-count">0/12</div>
+                    </div>
+                </div>
+
+                <!-- Simulation Controls -->
+                <div class="flex items-center gap-x-1.5 bg-zinc-900/80 border border-white/10 rounded-3xl p-1 shadow-inner">
+                    <button onclick="toggleSimulation()" id="play-btn"
+                            class="apple-button flex items-center gap-x-2 px-6 py-[7px] rounded-[22px] bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white text-sm font-semibold tracking-tight">
+                        <i class="fa-solid fa-play mr-1.5 text-xs"></i>
+                        <span id="play-text">RUN SIM</span>
+                    </button>
+                    
+                    <button onclick="stepSimulation()" 
+                            class="apple-button px-4 py-[7px] rounded-[22px] hover:bg-white/5 transition-colors text-xs font-medium border border-white/10 flex items-center gap-x-1.5 text-zinc-300">
+                        <i class="fa-solid fa-step-forward text-xs"></i>
+                        <span class="hidden md:inline font-medium">STEP</span>
+                    </button>
+                    
+                    <div class="flex items-center border-l border-white/10 pl-1.5 ml-1 text-xs">
+                        <button onclick="setSpeed(0.5)" class="px-3 py-1.5 rounded-l-3xl hover:bg-white/5 transition-colors text-zinc-400" id="speed-05">0.5×</button>
+                        <button onclick="setSpeed(1)" class="px-3 py-1.5 bg-white/10 text-white border-x border-white/10" id="speed-1">1×</button>
+                        <button onclick="setSpeed(2)" class="px-3 py-1.5 rounded-r-3xl hover:bg-white/5 transition-colors text-zinc-400" id="speed-2">2×</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-x-2">
+                <button onclick="resetDemo()" 
+                        class="apple-button flex items-center gap-x-2 px-5 py-2 text-sm rounded-3xl border border-white/10 hover:bg-white/5 active:bg-white/10 transition-all text-zinc-300">
+                    <i class="fa-solid fa-undo mr-2 text-xs"></i>
+                    <span class="font-medium tracking-tight">Reset</span>
+                </button>
+                <button onclick="showHelp()" 
+                        class="apple-button flex items-center gap-x-2 px-5 py-2 text-sm rounded-3xl border border-white/10 hover:bg-white/5 active:bg-white/10 transition-all text-zinc-300">
+                    <i class="fa-solid fa-question-circle mr-2 text-xs"></i>
+                    <span class="font-medium tracking-tight">Help</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)] max-w-[1480px] mx-auto w-full">
+        
+        <!-- Left Toolbar -->
+        <div id="left-pane" class="side-pane w-full lg:w-72 flex-shrink-0 border-r border-zinc-800 bg-zinc-900 flex flex-col relative">
+
+            <!-- Collapsed rail -->
+            <div class="pane-rail hidden flex-col items-center gap-4 pt-3.5">
+                <button onclick="toggleLeftPane()" title="Expand panel" class="pane-toggle">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+                <div class="rail-label">CONSTRUCTION</div>
+                <button onclick="toggleLeftPane()" class="rail-icon text-cyan-400" title="Spawn Drone"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="toggleLeftPane()" class="rail-icon text-amber-400" title="Resource"><i class="fa-solid fa-mountain"></i></button>
+                <button onclick="toggleLeftPane()" class="rail-icon text-violet-400" title="Profile"><i class="fa-solid fa-user-astronaut"></i></button>
+            </div>
+
+            <!-- Expanded body -->
+            <div class="pane-body flex flex-col flex-1 min-h-0">
+                <div class="flex items-center justify-between px-5 pt-5 pb-2 flex-shrink-0">
+                    <div class="section-header">CONSTRUCTION</div>
+                    <button onclick="toggleLeftPane()" title="Collapse panel" class="pane-toggle">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto custom-scroll px-5 pb-5 flex flex-col">
+            
+            <!-- Build Tools -->
+            <div class="space-y-2 mb-6">
+                <button onclick="setMode('spawn_drone')" id="mode-spawn"
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-2xl border border-zinc-700 hover:border-cyan-500/60 hover:bg-zinc-800 transition-all group">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-plus text-cyan-400 w-5"></i>
+                        <div class="text-left">
+                            <div class="font-semibold">Spawn Drone</div>
+                            <div class="text-[10px] text-zinc-500">Click map to place</div>
+                        </div>
+                    </div>
+                    <div class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-cyan-400 font-mono">D</div>
+                </button>
+                
+                <button onclick="setMode('place_patch')" id="mode-patch"
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-2xl border border-zinc-700 hover:border-amber-500/60 hover:bg-zinc-800 transition-all group">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-mountain text-amber-400 w-5"></i>
+                        <div class="text-left">
+                            <div class="font-semibold">Place Resource</div>
+                            <div class="text-[10px] text-zinc-500">Iron deposit</div>
+                        </div>
+                    </div>
+                    <div class="text-xs px-2 py-0.5 rounded bg-zinc-800 text-amber-400 font-mono">R</div>
+                </button>
+            </div>
+
+            <div class="section-header mb-3 px-1">QUICK TEMPLATES</div>
+            
+            <div class="space-y-2">
+                <button onclick="applyTemplateToSelected('miner')" 
+                        class="w-full text-left px-4 py-2.5 text-sm rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors flex items-center gap-x-3">
+                    <i class="fa-solid fa-hard-hat text-emerald-400"></i>
+                    <div>
+                        <div class="font-medium">Basic Miner</div>
+                        <div class="text-xs text-zinc-500">Mine → Haul → Repeat</div>
+                    </div>
+                </button>
+                
+                <button onclick="applyTemplateToSelected('patrol')" 
+                        class="w-full text-left px-4 py-2.5 text-sm rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors flex items-center gap-x-3">
+                    <i class="fa-solid fa-shield-halved text-violet-400"></i>
+                    <div>
+                        <div class="font-medium">Defense Patrol</div>
+                        <div class="text-xs text-zinc-500">Guard perimeter</div>
+                    </div>
+                </button>
+                
+                <button onclick="applyTemplateToSelected('hauler')" 
+                        class="w-full text-left px-4 py-2.5 text-sm rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors flex items-center gap-x-3">
+                    <i class="fa-solid fa-truck text-orange-400"></i>
+                    <div>
+                        <div class="font-medium">Logistics Hauler</div>
+                        <div class="text-xs text-zinc-500">Transport between points</div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Player Profile -->
+            <div class="mb-6">
+                <div class="section-header mb-3 px-1">COMMANDER PROFILE</div>
+                <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-4">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-cyan-500 rounded-2xl flex items-center justify-center text-xl flex-shrink-0 ring-2 ring-white/10">
+                            👨‍🚀
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-semibold" id="player-name">Commander</div>
+                            <div class="flex items-center gap-x-2 text-xs">
+                                <span class="bg-emerald-500/10 text-emerald-400 px-2 py-px rounded">LVL <span id="player-level">1</span></span>
+                                <span class="text-amber-400 flex items-center gap-x-1">
+                                    <i class="fa-solid fa-fire"></i>
+                                    <span id="streak-count">0</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Badges -->
+                    <div class="text-xs text-zinc-500 mb-2">ACHIEVEMENTS</div>
+                    <div id="badges-container" class="flex gap-2 flex-wrap">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1"></div>
+            
+            <!-- Stats -->
+            <div class="pt-4 border-t border-zinc-800">
+                <div class="text-xs text-zinc-500 mb-2 px-1">BASE STATUS</div>
+                <div class="bg-zinc-950 rounded-2xl p-3 text-xs space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-zinc-400">Iron Stored</span>
+                        <span id="base-iron" class="font-mono font-semibold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-zinc-400">Active Scripts</span>
+                        <span id="active-scripts" class="font-mono font-semibold">0</span>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="flex-1 flex flex-col bg-zinc-950 p-4">
+            <div class="flex-1 flex items-center justify-center relative">
+                <div class="relative">
+                    <canvas id="gameCanvas" width="960" height="720" 
+                            class="rounded-3xl border border-zinc-700 cursor-crosshair"></canvas>
+                    
+                    <!-- Canvas Overlay Info -->
+                    <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-2xl text-xs border border-white/10 flex items-center gap-x-2">
+                        <i class="fa-solid fa-info-circle text-cyan-400"></i>
+                        <span id="mode-indicator" class="font-medium">SELECT MODE</span>
+                    </div>
+                    
+                    <div class="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded-2xl text-[10px] border border-white/10 font-mono flex items-center gap-x-1.5">
+                        <span class="text-emerald-400">●</span>
+                        <span id="fps-counter">60 FPS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-[10px] text-zinc-500 mt-2 flex items-center justify-center gap-x-4">
+                <div>Left click: Select / Place</div>
+                <div class="w-px h-2.5 bg-zinc-700"></div>
+                <div>Right click: Deselect</div>
+                <div class="w-px h-2.5 bg-zinc-700"></div>
+                <div>Drag drones to move manually</div>
+            </div>
+        </div>
+
+        <!-- Right Inspector -->
+        <div id="right-pane" class="side-pane w-full lg:w-80 flex-shrink-0 border-l border-zinc-800 bg-zinc-900 flex flex-col relative">
+
+            <!-- Collapsed rail -->
+            <div class="pane-rail hidden flex-col items-center gap-4 pt-3.5">
+                <button onclick="toggleRightPane()" title="Expand panel" class="pane-toggle">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <div class="rail-label">INSPECTOR</div>
+                <button onclick="toggleRightPane()" class="rail-icon text-cyan-400" title="Inspector"><i class="fa-solid fa-robot"></i></button>
+            </div>
+
+            <!-- Expanded body -->
+            <div class="pane-body flex flex-col flex-1 min-h-0">
+                <div class="flex items-center justify-between px-5 pt-5 pb-2 flex-shrink-0">
+                    <button onclick="toggleRightPane()" title="Collapse panel" class="pane-toggle">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                    <div class="section-header">INSPECTOR</div>
+                </div>
+                <div class="flex-1 overflow-y-auto custom-scroll px-5 pb-5">
+                    <div id="inspector-content">
+                        <!-- Populated by JS -->
+                        <div class="flex flex-col items-center justify-center h-64 text-center px-6">
+                            <i class="fa-solid fa-robot text-5xl text-zinc-700 mb-4"></i>
+                            <div class="text-lg font-semibold text-zinc-400">No drone selected</div>
+                            <p class="text-xs text-zinc-500 mt-2">Click a drone on the map or spawn a new one to begin programming its behavior.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visual Scripting Modal -->
+    <div id="script-modal" onclick="if (event.target.id === 'script-modal') hideScriptModal()" 
+         class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="modal w-full max-w-4xl mx-4 bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden shadow-2xl">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-zinc-700 flex items-center justify-between bg-zinc-950">
+                <div class="flex items-center gap-x-3">
+                    <i class="fa-solid fa-project-diagram text-cyan-400 text-xl"></i>
+                    <div>
+                        <span class="font-semibold text-xl">Visual Script Editor</span>
+                        <span id="modal-drone-name" class="ml-3 text-xs px-2.5 py-px bg-zinc-800 rounded font-mono text-cyan-400"></span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-2">
+                    <button onclick="applyCurrentScript()" 
+                            class="px-5 py-2 bg-cyan-500 hover:bg-cyan-600 transition-colors text-sm font-semibold rounded-2xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-check"></i>
+                        <span>APPLY TO DRONE</span>
+                    </button>
+                    <button onclick="hideScriptModal()" 
+                            class="px-5 py-2 border border-zinc-700 hover:bg-zinc-800 transition-colors text-sm font-medium rounded-2xl">CLOSE</button>
+                </div>
+            </div>
+            
+            <div class="flex h-[520px]">
+                
+                <!-- Node Palette -->
+                <div class="w-72 border-r border-zinc-700 p-5 bg-zinc-950 overflow-y-auto">
+                    <div class="section-header mb-3">NODE PALETTE</div>
+                    
+                    <div class="space-y-4">
+                        <!-- Events -->
+                        <div>
+                            <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1.5 px-1">EVENTS</div>
+                            <div onclick="addNodeToScript('on_start')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700 mb-1.5">
+                                <i class="fa-solid fa-play text-emerald-400 w-4"></i>
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-medium text-sm">On Start</div>
+                                    <div class="text-xs text-zinc-500">Begin behavior</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div>
+                            <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1.5 px-1">ACTIONS</div>
+                            
+                            <div onclick="addNodeToScript('acquire_target')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700 mb-1.5">
+                                <i class="fa-solid fa-crosshairs text-sky-400 w-4"></i>
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">Acquire Target</div>
+                                </div>
+                            </div>
+                            
+                            <div onclick="addNodeToScript('move_to')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700 mb-1.5">
+                                <i class="fa-solid fa-location-arrow text-orange-400 w-4"></i>
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">Move to Target</div>
+                                </div>
+                            </div>
+                            
+                            <div onclick="addNodeToScript('mine')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700 mb-1.5">
+                                <i class="fa-solid fa-hammer text-amber-400 w-4"></i>
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">Mine Resource</div>
+                                </div>
+                            </div>
+                            
+                            <div onclick="addNodeToScript('unload')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700 mb-1.5">
+                                <i class="fa-solid fa-download text-teal-400 w-4"></i>
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">Unload Cargo</div>
+                                </div>
+                            </div>
+                            
+                            <div onclick="addNodeToScript('wait')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700 mb-1.5">
+                                <i class="fa-solid fa-clock text-purple-400 w-4"></i>
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">Wait</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1.5 px-1">FLOW CONTROL</div>
+                            <div onclick="addNodeToScript('loop')" class="node cursor-pointer flex items-center gap-x-3 px-3 py-2.5 rounded-2xl hover:bg-zinc-800 border border-zinc-700">
+                                <i class="fa-solid fa-redo text-rose-400 w-4"></i>
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">Loop to Start</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Script Flow Area -->
+                <div class="flex-1 p-5 flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="section-header">BEHAVIOR FLOW</span>
+                            <span class="text-xs text-zinc-500 ml-2">(executes top → bottom, loops)</span>
+                        </div>
+                        <button onclick="clearCurrentScript()" 
+                                class="text-xs px-3 py-1 rounded-xl border border-zinc-700 hover:bg-red-950 hover:border-red-900 transition-colors flex items-center gap-x-1 text-red-400">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                            <span>CLEAR</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Script Steps -->
+                    <div id="script-flow" class="flex-1 bg-zinc-950 border border-zinc-800 rounded-3xl p-3 overflow-y-auto space-y-2 min-h-[280px]">
+                        <!-- JS populated node cards -->
+                    </div>
+                    
+                    <div class="mt-3 text-xs text-center text-zinc-500">
+                        Drag nodes from palette • Reorder with ↑↓ • Click to configure
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#22d3ee');
+        }
+        
+        // Game State
+        let canvas, ctx;
+        let drones = [];
+        let resourcePatches = [];
+        let base = { x: 480, y: 360, inventory: { iron: 0 } };
+        let selectedDrone = null;
+        let currentMode = 'select';
+        let isRunning = true;
+        let simulationSpeed = 1;
+        let lastTime = Date.now();
+        let frameCount = 0;
+        let fps = 60;
+        const MAX_DRONES = 12;
+        // Monotonic id source. Starts above the hardcoded patch ids (1-5) so a
+        // placed patch can never collide with an initial one, and two entities
+        // created in the same millisecond can never share an id.
+        let nextEntityId = 100;
+
+        // Player Progression
+        let playerProgress = {
+            totalIronCollected: 120,
+            currentLevel: 1,
+            streak: 3,
+            lastPlayDate: new Date().toISOString().split('T')[0],
+            badges: ['first-drone']
+        };
+
+        // Visual Effects
+        let particles = [];
+        let stars = [];
+        let time = 0;
+        
+        // Current script being edited in modal
+        let currentEditingScript = [];
+        let currentEditingDroneId = null;
+        
+        // Node type definitions
+        const NODE_DEFINITIONS = {
+            'on_start': { 
+                label: 'On Start', 
+                icon: 'fa-play', 
+                color: 'emerald', 
+                type: 'event',
+                description: 'Triggers when drone is spawned or script restarts'
+            },
+            'acquire_target': { 
+                label: 'Acquire Target', 
+                icon: 'fa-crosshairs', 
+                color: 'sky', 
+                type: 'action',
+                params: { what: 'nearest_resource' },
+                description: 'Finds the closest valid target'
+            },
+            'move_to': { 
+                label: 'Move to Target', 
+                icon: 'fa-location-arrow', 
+                color: 'orange', 
+                type: 'action',
+                description: 'Moves drone toward current target'
+            },
+            'mine': { 
+                label: 'Mine Resource', 
+                icon: 'fa-hammer', 
+                color: 'amber', 
+                type: 'action',
+                params: { until: 'full' },
+                description: 'Extracts resources until cargo is full or deposit depleted'
+            },
+            'unload': { 
+                label: 'Unload Cargo', 
+                icon: 'fa-download', 
+                color: 'teal', 
+                type: 'action',
+                description: 'Drops off all carried resources at base'
+            },
+            'wait': { 
+                label: 'Wait', 
+                icon: 'fa-clock', 
+                color: 'purple', 
+                type: 'action',
+                params: { duration: 2 },
+                description: 'Pauses for a number of seconds'
+            },
+            'loop': { 
+                label: 'Loop to Start', 
+                icon: 'fa-redo', 
+                color: 'rose', 
+                type: 'flow',
+                description: 'Returns execution to the first node'
+            }
+        };
+        
+        class Drone {
+            constructor(x, y, id) {
+                this.id = id;
+                this.x = x;
+                this.y = y;
+                this.vx = 0;
+                this.vy = 0;
+                
+                // Stats & Modules
+                this.maxCargo = 25;
+                this.cargo = { iron: 0 };
+                this.miningRate = 4;        // units per second
+                this.moveSpeed = 1.8;
+                this.color = '#67e8f9';
+                
+                // Behavior
+                this.script = [];
+                this.currentStepIndex = 0;
+                this.target = null;
+                this.state = 'idle';
+                this.miningProgress = 0;
+                this.waitTimer = 0;
+                
+                // Visual
+                this.size = 11;
+                this.angle = Math.random() * Math.PI * 2;
+            }
+            
+            get cargoPercent() {
+                return Math.min(100, Math.floor((this.cargo.iron / this.maxCargo) * 100));
+            }
+            
+            equipModule(moduleType) {
+                if (moduleType === 'mining_laser') {
+                    this.miningRate = 7;
+                    this.color = '#f59e0b';
+                } else if (moduleType === 'cargo_bay') {
+                    this.maxCargo = 45;
+                    this.size = 14;
+                } else if (moduleType === 'boost_thruster') {
+                    this.moveSpeed = 2.8;
+                    this.color = '#a78bfa';
+                }
+            }
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d', { alpha: true });
+            
+            // Event listeners
+            setupCanvasEvents();
+            setupKeyboardShortcuts();
+            
+            // Load player progress
+            loadPlayerProgress();
+            
+            // Create initial world
+            createInitialWorld();
+            
+            // Start game loop
+            requestAnimationFrame(gameLoop);
+            
+            // Initial UI update
+            updateUI();
+            setMode('select');
+            
+            // Welcome message in console
+            console.log('%c[DESYNCED] Visual AI Logistics prototype initialized. Ready for autonomous operations.', 'color:#64748b');
+        }
+        
+        function createInitialWorld() {
+            // Central base
+            base.x = 480;
+            base.y = 360;
+            base.inventory.iron = 120;
+            
+            // Resource patches
+            resourcePatches = [
+                { id: 1, x: 220, y: 180, resource: 'iron', amount: 680, maxAmount: 680 },
+                { id: 2, x: 760, y: 210, resource: 'iron', amount: 520, maxAmount: 520 },
+                { id: 3, x: 180, y: 540, resource: 'iron', amount: 410, maxAmount: 410 },
+                { id: 4, x: 720, y: 530, resource: 'iron', amount: 590, maxAmount: 590 },
+                { id: 5, x: 480, y: 120, resource: 'iron', amount: 320, maxAmount: 320 }
+            ];
+            
+            // Starting drones with pre-configured behaviors
+            drones = [];
+            
+            const drone1 = new Drone(310, 290, nextEntityId++);
+            drone1.script = createMinerScript();
+            drone1.currentStepIndex = 0;
+            drone1.equipModule('mining_laser');
+            drones.push(drone1);
+            
+            const drone2 = new Drone(650, 310, nextEntityId++);
+            drone2.script = createMinerScript();
+            drone2.currentStepIndex = 0;
+            drone2.equipModule('cargo_bay');
+            drones.push(drone2);
+            
+            const drone3 = new Drone(420, 480, nextEntityId++);
+            drone3.script = createHaulerScript();
+            drone3.currentStepIndex = 0;
+            drone3.equipModule('boost_thruster');
+            drones.push(drone3);
+            
+            // Select first drone by default
+            selectedDrone = drones[0];
+            updateInspector();
+            
+            // Initialize beautiful starfield background
+            initStarfield();
+        }
+        
+        function initStarfield() {
+            stars = [];
+            for (let i = 0; i < 120; i++) {
+                stars.push({
+                    x: Math.random() * 960,
+                    y: Math.random() * 720,
+                    size: Math.random() * 1.8 + 0.4,
+                    alpha: Math.random() * 0.6 + 0.25,
+                    twinkleSpeed: Math.random() * 0.015 + 0.008
+                });
+            }
+        }
+
+        function loadPlayerProgress() {
+            const saved = localStorage.getItem('desyncedProgress');
+            if (saved) {
+                playerProgress = JSON.parse(saved);
+            }
+            updateStreak();
+            updatePlayerUI();
+        }
+
+        function savePlayerProgress() {
+            localStorage.setItem('desyncedProgress', JSON.stringify(playerProgress));
+        }
+
+        function updateStreak() {
+            const today = new Date().toISOString().split('T')[0];
+            if (playerProgress.lastPlayDate !== today) {
+                const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+                if (playerProgress.lastPlayDate === yesterday) {
+                    playerProgress.streak = (playerProgress.streak || 0) + 1;
+                } else if (playerProgress.lastPlayDate !== today) {
+                    playerProgress.streak = 1;
+                }
+                playerProgress.lastPlayDate = today;
+            }
+            savePlayerProgress();
+        }
+
+        function awardBadge(badgeId) {
+            if (!playerProgress.badges.includes(badgeId)) {
+                playerProgress.badges.push(badgeId);
+                savePlayerProgress();
+                updatePlayerUI();
+                showToast('New badge unlocked!');
+            }
+        }
+
+        function calculateLevel() {
+            return Math.floor(playerProgress.totalIronCollected / 450) + 1;
+        }
+
+        function updatePlayerUI() {
+            playerProgress.currentLevel = calculateLevel();
+            
+            document.getElementById('player-level').textContent = playerProgress.currentLevel;
+            document.getElementById('streak-count').textContent = playerProgress.streak || 0;
+            
+            // Render badges
+            const container = document.getElementById('badges-container');
+            container.innerHTML = '';
+            
+            const badgeDefs = {
+                'first-drone': { icon: '🚀', label: 'Pioneer' },
+                'week-warrior': { icon: '🔥', label: 'Streak' },
+                'logistics-master': { icon: '📦', label: 'Master' }
+            };
+            
+            playerProgress.badges.forEach(bid => {
+                const def = badgeDefs[bid] || { icon: '🏆', label: bid };
+                const el = document.createElement('div');
+                el.className = 'w-8 h-8 bg-zinc-800 rounded-xl flex items-center justify-center text-lg border border-amber-400/30';
+                el.title = def.label;
+                el.textContent = def.icon;
+                container.appendChild(el);
+            });
+            
+            // Award some badges based on progress
+            if (playerProgress.totalIronCollected > 800) awardBadge('week-warrior');
+            if (playerProgress.totalIronCollected > 2500) awardBadge('logistics-master');
+        }
+        
+        function createMiningParticles(x, y, count = 6) {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x + (Math.random() - 0.5) * 18,
+                    y: y + (Math.random() - 0.5) * 18,
+                    vx: (Math.random() - 0.5) * 1.8,
+                    vy: (Math.random() - 0.5) * 1.8 - 0.8,
+                    life: 26 + Math.random() * 14,
+                    maxLife: 40,
+                    size: Math.random() * 2.2 + 1.1,
+                    color: '#fcd34d'
+                });
+            }
+        }
+        
+        function createUnloadParticles(x, y, count = 8) {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x + (Math.random() - 0.5) * 22,
+                    y: y + (Math.random() - 0.5) * 14,
+                    vx: (Math.random() - 0.5) * 2.2,
+                    vy: (Math.random() - 0.5) * 1.5 - 1.2,
+                    life: 32 + Math.random() * 18,
+                    maxLife: 50,
+                    size: Math.random() * 2.5 + 1.3,
+                    color: '#67e8f9'
+                });
+            }
+        }
+        
+        function createMinerScript() {
+            return [
+                { type: 'on_start', params: {} },
+                { type: 'acquire_target', params: { what: 'nearest_resource' } },
+                { type: 'move_to', params: {} },
+                { type: 'mine', params: { until: 'full' } },
+                { type: 'acquire_target', params: { what: 'base' } },
+                { type: 'move_to', params: {} },
+                { type: 'unload', params: {} },
+                { type: 'loop', params: {} }
+            ];
+        }
+        
+        function createHaulerScript() {
+            return [
+                { type: 'on_start', params: {} },
+                { type: 'acquire_target', params: { what: 'base' } },
+                { type: 'move_to', params: {} },
+                { type: 'wait', params: { duration: 1.5 } },
+                { type: 'acquire_target', params: { what: 'nearest_resource' } },
+                { type: 'move_to', params: {} },
+                { type: 'mine', params: { until: 'full' } },
+                { type: 'acquire_target', params: { what: 'base' } },
+                { type: 'move_to', params: {} },
+                { type: 'unload', params: {} },
+                { type: 'loop', params: {} }
+            ];
+        }
+        
+        function createPatrolScript() {
+            return [
+                { type: 'on_start', params: {} },
+                { type: 'acquire_target', params: { what: 'patrol_point_1' } },
+                { type: 'move_to', params: {} },
+                { type: 'wait', params: { duration: 3 } },
+                { type: 'acquire_target', params: { what: 'patrol_point_2' } },
+                { type: 'move_to', params: {} },
+                { type: 'wait', params: { duration: 3 } },
+                { type: 'loop', params: {} }
+            ];
+        }
+        
+        // Convert a viewport (client) coordinate into canvas-space, accounting for
+        // the fact that the canvas is now CSS-scaled to fit the viewport. Without
+        // this scaling, clicks/taps land in the wrong place on any non-1:1 display.
+        function getCanvasPos(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+        }
+
+        // Canvas interaction — unified pointer model shared by mouse and touch.
+        function setupCanvasEvents() {
+            let isDragging = false;
+            let dragDrone = null;
+
+            function pointerDown(clientX, clientY) {
+                if (currentMode === 'select') {
+                    const pos = getCanvasPos(clientX, clientY);
+                    const clickedDrone = getDroneAtPosition(pos.x, pos.y);
+                    if (clickedDrone) {
+                        isDragging = true;
+                        dragDrone = clickedDrone;
+                        selectedDrone = clickedDrone;
+                        updateInspector();
+                    } else if (selectedDrone) {
+                        selectedDrone = null;
+                        updateInspector();
+                    }
+                } else {
+                    // spawn_drone / place_patch modes
+                    handleCanvasClick({ clientX, clientY });
+                }
+            }
+
+            function pointerMove(clientX, clientY) {
+                if (!isDragging || !dragDrone) return;
+                const pos = getCanvasPos(clientX, clientY);
+                dragDrone.x = Math.max(0, Math.min(canvas.width, pos.x));
+                dragDrone.y = Math.max(0, Math.min(canvas.height, pos.y));
+                dragDrone.target = null; // cancel current automated target
+                dragDrone.state = 'manual';
+            }
+
+            function pointerUp() { isDragging = false; dragDrone = null; }
+
+            // Mouse
+            canvas.addEventListener('mousedown', (e) => pointerDown(e.clientX, e.clientY));
+            canvas.addEventListener('mousemove', (e) => pointerMove(e.clientX, e.clientY));
+            window.addEventListener('mouseup', pointerUp);
+
+            // Touch (single finger). preventDefault stops the page from scrolling
+            // while you drag a drone.
+            canvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) { e.preventDefault(); const t = e.touches[0]; pointerDown(t.clientX, t.clientY); }
+            }, { passive: false });
+            canvas.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) { e.preventDefault(); const t = e.touches[0]; pointerMove(t.clientX, t.clientY); }
+            }, { passive: false });
+            canvas.addEventListener('touchend', pointerUp);
+            canvas.addEventListener('touchcancel', pointerUp);
+
+            // Right-click to deselect (desktop convenience)
+            canvas.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                if (selectedDrone) { selectedDrone = null; updateInspector(); }
+            });
+        }
+        
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'd' && currentMode !== 'spawn_drone') {
+                    setMode('spawn_drone');
+                }
+                if (e.key.toLowerCase() === 'r' && currentMode !== 'place_patch') {
+                    setMode('place_patch');
+                }
+                if (e.key === 'Escape') {
+                    if (!document.getElementById('script-modal').classList.contains('hidden')) {
+                        hideScriptModal();
+                    } else {
+                        setMode('select');
+                        if (selectedDrone) {
+                            selectedDrone = null;
+                            updateInspector();
+                        }
+                    }
+                }
+                if (e.key.toLowerCase() === 's' && selectedDrone) {
+                    showScriptModal(selectedDrone);
+                }
+            });
+            
+            // Prevent space from scrolling
+            window.addEventListener('keydown', function(e) {
+                if (e.key === " " && e.target === document.body) {
+                    e.preventDefault();
+                }
+            });
+        }
+        
+        function getDroneAtPosition(x, y) {
+            for (let i = drones.length - 1; i >= 0; i--) {
+                const d = drones[i];
+                const dist = Math.hypot(d.x - x, d.y - y);
+                if (dist < d.size + 8) {
+                    return d;
+                }
+            }
+            return null;
+        }
+        
+        function handleCanvasClick(e) {
+            const pos = getCanvasPos(e.clientX, e.clientY);
+            const clickX = pos.x;
+            const clickY = pos.y;
+            
+            if (currentMode === 'spawn_drone') {
+                if (drones.length >= MAX_DRONES) {
+                    showToast(`Drone limit reached (${MAX_DRONES})`);
+                    setMode('select');
+                    return;
+                }
+                const newDrone = new Drone(clickX, clickY, nextEntityId++);
+                // Give it a default simple script
+                newDrone.script = createMinerScript();
+                newDrone.currentStepIndex = 0;
+                drones.push(newDrone);
+                selectedDrone = newDrone;
+                setMode('select');
+                updateUI();
+                updateInspector();
+                
+            } else if (currentMode === 'place_patch') {
+                resourcePatches.push({
+                    id: nextEntityId++,
+                    x: clickX,
+                    y: clickY,
+                    resource: 'iron',
+                    amount: 450 + Math.random() * 200,
+                    maxAmount: 650
+                });
+                setMode('select');
+                updateUI();
+                
+            } else if (currentMode === 'select') {
+                // Select drone
+                const clicked = getDroneAtPosition(clickX, clickY);
+                if (clicked) {
+                    selectedDrone = clicked;
+                    updateInspector();
+                } else {
+                    // Clicked empty space - deselect
+                    if (selectedDrone) {
+                        selectedDrone = null;
+                        updateInspector();
+                    }
+                }
+            }
+        }
+        
+        // === Collapsible side panes ===
+        function toggleLeftPane() {
+            const pane = document.getElementById('left-pane');
+            const rail = pane.querySelector('.pane-rail');
+            const collapsed = pane.classList.toggle('pane-collapsed');
+            rail.classList.toggle('hidden', !collapsed);
+            rail.classList.toggle('flex', collapsed);
+        }
+
+        function toggleRightPane() {
+            const pane = document.getElementById('right-pane');
+            const rail = pane.querySelector('.pane-rail');
+            const collapsed = pane.classList.toggle('pane-collapsed');
+            rail.classList.toggle('hidden', !collapsed);
+            rail.classList.toggle('flex', collapsed);
+        }
+
+        // Mode handling
+        function setMode(mode) {
+            currentMode = mode;
+            
+            // Update button styles
+            document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('!border-cyan-500', '!bg-zinc-800'));
+            
+            const indicator = document.getElementById('mode-indicator');
+            
+            if (mode === 'spawn_drone') {
+                document.getElementById('mode-spawn').classList.add('!border-cyan-500', '!bg-zinc-800');
+                indicator.innerHTML = `<span class="text-cyan-400">SPAWN DRONE</span> — Click anywhere on map`;
+                canvas.style.cursor = 'crosshair';
+            } else if (mode === 'place_patch') {
+                document.getElementById('mode-patch').classList.add('!border-amber-500', '!bg-zinc-800');
+                indicator.innerHTML = `<span class="text-amber-400">PLACE RESOURCE</span> — Click to add iron deposit`;
+                canvas.style.cursor = 'crosshair';
+            } else {
+                indicator.innerHTML = `SELECT MODE — Click drones to program`;
+                canvas.style.cursor = 'default';
+            }
+        }
+        
+        // Main Game Loop
+        function gameLoop() {
+            const now = Date.now();
+            const delta = Math.min((now - lastTime) / 1000, 0.1); // cap delta
+            lastTime = now;
+            
+            frameCount++;
+            if (frameCount % 30 === 0) {
+                // Guard against a zero delta (two frames in the same millisecond),
+                // which previously produced "Infinity FPS".
+                if (delta > 0) fps = Math.min(240, Math.round(1 / delta));
+                document.getElementById('fps-counter').textContent = `${fps} FPS`;
+            }
+            
+            if (isRunning) {
+                updateSimulation(delta * simulationSpeed);
+            }
+            
+            drawWorld();
+            
+            requestAnimationFrame(gameLoop);
+        }
+        
+        function updateSimulation(dt) {
+            // Update each drone
+            for (let i = 0; i < drones.length; i++) {
+                const drone = drones[i];
+                
+                if (!drone.script || drone.script.length === 0) {
+                    // Idle behavior - slow random drift
+                    drone.vx = (drone.vx || 0) * 0.96 + (Math.random() - 0.5) * 0.3;
+                    drone.vy = (drone.vy || 0) * 0.96 + (Math.random() - 0.5) * 0.3;
+                    drone.x += drone.vx;
+                    drone.y += drone.vy;
+                    
+                    // Clamp to world
+                    drone.x = Math.max(30, Math.min(930, drone.x));
+                    drone.y = Math.max(30, Math.min(690, drone.y));
+                    continue;
+                }
+                
+                // Execute current step
+                const stepIndex = drone.currentStepIndex % drone.script.length;
+                const step = drone.script[stepIndex];
+                
+                executeBehaviorStep(drone, step, dt);
+            }
+            
+            // Update global counts
+            updateUI();
+        }
+        
+        function executeBehaviorStep(drone, step, dt) {
+            switch (step.type) {
+                case 'on_start':
+                    // Instant transition to next step
+                    advanceStep(drone);
+                    break;
+                    
+                case 'acquire_target': {
+                    // Always re-acquire based on the requested target. (Previously this
+                    // only ran when the drone had no target, which silently broke any
+                    // script that chained acquire -> move -> acquire -> move, and the
+                    // Patrol template in particular.)
+                    const what = step.params.what || 'nearest_resource';
+                    if (what === 'nearest_resource') {
+                        drone.target = findNearestResourcePatch(drone);
+                        drone.state = 'moving_to_resource';
+                    } else if (what === 'base') {
+                        drone.target = { x: base.x, y: base.y, type: 'base', what };
+                        drone.state = 'moving_to_base';
+                    } else if (what === 'patrol_point_1') {
+                        drone.target = { x: 220, y: 180, type: 'patrol', what };
+                        drone.state = 'patrolling';
+                    } else if (what === 'patrol_point_2') {
+                        drone.target = { x: 760, y: 530, type: 'patrol', what };
+                        drone.state = 'patrolling';
+                    }
+                    advanceStep(drone);
+                    break;
+                }
+                    
+                case 'move_to':
+                    if (!drone.target) {
+                        advanceStep(drone);
+                        return;
+                    }
+                    
+                    const dx = drone.target.x - drone.x;
+                    const dy = drone.target.y - drone.y;
+                    const dist = Math.hypot(dx, dy);
+                    
+                    if (dist < 9) {
+                        // Reached target
+                        drone.x = drone.target.x;
+                        drone.y = drone.target.y;
+                        drone.vx = 0;
+                        drone.vy = 0;
+                        advanceStep(drone);
+                    } else {
+                        // Move toward target
+                        const speed = drone.moveSpeed * dt * 55;
+                        drone.x += (dx / dist) * speed;
+                        drone.y += (dy / dist) * speed;
+                        
+                        // Gentle rotation
+                        drone.angle = Math.atan2(dy, dx);
+                    }
+                    break;
+                    
+                case 'mine':
+                    if (!drone.target || drone.target.type === 'base') {
+                        advanceStep(drone);
+                        return;
+                    }
+                    
+                    const patch = resourcePatches.find(p => 
+                        Math.hypot(p.x - drone.x, p.y - drone.y) < 22 && p.amount > 0
+                    );
+                    
+                    if (!patch) {
+                        advanceStep(drone);
+                        return;
+                    }
+                    
+                    // Perform mining
+                    drone.state = 'mining';
+                    drone.miningProgress += drone.miningRate * dt;
+                    
+                    if (drone.miningProgress >= 1) {
+                        const canTake = Math.min(
+                            Math.floor(drone.miningProgress), 
+                            patch.amount,
+                            drone.maxCargo - drone.cargo.iron
+                        );
+                        
+                        if (canTake > 0) {
+                            drone.cargo.iron += canTake;
+                            patch.amount -= canTake;
+                            drone.miningProgress -= canTake;
+                            
+                            // Rich mining particles
+                            if (Math.random() < 0.65) {
+                                createMiningParticles(drone.x, drone.y, 3);
+                            }
+                        }
+                    }
+                    
+                    // Decide when to stop mining — honor the "until" parameter.
+                    // 'full'     -> leave once cargo is ~full (or the deposit runs dry)
+                    // 'depleted' -> keep mining this deposit until it is empty
+                    //               (or cargo is physically 100% full)
+                    const until = step.params.until || 'full';
+                    const cargoFull = drone.cargo.iron >= drone.maxCargo;
+                    const shouldStop = (patch.amount <= 0) || cargoFull ||
+                                       (until === 'full' && drone.cargo.iron >= drone.maxCargo * 0.95);
+                    
+                    if (shouldStop) {
+                        drone.miningProgress = 0;
+                        advanceStep(drone);
+                    }
+                    break;
+                    
+                case 'unload':
+                    const distToBase = Math.hypot(drone.x - base.x, drone.y - base.y);
+                    
+                    if (distToBase < 28) {
+                        // Unload with nice particle burst
+                        if (drone.cargo.iron > 0) {
+                            createUnloadParticles(base.x, base.y - 6, Math.min(12, Math.floor(drone.cargo.iron / 3) + 4));
+                            base.inventory.iron += drone.cargo.iron;
+                            playerProgress.totalIronCollected += drone.cargo.iron;
+                            drone.cargo.iron = 0;
+                            updatePlayerUI();
+                        }
+                        drone.state = 'idle';
+                        advanceStep(drone);
+                    } else {
+                        // Move toward base if not already targeting it
+                        if (!drone.target || drone.target.type !== 'base') {
+                            drone.target = { x: base.x, y: base.y, type: 'base' };
+                        }
+                        // Continue moving
+                        const bdx = base.x - drone.x;
+                        const bdy = base.y - drone.y;
+                        const bdist = Math.hypot(bdx, bdy);
+                        if (bdist > 8) {
+                            const speed = drone.moveSpeed * dt * 55;
+                            drone.x += (bdx / bdist) * speed;
+                            drone.y += (bdy / bdist) * speed;
+                        }
+                    }
+                    break;
+                    
+                case 'wait':
+                    drone.state = 'waiting';
+                    drone.waitTimer = (drone.waitTimer || 0) + dt;
+                    
+                    if (drone.waitTimer >= (step.params.duration || 2)) {
+                        drone.waitTimer = 0;
+                        advanceStep(drone);
+                    }
+                    break;
+                    
+                case 'loop':
+                    drone.currentStepIndex = 0;
+                    drone.target = null;
+                    drone.state = 'idle';
+                    break;
+                    
+                default:
+                    advanceStep(drone);
+            }
+        }
+        
+        function advanceStep(drone) {
+            drone.currentStepIndex = (drone.currentStepIndex + 1) % drone.script.length;
+            // Small delay between steps for realism
+            if (drone.script[drone.currentStepIndex].type === 'move_to' || 
+                drone.script[drone.currentStepIndex].type === 'mine') {
+                // allow immediate execution
+            }
+        }
+        
+        function findNearestResourcePatch(drone) {
+            let closest = null;
+            let minDist = Infinity;
+            
+            for (const patch of resourcePatches) {
+                if (patch.amount <= 0) continue;
+                const d = Math.hypot(patch.x - drone.x, patch.y - drone.y);
+                if (d < minDist) {
+                    minDist = d;
+                    closest = patch;
+                }
+            }
+            return closest ? { ...closest, type: 'resource' } : null;
+        }
+        
+        // Drawing - Premium Visuals
+        function drawWorld() {
+            ctx.save();
+            time += 0.016;
+            
+            // === RICH BACKGROUND ===
+            // Deep space gradient
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            bgGrad.addColorStop(0, '#050505');
+            bgGrad.addColorStop(0.5, '#0a0a0f');
+            bgGrad.addColorStop(1, '#050505');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Subtle nebula glow in corners
+            const nebula1 = ctx.createRadialGradient(120, 180, 40, 120, 180, 280);
+            nebula1.addColorStop(0, 'rgba(103, 232, 249, 0.035)');
+            nebula1.addColorStop(1, 'transparent');
+            ctx.fillStyle = nebula1;
+            ctx.fillRect(0, 0, 380, 380);
+            
+            const nebula2 = ctx.createRadialGradient(820, 520, 60, 820, 520, 320);
+            nebula2.addColorStop(0, 'rgba(167, 139, 250, 0.03)');
+            nebula2.addColorStop(1, 'transparent');
+            ctx.fillStyle = nebula2;
+            ctx.fillRect(620, 340, 340, 380);
+            
+            // Starfield
+            ctx.fillStyle = '#e0e7ff';
+            for (const star of stars) {
+                const twinkle = Math.sin(time * star.twinkleSpeed * 8) * 0.35 + 0.65;
+                ctx.globalAlpha = star.alpha * twinkle;
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+                
+                // Occasional brighter stars
+                if (star.size > 1.4) {
+                    ctx.globalAlpha = star.alpha * twinkle * 0.6;
+                    ctx.fillRect(star.x - 0.5, star.y - 0.5, star.size + 1, star.size + 1);
+                }
+            }
+            ctx.globalAlpha = 1;
+            
+            // Subtle grid
+            ctx.strokeStyle = 'rgba(63, 66, 75, 0.09)';
+            ctx.lineWidth = 1;
+            const gridSize = 48;
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x + 0.5, 0);
+                ctx.lineTo(x + 0.5, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y + 0.5);
+                ctx.lineTo(canvas.width, y + 0.5);
+                ctx.stroke();
+            }
+            
+            // === RESOURCE PATCHES (Rich Crystal Look) ===
+            for (const patch of resourcePatches) {
+                if (patch.amount <= 0) continue;
+                
+                const depletion = patch.amount / patch.maxAmount;
+                const radius = 17 + (depletion * 11);
+                const pulse = Math.sin(time * 3.2 + patch.id) * 0.8 + 1.2;
+                
+                // Outer soft glow
+                const outerGlow = ctx.createRadialGradient(patch.x, patch.y, radius * 0.6, patch.x, patch.y, radius * 2.8);
+                outerGlow.addColorStop(0, 'rgba(245, 158, 11, 0.18)');
+                outerGlow.addColorStop(0.5, 'rgba(245, 158, 11, 0.06)');
+                outerGlow.addColorStop(1, 'transparent');
+                ctx.fillStyle = outerGlow;
+                ctx.beginPath();
+                ctx.arc(patch.x, patch.y, radius * 2.8, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Main crystalline body
+                ctx.fillStyle = depletion > 0.65 ? '#c2410f' : (depletion > 0.35 ? '#9a3412' : '#7c2d12');
+                ctx.beginPath();
+                ctx.arc(patch.x, patch.y, radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Inner crystal facets (multiple overlapping circles for depth)
+                ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+                ctx.beginPath();
+                ctx.arc(patch.x - radius * 0.35, patch.y - radius * 0.32, radius * 0.55, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = 'rgba(245, 158, 11, 0.25)';
+                ctx.beginPath();
+                ctx.arc(patch.x + radius * 0.28, patch.y + radius * 0.25, radius * 0.42, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Bright rim highlight
+                ctx.strokeStyle = 'rgba(252, 211, 77, 0.6)';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.arc(patch.x, patch.y, radius, -0.8, 1.6);
+                ctx.stroke();
+                
+                // Amount label with shadow
+                ctx.shadowColor = 'rgba(0,0,0,0.6)';
+                ctx.shadowBlur = 4;
+                ctx.fillStyle = '#fefce8';
+                ctx.font = '700 10px Inter, system-ui';
+                ctx.textAlign = 'center';
+                ctx.fillText(Math.floor(patch.amount), patch.x, patch.y + 3.5);
+                ctx.shadowBlur = 0;
+            }
+            
+            // === PREMIUM BASE / CORE ===
+            const basePulse = Math.sin(time * 2.1) * 0.5 + 1;
+            
+            // Large outer atmospheric glow
+            const atmoGlow = ctx.createRadialGradient(base.x, base.y, 32, base.x, base.y, 95);
+            atmoGlow.addColorStop(0, 'rgba(103, 232, 249, 0.12)');
+            atmoGlow.addColorStop(0.6, 'rgba(103, 232, 249, 0.04)');
+            atmoGlow.addColorStop(1, 'transparent');
+            ctx.fillStyle = atmoGlow;
+            ctx.beginPath();
+            ctx.arc(base.x, base.y, 95, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Outer ring (holographic)
+            ctx.strokeStyle = 'rgba(103, 232, 249, 0.35)';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.arc(base.x, base.y, 38 + Math.sin(time * 1.8) * 1.5, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Main base platform (dark metal)
+            ctx.fillStyle = '#18181b';
+            ctx.beginPath();
+            ctx.arc(base.x, base.y, 29, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Metallic rim
+            ctx.strokeStyle = '#3f3f46';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.arc(base.x, base.y, 29, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Inner glowing ring
+            ctx.strokeStyle = '#67e8f9';
+            ctx.lineWidth = 2.2;
+            ctx.shadowColor = 'rgba(103, 232, 249, 0.6)';
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.arc(base.x, base.y, 22, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+            
+            // Core energy orb
+            const coreGrad = ctx.createRadialGradient(
+                base.x - 5, base.y - 5, 4,
+                base.x + 3, base.y + 3, 16
+            );
+            coreGrad.addColorStop(0, '#e0f2fe');
+            coreGrad.addColorStop(0.4, '#67e8f9');
+            coreGrad.addColorStop(1, '#164e63');
+            ctx.fillStyle = coreGrad;
+            ctx.beginPath();
+            ctx.arc(base.x, base.y, 13.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Inner bright core
+            ctx.fillStyle = '#f0f9ff';
+            ctx.beginPath();
+            ctx.arc(base.x - 2, base.y - 2, 4.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // CORE label
+            ctx.fillStyle = 'rgba(224, 242, 254, 0.9)';
+            ctx.font = '700 9.5px Inter, system-ui';
+            ctx.textAlign = 'center';
+            ctx.fillText('CORE', base.x, base.y + 48);
+            
+            // === DRAW DRONES ===
+            for (const drone of drones) {
+                drawDrone(drone);
+            }
+            
+            // === TARGET LINE (premium dashed) ===
+            if (selectedDrone && selectedDrone.target) {
+                ctx.strokeStyle = 'rgba(103, 232, 249, 0.55)';
+                ctx.lineWidth = 1.75;
+                ctx.setLineDash([5, 4]);
+                ctx.shadowColor = 'rgba(103, 232, 249, 0.3)';
+                ctx.shadowBlur = 4;
+                ctx.beginPath();
+                ctx.moveTo(selectedDrone.x, selectedDrone.y);
+                ctx.lineTo(selectedDrone.target.x, selectedDrone.target.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.shadowBlur = 0;
+            }
+            
+            // === UPDATE & DRAW PARTICLES ===
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.035; // gravity
+                p.life--;
+                
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+                
+                const alpha = (p.life / p.maxLife) * 0.85;
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * (p.life / p.maxLife + 0.3), 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+            
+            ctx.restore();
+        }
+        
+        // === Canvas drawing helpers ===
+        function _hexToRgba(hex, a) {
+            const h = (hex || '#67e8f9').replace('#', '');
+            const r = parseInt(h.substring(0, 2), 16);
+            const g = parseInt(h.substring(2, 4), 16);
+            const b = parseInt(h.substring(4, 6), 16);
+            return `rgba(${r}, ${g}, ${b}, ${a})`;
+        }
+        function _regularPoly(ctx, cx, cy, radius, sides, rotation) {
+            ctx.beginPath();
+            for (let i = 0; i < sides; i++) {
+                const ang = rotation + (i / sides) * Math.PI * 2;
+                const px = cx + Math.cos(ang) * radius;
+                const py = cy + Math.sin(ang) * radius;
+                if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+        }
+        function _roundRect(ctx, x, y, w, h, r) {
+            r = Math.min(r, w / 2, h / 2);
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+
+        function drawDrone(drone) {
+            ctx.save();
+
+            const isSelected = selectedDrone && selectedDrone.id === drone.id;
+            const isMoving = drone.state === 'moving_to_resource' || drone.state === 'moving_to_base';
+            const isMining = drone.state === 'mining';
+            const settled = drone.state === 'idle' || !drone.state || drone.state === 'manual' || drone.state === 'waiting';
+            const bob = settled ? Math.sin(time * 3.2 + drone.id) * 1.2 : Math.sin(time * 6 + drone.id) * 0.55;
+
+            const cx = drone.x;
+            const cy = drone.y + bob;
+            const s = drone.size;
+            const accent = drone.color || '#67e8f9';
+            const heading = drone.angle || 0;
+
+            // === Mining beam (world space) ===
+            if (isMining && drone.target) {
+                ctx.strokeStyle = 'rgba(252, 211, 77, 0.55)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([2, 3]);
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(drone.target.x, drone.target.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                if (Math.random() < 0.28) createMiningParticles(drone.x, drone.y, 2);
+            }
+            if (drone.state === 'moving_to_base' &&
+                Math.hypot(drone.x - base.x, drone.y - base.y) < 45 && Math.random() < 0.18) {
+                createUnloadParticles(base.x, base.y - 8, 3);
+            }
+
+            // === Selection highlight ===
+            if (isSelected) {
+                const selGlow = ctx.createRadialGradient(cx, cy, s + 4, cx, cy, s + 32);
+                selGlow.addColorStop(0, 'rgba(103, 232, 249, 0.22)');
+                selGlow.addColorStop(1, 'transparent');
+                ctx.fillStyle = selGlow;
+                ctx.beginPath();
+                ctx.arc(cx, cy, s + 32, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(103, 232, 249, 0.85)';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([3, 5]);
+                ctx.beginPath();
+                ctx.arc(cx, cy, s + 17, time * 0.6, time * 0.6 + Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // === Ground shadow ===
+            ctx.fillStyle = 'rgba(0,0,0,0.28)';
+            ctx.beginPath();
+            ctx.ellipse(drone.x, drone.y + s + 11, s * 1.05, s * 0.34, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // === Transform into drone-local, heading-aligned space ===
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(heading + Math.PI / 2); // nose points along heading
+
+            const armLen = s * 1.5;
+            const rotorR = s * 0.66;
+            const diag = armLen * 0.72;
+            const rotors = [
+                { x: -diag, y: -diag, front: true },
+                { x:  diag, y: -diag, front: true },
+                { x: -diag, y:  diag, front: false },
+                { x:  diag, y:  diag, front: false },
+            ];
+
+            // Arms (dark) + subtle highlight
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#27272a';
+            ctx.lineWidth = s * 0.36;
+            for (const r of rotors) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(r.x, r.y);
+                ctx.stroke();
+            }
+            ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+            ctx.lineWidth = s * 0.12;
+            for (const r of rotors) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(r.x, r.y);
+                ctx.stroke();
+            }
+
+            // Rotors: housing, swept disc + spinning blades, guard ring
+            const spin = time * (isMoving ? 60 : 38);
+            for (let i = 0; i < rotors.length; i++) {
+                const r = rotors[i];
+
+                // downward thruster glow when moving
+                if (isMoving) {
+                    const tg = ctx.createRadialGradient(r.x, r.y, 1, r.x, r.y, rotorR * 1.15);
+                    tg.addColorStop(0, _hexToRgba(accent, 0.5));
+                    tg.addColorStop(1, 'transparent');
+                    ctx.fillStyle = tg;
+                    ctx.beginPath();
+                    ctx.arc(r.x, r.y, rotorR * 1.15, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // motor housing
+                ctx.fillStyle = '#18181b';
+                ctx.beginPath();
+                ctx.arc(r.x, r.y, rotorR * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#3f3f46';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // spinning blades (motion-blur disc + two blades)
+                ctx.save();
+                ctx.translate(r.x, r.y);
+                ctx.rotate(spin + i * 1.7);
+                const blade = ctx.createRadialGradient(0, 0, rotorR * 0.18, 0, 0, rotorR);
+                blade.addColorStop(0, 'rgba(148,163,184,0.04)');
+                blade.addColorStop(0.7, 'rgba(148,163,184,0.18)');
+                blade.addColorStop(1, 'rgba(148,163,184,0)');
+                ctx.fillStyle = blade;
+                ctx.beginPath();
+                ctx.arc(0, 0, rotorR, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(226,232,240,0.5)';
+                ctx.lineWidth = 1.7;
+                ctx.lineCap = 'round';
+                for (let b = 0; b < 2; b++) {
+                    ctx.rotate(Math.PI);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(rotorR * 0.9, 0);
+                    ctx.stroke();
+                }
+                ctx.restore();
+
+                // rotor guard ring (front = accent, rear = red)
+                ctx.strokeStyle = r.front ? _hexToRgba(accent, 0.55) : 'rgba(248,113,113,0.45)';
+                ctx.lineWidth = 1.7;
+                ctx.beginPath();
+                ctx.arc(r.x, r.y, rotorR, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // === Central chassis (hex body) ===
+            ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            ctx.shadowBlur = 8;
+            ctx.shadowOffsetY = 2;
+            const bodyGrad = ctx.createLinearGradient(0, -s, 0, s);
+            bodyGrad.addColorStop(0, '#52525b');
+            bodyGrad.addColorStop(0.5, '#1c1c1f');
+            bodyGrad.addColorStop(1, '#09090b');
+            ctx.fillStyle = bodyGrad;
+            _regularPoly(ctx, 0, 0, s * 0.98, 6, Math.PI / 6);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetY = 0;
+
+            // body rim
+            ctx.strokeStyle = 'rgba(255,255,255,0.16)';
+            ctx.lineWidth = 1.4;
+            _regularPoly(ctx, 0, 0, s * 0.98, 6, Math.PI / 6);
+            ctx.stroke();
+
+            // accent trim ring
+            ctx.strokeStyle = accent;
+            ctx.globalAlpha = 0.7;
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.arc(0, 0, s * 0.64, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+
+            // === Sensor eye (glowing, toward nose) ===
+            const eyeY = -s * 0.16;
+            const eyePulse = 0.6 + Math.sin(time * 4 + drone.id) * 0.4;
+            const eyeGlow = ctx.createRadialGradient(0, eyeY, 0.5, 0, eyeY, s * 0.58);
+            eyeGlow.addColorStop(0, accent);
+            eyeGlow.addColorStop(0.4, _hexToRgba(accent, 0.5 * eyePulse));
+            eyeGlow.addColorStop(1, 'transparent');
+            ctx.fillStyle = eyeGlow;
+            ctx.beginPath();
+            ctx.arc(0, eyeY, s * 0.58, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#0a0a0a';
+            ctx.beginPath();
+            ctx.arc(0, eyeY, s * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = accent;
+            ctx.beginPath();
+            ctx.arc(0, eyeY, s * 0.15 * eyePulse + s * 0.04, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.beginPath();
+            ctx.arc(-s * 0.09, eyeY - s * 0.09, s * 0.06, 0, Math.PI * 2);
+            ctx.fill();
+
+            // === Navigation beacons (front white, rear red), blinking ===
+            const blink = Math.sin(time * 6) > 0;
+            ctx.fillStyle = blink ? '#e0f2fe' : 'rgba(224,242,254,0.25)';
+            ctx.beginPath();
+            ctx.arc(0, -s * 0.82, s * 0.11, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = !blink ? '#f87171' : 'rgba(248,113,113,0.25)';
+            ctx.beginPath();
+            ctx.arc(0, s * 0.82, s * 0.11, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore(); // undo heading transform
+
+            // === Cargo indicator (world space) ===
+            if (drone.cargo.iron > 0) {
+                const barWidth = 20;
+                const pct = drone.cargoPercent / 100;
+                const barY = cy + s + 8;
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.7)';
+                _roundRect(ctx, cx - barWidth / 2, barY, barWidth, 4.4, 2.2);
+                ctx.fill();
+                ctx.fillStyle = pct > 0.82 ? '#f59e0b' : '#14b8a6';
+                _roundRect(ctx, cx - barWidth / 2, barY, barWidth * pct, 4.4, 2.2);
+                ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.35)';
+                ctx.fillRect(cx - barWidth / 2, barY, barWidth * pct, 1.3);
+            }
+
+            // === State label (world space) ===
+            let stateText = '';
+            let stateColor = '#64748b';
+            if (drone.state === 'mining') { stateText = 'MINING'; stateColor = '#fcd34d'; }
+            else if (drone.state === 'moving_to_resource') stateText = 'EN ROUTE';
+            else if (drone.state === 'moving_to_base') stateText = 'RETURNING';
+            else if (drone.state === 'waiting') stateText = 'STANDBY';
+
+            if (stateText) {
+                ctx.font = '600 8.5px Inter, system-ui';
+                const textWidth = ctx.measureText(stateText).width;
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
+                _roundRect(ctx, cx - textWidth / 2 - 7, cy - s - 22, textWidth + 14, 15, 5);
+                ctx.fill();
+                ctx.fillStyle = stateColor;
+                ctx.textAlign = 'center';
+                ctx.fillText(stateText, cx, cy - s - 11);
+            }
+
+            ctx.restore();
+        }
+        
+        function updateUI() {
+            // Iron count
+            document.getElementById('iron-count').textContent = Math.floor(base.inventory.iron);
+            document.getElementById('base-iron').textContent = Math.floor(base.inventory.iron);
+            
+            // Drone count
+            document.getElementById('drone-count').textContent = `${drones.length}/${MAX_DRONES}`;
+            
+            // Active scripts
+            const active = drones.filter(d => d.script && d.script.length > 0).length;
+            document.getElementById('active-scripts').textContent = active;
+            
+            // Update inspector if a drone is selected
+            if (selectedDrone) {
+                // live update cargo etc
+                updateInspectorLiveStats();
+            }
+            // Note: updatePlayerUI() is intentionally NOT called here. Level/streak/
+            // badges only change when iron is delivered, so it now runs on unload,
+            // on load, and on badge award — not 60x/second.
+        }
+        
+        function updateInspectorLiveStats() {
+            if (!selectedDrone) return;
+            
+            const cargoEl = document.getElementById('inspector-cargo');
+            if (cargoEl) {
+                cargoEl.textContent = `${selectedDrone.cargo.iron} / ${selectedDrone.maxCargo}`;
+            }
+            
+            const stateEl = document.getElementById('inspector-state');
+            if (stateEl) {
+                stateEl.textContent = selectedDrone.state.toUpperCase();
+            }
+        }
+        
+        function updateInspector() {
+            const container = document.getElementById('inspector-content');
+            
+            if (!selectedDrone) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-64 text-center px-6">
+                        <i class="fa-solid fa-robot text-5xl text-zinc-700 mb-4"></i>
+                        <div class="text-lg font-semibold text-zinc-400">No drone selected</div>
+                        <p class="text-xs text-zinc-500 mt-2">Click a drone on the map or use the toolbar to spawn one.</p>
+                        
+                        <button onclick="setMode('spawn_drone')" 
+                                class="mt-6 px-5 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-2xl flex items-center gap-x-2 transition-colors">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Spawn New Drone</span>
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const d = selectedDrone;
+            
+            let html = `
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-robot text-cyan-400"></i>
+                            <span class="font-semibold">Drone #${d.id.toString().slice(-4)}</span>
+                        </div>
+                        <div class="text-xs text-zinc-500">Autonomous Unit • ID ${d.id}</div>
+                    </div>
+                    
+                    <button onclick="deleteSelectedDrone()" class="text-red-400 hover:text-red-500 p-1">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-3">
+                        <div class="text-xs text-zinc-500">CARGO</div>
+                        <div id="inspector-cargo" class="font-mono text-2xl font-semibold tabular-nums">${d.cargo.iron} <span class="text-xs text-zinc-400">/ ${d.maxCargo}</span></div>
+                        <div class="mt-1.5 h-1.5 bg-zinc-800 rounded">
+                            <div class="resource-bar transition-all" style="width: ${d.cargoPercent}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-3">
+                        <div class="text-xs text-zinc-500">STATUS</div>
+                        <div id="inspector-state" class="font-semibold text-lg mt-0.5">${d.state.toUpperCase()}</div>
+                        <div class="text-xs text-emerald-400">SCRIPT ACTIVE</div>
+                    </div>
+                </div>
+                
+                <!-- Modules / Equipment -->
+                <div class="mb-5">
+                    <div class="flex items-center justify-between mb-2 px-1">
+                        <span class="section-header">EQUIPMENT</span>
+                        <span class="text-xs text-zinc-500">Click to equip</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="equipModuleToSelected('mining_laser')" 
+                                class="text-xs px-3 py-1.5 rounded-2xl border transition-all flex items-center gap-x-1.5 ${d.miningRate > 5 ? 'border-amber-500 bg-amber-950/30' : 'border-zinc-700 hover:border-amber-600'}">
+                            <i class="fa-solid fa-bolt-lightning text-amber-400"></i>
+                            <span>Mining Laser</span>
+                        </button>
+                        
+                        <button onclick="equipModuleToSelected('cargo_bay')" 
+                                class="text-xs px-3 py-1.5 rounded-2xl border transition-all flex items-center gap-x-1.5 ${d.maxCargo > 30 ? 'border-emerald-500 bg-emerald-950/30' : 'border-zinc-700 hover:border-emerald-600'}">
+                            <i class="fa-solid fa-box text-emerald-400"></i>
+                            <span>Cargo Bay</span>
+                        </button>
+                        
+                        <button onclick="equipModuleToSelected('boost_thruster')" 
+                                class="text-xs px-3 py-1.5 rounded-2xl border transition-all flex items-center gap-x-1.5 ${d.moveSpeed > 2.2 ? 'border-violet-500 bg-violet-950/30' : 'border-zinc-700 hover:border-violet-600'}">
+                            <i class="fa-solid fa-rocket text-violet-400"></i>
+                            <span>Boost Thruster</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Behavior -->
+                <div>
+                    <div class="flex items-center justify-between mb-2 px-1">
+                        <span class="section-header">BEHAVIOR SCRIPT</span>
+                        <span class="font-mono text-xs bg-zinc-800 px-1.5 py-px rounded">${d.script.length} nodes</span>
+                    </div>
+                    
+                    <div class="bg-zinc-950 border border-zinc-700 rounded-2xl p-3 mb-3">
+                        <div class="text-xs text-zinc-400 mb-1">Current program:</div>
+                        <div class="text-sm font-medium">${getScriptSummary(d.script)}</div>
+                    </div>
+                    
+                    <div class="flex gap-x-2">
+                        <button onclick="showScriptModal(selectedDrone)" 
+                                class="flex-1 py-2.5 text-sm font-semibold bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 rounded-2xl flex items-center justify-center gap-x-2 transition-all active:scale-[0.985]">
+                            <i class="fa-solid fa-project-diagram"></i>
+                            <span>EDIT VISUAL SCRIPT</span>
+                        </button>
+                        
+                        <button onclick="applyTemplateToSelected('miner')" 
+                                class="px-4 py-2.5 text-sm border border-zinc-700 hover:bg-zinc-800 rounded-2xl transition-all">
+                            <i class="fa-solid fa-sync"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function getScriptSummary(script) {
+            if (!script || script.length === 0) return 'No behavior defined';
+            
+            const actions = script.map(s => {
+                if (s.type === 'mine') return 'Mine';
+                if (s.type === 'unload') return 'Haul';
+                if (s.type === 'move_to') return 'Move';
+                if (s.type === 'acquire_target') return 'Find';
+                if (s.type === 'loop') return '↻';
+                return '';
+            }).filter(Boolean);
+            
+            return actions.slice(0, 5).join(' → ') + (actions.length > 5 ? ' → ...' : '');
+        }
+        
+        function equipModuleToSelected(module) {
+            if (!selectedDrone) return;
+            
+            selectedDrone.equipModule(module);
+            updateInspector();
+            
+            // Visual feedback
+            const origColor = selectedDrone.color;
+            selectedDrone.color = '#f472b6';
+            setTimeout(() => {
+                if (selectedDrone) selectedDrone.color = origColor;
+            }, 280);
+        }
+        
+        function deleteSelectedDrone() {
+            if (!selectedDrone) return;
+            
+            drones = drones.filter(d => d.id !== selectedDrone.id);
+            selectedDrone = null;
+            updateInspector();
+            updateUI();
+        }
+        
+        // ========== VISUAL SCRIPTING ==========
+        
+        function showScriptModal(drone) {
+            if (!drone) return;
+            
+            currentEditingDroneId = drone.id;
+            currentEditingScript = JSON.parse(JSON.stringify(drone.script || [])); // deep clone
+            
+            const modal = document.getElementById('script-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            document.getElementById('modal-drone-name').innerHTML = `DRONE #${drone.id.toString().slice(-4)}`;
+            
+            renderScriptFlow();
+        }
+        
+        function hideScriptModal() {
+            const modal = document.getElementById('script-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            
+            // If we have a selected drone, refresh inspector
+            if (selectedDrone) {
+                updateInspector();
+            }
+        }
+        
+        function renderScriptFlow() {
+            const container = document.getElementById('script-flow');
+            container.innerHTML = '';
+            
+            if (currentEditingScript.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center px-8">
+                        <i class="fa-solid fa-project-diagram text-4xl text-zinc-700 mb-3"></i>
+                        <p class="text-zinc-400 text-sm">No nodes added yet.<br>Click nodes from the palette on the left to build behavior.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            currentEditingScript.forEach((node, index) => {
+                const def = NODE_DEFINITIONS[node.type] || { label: node.type, icon: 'fa-question', color: 'zinc' };
+                
+                const nodeEl = document.createElement('div');
+                nodeEl.className = `node-card border border-zinc-700 rounded-2xl p-3 flex items-start gap-x-3 group`;
+                nodeEl.innerHTML = `
+                    <div class="flex-shrink-0 w-8 h-8 rounded-2xl bg-zinc-800 flex items-center justify-center mt-0.5">
+                        <i class="fa-solid ${def.icon} text-${def.color}-400"></i>
+                    </div>
+                    
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-semibold">${def.label}</span>
+                                <span class="font-mono text-xs ml-2 text-zinc-500">#${index + 1}</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-x-px opacity-70 group-hover:opacity-100">
+                                <button onclick="moveNodeInScript(${index}, -1)" class="px-1.5 py-px hover:bg-zinc-700 rounded text-zinc-400 hover:text-white">
+                                    <i class="fa-solid fa-arrow-up text-xs"></i>
+                                </button>
+                                <button onclick="moveNodeInScript(${index}, 1)" class="px-1.5 py-px hover:bg-zinc-700 rounded text-zinc-400 hover:text-white">
+                                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                                </button>
+                                <button onclick="removeNodeFromScript(${index})" class="px-1.5 py-px hover:bg-red-950 text-red-400 hover:text-red-500 rounded ml-1">
+                                    <i class="fa-solid fa-times text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="text-xs text-zinc-400 mt-px">${def.description || ''}</div>
+                        
+                        <!-- Parameters -->
+                        <div class="mt-2 flex flex-wrap gap-x-2 gap-y-1" id="params-${index}">
+                            <!-- Dynamic params inserted by JS -->
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(nodeEl);
+                
+                // Add parameter controls
+                addParameterControls(nodeEl, node, index);
+            });
+        }
+        
+        function addParameterControls(nodeEl, node, index) {
+            const paramsContainer = nodeEl.querySelector(`#params-${index}`);
+            if (!paramsContainer) return;
+            
+            if (node.type === 'acquire_target') {
+                const select = document.createElement('select');
+                select.className = 'text-xs bg-zinc-900 border border-zinc-600 rounded-xl px-2 py-1 text-white';
+                select.innerHTML = `
+                    <option value="nearest_resource">Nearest Resource Patch</option>
+                    <option value="base">Base Core</option>
+                    <option value="patrol_point_1">Patrol Point A</option>
+                    <option value="patrol_point_2">Patrol Point B</option>
+                `;
+                select.value = node.params.what || 'nearest_resource';
+                select.onchange = () => { node.params.what = select.value; };
+                paramsContainer.appendChild(select);
+            }
+            
+            if (node.type === 'mine') {
+                const select = document.createElement('select');
+                select.className = 'text-xs bg-zinc-900 border border-zinc-600 rounded-xl px-2 py-1 text-white';
+                select.innerHTML = `
+                    <option value="full">Until cargo is full</option>
+                    <option value="depleted">Until deposit depleted</option>
+                `;
+                select.value = node.params.until || 'full';
+                select.onchange = () => { node.params.until = select.value; };
+                paramsContainer.appendChild(select);
+            }
+            
+            if (node.type === 'wait') {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.step = '0.5';
+                input.min = '0.5';
+                input.value = node.params.duration || 2;
+                input.className = 'text-xs w-16 bg-zinc-900 border border-zinc-600 rounded-xl px-2 py-1 text-white';
+                input.onchange = () => { node.params.duration = parseFloat(input.value); };
+                
+                const label = document.createElement('span');
+                label.className = 'text-xs self-center text-zinc-400';
+                label.textContent = 'seconds';
+                
+                paramsContainer.appendChild(input);
+                paramsContainer.appendChild(label);
+            }
+        }
+        
+        function addNodeToScript(nodeType) {
+            const newNode = { 
+                type: nodeType, 
+                params: NODE_DEFINITIONS[nodeType]?.params ? {...NODE_DEFINITIONS[nodeType].params} : {} 
+            };
+            
+            currentEditingScript.push(newNode);
+            renderScriptFlow();
+        }
+        
+        function removeNodeFromScript(index) {
+            currentEditingScript.splice(index, 1);
+            renderScriptFlow();
+        }
+        
+        function moveNodeInScript(index, direction) {
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= currentEditingScript.length) return;
+            
+            const temp = currentEditingScript[index];
+            currentEditingScript[index] = currentEditingScript[newIndex];
+            currentEditingScript[newIndex] = temp;
+            
+            renderScriptFlow();
+        }
+        
+        function clearCurrentScript() {
+            if (confirm('Clear entire behavior script?')) {
+                currentEditingScript = [];
+                renderScriptFlow();
+            }
+        }
+        
+        function applyCurrentScript() {
+            const drone = drones.find(d => d.id === currentEditingDroneId);
+            if (!drone) return;
+            
+            drone.script = JSON.parse(JSON.stringify(currentEditingScript));
+            drone.currentStepIndex = 0;
+            drone.target = null;
+            drone.state = 'idle';
+            drone.miningProgress = 0;
+            
+            hideScriptModal();
+            
+            // If this drone is currently selected in inspector, refresh it
+            if (selectedDrone && selectedDrone.id === currentEditingDroneId) {
+                updateInspector();
+            }
+            
+            // Toast feedback
+            showToast('Behavior script applied successfully');
+        }
+        
+        function applyTemplateToSelected(template) {
+            if (!selectedDrone) {
+                // If none selected, apply to last drone or create one
+                if (drones.length === 0) {
+                    const newD = new Drone(300 + Math.random() * 400, 250 + Math.random() * 300, nextEntityId++);
+                    drones.push(newD);
+                    selectedDrone = newD;
+                } else {
+                    selectedDrone = drones[drones.length - 1];
+                }
+                updateInspector();
+            }
+            
+            if (template === 'miner') {
+                selectedDrone.script = createMinerScript();
+            } else if (template === 'patrol') {
+                selectedDrone.script = createPatrolScript();
+            } else if (template === 'hauler') {
+                selectedDrone.script = createHaulerScript();
+            }
+            
+            selectedDrone.currentStepIndex = 0;
+            selectedDrone.target = null;
+            selectedDrone.state = 'idle';
+            
+            updateInspector();
+            showToast(`Applied ${template} behavior template`);
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-5 left-1/2 -translate-x-1/2 bg-zinc-800 border border-zinc-600 text-sm px-5 py-3 rounded-3xl flex items-center gap-x-2 shadow-xl z-[200]`;
+            toast.innerHTML = `
+                <i class="fa-solid fa-check-circle text-emerald-400"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.2s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.parentNode.removeChild(toast), 180);
+            }, 2100);
+        }
+        
+        function toggleSimulation() {
+            isRunning = !isRunning;
+            const btn = document.getElementById('play-btn');
+            const text = document.getElementById('play-text');
+            
+            if (isRunning) {
+                btn.classList.remove('bg-emerald-600');
+                btn.classList.add('bg-emerald-500');
+                text.innerHTML = 'RUN SIM';
+                btn.innerHTML = `<i class="fa-solid fa-play mr-1.5"></i> <span id="play-text">RUN SIM</span>`;
+            } else {
+                btn.classList.remove('bg-emerald-500');
+                btn.classList.add('bg-emerald-600');
+                text.innerHTML = 'PAUSED';
+                btn.innerHTML = `<i class="fa-solid fa-pause mr-1.5"></i> <span id="play-text">PAUSED</span>`;
+            }
+        }
+        
+        function stepSimulation() {
+            if (!isRunning) {
+                updateSimulation(0.5);
+                drawWorld();
+            }
+        }
+        
+        function setSpeed(mult) {
+            simulationSpeed = mult;
+            
+            // Update button styles
+            ['0.5', '1', '2'].forEach(s => {
+                const el = document.getElementById(`speed-${s.replace('.', '')}`);
+                if (el) el.classList.remove('bg-zinc-800');
+            });
+            
+            const activeId = `speed-${mult.toString().replace('.', '')}`;
+            const activeEl = document.getElementById(activeId);
+            if (activeEl) activeEl.classList.add('bg-zinc-800');
+        }
+        
+        function resetDemo() {
+            if (!confirm('Reset the entire simulation to initial state?')) return;
+            
+            drones = [];
+            resourcePatches = [];
+            base.inventory.iron = 120;
+            selectedDrone = null;
+            
+            createInitialWorld();
+            updateUI();
+            updateInspector();
+            
+            document.getElementById('play-text').innerHTML = 'RUN SIM';
+            isRunning = true;
+        }
+        
+        function showHelp() {
+            const helpHTML = `
+                <div class="fixed inset-0 bg-black/80 backdrop-blur z-[300] flex items-center justify-center" onclick="this.remove()">
+                    <div onclick="event.stopImmediatePropagation()" class="max-w-lg w-full mx-4 bg-zinc-900 border border-zinc-700 rounded-3xl p-7">
+                        <h3 class="font-semibold text-2xl mb-1">How to Play DESYNCED</h3>
+                        <p class="text-sm text-zinc-400 mb-5">Build autonomous drone logistics networks using visual scripting.</p>
+                        
+                        <div class="space-y-4 text-sm">
+                            <div class="flex gap-4">
+                                <div class="font-mono w-5 text-cyan-400">1</div>
+                                <div><span class="font-semibold">Spawn Drones</span> — Use left toolbar or press <span class="font-mono bg-zinc-800 px-1 rounded">D</span></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="font-mono w-5 text-cyan-400">2</div>
+                                <div><span class="font-semibold">Place Resources</span> — Add iron deposits on the map</div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="font-mono w-5 text-cyan-400">3</div>
+                                <div><span class="font-semibold">Select &amp; Program</span> — Click any drone then hit <span class="font-mono bg-zinc-800 px-1 rounded">EDIT VISUAL SCRIPT</span></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="font-mono w-5 text-cyan-400">4</div>
+                                <div>Build behavior by dragging nodes from the palette. Reorder steps with arrows.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 pt-5 border-t border-zinc-700 text-xs text-zinc-400">
+                            Tip: Drones with scripts will automatically mine, haul resources back to the Core, and repeat. 
+                            Equip modules to improve performance.
+                        </div>
+                        
+                        <button onclick="this.closest('.fixed').remove()" class="mt-6 w-full py-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-sm font-semibold">GOT IT</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', helpHTML);
+        }
+        
+        function updateParameter(nodeIndex, paramKey, value) {
+            // Helper if needed for future expansion
+            console.log('Parameter updated', nodeIndex, paramKey, value);
+        }
+        
+        // Boot game
+        window.onload = function() {
+            init();
+            
+            // Easter egg / tip
+            setTimeout(() => {
+                const tip = document.createElement('div');
+                tip.style.cssText = 'position:fixed;bottom:18px;right:18px;font-size:10px;opacity:0.3;pointer-events:none';
+                tip.innerHTML = 'Press <span class="font-mono">S</span> on a selected drone to open script editor';
+                document.body.appendChild(tip);
+                
+                setTimeout(() => {
+                    if (tip && tip.parentNode) tip.parentNode.removeChild(tip);
+                }, 5200);
+            }, 14000);
+            
+            // Make sure initial speed button is highlighted
+            setTimeout(() => {
+                const speedBtn = document.getElementById('speed-1');
+                if (speedBtn) speedBtn.classList.add('bg-zinc-800');
+            }, 300);
+        };
+        
+        // Expose some functions for debugging / future extension
+        window.DESYNCED = { resetDemo, toggleSimulation, setSpeed };
+    </script>
+</body>
+</html>

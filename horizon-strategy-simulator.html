@@ -1,0 +1,2893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORIZON • GenAI Executive Strategy Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #0F172A;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .executive-bg {
+            background: linear-gradient(145deg, #0F172A 0%, #020617 100%);
+        }
+
+        .premium-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .premium-card:hover {
+            border-color: #475569;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .metric-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .nav-active {
+            border-bottom: 3px solid #10b981;
+            color: white;
+            font-weight: 600;
+        }
+
+        .scenario-card {
+            background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+            border: 1px solid #475569;
+        }
+
+        .decision-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .decision-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgb(16 185 129 / 0.15), 0 4px 6px -4px rgb(16 185 129 / 0.15);
+        }
+
+        .metric-bar {
+            transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+        }
+
+        .section-header {
+            letter-spacing: -0.025em;
+        }
+
+        .radar-container {
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .game-container {
+            max-width: 1480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .exec-shadow {
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .leader-text {
+            color: #e2e8f0;
+        }
+
+        .stat-number {
+            font-feature-settings: "ss02";
+        }
+
+        .phase-step {
+            transition: all 0.4s ease;
+        }
+
+        .notification {
+            animation: slideInRight 0.4s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .metric-delta {
+            animation: popIn 0.6s ease forwards;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .professional-grid {
+            background-image: 
+                linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .ai-glow {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        }
+
+        .option-card {
+            transition: all 0.2s ease;
+        }
+        
+        .option-card:hover {
+            border-color: #10b981;
+            background-color: #0F172A;
+        }
+
+        .option-card.selected {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.08);
+            box-shadow: 0 0 0 1px #10b981;
+        }
+
+        .maturity-badge {
+            background: linear-gradient(90deg, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .sim-log {
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #1E293B;
+        }
+
+        /* ---- Competitive HUD (vs AI / hotseat) ---- */
+        .race-track {
+            position: relative;
+            height: 10px;
+            border-radius: 9999px;
+            background: #0b1220;
+            overflow: hidden;
+            border: 1px solid #1f2b3d;
+        }
+        .race-fill {
+            position: absolute; top: 0; left: 0; height: 100%;
+            border-radius: 9999px;
+            transition: width 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .race-you  { background: linear-gradient(90deg,#059669,#34d399); z-index: 2; }
+        .race-rival{ background: linear-gradient(90deg,#7c3aed,#a78bfa); z-index: 1; opacity:.85;}
+        .rival-thinking i { animation: pulseThink 0.9s ease-in-out infinite; }
+        @keyframes pulseThink { 0%,100%{opacity:.35} 50%{opacity:1} }
+
+        .lead-flip { animation: leadFlip 0.6s ease; }
+        @keyframes leadFlip { 0%{transform:scale(1)} 40%{transform:scale(1.18)} 100%{transform:scale(1)} }
+
+        .option-key {
+            display:inline-flex; align-items:center; justify-content:center;
+            width:18px; height:18px; border-radius:6px;
+            font-size:10px; font-family:ui-monospace,monospace;
+            background:#0b1220; border:1px solid #334155; color:#64748b;
+            margin-left:6px;
+        }
+
+        .streak-flash { animation: streakFlash 0.7s ease; }
+        @keyframes streakFlash { 0%{box-shadow:0 0 0 0 rgba(251,191,36,0)} 50%{box-shadow:0 0 22px 2px rgba(251,191,36,.35)} 100%{box-shadow:0 0 0 0 rgba(251,191,36,0)} }
+
+        #confetti-canvas {
+            position: fixed; inset: 0; pointer-events: none; z-index: 300;
+        }
+
+        .option-card:focus-visible {
+            outline: 2px solid #34d399;
+            outline-offset: 2px;
+        }
+        button:focus-visible, [onclick]:focus-visible {
+            outline: 2px solid #34d399;
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="executive-bg text-slate-200">
+    <!-- Top Navigation -->
+    <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-lg sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-x-4">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-11 h-11 bg-emerald-600 rounded-2xl flex items-center justify-center shadow-inner">
+                            <i class="fa-solid fa-infinity text-white text-3xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-display text-3xl font-semibold tracking-tighter">HORIZON</span>
+                            <span class="text-emerald-500 text-xs font-mono tracking-[3px] block -mt-1">EXECUTIVE</span>
+                        </div>
+                    </div>
+                    <div class="hidden md:block px-4 py-1.5 rounded-3xl bg-slate-900 border border-slate-700">
+                        <span class="text-emerald-400 text-sm font-medium flex items-center gap-x-2">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span class="font-mono text-xs">HBS / MIT INSPIRED</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <!-- Music Controls -->
+                    <div class="flex items-center bg-slate-900 border border-slate-700 rounded-3xl p-1.5 shadow-inner">
+                        <button onclick="toggleMusic()" id="music-btn"
+                                class="flex items-center justify-center w-9 h-9 hover:bg-slate-800 transition-colors rounded-2xl text-emerald-400 hover:text-emerald-300">
+                            <i class="fa-solid fa-music text-lg" id="music-icon"></i>
+                        </button>
+                        <div class="w-px h-5 bg-slate-700 mx-1"></div>
+                        <input type="range" id="volume-slider" min="0" max="100" value="65" 
+                               class="w-20 accent-emerald-500" oninput="adjustVolume()">
+                        <span class="text-[10px] font-mono text-slate-500 w-8 text-right pr-1" id="volume-value">65</span>
+                    </div>
+
+                    <button onclick="showUserGuide()" 
+                            class="flex items-center gap-x-2 px-5 py-2 text-sm font-medium bg-slate-900 hover:bg-slate-800 border border-slate-700 transition-all rounded-3xl hover:border-slate-600">
+                        <i class="fa-solid fa-book text-emerald-400"></i>
+                        <span class="hidden md:inline">User Guide</span>
+                    </button>
+
+                    <button onclick="resetGame()" 
+                            class="flex items-center gap-x-2 px-4 py-2 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-700 transition-all rounded-3xl">
+                        <i class="fa-solid fa-redo"></i>
+                        <span class="hidden md:inline text-xs">Restart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== START SCREEN ==================== -->
+    <div id="start-screen" class="max-w-screen-2xl mx-auto px-6 pt-12 pb-20">
+        <div class="max-w-5xl mx-auto text-center">
+            <!-- Hero -->
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-emerald-950 border border-emerald-800 mb-6">
+                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span class="text-emerald-400 text-sm font-semibold tracking-wider">PREMIUM EXECUTIVE PROGRAM SIMULATION</span>
+            </div>
+
+            <h1 class="font-display text-7xl md:text-8xl tracking-tighter font-semibold leading-none mb-4">
+                Build Your<br>
+                <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">AI-Native Company</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl text-slate-400 mb-10">
+                A high-fidelity strategy simulation for C-suite leaders. Make critical GenAI decisions across 5 phases. 
+                Compete against AI executives or colleagues. Inspired by Harvard Business School and MIT executive programs.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <button onclick="startNewGame()" 
+                        class="group px-10 py-4 bg-emerald-600 hover:bg-emerald-500 transition-all text-white font-semibold text-lg rounded-3xl flex items-center justify-center gap-x-3 shadow-xl shadow-emerald-950/50">
+                    <span>Launch Simulation</span>
+                    <i class="fa-solid fa-arrow-right group-active:translate-x-1 transition"></i>
+                </button>
+                
+                <button onclick="showUserGuide()" 
+                        class="px-8 py-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 transition-all text-white font-medium text-lg rounded-3xl flex items-center justify-center gap-x-3">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>How It Works</span>
+                </button>
+            </div>
+
+            <!-- Mode Teasers -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                <div onclick="quickStartMode('solo')" class="premium-card cursor-pointer rounded-3xl p-6 text-left group">
+                    <div class="flex items-center gap-x-4 mb-4">
+                        <div class="w-12 h-12 bg-emerald-900/70 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-user text-emerald-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-xl">Individual Mode</div>
+                            <div class="text-emerald-400 text-sm">Solo Campaign</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">Master the full 5-phase transformation journey. Optimize your balanced scorecard and earn executive badges.</p>
+                </div>
+                
+                <div onclick="quickStartMode('vsai')" class="premium-card cursor-pointer rounded-3xl p-6 text-left group">
+                    <div class="flex items-center gap-x-4 mb-4">
+                        <div class="w-12 h-12 bg-violet-900/70 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-robot text-violet-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-xl">Compete vs AI</div>
+                            <div class="text-violet-400 text-sm">Executive Duel</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">Challenge an AI archetype (Cautious CFO, Bold Innovator, or Pragmatic COO). See who builds the stronger AI-native enterprise.</p>
+                </div>
+                
+                <div onclick="quickStartMode('hotseat')" class="premium-card cursor-pointer rounded-3xl p-6 text-left group">
+                    <div class="flex items-center gap-x-4 mb-4">
+                        <div class="w-12 h-12 bg-amber-900/70 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-users text-amber-400 text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-xl">Hotseat Multiplayer</div>
+                            <div class="text-amber-400 text-sm">Boardroom Challenge (2P)</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">Pass the device between leaders. Each manages their own company through identical scenarios. Compare final scorecards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== USER GUIDE MODAL ==================== -->
+    <div id="guide-modal" onclick="if (event.target.id === 'guide-modal') hideUserGuide()" class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex items-center justify-center p-6">
+        <div onclick="event.stopImmediatePropagation()" class="premium-card max-w-5xl w-full max-h-[92vh] overflow-hidden rounded-3xl border border-slate-700 flex flex-col">
+            <!-- Modal Header -->
+            <div class="px-8 py-5 border-b border-slate-700 flex items-center justify-between bg-slate-900">
+                <div class="flex items-center gap-x-4">
+                    <i class="fa-solid fa-book text-emerald-400 text-2xl"></i>
+                    <div>
+                        <span class="font-display text-3xl font-semibold tracking-tight">Executive User Guide</span>
+                        <span class="block text-xs text-emerald-500/80 -mt-0.5">HORIZON GenAI Strategy Simulator v1.0</span>
+                    </div>
+                </div>
+                <button onclick="hideUserGuide()" class="text-slate-400 hover:text-white transition w-10 h-10 flex items-center justify-center text-2xl">×</button>
+            </div>
+
+            <div class="flex-1 overflow-auto p-8 sim-log text-[15px]">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-8">
+                    <!-- Left column -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div>
+                            <h3 class="font-semibold text-emerald-400 flex items-center gap-x-2 mb-3 text-lg">
+                                <i class="fa-solid fa-bullseye w-5"></i> 
+                                <span>Simulation Objective</span>
+                            </h3>
+                            <p class="text-slate-300">You are the CEO of a large enterprise. Over 5 strategic phases you must transform your organization into an AI-native company. Balance five critical dimensions of success while managing risk, people, and competitive dynamics. Every decision carries trade-offs — just like real boardroom strategy.</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold text-emerald-400 flex items-center gap-x-2 mb-3 text-lg">
+                                <i class="fa-solid fa-gamepad w-5"></i> 
+                                <span>How to Play</span>
+                            </h3>
+                            <ol class="space-y-2.5 text-slate-300 list-decimal pl-5">
+                                <li>Select your mode: <strong>Individual</strong> (solo mastery), <strong>vs AI</strong> (executive duel), or <strong>Hotseat</strong> (pass-the-device with a colleague).</li>
+                                <li>Customize your company name and industry. This slightly influences scenario flavor and starting conditions.</li>
+                                <li>Progress through <strong>5 Phases</strong>. Each phase contains 3 high-stakes decision scenarios.</li>
+                                <li>Review the scenario context, then choose one of three strategic options. Preview approximate impact before confirming.</li>
+                                <li>Watch your metrics animate in real time. A radar chart shows your balanced scorecard.</li>
+                                <li>Occasional market events or internal alerts will appear — respond quickly.</li>
+                                <li>At the end of each phase, review outcomes and key leadership lessons.</li>
+                                <li>Reach the end with the strongest possible balanced scorecard to earn your AI Maturity rating and badges.</li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold text-emerald-400 flex items-center gap-x-2 mb-3 text-lg">
+                                <i class="fa-solid fa-chart-line w-5"></i> 
+                                <span>The 5 Executive Metrics</span>
+                            </h3>
+                            <div class="grid grid-cols-1 gap-3 text-sm">
+                                <div class="flex gap-3"><span class="font-mono text-emerald-400 w-5">01</span> <strong>Projected ROI</strong> <span class="text-slate-400">—</span> <span class="text-slate-300">Financial return from GenAI investments (higher is better)</span></div>
+                                <div class="flex gap-3"><span class="font-mono text-emerald-400 w-5">02</span> <strong>Operational Efficiency</strong> <span class="text-slate-400">—</span> <span class="text-slate-300">Productivity gains and process automation (higher is better)</span></div>
+                                <div class="flex gap-3"><span class="font-mono text-emerald-400 w-5">03</span> <strong>Workforce Readiness</strong> <span class="text-slate-400">—</span> <span class="text-slate-300">Adoption, upskilling, and cultural readiness (higher is better)</span></div>
+                                <div class="flex gap-3"><span class="font-mono text-emerald-400 w-5">04</span> <strong>Risk &amp; Governance</strong> <span class="text-slate-400">—</span> <span class="text-slate-300">Responsible AI, compliance, bias mitigation, security (higher = stronger controls)</span></div>
+                                <div class="flex gap-3"><span class="font-mono text-emerald-400 w-5">05</span> <strong>Strategic Position</strong> <span class="text-slate-400">—</span> <span class="text-slate-300">Competitive advantage and market leadership through AI (higher is better)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right column -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5">
+                            <h4 class="font-semibold mb-3 flex items-center gap-x-2"><i class="fa-solid fa-lightbulb text-amber-400"></i> Decision Framework</h4>
+                            <div class="text-xs space-y-2 text-slate-300">
+                                <div><span class="font-semibold text-emerald-400">Assess</span> → Understand data, talent, and tech readiness</div>
+                                <div><span class="font-semibold text-emerald-400">Align</span> → Secure board &amp; C-suite coalition with clear vision</div>
+                                <div><span class="font-semibold text-emerald-400">Pilot</span> → Launch high-impact, low-regret use cases fast</div>
+                                <div><span class="font-semibold text-emerald-400">Scale</span> → Industrialize successful pilots across the enterprise</div>
+                                <div><span class="font-semibold text-emerald-400">Govern</span> → Embed responsible AI, measurement, and continuous learning</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold mb-2.5">Pro Tips from Executive Programs</h4>
+                            <ul class="text-xs space-y-[5px] text-slate-300 pl-1">
+                                <li class="flex gap-2"><span class="text-emerald-400">•</span> Never let any single metric collapse — balanced transformation outperforms pure ROI plays.</li>
+                                <li class="flex gap-2"><span class="text-emerald-400">•</span> Workforce Readiness is often the hidden bottleneck. Invest early in change management.</li>
+                                <li class="flex gap-2"><span class="text-emerald-400">•</span> High Risk &amp; Governance scores protect long-term value and avoid regulatory or reputational damage.</li>
+                                <li class="flex gap-2"><span class="text-emerald-400">•</span> In later phases, aggressive moves can backfire if foundation metrics are weak.</li>
+                                <li class="flex gap-2"><span class="text-emerald-400">•</span> Use the "Ask Advisor" button for strategic framing before committing to a decision.</li>
+                            </ul>
+                        </div>
+
+                        <div class="text-[10px] text-slate-500 pt-3 border-t border-slate-700">
+                            This simulation draws from real case studies and frameworks used in HBS "Build an AI-Native Company", MIT Sloan AI executive programs, and leading consulting playbooks. Outcomes are probabilistic within realistic ranges to reflect market and organizational uncertainty.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 py-4 border-t border-slate-700 bg-slate-900 flex justify-end">
+                <button onclick="hideUserGuide()" class="px-8 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold rounded-2xl transition">Close Guide &amp; Return</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SETUP SCREEN ==================== -->
+    <div id="setup-screen" class="hidden max-w-screen-2xl mx-auto px-6 pt-10">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8">
+                <span class="text-emerald-500 text-sm font-semibold tracking-[2px]">STEP 1 OF 2</span>
+                <h2 class="font-display text-5xl tracking-tighter font-semibold mt-1">Configure Your Simulation</h2>
+            </div>
+
+            <div class="premium-card rounded-3xl p-9">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-7">
+                    <!-- Company -->
+                    <div>
+                        <label class="block text-xs font-semibold tracking-wider text-emerald-400 mb-1.5">YOUR COMPANY NAME</label>
+                        <input id="company-name" type="text" value="Aether Dynamics" 
+                               class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-600 transition px-5 py-3.5 rounded-2xl text-xl font-medium outline-none">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-semibold tracking-wider text-emerald-400 mb-1.5">INDUSTRY SECTOR</label>
+                        <select id="industry" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-600 transition px-5 py-3.5 rounded-2xl text-lg outline-none">
+                            <option value="Financial Services">Financial Services (BFSI)</option>
+                            <option value="Healthcare &amp; Life Sciences">Healthcare &amp; Life Sciences</option>
+                            <option value="Manufacturing &amp; Industrials">Manufacturing &amp; Industrials</option>
+                            <option value="Retail &amp; Consumer">Retail &amp; Consumer Goods</option>
+                            <option value="Technology &amp; Telecom">Technology &amp; Telecom</option>
+                            <option value="Energy &amp; Utilities">Energy &amp; Utilities</option>
+                        </select>
+                    </div>
+
+                    <!-- Mode -->
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-semibold tracking-wider text-emerald-400 mb-2">SELECT MODE</label>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="mode-options">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Player names (for hotseat) -->
+                    <div id="hotseat-names" class="hidden md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold tracking-wider text-emerald-400 mb-1.5">PLAYER 1 (CEO)</label>
+                            <input id="player1-name" type="text" value="Priya Sharma" class="w-full bg-slate-950 border border-slate-700 px-5 py-3 rounded-2xl outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold tracking-wider text-emerald-400 mb-1.5">PLAYER 2 (CEO)</label>
+                            <input id="player2-name" type="text" value="Marcus Chen" class="w-full bg-slate-950 border border-slate-700 px-5 py-3 rounded-2xl outline-none">
+                        </div>
+                    </div>
+
+                    <!-- AI Opponent -->
+                    <div id="ai-opponent-section" class="hidden md:col-span-2">
+                        <label class="block text-xs font-semibold tracking-wider text-emerald-400 mb-2">CHOOSE AI EXECUTIVE ARCHETYPE</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="ai-archetype-options">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-700 flex items-center justify-between">
+                    <button onclick="showStartScreen()" class="px-6 py-3 text-sm font-medium flex items-center gap-x-2 text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </button>
+                    
+                    <button onclick="beginGame()" 
+                            class="px-10 py-3.5 bg-emerald-600 hover:bg-emerald-500 font-semibold rounded-3xl flex items-center gap-x-3 text-lg transition shadow-xl">
+                        Begin Transformation Journey
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== GAME SCREEN ==================== -->
+    <div id="game-screen" class="hidden max-w-screen-2xl mx-auto px-5 pt-6 pb-10">
+        <div class="game-container">
+            
+            <!-- Game Header -->
+            <div class="flex items-end justify-between mb-5 px-1">
+                <div>
+                    <div class="flex items-center gap-x-3">
+                        <span id="company-display" class="font-display text-4xl font-semibold tracking-tighter"></span>
+                        <span id="industry-badge" class="px-4 py-1 text-xs font-mono tracking-widest bg-slate-800 border border-slate-600 rounded-2xl text-emerald-300 self-center"></span>
+                    </div>
+                    <div class="flex items-center gap-x-2 text-sm">
+                        <span id="player-display" class="font-medium text-emerald-400"></span>
+                        <span class="text-slate-500">•</span>
+                        <span id="phase-display" class="font-mono text-xs px-3 py-px bg-emerald-900/70 text-emerald-300 rounded">PHASE 1 / 5</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-x-2">
+                    <!-- Phase Progress -->
+                    <div class="hidden lg:flex items-center bg-slate-900 border border-slate-700 rounded-3xl px-1.5 py-1.5 text-xs">
+                        <div class="flex items-center gap-x-px" id="phase-progress-dots">
+                            <!-- JS populated dots -->
+                        </div>
+                    </div>
+                    
+                    <button onclick="showAdvisorHint()" 
+                            class="flex items-center gap-x-2 px-4 h-9 text-xs font-medium bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl transition">
+                        <i class="fa-solid fa-user-tie text-emerald-400"></i>
+                        <span>Ask Strategic Advisor</span>
+                    </button>
+                    
+                    <button onclick="endCurrentPhase()" 
+                            class="flex items-center gap-x-2 px-5 h-9 text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-2xl transition">
+                        <span>CONVENE BOARD REVIEW</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Metrics Dashboard -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-6">
+                
+                <!-- Radar Chart -->
+                <div class="xl:col-span-5 premium-card rounded-3xl p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-4 px-1">
+                        <div>
+                            <span class="font-semibold tracking-tight">Balanced Scorecard</span>
+                            <span class="text-[10px] text-emerald-400 block">Current AI Maturity Position</span>
+                        </div>
+                        <div id="maturity-label" 
+                             class="px-4 py-1 text-xs font-bold tracking-[1px] rounded-2xl bg-emerald-900/60 text-emerald-300 flex items-center">LEVEL 2 • SCALER</div>
+                    </div>
+                    
+                    <div class="radar-container flex-1 flex items-center justify-center pt-1 pb-3">
+                        <canvas id="radar-chart" width="380" height="340"></canvas>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="xl:col-span-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <!-- Populated dynamically by JS -->
+                    <div id="kpi-container" class="contents"></div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+                
+                <!-- Scenario / Decision Panel -->
+                <div class="xl:col-span-8">
+                    <div class="premium-card rounded-3xl p-7 exec-shadow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span id="scenario-phase-badge" class="text-xs font-mono px-3 py-1 bg-emerald-900 text-emerald-300 rounded-2xl">PHASE 1 • SCENARIO 1/3</span>
+                                <h3 id="scenario-title" class="font-display text-3xl tracking-tight font-semibold mt-1.5 leading-none"></h3>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-slate-400">DECISION #<span id="decision-counter">1</span> / <span id="decisions-total">3</span></div>
+                            </div>
+                        </div>
+
+                        <div id="scenario-context" class="text-[15px] leading-relaxed text-slate-300 mb-6 pr-2">
+                            <!-- Context injected by JS -->
+                        </div>
+
+                        <!-- Options -->
+                        <div class="space-y-3" id="options-container">
+                            <!-- Option buttons populated by JS -->
+                        </div>
+
+                        <div class="mt-5 pt-4 border-t border-slate-700 flex items-center justify-between text-xs">
+                            <div class="flex items-center gap-x-2 text-emerald-400">
+                                <i class="fa-solid fa-info-circle"></i>
+                                <span class="text-xs">Impacts shown are directional. Real outcomes contain variance.</span>
+                            </div>
+                            <button onclick="showAdvisorHint()" class="text-emerald-400 hover:text-emerald-300 flex items-center gap-x-1.5 text-xs font-medium">
+                                <span>GET FRAMING FROM ADVISOR</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Panel: Log + Events -->
+                <div class="xl:col-span-4 space-y-5">
+                    <!-- Live Standings (vs AI / hotseat) -->
+                    <div id="standings-card" class="hidden premium-card rounded-3xl p-5 border-violet-800/50">
+                        <div class="flex justify-between items-center mb-3 px-1">
+                            <span class="font-semibold text-sm tracking-wider flex items-center gap-x-2">
+                                <i class="fa-solid fa-trophy text-violet-400"></i> LIVE STANDINGS
+                            </span>
+                            <span id="lead-tag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400">—</span>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span id="you-label" class="text-emerald-400 font-medium">You</span>
+                                    <span id="you-score" class="font-mono text-emerald-300 tabular-nums">0</span>
+                                </div>
+                                <div class="race-track"><div id="you-fill" class="race-fill race-you" style="width:0%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span id="rival-label" class="text-violet-400 font-medium flex items-center gap-x-1.5">Rival</span>
+                                    <span id="rival-score" class="font-mono text-violet-300 tabular-nums">0</span>
+                                </div>
+                                <div class="race-track"><div id="rival-fill" class="race-fill race-rival" style="width:0%"></div></div>
+                            </div>
+                        </div>
+                        <div id="rival-move" class="mt-3 pt-3 border-t border-slate-800 text-[11px] text-slate-400 leading-snug min-h-[34px]">
+                            The rival executive is waiting for the first scenario…
+                        </div>
+                    </div>
+
+                    <!-- Current Initiatives -->
+                    <div class="premium-card rounded-3xl p-5">
+                        <div class="flex justify-between items-center mb-3 px-1">
+                            <span class="font-semibold text-sm tracking-wider">ACTIVE STRATEGIC INITIATIVES</span>
+                        </div>
+                        <div id="initiatives-list" class="space-y-2 text-sm min-h-[92px]">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Event / Notification Log -->
+                    <div class="premium-card rounded-3xl p-5 flex flex-col">
+                        <div class="flex justify-between items-center mb-3 px-1">
+                            <span class="font-semibold text-sm tracking-wider">STRATEGIC LOG</span>
+                            <span onclick="clearLog()" class="cursor-pointer text-[10px] text-slate-500 hover:text-red-400">CLEAR</span>
+                        </div>
+                        <div id="log-container" class="flex-1 text-xs space-y-1.5 overflow-auto max-h-[168px] pr-1 sim-log">
+                            <!-- Log entries added by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== END / REPORT SCREEN ==================== -->
+    <div id="report-screen" class="hidden max-w-screen-2xl mx-auto px-6 pt-8 pb-16">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-8">
+                <span class="px-4 py-1 text-xs tracking-[3px] font-mono bg-emerald-900 text-emerald-300 rounded-3xl">TRANSFORMATION COMPLETE</span>
+                <h2 class="font-display text-6xl tracking-tighter font-semibold mt-3">Executive Summary</h2>
+                <p class="text-xl text-slate-400 mt-1">Your AI-Native Journey Results</p>
+            </div>
+
+            <div class="premium-card rounded-3xl p-9 mb-8">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Final Score -->
+                    <div class="flex-1">
+                        <div class="uppercase text-xs tracking-[2px] text-emerald-400 mb-2">FINAL AI MATURITY RATING</div>
+                        <div id="final-maturity" class="font-display text-7xl font-bold tracking-tighter leading-none text-white"></div>
+                        <div id="final-score-text" class="text-xl mt-1 text-emerald-300"></div>
+                        
+                        <div class="mt-7">
+                            <div class="text-xs text-slate-400 mb-1.5">OVERALL BALANCED SCORECARD</div>
+                            <div id="final-score-bar-container" class="h-3 bg-slate-800 rounded-full overflow-hidden">
+                                <div id="final-score-bar" class="h-3 bg-gradient-to-r from-emerald-400 to-teal-400 transition-all" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-slate-500 mt-px">
+                                <div>0</div><div>100</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comparison (for vs AI / multiplayer) -->
+                    <div id="comparison-panel" class="flex-1 border-l border-slate-700 pl-8 hidden">
+                        <div class="uppercase text-xs tracking-[2px] text-violet-400 mb-2">PERFORMANCE VS OPPONENT</div>
+                        <div id="comparison-content" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+                <div class="premium-card rounded-3xl p-5 text-center" id="final-kpi-0"></div>
+                <div class="premium-card rounded-3xl p-5 text-center" id="final-kpi-1"></div>
+                <div class="premium-card rounded-3xl p-5 text-center" id="final-kpi-2"></div>
+                <div class="premium-card rounded-3xl p-5 text-center" id="final-kpi-3"></div>
+                <div class="premium-card rounded-3xl p-5 text-center" id="final-kpi-4"></div>
+            </div>
+
+            <!-- Badges & Lessons -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="premium-card rounded-3xl p-7">
+                    <h4 class="font-semibold mb-4 flex items-center gap-x-2"><i class="fa-solid fa-medal text-amber-400"></i> Executive Badges Earned</h4>
+                    <div id="badges-container" class="flex flex-wrap gap-2"></div>
+                </div>
+                
+                <div class="premium-card rounded-3xl p-7">
+                    <h4 class="font-semibold mb-4 flex items-center gap-x-2"><i class="fa-solid fa-lightbulb text-emerald-400"></i> Key Leadership Insights</h4>
+                    <div id="lessons-container" class="text-sm space-y-3 text-slate-300"></div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="copyExecutiveSummary()" 
+                        class="px-8 py-3.5 flex-1 sm:flex-none items-center justify-center gap-x-3 text-sm font-semibold border border-slate-700 hover:bg-slate-900 transition rounded-3xl flex">
+                    <i class="fa-solid fa-copy"></i> 
+                    <span>COPY EXECUTIVE SUMMARY</span>
+                </button>
+                
+                <button onclick="restartFromReport()" 
+                        class="px-9 py-3.5 flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-500 transition text-white font-semibold rounded-3xl flex items-center justify-center gap-x-2">
+                    <span>PLAY AGAIN</span>
+                </button>
+                
+                <button onclick="showStartScreen()" 
+                        class="px-8 py-3.5 flex-1 sm:flex-none text-sm font-medium border border-slate-700 hover:bg-slate-900 transition rounded-3xl">
+                    RETURN TO MENU
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast / Notification -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[200] space-y-2"></div>
+
+    <script>
+        // ==================== TAILWIND CONFIG ====================
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent', '#10b981');
+            
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'display': ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif']
+                        }
+                    }
+                }
+            };
+        }
+
+        // ==================== GAME STATE ====================
+        let gameState = {
+            mode: 'solo',           // solo | vsai | hotseat
+            currentPlayer: 'p1',
+            players: {
+                p1: { name: "You", company: "Aether Dynamics", metrics: {}, decisions: [], score: 0 },
+                p2: { name: "Opponent", company: "Aether Dynamics", metrics: {}, decisions: [], score: 0 }
+            },
+            aiArchetype: 'balanced', // cautious | innovator | pragmatic
+            currentPhase: 1,
+            decisionsInPhase: 0,
+            totalDecisionsMade: 0,
+            scenariosCompleted: [],
+            log: [],
+            initiatives: [],
+            musicEnabled: true,
+            volume: 0.65,
+            radarChart: null,
+            currentScenario: null,
+            gameStarted: false
+        };
+
+        let audioCtx = null;
+        let musicNodes = [];
+        let musicInterval = null;
+        let currentMusicMood = 'calm';
+
+        const METRIC_KEYS = ['roi', 'efficiency', 'adoption', 'governance', 'position'];
+        const METRIC_LABELS = {
+            roi: 'Projected ROI',
+            efficiency: 'Operational Efficiency',
+            adoption: 'Workforce Readiness',
+            governance: 'Risk & Governance',
+            position: 'Strategic Position'
+        };
+        const METRIC_ICONS = {
+            roi: 'fa-chart-line',
+            efficiency: 'fa-cogs',
+            adoption: 'fa-users',
+            governance: 'fa-shield-halved',
+            position: 'fa-globe'
+        };
+
+        // ==================== SCENARIOS DATABASE ====================
+        const SCENARIOS = [
+            // PHASE 1: VISION & ALIGNMENT
+            {
+                id: 1, phase: 1, order: 1,
+                title: "The Strategic Wake-Up Call",
+                context: "Your largest competitor just announced a sweeping GenAI partnership with OpenAI that threatens 18% of your core revenue within 24 months. The board is demanding an immediate response. Your current AI maturity is low and data foundations are fragmented.",
+                options: [
+                    { 
+                        id: 'a', text: "Launch aggressive transformation: $85M investment over 18 months to leapfrog the competitor", 
+                        impacts: { roi: 18, efficiency: 12, adoption: -5, governance: -12, position: 22 },
+                        preview: "High reward, high disruption. Significant execution risk and cultural pushback expected."
+                    },
+                    { 
+                        id: 'b', text: "Measured response: Form cross-functional AI taskforce + 3 quick-win pilots in high-visibility areas", 
+                        impacts: { roi: 8, efficiency: 9, adoption: 14, governance: 6, position: 11 },
+                        preview: "Balanced approach. Builds coalition while delivering visible early wins."
+                    },
+                    { 
+                        id: 'c', text: "Defensive posture: Focus on core business excellence and selective AI automation only where ROI is proven", 
+                        impacts: { roi: 4, efficiency: 14, adoption: -2, governance: 18, position: -3 },
+                        preview: "Lower risk. May cede long-term competitive ground but protects near-term margins."
+                    }
+                ],
+                eventAfter: null
+            },
+            {
+                id: 2, phase: 1, order: 2,
+                title: "Building the Executive Coalition",
+                context: "Your CFO is highly skeptical of GenAI ROI claims while the CTO is pushing for a large platform investment. The CHRO warns of major change fatigue. You need alignment before the next board meeting.",
+                options: [
+                    { 
+                        id: 'a', text: "Host an offsite with external AI experts + data-driven ROI modeling workshop for the full C-suite", 
+                        impacts: { roi: 6, efficiency: 4, adoption: 11, governance: 9, position: 7 },
+                        preview: "Builds shared understanding and reduces political friction."
+                    },
+                    { 
+                        id: 'b', text: "Empower the CTO to run a shadow AI program while keeping CFO oversight on spend", 
+                        impacts: { roi: -3, efficiency: 7, adoption: -8, governance: -6, position: 4 },
+                        preview: "Fast but creates shadow IT risk and executive misalignment."
+                    },
+                    { 
+                        id: 'c', text: "Create a joint AI steering committee co-chaired by CFO and CTO with clear OKRs", 
+                        impacts: { roi: 9, efficiency: 8, adoption: 16, governance: 14, position: 5 },
+                        preview: "Strong governance and shared accountability. Slightly slower start."
+                    }
+                ],
+                eventAfter: null
+            },
+            {
+                id: 3, phase: 1, order: 3,
+                title: "Defining the North Star",
+                context: "You must articulate a compelling 3-year AI vision that inspires 12,000 employees and satisfies activist investors. The vision needs to be ambitious yet credible.",
+                options: [
+                    { 
+                        id: 'a', text: "\"AI-First Enterprise\" — Every process and decision augmented by GenAI within 36 months", 
+                        impacts: { roi: 14, efficiency: 19, adoption: -9, governance: -8, position: 17 },
+                        preview: "Inspirational but risks over-promising and employee anxiety."
+                    },
+                    { 
+                        id: 'b', text: "\"Augmented Intelligence Company\" — Humans + AI working together to deliver 40% productivity gains", 
+                        impacts: { roi: 11, efficiency: 13, adoption: 17, governance: 7, position: 12 },
+                        preview: "Human-centric framing. Strong adoption signal with realistic ambition."
+                    },
+                    { 
+                        id: 'c', text: "\"Selective AI Leader\" — Best-in-class in 3 strategic domains while protecting core operations", 
+                        impacts: { roi: 7, efficiency: 10, adoption: 4, governance: 15, position: 6 },
+                        preview: "Pragmatic and lower risk. May appear less visionary to markets."
+                    }
+                ],
+                eventAfter: { type: 'positive', message: "Your vision statement received strong external analyst coverage. Strategic Position +4 temporarily." }
+            },
+
+            // PHASE 2: FOUNDATION BUILDING
+            {
+                id: 4, phase: 2, order: 1,
+                title: "Data Foundation vs. Speed-to-Value",
+                context: "Your data estate is siloed across 47 systems. The AI team wants a full enterprise data platform ($42M). Business units want immediate GenAI tools on existing messy data.",
+                options: [
+                    { 
+                        id: 'a', text: "Approve the full enterprise data platform with 24-month roadmap", 
+                        impacts: { roi: -8, efficiency: 6, adoption: 3, governance: 16, position: 9 },
+                        preview: "Strong long-term foundation. Short-term ROI pressure from board."
+                    },
+                    { 
+                        id: 'b', text: "Hybrid: Build semantic layer + RAG on prioritized domains while modernizing core data in parallel", 
+                        impacts: { roi: 12, efficiency: 14, adoption: 8, governance: 5, position: 10 },
+                        preview: "Best of both worlds. Requires excellent program management."
+                    },
+                    { 
+                        id: 'c', text: "Start with domain-specific data products for 3 high-ROI use cases only", 
+                        impacts: { roi: 15, efficiency: 9, adoption: -4, governance: -3, position: 3 },
+                        preview: "Fast value. Creates data debt and future integration challenges."
+                    }
+                ],
+                eventAfter: null
+            },
+            {
+                id: 5, phase: 2, order: 2,
+                title: "Talent Strategy: Buy, Build, or Borrow?",
+                context: "You need 180 AI/ML specialists and prompt engineers in 18 months. The market is extremely competitive and your compensation bands are 15% below top tech firms.",
+                options: [
+                    { 
+                        id: 'a', text: "Aggressive hiring + acquisition of a boutique AI firm (build vs buy)", 
+                        impacts: { roi: -5, efficiency: 5, adoption: -7, governance: 4, position: 14 },
+                        preview: "Fast capability injection. Integration and culture risk high."
+                    },
+                    { 
+                        id: 'b', text: "Major internal academy + 40% upskilling mandate for existing technical talent", 
+                        impacts: { roi: 3, efficiency: 8, adoption: 22, governance: 8, position: 6 },
+                        preview: "Builds long-term muscle and loyalty. Slower initial velocity."
+                    },
+                    { 
+                        id: 'c', text: "Strategic partnerships with 2 hyperscalers + elite consulting firm for capability transfer", 
+                        impacts: { roi: 7, efficiency: 11, adoption: 9, governance: 11, position: 8 },
+                        preview: "Leverages external expertise. Dependency and knowledge retention concerns."
+                    }
+                ],
+                eventAfter: { type: 'warning', message: "Key AI architect resigned citing unclear career path. Adoption -3 and temporary governance dip." }
+            },
+            {
+                id: 6, phase: 2, order: 3,
+                title: "First Pilot Portfolio Selection",
+                context: "You have budget for 4-6 GenAI pilots. The organization has 40+ ideas. Which criteria should dominate selection?",
+                options: [
+                    { 
+                        id: 'a', text: "Prioritize highest revenue impact use cases regardless of technical difficulty", 
+                        impacts: { roi: 16, efficiency: 7, adoption: -6, governance: -5, position: 11 },
+                        preview: "Maximum financial upside. High failure probability on complex use cases."
+                    },
+                    { 
+                        id: 'b', text: "Balance: 2 high-visibility quick wins + 2 transformative but contained experiments", 
+                        impacts: { roi: 10, efficiency: 12, adoption: 15, governance: 7, position: 9 },
+                        preview: "Demonstrates value while learning. Excellent for storytelling."
+                    },
+                    { 
+                        id: 'c', text: "Focus exclusively on customer-facing use cases with clear NPS linkage", 
+                        impacts: { roi: 9, efficiency: 4, adoption: 6, governance: 3, position: 15 },
+                        preview: "Strong external signaling. May miss major internal efficiency opportunities."
+                    }
+                ],
+                eventAfter: null
+            },
+
+            // PHASE 3: SCALING & INTEGRATION
+            {
+                id: 7, phase: 3, order: 1,
+                title: "The Scaling Dilemma",
+                context: "Three pilots delivered 3.2x ROI. The organization now wants to scale everything at once. Your delivery capacity and change management bandwidth are limited.",
+                options: [
+                    { 
+                        id: 'a', text: "Create a central AI Center of Excellence with mandatory scaling playbooks", 
+                        impacts: { roi: 5, efficiency: 16, adoption: -4, governance: 12, position: 8 },
+                        preview: "Standardization and governance strong. Risk of bureaucracy and local resistance."
+                    },
+                    { 
+                        id: 'b', text: "Federated model: Business units scale their own successful pilots with COE support", 
+                        impacts: { roi: 13, efficiency: 10, adoption: 18, governance: -2, position: 12 },
+                        preview: "High ownership and speed. Inconsistent standards and shadow risk."
+                    },
+                    { 
+                        id: 'c', text: "Prioritize only the top 2 use cases for enterprise rollout; sunset the rest temporarily", 
+                        impacts: { roi: 8, efficiency: 14, adoption: 5, governance: 15, position: 4 },
+                        preview: "Focused execution. May lose momentum and disappoint business sponsors."
+                    }
+                ],
+                eventAfter: { type: 'positive', message: "One pilot achieved viral adoption internally. Workforce Readiness +7 bonus." }
+            },
+            {
+                id: 8, phase: 3, order: 2,
+                title: "Legacy System Integration Crisis",
+                context: "Your core ERP and CRM systems are 12+ years old. GenAI copilots are creating massive shadow IT usage and data quality issues are surfacing in production.",
+                options: [
+                    { 
+                        id: 'a', text: "Accelerate core modernization in parallel with AI rollout (big bet)", 
+                        impacts: { roi: -12, efficiency: 18, adoption: 2, governance: 14, position: 7 },
+                        preview: "Addresses root cause. Significant short-term cost and risk."
+                    },
+                    { 
+                        id: 'b', text: "Implement strict AI gateway + data contracts between GenAI layer and legacy core", 
+                        impacts: { roi: 6, efficiency: 8, adoption: -3, governance: 19, position: 5 },
+                        preview: "Pragmatic control. May limit some advanced GenAI capabilities."
+                    },
+                    { 
+                        id: 'c', text: "Allow controlled experimentation while building integration team for future", 
+                        impacts: { roi: 4, efficiency: 3, adoption: 11, governance: -7, position: 2 },
+                        preview: "Maintains innovation velocity. Increases technical debt risk."
+                    }
+                ],
+                eventAfter: null
+            },
+            {
+                id: 9, phase: 3, order: 3,
+                title: "Change Management at Scale",
+                context: "Employee surveys show 34% fear AI will replace their roles. Middle management is quietly resisting. Productivity gains are real but unevenly distributed.",
+                options: [
+                    { 
+                        id: 'a', text: "Launch bold \"AI Reskilling Guarantee\" — every employee gets 120 hours of paid training + new role pathways", 
+                        impacts: { roi: -4, efficiency: 9, adoption: 24, governance: 8, position: 6 },
+                        preview: "Powerful signal of commitment. High cost but transformative for culture."
+                    },
+                    { 
+                        id: 'b', text: "Transparent communication campaign + manager AI coaching program + performance incentives for AI adoption", 
+                        impacts: { roi: 7, efficiency: 11, adoption: 17, governance: 6, position: 8 },
+                        preview: "Balanced and credible. Requires sustained leadership attention."
+                    },
+                    { 
+                        id: 'c', text: "Focus on \"AI as productivity tool\" narrative and let high performers lead by example", 
+                        impacts: { roi: 10, efficiency: 14, adoption: -8, governance: 2, position: 3 },
+                        preview: "Fast movers advance. Risk of two-tier workforce and resentment."
+                    }
+                ],
+                eventAfter: null
+            },
+
+            // PHASE 4: GOVERNANCE & OPTIMIZATION
+            {
+                id: 10, phase: 4, order: 1,
+                title: "Responsible AI Governance Framework",
+                context: "Regulators in your key markets are finalizing GenAI rules. Your legal team is nervous. One biased output in customer service could trigger class action risk.",
+                options: [
+                    { 
+                        id: 'a', text: "Establish independent AI Ethics Board with external experts + mandatory impact assessments", 
+                        impacts: { roi: -3, efficiency: -2, adoption: 6, governance: 22, position: 5 },
+                        preview: "Gold standard governance. May slow some innovation velocity."
+                    },
+                    { 
+                        id: 'b', text: "Embed responsible AI into existing risk & compliance function with automated monitoring", 
+                        impacts: { roi: 5, efficiency: 7, adoption: 4, governance: 15, position: 4 },
+                        preview: "Pragmatic and scalable. Slightly less independent oversight."
+                    },
+                    { 
+                        id: 'c', text: "Adopt industry framework (NIST / EU AI Act aligned) and publish transparency report", 
+                        impacts: { roi: 2, efficiency: 4, adoption: 9, governance: 18, position: 7 },
+                        preview: "Good external signaling. Requires genuine internal commitment to be credible."
+                    }
+                ],
+                eventAfter: { type: 'warning', message: "Minor bias incident in HR screening pilot. Governance temporarily -6. Strong response now can recover." }
+            },
+            {
+                id: 11, phase: 4, order: 2,
+                title: "ROI Attribution & Value Measurement",
+                context: "Finance is struggling to attribute revenue and cost savings to specific GenAI investments. The board wants clearer line-of-sight before approving next funding tranche.",
+                options: [
+                    { 
+                        id: 'a', text: "Implement rigorous A/B testing + causal inference framework across all major use cases", 
+                        impacts: { roi: 14, efficiency: 8, adoption: 3, governance: 9, position: 6 },
+                        preview: "Highest credibility with finance. Requires data science investment."
+                    },
+                    { 
+                        id: 'b', text: "Adopt value tracking dashboards with leading indicators + quarterly value realization reviews", 
+                        impacts: { roi: 10, efficiency: 12, adoption: 7, governance: 6, position: 5 },
+                        preview: "Practical balance. Good for ongoing decision making."
+                    },
+                    { 
+                        id: 'c', text: "Focus on narrative storytelling with select high-profile case studies", 
+                        impacts: { roi: 3, efficiency: 2, adoption: 5, governance: -4, position: 9 },
+                        preview: "Faster and easier. Vulnerable to scrutiny if numbers are challenged."
+                    }
+                ],
+                eventAfter: null
+            },
+            {
+                id: 12, phase: 4, order: 3,
+                title: "M&A and Ecosystem Strategy",
+                context: "Two interesting AI startups in your vertical are raising Series B. Acquiring one could accelerate capability by 18 months but integration carries execution risk.",
+                options: [
+                    { 
+                        id: 'a', text: "Acquire the stronger startup and integrate aggressively into your AI platform", 
+                        impacts: { roi: -7, efficiency: 5, adoption: -3, governance: 3, position: 18 },
+                        preview: "Major capability leap. High integration and retention risk."
+                    },
+                    { 
+                        id: 'b', text: "Strategic minority investment + joint go-to-market with both startups", 
+                        impacts: { roi: 4, efficiency: 6, adoption: 2, governance: 7, position: 13 },
+                        preview: "Lower risk, optionality preserved. Slower capability absorption."
+                    },
+                    { 
+                        id: 'c', text: "Build vs buy internally and partner for specific components only", 
+                        impacts: { roi: 8, efficiency: 9, adoption: 8, governance: 10, position: 4 },
+                        preview: "Maintains control. May lose first-mover advantage in market."
+                    }
+                ],
+                eventAfter: null
+            },
+
+            // PHASE 5: AI-NATIVE LEADERSHIP
+            {
+                id: 13, phase: 5, order: 1,
+                title: "From Transformation to Transcendence",
+                context: "You are now 28 months into the journey. AI is embedded in many processes but true AI-native operating model (autonomous agents, continuous learning loops, AI-driven strategy) remains aspirational.",
+                options: [
+                    { 
+                        id: 'a', text: "Declare \"AI-Native Operating Model\" as the new target operating model with radical org redesign", 
+                        impacts: { roi: 9, efficiency: 21, adoption: -11, governance: -6, position: 16 },
+                        preview: "Bold vision. Significant change management and execution risk."
+                    },
+                    { 
+                        id: 'b', text: "Evolve existing model: Create AI Product & Platform organization + embed AI in every business unit P&L", 
+                        impacts: { roi: 12, efficiency: 15, adoption: 13, governance: 9, position: 14 },
+                        preview: "Sustainable evolution. Strong balance of ambition and pragmatism."
+                    },
+                    { 
+                        id: 'c', text: "Consolidate gains: Focus on optimization, reliability, and extracting full value from current investments", 
+                        impacts: { roi: 15, efficiency: 12, adoption: 6, governance: 14, position: 7 },
+                        preview: "Defensible value capture. May be overtaken by more aggressive peers."
+                    }
+                ],
+                eventAfter: null
+            },
+            {
+                id: 14, phase: 5, order: 2,
+                title: "The AI Talent & Culture Endgame",
+                context: "Your best AI talent is being poached by Big Tech and well-funded startups. The organization that was once excited now shows signs of AI fatigue and \"prompt engineer\" title inflation.",
+                options: [
+                    { 
+                        id: 'a', text: "Create elite AI \"Fellow\" career track with equity-like incentives and direct CEO access", 
+                        impacts: { roi: -2, efficiency: 4, adoption: 19, governance: 5, position: 11 },
+                        preview: "Attracts and retains top talent. Creates internal status hierarchy."
+                    },
+                    { 
+                        id: 'b', text: "Democratize AI further: Every team gets AI co-pilot budget and citizen developer program", 
+                        impacts: { roi: 8, efficiency: 16, adoption: 21, governance: 3, position: 8 },
+                        preview: "Broad-based capability. Quality and governance can become uneven."
+                    },
+                    { 
+                        id: 'c', text: "Focus on AI-augmented leadership development for senior and middle management", 
+                        impacts: { roi: 5, efficiency: 7, adoption: 14, governance: 11, position: 6 },
+                        preview: "Ensures leaders can steer the ship. May under-invest in deep technical talent."
+                    }
+                ],
+                eventAfter: { type: 'positive', message: "Your company was named to the \"AI Leaders 50\" list by a major publication. Strategic Position +6." }
+            },
+            {
+                id: 15, phase: 5, order: 3,
+                title: "Legacy of the Transformation",
+                context: "You are preparing your final board presentation and succession considerations. What enduring institutional capability do you want to leave behind?",
+                options: [
+                    { 
+                        id: 'a', text: "A self-improving AI platform that continuously discovers and operationalizes new value", 
+                        impacts: { roi: 18, efficiency: 17, adoption: 8, governance: 7, position: 15 },
+                        preview: "Highest long-term compounding. Requires sustained investment and discipline."
+                    },
+                    { 
+                        id: 'b', text: "An organization where every employee is AI-fluent and innovation is distributed", 
+                        impacts: { roi: 7, efficiency: 11, adoption: 24, governance: 10, position: 9 },
+                        preview: "Deep cultural capability. Harder to measure but extremely defensible."
+                    },
+                    { 
+                        id: 'c', text: "A proven governance and measurement system that de-risks future technology waves", 
+                        impacts: { roi: 6, efficiency: 8, adoption: 5, governance: 23, position: 7 },
+                        preview: "Institutionalizes learning. Slightly less exciting but protects value."
+                    }
+                ],
+                eventAfter: null
+            }
+        ];
+
+        // ==================== AUDIO / MUSIC ====================
+        function initAudio() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            } catch(e) {
+                console.log("Web Audio API not supported");
+            }
+        }
+
+        function createPadOscillator(freq, type = 'sine', detune = 0) {
+            if (!audioCtx) return null;
+            const osc = audioCtx.createOscillator();
+            osc.type = type;
+            osc.frequency.value = freq;
+            if (detune) osc.detune.value = detune;
+
+            const gain = audioCtx.createGain();
+            gain.gain.value = 0.0001;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 1200;
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            return { osc, gain, filter };
+        }
+
+        function playAmbientMusic(mood = 'calm') {
+            if (!audioCtx || !gameState.musicEnabled) return;
+            stopMusic();
+
+            currentMusicMood = mood;
+            musicNodes = [];
+
+            let baseFreqs, volumes, attack;
+
+            if (mood === 'calm') {
+                baseFreqs = [49.0, 73.42, 98.0, 123.47]; // Low G, D, G, B
+                volumes = [0.18, 0.12, 0.09, 0.07];
+                attack = 2.8;
+            } else if (mood === 'tense') {
+                baseFreqs = [55.0, 82.41, 110.0, 164.81];
+                volumes = [0.22, 0.15, 0.11, 0.09];
+                attack = 1.6;
+            } else { // triumph / victory
+                baseFreqs = [65.41, 98.0, 130.81, 196.0];
+                volumes = [0.2, 0.14, 0.1, 0.08];
+                attack = 3.5;
+            }
+
+            baseFreqs.forEach((freq, i) => {
+                const node = createPadOscillator(freq, i % 2 === 0 ? 'sine' : 'triangle', i * 3);
+                if (!node) return;
+
+                node.gain.gain.value = 0.0001;
+                node.osc.start();
+
+                // Gentle fade in
+                const now = audioCtx.currentTime;
+                node.gain.gain.linearRampToValueAtTime(volumes[i], now + attack);
+
+                musicNodes.push(node);
+            });
+
+            // Add subtle arpeggio layer for interest
+            if (mood !== 'tense') {
+                setTimeout(() => {
+                    if (musicNodes.length > 0 && gameState.musicEnabled) {
+                        playGentleArpeggio(mood);
+                    }
+                }, 4200);
+            }
+
+            // Schedule evolution
+            musicInterval = setInterval(() => {
+                if (gameState.musicEnabled && musicNodes.length > 0) {
+                    evolveMusic(mood);
+                }
+            }, mood === 'calm' ? 18500 : 12500);
+        }
+
+        function playGentleArpeggio(mood) {
+            if (!audioCtx || musicNodes.length === 0) return;
+
+            const notes = mood === 'triumph' ? [65.41, 82.41, 98.0, 130.81] : [49.0, 61.74, 73.42, 98.0];
+            let idx = 0;
+
+            const arpInterval = setInterval(() => {
+                if (!gameState.musicEnabled || musicNodes.length === 0) {
+                    clearInterval(arpInterval);
+                    return;
+                }
+
+                const freq = notes[idx % notes.length];
+                const osc = audioCtx.createOscillator();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+
+                const gain = audioCtx.createGain();
+                gain.gain.value = 0.035;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 900;
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                osc.start(now);
+                gain.gain.linearRampToValueAtTime(0.0001, now + 2.8);
+                osc.stop(now + 3.2);
+
+                idx++;
+                if (idx > 11) clearInterval(arpInterval);
+            }, 680);
+        }
+
+        function evolveMusic(mood) {
+            if (!audioCtx || musicNodes.length === 0) return;
+
+            musicNodes.forEach((node, index) => {
+                if (!node || !node.gain) return;
+                const now = audioCtx.currentTime;
+                
+                // Subtle volume breathing
+                const currentVol = node.gain.gain.value;
+                const targetVol = currentVol * (0.82 + Math.random() * 0.36);
+                node.gain.gain.linearRampToValueAtTime(Math.max(0.03, targetVol), now + 6);
+                
+                // Occasional filter movement for texture
+                if (index % 2 === 0 && node.filter) {
+                    const targetFilter = 900 + Math.random() * 650;
+                    node.filter.frequency.linearRampToValueAtTime(targetFilter, now + 9);
+                }
+            });
+        }
+
+        function stopMusic() {
+            if (musicInterval) {
+                clearInterval(musicInterval);
+                musicInterval = null;
+            }
+            musicNodes.forEach(node => {
+                if (node && node.gain && audioCtx) {
+                    try {
+                        const now = audioCtx.currentTime;
+                        node.gain.gain.linearRampToValueAtTime(0.0001, now + 1.6);
+                        setTimeout(() => {
+                            if (node.osc) node.osc.stop();
+                        }, 1800);
+                    } catch(e){}
+                }
+            });
+            musicNodes = [];
+        }
+
+        function toggleMusic() {
+            gameState.musicEnabled = !gameState.musicEnabled;
+            const icon = document.getElementById('music-icon');
+            const btn = document.getElementById('music-btn');
+
+            if (gameState.musicEnabled) {
+                icon.classList.remove('fa-volume-mute');
+                icon.classList.add('fa-music');
+                btn.classList.add('text-emerald-400');
+                btn.classList.remove('text-slate-500');
+                
+                if (audioCtx && musicNodes.length === 0) {
+                    playAmbientMusic(currentMusicMood || 'calm');
+                }
+            } else {
+                icon.classList.remove('fa-music');
+                icon.classList.add('fa-volume-mute');
+                btn.classList.remove('text-emerald-400');
+                btn.classList.add('text-slate-500');
+                stopMusic();
+            }
+        }
+
+        function adjustVolume() {
+            const slider = document.getElementById('volume-slider');
+            const valueEl = document.getElementById('volume-value');
+            gameState.volume = parseInt(slider.value) / 100;
+            valueEl.textContent = slider.value;
+
+            if (audioCtx && musicNodes.length > 0) {
+                musicNodes.forEach(node => {
+                    if (node.gain) {
+                        // Scale current gain by new volume
+                        const current = node.gain.gain.value;
+                        // We don't want to jump volumes too aggressively
+                    }
+                });
+            }
+        }
+
+        function playSound(type) {
+            if (!audioCtx || !gameState.musicEnabled) return;
+
+            try {
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+
+                if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.value = 620;
+                    filter.frequency.value = 1800;
+                    gain.gain.value = 0.22;
+                    gain.gain.linearRampToValueAtTime(0.0001, now + 0.9);
+                    
+                    const osc2 = audioCtx.createOscillator();
+                    osc2.type = 'sine';
+                    osc2.frequency.value = 820;
+                    const gain2 = audioCtx.createGain();
+                    gain2.gain.value = 0.13;
+                    gain2.gain.linearRampToValueAtTime(0.0001, now + 1.1);
+                    
+                    osc2.connect(filter);
+                    filter.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.start(now);
+                    osc2.stop(now + 1.3);
+                } 
+                else if (type === 'warning') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = 180;
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 420;
+                    gain.gain.value = 0.18;
+                    gain.gain.linearRampToValueAtTime(0.0001, now + 0.7);
+                } 
+                else if (type === 'click') {
+                    osc.type = 'triangle';
+                    osc.frequency.value = 880;
+                    filter.frequency.value = 2200;
+                    gain.gain.value = 0.06;
+                    gain.gain.linearRampToValueAtTime(0.0001, now + 0.18);
+                } 
+                else if (type === 'levelup') {
+                    osc.type = 'sine';
+                    osc.frequency.value = 520;
+                    filter.frequency.value = 2400;
+                    gain.gain.value = 0.3;
+                    
+                    const osc3 = audioCtx.createOscillator();
+                    osc3.frequency.value = 780;
+                    const g3 = audioCtx.createGain();
+                    g3.gain.value = 0.18;
+                    g3.gain.linearRampToValueAtTime(0.0001, now + 1.6);
+                    
+                    osc3.connect(filter);
+                    filter.connect(g3);
+                    g3.connect(audioCtx.destination);
+                    osc3.start(now + 0.15);
+                    osc3.stop(now + 1.9);
+                    
+                    gain.gain.linearRampToValueAtTime(0.0001, now + 1.4);
+                }
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 2.2);
+            } catch(e) {}
+        }
+
+        // ==================== UI HELPERS ====================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bg = 'bg-slate-800 border-slate-600';
+            let icon = 'fa-info-circle text-emerald-400';
+            
+            if (type === 'success') { bg = 'bg-emerald-900/90 border-emerald-700'; icon = 'fa-check-circle text-emerald-400'; }
+            if (type === 'warning') { bg = 'bg-amber-900/90 border-amber-700'; icon = 'fa-exclamation-triangle text-amber-400'; }
+            
+            toast.className = `notification flex items-start gap-x-3 px-5 py-3.5 rounded-2xl border ${bg} text-sm max-w-[320px] shadow-xl`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icon} mt-0.5"></i>
+                <div class="flex-1 text-slate-200">${message}</div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.4s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.parentNode.removeChild(toast), 300);
+            }, 4200);
+        }
+
+        function addLogEntry(message, type = 'info') {
+            const container = document.getElementById('log-container');
+            if (!container) return;
+
+            const entry = document.createElement('div');
+            entry.className = `flex gap-x-2 text-xs leading-snug ${type === 'warning' ? 'text-amber-300' : type === 'positive' ? 'text-emerald-300' : 'text-slate-400'}`;
+            
+            let icon = type === 'warning' ? 'fa-exclamation-circle' : type === 'positive' ? 'fa-check-circle' : 'fa-info-circle';
+            
+            entry.innerHTML = `
+                <i class="fa-solid ${icon} mt-[1px] flex-shrink-0"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+            
+            // Keep only last 12 entries
+            while (container.children.length > 12) {
+                container.removeChild(container.firstChild);
+            }
+            
+            gameState.log.push({ message, type, time: Date.now() });
+        }
+
+        function clearLog() {
+            const container = document.getElementById('log-container');
+            if (container) container.innerHTML = '';
+            gameState.log = [];
+        }
+
+        function updatePhaseDots() {
+            const container = document.getElementById('phase-progress-dots');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const dot = document.createElement('div');
+                const isActive = i === gameState.currentPhase;
+                const isComplete = i < gameState.currentPhase;
+                
+                dot.className = `w-2.5 h-2.5 mx-0.5 rounded-full transition-all ${isComplete ? 'bg-emerald-500' : isActive ? 'bg-emerald-400 ring-1 ring-emerald-400/60' : 'bg-slate-600'}`;
+                container.appendChild(dot);
+            }
+        }
+
+        function updateHeader() {
+            const companyEl = document.getElementById('company-display');
+            const industryEl = document.getElementById('industry-badge');
+            const playerEl = document.getElementById('player-display');
+            const phaseEl = document.getElementById('phase-display');
+
+            const currentPlayerData = gameState.players[gameState.currentPlayer];
+            
+            companyEl.textContent = currentPlayerData.company || 'Your Enterprise';
+            industryEl.textContent = document.getElementById('industry')?.value || 'FINANCIAL SERVICES';
+            
+            if (gameState.mode === 'hotseat') {
+                playerEl.innerHTML = `<span class="font-medium">${currentPlayerData.name}</span> <span class="text-xs text-slate-500">(P${gameState.currentPlayer === 'p1' ? '1' : '2'})</span>`;
+                playerEl.style.color = gameState.currentPlayer === 'p1' ? '#34d399' : '#a78bfa';
+            } else if (gameState.mode === 'vsai') {
+                playerEl.innerHTML = `<span class="font-medium">${currentPlayerData.name}</span> <span class="text-xs text-violet-400">vs AI</span>`;
+            } else {
+                playerEl.innerHTML = `<span class="font-medium">${currentPlayerData.name}</span>`;
+            }
+            
+            phaseEl.textContent = `PHASE ${gameState.currentPhase} / 5`;
+            updatePhaseDots();
+        }
+
+        function createKPICard(key, label, value, icon) {
+            const container = document.createElement('div');
+            container.className = `premium-card rounded-3xl p-4 flex flex-col`;
+            container.id = `kpi-card-${key}`;
+            
+            const displayValue = key === 'roi' ? `${Math.round(value)}%` : Math.round(value);
+            
+            container.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <i class="fa-solid ${icon} text-emerald-400 text-lg"></i>
+                        <div class="text-xs text-slate-400 mt-2 tracking-wider">${label.toUpperCase()}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="metric-value text-3xl font-semibold tabular-nums" id="kpi-value-${key}">${displayValue}</div>
+                    </div>
+                </div>
+                
+                <div class="mt-auto">
+                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div class="metric-bar h-1.5 rounded-full transition-all ${key === 'governance' ? 'bg-violet-400' : 'bg-emerald-500'}" 
+                             id="kpi-bar-${key}" style="width: ${Math.min(100, Math.max(5, value))}%"></div>
+                    </div>
+                </div>
+            `;
+            
+            return container;
+        }
+
+        function updateKPICards(metrics) {
+            const container = document.getElementById('kpi-container');
+            if (!container) return;
+
+            // Clear and rebuild if first time
+            if (container.children.length === 0) {
+                container.innerHTML = '';
+                METRIC_KEYS.forEach(key => {
+                    const card = createKPICard(key, METRIC_LABELS[key], metrics[key], METRIC_ICONS[key]);
+                    container.appendChild(card);
+                });
+            }
+
+            // Update values with animation
+            METRIC_KEYS.forEach(key => {
+                const valueEl = document.getElementById(`kpi-value-${key}`);
+                const barEl = document.getElementById(`kpi-bar-${key}`);
+                const cardEl = document.getElementById(`kpi-card-${key}`);
+                
+                if (!valueEl || !barEl) return;
+
+                const currentVal = parseFloat(valueEl.textContent) || 0;
+                const targetVal = metrics[key];
+                const displayTarget = key === 'roi' ? `${Math.round(targetVal)}%` : Math.round(targetVal);
+
+                // Number animation
+                if (Math.abs(targetVal - currentVal) > 0.5) {
+                    animateValue(valueEl, currentVal, targetVal, 850, key === 'roi' ? '%' : '');
+                } else {
+                    valueEl.textContent = displayTarget;
+                }
+
+                // Bar animation
+                const barWidth = Math.min(100, Math.max(3, targetVal));
+                barEl.style.width = `${barWidth}%`;
+
+                // Color coding
+                if (key === 'governance') {
+                    barEl.style.backgroundColor = targetVal > 70 ? '#a78bfa' : targetVal > 45 ? '#8b5cf6' : '#f59e0b';
+                } else {
+                    barEl.style.backgroundColor = targetVal > 75 ? '#10b981' : targetVal > 50 ? '#34d399' : '#f59e0b';
+                }
+            });
+        }
+
+        function animateValue(element, start, end, duration, suffix = '') {
+            const startTime = performance.now();
+            const isROI = suffix === '%';
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+                
+                const current = start + (end - start) * eased;
+                const display = isROI ? `${Math.round(current)}%` : Math.round(current);
+                element.textContent = display;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = isROI ? `${Math.round(end)}%` : Math.round(end);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        function updateRadarChart(metrics) {
+            const canvas = document.getElementById('radar-chart');
+            if (!canvas) return;
+
+            const activeKey = gameState.currentPlayer;
+            const otherKey = activeKey === 'p1' ? 'p2' : 'p1';
+            const mine = gameState.players[activeKey].metrics;
+            const rival = gameState.players[otherKey].metrics;
+            const showRival = gameState.mode !== 'solo' && rival && rival.roi !== undefined;
+
+            if (gameState.radarChart) {
+                gameState.radarChart.data.datasets[0].data = [
+                    mine.position, mine.roi, mine.efficiency, mine.adoption, mine.governance
+                ];
+                if (showRival && gameState.radarChart.data.datasets[1]) {
+                    gameState.radarChart.data.datasets[1].data = [
+                        rival.position, rival.roi, rival.efficiency, rival.adoption, rival.governance
+                    ];
+                }
+                gameState.radarChart.update('none');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+
+            const datasets = [{
+                label: gameState.mode === 'solo' ? 'Your Position' : (gameState.players[activeKey].name || 'You'),
+                data: [mine.position, mine.roi, mine.efficiency, mine.adoption, mine.governance],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.18)',
+                borderWidth: 2.5,
+                pointBackgroundColor: '#34d399',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointRadius: 3.5,
+                tension: 0.15
+            }];
+
+            if (showRival) {
+                datasets.push({
+                    label: gameState.mode === 'vsai' ? 'AI Rival' : (gameState.players[otherKey].name || 'Rival'),
+                    data: [rival.position, rival.roi, rival.efficiency, rival.adoption, rival.governance],
+                    borderColor: '#a78bfa',
+                    backgroundColor: 'rgba(139, 92, 246, 0.12)',
+                    borderWidth: 2,
+                    borderDash: [4, 3],
+                    pointBackgroundColor: '#a78bfa',
+                    pointBorderColor: '#0f172a',
+                    pointRadius: 2.5,
+                    tension: 0.15
+                });
+            }
+
+            gameState.radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Strategic Position', 'ROI', 'Efficiency', 'Workforce', 'Governance'],
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { stepSize: 20, display: false, color: '#64748b' },
+                            grid: { color: '#334155', lineWidth: 0.8 },
+                            angleLines: { color: '#334155', lineWidth: 0.8 },
+                            pointLabels: { 
+                                color: '#94a3b8', 
+                                font: { size: 10.5, weight: 500, family: 'Inter' },
+                                padding: 8
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: showRival,
+                            position: 'bottom',
+                            labels: { color: '#94a3b8', boxWidth: 10, boxHeight: 10, font: { size: 10 }, padding: 10, usePointStyle: true }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0F172A',
+                            titleFont: { size: 11 },
+                            bodyFont: { size: 12, weight: '600' },
+                            callbacks: {
+                                label: (ctx) => `${ctx.raw.toFixed(0)} / 100`
+                            }
+                        }
+                    },
+                    elements: {
+                        line: { tension: 0.2 }
+                    }
+                }
+            });
+        }
+
+        function updateInitiativesList() {
+            const container = document.getElementById('initiatives-list');
+            if (!container) return;
+
+            if (gameState.initiatives.length === 0) {
+                container.innerHTML = `<div class="text-xs text-slate-500 px-1">No major initiatives launched yet. Decisions will populate this area.</div>`;
+                return;
+            }
+
+            container.innerHTML = gameState.initiatives.map(init => `
+                <div class="flex items-center justify-between text-xs bg-slate-950/60 px-3 py-2 rounded-2xl border border-slate-700">
+                    <div class="flex items-center gap-x-2">
+                        <i class="fa-solid fa-check-double text-emerald-500 text-xs"></i>
+                        <span class="font-medium">${init}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateMaturityLabel(metrics) {
+            const el = document.getElementById('maturity-label');
+            if (!el) return;
+
+            const avg = (metrics.roi + metrics.efficiency + metrics.adoption + metrics.governance + metrics.position) / 5;
+            let label = '';
+            let colorClass = '';
+
+            if (avg >= 82) { label = 'LEVEL 5 • AI NATIVE'; colorClass = 'bg-emerald-500 text-white'; }
+            else if (avg >= 68) { label = 'LEVEL 4 • SCALED'; colorClass = 'bg-emerald-600 text-white'; }
+            else if (avg >= 52) { label = 'LEVEL 3 • INTEGRATED'; colorClass = 'bg-teal-600 text-white'; }
+            else if (avg >= 38) { label = 'LEVEL 2 • PILOTING'; colorClass = 'bg-amber-600 text-white'; }
+            else { label = 'LEVEL 1 • EXPLORING'; colorClass = 'bg-slate-600 text-white'; }
+
+            el.className = `px-4 py-1 text-xs font-bold tracking-[1px] rounded-2xl flex items-center ${colorClass}`;
+            el.textContent = label;
+        }
+
+        // ==================== LIVE STANDINGS (vs AI / hotseat) ====================
+        // A lightweight running score so the race updates every decision,
+        // using the same weighting as the final score.
+        function runningScore(metrics) {
+            const weights = { roi: 0.22, efficiency: 0.18, adoption: 0.22, governance: 0.20, position: 0.18 };
+            return Math.round(METRIC_KEYS.reduce((s,k)=>s + (metrics[k]||0)*weights[k], 0));
+        }
+
+        function setupStandings() {
+            const card = document.getElementById('standings-card');
+            if (!card) return;
+            if (gameState.mode === 'solo') { card.classList.add('hidden'); return; }
+            card.classList.remove('hidden');
+
+            const youLabel = document.getElementById('you-label');
+            const rivalLabel = document.getElementById('rival-label');
+            if (gameState.mode === 'vsai') {
+                youLabel.textContent = 'You';
+                rivalLabel.innerHTML = `AI · ${archetypeName(gameState.aiArchetype)}`;
+            } else {
+                youLabel.textContent = gameState.players.p1.name;
+                rivalLabel.innerHTML = gameState.players.p2.name;
+            }
+            updateStandings();
+        }
+
+        function archetypeName(a) {
+            return a === 'cautious' ? 'Cautious CFO' : a === 'innovator' ? 'Bold Innovator' : 'Pragmatic COO';
+        }
+
+        function updateStandings() {
+            const card = document.getElementById('standings-card');
+            if (!card || card.classList.contains('hidden')) return;
+
+            const you = runningScore(gameState.players.p1.metrics);
+            const rival = gameState.players.p2.metrics.roi !== undefined
+                ? runningScore(gameState.players.p2.metrics) : 0;
+
+            const youScoreEl = document.getElementById('you-score');
+            const rivalScoreEl = document.getElementById('rival-score');
+            const prevLeader = gameState._leader;
+
+            youScoreEl.textContent = you;
+            rivalScoreEl.textContent = rival;
+            document.getElementById('you-fill').style.width = Math.min(100, you) + '%';
+            document.getElementById('rival-fill').style.width = Math.min(100, rival) + '%';
+
+            const leadTag = document.getElementById('lead-tag');
+            let leader;
+            if (you > rival + 1) { leadTag.textContent = 'YOU LEAD +' + (you - rival); leadTag.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-900/70 text-emerald-300'; leader = 'you'; }
+            else if (rival > you + 1) { leadTag.textContent = 'RIVAL +' + (rival - you); leadTag.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-violet-900/70 text-violet-300'; leader = 'rival'; }
+            else { leadTag.textContent = 'DEAD HEAT'; leadTag.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300'; leader = 'tie'; }
+
+            if (leader !== prevLeader && prevLeader !== undefined && leader !== 'tie') {
+                leadTag.classList.add('lead-flip');
+                setTimeout(()=>leadTag.classList.remove('lead-flip'), 600);
+            }
+            gameState._leader = leader;
+        }
+
+        function showRivalThinking() {
+            const el = document.getElementById('rival-move');
+            if (!el) return;
+            el.className = 'mt-3 pt-3 border-t border-slate-800 text-[11px] text-violet-300 leading-snug min-h-[34px] rival-thinking';
+            el.innerHTML = `<i class="fa-solid fa-circle-notch"></i> ${gameState.mode==='vsai' ? archetypeName(gameState.aiArchetype) : 'Rival'} is weighing the options…`;
+        }
+
+        function revealRivalMove(choice) {
+            const el = document.getElementById('rival-move');
+            if (!el || !choice) return;
+            el.className = 'mt-3 pt-3 border-t border-slate-800 text-[11px] text-slate-300 leading-snug min-h-[34px]';
+            const letter = String.fromCharCode(65 + (gameState.currentScenario?.options.findIndex(o=>o.id===choice.id) || 0));
+            el.innerHTML = `<span class="text-violet-400 font-semibold">Rival chose ${letter}:</span> ${choice.text.substring(0, 90)}${choice.text.length>90?'…':''}`;
+        }
+
+        // ==================== GAME LOGIC ====================
+        function getCurrentPlayerState() {
+            return gameState.players[gameState.currentPlayer];
+        }
+
+        function initializeMetrics(playerKey = null) {
+            const baseMetrics = {
+                roi: 38 + Math.floor(Math.random() * 7),
+                efficiency: 42 + Math.floor(Math.random() * 9),
+                adoption: 29 + Math.floor(Math.random() * 8),
+                governance: 51 + Math.floor(Math.random() * 7),
+                position: 34 + Math.floor(Math.random() * 8)
+            };
+
+            if (playerKey) {
+                gameState.players[playerKey].metrics = { ...baseMetrics };
+                gameState.players[playerKey].startMetrics = { ...baseMetrics };
+            } else {
+                // Initialize both for hotseat/vsai
+                gameState.players.p1.metrics = { ...baseMetrics };
+                gameState.players.p1.startMetrics = { ...baseMetrics };
+                if (gameState.mode !== 'solo') {
+                    // Give AI a slightly different starting point
+                    gameState.players.p2.metrics = {
+                        roi: Math.round(baseMetrics.roi + (Math.random() * 6 - 3)),
+                        efficiency: Math.round(baseMetrics.efficiency + (Math.random() * 5 - 2)),
+                        adoption: Math.round(baseMetrics.adoption + (Math.random() * 7 - 3)),
+                        governance: Math.round(baseMetrics.governance + (Math.random() * 5 - 2)),
+                        position: Math.round(baseMetrics.position + (Math.random() * 6 - 3))
+                    };
+                    gameState.players.p2.startMetrics = { ...gameState.players.p2.metrics };
+                }
+            }
+        }
+
+        function getScenariosForPhase(phase) {
+            return SCENARIOS.filter(s => s.phase === phase).sort((a, b) => a.order - b.order);
+        }
+
+        function loadCurrentScenario() {
+            const scenarios = getScenariosForPhase(gameState.currentPhase);
+            const completedInPhase = gameState.scenariosCompleted.filter(id => {
+                const s = SCENARIOS.find(sc => sc.id === id);
+                return s && s.phase === gameState.currentPhase;
+            }).length;
+
+            if (completedInPhase >= scenarios.length) {
+                // Phase complete
+                endCurrentPhase();
+                return;
+            }
+
+            const nextScenario = scenarios[completedInPhase];
+            gameState.currentScenario = nextScenario;
+
+            // Render scenario
+            document.getElementById('scenario-title').textContent = nextScenario.title;
+            document.getElementById('scenario-context').innerHTML = `<p>${nextScenario.context}</p>`;
+            document.getElementById('scenario-phase-badge').textContent = `PHASE ${gameState.currentPhase} • SCENARIO ${completedInPhase + 1}/${scenarios.length}`;
+            
+            document.getElementById('decision-counter').textContent = completedInPhase + 1;
+            document.getElementById('decisions-total').textContent = scenarios.length;
+
+            // Render options
+            renderOptions(nextScenario.options);
+        }
+
+        function renderOptions(options) {
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = `option-card border border-slate-600 hover:border-emerald-500/70 rounded-2xl p-4 cursor-pointer group`;
+                div.setAttribute('tabindex', '0');
+                div.setAttribute('role', 'button');
+                div.setAttribute('aria-label', `Option ${String.fromCharCode(65 + index)}: ${option.text}`);
+                div.innerHTML = `
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-7 h-7 rounded-xl bg-slate-800 group-hover:bg-emerald-900 flex items-center justify-center text-xs font-mono text-emerald-400 mt-0.5">
+                            ${String.fromCharCode(65 + index)}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium leading-snug pr-2">${option.text}</div>
+                            <div class="text-xs text-emerald-400/90 mt-2 flex items-center gap-x-1.5">
+                                <i class="fa-solid fa-chart-mixed"></i>
+                                <span>${option.preview}</span>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 self-center hidden sm:block">
+                            <span class="option-key">${index + 1}</span>
+                        </div>
+                    </div>
+                `;
+
+                const activate = () => selectOption(option, div);
+                div.onclick = activate;
+                div.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } };
+                container.appendChild(div);
+            });
+
+            const hint = document.createElement('div');
+            hint.className = 'text-[11px] text-slate-500 pt-1 pl-1';
+            hint.innerHTML = `<i class="fa-solid fa-keyboard"></i> Press <span class="option-key">1</span>–<span class="option-key">3</span> or <span class="option-key">A</span>–<span class="option-key">C</span> to decide · <span class="option-key">?</span> for advisor`;
+            container.appendChild(hint);
+        }
+
+        function selectOption(option, element) {
+            // Deselect others
+            document.querySelectorAll('#options-container .option-card').forEach(el => {
+                el.classList.remove('selected', 'border-emerald-500');
+                el.classList.add('border-slate-600');
+            });
+            
+            element.classList.add('selected', 'border-emerald-500');
+            element.classList.remove('border-slate-600');
+
+            // Confirm with slight delay for UX
+            setTimeout(() => {
+                applyDecision(option);
+            }, 180);
+        }
+
+        // Diminishing returns: gains get progressively harder the higher a metric already is,
+        // so late-game excellence must be earned. Losses bite harder when you're fragile.
+        function scaledDelta(current, delta) {
+            if (delta > 0) {
+                const headroom = Math.max(0, (100 - current) / 100); // 1.0 at 0 → 0 at 100
+                return delta * (0.35 + 0.65 * headroom);
+            }
+            if (delta < 0) {
+                return current <= 35 ? delta * 1.25 : delta; // early-stage fragility
+            }
+            return delta;
+        }
+
+        // Single source of truth for turning an option's intended impacts into a real
+        // outcome — opportunity cost + diminishing returns + variance. Both the human
+        // and the AI rival resolve decisions through this, so the contest stays fair.
+        function resolveImpacts(metrics, deltas) {
+            const posSum = METRIC_KEYS.reduce((s,k)=> s + Math.max(0, deltas[k] || 0), 0);
+            const POS_BUDGET = 26;
+            const posScale = posSum > POS_BUDGET ? POS_BUDGET / posSum : 1;
+
+            const newMetrics = { ...metrics };
+            const actualDeltas = {};
+            METRIC_KEYS.forEach(key => {
+                if (deltas[key] !== undefined) {
+                    const raw = deltas[key] > 0 ? deltas[key] * posScale : deltas[key];
+                    const variance = (Math.random() * 4 - 2); // -2 to +2
+                    const eff = scaledDelta(metrics[key], raw) + variance;
+                    newMetrics[key] = Math.max(8, Math.min(98, Math.round(metrics[key] + eff)));
+                    actualDeltas[key] = newMetrics[key] - Math.round(metrics[key]);
+                }
+            });
+            return { newMetrics, actualDeltas };
+        }
+
+        function applyDecision(option) {
+            const player = getCurrentPlayerState();
+            const metrics = player.metrics;
+            const deltas = option.impacts;
+
+            const avgBefore = METRIC_KEYS.reduce((s,k)=>s+metrics[k],0)/5;
+
+            const { newMetrics, actualDeltas } = resolveImpacts(metrics, deltas);
+            let logMessage = `Decision: ${option.text.substring(0, 58)}...`;
+
+            // Update state
+            player.metrics = newMetrics;
+
+            // Momentum / streak: reward consistent forward progress
+            const avgAfter = METRIC_KEYS.reduce((s,k)=>s+newMetrics[k],0)/5;
+            if (avgAfter > avgBefore + 0.5) {
+                gameState.streak = (gameState.streak || 0) + 1;
+                if (gameState.streak >= 3) {
+                    showToast(`On a roll — ${gameState.streak} strong decisions in a row`, 'success');
+                    const scEl = document.getElementById('maturity-label');
+                    if (scEl) { scEl.classList.add('streak-flash'); setTimeout(()=>scEl.classList.remove('streak-flash'), 700); }
+                }
+            } else {
+                gameState.streak = 0;
+            }
+            player.decisions.push({
+                phase: gameState.currentPhase,
+                scenarioId: gameState.currentScenario.id,
+                optionId: option.id,
+                timestamp: Date.now()
+            });
+
+            gameState.totalDecisionsMade++;
+            gameState.decisionsInPhase++;
+            gameState.scenariosCompleted.push(gameState.currentScenario.id);
+
+            // Add initiative if notable
+            if (deltas.position > 12 || deltas.adoption > 14) {
+                const initiativeName = gameState.currentScenario.title.split(' ').slice(0, 4).join(' ');
+                if (!gameState.initiatives.includes(initiativeName)) {
+                    gameState.initiatives.push(initiativeName);
+                }
+            }
+
+            // Update UI
+            updateKPICards(newMetrics);
+            updateRadarChart(newMetrics);
+            updateMaturityLabel(newMetrics);
+            updateInitiativesList();
+            updateHeader();
+            updateStandings();
+
+            addLogEntry(logMessage, 'info');
+            playSound('success');
+
+            // Show floating deltas (actual applied change, matches the bars)
+            showMetricDeltas(actualDeltas);
+
+            // Rival executive responds to the SAME scenario, live
+            if (gameState.mode === 'vsai') {
+                const scenarioForAI = gameState.currentScenario;
+                showRivalThinking();
+                setTimeout(() => {
+                    const choice = makeAIDecision(scenarioForAI);
+                    revealRivalMove(choice);
+                    updateRadarChart(player.metrics);
+                    updateStandings();
+                }, 620);
+            }
+
+            // Handle post-decision event
+            if (gameState.currentScenario.eventAfter) {
+                setTimeout(() => {
+                    handlePostDecisionEvent(gameState.currentScenario.eventAfter);
+                }, 950);
+            }
+
+            // Clear options and load next or end phase
+            setTimeout(() => {
+                const container = document.getElementById('options-container');
+                container.innerHTML = `
+                    <div class="text-center py-6">
+                        <div class="inline-flex items-center gap-x-2 text-emerald-400 text-sm">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span class="font-medium">Decision recorded. Preparing next scenario...</span>
+                        </div>
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    const scenariosInPhase = getScenariosForPhase(gameState.currentPhase).length;
+                    const completed = gameState.scenariosCompleted.filter(id => {
+                        const s = SCENARIOS.find(sc => sc.id === id);
+                        return s && s.phase === gameState.currentPhase;
+                    }).length;
+
+                    if (completed >= scenariosInPhase) {
+                        endCurrentPhase();
+                    } else {
+                        loadCurrentScenario();
+                    }
+                }, 680);
+            }, 820);
+        }
+
+        function showMetricDeltas(deltas) {
+            const container = document.getElementById('kpi-container');
+            if (!container) return;
+
+            METRIC_KEYS.forEach(key => {
+                if (deltas[key] === undefined) return;
+                
+                const card = document.getElementById(`kpi-card-${key}`);
+                if (!card) return;
+
+                const deltaVal = deltas[key];
+                const isPositive = deltaVal > 0;
+                
+                const deltaEl = document.createElement('div');
+                deltaEl.className = `absolute -top-1.5 right-3 px-2.5 py-px text-[10px] font-mono font-bold rounded ${isPositive ? 'text-emerald-400 bg-emerald-900/70' : 'text-red-400 bg-red-900/60'}`;
+                deltaEl.textContent = `${isPositive ? '+' : ''}${deltaVal}`;
+                
+                card.style.position = 'relative';
+                card.appendChild(deltaEl);
+
+                setTimeout(() => {
+                    if (deltaEl.parentNode) deltaEl.parentNode.removeChild(deltaEl);
+                }, 1650);
+            });
+        }
+
+        function handlePostDecisionEvent(event) {
+            const player = getCurrentPlayerState();
+            const metrics = player.metrics;
+            
+            addLogEntry(event.message, event.type);
+
+            // Apply small impact from event
+            if (event.type === 'positive') {
+                metrics.position = Math.min(98, metrics.position + 4);
+                metrics.adoption = Math.min(98, metrics.adoption + 3);
+                playSound('success');
+            } else if (event.type === 'warning') {
+                metrics.governance = Math.max(12, metrics.governance - 5);
+                metrics.adoption = Math.max(10, metrics.adoption - 3);
+                playSound('warning');
+            }
+
+            updateKPICards(metrics);
+            updateRadarChart(metrics);
+            updateMaturityLabel(metrics);
+        }
+
+        function showAdvisorHint() {
+            const player = getCurrentPlayerState();
+            const metrics = player.metrics;
+            const scenario = gameState.currentScenario;
+            
+            if (!scenario) {
+                showToast("No active scenario. Advance the phase first.", 'warning');
+                return;
+            }
+
+            let hint = "";
+            const avg = (metrics.roi + metrics.efficiency + metrics.adoption + metrics.governance + metrics.position) / 5;
+
+            if (scenario.id === 1 || scenario.id === 4) {
+                hint = "Strong data foundations and clear vision reduce downstream risk significantly. Consider the long-term compounding effect of early governance investments.";
+            } else if (scenario.id === 5 || scenario.id === 9) {
+                hint = "Workforce Readiness is your most powerful leading indicator. Neglecting adoption early creates expensive rework in later phases.";
+            } else if (avg < 48) {
+                hint = "Your current position is fragile. Prioritize options that strengthen at least two weak metrics simultaneously rather than chasing single-dimension gains.";
+            } else if (metrics.governance < 45) {
+                hint = "Governance is your current vulnerability. A single major incident could erase hard-won gains in other areas. De-risk aggressively.";
+            } else {
+                hint = "You are in a solid position. Look for asymmetric bets — options that deliver strong position or adoption upside with acceptable governance trade-offs.";
+            }
+
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/80 flex items-center justify-center z-[120] p-6`;
+            modal.innerHTML = `
+                <div class="premium-card max-w-lg w-full rounded-3xl p-7 border border-emerald-700/60">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <div class="w-9 h-9 bg-emerald-900 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-user-tie text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Strategic Advisor</div>
+                            <div class="text-xs text-emerald-400">McKinsey-style framing • Phase ${gameState.currentPhase}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-[15px] leading-relaxed text-slate-200">${hint}</div>
+                    
+                    <div class="mt-6 text-right">
+                        <button onclick="this.closest('.fixed').remove()" class="px-6 py-2 text-sm font-medium bg-emerald-600 hover:bg-emerald-500 rounded-2xl">Understood</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function endCurrentPhase() {
+            const player = getCurrentPlayerState();
+            const scenariosInPhase = getScenariosForPhase(gameState.currentPhase).length;
+            const completed = gameState.scenariosCompleted.filter(id => {
+                const s = SCENARIOS.find(sc => sc.id === id);
+                return s && s.phase === gameState.currentPhase;
+            }).length;
+
+            if (completed < scenariosInPhase && gameState.decisionsInPhase < 2) {
+                showToast("Complete at least 2 decisions before convening the board review.", 'warning');
+                return;
+            }
+
+            // Phase review modal
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/90 flex items-center justify-center z-[130] p-5`;
+            
+            const avg = Math.round((player.metrics.roi + player.metrics.efficiency + player.metrics.adoption + player.metrics.governance + player.metrics.position) / 5);
+            const startAvg = player.startMetrics
+                ? Math.round(METRIC_KEYS.reduce((s,k)=>s+player.startMetrics[k],0)/5)
+                : 42;
+            
+            let phaseFeedback = "";
+            if (gameState.currentPhase === 1) phaseFeedback = "Vision and alignment established. The organization now has a clear direction.";
+            else if (gameState.currentPhase === 2) phaseFeedback = "Foundation investments are paying off. Data and talent pipelines are forming.";
+            else if (gameState.currentPhase === 3) phaseFeedback = "Scaling is underway. Change management and integration challenges are real but manageable.";
+            else if (gameState.currentPhase === 4) phaseFeedback = "Governance and measurement systems are maturing. You are de-risking the transformation.";
+            else phaseFeedback = "You have built a credible AI-native foundation. The final choices will define your legacy.";
+
+            modal.innerHTML = `
+                <div class="premium-card max-w-2xl w-full rounded-3xl overflow-hidden border border-emerald-700/50">
+                    <div class="px-8 py-5 bg-emerald-900/30 flex items-center justify-between">
+                        <div>
+                            <span class="text-emerald-400 text-xs tracking-[2px] font-mono">PHASE ${gameState.currentPhase} COMPLETE</span>
+                            <div class="font-display text-3xl font-semibold tracking-tight">Board Review</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-emerald-400">AI MATURITY</div>
+                            <div class="font-mono text-4xl font-bold text-emerald-400">${avg}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-8">
+                        <div class="text-lg text-slate-200 mb-5">${phaseFeedback}</div>
+                        
+                        <div class="grid grid-cols-5 gap-3 mb-7">
+                            ${METRIC_KEYS.map(key => {
+                                const val = Math.round(player.metrics[key]);
+                                return `<div class="text-center"><div class="text-xs text-slate-400">${METRIC_LABELS[key].split(' ')[0]}</div><div class="font-mono text-2xl font-semibold">${val}</div></div>`;
+                            }).join('')}
+                        </div>
+
+                        <div class="text-xs uppercase tracking-widest text-emerald-400 mb-2">KEY OUTCOMES THIS PHASE</div>
+                        <div class="text-sm text-slate-300 space-y-1 mb-6">
+                            <div>• ${gameState.decisionsInPhase} strategic decisions executed</div>
+                            <div>• ${gameState.initiatives.length} major initiatives activated</div>
+                            <div>• Balanced scorecard is up <span class="font-mono">${Math.max(0, avg - startAvg)}</span> points vs. your starting position</div>
+                        </div>
+                    </div>
+                    
+                    <div class="px-8 py-5 bg-slate-900 border-t border-slate-700 flex justify-end gap-x-3">
+                        <button onclick="advanceToNextPhase(this)" class="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 font-semibold rounded-2xl flex items-center gap-x-2 transition">
+                            ${gameState.currentPhase < 5 ? 'PROCEED TO PHASE ' + (gameState.currentPhase + 1) : 'COMPLETE TRANSFORMATION'}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function advanceToNextPhase(modalBtn) {
+            const modal = modalBtn.closest('.fixed');
+            if (modal) modal.remove();
+
+            if (gameState.currentPhase >= 5) {
+                // Hotseat: after Player 1 finishes the full 5-phase journey,
+                // hand the device to Player 2 to face the identical scenarios.
+                if (gameState.mode === 'hotseat' && gameState.currentPlayer === 'p1'
+                    && gameState.players.p2.decisions.length === 0) {
+                    showHotseatHandoff();
+                    return;
+                }
+                showFinalReport();
+                return;
+            }
+
+            gameState.currentPhase++;
+            gameState.decisionsInPhase = 0;
+
+            // Reset some temporary state
+            gameState.currentScenario = null;
+
+            updateHeader();
+            updateInitiativesList();
+            
+            // Small boost or event between phases
+            const player = getCurrentPlayerState();
+            player.metrics.position = Math.min(96, player.metrics.position + 2);
+            
+            updateKPICards(player.metrics);
+            updateRadarChart(player.metrics);
+            updateMaturityLabel(player.metrics);
+
+            addLogEntry(`Entered Phase ${gameState.currentPhase}. New strategic context loaded.`, 'positive');
+            playSound('levelup');
+
+            // Load first scenario of new phase
+            setTimeout(() => {
+                loadCurrentScenario();
+            }, 420);
+        }
+
+        function showHotseatHandoff() {
+            stopMusic();
+            const p1 = gameState.players.p1;
+            const p2 = gameState.players.p2;
+            const p1score = calculateFinalScore(p1.metrics);
+
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/95 flex items-center justify-center z-[140] p-6';
+            modal.innerHTML = `
+                <div class="premium-card max-w-xl w-full rounded-3xl overflow-hidden border border-amber-600/50 text-center">
+                    <div class="px-8 py-6 bg-amber-900/20">
+                        <i class="fa-solid fa-people-arrows text-amber-400 text-4xl mb-3"></i>
+                        <div class="font-display text-3xl font-semibold tracking-tight">Pass the Device</div>
+                        <div class="text-sm text-amber-300/80 mt-1">${p1.name} has completed the journey.</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="text-slate-300 mb-6">${p1.name} locked in a balanced scorecard of
+                            <span class="font-mono text-emerald-400 font-bold">${p1score}</span>.
+                            Now hand the device to <span class="text-amber-300 font-semibold">${p2.name}</span>,
+                            who will face the exact same five phases. No peeking at the details — play your own game.</div>
+                        <button onclick="startHotseatPlayer2(this)"
+                                class="px-9 py-3.5 bg-amber-600 hover:bg-amber-500 font-semibold rounded-2xl inline-flex items-center gap-x-2 transition">
+                            I'm ${p2.name} — Begin My Journey <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>`;
+            document.body.appendChild(modal);
+        }
+
+        function startHotseatPlayer2(btn) {
+            const modal = btn.closest('.fixed');
+            if (modal) modal.remove();
+
+            gameState.currentPlayer = 'p2';
+            gameState.currentPhase = 1;
+            gameState.decisionsInPhase = 0;
+            gameState.scenariosCompleted = [];
+            gameState.initiatives = [];
+            gameState.streak = 0;
+            gameState.currentScenario = null;
+            gameState._leader = undefined;
+
+            // Fresh radar so labels/perspective flip to Player 2
+            if (gameState.radarChart) { gameState.radarChart.destroy(); gameState.radarChart = null; }
+
+            updateHeader();
+            updateInitiativesList();
+            const player = getCurrentPlayerState();
+            updateKPICards(player.metrics);
+            updateRadarChart(player.metrics);
+            updateMaturityLabel(player.metrics);
+            updateStandings();
+            clearLog();
+            addLogEntry(`${player.name} takes the chair. Same five phases — make them yours.`, 'positive');
+
+            if (gameState.musicEnabled) { if (!audioCtx) initAudio(); setTimeout(()=>playAmbientMusic('calm'), 300); }
+            showToast(`Now playing: ${player.name}`, 'info');
+            setTimeout(() => loadCurrentScenario(), 380);
+        }
+
+        function calculateFinalScore(metrics) {
+            // Weighted balanced score
+            const weights = { roi: 0.22, efficiency: 0.18, adoption: 0.22, governance: 0.20, position: 0.18 };
+            let score = 0;
+            METRIC_KEYS.forEach(key => {
+                score += metrics[key] * weights[key];
+            });
+            return Math.round(score);
+        }
+
+        function getMaturityLevel(score) {
+            if (score >= 82) return { level: 5, label: "AI-NATIVE LEADER", desc: "You have built a self-improving, AI-first enterprise that competitors benchmark against." };
+            if (score >= 68) return { level: 4, label: "SCALED TRANSFORMER", desc: "AI is deeply embedded across the organization with strong governance and measurable value." };
+            if (score >= 52) return { level: 3, label: "INTEGRATED PLAYER", desc: "Solid foundation with several scaled use cases and improving organizational capability." };
+            if (score >= 38) return { level: 2, label: "EMERGING PRACTITIONER", desc: "Promising pilots and growing executive alignment, but scaling and adoption remain challenges." };
+            return { level: 1, label: "FOUNDATIONAL EXPLORER", desc: "Early stage with important lessons learned. Significant work remains to capture full value." };
+        }
+
+        function getBadges(metrics, score) {
+            const badges = [];
+            if (metrics.roi >= 75) badges.push({ icon: 'fa-chart-line', label: 'ROI Architect', color: 'emerald' });
+            if (metrics.adoption >= 78) badges.push({ icon: 'fa-users', label: 'People Champion', color: 'emerald' });
+            if (metrics.governance >= 82) badges.push({ icon: 'fa-shield-halved', label: 'Responsible AI Guardian', color: 'violet' });
+            if (metrics.position >= 80) badges.push({ icon: 'fa-globe', label: 'Market Shaper', color: 'emerald' });
+            if (metrics.efficiency >= 80) badges.push({ icon: 'fa-cogs', label: 'Operational Excellence', color: 'emerald' });
+            if (score >= 82) badges.push({ icon: 'fa-tachometer-alt', label: 'AI-Native Pioneer', color: 'amber' });
+            if (metrics.governance >= 70 && metrics.adoption >= 65) badges.push({ icon: 'fa-balance-scale', label: 'Ethical Leader', color: 'violet' });
+            if (badges.length === 0) badges.push({ icon: 'fa-seedling', label: 'Transformation Catalyst', color: 'emerald' });
+            return badges;
+        }
+
+        function celebrate() {
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            let canvas = document.getElementById('confetti-canvas');
+            if (!canvas) { canvas = document.createElement('canvas'); canvas.id = 'confetti-canvas'; document.body.appendChild(canvas); }
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+            const W = canvas.width = window.innerWidth;
+            const H = canvas.height = window.innerHeight;
+            const colors = ['#10b981','#34d399','#a78bfa','#f59e0b','#e2e8f0'];
+            const parts = Array.from({length: 150}, () => ({
+                x: Math.random()*W, y: -20 - Math.random()*H*0.4,
+                r: 4 + Math.random()*5, c: colors[Math.floor(Math.random()*colors.length)],
+                vx: (Math.random()-0.5)*2.6, vy: 2 + Math.random()*3.4,
+                rot: Math.random()*Math.PI, vr: (Math.random()-0.5)*0.32
+            }));
+            let start = null;
+            function frame(t){
+                if (!start) start = t;
+                ctx.clearRect(0,0,W,H);
+                parts.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vr;
+                    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+                    ctx.fillStyle = p.c; ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.6); ctx.restore();
+                });
+                if (t - start < 3400) requestAnimationFrame(frame);
+                else ctx.clearRect(0,0,W,H);
+            }
+            requestAnimationFrame(frame);
+        }
+
+        function showFinalReport() {
+            document.getElementById('game-screen').classList.add('hidden');
+            const reportScreen = document.getElementById('report-screen');
+            reportScreen.classList.remove('hidden');
+
+            const player = getCurrentPlayerState();
+            const score = calculateFinalScore(player.metrics);
+            const maturity = getMaturityLevel(score);
+            const badges = getBadges(player.metrics, score);
+
+            // Final maturity
+            document.getElementById('final-maturity').innerHTML = `${maturity.level} <span class="text-4xl align-super">/ 5</span>`;
+            document.getElementById('final-maturity').className = `font-display text-7xl font-bold tracking-tighter ${score >= 68 ? 'text-emerald-400' : score >= 52 ? 'text-teal-400' : 'text-amber-400'}`;
+            document.getElementById('final-score-text').textContent = maturity.label;
+
+            // Score bar
+            const bar = document.getElementById('final-score-bar');
+            bar.style.width = `${Math.min(100, score)}%`;
+
+            // Comparison panel
+            const compPanel = document.getElementById('comparison-panel');
+            if (gameState.mode === 'vsai' || gameState.mode === 'hotseat') {
+                compPanel.classList.remove('hidden');
+                const meKey = gameState.currentPlayer;
+                const oppKey = meKey === 'p1' ? 'p2' : 'p1';
+                const opponent = gameState.players[oppKey];
+                const oppScore = calculateFinalScore(opponent.metrics);
+
+                const youName = gameState.mode === 'vsai' ? 'YOU' : (player.name || 'YOU').toUpperCase();
+                const oppName = gameState.mode === 'vsai' ? `AI · ${archetypeName(gameState.aiArchetype).toUpperCase()}` : (opponent.name || 'RIVAL').toUpperCase();
+
+                let resultText = '';
+                const youWin = score > oppScore + (gameState.mode === 'vsai' ? 4 : 3);
+                const youLose = score < oppScore - (gameState.mode === 'vsai' ? 4 : 3);
+                if (gameState.mode === 'vsai') {
+                    resultText = youWin ? `You outperformed the ${archetypeName(gameState.aiArchetype)} by ${score - oppScore} points.` :
+                        youLose ? `The ${archetypeName(gameState.aiArchetype)} edged you by ${oppScore - score} points.` :
+                        `Extremely close contest — within 4 points of the AI.`;
+                } else {
+                    resultText = youWin ? `${player.name} outperformed ${opponent.name} by ${score - oppScore} points.` :
+                        youLose ? `${opponent.name} outperformed ${player.name} by ${oppScore - score} points.` :
+                        `A tight race — final scores within 3 points.`;
+                }
+
+                const winBanner = youWin ? `<div class="mb-3 inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-emerald-900/60 text-emerald-300 text-xs font-semibold"><i class="fa-solid fa-crown"></i> ${gameState.mode==='vsai'?'You win':player.name+' wins'}</div>`
+                    : youLose ? `<div class="mb-3 inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-violet-900/60 text-violet-300 text-xs font-semibold"><i class="fa-solid fa-crown"></i> ${gameState.mode==='vsai'?'AI wins':opponent.name+' wins'}</div>`
+                    : `<div class="mb-3 inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold"><i class="fa-solid fa-equals"></i> Dead heat</div>`;
+
+                document.getElementById('comparison-content').innerHTML = `
+                    ${winBanner}
+                    <div class="flex justify-between items-baseline">
+                        <div>
+                            <div class="text-xs text-slate-400">${youName}</div>
+                            <div class="font-mono text-4xl font-bold ${youWin?'text-emerald-400':''}">${score}</div>
+                        </div>
+                        <div class="text-center px-4">
+                            <div class="text-[10px] text-violet-400">VS</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-slate-400">${oppName}</div>
+                            <div class="font-mono text-4xl font-bold ${youLose?'text-violet-400':''}">${oppScore}</div>
+                        </div>
+                    </div>
+                    <div class="text-xs mt-3 text-slate-300">${resultText}</div>
+                `;
+            } else {
+                compPanel.classList.add('hidden');
+            }
+
+            // Final KPI cards
+            METRIC_KEYS.forEach((key, idx) => {
+                const el = document.getElementById(`final-kpi-${idx}`);
+                if (!el) return;
+                const val = Math.round(player.metrics[key]);
+                const label = METRIC_LABELS[key];
+                el.innerHTML = `
+                    <div class="text-xs text-slate-400">${label}</div>
+                    <div class="font-mono text-4xl font-semibold mt-0.5">${val}</div>
+                    <div class="text-[10px] text-emerald-400/70 mt-px">/ 100</div>
+                `;
+            });
+
+            // Badges
+            const badgeContainer = document.getElementById('badges-container');
+            badgeContainer.innerHTML = badges.map(b => `
+                <div class="px-4 py-1.5 bg-slate-900 border border-slate-700 rounded-2xl flex items-center gap-x-2 text-sm">
+                    <i class="fa-solid ${b.icon} text-${b.color}-400"></i>
+                    <span class="font-medium">${b.label}</span>
+                </div>
+            `).join('');
+
+            // Lessons
+            const lessonsContainer = document.getElementById('lessons-container');
+            const lessons = [
+                "Early investment in Workforce Readiness and Governance created compounding advantages in later phases.",
+                "Balanced decision-making outperformed single-metric optimization in almost every scenario.",
+                "The most successful leaders treated AI transformation as a multi-year capability journey, not a technology program.",
+                "Visible executive sponsorship combined with grassroots adoption produced the strongest results."
+            ];
+            lessonsContainer.innerHTML = lessons.map(l => `<div class="flex gap-2"><span class="text-emerald-400 mt-1">→</span> <span>${l}</span></div>`).join('');
+
+            // Celebrate a strong outcome or a competitive win
+            let youWon = false;
+            if (gameState.mode !== 'solo') {
+                const oppKey = gameState.currentPlayer === 'p1' ? 'p2' : 'p1';
+                youWon = score > calculateFinalScore(gameState.players[oppKey].metrics);
+            }
+            if (score >= 60 || youWon) {
+                playSound('levelup');
+                setTimeout(celebrate, 250);
+            }
+        }
+
+        function copyExecutiveSummary() {
+            const player = getCurrentPlayerState();
+            const score = calculateFinalScore(player.metrics);
+            const maturity = getMaturityLevel(score);
+            
+            const text = `HORIZON GenAI Executive Simulation — Executive Summary
+
+Company: ${player.company}
+Leader: ${player.name}
+Final AI Maturity: Level ${maturity.level} — ${maturity.label}
+Overall Score: ${score}/100
+
+Metrics:
+• Projected ROI: ${Math.round(player.metrics.roi)}
+• Operational Efficiency: ${Math.round(player.metrics.efficiency)}
+• Workforce Readiness: ${Math.round(player.metrics.adoption)}
+• Risk & Governance: ${Math.round(player.metrics.governance)}
+• Strategic Position: ${Math.round(player.metrics.position)}
+
+Key Insight: ${maturity.desc}
+
+Simulation completed on ${new Date().toLocaleDateString()}.
+`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Executive summary copied to clipboard", 'success');
+            }).catch(() => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast("Executive summary copied", 'success');
+            });
+        }
+
+        function restartFromReport() {
+            document.getElementById('report-screen').classList.add('hidden');
+            showStartScreen();
+        }
+
+        // ==================== AI OPPONENT ====================
+        function makeAIDecision(scenario) {
+            const aiPlayer = gameState.players.p2;
+            const metrics = aiPlayer.metrics;
+            let chosenOption;
+
+            const archetype = gameState.aiArchetype;
+
+            // Simple heuristic based on archetype
+            if (archetype === 'cautious') {
+                // Prefer options with highest governance + lowest negative adoption
+                chosenOption = scenario.options.reduce((best, opt) => {
+                    const score = (opt.impacts.governance || 0) * 1.6 + (opt.impacts.adoption || 0) * 0.8 - Math.abs(opt.impacts.roi || 0) * 0.3;
+                    return score > (best.score || -999) ? { option: opt, score } : best;
+                }, {}).option;
+            } else if (archetype === 'innovator') {
+                // Prefer high position + roi
+                chosenOption = scenario.options.reduce((best, opt) => {
+                    const score = (opt.impacts.position || 0) * 1.5 + (opt.impacts.roi || 0) * 1.2 - (opt.impacts.governance || 0) * 0.4;
+                    return score > (best.score || -999) ? { option: opt, score } : best;
+                }, {}).option;
+            } else { // pragmatic
+                chosenOption = scenario.options.reduce((best, opt) => {
+                    const score = (opt.impacts.efficiency || 0) + (opt.impacts.adoption || 0) * 1.1 + (opt.impacts.governance || 0) * 0.9;
+                    return score > (best.score || -999) ? { option: opt, score } : best;
+                }, {}).option;
+            }
+
+            if (!chosenOption) chosenOption = scenario.options[1]; // fallback middle
+
+            // Apply to AI through the same fairness model the human faces
+            const { newMetrics } = resolveImpacts(metrics, chosenOption.impacts);
+            aiPlayer.metrics = newMetrics;
+            aiPlayer.decisions.push({
+                phase: gameState.currentPhase,
+                scenarioId: scenario.id,
+                optionId: chosenOption.id,
+                timestamp: Date.now()
+            });
+
+            addLogEntry(`AI (${gameState.aiArchetype}) chose: ${chosenOption.text.substring(0, 52)}...`, 'info');
+            
+            return chosenOption;
+        }
+
+        // ==================== GAME FLOW ====================
+        function startNewGame() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('setup-screen').classList.remove('hidden');
+            
+            // Populate mode options
+            const modeContainer = document.getElementById('mode-options');
+            modeContainer.innerHTML = `
+                <div onclick="selectModeOption(this, 'solo')" class="mode-option cursor-pointer border border-emerald-600 bg-emerald-900/20 rounded-2xl p-4 flex items-center gap-x-3">
+                    <i class="fa-solid fa-user text-xl text-emerald-400 w-6"></i>
+                    <div class="text-sm"><div class="font-semibold">Individual</div><div class="text-xs text-emerald-400">Solo mastery</div></div>
+                </div>
+                <div onclick="selectModeOption(this, 'vsai')" class="mode-option cursor-pointer border border-slate-600 hover:border-violet-500 rounded-2xl p-4 flex items-center gap-x-3">
+                    <i class="fa-solid fa-robot text-xl text-violet-400 w-6"></i>
+                    <div class="text-sm"><div class="font-semibold">Compete vs AI</div><div class="text-xs text-violet-400">Executive duel</div></div>
+                </div>
+                <div onclick="selectModeOption(this, 'hotseat')" class="mode-option cursor-pointer border border-slate-600 hover:border-amber-500 rounded-2xl p-4 flex items-center gap-x-3">
+                    <i class="fa-solid fa-users text-xl text-amber-400 w-6"></i>
+                    <div class="text-sm"><div class="font-semibold">Hotseat (2P)</div><div class="text-xs text-amber-400">Pass the device</div></div>
+                </div>
+            `;
+
+            // Default select solo
+            setTimeout(() => {
+                const first = modeContainer.querySelector('.mode-option');
+                if (first) {
+                    first.classList.add('border-emerald-600', 'bg-emerald-900/20');
+                    first.classList.remove('border-slate-600');
+                    gameState.mode = 'solo';
+                    document.getElementById('hotseat-names').classList.add('hidden');
+                    document.getElementById('ai-opponent-section').classList.add('hidden');
+                }
+            }, 80);
+
+            // Populate AI archetypes
+            const aiContainer = document.getElementById('ai-archetype-options');
+            aiContainer.innerHTML = `
+                <div onclick="selectAIArchetype(this, 'cautious')" class="ai-option cursor-pointer border border-slate-600 hover:border-violet-500 rounded-2xl p-3 text-center">
+                    <div class="font-semibold text-sm">Cautious CFO</div>
+                    <div class="text-[10px] text-slate-400">Risk-first, governance heavy</div>
+                </div>
+                <div onclick="selectAIArchetype(this, 'innovator')" class="ai-option cursor-pointer border border-violet-600 bg-violet-900/20 rounded-2xl p-3 text-center">
+                    <div class="font-semibold text-sm">Bold Innovator</div>
+                    <div class="text-[10px] text-violet-300">High-risk, high-reward</div>
+                </div>
+                <div onclick="selectAIArchetype(this, 'pragmatic')" class="ai-option cursor-pointer border border-slate-600 hover:border-violet-500 rounded-2xl p-3 text-center">
+                    <div class="font-semibold text-sm">Pragmatic COO</div>
+                    <div class="text-[10px] text-slate-400">Balanced execution focus</div>
+                </div>
+            `;
+        }
+
+        function selectModeOption(element, mode) {
+            document.querySelectorAll('#mode-options .mode-option').forEach(el => {
+                el.classList.remove('border-emerald-600', 'bg-emerald-900/20');
+                el.classList.add('border-slate-600');
+            });
+            element.classList.add('border-emerald-600', 'bg-emerald-900/20');
+            element.classList.remove('border-slate-600');
+
+            gameState.mode = mode;
+
+            const hotseat = document.getElementById('hotseat-names');
+            const aiSection = document.getElementById('ai-opponent-section');
+
+            if (mode === 'hotseat') {
+                hotseat.classList.remove('hidden');
+                aiSection.classList.add('hidden');
+            } else if (mode === 'vsai') {
+                hotseat.classList.add('hidden');
+                aiSection.classList.remove('hidden');
+            } else {
+                hotseat.classList.add('hidden');
+                aiSection.classList.add('hidden');
+            }
+        }
+
+        function selectAIArchetype(element, archetype) {
+            document.querySelectorAll('#ai-archetype-options .ai-option').forEach(el => {
+                el.classList.remove('border-violet-600', 'bg-violet-900/20');
+                el.classList.add('border-slate-600');
+            });
+            element.classList.add('border-violet-600', 'bg-violet-900/20');
+            element.classList.remove('border-slate-600');
+            gameState.aiArchetype = archetype;
+        }
+
+        function quickStartMode(mode) {
+            document.getElementById('start-screen').classList.add('hidden');
+            
+            // Quick defaults
+            gameState.mode = mode;
+            gameState.currentPlayer = 'p1';
+            gameState.players.p1.name = mode === 'hotseat' ? "Player 1" : "You";
+            gameState.players.p1.company = "Aether Dynamics";
+            gameState.players.p2.name = mode === 'hotseat' ? "Player 2" : "AI Executive";
+            gameState.players.p2.company = "Aether Dynamics";
+            
+            if (mode === 'vsai') gameState.aiArchetype = 'pragmatic';
+
+            beginGame(true);
+        }
+
+        function beginGame(quick = false) {
+            if (!quick) {
+                // Read from form
+                const companyInput = document.getElementById('company-name').value.trim() || "Aether Dynamics";
+                const industry = document.getElementById('industry').value;
+                
+                gameState.players.p1.company = companyInput;
+                gameState.players.p2.company = companyInput;
+                
+                if (gameState.mode === 'hotseat') {
+                    gameState.players.p1.name = document.getElementById('player1-name').value.trim() || "Player 1";
+                    gameState.players.p2.name = document.getElementById('player2-name').value.trim() || "Player 2";
+                } else {
+                    gameState.players.p1.name = "You";
+                }
+            }
+
+            // Initialize
+            gameState.currentPhase = 1;
+            gameState.decisionsInPhase = 0;
+            gameState.totalDecisionsMade = 0;
+            gameState.scenariosCompleted = [];
+            gameState.log = [];
+            gameState.initiatives = [];
+            gameState.gameStarted = true;
+            gameState.streak = 0;
+            gameState._leader = undefined;
+
+            initializeMetrics('p1');
+            if (gameState.mode !== 'solo') initializeMetrics('p2');
+
+            // Hide setup, show game
+            document.getElementById('setup-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+
+            // Init audio if needed
+            if (!audioCtx) initAudio();
+            if (gameState.musicEnabled) {
+                setTimeout(() => {
+                    playAmbientMusic('calm');
+                }, 600);
+            }
+
+            updateHeader();
+            updateInitiativesList();
+            
+            const player = getCurrentPlayerState();
+            updateKPICards(player.metrics);
+            updateRadarChart(player.metrics);
+            updateMaturityLabel(player.metrics);
+            setupStandings();
+
+            addLogEntry("Simulation initialized. Welcome to the executive strategy lab.", 'positive');
+
+            // Load first scenario
+            setTimeout(() => {
+                loadCurrentScenario();
+            }, 380);
+        }
+
+        function showUserGuide() {
+            document.getElementById('guide-modal').classList.remove('hidden');
+            document.getElementById('guide-modal').classList.add('flex');
+        }
+
+        function hideUserGuide() {
+            const modal = document.getElementById('guide-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function showStartScreen() {
+            // Reset some state
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('setup-screen').classList.add('hidden');
+            document.getElementById('report-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+            
+            if (gameState.radarChart) {
+                gameState.radarChart.destroy();
+                gameState.radarChart = null;
+            }
+        }
+
+        function resetGame() {
+            if (confirm("Restart the entire simulation? Current progress will be lost.")) {
+                location.reload();
+            }
+        }
+
+        function selectModeOptionOnLoad() {
+            // Handled in startNewGame
+        }
+
+        // ==================== INITIALIZATION ====================
+        function initializeGame() {
+            initTailwind();
+            
+            // Default volume
+            const volSlider = document.getElementById('volume-slider');
+            if (volSlider) {
+                volSlider.value = 65;
+                document.getElementById('volume-value').textContent = '65';
+            }
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                const target = e.target;
+                if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT')) return;
+
+                const gameVisible = document.getElementById('game-screen').classList.contains('hidden') === false;
+
+                if (e.key === '?' && gameVisible) {
+                    e.preventDefault();
+                    showAdvisorHint();
+                    return;
+                }
+                if (e.key.toLowerCase() === 'm') {
+                    toggleMusic();
+                    return;
+                }
+                // Choose an option with 1-3 or A-C
+                if (gameVisible) {
+                    const map = { '1':0, '2':1, '3':2, 'a':0, 'b':1, 'c':2 };
+                    const idx = map[e.key.toLowerCase()];
+                    if (idx !== undefined) {
+                        const cards = document.querySelectorAll('#options-container .option-card');
+                        if (cards[idx]) { e.preventDefault(); cards[idx].click(); }
+                    }
+                }
+            });
+
+            // Easter egg / professional touch
+            console.log('%c[HORIZON] GenAI Executive Strategy Simulator initialized. Ready for leaders.', 'color:#166534');
+            
+            // Preload first music mood hint
+            setTimeout(() => {
+                const musicBtn = document.getElementById('music-btn');
+                if (musicBtn) {
+                    musicBtn.title = "Toggle ambient strategy music (M)";
+                }
+            }, 1200);
+        }
+
+        // Boot
+        window.onload = function() {
+            initializeGame();
+        };
+
+        // Expose for debugging if needed
+        window.HORIZON = { gameState };
+    </script>
+</body>
+</html>

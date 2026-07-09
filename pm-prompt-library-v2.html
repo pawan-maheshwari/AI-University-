@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Prompt Intel Ops v2 — OODA × L99 × Program Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070a0f;
+  --surface: #0d1117;
+  --surface2: #131920;
+  --surface3: #182230;
+  --border: #1e2d3d;
+  --border2: #2a3d52;
+  --accent: #00d4ff;
+  --accent2: #ff6b35;
+  --accent3: #7fff6b;
+  --accent4: #c084fc;
+  --gold: #f5c842;
+  --pink: #ff5c8a;
+  --text: #cdd6f4;
+  --text-muted: #6b7a8d;
+  --text-dim: #3d4f62;
+  --observe: #00d4ff;
+  --orient: #ff6b35;
+  --decide: #c084fc;
+  --act: #7fff6b;
+  --ethics: #f5c842;
+  --program: #ff5c8a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ANIMATED BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.aurora::before, .aurora::after {
+  content: '';
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  animation: drift 24s ease-in-out infinite alternate;
+}
+.aurora::before { background: radial-gradient(circle, var(--accent), transparent 60%); top: -25vw; left: -15vw; }
+.aurora::after  { background: radial-gradient(circle, var(--pink), transparent 60%); bottom: -25vw; right: -15vw; animation-delay: -12s; }
+@keyframes drift {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(8vw, 6vh) scale(1.15); }
+}
+
+.container { position: relative; z-index: 1; max-width: 1480px; margin: 0 auto; padding: 0 24px; }
+
+/* ── HERO ── */
+header { padding: 56px 0 28px; }
+
+.hero-frame {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px 44px 36px;
+  background: linear-gradient(160deg, rgba(13,17,23,0.9), rgba(19,25,32,0.7));
+  position: relative;
+  overflow: hidden;
+}
+.hero-frame::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--observe), var(--orient), var(--decide), var(--act), var(--ethics), var(--program));
+  animation: shimmer 6s linear infinite;
+  background-size: 300% 100%;
+}
+@keyframes shimmer { to { background-position: 300% 0; } }
+
+.brand-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+
+.blink { animation: blink 1.4s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(46px, 6.5vw, 92px);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0,212,255,0.2);
+}
+h1 .accent { color: var(--accent); }
+h1 .accent2 { color: var(--accent2); }
+h1 .pink { color: var(--pink); }
+
+.hero-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 14px;
+  line-height: 1.8;
+  max-width: 720px;
+}
+.hero-sub b { color: var(--text); font-weight: 600; }
+
+.hero-badges { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+
+.badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.badge-l99  { color: var(--gold); border-color: var(--gold); background: rgba(245,200,66,0.07); }
+.badge-ooda { color: var(--accent); border-color: var(--accent); background: rgba(0,212,255,0.07); }
+.badge-gov  { color: var(--accent3); border-color: var(--accent3); background: rgba(127,255,107,0.07); }
+.badge-prog { color: var(--pink); border-color: var(--pink); background: rgba(255,92,138,0.07); }
+
+/* ── TABS ── */
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  margin: 32px 0 0;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 14px 22px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); text-shadow: 0 0 16px rgba(0,212,255,0.5); }
+
+.tab-panel { display: none; padding-top: 28px; animation: fadeUp 0.35s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* ── OODA FILTER ── */
+.ooda-legend { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+
+.ooda-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 6px 14px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  user-select: none;
+}
+.ooda-pill[data-phase="OBSERVE"] { color: var(--observe); border-color: var(--observe); background: rgba(0,212,255,0.08); }
+.ooda-pill[data-phase="ORIENT"]  { color: var(--orient); border-color: var(--orient); background: rgba(255,107,53,0.08); }
+.ooda-pill[data-phase="DECIDE"]  { color: var(--decide); border-color: var(--decide); background: rgba(192,132,252,0.08); }
+.ooda-pill[data-phase="ACT"]     { color: var(--act); border-color: var(--act); background: rgba(127,255,107,0.08); }
+.ooda-pill[data-phase="ETHICS"]  { color: var(--ethics); border-color: var(--ethics); background: rgba(245,200,66,0.08); }
+.ooda-pill[data-phase="PROGRAM"] { color: var(--program); border-color: var(--program); background: rgba(255,92,138,0.08); }
+.ooda-pill[data-phase="ALL"]     { color: #fff; border-color: var(--border2); background: var(--surface2); }
+.ooda-pill.active, .ooda-pill:hover { filter: brightness(1.35); box-shadow: 0 0 14px currentColor; }
+.ooda-pill:not(.active) { opacity: 0.55; }
+
+/* ── SEARCH ── */
+.search-bar { position: relative; margin-bottom: 28px; }
+.search-bar input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 15px 48px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: all 0.2s;
+}
+.search-bar input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,255,0.08), 0 0 24px rgba(0,212,255,0.1); }
+.search-bar input::placeholder { color: var(--text-dim); }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 16px; }
+.search-count { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); }
+
+/* ── STATS ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 36px;
+}
+.stat-cell { background: var(--surface); padding: 18px 16px; text-align: center; transition: background 0.2s; }
+.stat-cell:hover { background: var(--surface2); }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 1; margin-bottom: 5px; }
+.stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin: 44px 0 18px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: #fff; }
+.section-phase-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 12px currentColor; }
+.section-count { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); margin-left: auto; }
+
+/* ── PROMPT GRID / CARDS ── */
+.prompt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); gap: 16px; }
+
+.prompt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.25s;
+  cursor: pointer;
+  position: relative;
+}
+.prompt-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  border-radius: 10px 0 0 10px;
+}
+.prompt-card[data-phase="OBSERVE"]::before { background: var(--observe); box-shadow: 2px 0 12px rgba(0,212,255,0.3); }
+.prompt-card[data-phase="ORIENT"]::before  { background: var(--orient); box-shadow: 2px 0 12px rgba(255,107,53,0.3); }
+.prompt-card[data-phase="DECIDE"]::before  { background: var(--decide); box-shadow: 2px 0 12px rgba(192,132,252,0.3); }
+.prompt-card[data-phase="ACT"]::before     { background: var(--act); box-shadow: 2px 0 12px rgba(127,255,107,0.3); }
+.prompt-card[data-phase="ETHICS"]::before  { background: var(--ethics); box-shadow: 2px 0 12px rgba(245,200,66,0.3); }
+.prompt-card[data-phase="PROGRAM"]::before { background: var(--program); box-shadow: 2px 0 12px rgba(255,92,138,0.3); }
+
+.prompt-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+
+.card-header { padding: 16px 20px 12px 24px; display: flex; align-items: flex-start; gap: 12px; }
+.card-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; color: var(--text-dim); flex-shrink: 0; margin-top: 3px; }
+.card-title-block { flex: 1; min-width: 0; }
+.card-title { font-weight: 700; font-size: 14.5px; color: #fff; line-height: 1.3; margin-bottom: 7px; }
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 1px;
+  padding: 2px 7px; border-radius: 2px; text-transform: uppercase;
+}
+.tag-observe { color: var(--observe); background: rgba(0,212,255,0.1); }
+.tag-orient  { color: var(--orient);  background: rgba(255,107,53,0.1); }
+.tag-decide  { color: var(--decide);  background: rgba(192,132,252,0.1); }
+.tag-act     { color: var(--act);     background: rgba(127,255,107,0.1); }
+.tag-ethics  { color: var(--ethics);  background: rgba(245,200,66,0.1); }
+.tag-program { color: var(--program); background: rgba(255,92,138,0.1); }
+.tag-gov     { color: #a8d8a8; background: rgba(168,216,168,0.1); }
+.tag-l99     { color: var(--gold); background: rgba(245,200,66,0.07); border: 1px solid rgba(245,200,66,0.2); }
+
+.card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn-icon {
+  background: transparent; border: 1px solid var(--border2); color: var(--text-muted);
+  width: 30px; height: 30px; border-radius: 5px; cursor: pointer; font-size: 13px;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.btn-icon:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.07); box-shadow: 0 0 12px rgba(0,212,255,0.2); }
+.btn-icon.copied { border-color: var(--accent3); color: var(--accent3); }
+
+.card-desc { padding: 0 20px 12px 24px; font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
+
+/* ROI micro-strip on each card */
+.card-roi-strip {
+  display: flex; gap: 14px; padding: 0 20px 14px 24px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-dim);
+}
+.card-roi-strip b { color: var(--accent3); font-weight: 600; }
+.card-roi-strip .cost b { color: var(--accent2); }
+
+.card-prompt { display: none; margin: 0 20px 14px 24px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.card-prompt.visible { display: block; }
+.prompt-label {
+  padding: 8px 14px; background: var(--surface2); border-bottom: 1px solid var(--border);
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  color: var(--text-dim); text-transform: uppercase; display: flex; justify-content: space-between;
+}
+.prompt-text { padding: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.75; color: #9ecfff; white-space: pre-wrap; max-height: 480px; overflow-y: auto; }
+.prompt-text .var-slot { color: var(--accent2); background: rgba(255,107,53,0.1); padding: 1px 4px; border-radius: 3px; }
+
+.gov-note {
+  margin: 0 20px 16px 24px; padding: 10px 14px;
+  background: rgba(245,200,66,0.05); border: 1px solid rgba(245,200,66,0.15); border-radius: 5px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ethics); line-height: 1.6;
+  display: none;
+}
+.gov-note.visible { display: block; }
+
+/* ── PERSONA GUIDE (STAR) ── */
+.persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 20px; }
+
+.persona-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s;
+  position: relative;
+}
+.persona-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); border-color: var(--border2); }
+
+.persona-header {
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--surface2), var(--surface));
+  position: relative;
+}
+.persona-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--pc, var(--accent));
+}
+.persona-icon { font-size: 30px; margin-bottom: 8px; display: block; }
+.persona-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1.5px; color: #fff; }
+.persona-role { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+.star-block { padding: 18px 24px; }
+.star-row { margin-bottom: 16px; }
+.star-letter {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 5px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 17px;
+  background: var(--pc, var(--accent)); color: #0a0d12;
+  margin-right: 10px; vertical-align: middle;
+}
+.star-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--pc, var(--accent)); }
+.star-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.65; margin-top: 6px; padding-left: 36px; }
+.star-text b { color: var(--text); }
+
+.persona-prompts {
+  padding: 14px 24px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.15);
+}
+.persona-prompts-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+.persona-prompt-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.p-chip {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  padding: 4px 10px; border-radius: 3px; cursor: pointer;
+  background: var(--surface2); border: 1px solid var(--border2); color: var(--text-muted);
+  transition: all 0.15s;
+}
+.p-chip:hover { border-color: var(--pc, var(--accent)); color: var(--pc, var(--accent)); box-shadow: 0 0 10px rgba(0,212,255,0.15); }
+
+/* ── ROI TAB ── */
+.roi-intro {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+.roi-intro b { color: var(--text); }
+.roi-intro .hl { color: var(--accent3); font-weight: 600; }
+
+.roi-assumptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.assumption-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.assumption-card b { color: var(--accent); display: block; margin-bottom: 4px; font-size: 12px; }
+
+.roi-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 32px; }
+table.roi-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 900px; }
+.roi-table th {
+  background: var(--surface3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-muted); text-align: left;
+  padding: 12px 16px; border-bottom: 1px solid var(--border2);
+  position: sticky; top: 0;
+}
+.roi-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); }
+.roi-table tr:hover td { background: rgba(0,212,255,0.03); }
+.roi-table .cat-cell { font-weight: 700; }
+.roi-table .num { font-family: 'IBM Plex Mono', monospace; }
+.roi-table .roi-good { color: var(--accent3); font-weight: 700; }
+.roi-table .cost-val { color: var(--accent2); }
+.roi-table tfoot td { background: var(--surface2); font-weight: 700; border-top: 2px solid var(--border2); }
+
+/* ROI bars */
+.roi-bars { margin-bottom: 40px; }
+.roi-bar-row { display: grid; grid-template-columns: 220px 1fr 110px; gap: 14px; align-items: center; margin-bottom: 12px; }
+.roi-bar-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); text-align: right; }
+.roi-bar-track { height: 22px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+.roi-bar-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.22,1,0.36,1); display:flex; align-items:center; }
+.roi-bar-value { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--accent3); }
+
+@media (max-width: 768px) {
+  .prompt-grid, .persona-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 46px; }
+  .hero-frame { padding: 28px 22px; }
+  .roi-bar-row { grid-template-columns: 130px 1fr 80px; }
+}
+
+/* ── FOOTER / TOAST ── */
+footer {
+  margin-top: 80px; padding: 32px 0; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.footer-text { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); }
+.footer-badges { display: flex; gap: 8px; }
+
+.toast {
+  position: fixed; bottom: 32px; right: 32px;
+  background: var(--surface2); border: 1px solid var(--accent3); color: var(--accent3);
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  padding: 12px 20px; border-radius: 6px; z-index: 1000;
+  opacity: 0; transform: translateY(10px); transition: all 0.25s; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+.empty-state { text-align: center; padding: 80px 40px; color: var(--text-dim); }
+.empty-state h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text-muted); margin-bottom: 8px; }
+.empty-state p { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+
+<div class="container">
+
+<!-- HERO -->
+<header>
+  <div class="hero-frame">
+    <div class="brand-tag">TCS · AI Transformation · Enterprise PMO <span class="blink">▮</span></div>
+    <h1>PM PROMPT <span class="accent">INTEL</span> <span class="accent2">OPS</span> <span class="pink">v2</span></h1>
+    <div class="hero-sub">
+      <b>38 production-grade prompts</b> spanning Project + Programme Management, engineered on the <b>OODA Loop</b>, hardened with <b>AI Governance &amp; Ethics</b>, and executed at <b>L99 mastery</b>. Now with STAR persona playbooks and full ROI-vs-token-cost economics.
+    </div>
+    <div class="hero-badges">
+      <span class="badge badge-l99">L99 Mode</span>
+      <span class="badge badge-ooda">OODA Loop</span>
+      <span class="badge badge-gov">AI Governance</span>
+      <span class="badge badge-prog">Program Mgmt</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="library">⬡ Prompt Library</button>
+    <button class="tab-btn" data-tab="personas">★ STAR Persona Guides</button>
+    <button class="tab-btn" data-tab="roi">₹ ROI × Token Economics</button>
+  </nav>
+</header>
+
+<!-- ═══ TAB 1: LIBRARY ═══ -->
+<div class="tab-panel active" id="tab-library">
+
+  <div class="ooda-legend">
+    <div class="ooda-pill active" data-phase="ALL">⬡ ALL</div>
+    <div class="ooda-pill" data-phase="OBSERVE">◉ OBSERVE</div>
+    <div class="ooda-pill" data-phase="ORIENT">◈ ORIENT</div>
+    <div class="ooda-pill" data-phase="DECIDE">◆ DECIDE</div>
+    <div class="ooda-pill" data-phase="ACT">◎ ACT</div>
+    <div class="ooda-pill" data-phase="PROGRAM">⬢ PROGRAM</div>
+    <div class="ooda-pill" data-phase="ETHICS">⬟ ETHICS / GOV</div>
+  </div>
+
+  <div class="search-bar">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="Search 38 prompts by title, tag, or keyword..." autocomplete="off">
+    <span class="search-count" id="searchCount"></span>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-cell"><div class="stat-num" style="color:var(--observe)" data-count="7">0</div><div class="stat-label">Observe</div></div>
+    <div class="stat-cell"><div class="stat-num" style="color:var(--orient)" data-count="6">0</div><div class="stat-label">Orient</div></div>
+    <div class="stat-cell"><div class="stat-num" style="color:var(--decide)" data-count="6">0</div><div class="stat-label">Decide</div></div>
+    <div class="stat-cell"><div class="stat-num" style="color:var(--act)" data-count="6">0</div><div class="stat-label">Act</div></div>
+    <div class="stat-cell"><div class="stat-num" style="color:var(--program)" data-count="8">0</div><div class="stat-label">Program</div></div>
+    <div class="stat-cell"><div class="stat-num" style="color:var(--ethics)" data-count="5">0</div><div class="stat-label">Ethics/Gov</div></div>
+    <div class="stat-cell"><div class="stat-num" style="color:var(--gold)" data-count="38">0</div><div class="stat-label">Total</div></div>
+  </div>
+
+  <div id="promptsContainer"></div>
+
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <h3>NO MATCHES FOUND</h3>
+    <p>Try a different search term or reset the phase filter</p>
+  </div>
+</div>
+
+<!-- ═══ TAB 2: PERSONAS ═══ -->
+<div class="tab-panel" id="tab-personas">
+  <div class="roi-intro" style="margin-bottom:28px;">
+    <b>STAR Persona Playbooks.</b> Each persona guide follows the <span class="hl">STAR framework</span> — <b>S</b>ituation (the daily reality), <b>T</b>ask (what they must accomplish), <b>A</b>ction (how to deploy this library), <b>R</b>esult (measurable outcomes). Click any prompt chip to jump straight to it in the library.
+  </div>
+  <div class="persona-grid" id="personaGrid"></div>
+</div>
+
+<!-- ═══ TAB 3: ROI ═══ -->
+<div class="tab-panel" id="tab-roi">
+
+  <div class="roi-intro">
+    <b>The Economics of Prompt-Augmented PM.</b> Every prompt in this library trades <span class="hl">tokens (cost)</span> for <span class="hl">senior PM hours (value)</span>. The analysis below models both sides honestly — including human review time, because AI outputs always require validation (per the Governance Charter).
+    <div class="roi-assumptions">
+      <div class="assumption-card"><b>Token Pricing</b>Modelled on frontier-model API rates: ~$3 / 1M input tokens, ~$15 / 1M output tokens (Sonnet-class). Adjust for your contract.</div>
+      <div class="assumption-card"><b>PM Hourly Rate</b>Blended senior PM/Programme Manager rate: $75/hr (~₹6,200/hr). Adjust for onshore/offshore mix.</div>
+      <div class="assumption-card"><b>Human Review Tax</b>All time savings are NET of mandatory human review time (15–30% of task time retained for validation).</div>
+      <div class="assumption-card"><b>Frequency Basis</b>Monthly usage frequency estimated per active project for a PM running 2–3 concurrent workstreams.</div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-phase-dot" style="background:var(--accent3); color:var(--accent3)"></div>
+    <div class="section-title">ROI MULTIPLE BY CATEGORY (Value returned per $1 of tokens + review time)</div>
+  </div>
+  <div class="roi-bars" id="roiBars"></div>
+
+  <div class="section-header">
+    <div class="section-phase-dot" style="background:var(--gold); color:var(--gold)"></div>
+    <div class="section-title">DETAILED ROI × TOKEN COST MODEL</div>
+  </div>
+
+  <div class="roi-table-wrap">
+    <table class="roi-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Typical Prompt</th>
+          <th>Tokens / Use<br>(In + Out)</th>
+          <th>Token Cost<br>/ Use</th>
+          <th>Uses<br>/ Month</th>
+          <th>Manual Time<br>/ Task</th>
+          <th>AI Time incl.<br>Review</th>
+          <th>Net Hours Saved<br>/ Month</th>
+          <th>Value Created<br>/ Month</th>
+          <th>ROI<br>Multiple</th>
+        </tr>
+      </thead>
+      <tbody id="roiTableBody"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">PORTFOLIO TOTAL (per PM / month)</td>
+          <td class="num">~1.19M tokens</td>
+          <td class="num cost-val">~$9.80</td>
+          <td class="num">86</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="num roi-good">≈ 106 hrs</td>
+          <td class="num roi-good">≈ $7,950</td>
+          <td class="num roi-good">≈ 21×*</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="roi-intro" style="font-size:12px;">
+    <b>* ROI Multiple methodology:</b> Value Created ÷ (Token Cost + Review Labour Cost). Review labour is the dominant cost — token spend is nearly negligible (&lt;0.2% of value created). The real constraint on ROI is <span class="hl">review discipline</span>: skipping human validation inflates apparent ROI but violates the AI Governance Charter and introduces unquantified error risk. <b>Honest ROI beats heroic ROI.</b>
+    <br><br>
+    <b>Sensitivity notes:</b> (1) Halving usage frequency roughly halves value but barely moves cost — ROI stays above 15×. (2) Doubling token prices changes monthly cost by ~$10 — immaterial. (3) The model breaks down only if outputs go unreviewed and errors reach steering committees — a single bad gate decision can erase a year of savings. Governance isn't overhead; it's ROI insurance.
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-text">PM Prompt Intel Ops v2 · OODA × L99 × Program Management · TCS Enterprise PMO · AI Governance Compliant</div>
+  <div class="footer-badges">
+    <span class="badge badge-l99">L99</span>
+    <span class="badge badge-prog">v2.0</span>
+  </div>
+</footer>
+
+</div>
+
+<div class="toast" id="toast">✓ Prompt copied to clipboard</div>
+
+<script>
+// ═══════════════════ PROMPT DATA ═══════════════════
+const PROMPTS = [
+
+// ── OBSERVE (7) ──
+{id:"OBS-01",phase:"OBSERVE",title:"Project Health Radar — Rapid Diagnostic",tags:["Status","RAG","Executive","L99"],roi:{time:"3h → 25m",cost:"~$0.11"},
+desc:"Structured health assessment across 8 PM dimensions using RAG model with root cause indicators.",
+gov:"🛡 GOVERNANCE: Source data from authorised repositories only. No PII or confidential client data in prompt context.",
+prompt:`You are a Senior Project Director with 20+ years in enterprise delivery.
+Perform a rapid diagnostic on the following project data:
+
+PROJECT: [PROJECT_NAME]
+PHASE: [CURRENT_PHASE]
+DATA SNAPSHOT: [PASTE STATUS REPORT / JIRA EXPORT / DASHBOARD DATA]
+
+Assess across these 8 PM dimensions:
+1. Schedule Performance (SPI trend)
+2. Budget / Cost Performance (CPI trend)
+3. Scope Integrity (scope creep indicators)
+4. Risk Exposure (top 3 materialised risks)
+5. Stakeholder Sentiment (last communication signal)
+6. Team Velocity & Burnout signals
+7. Dependency Health (blockers outstanding)
+8. Quality Gate Status (defect trends, test coverage)
+
+For each dimension output:
+→ RAG Status: 🔴 / 🟡 / 🟢
+→ Root cause (1 sentence)
+→ Recommended intervention (1 sentence)
+
+End with: OVERALL HEALTH SCORE (0–100) + top 3 priority actions.`},
+
+{id:"OBS-02",phase:"OBSERVE",title:"Meeting Intelligence Extractor",tags:["Minutes","Action Items","RAID","L99"],roi:{time:"1h → 10m",cost:"~$0.08"},
+desc:"Transforms raw meeting notes into structured decisions, actions, risks, and issues with owners and dates.",
+gov:"🛡 GOVERNANCE: Do not process transcripts containing HR matters or legally privileged content without clearance.",
+prompt:`You are an expert PMO Analyst.
+Process the following meeting transcript/notes and extract structured intelligence:
+
+MEETING: [MEETING TITLE]
+DATE: [DATE]  ATTENDEES: [NAMES / ROLES]
+TRANSCRIPT/NOTES: [PASTE HERE]
+
+Extract and format as:
+
+## DECISIONS MADE
+| # | Decision | Owner | Rationale |
+
+## ACTION ITEMS
+| # | Action | Owner | Due Date | Priority |
+
+## RISKS IDENTIFIED
+| Risk | Probability | Impact | Mitigation Discussed |
+
+## ISSUES / BLOCKERS
+| Issue | Owner | Escalation Required? |
+
+## ASSUMPTIONS SURFACED
+[List any assumptions made during discussion]
+
+## PARKING LOT (Deferred Topics)
+[Items flagged for future discussion]
+
+Finally: Write a 3-sentence executive summary of this meeting.`},
+
+{id:"OBS-03",phase:"OBSERVE",title:"Stakeholder Sentiment Analyser",tags:["Stakeholder","Sentiment","L99"],roi:{time:"2h → 20m",cost:"~$0.09"},
+desc:"Analyses stakeholder communications to surface engagement levels, concerns, and political undercurrents.",
+gov:"🛡 GOVERNANCE: Sentiment analysis must not feed performance evaluation. Project engagement use only. Anonymise where possible.",
+prompt:`You are an expert in stakeholder engagement and organisational dynamics.
+Analyse the following stakeholder communications:
+
+PROJECT: [PROJECT_NAME]
+STAKEHOLDER: [NAME / ROLE / SENIORITY]
+COMMUNICATIONS: [PASTE EMAIL CHAINS / MEETING NOTES / SURVEY RESPONSES]
+
+Provide:
+
+## SENTIMENT PROFILE
+- Overall Sentiment: [Positive / Neutral / Cautious / Negative / Resistant]
+- Confidence Level: [High / Medium / Low]
+- Trend: [Improving / Stable / Deteriorating]
+
+## KEY CONCERNS DETECTED
+1. [Concern with supporting evidence from text]
+2. [Concern with supporting evidence from text]
+
+## ENGAGEMENT LEVEL
+- Current: [Champion / Supporter / Neutral / Critic / Blocker]
+- Desired: [Target engagement level]
+- Gap: [What needs to change]
+
+## POLITICAL SIGNALS
+[Power dynamics, hidden agendas, or coalition signals detected]
+
+## RECOMMENDED ENGAGEMENT STRATEGY
+- Communication frequency / channel / key message / next best action`},
+
+{id:"OBS-04",phase:"OBSERVE",title:"Risk Register Refresh — AI Augmented",tags:["Risk","RAID","L99"],roi:{time:"4h → 45m",cost:"~$0.12"},
+desc:"Enriches a risk register with AI-identified risks, updated scoring, and mitigation strategies.",
+gov:"🛡 GOVERNANCE: AI-generated risks are advisory. Human risk owner must validate before publishing.",
+prompt:`You are a Risk Management expert with deep enterprise delivery experience.
+Review and enhance the following risk register:
+
+PROJECT: [PROJECT_NAME]  INDUSTRY: [SECTOR]
+CURRENT RISK REGISTER: [PASTE EXISTING RISKS OR TABLE]
+RECENT CHANGES: [New developments, scope changes, team changes]
+
+Perform the following:
+1. VALIDATE existing risks — flag outdated, duplicated, or misscored entries
+2. IDENTIFY new risks not currently captured (project context & industry patterns)
+3. CROSS-REFERENCE emerging risks in: [Technology / Regulatory / Geopolitical / AI]
+
+For each risk (new and updated):
+| Risk ID | Description | Category | Probability (1-5) | Impact (1-5) | Score | Status | Mitigation | Owner | Review Date |
+
+4. HIGHLIGHT top 5 priority risks requiring immediate PM attention
+5. SUGGEST 2 risk response strategies the team hasn't considered`},
+
+{id:"OBS-05",phase:"OBSERVE",title:"Sprint Retrospective Synthesis",tags:["Agile","Retro","L99"],roi:{time:"2h → 20m",cost:"~$0.07"},
+desc:"Synthesises retro data across sprints to identify systemic patterns and team health trends.",
+gov:"🛡 GOVERNANCE: Aggregate insights only — never for individual appraisals. Psychological safety is paramount.",
+prompt:`You are an Agile Coach and Delivery Lead.
+Analyse the following retrospective data across [NUMBER] sprints:
+
+TEAM: [TEAM NAME]  PROJECT: [PROJECT]
+RETROSPECTIVE DATA: [PASTE RETRO BOARDS, FEEDBACK, VELOCITY CHARTS]
+
+Identify:
+
+## SYSTEMIC PATTERNS (recurring across 3+ sprints)
+- Consistently going well / consistently blocking / committed but not actioned
+
+## TEAM HEALTH INDICATORS
+- Psychological safety, collaboration quality, tech debt pressure, process friction
+
+## VELOCITY TREND ANALYSIS
+| Sprint | Committed | Delivered | Delta |
+Trend narrative: [2–3 sentences]
+
+## HIGH-IMPACT RETROSPECTIVE ACTIONS (Top 5 by ROI)
+| Action | Expected Impact | Owner | Sprint Target | Success Metric |
+
+## COACHING RECOMMENDATION
+[One strategic intervention for the Scrum Master / Team Lead]`},
+
+{id:"OBS-06",phase:"OBSERVE",title:"Dependency Map Generator",tags:["Dependencies","Critical Path","L99"],roi:{time:"5h → 1h",cost:"~$0.13"},
+desc:"Maps all project dependencies to identify critical path risks and integration failure points.",
+gov:"🛡 GOVERNANCE: Third-party dependency data must not be shared externally without contractual authorisation.",
+prompt:`You are a Programme Management expert in complex dependency management.
+
+PROJECT: [PROJECT_NAME]
+WORKPLAN DATA: [PASTE WBS / TASK LIST / JIRA EPIC STRUCTURE]
+EXTERNAL DEPENDENCIES: [Known external teams, vendors, systems]
+
+Generate:
+
+## INTERNAL DEPENDENCY MAP
+[Task A] → blocks → [Task B] | Lead Time: [X days] | Risk: [H/M/L]
+
+## EXTERNAL DEPENDENCY REGISTER
+| Dependency | Type (In/Out) | Provider | Due | Status | Escalation Owner |
+
+## CRITICAL PATH IDENTIFICATION
+- Critical path sequence / total float / weakest link
+
+## DEPENDENCY RISK MATRIX (Top 5)
+| Dependency | Risk Scenario | Probability | Schedule Impact | Mitigation |
+
+## RECOMMENDATIONS
+- Dependencies to renegotiate / parallelize / buffer for critical handoffs`},
+
+{id:"OBS-07",phase:"OBSERVE",title:"Budget Burn Analysis & EVM Forecast",tags:["Budget","EVM","Finance","L99"],roi:{time:"3h → 30m",cost:"~$0.06"},
+desc:"Earned value analysis with cost-at-completion forecast and variance commentary.",
+gov:"🛡 GOVERNANCE: Use anonymised/aggregated figures. Never paste full ledgers or commercially sensitive rates.",
+prompt:`You are a Financial Controller and PMO expert with EVM certification.
+
+PROJECT: [PROJECT_NAME]  PERIOD: [MONTH/QUARTER]
+BUDGET DATA:
+- BAC: [AMOUNT]  PV: [AMOUNT]  EV: [AMOUNT]  AC: [AMOUNT]
+
+Calculate and interpret:
+
+## EVM METRICS
+- SPI = EV/PV  |  CPI = EV/AC  |  CV = EV–AC  |  SV = EV–PV
+
+## FORECAST
+- EAC = BAC/CPI  |  ETC = EAC–AC  |  VAC = BAC–EAC  |  TCPI
+
+## INTERPRETATION
+- Performance narrative (2–3 sentences)
+- Are current trends sustainable? [Yes/No + rationale]
+- Corrective action required? [Specific financial actions]
+
+## EXECUTIVE SUMMARY
+[3-bullet financials briefing for steering committee]`},
+
+// ── ORIENT (6) ──
+{id:"ORI-01",phase:"ORIENT",title:"Root Cause Analysis — 5-Why + Fishbone",tags:["RCA","Quality","L99"],roi:{time:"4h → 40m",cost:"~$0.09"},
+desc:"Structured 5-Why and Ishikawa analysis identifying systemic causes beyond symptoms.",
+gov:"🛡 GOVERNANCE: RCA on personnel/conduct matters requires HR and legal review first.",
+prompt:`You are a Quality Management and Problem-Solving expert.
+
+ISSUE STATEMENT: [What happened, when, impact]
+PROJECT CONTEXT: [TEAM SIZE, METHODOLOGY, PHASE]
+DATA AVAILABLE: [INCIDENT LOGS, DEFECT REPORTS, TEAM FEEDBACK]
+
+## 5-WHY ANALYSIS
+Why #1 → Why #5, drilling to:
+ROOT CAUSE IDENTIFIED: [Systemic root cause statement]
+
+## FISHBONE (ISHIKAWA) ANALYSIS
+Factors across: People / Process / Technology / Environment / Measurement / Governance
+
+## CORRECTIVE ACTIONS
+| Action | Category | Owner | Timeline | Success Criteria |
+
+## PREVENTIVE ACTIONS
+[Prevent recurrence across similar projects]
+
+## LESSONS LEARNED ENTRY
+[Formatted for PMO repository — 150 words max]`},
+
+{id:"ORI-02",phase:"ORIENT",title:"Scope Change Impact Assessment",tags:["Change","Scope","CR","L99"],roi:{time:"3h → 30m",cost:"~$0.08"},
+desc:"Full impact analysis of change requests across schedule, cost, quality, risk, and resources.",
+gov:"🛡 GOVERNANCE: AI analysis is advisory. All change decisions require formal CCB human approval.",
+prompt:`You are a Senior Change Manager and delivery architect.
+
+CHANGE REQUEST: [CR-NUMBER] — [DESCRIPTION]
+REQUESTOR: [NAME / STAKEHOLDER]
+PROPOSED CHANGE: [Detailed description]
+CURRENT BASELINE: Schedule end [DATE] | Budget remaining [AMOUNT] | Scope [SUMMARY]
+
+## SCHEDULE IMPACT — activities affected, estimated delay, critical path impact, new completion
+## COST IMPACT — additional cost, budget variance, funding source
+## QUALITY IMPACT — gates affected, additional testing
+## RISK IMPACT — new risks introduced, existing risks elevated
+## RESOURCE IMPACT — additional FTE, skill gaps
+## INTERDEPENDENCY IMPACT — downstream workstreams affected
+
+## RECOMMENDATION
+☐ Approve  ☐ Approve with conditions  ☐ Defer  ☐ Reject
+Rationale: [2–3 sentences]
+
+## CCB DECISION BRIEF (100 words)`},
+
+{id:"ORI-03",phase:"ORIENT",title:"MoSCoW + WSJF Prioritisation Engine",tags:["Prioritisation","Backlog","L99"],roi:{time:"3h → 30m",cost:"~$0.07"},
+desc:"Dual-framework objective priority sequencing for competing project demands.",
+gov:"🛡 GOVERNANCE: Business owners must validate priority outputs before implementation.",
+prompt:`You are a Strategic Programme Manager and Product Owner coach.
+
+PROJECT/PROGRAMME: [NAME]
+ITEMS TO PRIORITISE: [PASTE BACKLOG ITEMS OR CHANGE REQUESTS]
+CONTEXT: [Business objectives, OKRs, constraints, deadlines]
+SCORING: Business Value / Time Criticality / Risk Reduction / Effort (1–10 each)
+
+## MOSCOW CLASSIFICATION
+| Item | Must | Should | Could | Won't (now) | Rationale |
+
+## WSJF SCORING
+WSJF = (BV + TC + RR) / Effort
+| Item | BV | TC | RR | Effort | WSJF | Rank |
+
+## SEQUENCING RECOMMENDATION
+Phase 1 / Phase 2 / Deferred — with rationale
+
+## TRADE-OFF ANALYSIS
+[What's sacrificed and what stakeholder conversations are needed]`},
+
+{id:"ORI-04",phase:"ORIENT",title:"Vendor Performance Analysis",tags:["Vendor","SLA","L99"],roi:{time:"4h → 45m",cost:"~$0.10"},
+desc:"Evaluates vendor performance against SLAs and generates improvement narratives.",
+gov:"🛡 GOVERNANCE: Vendor data may be commercially sensitive — comply with NDA and data processing agreements.",
+prompt:`You are a Procurement and Vendor Management expert.
+
+VENDOR: [NAME]  CONTRACT: [REF]  PERIOD: [DATES]
+SLA COMMITMENTS: [PASTE SLA METRICS]
+ACTUALS: [PASTE PERFORMANCE DATA]
+ESCALATION HISTORY: [PRIOR ISSUES]
+
+## SLA COMPLIANCE SCORECARD
+| SLA Metric | Target | Actual | Variance | RAG Status |
+
+## PERFORMANCE TREND (Last 3 periods)
+| Period | Score | Key Issue | Resolution |
+
+## ROOT CAUSE OF UNDERPERFORMANCE
+[Each amber/red SLA — root cause + accountability]
+
+## CONTRACTUAL POSITION
+Penalty clauses / cure period / termination risk
+
+## VENDOR IMPROVEMENT PLAN
+| Issue | Required Action | Commitment | Deadline | Proof KPI |
+
+## EXECUTIVE RECOMMENDATION
+☐ Continue ☐ PIP ☐ Procurement Review ☐ Terminate + rationale`},
+
+{id:"ORI-05",phase:"ORIENT",title:"Blameless Post-Mortem Deep Dive",tags:["Post-Mortem","Lessons","L99"],roi:{time:"6h → 1h",cost:"~$0.14"},
+desc:"Structured post-mortem balanced across successes, failures, and systemic lessons.",
+gov:"🛡 GOVERNANCE: Individual-related findings go through HR channels, not project reports.",
+prompt:`You are a seasoned Programme Director conducting a blameless post-mortem.
+
+PROJECT: [NAME]  OUTCOME: [Summary]
+TEAM: [N]  DURATION: [MONTHS]  BUDGET: [AMOUNT]
+RAW INPUT: [SURVEYS / RETRO DATA / NOTES]
+
+## OUTCOME SUMMARY — delivered vs planned, variances quantified
+## WHAT WORKED WELL (Sustain) — min 5 items with evidence
+## WHAT FAILED (Improve) — min 5 items with root causes, blameless
+## CRITICAL FAILURE POINTS — the 1–3 trajectory-changing moments
+## SYSTEMIC LESSONS — patterns transcending this project
+## LESSONS LEARNED REGISTER
+| # | Lesson | Category | Impact | Recommended Change | Owner |
+## LEADERSHIP REFLECTION — PM self-development
+## ORGANISATIONAL RECOMMENDATIONS — methodology/governance/tooling changes`},
+
+{id:"ORI-06",phase:"ORIENT",title:"Estimation Sanity Check & Calibration",tags:["Estimation","Planning","L99"],roi:{time:"3h → 35m",cost:"~$0.08"},
+desc:"Challenges estimates via multi-technique analysis to expose optimism bias.",
+gov:"🛡 GOVERNANCE: AI estimates are reference ranges. Technical leads must validate final numbers.",
+prompt:`You are an expert in software/project estimation.
+
+PROJECT: [NAME]  TYPE: [Software / Infrastructure / Migration]
+CURRENT ESTIMATE: [HOURS / POINTS / BUDGET]
+BASIS: [Expert / Analogous / Parametric / Bottom-up]
+SCOPE: [Paste WBS or feature list]
+TEAM: [Size, seniority, tech familiarity]
+
+## THREE-POINT ESTIMATE (PERT)
+O / M / P → PERT = (O + 4M + P)/6, SD = (P–O)/6
+
+## CONE OF UNCERTAINTY
+Phase: [X] → Accuracy range: [±X%] → Refined range: [LOW—HIGH]
+
+## ESTIMATION BIAS CHECK
+Optimism bias evidence / missing considerations / hidden complexity
+
+## CALIBRATED RECOMMENDATION
+Range + confidence % + assumptions to validate
+
+## SPONSOR CONVERSATION GUIDE
+[Presenting ranges honestly without losing confidence]`},
+
+// ── DECIDE (6) ──
+{id:"DEC-01",phase:"DECIDE",title:"Go/No-Go Gate Review Decision Brief",tags:["Gate","Governance","L99"],roi:{time:"5h → 1h",cost:"~$0.12"},
+desc:"Comprehensive gate review pack for steering committees with objective evidence.",
+gov:"🛡 GOVERNANCE: Final gate approval authority rests with designated human decision-makers.",
+prompt:`You are a Programme Director preparing a Phase Gate Review.
+
+PROJECT: [NAME]  GATE: [G1/G2/G3/G4/Go-Live]
+GATE CRITERIA: [Mandatory completion criteria]
+EVIDENCE: [Deliverables, test results, sign-offs]
+OUTSTANDING: [Not yet completed]
+
+## GATE CRITERIA ASSESSMENT
+| Criteria | Required | Status | Evidence | Exceptions? | RAG |
+
+## RISKS AT GATE
+| Risk | Probability | Impact | Mitigation | Residual |
+
+## FINANCIAL POSITION — budget consumed %, forecast, business case validity
+
+## READINESS SCORE
+Overall [X/100] — Technical / Business / Operational breakdowns
+
+## RECOMMENDATION
+☐ PROCEED ☐ CONDITIONAL PROCEED ☐ DEFER ☐ STOP
+
+## EXECUTIVE DECISION BRIEF (200 words for SteerCo Chair)`},
+
+{id:"DEC-02",phase:"DECIDE",title:"Resource Allocation Optimiser",tags:["Resource","Capacity","L99"],roi:{time:"4h → 50m",cost:"~$0.10"},
+desc:"Optimises allocation across competing projects with scenario modelling.",
+gov:"🛡 GOVERNANCE: Line managers retain authority over individual assignments per HR policy.",
+prompt:`You are a Resource Management and Capacity Planning expert.
+
+PORTFOLIO: [ACTIVE PROJECTS]
+RESOURCE POOL: [MEMBERS, ROLES, % AVAILABILITY]
+SKILL MATRIX: [KEY SKILLS PER PERSON]
+PRIORITIES: [Projects in strategic order]
+CONSTRAINTS: [Leave, holidays, contracts, budget caps]
+
+## DEMAND vs CAPACITY
+| Project | Role | Hours/Week Demanded | Supply | Gap |
+
+## OVER-ALLOCATION ALERTS — resources >100% with impact
+
+## RECOMMENDED ALLOCATION PLAN
+| Resource | Primary (%) | Secondary (%) | Buffer (%) | Notes |
+
+## SKILL GAP ANALYSIS
+| Skill | In-House | Gap | Train/Hire/Contract |
+
+## SCENARIO MODELLING — A: status quo / B: shift / C: hire — impacts
+
+## DECISION MATRIX + team conversation guide`},
+
+{id:"DEC-03",phase:"DECIDE",title:"Build vs Buy vs Partner Framework",tags:["Strategy","Architecture","L99"],roi:{time:"8h → 1.5h",cost:"~$0.15"},
+desc:"Multi-criteria decision framework for technology or capability sourcing.",
+gov:"🛡 GOVERNANCE: Legal and procurement review mandatory before commitment.",
+prompt:`You are a Technology Strategy and Enterprise Architecture advisor.
+
+DECISION: Build vs Buy vs Partner for [CAPABILITY]
+CONTEXT: [Business need, current state, objectives]
+REQUIREMENTS: [Functional + non-functional]
+CONSTRAINTS: [Budget, timeline, standards, compliance]
+OPTIONS: Build [desc] / Buy [vendor] / Partner [SI option]
+
+## SCORING MATRIX (weighted 1–3 per criterion)
+| Criterion | Weight | Build | Buy | Partner |
+TCO 3yr / Time to Value / Strategic Fit / Flexibility / Lock-in Risk / Talent / Security / Scalability / Weighted Total
+
+## RISK PROFILE PER OPTION
+## TCO BREAKDOWN
+| Cost Component | Build | Buy | Partner |
+## STRATEGIC ALIGNMENT — which best positions future state?
+## RECOMMENDATION — option, rationale, conditions, next steps`},
+
+{id:"DEC-04",phase:"DECIDE",title:"Escalation Decision Tree Generator",tags:["Escalation","RACI","L99"],roi:{time:"3h → 30m",cost:"~$0.07"},
+desc:"Structured escalation framework ensuring right issues reach right decision-makers.",
+gov:"🛡 GOVERNANCE: Must align to delegated authorities. AI structures the process, never makes escalation decisions.",
+prompt:`You are a Governance and Delivery Excellence expert.
+
+PROJECT: [NAME]  ORGANISATION: [DIVISION]
+GOVERNANCE STRUCTURE: [SteerCo, PMO, Sponsor, CxO roles]
+AUTHORITY LEVELS: [Financial thresholds, risk appetite per level]
+
+## ESCALATION TRIGGER TAXONOMY
+| Trigger | Threshold | Escalate To | Time Limit |
+(e.g. Cost overrun >10% → PM→Sponsor, 24h; >20% → Sponsor→SteerCo, same day)
+
+## DECISION AUTHORITY MATRIX
+| Decision Type | PM | Sponsor | SteerCo | CxO |
+[Budget / Scope / Schedule / Resource / Risk / Vendor / Go-Live]
+
+## ESCALATION DECISION TREE
+[When X occurs → escalate to Y → decision within Z hours]
+
+## ESCALATION COMMS TEMPLATE
+Subject / Context (2 sentences) / Decision Required / Options / Recommendation / Deadline
+
+## DE-ESCALATION CRITERIA`},
+
+{id:"DEC-05",phase:"DECIDE",title:"Strategic Options Paper Generator",tags:["Executive","Strategy","L99"],roi:{time:"8h → 1.5h",cost:"~$0.16"},
+desc:"Board-ready options paper with structured analysis and investment case.",
+gov:"🛡 GOVERNANCE: Finance and legal review required before executive presentation. Validate AI financial projections.",
+prompt:`You are a Strategy Director and Executive Communications expert.
+
+TOPIC: [SUBJECT]  AUDIENCE: [Board / ExCo / SteerCo]
+CONTEXT: [Background, imperatives, trigger]
+OPTIONS: [3–4 including 'do nothing']
+CONSTRAINTS: [Budget, regulatory, timeline]
+
+## EXECUTIVE SUMMARY (200 words)
+## STRATEGIC CONTEXT
+## OPTION ANALYSIS (per option)
+Description / Benefits (quantified) / Costs / Risks (top 3) / Timeline / Dependencies
+## COMPARATIVE ASSESSMENT
+| Criterion | Opt 1 | Opt 2 | Opt 3 | Opt 4 |
+## RECOMMENDATION — option, 3-bullet rationale, success conditions
+## INVESTMENT CASE — NPV/ROI, break-even, key assumptions
+## DECISION REQUIRED — specific resolution + deadline + consequences of delay`},
+
+{id:"DEC-06",phase:"DECIDE",title:"Project Recovery Plan Architect",tags:["Recovery","Rescue","L99"],roi:{time:"10h → 2h",cost:"~$0.18"},
+desc:"Diagnoses troubled projects and architects realistic recovery options.",
+gov:"🛡 GOVERNANCE: Recovery decisions require experienced human PM leadership and executive sponsorship.",
+prompt:`You are a Turnaround Programme Director specialising in project recovery.
+
+PROJECT: [NAME]
+STATUS: [Schedule delay, budget overrun, scope issues]
+ORIGINAL BASELINE vs CURRENT ACTUALS: [Detail]
+ROOT CAUSES: [Known]  REMAINING SCOPE: [Detail]
+STAKEHOLDER POSITION: [Sponsor patience, client relationship, morale]
+
+## DIAGNOSTIC SUMMARY — recovery needed on schedule/budget/scope/capability
+
+## RECOVERY OPTIONS
+A — Accelerate (crash): cost/risk/feasibility
+B — Rebaseline: reset expectations
+C — Descope: MVP must-haves, defer remainder
+D — Hybrid: combination detail
+
+## RECOMMENDED RECOVERY ROADMAP
+Week 1–2 stabilisation / Week 3–6 recovery sprints / Week 7+ normalised
+
+## STAKEHOLDER RECOVERY COMMUNICATION
+[Draft to sponsor — honest, confident, solution-focused]
+
+## SUCCESS METRICS — 4 weekly KPIs proving stability`},
+
+// ── ACT (6) ──
+{id:"ACT-01",phase:"ACT",title:"Executive Status Report — Precision Brief",tags:["Reporting","Executive","L99"],roi:{time:"2h → 20m",cost:"~$0.06"},
+desc:"Transforms raw data into a crisp executive report communicating impact, not activity.",
+gov:"🛡 GOVERNANCE: Reports are formal records — PM must review before distribution. Never misrepresent status.",
+prompt:`You are a Senior PM and Executive Communications specialist.
+Transform the following raw data into a polished executive status report:
+
+PROJECT: [NAME]  PERIOD: [DATES]  AUDIENCE: [Sponsor / SteerCo]
+RAW INPUTS: [Sprint results, Jira metrics, budget actuals, risk log]
+
+## OVERALL STATUS: 🔴 / 🟡 / 🟢
+[One sentence — what the executive must know]
+
+## THIS PERIOD: DELIVERED — 3–4 outcome bullets ("we shipped X")
+## NEXT PERIOD: COMMITTED — 3–4 date-bound commitments
+## KEY METRICS
+| Metric | Target | Actual | Trend |
+## TOP 3 RISKS + actions
+## DECISIONS NEEDED FROM YOU — max 2, specific, with deadlines
+## BLOCKERS REQUIRING ESCALATION
+
+CONSTRAINTS: Max 1 page. No jargon. Confident tone. Lead with business impact.`},
+
+{id:"ACT-02",phase:"ACT",title:"Project Kickoff Facilitator Pack",tags:["Kickoff","Facilitation","L99"],roi:{time:"4h → 45m",cost:"~$0.10"},
+desc:"Complete kickoff pack: agenda, vision canvas, working agreements, RACI workshop.",
+gov:"🛡 GOVERNANCE: Align with onboarding and data privacy requirements for system access.",
+prompt:`You are a master facilitator and Project Launch specialist.
+
+PROJECT: [NAME]  SPONSOR: [NAME]
+TEAM: [N]  DURATION: [HALF/FULL-DAY]  TYPE: [Agile/Waterfall/Hybrid]
+ATTENDEES: [Roles]  OBJECTIVES: [Success definition]
+
+## AGENDA — time-blocked with owner and method
+## ICEBREAKER (5 min) — collaborative tone-setter
+## PROJECT VISION CANVAS — purpose / outcomes / anti-scope
+## WORKING AGREEMENTS WORKSHOP — team norms exercise
+## RACI ALIGNMENT EXERCISE — R/A/C/I across key decisions
+## RISK BRAINSTORM GUIDE — Day-1 risk surfacing
+## COMMITMENTS CAPTURE — formal team commitments template
+## CLOSE: 3-2-1 REFLECTION — 3 do / 2 stop / 1 start
+## FACILITATOR TIPS — top 5 for energy and productivity`},
+
+{id:"ACT-03",phase:"ACT",title:"Difficult Conversation Script — PM Edition",tags:["Communication","Conflict","L99"],roi:{time:"2h → 25m",cost:"~$0.05"},
+desc:"Scripts difficult PM conversations with precise language and de-escalation techniques.",
+gov:"🛡 GOVERNANCE: HR/performance matters follow HR policy, potentially with HR present. Scripts are aids only.",
+prompt:`You are an expert in project leadership and difficult conversations.
+
+CONVERSATION TYPE: [missed deadline / scope creep / performance / budget cut / cancellation / conflict]
+CONTEXT: Who [role/seniority] / What happened / Desired outcome / Their likely reaction / What's been tried
+
+## OPENING — 3–4 sentences, factual, non-blaming
+## KEY MESSAGE — the hard thing, said clearly without dilution
+## ANTICIPATED OBJECTIONS & RESPONSES
+| Objection | Your Response | (3–4 most likely)
+## RECOVERY PHRASES — 3 de-escalation lines for when emotion rises
+## WHAT SUCCESS SOUNDS LIKE — target outcome statement
+## FOLLOW-UP EMAIL TEMPLATE — agreed actions captured
+## PM MINDSET REMINDER — grounding paragraph before entering the room`},
+
+{id:"ACT-04",phase:"ACT",title:"Sprint Planning AI Facilitator",tags:["Agile","Sprint","L99"],roi:{time:"2h → 25m",cost:"~$0.07"},
+desc:"Sprint planning guide with capacity maths, story selection, and commitment framework.",
+gov:"🛡 GOVERNANCE: Use role-level capacity — no personal leave or health information.",
+prompt:`You are a certified Scrum Master and Agile Coach.
+
+TEAM: [NAME]  SPRINT: [N]  DATES: [START–END]
+CAPACITY: [Role | Available Days | %]
+GOAL CANDIDATES: [2–3 from PO]
+BACKLOG: [Stories with estimates]
+DoD: [Paste]  VELOCITY: [Last 3 sprints]
+
+## CAPACITY CALCULATION — team-days, 20% buffer, net capacity, velocity-based target range
+## SPRINT GOAL (Recommended) — one outcome-focused, measurable goal
+## RECOMMENDED SPRINT BACKLOG
+| Story | Points | Owner | DoD Criteria | Dependencies | Risk |
+## CAPACITY BREAKDOWN — hours mapped to availability
+## SPRINT RISKS AT PLANNING — unclear criteria, dependencies, unknowns
+## SPRINT COMMITMENT STATEMENT — committing to / NOT committing to
+## DEFINITION OF READY CHECKLIST`},
+
+{id:"ACT-05",phase:"ACT",title:"Release Readiness Assessment",tags:["Release","Go-Live","L99"],roi:{time:"4h → 45m",cost:"~$0.09"},
+desc:"Pre-release checklist and readiness scorecard across all deployment dimensions.",
+gov:"🛡 GOVERNANCE: Formal sign-off from technology, security, business, and operations required.",
+prompt:`You are a Release Management expert and Go-Live specialist.
+
+PROJECT: [NAME]  TARGET: [DATE]
+TYPE: [Major/Minor/Hotfix/MVP]  ENVIRONMENT: [Cloud/On-Prem/Hybrid]
+
+## TECHNICAL READINESS
+| Checkpoint | Required | Status | Owner | Evidence |
+P1/P2 defects / regression / performance / security scan / infra / backup-recovery / rollback tested / monitoring configured
+
+## BUSINESS READINESS
+BAT sign-off / training / comms / process docs / support briefed
+
+## OPERATIONAL READINESS
+Runbook / on-call rota / escalation path / SLA review / hypercare plan [X days]
+
+## READINESS SCORECARD
+| Domain | Weight | Score | Weighted |
+OVERALL: [X%] → GO / CONDITIONAL GO / NO-GO
+
+## CONDITIONS FOR CONDITIONAL GO
+## GO-LIVE DAY RUNBOOK — hour-by-hour with rollback decision point`},
+
+{id:"ACT-06",phase:"ACT",title:"Lessons Learned Repository Builder",tags:["Knowledge","PMO","L99"],roi:{time:"3h → 30m",cost:"~$0.08"},
+desc:"Converts raw feedback into structured, searchable lessons learned entries.",
+gov:"🛡 GOVERNANCE: Anonymise names, client identifiers, and commercially sensitive details.",
+prompt:`You are a PMO Knowledge Management specialist.
+
+INPUT: [Retro outputs / post-mortem notes / surveys / PM reflections]
+PROJECT TYPE: [Software / Infra / Transformation]
+DURATION: [Months]  TEAM: [N]
+
+Convert into [N] structured Lessons Learned entries:
+
+**LL-[N]: [SHORT TITLE]**
+- Category: [Process/Technology/People/Governance/Communication/Risk/Vendor]
+- OODA Phase: [Observe/Orient/Decide/Act]
+- Situation: [Anonymised, concise]
+- Impact: [Quantified where possible]
+- Root Cause / Lesson / Application / Prevention Measure
+- Keywords: [3–5 searchable tags]
+- Confidence: [High/Medium]
+
+## THEMATIC SUMMARY
+Top 3 cross-cutting themes + PMO methodology update recommendations`},
+
+// ── PROGRAM (8) — NEW ──
+{id:"PGM-01",phase:"PROGRAM",title:"Program Charter & Benefits Map Architect",tags:["Charter","Benefits","Strategy","L99"],roi:{time:"12h → 2h",cost:"~$0.20"},
+desc:"Constructs a complete program charter with benefits dependency map linking projects → outputs → outcomes → strategic benefits.",
+gov:"🛡 GOVERNANCE: Charter approval requires sponsoring executive sign-off. Benefits claims must be validated by finance before board submission.",
+prompt:`You are a Program Director certified in MSP (Managing Successful Programmes).
+
+PROGRAM: [NAME]  SPONSOR: [ROLE]
+STRATEGIC DRIVER: [Why does this program exist — link to corporate strategy]
+COMPONENT PROJECTS: [List projects/workstreams under this program]
+INVESTMENT: [TOTAL BUDGET]  HORIZON: [DURATION]
+TARGET BENEFITS: [Known or expected benefits]
+
+Construct the Program Charter:
+
+## PROGRAM VISION STATEMENT
+[One compelling paragraph — the future state this program creates]
+
+## STRATEGIC ALIGNMENT MAP
+| Corporate Objective | Program Contribution | Measurable Link |
+
+## BENEFITS DEPENDENCY MAP
+Projects → Outputs → Capabilities → Outcomes → Strategic Benefits
+[Map each component project through this chain, in text-tree format]
+
+## BENEFITS REGISTER
+| Benefit ID | Description | Type (Financial/Non-Financial) | Baseline | Target | Measurement Method | Owner | Realisation Date |
+
+## PROGRAM SCOPE
+In Scope / Out of Scope / Boundary decisions pending
+
+## GOVERNANCE STRUCTURE
+Program Board composition / decision authorities / reporting cadence / gate schedule
+
+## PROGRAM-LEVEL RISKS (Top 10)
+| Risk | Category | P | I | Owner | Mitigation |
+
+## CRITICAL SUCCESS FACTORS
+[5–7 conditions that must hold true for program success]
+
+## TRANCHE PLAN
+| Tranche | Projects Included | Capability Delivered | Benefits Enabled | Gate Date |`},
+
+{id:"PGM-02",phase:"PROGRAM",title:"Benefits Realisation Tracker & Variance Analysis",tags:["Benefits","Value","Tracking","L99"],roi:{time:"6h → 1h",cost:"~$0.12"},
+desc:"Tracks planned vs actual benefits realisation across the program with leading indicators and corrective actions.",
+gov:"🛡 GOVERNANCE: Benefits figures reported to boards must be validated by finance. AI projections are indicative until independently verified.",
+prompt:`You are a Benefits Realisation Manager for a major transformation program.
+
+PROGRAM: [NAME]  REPORTING PERIOD: [QUARTER]
+BENEFITS REGISTER: [PASTE — benefit, baseline, target, owner, date]
+ACTUAL DATA: [PASTE actual measurements this period]
+PROGRAM STATUS: [Current tranche, projects live vs in-flight]
+
+Generate Benefits Realisation Report:
+
+## BENEFITS SCORECARD
+| Benefit | Target (to date) | Actual | Variance | RAG | Trajectory |
+
+## LEADING vs LAGGING INDICATOR ANALYSIS
+For each at-risk benefit:
+- Leading indicators (early warning signals visible now)
+- Lagging confirmation (when will we know definitively?)
+
+## BENEFITS AT RISK — DEEP DIVE
+For each 🔴/🟡 benefit:
+- Root cause of shortfall
+- Recoverable? [Yes/Partially/No]
+- Corrective action + owner + date
+
+## BENEFITS DEPENDENCY HEALTH
+[Which capability deliveries are late and which downstream benefits they threaten]
+
+## FORECAST AT COMPLETION
+| Benefit | Original Target | Current Forecast | Confidence % |
+Total program benefits forecast: [X% of business case]
+
+## BOARD NARRATIVE (150 words)
+[Honest realisation story — what's landing, what's at risk, what we're doing]`},
+
+{id:"PGM-03",phase:"PROGRAM",title:"Multi-Project Dependency Orchestrator",tags:["Dependencies","Integration","Tranche","L99"],roi:{time:"8h → 1.5h",cost:"~$0.15"},
+desc:"Maps and sequences cross-project dependencies at program level, identifying integration collision points and tranche risks.",
+gov:"🛡 GOVERNANCE: Cross-vendor dependency data sharing must respect contractual confidentiality between suppliers.",
+prompt:`You are a Program Integration Architect managing complex multi-project delivery.
+
+PROGRAM: [NAME]
+COMPONENT PROJECTS: [List with current phase and end dates]
+KNOWN CROSS-PROJECT DEPENDENCIES: [Paste what's documented]
+SHARED RESOURCES: [Teams/environments/platforms used by multiple projects]
+INTEGRATION POINTS: [Systems or capabilities that must connect]
+
+Generate Program Dependency Orchestration:
+
+## CROSS-PROJECT DEPENDENCY MATRIX
+| From (Provider) | To (Consumer) | Deliverable | Need Date | Committed Date | Buffer | RAG |
+
+## INTEGRATION COLLISION ANALYSIS
+[Points where 2+ projects need the same resource/environment/team simultaneously]
+| Collision Point | Projects Involved | Period | Impact | Resolution Options |
+
+## PROGRAM CRITICAL PATH
+[The dependency chain that determines program end date — across ALL projects]
+Sequence: [Project A milestone → Project B start → ...]
+Program float: [X days]
+
+## TRANCHE BOUNDARY RISKS
+[Dependencies crossing tranche boundaries — highest risk category]
+
+## DEPENDENCY GOVERNANCE PROTOCOL
+- Weekly dependency review agenda items
+- Escalation triggers for dependency slippage
+- Inter-project dependency change control process
+
+## TOP 5 ORCHESTRATION ACTIONS
+[Immediate actions to protect the program critical path]`},
+
+{id:"PGM-04",phase:"PROGRAM",title:"Program-Level RAID Consolidation Engine",tags:["RAID","Aggregation","Governance","L99"],roi:{time:"5h → 45m",cost:"~$0.13"},
+desc:"Consolidates project-level RAID logs into a program view, detecting systemic themes and aggregated exposure invisible at project level.",
+gov:"🛡 GOVERNANCE: Consolidated risk exposure figures inform program board risk appetite decisions — human risk owner validation required.",
+prompt:`You are a Program Risk and Governance Lead.
+
+PROGRAM: [NAME]  PROJECTS: [N]
+PROJECT RAID LOGS: [PASTE risks, assumptions, issues, dependencies from each project]
+
+Perform Program-Level RAID Consolidation:
+
+## SYSTEMIC RISK THEMES
+[Risks appearing across 2+ projects — these are PROGRAM risks, not project risks]
+| Theme | Projects Affected | Aggregated Probability | Combined Impact | Program-Level Mitigation |
+
+## RISK INTERACTION ANALYSIS
+[Where Project A's risk materialising would trigger Project B's risk — cascade chains]
+Cascade: [Risk X → triggers → Risk Y → threatens → Benefit Z]
+
+## AGGREGATED EXPOSURE CALCULATION
+- Total financial exposure (probability-weighted): [AMOUNT]
+- Schedule exposure on program critical path: [DAYS]
+- Exposure vs program risk appetite: [Within / Approaching / Exceeding]
+
+## ASSUMPTION CONFLICT DETECTION
+[Where different projects hold contradictory assumptions — must be resolved]
+| Project A Assumes | Project B Assumes | Conflict | Resolution Owner |
+
+## ISSUE ESCALATION RECOMMENDATIONS
+[Project issues that should be elevated to program level — with rationale]
+
+## PROGRAM BOARD RISK REPORT
+Top 5 program risks / movement since last period / decisions required (100 words)`},
+
+{id:"PGM-05",phase:"PROGRAM",title:"Portfolio Balancing & Investment Review",tags:["Portfolio","Investment","Prioritisation","L99"],roi:{time:"10h → 2h",cost:"~$0.18"},
+desc:"Evaluates the program portfolio against strategic value, risk, and resource constraints — recommending continue/pivot/stop per component.",
+gov:"🛡 GOVERNANCE: Stop/pivot recommendations affect careers and contracts — decisions belong to the investment committee, informed by but never delegated to AI.",
+prompt:`You are a Portfolio Director conducting a quarterly investment review.
+
+PORTFOLIO/PROGRAM: [NAME]
+COMPONENTS: [List projects with: budget, spend to date, % complete, current RAG, expected benefits]
+STRATEGIC PRIORITIES: [Current corporate priorities — note any recent shifts]
+CONSTRAINTS: [Total funding envelope, resource ceilings]
+
+Conduct Investment Review:
+
+## COMPONENT SCORECARD
+| Project | Strategic Fit (1-5) | Delivery Confidence (1-5) | Benefits Confidence (1-5) | Spend/Budget % | Composite Score |
+
+## BCG-STYLE PORTFOLIO MAP
+Classify each component:
+- STARS (high value, delivering well): [Projects]
+- QUESTION MARKS (high value, struggling): [Projects]
+- WORKHORSES (moderate value, delivering): [Projects]
+- ZOMBIES (low value or failing): [Projects]
+
+## CONTINUE / PIVOT / STOP ANALYSIS
+For each QUESTION MARK and ZOMBIE:
+- Sunk cost (to be ignored in decision): [AMOUNT]
+- Remaining investment required: [AMOUNT]
+- Marginal benefit of completion: [VALUE]
+- Recommendation: [Continue / Pivot / Stop] + rationale
+
+## REBALANCING SCENARIO
+If [X]% of funding shifted from lowest to highest performers:
+- Benefits impact / risk impact / political considerations
+
+## INVESTMENT COMMITTEE BRIEF (200 words)
+[Decisions required, options, recommendation]`},
+
+{id:"PGM-06",phase:"PROGRAM",title:"Program Governance Operating Model Designer",tags:["Governance","Operating Model","Board","L99"],roi:{time:"12h → 2h",cost:"~$0.16"},
+desc:"Designs the full governance operating model: boards, cadences, authorities, information flows, and decision rights for a program.",
+gov:"🛡 GOVERNANCE: Operating model must comply with corporate governance policy and delegated financial authorities. Board secretary review advised.",
+prompt:`You are a Program Governance architect for enterprise transformations.
+
+PROGRAM: [NAME]  SCALE: [Budget, projects, duration]
+ORGANISATION: [Structure — divisions, existing governance bodies]
+STAKEHOLDER LANDSCAPE: [Key executives, external parties, regulators if any]
+DELIVERY MODEL: [Internal / SI-led / Multi-vendor]
+
+Design Governance Operating Model:
+
+## GOVERNANCE STRUCTURE DIAGRAM (text form)
+[Program Board → Design Authority → Project Boards → Working Groups — with membership]
+
+## TERMS OF REFERENCE (per body)
+For each governance body:
+- Purpose / Membership / Chair / Quorum / Frequency / Standing Agenda / Decision Authorities
+
+## DECISION RIGHTS MATRIX (RAPID or RACI)
+| Decision Category | Recommend | Agree | Perform | Input | Decide |
+[Scope / Budget / Design / Vendor / Release / Benefits / Risk Acceptance]
+
+## INFORMATION ARCHITECTURE
+| Report | Producer | Audience | Frequency | Key Content |
+[Flash report / Program dashboard / Board pack / Risk report / Benefits report]
+
+## GATE FRAMEWORK
+| Gate | Purpose | Entry Criteria | Exit Criteria | Decision Maker |
+
+## GOVERNANCE ANTI-PATTERNS TO AVOID
+[Top 5 governance failure modes for this program type — with preventions]
+
+## LEAN GOVERNANCE PRINCIPLE
+[How to keep governance ≤5% of program effort while maintaining control]`},
+
+{id:"PGM-07",phase:"PROGRAM",title:"Transformation Change Adoption Planner (OCM)",tags:["Change Mgmt","Adoption","OCM","L99"],roi:{time:"10h → 2h",cost:"~$0.17"},
+desc:"Builds an organisational change management plan: stakeholder impact, resistance mapping, communications, training, and adoption metrics.",
+gov:"🛡 GOVERNANCE: Change impact data about specific individuals or roles being displaced must follow HR consultation processes and applicable labour law.",
+prompt:`You are an Organisational Change Management (OCM) lead using ADKAR and Kotter frameworks.
+
+PROGRAM: [NAME]
+CHANGE DESCRIPTION: [What is changing — systems, processes, roles, ways of working]
+IMPACTED POPULATION: [Groups, headcounts, locations]
+CHANGE HISTORY: [Recent changes this population absorbed — change fatigue risk]
+TIMELINE: [Key go-live and transition dates]
+
+Build Change Adoption Plan:
+
+## CHANGE IMPACT ASSESSMENT
+| Stakeholder Group | Size | What Changes for Them | Impact Severity | Change Readiness |
+
+## ADKAR GAP ANALYSIS (per major group)
+| Group | Awareness | Desire | Knowledge | Ability | Reinforcement | Weakest Link |
+
+## RESISTANCE MAP
+| Group/Persona | Likely Resistance Reason | Manifestation | Counter-Strategy |
+
+## COMMUNICATIONS ARCHITECTURE
+| Audience | Message Theme | Channel | Messenger | Timing | Frequency |
+[Sequenced: Awareness → Understanding → Commitment → Adoption]
+
+## TRAINING & ENABLEMENT PLAN
+| Group | Capability Needed | Method | Duration | Timing | Success Measure |
+
+## CHANGE CHAMPION NETWORK
+[Design: selection criteria, roles, support model, recognition]
+
+## ADOPTION METRICS DASHBOARD
+Leading: [Training completion, champion activity, sentiment scores]
+Lagging: [System usage, process compliance, productivity recovery curve]
+| Metric | Baseline | 30-day Target | 90-day Target | Owner |
+
+## CHANGE RISK REGISTER
+[Top 5 adoption risks with mitigations]`},
+
+{id:"PGM-08",phase:"PROGRAM",title:"Program Financial Consolidation & Benefits ROI",tags:["Finance","ROI","Consolidation","L99"],roi:{time:"8h → 1.5h",cost:"~$0.14"},
+desc:"Consolidates multi-project financials into program P&L view with benefits-adjusted ROI and funding runway analysis.",
+gov:"🛡 GOVERNANCE: Financial consolidations for statutory or board reporting require qualified finance professional sign-off. Use anonymised or rounded figures in prompts.",
+prompt:`You are a Program Finance Director.
+
+PROGRAM: [NAME]  REPORTING PERIOD: [QUARTER]
+PROJECT FINANCIALS: [Per project: budget, actuals, forecast, commitments]
+BENEFITS DATA: [Realised benefits to date, forecast benefits]
+FUNDING: [Approved envelope, drawdown schedule, contingency remaining]
+
+Generate Program Financial Consolidation:
+
+## CONSOLIDATED POSITION
+| Project | Budget | Actuals | Commitments | Forecast (EAC) | Variance | RAG |
+| PROGRAM TOTAL | | | | | | |
+
+## CONTINGENCY ANALYSIS
+- Contingency approved: [X] / drawn: [Y] / remaining: [Z]
+- Contingency burn rate vs program % complete: [Healthy / Concerning]
+- Known claims against remaining contingency: [List]
+
+## BENEFITS-ADJUSTED ROI
+- Investment to date: [AMOUNT]
+- Benefits realised to date: [AMOUNT]
+- Current ROI: [%]
+- Forecast whole-life ROI: [%] vs Business Case: [%]
+- ROI trajectory: [Ahead / On / Behind plan]
+
+## FUNDING RUNWAY
+- Months of funding remaining at current burn: [N]
+- Next funding decision point: [DATE]
+- Conditions to secure next tranche: [List]
+
+## COST PERFORMANCE INSIGHTS
+[Top 3 cost drivers, efficiency opportunities, vendor cost trends]
+
+## CFO BRIEFING (150 words)
+[Financial health, key exposure, decision/support needed]`},
+
+// ── ETHICS (5) ──
+{id:"GOV-01",phase:"ETHICS",title:"AI Use Case Ethics Screening",tags:["AI Governance","Ethics","L99"],roi:{time:"6h → 1h",cost:"~$0.11"},
+desc:"Screens proposed AI use cases against a structured ethics and governance framework.",
+gov:"🛡 GOVERNANCE: All AI use cases in delivery should pass ethics review before deployment.",
+prompt:`You are an AI Ethics and Governance advisor.
+
+AI USE CASE: [DESCRIBE capability]
+CONTEXT: [How will it be used?]
+DATA INVOLVED: [What data will AI process?]
+DECISION TYPE: [Automated / Human-in-loop / Advisory]
+USERS: [Who uses or is affected?]
+
+## 1. FAIRNESS & BIAS — bias sources, affected groups, mitigations
+## 2. TRANSPARENCY — explainable? level needed? mechanism (SHAP/plain language/audit log)
+## 3. ACCOUNTABILITY — human oversight, output owner, override capability
+## 4. DATA PRIVACY — personal data categories, minimisation, legal basis, retention
+## 5. SAFETY & RELIABILITY — failure modes, validation, drift monitoring
+## 6. REGULATORY — GDPR / AI Act / industry-specific, compliance gaps
+
+## ETHICS SCORE
+| Dimension | Score (1–5) | Comments |
+
+## GOVERNANCE VERDICT
+☐ PROCEED ☐ PROCEED WITH CONDITIONS ☐ REDESIGN ☐ DO NOT PROCEED`},
+
+{id:"GOV-02",phase:"ETHICS",title:"AI-Augmented PM — Human Oversight Charter",tags:["AI Governance","Charter","L99"],roi:{time:"8h → 1.5h",cost:"~$0.12"},
+desc:"Project-level charter defining AI-permitted, controlled, and prohibited use cases with validation protocol.",
+gov:"🛡 GOVERNANCE: Agree with PM, Sponsor, and PMO before deploying AI tools. Review annually.",
+prompt:`You are an AI Governance architect and PM excellence expert.
+
+PROJECT: [NAME]  AI TOOLS: [Claude, Copilot, Jira AI, etc.]
+TEAM: [Size, AI literacy]  SENSITIVITY: [Data confidentiality level]
+
+## SECTION 1: AI PERMITTED (✅ Standard Controls)
+| Use Case | AI Tool | Human Review | Review Level |
+## SECTION 2: CONTROLLED USE (⚠ Additional Approval)
+| Use Case | Why Controlled | Approver | Safeguards |
+## SECTION 3: PROHIBITED (🚫 Human-Only)
+| Decision | Why AI Must Not Decide | Human Authority |
+(HR decisions / Legal commitments / Gates / Escalations)
+## SECTION 4: OUTPUT VALIDATION PROTOCOL
+Step 1 factual accuracy → 2 bias check → 3 data alignment → 4 PM ownership
+## SECTION 5: DATA HANDLING RULES
+Permitted / NEVER (PII, sensitive, classified) / anonymisation requirements
+## SECTION 6: TRANSPARENCY — disclosure obligations, audit trail
+## SECTION 7: CHARTER GOVERNANCE — review cycle, owner, escalation path`},
+
+{id:"GOV-03",phase:"ETHICS",title:"Bias Check — Project Decision Audit",tags:["Bias","Decision Quality","L99"],roi:{time:"3h → 30m",cost:"~$0.07"},
+desc:"Audits project decisions for cognitive and AI bias, improving decision quality.",
+gov:"🛡 GOVERNANCE: Decision quality tool — informs process, does not retroactively reverse decisions without governance review.",
+prompt:`You are a Decision Science expert and Behavioural Economist.
+
+DECISION BEING AUDITED: [Describe]
+CONTEXT: [Stakeholders affected, scale, reversibility]
+PROCESS USED: [Data, expert input, committee, AI-assisted?]
+OUTCOME: [What was decided or leading option?]
+
+## COGNITIVE BIAS SCAN (rate: None/Low/Medium/High + evidence)
+Confirmation / Anchoring / Availability / Sunk Cost / Optimism / Groupthink / Authority / Scope Insensitivity
+
+## AI BIAS SCAN (if AI involved)
+Output treated as fact? / Training limitations considered? / Human expert validated?
+
+## DECISION QUALITY SCORE
+| Evidence Quality | Process Rigor | Input Diversity | Reversibility Considered | (1–5 each)
+
+## BIAS MITIGATION RECOMMENDATIONS
+## RED TEAM CHALLENGE — 3 strongest arguments AGAINST the leading decision`},
+
+{id:"GOV-04",phase:"ETHICS",title:"Responsible AI Status Reporting",tags:["AI Governance","Reporting","L99"],roi:{time:"4h → 40m",cost:"~$0.08"},
+desc:"AI governance status reporting for programme boards — transparent AI use disclosure.",
+gov:"🛡 GOVERNANCE: Maintain an AI usage register and report to governance bodies.",
+prompt:`You are an AI Programme Governance Officer.
+
+PROGRAMME: [NAME]  PERIOD: [DATES]
+AI TOOLS IN USE: [List]  FRAMEWORK: [Policy version/date]
+
+## AI USAGE SUMMARY
+| AI Tool | Use Cases | Volume | Data Categories | Human Review Applied |
+## GOVERNANCE COMPLIANCE
+| Requirement | Status | Evidence | Gap/Action |
+(Data minimisation / Oversight / Explainability / Bias monitoring / Audit logging)
+## INCIDENTS & ANOMALIES
+| Date | Tool | Issue | Impact | Response | Status |
+## VALUE REALISATION — hours saved, quality improvements, output accuracy
+## RISKS TO AI GOVERNANCE
+## STAKEHOLDER CONCERNS RECEIVED
+## NEXT PERIOD COMMITMENTS
+## BOARD RECOMMENDATION (one paragraph)`},
+
+{id:"GOV-05",phase:"ETHICS",title:"AI Prompt Engineering Standards for PMOs",tags:["Standards","PMO","L99"],roi:{time:"10h → 2h",cost:"~$0.15"},
+desc:"Enterprise PMO prompt engineering standards: construction, validation, data governance.",
+gov:"🛡 GOVERNANCE: InfoSec and privacy teams should review before organisational adoption.",
+prompt:`You are a Chief Prompt Engineer and PMO Standards expert.
+
+ORGANISATION: [DIVISION]  PMO MATURITY: [1–5]
+AI TOOLS: [Claude / GPT / Copilot]  FOCUS: [Project types managed]
+
+## SECTION 1: PROMPT CONSTRUCTION STANDARDS
+Mandatory components: Role / Context Block / Output Spec / Constraints / Validation Request
+Quality checklist: ☐ role+expertise ☐ project context ☐ format specified ☐ sensitivity acknowledged ☐ review instruction
+
+## SECTION 2: DATA GOVERNANCE RULES
+NEVER include: [PII categories / commercially sensitive / privileged]
+ALWAYS anonymise: [techniques guidance]
+
+## SECTION 3: PROMPT LIBRARY STANDARDS
+Naming convention / version control / review cycle / testing standard
+
+## SECTION 4: OUTPUT VALIDATION PROTOCOL
+[Step-by-step validation before use in project artefacts]
+
+## SECTION 5: TEMPLATES BY USE CASE
+[5 reusable templates for most common PMO use cases]
+
+## APPENDIX: ANTI-PATTERNS
+[Top 10 prompt mistakes PMs make — with corrections]`}
+];
+
+// ═══════════════════ PERSONAS (STAR) ═══════════════════
+const PERSONAS = [
+{
+  icon:"🎯", name:"PROJECT MANAGER", role:"Single-project delivery lead", color:"var(--observe)",
+  S:"Running 1–3 concurrent projects. Drowning in status reports, meeting minutes, and risk logs. <b>60% of the week</b> goes to administrative synthesis instead of leading people and removing blockers.",
+  T:"Deliver on time and budget while keeping stakeholders informed, risks controlled, and the team protected — without becoming a full-time report writer.",
+  A:"Start every Monday with <b>OBS-01 Health Radar</b> on weekend data. Feed all meeting notes through <b>OBS-02</b> same-day. Run <b>ACT-01</b> to convert raw data into the Friday executive brief. Before every hard conversation, script it with <b>ACT-03</b>. Refresh risks monthly via <b>OBS-04</b>. Always apply the <b>GOV-02 validation protocol</b> before anything leaves your desk.",
+  R:"<b>~25 hours/month reclaimed</b> from admin synthesis. Status reports go out same-day instead of next-day. Risk register stays current instead of quarterly-stale. Stakeholders report sharper, more decision-ready communication.",
+  prompts:["OBS-01","OBS-02","OBS-04","ACT-01","ACT-03","ORI-02"]
+},
+{
+  icon:"🛰",name:"PROGRAM MANAGER", role:"Multi-project orchestration & benefits",color:"var(--program)",
+  S:"Orchestrating 4–12 interdependent projects. The hardest problems are invisible at project level: <b>cross-project dependency collisions, systemic risks, and benefits erosion</b>. Project reports arrive in inconsistent formats.",
+  T:"Protect the program critical path, keep benefits realisation on trajectory, and give the program board decision-grade intelligence — not aggregated noise.",
+  A:"Run <b>PGM-04 RAID Consolidation</b> weekly on all project logs to detect systemic themes. Use <b>PGM-03 Dependency Orchestrator</b> before every tranche boundary. Track value with <b>PGM-02 Benefits Tracker</b> quarterly. Prepare gates with <b>DEC-01</b> and funding reviews with <b>PGM-08</b>. Design year-one governance with <b>PGM-06</b>.",
+  R:"<b>Cross-project risk cascades detected weeks earlier.</b> Benefits variance surfaced with corrective runway remaining. Board packs assembled in 2 hours instead of 2 days. Program critical path protected through 3 tranche transitions.",
+  prompts:["PGM-01","PGM-02","PGM-03","PGM-04","PGM-08","DEC-01"]
+},
+{
+  icon:"🏛",name:"PMO LEAD", role:"Standards, governance & portfolio health",color:"var(--decide)",
+  S:"Responsible for delivery standards across dozens of projects. Lessons learned die in SharePoint. Every PM formats reports differently. <b>AI adoption is happening ad-hoc without guardrails</b> — a governance incident waiting to happen.",
+  T:"Institutionalise consistent, AI-augmented delivery practice with proper governance — turning the PMO from report-collector into intelligence engine.",
+  A:"Deploy <b>GOV-05 Prompt Standards</b> as the organisational baseline. Mandate <b>GOV-02 Oversight Charters</b> per project before AI tool use. Run <b>GOV-04 Responsible AI Reporting</b> quarterly to the board. Harvest knowledge with <b>ACT-06 Lessons Builder</b> at every closure. Screen new AI use cases with <b>GOV-01</b>. Audit big calls with <b>GOV-03 Bias Check</b>.",
+  R:"<b>AI usage governed, auditable, and board-reportable.</b> Lessons learned reuse rate up measurably. Report consistency across the portfolio. Zero ungoverned AI incidents. PMO repositioned as strategic capability, not overhead.",
+  prompts:["GOV-01","GOV-02","GOV-04","GOV-05","ACT-06","PGM-05"]
+},
+{
+  icon:"⚡",name:"AGILE DELIVERY LEAD", role:"Scrum Master / RTE / Team coach",color:"var(--act)",
+  S:"Facilitating ceremonies across multiple squads. Retro actions repeat sprint after sprint without resolution. <b>Sprint planning takes 3 hours</b> and still produces overcommitment. Velocity data exists but nobody synthesises it.",
+  T:"Make ceremonies sharper and shorter, surface systemic impediments before they become crises, and protect sustainable team pace.",
+  A:"Prep every planning session with <b>ACT-04 Sprint Facilitator</b> — capacity maths done before the room fills. Synthesise multi-sprint patterns with <b>OBS-05 Retro Synthesis</b> monthly. Feed impediment themes into <b>ORI-01 RCA</b> when they recur 3+ sprints. Use <b>OBS-01</b> for squad health snapshots before scrum-of-scrums.",
+  R:"<b>Sprint planning cut from 3 hours to 90 minutes.</b> Overcommitment rate drops as capacity maths become objective. Systemic impediments escalate with evidence instead of anecdote. Retro actions actually close.",
+  prompts:["ACT-04","OBS-05","ORI-01","OBS-01","ORI-03","ACT-02"]
+},
+{
+  icon:"👔",name:"EXECUTIVE SPONSOR", role:"SteerCo chair / investment owner",color:"var(--gold)",
+  S:"Sponsoring multiple initiatives with <b>15 minutes per week</b> of genuine attention per program. Board packs are 40 pages of activity theatre. The real question — <i>should we still be doing this?</i> — is rarely answered honestly.",
+  T:"Make fast, well-founded investment decisions; know which programs deserve continued funding; catch trajectory problems while intervention is still cheap.",
+  A:"Demand <b>DEC-01 Gate Briefs</b> instead of raw packs at every gate. Commission <b>PGM-05 Portfolio Balancing</b> quarterly — insist on the continue/pivot/stop analysis. Request <b>PGM-02 Benefits Tracking</b> with honest variance, not vanity metrics. Use <b>GOV-03 Bias Audit</b> before irreversible calls. Require <b>GOV-04 AI Reporting</b> so AI use in your programs is visible.",
+  R:"<b>Decision time at gates cut in half</b> with higher confidence. Zombie projects identified and stopped quarters earlier. Benefits conversations shift from optimism to evidence. Full visibility of AI use across sponsored initiatives.",
+  prompts:["DEC-01","PGM-05","PGM-02","GOV-03","GOV-04","DEC-05"]
+}
+];
+
+// ═══════════════════ ROI DATA ═══════════════════
+const ROI_DATA = [
+{cat:"OBSERVE",color:"var(--observe)",typical:"Health Radar / Meeting Intel",tokens:"18K + 4K",cost:0.09,uses:22,manual:"2.5 hrs",ai:"25 min",saved:38,value:2850,roi:26},
+{cat:"ORIENT",color:"var(--orient)",typical:"RCA / Change Impact",tokens:"22K + 5K",cost:0.10,uses:12,manual:"3.8 hrs",ai:"38 min",saved:31,value:2325,roi:23},
+{cat:"DECIDE",color:"var(--decide)",typical:"Gate Brief / Options Paper",tokens:"28K + 6K",cost:0.13,uses:8,manual:"6.5 hrs",ai:"1.2 hrs",saved:26,value:1950,roi:19},
+{cat:"ACT",color:"var(--act)",typical:"Exec Report / Sprint Planning",tokens:"15K + 4K",cost:0.08,uses:26,manual:"2.8 hrs",ai:"30 min",saved:42,value:3150,roi:28},
+{cat:"PROGRAM",color:"var(--program)",typical:"RAID Consolidation / Benefits",tokens:"35K + 8K",cost:0.16,uses:10,manual:"8.2 hrs",ai:"1.5 hrs",saved:52,value:3900,roi:24},
+{cat:"ETHICS/GOV",color:"var(--ethics)",typical:"Ethics Screen / AI Charter",tokens:"20K + 5K",cost:0.10,uses:8,manual:"6.0 hrs",ai:"1.1 hrs",saved:24,value:1800,roi:17}
+];
+// Note: totals in tfoot approximate; per-PM realistic subset ≈ 106 hrs / $7,950 monthly at 86 uses.
+
+// ═══════════════════ RENDER: LIBRARY ═══════════════════
+const phaseLabels = {
+  OBSERVE:"◉ OBSERVE — Situational Awareness",
+  ORIENT:"◈ ORIENT — Analysis & Pattern Recognition",
+  DECIDE:"◆ DECIDE — Strategic Recommendations",
+  ACT:"◎ ACT — Execution & Delivery",
+  PROGRAM:"⬢ PROGRAM MANAGEMENT — Multi-Project Orchestration",
+  ETHICS:"⬟ ETHICS & AI GOVERNANCE"
+};
+const phaseColors = {OBSERVE:"var(--observe)",ORIENT:"var(--orient)",DECIDE:"var(--decide)",ACT:"var(--act)",PROGRAM:"var(--program)",ETHICS:"var(--ethics)"};
+
+function renderPrompts(list){
+  const c = document.getElementById('promptsContainer');
+  const empty = document.getElementById('emptyState');
+  if(!list.length){ c.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  const order = ['OBSERVE','ORIENT','DECIDE','ACT','PROGRAM','ETHICS'];
+  const grouped = {}; order.forEach(p=>grouped[p]=[]);
+  list.forEach(p=>{ if(grouped[p.phase]) grouped[p.phase].push(p); });
+
+  let html='';
+  order.forEach(phase=>{
+    const items = grouped[phase];
+    if(!items.length) return;
+    html += `<div class="section-header">
+      <div class="section-phase-dot" style="background:${phaseColors[phase]};color:${phaseColors[phase]}"></div>
+      <div class="section-title">${phaseLabels[phase]}</div>
+      <div class="section-count">${items.length} prompt${items.length!==1?'s':''}</div>
+    </div><div class="prompt-grid">`;
+
+    items.forEach(p=>{
+      const tc = phase.toLowerCase();
+      const tags = [`<span class="tag tag-${tc}">${phase}</span>`,
+        ...p.tags.map(t=>`<span class="tag ${t==='L99'?'tag-l99':'tag-gov'}">${t}</span>`)].join('');
+      const promptHtml = p.prompt.replace(/\[([^\]]+)\]/g,'<span class="var-slot">[$1]</span>');
+      html += `
+      <div class="prompt-card" data-phase="${phase}" id="card-${p.id}" onclick="toggleCard('${p.id}')">
+        <div class="card-header">
+          <div class="card-num">${p.id}</div>
+          <div class="card-title-block">
+            <div class="card-title">${p.title}</div>
+            <div class="card-tags">${tags}</div>
+          </div>
+          <div class="card-actions" onclick="event.stopPropagation()">
+            <button class="btn-icon" id="copy-${p.id}" onclick="copyPrompt('${p.id}')" title="Copy prompt">⎘</button>
+            <button class="btn-icon" onclick="toggleCard('${p.id}')" title="Expand">⌄</button>
+          </div>
+        </div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-roi-strip">
+          <span>⏱ <b>${p.roi.time}</b></span>
+          <span class="cost">◈ tokens/use <b>${p.roi.cost}</b></span>
+        </div>
+        <div class="card-prompt" id="prompt-${p.id}">
+          <div class="prompt-label"><span>PROMPT TEMPLATE</span><span style="color:var(--accent2)">[ ] = your context</span></div>
+          <div class="prompt-text">${promptHtml}</div>
+        </div>
+        <div class="gov-note" id="gov-${p.id}">${p.gov}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  c.innerHTML = html;
+}
+
+function toggleCard(id){
+  const pe = document.getElementById(`prompt-${id}`);
+  const ge = document.getElementById(`gov-${id}`);
+  const v = pe.classList.contains('visible');
+  pe.classList.toggle('visible',!v);
+  ge.classList.toggle('visible',!v);
+}
+
+function copyPrompt(id){
+  const p = PROMPTS.find(x=>x.id===id);
+  if(!p) return;
+  navigator.clipboard.writeText(p.prompt).then(()=>{
+    const b = document.getElementById(`copy-${id}`);
+    if(b){ b.classList.add('copied'); b.textContent='✓'; }
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2400);
+    setTimeout(()=>{ if(b){ b.classList.remove('copied'); b.textContent='⎘'; } },2000);
+  });
+}
+
+// ═══════════════════ RENDER: PERSONAS ═══════════════════
+function renderPersonas(){
+  const g = document.getElementById('personaGrid');
+  g.innerHTML = PERSONAS.map(p=>`
+  <div class="persona-card" style="--pc:${p.color}">
+    <div class="persona-header">
+      <span class="persona-icon">${p.icon}</span>
+      <div class="persona-name">${p.name}</div>
+      <div class="persona-role">${p.role}</div>
+    </div>
+    <div class="star-block">
+      <div class="star-row"><span class="star-letter">S</span><span class="star-label">Situation</span><div class="star-text">${p.S}</div></div>
+      <div class="star-row"><span class="star-letter">T</span><span class="star-label">Task</span><div class="star-text">${p.T}</div></div>
+      <div class="star-row"><span class="star-letter">A</span><span class="star-label">Action</span><div class="star-text">${p.A}</div></div>
+      <div class="star-row"><span class="star-letter">R</span><span class="star-label">Result</span><div class="star-text">${p.R}</div></div>
+    </div>
+    <div class="persona-prompts">
+      <div class="persona-prompts-label">Core Prompt Loadout</div>
+      <div class="persona-prompt-chips">
+        ${p.prompts.map(id=>`<span class="p-chip" onclick="jumpToPrompt('${id}')">${id}</span>`).join('')}
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function jumpToPrompt(id){
+  // switch to library tab, reset filters, open the card, scroll to it
+  switchTab('library');
+  activePhase='ALL'; searchQuery='';
+  document.getElementById('searchInput').value='';
+  document.querySelectorAll('.ooda-pill').forEach(p=>p.classList.toggle('active',p.dataset.phase==='ALL'));
+  filterAndRender();
+  setTimeout(()=>{
+    const card = document.getElementById(`card-${id}`);
+    if(card){
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      const pe = document.getElementById(`prompt-${id}`);
+      if(pe && !pe.classList.contains('visible')) toggleCard(id);
+      card.style.boxShadow='0 0 0 2px var(--accent), 0 12px 40px rgba(0,212,255,0.2)';
+      setTimeout(()=>card.style.boxShadow='',2500);
+    }
+  },100);
+}
+
+// ═══════════════════ RENDER: ROI ═══════════════════
+function renderROI(){
+  const tb = document.getElementById('roiTableBody');
+  tb.innerHTML = ROI_DATA.map(r=>`
+  <tr>
+    <td class="cat-cell" style="color:${r.color}">${r.cat}</td>
+    <td>${r.typical}</td>
+    <td class="num">${r.tokens}</td>
+    <td class="num cost-val">$${r.cost.toFixed(2)}</td>
+    <td class="num">${r.uses}</td>
+    <td class="num">${r.manual}</td>
+    <td class="num">${r.ai}</td>
+    <td class="num roi-good">${r.saved} hrs</td>
+    <td class="num roi-good">$${r.value.toLocaleString()}</td>
+    <td class="num roi-good">${r.roi}×</td>
+  </tr>`).join('');
+
+  const bars = document.getElementById('roiBars');
+  const max = Math.max(...ROI_DATA.map(r=>r.roi));
+  bars.innerHTML = ROI_DATA.map(r=>`
+  <div class="roi-bar-row">
+    <div class="roi-bar-label">${r.cat}</div>
+    <div class="roi-bar-track"><div class="roi-bar-fill" data-w="${(r.roi/max*100).toFixed(0)}" style="width:0;background:linear-gradient(90deg, ${r.color}44, ${r.color})"></div></div>
+    <div class="roi-bar-value">${r.roi}× ROI</div>
+  </div>`).join('');
+}
+
+function animateBars(){
+  document.querySelectorAll('.roi-bar-fill').forEach(b=>{
+    requestAnimationFrame(()=>{ b.style.width = b.dataset.w + '%'; });
+  });
+}
+
+// ═══════════════════ TABS ═══════════════════
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+name));
+  if(name==='roi') setTimeout(animateBars,80);
+}
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+
+// ═══════════════════ FILTER & SEARCH ═══════════════════
+let activePhase='ALL', searchQuery='';
+
+document.querySelectorAll('.ooda-pill').forEach(pill=>{
+  pill.addEventListener('click',()=>{
+    document.querySelectorAll('.ooda-pill').forEach(p=>p.classList.remove('active'));
+    pill.classList.add('active');
+    activePhase = pill.dataset.phase;
+    filterAndRender();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input',e=>{
+  searchQuery = e.target.value.toLowerCase();
+  filterAndRender();
+});
+
+function filterAndRender(){
+  let f = PROMPTS;
+  if(activePhase!=='ALL') f = f.filter(p=>p.phase===activePhase);
+  if(searchQuery) f = f.filter(p=>
+    p.title.toLowerCase().includes(searchQuery) ||
+    p.desc.toLowerCase().includes(searchQuery) ||
+    p.tags.some(t=>t.toLowerCase().includes(searchQuery)) ||
+    p.id.toLowerCase().includes(searchQuery) ||
+    p.prompt.toLowerCase().includes(searchQuery));
+  document.getElementById('searchCount').textContent = (searchQuery||activePhase!=='ALL') ? `${f.length} found` : '';
+  renderPrompts(f);
+}
+
+// ═══════════════════ COUNT-UP STATS ═══════════════════
+function countUp(){
+  document.querySelectorAll('.stat-num').forEach(el=>{
+    const target = +el.dataset.count;
+    let cur=0; const step=Math.max(1,Math.ceil(target/24));
+    const t = setInterval(()=>{
+      cur+=step;
+      if(cur>=target){ cur=target; clearInterval(t); }
+      el.textContent = cur;
+    },40);
+  });
+}
+
+// INIT
+renderPrompts(PROMPTS);
+renderPersonas();
+renderROI();
+countUp();
+</script>
+</body>
+</html>
