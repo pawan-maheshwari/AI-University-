@@ -5523,7 +5523,7 @@ function PracticeLabPage(){
 function Home(props){
   var m=useState(false);var menuOpen=m[0],setMenu=m[1];
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
-  var navItems=[["curriculum","Curriculum"],["practice","Practice Lab"],["evolution","AI Evolution"],["research","Research"],["ai-library","AI Library"],["policy","Policy Lab"],["about","About"]];
+  var navItems=[["curriculum","Curriculum"],["practice","Practice Lab"],["evolution","AI Evolution"],["research","Research"],["ai-library","AI Library"],["policy","Policy Lab"],["about","About"],["terms","Terms"],["privacy","Privacy"]];
   function go(p){setMenu(false);if(p==="ai-library"){window.open("ai-library.html","_blank","noopener");return;}props.onNav(p);}
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
     showCert?h(CertModal,{zone:null,onClose:function(){setShowCert(false);}}):null,
@@ -5576,7 +5576,142 @@ function Home(props){
     h("div",{style:{background:INK,padding:"32px 24px",textAlign:"center"}},
       h("p",{style:{color:"rgba(255,255,255,0.5)",fontSize:12}},"2026 AI University \u00B7 Dean's Programme \u00B7 Open Access"),
       h("p",{style:{color:GOLD,fontSize:13,fontStyle:"italic",fontFamily:"EB Garamond,serif",marginTop:8}},"Advancing AI literacy across every generation"),
+      h("p",{style:{marginTop:12}},
+        h("span",{onClick:function(){props.onNav("terms");},style:{color:"rgba(255,255,255,0.7)",fontSize:12,cursor:"pointer",textDecoration:"underline"}},"Terms & Conditions"),
+        h("span",{style:{color:"rgba(255,255,255,0.4)",fontSize:12,margin:"0 10px"}},"\u00B7"),
+        h("span",{onClick:function(){props.onNav("privacy");},style:{color:"rgba(255,255,255,0.7)",fontSize:12,cursor:"pointer",textDecoration:"underline"}},"Privacy Policy")),
       h(VisitorCounter,null)));
+}
+
+// ===== Terms & Conditions page =====
+function TermsPage(){
+  var updated="9 July 2026";
+  var SECTIONS=[
+    {h:"1. Acceptance and Modification of Terms", p:[
+      "By accessing or using AI University (ai-university.co.in) \u2014 conceptualised and operated by Planet AI LLP as an integral part of the World of AI initiative (world-of-ai.co.in) \u2014 you (\u201cyou\u201d, \u201cyour\u201d, the \u201cuser\u201d) agree to be bound by these Terms & Conditions (\u201cTerms\u201d) and to comply with all applicable laws and regulations. In these Terms, \u201cAI University\u201d, \u201cwe\u201d, \u201cus\u201d and \u201cour\u201d refer to the platform and to Planet AI LLP. If you do not agree with any part of these Terms, please do not access or use the platform.",
+      "We may revise these Terms at any time in our sole discretion. When we do, we will update the \u201clast updated\u201d date shown above and, where appropriate, post a notice on the platform. Your continued use of the platform after changes take effect constitutes your acceptance of the revised Terms."]},
+    {h:"2. About AI University", p:[
+      "AI University is a free, independent educational initiative that makes artificial intelligence understandable to everyone. It offers age-calibrated learning zones spanning young children to senior leaders, along with lessons, quizzes, interactive games, simulators, practice tools and an assistant. It is conceptualised by Planet AI LLP and forms an integral part of the wider World of AI ecosystem.",
+      "All content is provided for general educational and informational purposes only. The platform is offered on an open-access basis and, unless expressly stated otherwise, does not require payment."]},
+    {h:"3. Eligibility and Use by Minors", p:[
+      "Several zones are designed for children and teenagers. Where a user is below the age of majority in their jurisdiction, access to and use of the platform should take place with the knowledge, involvement and consent of a parent, guardian or teacher, who accepts these Terms on the minor\u2019s behalf.",
+      "We care deeply about child safety and do not knowingly collect more personal information from a child than is necessary to provide the service. Parents, guardians and teachers remain responsible for supervising a minor\u2019s use of the platform."]},
+    {h:"4. Accounts, Credentials and Security", p:[
+      "Certain features, such as tracking your progress or earning a certificate, may let you create an account. You agree to provide accurate information and to keep it current. You are responsible for maintaining the confidentiality of any login credentials and for all activity that occurs under your account.",
+      "Please notify us promptly of any unauthorised use of your account. We are not liable for loss arising from your failure to safeguard your credentials. Accounts are personal and must not be shared, sold or transferred."]},
+    {h:"5. Licence and Permitted Use", p:[
+      "Subject to these Terms, we grant you a limited, revocable, non-exclusive and non-transferable licence to access and use the platform and its content for your personal, non-commercial, educational use.",
+      "All rights not expressly granted are reserved. You may share public links to the platform, but you may not reproduce, redistribute, sell, sublicense, rent, modify, adapt or create derivative works from the content, in whole or in part, for commercial purposes, without our prior written permission."]},
+    {h:"6. Acceptable Use", p:[
+      "You agree to use the platform lawfully and respectfully, and not to: (a) violate any applicable law or the rights of others; (b) interfere with, disrupt or overload the platform, or attempt to gain unauthorised access to its systems; (c) probe, scan or test the vulnerability of, or breach or circumvent, any security or authentication measure; (d) reverse-engineer, decompile or attempt to extract source code except where expressly permitted by law; (e) scrape, crawl, harvest or systematically collect data from the platform without our prior written consent; (f) upload or transmit any virus, malicious code, or unlawful, harmful, abusive, defamatory, obscene or hateful material; or (g) impersonate any person or misrepresent your affiliation with any person or entity.",
+      "We may restrict, suspend or terminate access where we reasonably believe these Terms have been breached."]},
+    {h:"7. Games, Simulators, Interactive Tools and AI-Generated Content", p:[
+      "The platform includes interactive experiences such as games, business and strategy simulators, quizzes, practice tools and an assistant. These are provided for learning and enjoyment and may run within your browser or in embedded frames.",
+      "Some features generate output using artificial intelligence. AI-generated responses can be inaccurate, incomplete or out of date, and may reflect the limitations of the underlying models. Please verify important information independently and use your own judgement before relying on any generated content. You remain responsible for how you use it."]},
+    {h:"8. Certificates and Badges", p:[
+      "Certificates and badges recognise completion of learning tracks and are intended for personal motivation and record-keeping. Unless expressly stated otherwise, they are not formal academic qualifications and are not accredited by any statutory or governing body."]},
+    {h:"9. No Professional Advice", p:[
+      "Content on the platform \u2014 including material relating to AI governance, policy, careers, finance and business strategy \u2014 is educational in nature and does not constitute professional, legal, financial, medical, career or investment advice. Your circumstances are unique; before making decisions that carry legal, financial or personal consequences, please consult a suitably qualified professional."]},
+    {h:"10. Intellectual Property", p:[
+      "The platform and its content \u2014 including text, lessons, quizzes, graphics, designs, logos, games, simulators, software, and the AI University and World of AI names and branding \u2014 are owned by or licensed to Planet AI LLP and are protected by applicable intellectual-property laws.",
+      "Except for the limited licence granted above, you acquire no right, title or interest in this material. Third-party names, logos and trademarks referenced on the platform remain the property of their respective owners and are used for identification and educational purposes only."]},
+    {h:"11. User Content and Feedback", p:[
+      "Where the platform allows you to submit content (for example, responses, inputs or profile details), you retain your rights in that content and grant us a non-exclusive, royalty-free licence to use it as necessary to operate, provide, maintain and improve the service.",
+      "Any suggestions or feedback you choose to share may be used by us freely and without obligation to develop and improve the platform. We do not provide an archiving service, and you are responsible for keeping your own copies of anything important."]},
+    {h:"12. Third-Party Links, Games, Courses and Resources", p:[
+      "The platform links to and embeds third-party resources, including interactive games, simulators and external courses such as the AI Samarth Course. We do not control and are not responsible for the availability, accuracy, content, terms or privacy practices of any third-party service. Your dealings with such third parties are solely between you and them and are governed by their own terms. We encourage you to review those terms and privacy policies before use."]},
+    {h:"13. Privacy and Data Protection", p:[
+      "We handle personal data in accordance with our privacy practices and applicable law, including India\u2019s Digital Personal Data Protection Act, 2023. Learning-progress data may be stored locally in your browser to support your experience and can be cleared at any time through your browser settings.",
+      "By using the platform, you consent to the collection and use of information as described in our privacy practices."]},
+    {h:"14. Cookies and Local Storage", p:[
+      "The platform may use cookies, local storage or similar technologies to remember your preferences, keep you signed in and support functionality. Most browsers let you manage or disable these, though some features may not work correctly if you do. Third-party services accessed through the platform may set their own cookies, over which we have no control."]},
+    {h:"15. Availability and Changes to the Service", p:[
+      "We may add, change, suspend, remove or discontinue any part of the platform at any time, with or without notice. We do not guarantee that the platform, or any particular feature, content or third-party resource, will remain available indefinitely."]},
+    {h:"16. Disclaimer of Warranties", p:[
+      "The platform and all content are provided \u201cas is\u201d and \u201cas available\u201d, without warranties of any kind, whether express, implied or statutory, including implied warranties of merchantability, fitness for a particular purpose, title and non-infringement.",
+      "We do not warrant that the platform will be uninterrupted, timely, secure or error-free, that defects will be corrected, or that content will be complete, current or accurate. Content may contain technical inaccuracies or typographical errors. Where any warranty cannot be excluded under applicable law, it is limited to the minimum extent permitted."]},
+    {h:"17. Limitation of Liability", p:[
+      "To the maximum extent permitted by law, Planet AI LLP, its members, contributors and licensors, and their respective officers and agents, shall not be liable for any indirect, incidental, special, consequential or punitive damages, or for any loss of data, profits, revenue or goodwill, arising from or in connection with your use of, or inability to use, the platform or any content or third-party resource accessed through it, even if advised of the possibility of such damages.",
+      "Because the platform is provided free of charge for educational purposes, our aggregate liability to you for any claim shall not exceed a nominal amount permitted by law. Nothing in these Terms excludes or limits any liability that cannot be excluded under applicable law, including certain consumer-protection rights."]},
+    {h:"18. Indemnification", p:[
+      "You agree to indemnify and hold harmless Planet AI LLP and its contributors from and against any claims, liabilities, damages, losses and expenses arising out of your breach of these Terms, your misuse of the platform, or your infringement of the rights of any third party."]},
+    {h:"19. Monitoring, Suspension and Termination", p:[
+      "We may monitor use of the platform to verify compliance with these Terms and to keep it functioning properly, to the extent described in our privacy practices. We may suspend or terminate your access, remove content, or disable an account where we reasonably suspect illegal activity or a breach of these Terms, or where required by law or a competent authority. You may stop using the platform at any time."]},
+    {h:"20. Force Majeure", p:[
+      "We shall not be liable for any failure or delay in performance caused by events beyond our reasonable control, including acts of God, natural disasters, epidemics or pandemics, civil disturbances, failures of power or telecommunications, or the acts of third parties."]},
+    {h:"21. General Provisions", p:[
+      "If any provision of these Terms is held invalid or unenforceable, the remaining provisions shall continue in full force, and the affected provision shall be applied to the fullest extent permitted by law. Our failure to enforce any right or provision is not a waiver of it. You may not assign these Terms without our prior written consent; we may assign them as part of a reorganisation or transfer of the initiative. Section headings are for convenience only. These Terms constitute the entire agreement between you and us regarding the platform."]},
+    {h:"22. Governing Law and Jurisdiction", p:[
+      "These Terms are governed by the laws of India, without regard to conflict-of-laws principles. The parties will attempt in good faith to resolve any dispute amicably; failing which, the competent courts at Bengaluru, Karnataka shall have exclusive jurisdiction. Nothing prevents us from seeking urgent injunctive relief in any court of competent jurisdiction."]},
+    {h:"23. Contact", p:[
+      "AI University is conceptualised and operated by Planet AI LLP as part of the World of AI initiative. For any questions about these Terms or the platform, please reach out through the contact details provided on ai-university.co.in or world-of-ai.co.in."]}
+  ];
+  return h("div",{style:{maxWidth:900,margin:"0 auto",padding:"40px 24px"}},
+    h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:32,color:INK,marginBottom:8}},"Terms & Conditions"),
+    h("p",{style:{color:SLATE,marginBottom:6,fontSize:14,lineHeight:1.6}},"AI University is conceptualised by Planet AI LLP and is an integral part of World of AI. Please read these Terms carefully before using the platform."),
+    h("p",{style:{color:GOLD,fontSize:13,fontWeight:700,fontFamily:"JetBrains Mono,monospace",marginBottom:28}},"Last updated: "+updated),
+    h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderTop:"3px solid "+CR,borderRadius:6,padding:"28px 30px"}},
+      SECTIONS.map(function(s,i){
+        return h("div",{key:i,style:{marginBottom:i===SECTIONS.length-1?0:22}},
+          h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:19,fontWeight:700,color:INK,marginBottom:6}},s.h),
+          s.p.map(function(par,j){return h("p",{key:j,style:{fontSize:14,color:INK3,lineHeight:1.7,marginBottom:8}},par);}));
+      })));
+}
+
+// ===== Privacy Policy page =====
+function PrivacyPage(){
+  var updated="9 July 2026";
+  var SECTIONS=[
+    {h:"1. Introduction", p:[
+      "This Privacy Policy explains how AI University (ai-university.co.in) collects, uses, shares and protects personal data when you use the platform. AI University is conceptualised and operated by Planet AI LLP as an integral part of the World of AI initiative (world-of-ai.co.in). By using the platform, you agree to the practices described here and in our Terms & Conditions.",
+      "We have written this policy to be read alongside India\u2019s Digital Personal Data Protection Act, 2023 (the \u201cDPDP Act\u201d). Where a term such as \u201cData Fiduciary\u201d, \u201cData Principal\u201d or \u201cpersonal data\u201d is used, it carries the meaning given to it under that Act."]},
+    {h:"2. Who We Are (Data Fiduciary)", p:[
+      "For the purposes of the DPDP Act, Planet AI LLP is the Data Fiduciary responsible for personal data processed through AI University. This means we determine the purpose and means of processing your personal data. You can contact us using the details in the Grievance Redressal and Contact sections below."]},
+    {h:"3. Information We Collect", p:[
+      "Information you provide: when you create an account or earn a certificate, you may give us details such as your name and, where relevant, an email address or the name displayed on a certificate.",
+      "Usage and technical information: like most websites, our hosting and analytics may automatically receive limited technical data such as your approximate region, browser type, device type and pages viewed, used to keep the platform secure and working well.",
+      "Learning-progress data: your progress through lessons and quizzes may be stored locally in your browser (for example, in local storage) so your experience is remembered on your device. You can clear this at any time through your browser settings.",
+      "Inputs to interactive features: text you enter into the assistant, practice tools or quizzes is processed to generate a response. Please do not enter sensitive personal information into these features."]},
+    {h:"4. How We Use Information", p:[
+      "We use personal data to: provide and operate the platform; remember your progress and preferences; issue certificates and badges; respond to your queries; maintain the security and integrity of the service; improve and develop our educational content and features; and comply with legal obligations. We do not use your personal data to make solely automated decisions that produce legal or similarly significant effects on you."]},
+    {h:"5. Legal Basis and Consent", p:[
+      "We process personal data on the basis of your consent and for the certain legitimate uses recognised under the DPDP Act, such as providing a service you have requested and complying with the law. Where we rely on consent, you may withdraw it at any time; withdrawing consent does not affect processing carried out before the withdrawal, and some features may no longer be available to you as a result."]},
+    {h:"6. Children\u2019s Privacy", p:[
+      "AI University includes zones designed for children and teenagers, and protecting young users matters greatly to us. In line with the DPDP Act, where a user is a child (under eighteen), we process their personal data only with verifiable consent from a parent or lawful guardian, who accepts our Terms on the child\u2019s behalf.",
+      "We do not undertake tracking or behavioural monitoring of children, and we do not direct advertising at children. We ask parents, guardians and teachers to supervise a child\u2019s use of the platform. If you believe we hold a child\u2019s personal data without appropriate consent, please contact us and we will take prompt action."]},
+    {h:"7. Cookies and Local Storage", p:[
+      "The platform may use cookies, local storage or similar technologies to keep you signed in, remember preferences and support functionality. Most browsers let you manage or disable these, though some features may not work correctly if you do. Third-party services accessed through the platform may set their own cookies, over which we have no control."]},
+    {h:"8. AI Features and Your Data", p:[
+      "Some features generate responses using artificial intelligence and may rely on third-party AI providers to process the text you submit. We aim to minimise the personal data involved and encourage you not to submit sensitive personal information to these features. AI-generated output may be inaccurate and should be verified independently, as noted in our Terms."]},
+    {h:"9. Third-Party Services and Links", p:[
+      "The platform links to and embeds third-party resources, including interactive games, simulators and external courses such as the AI Samarth Course. These services are operated by others and are governed by their own privacy policies. We are not responsible for their practices, and we encourage you to review their policies before use."]},
+    {h:"10. How We Share Information", p:[
+      "We do not sell your personal data. We may share personal data with trusted service providers (such as hosting, analytics or AI providers) who process it on our behalf and under appropriate safeguards; where required to comply with law, legal process or a lawful request from a competent authority; and to protect the rights, safety and security of our users, the public and the platform. In the event of a reorganisation or transfer of the initiative, data may be transferred as part of that process, subject to this policy."]},
+    {h:"11. Data Retention", p:[
+      "We retain personal data only for as long as necessary to fulfil the purposes described in this policy, to provide the service, and to meet legal, accounting or reporting requirements, after which it is deleted or anonymised. Learning-progress data stored locally in your browser remains until you clear it."]},
+    {h:"12. Data Security", p:[
+      "We apply reasonable technical and organisational safeguards designed to protect personal data against unauthorised access, alteration, disclosure or destruction. However, no method of transmission or storage is completely secure, and we cannot guarantee absolute security. You are responsible for keeping any login credentials confidential."]},
+    {h:"13. International Data Transfers", p:[
+      "Our service providers may process data in locations outside India. Where personal data is transferred across borders, we take steps to ensure it is handled in accordance with applicable law, including the DPDP Act and any restrictions notified by the Government of India."]},
+    {h:"14. Your Rights", p:[
+      "Subject to applicable law, you have the right to: access a summary of the personal data we process about you; request correction, completion or updating of inaccurate or incomplete data; request erasure of your personal data where it is no longer required; withdraw consent; nominate another individual to exercise your rights in the event of death or incapacity; and access a readily available means of grievance redressal. To exercise these rights, please contact us using the details below. We may need to verify your identity before acting on a request."]},
+    {h:"15. Grievance Redressal", p:[
+      "If you have any concern or complaint about how your personal data is handled, you may contact our grievance point of contact through the details provided on ai-university.co.in or world-of-ai.co.in. We will acknowledge and address grievances within the timelines required under applicable law. If you remain dissatisfied, you may have the right to approach the Data Protection Board of India."]},
+    {h:"16. Changes to This Policy", p:[
+      "We may update this Privacy Policy from time to time to reflect changes in our practices or the law. When we do, we will revise the \u201clast updated\u201d date above and, where appropriate, post a notice on the platform. Your continued use of the platform after changes take effect constitutes acceptance of the updated policy."]},
+    {h:"17. Contact", p:[
+      "AI University is conceptualised and operated by Planet AI LLP as part of the World of AI initiative. For any questions about this Privacy Policy or your personal data, please reach out through the contact details provided on ai-university.co.in or world-of-ai.co.in."]}
+  ];
+  return h("div",{style:{maxWidth:900,margin:"0 auto",padding:"40px 24px"}},
+    h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:32,color:INK,marginBottom:8}},"Privacy Policy"),
+    h("p",{style:{color:SLATE,marginBottom:6,fontSize:14,lineHeight:1.6}},"AI University is conceptualised by Planet AI LLP and is an integral part of World of AI. This policy explains how we handle personal data under India\u2019s Digital Personal Data Protection Act, 2023."),
+    h("p",{style:{color:GOLD,fontSize:13,fontWeight:700,fontFamily:"JetBrains Mono,monospace",marginBottom:28}},"Last updated: "+updated),
+    h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderTop:"3px solid "+CR,borderRadius:6,padding:"28px 30px"}},
+      SECTIONS.map(function(s,i){
+        return h("div",{key:i,style:{marginBottom:i===SECTIONS.length-1?0:22}},
+          h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:19,fontWeight:700,color:INK,marginBottom:6}},s.h),
+          s.p.map(function(par,j){return h("p",{key:j,style:{fontSize:14,color:INK3,lineHeight:1.7,marginBottom:8}},par);}));
+      })));
 }
 
 // ===== Page wrapper for nav pages =====
@@ -5612,6 +5747,8 @@ function App(){
   if(page==="policy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PolicyPage)));
   if(page==="evolution")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(EvolutionPage)));
   if(page==="about")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(AboutPage)));
+  if(page==="terms")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(TermsPage)));
+  if(page==="privacy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PrivacyPage)));
   return h("div",null, authModal, h(Home,Object.assign({onEnter:enter,onNav:function(pg){setPage(pg);window.scrollTo(0,0);}}, navProps)));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(h(App));
