@@ -162,6 +162,44 @@
             transform: translateY(-2px) scale(1.04) rotate(-2deg);
             filter: drop-shadow(0 10px 16px rgba(168, 85, 247, 0.55)) drop-shadow(0 1px 0 rgba(255,255,255,0.2));
         }
+
+        /* ---- Interactive mechanics (sort / match / sequence / prompt) ---- */
+        .chip {
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+            cursor: grab;
+            transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.2s ease;
+        }
+        .chip:active { cursor: grabbing; }
+        .chip.dragging {
+            opacity: 0.4;
+        }
+        .chip-float {
+            position: fixed;
+            z-index: 500;
+            pointer-events: none;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.55);
+            transform: scale(1.05);
+        }
+        .dropzone {
+            transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+        }
+        .dropzone.dragover {
+            border-color: #6366f1 !important;
+            background-color: rgba(99,102,241,0.12);
+            transform: translateY(-2px);
+        }
+        .chip.placed-correct { border-color:#10b981 !important; background-color: rgba(16,185,129,0.14); }
+        .chip.placed-wrong   { border-color:#f43f5e !important; background-color: rgba(244,63,94,0.14); animation: shake 0.3s; }
+        @keyframes shake {
+            0%,100%{ transform: translateX(0); }
+            25%{ transform: translateX(-4px); }
+            75%{ transform: translateX(4px); }
+        }
+        .match-item.selected { border-color:#818cf8 !important; background-color: rgba(129,140,248,0.15); }
+        .match-item.matched  { border-color:#10b981 !important; background-color: rgba(16,185,129,0.12); opacity:0.75; cursor:default; }
+        .seq-row { transition: transform 0.15s ease; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
@@ -806,68 +844,180 @@
                     {
                         id: "sci-2",
                         number: 2,
-                        title: "Ethical AI in Climate Science",
-                        type: "scenario",
-                        description: "An AI tool predicts which Indian regions will face severe drought. How do you use the insights responsibly?",
-                        points: 20,
-                        scenarios: [
+                        title: "Sort It: Where Does AI Fit?",
+                        type: "sort",
+                        description: "Drag each science-teaching task into the right bucket. This builds judgement about where AI genuinely helps — and where a teacher must stay in charge.",
+                        mechanicHint: "Drag a card into a bucket (or tap the card, then tap a bucket).",
+                        levels: [
                             {
-                                text: "Share raw predictions publicly without context",
-                                outcome: "Parents panic and some students feel hopeless. Lesson: AI needs human interpretation and communication.",
-                                score: 5
+                                instruction: "Round 1 — sort these 5 tasks.",
+                                buckets: [
+                                    { id: "ai", label: "Great for AI", emoji: "🤖" },
+                                    { id: "human", label: "Keep teacher-led", emoji: "👩‍🏫" },
+                                    { id: "caution", label: "Use with caution", emoji: "⚠️" }
+                                ],
+                                items: [
+                                    { id: "a", text: "Auto-grade 150 multiple-choice lab quizzes", bucket: "ai" },
+                                    { id: "b", text: "Generate extra practice questions on photosynthesis", bucket: "ai" },
+                                    { id: "c", text: "Decide a struggling student's final report-card grade", bucket: "human" },
+                                    { id: "d", text: "Reassure a student anxious about the practical exam", bucket: "human" },
+                                    { id: "e", text: "Repeat an AI medical 'fact' to students without checking", bucket: "caution" }
+                                ]
                             },
                             {
-                                text: "Use predictions to design student projects on water conservation + invite local experts",
-                                outcome: "Students become solution-oriented citizens. Perfect blend of data + human action.",
-                                score: 20
+                                instruction: "Round 2 — a little trickier (6 tasks).",
+                                buckets: [
+                                    { id: "ai", label: "Great for AI", emoji: "🤖" },
+                                    { id: "human", label: "Keep teacher-led", emoji: "👩‍🏫" },
+                                    { id: "caution", label: "Use with caution", emoji: "⚠️" }
+                                ],
+                                items: [
+                                    { id: "a", text: "Draft a first version of a lab-safety handout", bucket: "ai" },
+                                    { id: "b", text: "Summarise a long research paper into class notes", bucket: "ai" },
+                                    { id: "c", text: "Judge whether an experiment is safe for your class", bucket: "human" },
+                                    { id: "d", text: "Mentor a student through their science-fair idea", bucket: "human" },
+                                    { id: "e", text: "Let AI diagnose a real skin rash from a photo", bucket: "caution" },
+                                    { id: "f", text: "Paste students' names and marks into a public AI site", bucket: "caution" }
+                                ]
                             },
                             {
-                                text: "Ignore the predictions because 'AI isn't perfect'",
-                                outcome: "Missed opportunity to prepare students. AI is a tool, not oracle — but ignoring data also has consequences.",
-                                score: 8
+                                instruction: "Round 3 — mastery (7 tasks).",
+                                buckets: [
+                                    { id: "ai", label: "Great for AI", emoji: "🤖" },
+                                    { id: "human", label: "Keep teacher-led", emoji: "👩‍🏫" },
+                                    { id: "caution", label: "Use with caution", emoji: "⚠️" }
+                                ],
+                                items: [
+                                    { id: "a", text: "Turn your notes into a labelled diagram", bucket: "ai" },
+                                    { id: "b", text: "Create 3 versions of a worksheet by difficulty", bucket: "ai" },
+                                    { id: "c", text: "Decide which students need extra support", bucket: "human" },
+                                    { id: "d", text: "Give feedback on a student's original hypothesis", bucket: "human" },
+                                    { id: "e", text: "Trust AI-generated lab data as if it were real", bucket: "caution" },
+                                    { id: "f", text: "Accept an AI citation without verifying it exists", bucket: "caution" },
+                                    { id: "g", text: "Auto-translate instructions for an EAL student", bucket: "ai" }
+                                ]
                             }
                         ]
                     },
                     {
                         id: "sci-3",
                         number: 3,
-                        title: "Creative Co-Pilot: Lesson Hook Generator",
-                        type: "creative",
-                        description: "Co-create an engaging hook for your next class using AI. See how it sparks student curiosity.",
-                        points: 20,
-                        creativePrompts: [
-                            "A mysterious glowing rock was found in a village in Rajasthan...",
-                            "What if plants could talk to each other? Recent studies suggest they do!",
-                            "Your students just discovered that the water they drink has traveled through dinosaurs."
+                        title: "Match It: AI Tool to Lab Job",
+                        type: "match",
+                        description: "Connect each type of AI tool to the science-classroom job it's actually suited for. Understanding tool types helps you pick the right one.",
+                        mechanicHint: "Tap a tool on the left, then tap its best match on the right.",
+                        levels: [
+                            {
+                                instruction: "Round 1 — match 4 pairs.",
+                                pairs: [
+                                    { a: "Image classifier", b: "Sort leaf photos into species" },
+                                    { a: "Simulation model", b: "Explore a chemical reaction safely on screen" },
+                                    { a: "Speech-to-text", b: "Caption a lab demo for accessibility" },
+                                    { a: "Chatbot tutor", b: "Give instant hints on practice homework" }
+                                ]
+                            },
+                            {
+                                instruction: "Round 2 — match 5 pairs.",
+                                pairs: [
+                                    { a: "Data-analysis AI", b: "Spot trends in a class's experiment results" },
+                                    { a: "Text generator", b: "Draft a first lesson-hook for review" },
+                                    { a: "Anomaly detector", b: "Flag an unusual sensor reading in data" },
+                                    { a: "Translation model", b: "Make instructions readable for EAL students" },
+                                    { a: "Recommender", b: "Suggest next practice topic per student" }
+                                ]
+                            },
+                            {
+                                instruction: "Round 3 — match 6 close pairs.",
+                                pairs: [
+                                    { a: "Computer vision", b: "Measure plant height from photos over time" },
+                                    { a: "Predictive model", b: "Estimate crop yield from weather data" },
+                                    { a: "Clustering", b: "Group unlabelled rock samples by similarity" },
+                                    { a: "Generative image AI", b: "Visualise an atom's structure for a slide" },
+                                    { a: "Speech synthesis", b: "Read a passage aloud for a visually-impaired student" },
+                                    { a: "Optical character recognition", b: "Digitise a hand-written data table" }
+                                ]
+                            }
                         ]
                     },
                     {
                         id: "sci-4",
                         number: 4,
-                        title: "Bias Detective: Medical AI",
-                        type: "scenario",
-                        description: "An AI health app is trained mostly on urban hospital data. It gives different advice for rural students.",
-                        points: 20,
-                        scenarios: [
+                        title: "Order It: How AI Learns to Spot Diseased Leaves",
+                        type: "sequence",
+                        description: "Arrange the steps of building a responsible image-recognition model. Seeing the pipeline demystifies how AI actually 'learns'.",
+                        mechanicHint: "Use the up/down arrows (or drag) to put the steps in order, then press Check.",
+                        levels: [
                             {
-                                text: "Deploy it widely because it's 'mostly accurate'",
-                                outcome: "Rural students receive poorer recommendations. Bias creeps in when data lacks diversity.",
-                                score: 6
+                                instruction: "Round 1 — order these 4 steps.",
+                                steps: [
+                                    "Collect many labelled leaf photos (healthy vs diseased)",
+                                    "Clean the data and check every label is correct",
+                                    "Train the model on the labelled examples",
+                                    "Test it on new photos it has never seen"
+                                ]
                             },
                             {
-                                text: "Test the model with local student cases first and collect diverse feedback",
-                                outcome: "You discover gaps and improve the model. This is responsible AI in action.",
-                                score: 20
+                                instruction: "Round 2 — order these 5 steps.",
+                                steps: [
+                                    "Define the goal: detect early leaf disease",
+                                    "Collect and label a diverse set of photos",
+                                    "Train the model",
+                                    "Check errors for bias (only one crop? one lighting?)",
+                                    "Deploy with teacher oversight, not blind trust"
+                                ]
+                            },
+                            {
+                                instruction: "Round 3 — order the full 6-step lifecycle.",
+                                steps: [
+                                    "Define the problem and who it helps",
+                                    "Gather diverse, consented data",
+                                    "Label and clean the data",
+                                    "Train and validate the model",
+                                    "Test fairness across different cases",
+                                    "Monitor in use and retrain as things change"
+                                ]
                             }
                         ]
                     },
                     {
                         id: "sci-5",
                         number: 5,
-                        title: "Build a Simple Prediction Model",
-                        type: "interactive",
-                        description: "Use sliders to simulate how changing training data affects an AI plant-growth predictor.",
-                        points: 20
+                        title: "Build It: Craft a Strong AI Prompt",
+                        type: "promptbuild",
+                        description: "Assemble a well-structured prompt to get genuinely useful output for your class. Good prompting is the #1 practical AI skill for teachers.",
+                        mechanicHint: "Pick one chip for each part of the prompt to assemble it.",
+                        levels: [
+                            {
+                                instruction: "Goal: get AI to design a Class 8 density experiment.",
+                                goal: "A ready-to-run density experiment",
+                                slots: [
+                                    { label: "Role", options: [ { text: "You are a CBSE science teacher", good: true }, { text: "Hey AI", good: false }, { text: "Do a thing", good: false } ] },
+                                    { label: "Context", options: [ { text: "for a mixed-ability Class 8 group", good: true }, { text: "for people", good: false }, { text: "somewhere", good: false } ] },
+                                    { label: "Task", options: [ { text: "design a 30-min density experiment using common materials", good: true }, { text: "tell me about density", good: false }, { text: "science stuff", good: false } ] },
+                                    { label: "Constraint", options: [ { text: "list safety steps and the materials needed", good: true }, { text: "make it really long", good: false }, { text: "no need for rules", good: false } ] }
+                                ]
+                            },
+                            {
+                                instruction: "Goal: generate a differentiated quiz.",
+                                goal: "A 3-tier quiz on the water cycle",
+                                slots: [
+                                    { label: "Role", options: [ { text: "Act as an experienced science teacher", good: true }, { text: "AI, listen", good: false }, { text: "Quiz now", good: false } ] },
+                                    { label: "Topic", options: [ { text: "on the water cycle for Class 6", good: true }, { text: "on some topic", good: false }, { text: "water", good: false } ] },
+                                    { label: "Task", options: [ { text: "write 6 questions at 3 difficulty levels", good: true }, { text: "write questions", good: false }, { text: "make a test", good: false } ] },
+                                    { label: "Format", options: [ { text: "with an answer key and marking notes", good: true }, { text: "however you like", good: false }, { text: "just answers", good: false } ] }
+                                ]
+                            },
+                            {
+                                instruction: "Goal: get feedback on a student's answer.",
+                                goal: "Constructive feedback on a paragraph",
+                                slots: [
+                                    { label: "Role", options: [ { text: "You are a supportive science mentor", good: true }, { text: "Grade this", good: false }, { text: "AI here", good: false } ] },
+                                    { label: "Input", options: [ { text: "given this Class 9 answer on respiration", good: true }, { text: "given this thing", good: false }, { text: "read below", good: false } ] },
+                                    { label: "Task", options: [ { text: "identify 2 strengths and 2 specific improvements", good: true }, { text: "say if it's good", good: false }, { text: "fix it", good: false } ] },
+                                    { label: "Tone", options: [ { text: "encouraging and age-appropriate", good: true }, { text: "blunt", good: false }, { text: "whatever", good: false } ] }
+                                ]
+                            }
+                        ]
                     },
                     {
                         id: "sci-6",
@@ -1424,7 +1574,7 @@
                         ch.reflectionPrompts = REFLECTION_PROMPTS;
                         ch.maxSparks = LEVEL_SPARKS.reduce((a, b) => a + b, 0);
 
-                    } else { // interactive
+                    } else { // interactive, sort, match, sequence, promptbuild
                         ch.maxSparks = LEVEL_SPARKS.reduce((a, b) => a + b, 0);
                     }
                 });
@@ -1651,6 +1801,10 @@
             else if (challenge.type === 'scenario')  html += renderScenarioLevel(challenge, currentLevel);
             else if (challenge.type === 'creative')  html += renderCreativeLevel(challenge, currentLevel);
             else if (challenge.type === 'interactive') html += renderInteractiveLevel(challenge, currentLevel);
+            else if (challenge.type === 'sort')       html += renderSortLevel(challenge, currentLevel);
+            else if (challenge.type === 'match')      html += renderMatchLevel(challenge, currentLevel);
+            else if (challenge.type === 'sequence')   html += renderSequenceLevel(challenge, currentLevel);
+            else if (challenge.type === 'promptbuild') html += renderPromptBuildLevel(challenge, currentLevel);
             else if (challenge.type === 'reflection') html += renderReflectionLevel(challenge, currentLevel);
 
             contentArea.innerHTML = html;
@@ -2164,7 +2318,400 @@
                     textarea.oninput = check;
                     check(); // handle prefilled text on replay
                 }
+            } else if (challenge.type === 'sort') {
+                initSortGame(challenge, currentLevel);
+            } else if (challenge.type === 'match') {
+                initMatchGame(challenge, currentLevel);
+            } else if (challenge.type === 'sequence') {
+                initSequenceGame(challenge, currentLevel);
+            } else if (challenge.type === 'promptbuild') {
+                initPromptBuildGame(challenge, currentLevel);
             }
+        }
+
+        /* =========================================================
+           GENERIC DRAG HELPER — pointer-based, works on mouse+touch,
+           with a tap-to-place fallback. Calls onDrop(itemEl, zoneEl).
+           ========================================================= */
+        function makeDraggable(itemEl, getZones, onDrop, onTapSelect) {
+            let floatEl = null, startX = 0, startY = 0, dragging = false, activeZone = null, pid = null;
+
+            const clientXY = (e) => (e.touches && e.touches[0]) ? e.touches[0] : e;
+
+            const cleanup = () => {
+                itemEl.removeEventListener('pointermove', pointerMove);
+                itemEl.removeEventListener('pointerup', pointerUp);
+                itemEl.removeEventListener('pointercancel', pointerCancel);
+                try { if (pid !== null && itemEl.releasePointerCapture) itemEl.releasePointerCapture(pid); } catch (e) {}
+                pid = null;
+            };
+
+            const pointerDown = (e) => {
+                if (itemEl.dataset.locked === '1') return;
+                if (pid !== null) return;              // ignore extra fingers mid-drag
+                pid = e.pointerId != null ? e.pointerId : 'mouse';
+                const pt = clientXY(e);
+                startX = pt.clientX; startY = pt.clientY;
+                dragging = false;
+                // Capture so every subsequent move/up for THIS pointer routes to the chip,
+                // even if the finger slides off it — essential for reliable mobile dragging.
+                try { if (e.pointerId != null && itemEl.setPointerCapture) itemEl.setPointerCapture(e.pointerId); } catch (err) {}
+                itemEl.addEventListener('pointermove', pointerMove);
+                itemEl.addEventListener('pointerup', pointerUp);
+                itemEl.addEventListener('pointercancel', pointerCancel);
+            };
+
+            const pointerMove = (e) => {
+                if (pid !== null && e.pointerId != null && e.pointerId !== pid) return;
+                const pt = clientXY(e);
+                const dx = pt.clientX - startX, dy = pt.clientY - startY;
+                if (!dragging && Math.hypot(dx, dy) > 6) {
+                    dragging = true;
+                    itemEl.classList.add('dragging');
+                    floatEl = itemEl.cloneNode(true);
+                    floatEl.classList.add('chip-float');
+                    floatEl.classList.remove('dragging');
+                    floatEl.style.width = itemEl.offsetWidth + 'px';
+                    document.body.appendChild(floatEl);
+                }
+                if (dragging) {
+                    if (e.cancelable) e.preventDefault();   // stop the page scrolling under the finger
+                    floatEl.style.left = (pt.clientX - itemEl.offsetWidth / 2) + 'px';
+                    floatEl.style.top = (pt.clientY - itemEl.offsetHeight / 2) + 'px';
+                    const zoneNow = zoneUnder(pt.clientX, pt.clientY, getZones());
+                    if (zoneNow !== activeZone) {
+                        if (activeZone) activeZone.classList.remove('dragover');
+                        activeZone = zoneNow;
+                        if (activeZone) activeZone.classList.add('dragover');
+                    }
+                }
+            };
+
+            const finishDrag = (dropIt) => {
+                if (dragging) {
+                    itemEl.classList.remove('dragging');
+                    if (floatEl) { floatEl.remove(); floatEl = null; }
+                    if (activeZone) activeZone.classList.remove('dragover');
+                    if (dropIt && activeZone) onDrop(itemEl, activeZone);
+                    activeZone = null;
+                } else if (dropIt && onTapSelect) {
+                    onTapSelect(itemEl);   // no movement => treat as a tap
+                }
+            };
+
+            const pointerUp = (e) => {
+                if (pid !== null && e.pointerId != null && e.pointerId !== pid) return;
+                cleanup();
+                finishDrag(true);
+            };
+            const pointerCancel = (e) => {
+                cleanup();
+                finishDrag(false);   // aborted (e.g. browser gesture) => return chip, no drop
+            };
+
+            itemEl.addEventListener('pointerdown', pointerDown);
+        }
+
+        function zoneUnder(x, y, zones) {
+            for (const z of zones) {
+                const r = z.getBoundingClientRect();
+                if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return z;
+            }
+            return null;
+        }
+
+        /* ---------------- SORT (drag to buckets) ---------------- */
+        let sortState = null;
+        function renderSortLevel(ch, level) {
+            const lv = ch.levels[level - 1];
+            const bucketsHTML = lv.buckets.map(b => `
+                <div class="dropzone flex-1 min-w-[130px] bg-slate-950 border-2 border-dashed border-slate-600 rounded-2xl p-3 min-h-[120px]" data-bucket="${b.id}">
+                    <div class="text-sm font-semibold mb-2 flex items-center gap-x-2">${b.emoji || ''} ${b.label}</div>
+                    <div class="sort-bucket-items space-y-2" data-bucket-items="${b.id}"></div>
+                </div>`).join('');
+            const itemsHTML = lv.items.map(it => `
+                <div class="chip select-none bg-slate-800 border border-slate-600 rounded-xl px-3 py-2 text-sm" data-item="${it.id}" data-correct="${it.bucket}">${it.text}</div>`).join('');
+            return `
+                <div class="text-sm text-slate-400 mb-1">${lv.instruction}</div>
+                <div class="text-xs text-indigo-300 mb-4"><i class="fa-solid fa-hand-pointer"></i> ${ch.mechanicHint}</div>
+                <div class="flex flex-wrap gap-3 mb-4" id="sort-buckets">${bucketsHTML}</div>
+                <div class="bg-slate-950/60 border border-slate-700 rounded-2xl p-3">
+                    <div class="text-[11px] uppercase tracking-widest text-slate-500 mb-2">Cards to sort</div>
+                    <div class="flex flex-wrap gap-2" id="sort-tray">${itemsHTML}</div>
+                </div>
+                <div id="sort-feedback" class="mt-3 text-sm min-h-[24px]"></div>
+                <div class="mt-3">
+                    <button id="sort-check" onclick="checkSort()" class="hidden px-5 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-2xl text-sm font-semibold">Check my sorting</button>
+                </div>`;
+        }
+
+        function initSortGame(ch, level) {
+            const lv = ch.levels[level - 1];
+            sortState = { total: lv.items.length, placed: {}, selected: null };
+            const getZones = () => Array.from(document.querySelectorAll('#sort-buckets .dropzone'));
+
+            document.querySelectorAll('#sort-tray .chip, #sort-buckets .chip').forEach(chip => {
+                wireSortChip(chip, getZones);
+            });
+            getZones().forEach(zone => {
+                zone.addEventListener('click', () => sortBucketTap(zone));
+            });
+        }
+
+        function wireSortChip(chip, getZones) {
+            makeDraggable(chip, getZones,
+                (itemEl, zoneEl) => { placeSortItem(itemEl, zoneEl); },
+                (itemEl) => {
+                    // tap fallback: cycle selection highlight, then tap a bucket
+                    document.querySelectorAll('#sort-tray .chip, #sort-buckets .chip').forEach(c => c.classList.remove('match-item','selected'));
+                    itemEl.classList.add('selected');
+                    sortState.selected = itemEl;
+                }
+            );
+        }
+
+        // tap-to-place: clicking a bucket drops the selected chip
+        function sortBucketTap(bucketEl) {
+            if (sortState && sortState.selected) {
+                placeSortItem(sortState.selected, bucketEl);
+                sortState.selected.classList.remove('selected');
+                sortState.selected = null;
+            }
+        }
+
+        function placeSortItem(itemEl, zoneEl) {
+            const bucketId = zoneEl.dataset.bucket;
+            const holder = zoneEl.querySelector('[data-bucket-items]');
+            holder.appendChild(itemEl);
+            itemEl.classList.remove('selected');
+            itemEl.classList.add('match-item');
+            sortState.placed[itemEl.dataset.item] = bucketId;
+            Audio.click();
+            // reveal check button once all placed
+            if (Object.keys(sortState.placed).length >= sortState.total) {
+                document.getElementById('sort-check').classList.remove('hidden');
+            }
+        }
+
+        function checkSort() {
+            let allCorrect = true;
+            document.querySelectorAll('#sort-buckets .chip').forEach(chip => {
+                const correct = chip.dataset.correct;
+                const placedIn = sortState.placed[chip.dataset.item];
+                chip.classList.remove('placed-correct', 'placed-wrong');
+                if (placedIn === correct) {
+                    chip.classList.add('placed-correct');
+                    chip.dataset.locked = '1';
+                } else {
+                    chip.classList.add('placed-wrong');
+                    allCorrect = false;
+                }
+            });
+            const fb = document.getElementById('sort-feedback');
+            if (allCorrect) {
+                fb.innerHTML = `<span class="text-emerald-300 font-semibold">Perfect sorting! You've got a sharp sense for where AI fits.</span>`;
+                Audio.correct();
+                enableAdvance();
+            } else {
+                fb.innerHTML = `<span class="text-amber-300">Some cards aren't in the best bucket yet — the red ones. Drag them to a better fit and check again.</span>`;
+                Audio.wrong();
+                // allow moving wrong ones again
+                document.querySelectorAll('#sort-buckets .chip.placed-wrong').forEach(chip => {
+                    chip.dataset.locked = '';
+                });
+            }
+        }
+
+        /* ---------------- MATCH (connect pairs) ---------------- */
+        let matchState = null;
+        function renderMatchLevel(ch, level) {
+            const lv = ch.levels[level - 1];
+            const lefts = lv.pairs.map((p, i) => `
+                <div class="match-item cursor-pointer border border-slate-600 rounded-xl px-3 py-2.5 text-sm" data-side="left" data-idx="${i}" onclick="matchTap('left', ${i})">${p.a}</div>`).join('');
+            // shuffle rights deterministically per level
+            const order = shuffledIndices(lv.pairs.length, level * 7 + 3);
+            const rights = order.map(i => `
+                <div class="match-item cursor-pointer border border-slate-600 rounded-xl px-3 py-2.5 text-sm" data-side="right" data-idx="${i}" onclick="matchTap('right', ${i})">${lv.pairs[i].b}</div>`).join('');
+            return `
+                <div class="text-sm text-slate-400 mb-1">${lv.instruction}</div>
+                <div class="text-xs text-indigo-300 mb-4"><i class="fa-solid fa-link"></i> ${ch.mechanicHint}</div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="space-y-2" id="match-left">${lefts}</div>
+                    <div class="space-y-2" id="match-right">${rights}</div>
+                </div>
+                <div id="match-feedback" class="mt-3 text-sm min-h-[24px]"></div>`;
+        }
+
+        function initMatchGame(ch, level) {
+            const lv = ch.levels[level - 1];
+            matchState = { total: lv.pairs.length, matched: 0, sel: null };
+        }
+
+        function matchTap(side, idx) {
+            if (!matchState) return;
+            const el = document.querySelector(`#match-${side} [data-idx="${idx}"][data-side="${side}"]`);
+            if (!el || el.classList.contains('matched')) return;
+
+            if (!matchState.sel) {
+                clearMatchSel();
+                matchState.sel = { side, idx, el };
+                el.classList.add('selected');
+                Audio.click();
+                return;
+            }
+            if (matchState.sel.side === side) {
+                // reselect on same column
+                clearMatchSel();
+                matchState.sel = { side, idx, el };
+                el.classList.add('selected');
+                return;
+            }
+            // we have one from each side -> check index equality (correct pair shares idx)
+            const leftIdx = side === 'left' ? idx : matchState.sel.idx;
+            const rightIdx = side === 'right' ? idx : matchState.sel.idx;
+            const other = matchState.sel.el;
+            if (leftIdx === rightIdx) {
+                [el, other].forEach(x => { x.classList.remove('selected'); x.classList.add('matched'); });
+                matchState.matched++;
+                Audio.correct();
+                if (matchState.matched >= matchState.total) {
+                    document.getElementById('match-feedback').innerHTML = `<span class="text-emerald-300 font-semibold">All matched! You clearly understand what each AI tool is for.</span>`;
+                    enableAdvance();
+                }
+            } else {
+                el.classList.add('placed-wrong');
+                other.classList.add('placed-wrong');
+                Audio.wrong();
+                const a = el, b = other;
+                setTimeout(() => { a.classList.remove('placed-wrong'); b.classList.remove('placed-wrong'); }, 350);
+                document.getElementById('match-feedback').innerHTML = `<span class="text-amber-300">Not a pair — try again.</span>`;
+            }
+            clearMatchSel();
+            matchState.sel = null;
+        }
+        function clearMatchSel() {
+            document.querySelectorAll('.match-item.selected').forEach(e => e.classList.remove('selected'));
+        }
+
+        /* ---------------- SEQUENCE (order the steps) ---------------- */
+        let seqState = null;
+        function renderSequenceLevel(ch, level) {
+            const lv = ch.levels[level - 1];
+            const order = shuffledIndices(lv.steps.length, level * 5 + 2);
+            // ensure shuffle isn't already correct
+            if (order.every((v, i) => v === i)) order.reverse();
+            const rows = order.map((origIdx, pos) => sequenceRowHTML(lv.steps[origIdx], origIdx)).join('');
+            return `
+                <div class="text-sm text-slate-400 mb-1">${lv.instruction}</div>
+                <div class="text-xs text-indigo-300 mb-4"><i class="fa-solid fa-arrow-down-1-9"></i> ${ch.mechanicHint}</div>
+                <div id="seq-list" class="space-y-2">${rows}</div>
+                <div id="seq-feedback" class="mt-3 text-sm min-h-[24px]"></div>
+                <div class="mt-3"><button onclick="checkSequence()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-2xl text-sm font-semibold">Check order</button></div>`;
+        }
+        function sequenceRowHTML(text, origIdx) {
+            return `<div class="seq-row flex items-center gap-x-2 bg-slate-800 border border-slate-600 rounded-xl px-3 py-2.5" data-orig="${origIdx}">
+                    <span class="flex-1 text-sm">${text}</span>
+                    <div class="flex flex-col gap-y-1">
+                        <button onclick="moveSeq(this,-1)" class="w-7 h-6 rounded bg-slate-700 hover:bg-slate-600 text-xs"><i class="fa-solid fa-chevron-up"></i></button>
+                        <button onclick="moveSeq(this,1)" class="w-7 h-6 rounded bg-slate-700 hover:bg-slate-600 text-xs"><i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                </div>`;
+        }
+        function initSequenceGame(ch, level) {
+            seqState = { correct: ch.levels[level - 1].steps };
+        }
+        function moveSeq(btn, dir) {
+            const row = btn.closest('.seq-row');
+            const list = document.getElementById('seq-list');
+            Audio.click();
+            if (dir === -1 && row.previousElementSibling) {
+                list.insertBefore(row, row.previousElementSibling);
+            } else if (dir === 1 && row.nextElementSibling) {
+                list.insertBefore(row.nextElementSibling, row);
+            }
+        }
+        function checkSequence() {
+            const rows = Array.from(document.querySelectorAll('#seq-list .seq-row'));
+            const currentOrder = rows.map(r => parseInt(r.dataset.orig, 10));
+            const correct = currentOrder.every((v, i) => v === i);
+            const fb = document.getElementById('seq-feedback');
+            if (correct) {
+                rows.forEach(r => r.classList.add('placed-correct'));
+                fb.innerHTML = `<span class="text-emerald-300 font-semibold">Correct order! That's exactly how a responsible AI pipeline flows.</span>`;
+                Audio.correct();
+                enableAdvance();
+            } else {
+                fb.innerHTML = `<span class="text-amber-300">Not quite in order yet — think about what has to happen first. Adjust and check again.</span>`;
+                Audio.wrong();
+            }
+        }
+
+        /* ---------------- PROMPT BUILDER (assemble chips) ---------------- */
+        let promptState = null;
+        function renderPromptBuildLevel(ch, level) {
+            const lv = ch.levels[level - 1];
+            const slots = lv.slots.map((s, si) => {
+                const opts = s.options.map((o, oi) =>
+                    `<button class="pb-opt text-left border border-slate-600 hover:border-purple-400 rounded-xl px-3 py-2 text-sm" data-slot="${si}" data-opt="${oi}" data-good="${o.good ? 1 : 0}" onclick="pickPromptOption(${si},${oi})">${o.text}</button>`
+                ).join('');
+                return `<div class="mb-3">
+                    <div class="text-[11px] uppercase tracking-widest text-purple-300 mb-1">${s.label}</div>
+                    <div class="grid gap-2" data-slot-group="${si}">${opts}</div>
+                </div>`;
+            }).join('');
+            return `
+                <div class="text-sm text-slate-400 mb-1">${lv.instruction}</div>
+                <div class="text-xs text-indigo-300 mb-3"><i class="fa-solid fa-wand-magic-sparkles"></i> ${ch.mechanicHint}</div>
+                <div class="mb-4 p-3 bg-purple-900/15 border border-purple-500/30 rounded-2xl text-sm">🎯 Goal: <span class="font-medium">${lv.goal}</span></div>
+                ${slots}
+                <div class="mt-2">
+                    <div class="text-[11px] uppercase tracking-widest text-slate-500 mb-1">Your assembled prompt</div>
+                    <div id="pb-preview" class="p-3 bg-slate-950 border border-slate-700 rounded-2xl text-sm min-h-[46px] text-slate-300 italic">Pick one chip per row…</div>
+                </div>
+                <div id="pb-feedback" class="mt-3 text-sm min-h-[24px]"></div>`;
+        }
+        function initPromptBuildGame(ch, level) {
+            promptState = { slots: ch.levels[level - 1].slots, chosen: {} };
+        }
+        function pickPromptOption(si, oi) {
+            if (!promptState) return;
+            promptState.chosen[si] = oi;
+            document.querySelectorAll(`[data-slot-group="${si}"] .pb-opt`).forEach(b => {
+                b.classList.remove('border-purple-400', 'bg-purple-900/20');
+            });
+            const btn = document.querySelector(`.pb-opt[data-slot="${si}"][data-opt="${oi}"]`);
+            btn.classList.add('border-purple-400', 'bg-purple-900/20');
+            Audio.click();
+
+            // build preview
+            const parts = promptState.slots.map((s, i) => promptState.chosen[i] != null ? s.options[promptState.chosen[i]].text : null);
+            document.getElementById('pb-preview').innerHTML = parts.filter(Boolean).join(' — ');
+
+            if (Object.keys(promptState.chosen).length >= promptState.slots.length) {
+                // evaluate quality
+                const goodCount = promptState.slots.reduce((n, s, i) => n + (s.options[promptState.chosen[i]].good ? 1 : 0), 0);
+                const fb = document.getElementById('pb-feedback');
+                if (goodCount === promptState.slots.length) {
+                    fb.innerHTML = `<span class="text-emerald-300 font-semibold">Strong prompt! Clear role, context, task and constraint — this is exactly how to get useful output.</span>`;
+                    Audio.correct();
+                } else {
+                    fb.innerHTML = `<span class="text-amber-300">This would work, but some parts are vague. The sharper chips (role, specific task, clear constraint) get far better results — you can swap and compare.</span>`;
+                    Audio.correct();
+                }
+                enableAdvance();
+            }
+        }
+
+        // deterministic shuffle of [0..n-1] from a seed
+        function shuffledIndices(n, seed) {
+            const arr = Array.from({ length: n }, (_, i) => i);
+            let s = seed || 1;
+            for (let i = n - 1; i > 0; i--) {
+                s = (s * 9301 + 49297) % 233280;
+                const j = Math.floor((s / 233280) * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
 
         function completeCurrentChallenge() {
