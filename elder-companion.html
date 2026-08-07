@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your Companion &mdash; AI Academia Elders Zone</title>
+<meta name="description" content="A calm daily companion for the Elders Zone: medicine times, meals from what you have, a quiet minute, guided rest, someone to talk to, and the people who matter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   YOUR COMPANION — Elders Zone, AI Academia
+   Visual direction: "The Kitchen Windowsill"
+   Deep enamel green + brass + linen. Warm, homely, never clinical.
+   Body face is Atkinson Hyperlegible — drawn by the Braille Institute for
+   low-vision readers. That is the single most important design decision here.
+   ========================================================================== */
+
+:root{
+  --enamel:#1F4A3D;
+  --enamel-dk:#153328;
+  --enamel-lt:#2E6350;
+  --linen:#F2F4EE;
+  --paper:#FBFCF8;
+  --brass:#9E6F22;
+  --brass-br:#C89A47;
+  --brass-pale:#F0E3C6;
+  --clay:#A34F35;
+  --clay-pale:#F7E6E0;
+  --ink:#16241F;
+  --slate:#4C5D56;
+  --sage:#D9E2D6;
+  --line:#C9D3C7;
+  --tie:#2E6B8A; /* ties back to the Elders Zone colour in AI Academia */
+
+  --r:14px;
+  --tap:60px;
+  --shadow:0 2px 0 rgba(22,36,31,.06), 0 8px 24px -12px rgba(22,36,31,.28);
+  --scale:1;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:calc(20px * var(--scale));-webkit-text-size-adjust:100%}
+body{
+  font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
+  background:var(--linen);color:var(--ink);
+  line-height:1.6;min-height:100vh;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+h1,h2,h3,.dsp{font-family:'Zilla Slab',Georgia,serif;font-weight:600;line-height:1.18;letter-spacing:-.005em}
+
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:6px}
+img{max-width:100%;display:block}
+
+/* ---------- shell ---------- */
+.wrap{max-width:680px;margin:0 auto;padding:0 1rem 5rem}
+
+.topbar{
+  background:var(--enamel);color:#fff;
+  padding:.7rem 1rem;
+  display:flex;align-items:center;gap:.7rem;
+  position:sticky;top:0;z-index:60;
+  box-shadow:0 6px 20px -14px rgba(0,0,0,.7);
+}
+.topbar-in{max-width:680px;margin:0 auto;width:100%;display:flex;align-items:center;gap:.7rem}
+.back{
+  background:rgba(255,255,255,.14);color:#fff;
+  padding:.5rem .9rem;border-radius:10px;font-size:.85rem;font-weight:700;
+  min-height:46px;display:inline-flex;align-items:center;gap:.35rem;
+}
+.back:hover{background:rgba(255,255,255,.24)}
+.topbar .title{font-family:'Zilla Slab',serif;font-size:1.05rem;font-weight:600;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.icobtn{
+  background:rgba(255,255,255,.14);color:#fff;width:46px;height:46px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:1.15rem;flex:none;
+}
+.icobtn:hover{background:rgba(255,255,255,.26)}
+.icobtn[aria-pressed="true"]{background:var(--brass-br);color:var(--enamel-dk)}
+
+/* ---------- day ribbon (signature) ---------- */
+.ribbon-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
+  padding:1rem 1rem .85rem;margin:1.1rem 0 1.3rem;box-shadow:var(--shadow);
+}
+.ribbon-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.7rem}
+.ribbon-head .now{font-family:'Zilla Slab',serif;font-size:1.5rem;font-weight:600;color:var(--enamel)}
+.ribbon-head .lbl{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);font-weight:700}
+.ribbon{
+  position:relative;height:64px;border-radius:10px;overflow:hidden;
+  background:linear-gradient(90deg,
+    #1B2A3A 0%, #2E4159 14%, #7C6A72 21%, #D9A15E 27%,
+    #EBD7A6 35%, #F4EBC9 50%, #EBD08F 66%,
+    #D08A55 74%, #8A5D63 80%, #3B4560 87%, #1B2A3A 100%);
+  border:1px solid rgba(22,36,31,.18);
+}
+.ribbon .hour{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.22)}
+.notch{
+  position:absolute;bottom:6px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.notch i{
+  display:block;width:3px;height:22px;border-radius:2px;background:var(--brass-br);
+  box-shadow:0 0 0 1.5px rgba(22,36,31,.5);
+}
+.notch.meal i{background:var(--sage)}
+.notch b{
+  font-size:.6rem;font-weight:700;background:rgba(22,36,31,.82);color:#fff;
+  padding:1px 5px;border-radius:5px;white-space:nowrap;font-family:'Atkinson Hyperlegible',sans-serif;
+}
+.nowmark{
+  position:absolute;top:-2px;bottom:-2px;width:4px;background:#fff;
+  box-shadow:0 0 0 1.5px var(--enamel-dk), 0 0 14px 3px rgba(255,255,255,.85);
+  transform:translateX(-50%);border-radius:3px;
+  animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.72}50%{opacity:1}}
+.ribbon-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.6rem;font-size:.75rem;color:var(--slate)}
+.ribbon-legend span{display:inline-flex;align-items:center;gap:.35rem}
+.ribbon-legend em{width:10px;height:10px;border-radius:3px;background:var(--brass-br);display:inline-block}
+.ribbon-legend em.meal{background:var(--sage);border:1px solid var(--line)}
+
+/* ---------- greeting ---------- */
+.greet{padding:1.5rem 0 .2rem}
+.greet .eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);font-weight:700;margin-bottom:.4rem}
+.greet h1{font-size:2.1rem;color:var(--enamel);margin-bottom:.35rem}
+.greet p{color:var(--slate);font-size:1rem}
+
+/* ---------- doors ---------- */
+.doors{display:flex;flex-direction:column;gap:.85rem}
+.door{
+  display:flex;align-items:center;gap:1rem;text-align:left;width:100%;
+  background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--enamel);
+  border-radius:var(--r);padding:1.05rem 1.1rem;box-shadow:var(--shadow);
+  transition:transform .18s ease, box-shadow .18s ease, border-left-color .18s ease;
+}
+.door:hover,.door:focus-visible{transform:translateX(3px);border-left-color:var(--brass);
+  box-shadow:0 2px 0 rgba(22,36,31,.06),0 14px 30px -14px rgba(22,36,31,.4)}
+.door .glyph{
+  width:54px;height:54px;flex:none;border-radius:13px;background:var(--sage);
+  display:grid;place-items:center;font-size:1.6rem;border:1px solid var(--line);
+}
+.door .txt{flex:1;min-width:0}
+.door .txt strong{display:block;font-family:'Zilla Slab',serif;font-size:1.25rem;font-weight:600;color:var(--enamel);margin-bottom:.15rem}
+.door .txt span{display:block;font-size:.9rem;color:var(--slate);line-height:1.45}
+.door .arw{color:var(--brass);font-size:1.4rem;flex:none}
+.door .pill{
+  display:inline-block;margin-top:.4rem;font-size:.75rem;font-weight:700;
+  background:var(--brass-pale);color:#6E4E12;padding:.15rem .55rem;border-radius:999px;
+}
+.door .pill.due{background:var(--clay-pale);color:#7A3624}
+
+/* ---------- cards & typography blocks ---------- */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.card h2{font-size:1.4rem;color:var(--enamel);margin-bottom:.5rem}
+.card h3{font-size:1.12rem;color:var(--enamel);margin-bottom:.35rem}
+.card p{margin-bottom:.7rem}
+.card p:last-child{margin-bottom:0}
+.muted{color:var(--slate);font-size:.92rem}
+.lead{font-size:1.05rem}
+
+.section-title{font-family:'Zilla Slab',serif;font-size:1.5rem;color:var(--enamel);margin:1.6rem 0 .8rem}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  min-height:var(--tap);padding:.8rem 1.4rem;border-radius:12px;
+  font-weight:700;font-size:1rem;text-align:center;line-height:1.25;
+  transition:filter .15s ease,transform .1s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--enamel);color:#fff}
+.btn-primary:hover{filter:brightness(1.16)}
+.btn-brass{background:var(--brass);color:#fff}
+.btn-brass:hover{filter:brightness(1.12)}
+.btn-ghost{background:transparent;color:var(--enamel);border:2px solid var(--enamel)}
+.btn-ghost:hover{background:var(--sage)}
+.btn-clay{background:var(--clay);color:#fff}
+.btn-quiet{background:var(--sage);color:var(--enamel);border:1px solid var(--line)}
+.btn-quiet:hover{filter:brightness(.97)}
+.btn-block{width:100%}
+.btn-lg{font-size:1.12rem;min-height:68px;padding:1rem 1.5rem}
+.btn-row{display:flex;gap:.7rem;flex-wrap:wrap}
+.btn-row>.btn{flex:1;min-width:150px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* ---------- forms ---------- */
+label.fl{display:block;font-weight:700;font-size:.9rem;color:var(--enamel);margin:.85rem 0 .3rem}
+.inp,textarea.inp,select.inp{
+  width:100%;background:#fff;border:2px solid var(--line);border-radius:10px;
+  padding:.7rem .8rem;font-size:1rem;min-height:var(--tap);
+}
+.inp:focus{border-color:var(--brass);outline:none}
+textarea.inp{min-height:110px;resize:vertical;line-height:1.55}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(max-width:430px){.grid2{grid-template-columns:1fr}}
+
+/* ---------- notes / alerts ---------- */
+.note{border-radius:12px;padding:.9rem 1rem;font-size:.93rem;line-height:1.55;margin-bottom:1rem}
+.note strong{display:block;margin-bottom:.2rem}
+.note-check{background:var(--brass-pale);border:1px solid #DCC38A;color:#5C4310}
+.note-warn{background:var(--clay-pale);border:1px solid #E0B3A4;color:#7A3624}
+.note-calm{background:var(--sage);border:1px solid var(--line);color:var(--enamel-dk)}
+
+/* ---------- steps (only used where content really is a sequence) ---------- */
+.steps{display:flex;gap:.5rem;margin-bottom:1.1rem}
+.steps div{
+  flex:1;text-align:center;font-size:.76rem;font-weight:700;color:var(--slate);
+  padding-top:.45rem;border-top:4px solid var(--line);
+}
+.steps div.on{color:var(--enamel);border-top-color:var(--brass)}
+.steps div.done{color:var(--enamel-lt);border-top-color:var(--enamel-lt)}
+
+/* ---------- medicine rows ---------- */
+.medrow{
+  display:flex;gap:.85rem;align-items:flex-start;background:var(--paper);
+  border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:.7rem;
+}
+.medrow .when{
+  flex:none;width:74px;text-align:center;font-family:'Zilla Slab',serif;
+  font-size:1.15rem;font-weight:600;color:var(--enamel);
+  border-right:1px solid var(--line);padding-right:.6rem;
+}
+.medrow .when small{display:block;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.68rem;color:var(--slate);font-weight:400;letter-spacing:.06em;text-transform:uppercase}
+.medrow .body{flex:1;min-width:0}
+.medrow .body b{font-size:1.05rem;display:block}
+.medrow .body span{font-size:.88rem;color:var(--slate)}
+.medrow.taken{background:var(--sage);opacity:.75}
+.tick{
+  flex:none;width:52px;height:52px;border-radius:50%;border:3px solid var(--enamel);
+  background:#fff;color:var(--enamel);font-size:1.4rem;display:grid;place-items:center;
+}
+.tick[aria-pressed="true"]{background:var(--enamel);color:#fff}
+
+.stock{font-size:.82rem;font-weight:700;margin-top:.3rem;display:inline-block;
+  padding:.12rem .5rem;border-radius:999px;background:var(--sage);color:var(--enamel-dk)}
+.stock.low{background:var(--clay-pale);color:#7A3624}
+
+/* ---------- chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 1rem}
+.chip{
+  background:#fff;border:2px solid var(--line);border-radius:999px;
+  padding:.5rem .9rem;font-size:.92rem;font-weight:700;color:var(--enamel);
+  min-height:48px;display:inline-flex;align-items:center;gap:.4rem;
+}
+.chip[aria-pressed="true"]{background:var(--enamel);color:#fff;border-color:var(--enamel)}
+.chip .x{opacity:.6;font-weight:400}
+
+/* ---------- cook mode ---------- */
+.cook{background:var(--enamel);color:#fff;border-radius:var(--r);padding:1.6rem 1.3rem;text-align:center;box-shadow:var(--shadow)}
+.cook .of{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-br);font-weight:700;margin-bottom:.9rem}
+.cook .step{font-family:'Zilla Slab',serif;font-size:1.55rem;line-height:1.35;margin-bottom:1.2rem}
+.cook .timer{font-family:'Zilla Slab',serif;font-size:2.6rem;color:var(--brass-br);margin-bottom:.8rem;font-variant-numeric:tabular-nums}
+
+/* ---------- breathing ---------- */
+.breathe-stage{display:grid;place-items:center;padding:2rem 0 1.2rem;min-height:300px}
+.orb{
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #F0E3C6, #C89A47 55%, #9E6F22);
+  box-shadow:0 0 0 14px rgba(158,111,34,.12),0 0 0 28px rgba(158,111,34,.07);
+  transition:transform 4s cubic-bezier(.4,0,.5,1);
+}
+.orb.in{transform:scale(1.85)}
+.orb.hold{transform:scale(1.85)}
+.orb.out{transform:scale(1)}
+.breathe-word{font-family:'Zilla Slab',serif;font-size:2rem;color:var(--enamel);margin-top:2.2rem;letter-spacing:.02em}
+.breathe-count{font-size:1rem;color:var(--slate);margin-top:.3rem}
+
+/* ---------- rest / meditation ---------- */
+.med-line{
+  font-family:'Zilla Slab',serif;font-size:1.5rem;line-height:1.5;color:var(--enamel);
+  text-align:center;min-height:5.5em;display:grid;place-items:center;padding:1rem;
+  transition:opacity .8s ease;
+}
+.ring{width:100%;height:8px;background:var(--sage);border-radius:99px;overflow:hidden;margin-top:1rem}
+.ring i{display:block;height:100%;background:var(--brass);width:0;transition:width 1s linear}
+
+/* ---------- chat ---------- */
+.chat{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.1rem}
+.bub{padding:.9rem 1.1rem;border-radius:16px;max-width:88%;font-size:1rem;line-height:1.6}
+.bub.them{background:var(--paper);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:5px}
+.bub.me{background:var(--enamel);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+.bub.typing{color:var(--slate);font-style:italic}
+.mic{
+  width:76px;height:76px;border-radius:50%;background:var(--clay);color:#fff;
+  display:grid;place-items:center;font-size:1.8rem;flex:none;
+  box-shadow:0 6px 18px -8px rgba(163,79,53,.8);
+}
+.mic.on{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(163,79,53,.55)}50%{box-shadow:0 0 0 18px rgba(163,79,53,0)}}
+
+/* ---------- faces ---------- */
+.faces{display:flex;gap:.9rem;overflow-x:auto;padding:.3rem .1rem 1rem;scrollbar-width:thin}
+.face{
+  flex:none;width:96px;text-align:center;
+}
+.face .ph{
+  width:84px;height:84px;border-radius:50%;margin:0 auto .45rem;overflow:hidden;
+  border:3px solid var(--brass-br);background:var(--sage);display:grid;place-items:center;
+  font-family:'Zilla Slab',serif;font-size:1.8rem;color:var(--enamel);
+}
+.face .ph img{width:100%;height:100%;object-fit:cover}
+.face b{display:block;font-size:.85rem;font-weight:700}
+.face span{display:block;font-size:.72rem;color:var(--slate)}
+.face.add .ph{border-style:dashed;border-color:var(--line);color:var(--brass);font-size:2rem}
+
+.facebig{display:flex;gap:1.1rem;align-items:center;margin-bottom:1rem}
+.facebig .ph{width:110px;height:110px;border-radius:50%;overflow:hidden;border:4px solid var(--brass-br);
+  background:var(--sage);display:grid;place-items:center;font-family:'Zilla Slab',serif;font-size:2.4rem;color:var(--enamel);flex:none}
+.facebig .ph img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- photo dropzone ---------- */
+.shot{
+  border:3px dashed var(--line);border-radius:var(--r);background:var(--paper);
+  padding:2rem 1.2rem;text-align:center;
+}
+.shot .big{font-size:3rem;margin-bottom:.5rem}
+.preview{border-radius:12px;overflow:hidden;border:1px solid var(--line);margin-bottom:1rem;max-height:300px}
+.preview img{width:100%;object-fit:contain;max-height:300px;background:#fff}
+
+/* ---------- misc ---------- */
+.spin{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.35);
+  border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.center{text-align:center}
+.hr{height:1px;background:var(--line);margin:1.4rem 0;border:0}
+.footnote{font-size:.8rem;color:var(--slate);text-align:center;padding:2rem 1rem 1rem;line-height:1.6}
+.footnote a{color:var(--enamel)}
+.hidden{display:none!important}
+.view{animation:fade .32s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <button class="back hidden" id="backBtn">&larr; Back</button>
+    <div class="title" id="barTitle">Your Companion</div>
+    <button class="icobtn" id="voiceBtn" aria-pressed="false" title="Read the screen aloud" aria-label="Read the screen aloud">&#128266;</button>
+    <button class="icobtn" id="sizeBtn" title="Make the text bigger" aria-label="Make the text bigger">A&#8593;</button>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<div class="footnote">
+  Everything you add stays on this device only &mdash; nothing is uploaded or shared.<br>
+  Part of the Elders Zone at AI Academia. Not a medical device. Always follow your doctor and pharmacist.
+</div>
+<script>
+"use strict";
+/* =====================================================================
+   YOUR COMPANION — Elders Zone
+   Vanilla JS. No build step, no backend, no accounts. All data local.
+   ===================================================================== */
+
+/* ---------------- storage ---------------- */
+var KEY = "aiacademia.companion.v1";
+var S = load();
+
+function blank(){
+  return {
+    name:"", size:0,
+    voice:true,
+    meds:[],            // {id,name,strength,dose,times:[],note,packCount,perDose,startedISO}
+    takenLog:{},        // "YYYY-MM-DD": { "medId|HH:MM": true }
+    pantry:[],          // ["eggs","spinach",...]
+    faces:[],           // {id,name,rel,notes,photo(dataURL)}
+    mealTimes:{breakfast:"08:00",lunch:"13:00",tea:"16:30",dinner:"19:30"},
+    chat:[],
+    lastRest:""
+  };
+}
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(!raw) return blank();
+    var o = JSON.parse(raw); var b = blank();
+    for(var k in b){ if(!(k in o)) o[k]=b[k]; }
+    return o;
+  }catch(e){ return blank(); }
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+}
+
+/* ---------------- small helpers ---------------- */
+function $(id){ return document.getElementById(id); }
+function el(tag, attrs, html){
+  var n = document.createElement(tag);
+  if(attrs) for(var k in attrs){
+    if(k==="class") n.className=attrs[k];
+    else if(k.slice(0,2)==="on") n.addEventListener(k.slice(2), attrs[k]);
+    else n.setAttribute(k, attrs[k]);
+  }
+  if(html!=null) n.innerHTML = html;
+  return n;
+}
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function uid(){ return Math.random().toString(36).slice(2,9); }
+function pad(n){ return (n<10?"0":"")+n; }
+function todayKey(){ var d=new Date(); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function toMin(hhmm){ var p=(hhmm||"08:00").split(":"); return (+p[0])*60 + (+p[1]); }
+function pretty(hhmm){
+  var m = toMin(hhmm), h = Math.floor(m/60), mm = m%60;
+  var ap = h<12 ? "am" : "pm"; var h12 = h%12; if(h12===0) h12=12;
+  return h12 + (mm? ":"+pad(mm) : "") + ap;
+}
+function partOfDay(){
+  var h = new Date().getHours();
+  if(h<5) return "night"; if(h<11) return "morning";
+  if(h<15) return "midday"; if(h<18) return "afternoon";
+  if(h<21) return "evening"; return "night";
+}
+function mealNow(){
+  var h = new Date().getHours();
+  if(h<10.5) return "breakfast"; if(h<15) return "lunch";
+  if(h<17.5) return "a light tea"; return "dinner";
+}
+function firstName(){ return (S.name||"").trim().split(/\s+/)[0] || ""; }
+
+/* ---------------- speech out ---------------- */
+var synth = window.speechSynthesis || null;
+var pickedVoice = null;
+function chooseVoice(){
+  if(!synth) return;
+  var vs = synth.getVoices()||[];
+  var pref = ["Google UK English Female","Microsoft Sonia","Samantha","Google US English","Microsoft Zira"];
+  for(var i=0;i<pref.length;i++){
+    for(var j=0;j<vs.length;j++){ if(vs[j].name.indexOf(pref[i])>-1){ pickedVoice=vs[j]; return; } }
+  }
+  for(var k=0;k<vs.length;k++){ if(/^en/.test(vs[k].lang)){ pickedVoice=vs[k]; return; } }
+}
+if(synth){ chooseVoice(); synth.onvoiceschanged = chooseVoice; }
+
+function speak(text, force){
+  if(!synth) return;
+  if(!S.voice && !force) return;
+  try{
+    synth.cancel();
+    var u = new SpeechSynthesisUtterance(String(text).replace(/\s+/g," ").slice(0,700));
+    u.rate = 0.92; u.pitch = 1.0;
+    if(pickedVoice) u.voice = pickedVoice;
+    synth.speak(u);
+  }catch(e){}
+}
+function hush(){ if(synth){ try{ synth.cancel(); }catch(e){} } }
+
+/* ---------------- speech in ---------------- */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+function listen(onText, onEnd){
+  if(!SR){ onEnd && onEnd("nosupport"); return null; }
+  var r = new SR();
+  r.lang = "en-GB"; r.interimResults = false; r.maxAlternatives = 1; r.continuous = false;
+  r.onresult = function(e){ var t=e.results[0][0].transcript; onText(t); };
+  r.onerror = function(e){ onEnd && onEnd(e.error); };
+  r.onend = function(){ onEnd && onEnd(null); };
+  try{ r.start(); }catch(e){ onEnd && onEnd("failed"); }
+  return r;
+}
+
+/* ---------------- the AI call ---------------- */
+/* Free, key-less endpoint (same one the AI Academia Practice Lab uses).
+   Everything here degrades to a working manual path if it is unreachable. */
+var API = "https://text.pollinations.ai/openai";
+
+function askAI(messages, ok, fail){
+  var ctrl = (window.AbortController) ? new AbortController() : null;
+  var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 45000);
+  fetch(API, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ model:"openai", messages:messages, seed:Math.floor(Math.random()*99999) }),
+    signal: ctrl ? ctrl.signal : undefined
+  })
+  .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+  .then(function(d){
+    clearTimeout(timer);
+    var out = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+    if(out) ok(out); else throw new Error("empty");
+  })
+  .catch(function(e){ clearTimeout(timer); fail && fail(e); });
+}
+
+function askAIWithPhoto(promptText, dataUrl, ok, fail){
+  askAI([{role:"user", content:[
+    {type:"text", text:promptText},
+    {type:"image_url", image_url:{url:dataUrl}}
+  ]}], ok, fail);
+}
+
+function grabJSON(txt){
+  if(!txt) return null;
+  var m = txt.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+  if(!m) return null;
+  try{ return JSON.parse(m[0]); }catch(e){ return null; }
+}
+
+/* ---------------- image handling ---------------- */
+function readImage(file, cb){
+  if(!file){ cb(null); return; }
+  var fr = new FileReader();
+  fr.onload = function(){
+    var img = new Image();
+    img.onload = function(){
+      // shrink so it is quick to send and small enough to keep locally
+      var max = 1100, w = img.width, hgt = img.height;
+      if(w>max || hgt>max){ var s = max/Math.max(w,hgt); w=Math.round(w*s); hgt=Math.round(hgt*s); }
+      var c = document.createElement("canvas"); c.width=w; c.height=hgt;
+      c.getContext("2d").drawImage(img,0,0,w,hgt);
+      cb(c.toDataURL("image/jpeg", 0.82));
+    };
+    img.onerror = function(){ cb(null); };
+    img.src = fr.result;
+  };
+  fr.onerror = function(){ cb(null); };
+  fr.readAsDataURL(file);
+}
+function pickPhoto(cb, useCamera){
+  var i = document.createElement("input");
+  i.type="file"; i.accept="image/*";
+  if(useCamera) i.setAttribute("capture","environment");
+  i.onchange = function(){ readImage(i.files && i.files[0], cb); };
+  i.click();
+}
+
+/* ---------------- medicine maths (no AI — plain arithmetic) ---------------- */
+function dosesPerDay(m){ return (m.times && m.times.length ? m.times.length : 1) * (+m.perDose || 1); }
+function daysLeft(m){
+  if(m.packCount==null || m.packCount==="") return null;
+  var per = dosesPerDay(m); if(!per) return null;
+  return Math.floor((+m.packCount) / per);
+}
+function takenToday(){ return S.takenLog[todayKey()] || {}; }
+function markTaken(medId, time, on){
+  var d = todayKey();
+  if(!S.takenLog[d]) S.takenLog[d] = {};
+  var k = medId+"|"+time;
+  var med = S.meds.filter(function(x){return x.id===medId;})[0];
+  if(on){
+    if(!S.takenLog[d][k]){
+      S.takenLog[d][k] = true;
+      if(med && med.packCount!==null && med.packCount!=="") med.packCount = Math.max(0, (+med.packCount) - (+med.perDose||1));
+    }
+  } else {
+    if(S.takenLog[d][k]){
+      delete S.takenLog[d][k];
+      if(med && med.packCount!==null && med.packCount!=="") med.packCount = (+med.packCount) + (+med.perDose||1);
+    }
+  }
+  save();
+}
+function scheduleToday(){
+  var out = [];
+  S.meds.forEach(function(m){
+    (m.times||[]).forEach(function(t){ out.push({med:m, time:t}); });
+  });
+  out.sort(function(a,b){ return toMin(a.time)-toMin(b.time); });
+  return out;
+}
+function nextDue(){
+  var now = new Date().getHours()*60 + new Date().getMinutes();
+  var tk = takenToday();
+  var list = scheduleToday().filter(function(r){ return !tk[r.med.id+"|"+r.time]; });
+  var upcoming = list.filter(function(r){ return toMin(r.time) >= now - 45; });
+  return upcoming[0] || list[0] || null;
+}
+function lowStockMeds(){
+  return S.meds.filter(function(m){ var d=daysLeft(m); return d!==null && d<=5; });
+}
+</script>
+<script>
+/* =====================================================================
+   ROUTER + HOME
+   ===================================================================== */
+var app = $("app"), route = "home", stack = [];
+
+var ROUTES = {};   /* filled in by each screen file below */
+
+function go(name, opts){
+  hush();
+  if(name !== route) stack.push(route);
+  route = name;
+  render(opts);
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function back(){
+  hush();
+  route = stack.pop() || "home";
+  render();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function render(opts){
+  app.innerHTML = "";
+  var v = el("div",{class:"view"});
+  app.appendChild(v);
+  (ROUTES[route] || ROUTES.home)(v, opts||{});
+  $("backBtn").classList.toggle("hidden", route==="home");
+  $("barTitle").textContent = TITLES[route] || "Your Companion";
+}
+var TITLES = {
+  home:"Your Companion", meds:"Medicines", medadd:"Add a medicine",
+  kitchen:"Kitchen", cook:"Cooking", quiet:"A Quiet Minute",
+  rest:"Rest & Meditation", talk:"Someone to Talk To",
+  faces:"People Who Matter", face:"", faceadd:"Add someone", setup:"Welcome"
+};
+
+/* ---------------- the Day Ribbon (signature element) ---------------- */
+function dayRibbon(){
+  var wrapEl = el("div",{class:"ribbon-card"});
+  var now = new Date();
+  var mins = now.getHours()*60 + now.getMinutes();
+
+  var head = el("div",{class:"ribbon-head"});
+  head.appendChild(el("div",{class:"now"}, pretty(pad(now.getHours())+":"+pad(now.getMinutes()))));
+  head.appendChild(el("div",{class:"lbl"}, "Your day at a glance"));
+  wrapEl.appendChild(head);
+
+  var rb = el("div",{class:"ribbon", role:"img",
+    "aria-label":"A band showing the whole day with your medicine and meal times marked."});
+
+  for(var hh=3; hh<24; hh+=3){
+    rb.appendChild(el("div",{class:"hour", style:"left:"+(hh/24*100)+"%"}));
+  }
+
+  // meal notches
+  var mealNames = {breakfast:"Breakfast", lunch:"Lunch", tea:"Tea", dinner:"Dinner"};
+  Object.keys(S.mealTimes).forEach(function(k){
+    var t = S.mealTimes[k];
+    var n = el("div",{class:"notch meal", style:"left:"+(toMin(t)/1440*100)+"%"});
+    n.appendChild(el("b",null, mealNames[k]));
+    n.appendChild(el("i"));
+    rb.appendChild(n);
+  });
+
+  // medicine notches, grouped so overlapping times don't stack labels
+  var byTime = {};
+  scheduleToday().forEach(function(r){ (byTime[r.time] = byTime[r.time]||[]).push(r); });
+  Object.keys(byTime).forEach(function(t){
+    var group = byTime[t];
+    var label = group.length>1 ? (group.length+" pills") : group[0].med.name.split(/\s+/)[0];
+    var n = el("div",{class:"notch", style:"left:"+(toMin(t)/1440*100)+"%"});
+    n.appendChild(el("b",null, esc(label)));
+    n.appendChild(el("i"));
+    rb.appendChild(n);
+  });
+
+  rb.appendChild(el("div",{class:"nowmark", style:"left:"+(mins/1440*100)+"%"}));
+  wrapEl.appendChild(rb);
+
+  var lg = el("div",{class:"ribbon-legend"});
+  lg.innerHTML = '<span><em></em> Medicine</span><span><em class="meal"></em> Meals</span><span>The bright line is now</span>';
+  wrapEl.appendChild(lg);
+  return wrapEl;
+}
+
+/* ---------------- home ---------------- */
+ROUTES.home = function(v){
+  if(!S.name){ route="setup"; ROUTES.setup(v); $("barTitle").textContent="Welcome"; return; }
+
+  var pod = partOfDay();
+  var hello = pod==="morning" ? "Good morning" : pod==="midday" ? "Hello" :
+              pod==="afternoon" ? "Good afternoon" : pod==="evening" ? "Good evening" : "Hello";
+
+  var g = el("div",{class:"greet"});
+  g.appendChild(el("div",{class:"eyebrow"}, new Date().toLocaleDateString(undefined,{weekday:"long", day:"numeric", month:"long"})));
+  g.appendChild(el("h1",null, hello + (firstName() ? ", "+esc(firstName()) : "")));
+
+  var nd = nextDue(), low = lowStockMeds();
+  var line;
+  if(nd){
+    var nowM = new Date().getHours()*60+new Date().getMinutes();
+    line = toMin(nd.time) <= nowM
+      ? "Your " + esc(nd.med.name) + " is due now."
+      : "Next: " + esc(nd.med.name) + " at " + pretty(nd.time) + ".";
+  } else if(S.meds.length){
+    line = "Everything on your list is ticked off for today. Well done.";
+  } else {
+    line = "Nothing on your list yet. Tap Medicines when you are ready to add one.";
+  }
+  g.appendChild(el("p",null, line));
+  v.appendChild(g);
+
+  v.appendChild(dayRibbon());
+
+  if(low.length){
+    var w = el("div",{class:"note note-warn"});
+    w.innerHTML = "<strong>Time to order more</strong>" +
+      low.map(function(m){ var d=daysLeft(m); return esc(m.name)+" &mdash; about "+d+" day"+(d===1?"":"s")+" left"; }).join("<br>");
+    v.appendChild(w);
+  }
+
+  // people
+  if(S.faces.length){
+    v.appendChild(el("div",{class:"section-title"},"People who matter"));
+    var fr = el("div",{class:"faces"});
+    S.faces.forEach(function(f){
+      var b = el("button",{class:"face", onclick:function(){ go("face",{id:f.id}); }});
+      var ph = el("div",{class:"ph"});
+      if(f.photo) ph.appendChild(el("img",{src:f.photo, alt:esc(f.name)}));
+      else ph.textContent = (f.name||"?").charAt(0).toUpperCase();
+      b.appendChild(ph);
+      b.appendChild(el("b",null,esc(f.name)));
+      b.appendChild(el("span",null,esc(f.rel||"")));
+      fr.appendChild(b);
+    });
+    var addB = el("button",{class:"face add", onclick:function(){ go("faceadd"); }});
+    addB.appendChild(el("div",{class:"ph"},"+"));
+    addB.appendChild(el("b",null,"Add"));
+    fr.appendChild(addB);
+    v.appendChild(fr);
+  }
+
+  v.appendChild(el("div",{class:"section-title"},"What would you like to do?"));
+
+  var tk = takenToday();
+  var dueCount = scheduleToday().filter(function(r){ return !tk[r.med.id+"|"+r.time]; }).length;
+
+  var doors = [
+    {id:"meds", g:"&#128138;", t:"Medicines",
+     d:"Photograph the box or the prescription. Check it. Then tick each one off as you take it.",
+     pill: dueCount ? dueCount+" still to take today" : (S.meds.length? "All taken today" : null),
+     due: dueCount>0},
+    {id:"kitchen", g:"&#127859;", t:"Kitchen",
+     d:"Show me what is in the fridge and I will suggest "+mealNow()+" you can make right now.",
+     pill: S.pantry.length ? S.pantry.length+" things on your shelf" : null},
+    {id:"quiet", g:"&#127807;", t:"A Quiet Minute",
+     d:"Slow, guided breathing. One to five minutes, whenever your chest feels tight."},
+    {id:"rest", g:"&#127761;", t:"Rest & Meditation",
+     d:"Longer guided sessions &mdash; morning calm, easing worry, and a wind-down for sleep."},
+    {id:"talk", g:"&#128172;", t:"Someone to Talk To",
+     d:"Speak or type. I will listen properly &mdash; about the aches, the quiet days, anything at all."},
+    {id:"faces", g:"&#128100;", t:"People Who Matter",
+     d:"Add the people you love, and I will help you call them or write to them."}
+  ];
+
+  var wrapD = el("div",{class:"doors"});
+  doors.forEach(function(d){
+    var b = el("button",{class:"door", onclick:function(){ go(d.id); }});
+    b.appendChild(el("div",{class:"glyph"}, d.g));
+    var t = el("div",{class:"txt"});
+    t.appendChild(el("strong",null,d.t));
+    t.appendChild(el("span",null,d.d));
+    if(d.pill) t.appendChild(el("span",{class:"pill"+(d.due?" due":"")}, d.pill));
+    b.appendChild(t);
+    b.appendChild(el("div",{class:"arw"},"&rsaquo;"));
+    wrapD.appendChild(b);
+  });
+  v.appendChild(wrapD);
+
+  if(S.voice) speak(hello + (firstName()? ", "+firstName() : "") + ". " + line);
+};
+
+/* ---------------- first-run setup ---------------- */
+ROUTES.setup = function(v){
+  var c = el("div",{class:"card"});
+  c.innerHTML =
+    '<h2>Welcome</h2>' +
+    '<p class="lead">I am here to help with the small things that make a day easier &mdash; ' +
+    'remembering your tablets, working out what to cook, finding a calm minute, and staying close to your family.</p>' +
+    '<p class="muted">Everything you tell me stays on this device. Nothing is sent anywhere or shared with anyone.</p>' +
+    '<label class="fl" for="nm">What shall I call you?</label>';
+  var inp = el("input",{class:"inp", id:"nm", type:"text", placeholder:"Your first name", autocomplete:"given-name"});
+  c.appendChild(inp);
+  var b = el("button",{class:"btn btn-primary btn-block btn-lg", style:"margin-top:1.2rem", onclick:function(){
+    S.name = inp.value.trim() || "friend"; save(); route="home"; render();
+  }},"Let&rsquo;s begin");
+  c.appendChild(b);
+  inp.addEventListener("keydown", function(e){ if(e.key==="Enter") b.click(); });
+  v.appendChild(c);
+  setTimeout(function(){ inp.focus(); },200);
+};
+</script>
+<script>
+/* =====================================================================
+   MEDICINES
+   The AI only ever produces a DRAFT. Nothing is saved until the person
+   has read it back against the box and confirmed it. Stock counting is
+   plain arithmetic, not a guess.
+   ===================================================================== */
+
+ROUTES.meds = function(v){
+  var tk = takenToday();
+  var rows = scheduleToday();
+
+  v.appendChild(el("h1",{class:"section-title", style:"margin-top:.6rem"},"Today&rsquo;s medicines"));
+
+  if(!rows.length){
+    var e = el("div",{class:"card center"});
+    e.innerHTML = '<h3>Nothing added yet</h3>' +
+      '<p class="muted">Add your first medicine and it will appear here every day, at the right times.</p>';
+    e.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:1rem",
+      onclick:function(){ go("medadd"); }},"&#128247;&nbsp; Add a medicine"));
+    v.appendChild(e);
+    return;
+  }
+
+  var nowM = new Date().getHours()*60 + new Date().getMinutes();
+  rows.forEach(function(r){
+    var key = r.med.id+"|"+r.time;
+    var done = !!tk[key];
+    var row = el("div",{class:"medrow"+(done?" taken":"")});
+
+    var when = el("div",{class:"when"});
+    when.innerHTML = pretty(r.time) + "<small>" +
+      (done ? "taken" : (toMin(r.time)<=nowM ? "due" : "later")) + "</small>";
+    row.appendChild(when);
+
+    var b = el("div",{class:"body"});
+    b.appendChild(el("b",null, esc(r.med.name) + (r.med.strength ? " " + esc(r.med.strength) : "")));
+    b.appendChild(el("span",null, esc(r.med.dose || ((r.med.perDose||1) + " to take")) +
+      (r.med.note ? " &middot; " + esc(r.med.note) : "")));
+    var d = daysLeft(r.med);
+    if(d!==null){
+      b.appendChild(el("div",{class:"stock"+(d<=5?" low":"")},
+        d<=0 ? "None left &mdash; order today" : "About " + d + " day" + (d===1?"":"s") + " left"));
+    }
+    row.appendChild(b);
+
+    var t = el("button",{class:"tick", "aria-pressed":done?"true":"false",
+      "aria-label":(done?"Undo ":"Mark as taken: ")+r.med.name+" at "+pretty(r.time),
+      onclick:function(){
+        markTaken(r.med.id, r.time, !done);
+        if(!done) speak("Ticked off. " + r.med.name + " taken.");
+        render();
+      }}, done ? "&#10003;" : "");
+    row.appendChild(t);
+    v.appendChild(row);
+  });
+
+  var low = lowStockMeds();
+  if(low.length){
+    var w = el("div",{class:"note note-warn", style:"margin-top:1rem"});
+    w.innerHTML = "<strong>Running low</strong>" +
+      low.map(function(m){
+        var dd = daysLeft(m);
+        return esc(m.name)+" &mdash; "+(dd<=0 ? "none left" : "about "+dd+" day"+(dd===1?"":"s")+" left")+
+          ". Ring the surgery or pharmacy for a repeat.";
+      }).join("<br>");
+    v.appendChild(w);
+  }
+
+  v.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:1.2rem",
+    onclick:function(){ go("medadd"); }},"&#128247;&nbsp; Add another medicine"));
+
+  v.appendChild(el("div",{class:"hr"}));
+  v.appendChild(el("h2",{class:"section-title", style:"margin-top:0"},"Your full list"));
+
+  S.meds.forEach(function(m){
+    var c = el("div",{class:"card"});
+    c.appendChild(el("h3",null, esc(m.name) + (m.strength?" "+esc(m.strength):"")));
+    var bits = [];
+    if(m.dose) bits.push(esc(m.dose));
+    if(m.times && m.times.length) bits.push("At " + m.times.map(pretty).join(", "));
+    if(m.note) bits.push(esc(m.note));
+    c.appendChild(el("p",{class:"muted"}, bits.join(" &middot; ")));
+
+    var pk = el("div",{style:"margin-top:.6rem"});
+    pk.appendChild(el("label",{class:"fl", for:"pk"+m.id},"How many are left in the pack?"));
+    var inp = el("input",{class:"inp", id:"pk"+m.id, type:"number", min:"0", inputmode:"numeric",
+      value: (m.packCount==null?"":m.packCount), placeholder:"e.g. 28"});
+    inp.addEventListener("change", function(){
+      m.packCount = inp.value===""? null : Math.max(0, parseInt(inp.value,10)||0);
+      save(); render();
+    });
+    pk.appendChild(inp);
+    c.appendChild(pk);
+
+    var rowb = el("div",{class:"btn-row", style:"margin-top:.9rem"});
+    rowb.appendChild(el("button",{class:"btn btn-quiet", onclick:function(){ go("medadd",{edit:m.id}); }},"Change"));
+    rowb.appendChild(el("button",{class:"btn btn-quiet", onclick:function(){
+      if(confirm("Remove "+m.name+" from your list?")){
+        S.meds = S.meds.filter(function(x){return x.id!==m.id;}); save(); render();
+      }
+    }},"Remove"));
+    c.appendChild(rowb);
+    v.appendChild(c);
+  });
+
+  var n = el("div",{class:"note note-check"});
+  n.innerHTML = "<strong>A word about this list</strong>This is a reminder, not a prescription. " +
+    "If what you see here does not match the label on the box, the box is right &mdash; and please " +
+    "ring your pharmacist. Never change a dose because of anything on a screen.";
+  v.appendChild(n);
+};
+
+/* ---------------- add / edit a medicine: photograph, check, confirm ---------------- */
+ROUTES.medadd = function(v, opts){
+  var editing = opts.edit ? S.meds.filter(function(m){return m.id===opts.edit;})[0] : null;
+  var step = editing ? 2 : 1;
+  var draft = editing ? JSON.parse(JSON.stringify(editing)) : {
+    id:uid(), name:"", strength:"", dose:"", times:["08:00"], note:"", perDose:1, packCount:null
+  };
+  var shot = null;
+
+  function paint(){
+    v.innerHTML = "";
+    var s = el("div",{class:"steps"});
+    ["1. Photograph","2. Check it","3. Confirm"].forEach(function(t,i){
+      s.appendChild(el("div",{class: (i+1===step?"on":(i+1<step?"done":""))}, t));
+    });
+    v.appendChild(s);
+    if(step===1) stepPhoto();
+    else if(step===2) stepCheck();
+    else stepConfirm();
+  }
+
+  /* --- step 1 --- */
+  function stepPhoto(){
+    var c = el("div",{class:"card"});
+    c.innerHTML = '<h2>Photograph the medicine</h2>' +
+      '<p>Hold the <strong>box</strong> or the <strong>prescription</strong> steady in good light so the writing is sharp. ' +
+      'I will read it and fill the form in for you &mdash; then you check it.</p>';
+    var r = el("div",{class:"btn-row", style:"margin-top:.5rem"});
+    r.appendChild(el("button",{class:"btn btn-primary btn-lg", onclick:function(){ pickPhoto(gotPhoto, true); }},"&#128247;&nbsp; Take a photo"));
+    r.appendChild(el("button",{class:"btn btn-ghost btn-lg", onclick:function(){ pickPhoto(gotPhoto, false); }},"&#128193;&nbsp; Choose a photo"));
+    c.appendChild(r);
+    c.appendChild(el("button",{class:"btn btn-quiet btn-block", style:"margin-top:.8rem",
+      onclick:function(){ step=2; paint(); }},"I&rsquo;ll type it in myself"));
+    v.appendChild(c);
+
+    var n = el("div",{class:"note note-check"});
+    n.innerHTML = "<strong>Photos stay on this device</strong>The picture is used once to read the words, then discarded. It is never stored or shared.";
+    v.appendChild(n);
+    speak("Take a photo of the box or the prescription, and I will fill in the form for you.");
+  }
+
+  function gotPhoto(dataUrl){
+    if(!dataUrl){ alert("That photo could not be opened. Please try another."); return; }
+    shot = dataUrl;
+    v.innerHTML = "";
+    var s = el("div",{class:"steps"});
+    ["1. Photograph","2. Check it","3. Confirm"].forEach(function(t,i){ s.appendChild(el("div",{class:(i===0?"done":"")},t)); });
+    v.appendChild(s);
+
+    var c = el("div",{class:"card center"});
+    var pv = el("div",{class:"preview"}); pv.appendChild(el("img",{src:dataUrl, alt:"The photo you took"}));
+    c.appendChild(pv);
+    c.appendChild(el("h3",null,"Reading it now"));
+    c.appendChild(el("p",{class:"muted"},"This takes a few seconds. Please hold on."));
+    c.appendChild(el("div",{class:"spin", style:"border-color:rgba(31,74,61,.25);border-top-color:var(--enamel);margin-top:.6rem"}));
+    v.appendChild(c);
+    speak("Reading it now. This takes a few seconds.");
+
+    var prompt =
+      "You are reading a photograph of a medicine box or a doctor's prescription for an older person. " +
+      "Transcribe ONLY what is actually printed. Do not invent anything. If a field is not clearly legible, leave it as an empty string. " +
+      "Reply with JSON only, no other words, in this exact shape:\n" +
+      '{"name":"","strength":"","dose":"","times":["HH:MM"],"note":"","perDose":1,"packCount":null}\n' +
+      'name = the medicine name. strength = e.g. "500mg". dose = e.g. "1 tablet twice a day". ' +
+      'times = sensible clock times in 24-hour HH:MM that match the stated frequency (once daily -> ["08:00"], ' +
+      'twice daily -> ["08:00","20:00"], three times -> ["08:00","14:00","20:00"]). ' +
+      'note = short instruction such as "after food" or "with water". perDose = number of tablets per dose as a number. ' +
+      'packCount = total tablets in the pack if printed, else null.';
+
+    askAIWithPhoto(prompt, dataUrl, function(out){
+      var j = grabJSON(out);
+      if(j && (j.name || j.dose)){
+        draft.name = j.name || ""; draft.strength = j.strength || "";
+        draft.dose = j.dose || ""; draft.note = j.note || "";
+        draft.perDose = (+j.perDose)>0 ? +j.perDose : 1;
+        draft.packCount = (j.packCount==null || j.packCount==="") ? null : (parseInt(j.packCount,10)||null);
+        if(Array.isArray(j.times) && j.times.length) draft.times = j.times.filter(function(t){ return /^\d{1,2}:\d{2}$/.test(t); });
+        if(!draft.times.length) draft.times = ["08:00"];
+      }
+      step = 2; paint();
+    }, function(){
+      step = 2; paint();
+      var n = el("div",{class:"note note-warn"});
+      n.innerHTML = "<strong>I could not read the photo just now</strong>The reading service was busy. " +
+        "No harm done &mdash; type the details straight from the box below and everything else works as normal.";
+      v.insertBefore(n, v.children[1]);
+      speak("I could not read the photo just now. Please type the details from the box.");
+    });
+  }
+
+  /* --- step 2: check --- */
+  function stepCheck(){
+    var n = el("div",{class:"note note-check"});
+    n.innerHTML = "<strong>Please read this against the box</strong>" +
+      (shot ? "I have filled in what I could read. " : "") +
+      "Every line can be changed. If anything does not match the label in front of you, correct it here &mdash; " +
+      "or leave it and ask your pharmacist first.";
+    v.appendChild(n);
+
+    if(shot){
+      var pv = el("div",{class:"preview"}); pv.appendChild(el("img",{src:shot, alt:"Your photo"}));
+      v.appendChild(pv);
+    }
+
+    var c = el("div",{class:"card"});
+    function field(labelTxt, key, ph, type){
+      c.appendChild(el("label",{class:"fl", for:"f_"+key}, labelTxt));
+      var i = el("input",{class:"inp", id:"f_"+key, type:type||"text", value:draft[key]==null?"":draft[key], placeholder:ph});
+      i.addEventListener("input", function(){ draft[key] = i.value; });
+      c.appendChild(i);
+      return i;
+    }
+    field("Name of the medicine","name","e.g. Metformin");
+    var g = el("div",{class:"grid2"});
+    var sc = el("div");
+    sc.appendChild(el("label",{class:"fl", for:"f_strength"},"Strength"));
+    var si = el("input",{class:"inp", id:"f_strength", value:draft.strength||"", placeholder:"e.g. 500mg"});
+    si.addEventListener("input",function(){ draft.strength=si.value; }); sc.appendChild(si);
+    var pc = el("div");
+    pc.appendChild(el("label",{class:"fl", for:"f_perDose"},"How many each time?"));
+    var pi = el("input",{class:"inp", id:"f_perDose", type:"number", min:"1", inputmode:"numeric", value:draft.perDose||1});
+    pi.addEventListener("input",function(){ draft.perDose = Math.max(1, parseInt(pi.value,10)||1); }); pc.appendChild(pi);
+    g.appendChild(sc); g.appendChild(pc);
+    c.appendChild(g);
+
+    field("What the label says","dose","e.g. 1 tablet twice a day");
+    field("Anything to remember","note","e.g. after food");
+
+    c.appendChild(el("label",{class:"fl"},"What times of day?"));
+    var tw = el("div",{id:"timeWrap"});
+    function paintTimes(){
+      tw.innerHTML = "";
+      draft.times.forEach(function(t, idx){
+        var rowT = el("div",{style:"display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem"});
+        var ti = el("input",{class:"inp", type:"time", value:t, style:"flex:1", "aria-label":"Time "+(idx+1)});
+        ti.addEventListener("change", function(){ draft.times[idx] = ti.value || "08:00"; });
+        rowT.appendChild(ti);
+        if(draft.times.length>1){
+          rowT.appendChild(el("button",{class:"btn btn-quiet", style:"min-width:60px",
+            "aria-label":"Remove this time",
+            onclick:function(){ draft.times.splice(idx,1); paintTimes(); }},"&#10005;"));
+        }
+        tw.appendChild(rowT);
+      });
+      tw.appendChild(el("button",{class:"btn btn-quiet btn-block", onclick:function(){
+        draft.times.push("20:00"); paintTimes();
+      }},"+ Add another time"));
+    }
+    paintTimes();
+    c.appendChild(tw);
+
+    c.appendChild(el("label",{class:"fl", for:"f_pack"},"How many tablets are in the pack now?"));
+    var pki = el("input",{class:"inp", id:"f_pack", type:"number", min:"0", inputmode:"numeric",
+      value: draft.packCount==null?"":draft.packCount, placeholder:"e.g. 28 &mdash; leave blank to skip"});
+    pki.addEventListener("input", function(){ draft.packCount = pki.value===""? null : Math.max(0,parseInt(pki.value,10)||0); });
+    c.appendChild(pki);
+    c.appendChild(el("p",{class:"muted", style:"margin-top:.4rem;font-size:.85rem"},
+      "I will count down from this each time you tick one off, and tell you when it is time to order more."));
+
+    v.appendChild(c);
+    v.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", onclick:function(){
+      if(!draft.name.trim()){ alert("Please put in the name of the medicine."); return; }
+      step = 3; paint();
+    }},"Next &mdash; read it back to me"));
+  }
+
+  /* --- step 3: confirm --- */
+  function stepConfirm(){
+    var c = el("div",{class:"card"});
+    c.appendChild(el("h2",null,"Is this right?"));
+    var sum = el("div",{style:"font-size:1.15rem;line-height:1.8;margin:.8rem 0"});
+    sum.innerHTML =
+      "<strong>" + esc(draft.name) + (draft.strength?" "+esc(draft.strength):"") + "</strong><br>" +
+      "Take <strong>" + (draft.perDose||1) + "</strong> at <strong>" +
+        draft.times.map(pretty).join("</strong>, <strong>") + "</strong>" +
+      (draft.note ? "<br>" + esc(draft.note) : "") +
+      (draft.dose ? '<br><span style="color:var(--slate);font-size:.95rem">Label says: ' + esc(draft.dose) + "</span>" : "") +
+      (draft.packCount!=null ? "<br><span style=\"color:var(--slate);font-size:.95rem\">" + draft.packCount +
+        " in the pack &mdash; about " + Math.floor(draft.packCount/((draft.times.length||1)*(draft.perDose||1))) + " days</span>" : "");
+    c.appendChild(sum);
+    v.appendChild(c);
+
+    var n = el("div",{class:"note note-check"});
+    n.innerHTML = "<strong>Last check</strong>Compare this with the label on the box one more time. " +
+      "If they disagree, go back and correct it &mdash; and ring your pharmacist if you are unsure. They are always happy to check.";
+    v.appendChild(n);
+
+    var r = el("div",{class:"btn-row"});
+    r.appendChild(el("button",{class:"btn btn-ghost btn-lg", onclick:function(){ step=2; paint(); }},"&larr; Change something"));
+    r.appendChild(el("button",{class:"btn btn-primary btn-lg", onclick:function(){
+      if(editing){
+        for(var k in draft) editing[k] = draft[k];
+      } else {
+        draft.startedISO = new Date().toISOString();
+        S.meds.push(draft);
+      }
+      save(); shot=null;
+      speak(draft.name + " is on your list now.");
+      route="meds"; render();
+    }},"Yes &mdash; that&rsquo;s right"));
+    v.appendChild(r);
+
+    speak(draft.name + ". Take " + (draft.perDose||1) + " at " + draft.times.map(pretty).join(" and ") +
+      ". " + (draft.note||"") + " Is that right?");
+  }
+
+  paint();
+};
+</script>
+<script>
+/* =====================================================================
+   KITCHEN — photograph the shelf, edit the list, get a meal for right now
+   ===================================================================== */
+var lastMeals = null, cookPlan = null;
+
+ROUTES.kitchen = function(v){
+  var busy = false;
+
+  var c = el("div",{class:"card"});
+  c.innerHTML = '<h2>What have you got in?</h2>' +
+    '<p>Open the fridge or the cupboard and take one photo. I will list what I can see, ' +
+    'you tidy the list, and then I will suggest something you can actually make.</p>';
+  var r = el("div",{class:"btn-row"});
+  r.appendChild(el("button",{class:"btn btn-primary btn-lg", onclick:function(){ pickPhoto(gotShelf, true); }},"&#128247;&nbsp; Photograph the shelf"));
+  r.appendChild(el("button",{class:"btn btn-ghost btn-lg", onclick:function(){ pickPhoto(gotShelf, false); }},"&#128193;&nbsp; Choose a photo"));
+  c.appendChild(r);
+  v.appendChild(c);
+
+  var listCard = el("div",{class:"card"});
+  v.appendChild(listCard);
+  paintList();
+
+  function paintList(){
+    listCard.innerHTML = "";
+    listCard.appendChild(el("h3",null,"On your shelf"));
+    if(!S.pantry.length){
+      listCard.appendChild(el("p",{class:"muted"},"Nothing listed yet. Photograph the shelf above, or type things in below."));
+    } else {
+      listCard.appendChild(el("p",{class:"muted"},"Tap anything that is not there to remove it."));
+      var ch = el("div",{class:"chips"});
+      S.pantry.forEach(function(item, i){
+        ch.appendChild(el("button",{class:"chip", onclick:function(){
+          S.pantry.splice(i,1); save(); paintList();
+        }}, esc(item) + ' <span class="x">&#10005;</span>'));
+      });
+      listCard.appendChild(ch);
+    }
+    listCard.appendChild(el("label",{class:"fl", for:"addIng"},"Add something by hand"));
+    var row = el("div",{style:"display:flex;gap:.6rem"});
+    var inp = el("input",{class:"inp", id:"addIng", placeholder:"e.g. eggs", style:"flex:1"});
+    var addBtn = el("button",{class:"btn btn-quiet", onclick:function(){
+      var t = inp.value.trim();
+      if(t){ S.pantry.push(t); save(); paintList(); setTimeout(function(){ var n=$("addIng"); if(n) n.focus(); },50); }
+    }},"Add");
+    inp.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); addBtn.click(); } });
+    row.appendChild(inp); row.appendChild(addBtn);
+    listCard.appendChild(row);
+
+    if(S.pantry.length){
+      listCard.appendChild(el("button",{class:"btn btn-brass btn-lg btn-block", style:"margin-top:1.1rem",
+        onclick:suggest},"&#127859;&nbsp; What can I make for " + mealNow() + "?"));
+    }
+  }
+
+  function gotShelf(dataUrl){
+    if(!dataUrl){ alert("That photo could not be opened. Please try another."); return; }
+    listCard.innerHTML = "";
+    var pv = el("div",{class:"preview"}); pv.appendChild(el("img",{src:dataUrl, alt:"Your shelf"}));
+    listCard.appendChild(pv);
+    listCard.appendChild(el("h3",null,"Looking at what you have"));
+    listCard.appendChild(el("div",{class:"spin", style:"border-color:rgba(31,74,61,.25);border-top-color:var(--enamel)"}));
+    speak("Looking at what you have.");
+
+    askAIWithPhoto(
+      "Look at this photo of a fridge, shelf or worktop. List only the food items you can clearly see. " +
+      "Use plain everyday names an older British person would use (e.g. \"eggs\", \"spinach\", \"tinned tomatoes\", \"cheddar\"). " +
+      "Do not guess at anything hidden or unclear. Reply with a JSON array of strings only, nothing else. " +
+      'Example: ["eggs","milk","spinach","cheddar"]',
+      dataUrl,
+      function(out){
+        var arr = grabJSON(out);
+        if(Array.isArray(arr) && arr.length){
+          arr.forEach(function(item){
+            item = String(item).trim().toLowerCase();
+            if(item && S.pantry.map(function(x){return x.toLowerCase();}).indexOf(item)===-1) S.pantry.push(item);
+          });
+          save();
+        }
+        paintList();
+        if(!Array.isArray(arr) || !arr.length){
+          var n = el("div",{class:"note note-warn"});
+          n.innerHTML = "<strong>I could not make out the food in that photo</strong>Try again in better light, or just type the items in below.";
+          listCard.insertBefore(n, listCard.firstChild);
+        } else {
+          speak("I found " + arr.length + " things. Have a look and remove anything I got wrong.");
+        }
+      },
+      function(){
+        paintList();
+        var n = el("div",{class:"note note-warn"});
+        n.innerHTML = "<strong>The photo reader was busy just now</strong>No matter &mdash; type what you have into the box below and everything still works.";
+        listCard.insertBefore(n, listCard.firstChild);
+        speak("The photo reader was busy. Please type what you have.");
+      }
+    );
+  }
+
+  function suggest(){
+    if(busy) return; busy = true;
+    var out = el("div",{class:"card center"});
+    out.appendChild(el("h3",null,"Thinking of three ideas"));
+    out.appendChild(el("div",{class:"spin", style:"border-color:rgba(31,74,61,.25);border-top-color:var(--enamel)"}));
+    v.appendChild(out);
+    out.scrollIntoView({behavior:"smooth", block:"center"});
+    speak("Thinking of three ideas.");
+
+    askAI([{role:"user", content:
+      "An older person living independently has these ingredients: " + S.pantry.join(", ") + ".\n" +
+      "Suggest three simple ideas for " + mealNow() + ". Rules: use mainly what they have; " +
+      "assume basics like salt, pepper, oil, butter, tea. Nothing needing more than one pan or a grill. " +
+      "Nothing requiring heavy lifting, sharp fiddly work or standing for more than about 20 minutes. " +
+      "Warm, plain British home cooking. Reply with JSON only, no other words:\n" +
+      '[{"title":"","why":"","minutes":15,"missing":[],"steps":["",""]}]\n' +
+      'title = the dish. why = one short friendly sentence on why it suits right now. ' +
+      'minutes = total time as a number. missing = anything they would need to buy (empty array if nothing). ' +
+      'steps = 5 to 8 steps, each ONE short plain sentence in the imperative, ' +
+      'and where a step involves waiting write the time inside it like "for 10 minutes".'
+    }], function(txt){
+      busy = false;
+      var arr = grabJSON(txt);
+      out.remove();
+      if(!Array.isArray(arr) || !arr.length){ fallbackIdeas(); return; }
+      lastMeals = arr;
+      paintIdeas(arr);
+    }, function(){
+      busy = false; out.remove(); fallbackIdeas();
+    });
+  }
+
+  function fallbackIdeas(){
+    var n = el("div",{class:"note note-warn"});
+    n.innerHTML = "<strong>The kitchen helper is busy right now</strong>Please try again in a minute. " +
+      "In the meantime, something on toast with a hot drink is never a bad answer.";
+    v.appendChild(n);
+    speak("The kitchen helper is busy right now. Please try again in a minute.");
+  }
+
+  function paintIdeas(arr){
+    v.appendChild(el("h2",{class:"section-title"},"Three ideas for " + mealNow()));
+    arr.forEach(function(m){
+      var c2 = el("div",{class:"card"});
+      c2.appendChild(el("h3",null, esc(m.title)));
+      c2.appendChild(el("p",null, esc(m.why||"")));
+      var meta = [];
+      if(m.minutes) meta.push("About " + m.minutes + " minutes");
+      if(m.steps && m.steps.length) meta.push(m.steps.length + " steps");
+      c2.appendChild(el("p",{class:"muted"}, meta.join(" &middot; ")));
+      if(m.missing && m.missing.length){
+        c2.appendChild(el("div",{class:"note note-check", style:"margin:.6rem 0 0"},
+          "<strong>You would need</strong>" + esc(m.missing.join(", "))));
+      }
+      c2.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:.9rem",
+        onclick:function(){ cookPlan = m; go("cook"); }},"Cook this with me &rarr;"));
+      v.appendChild(c2);
+    });
+    speak("Here are three ideas. " + arr.map(function(m){return m.title;}).join(". "));
+  }
+};
+
+/* ---------------- cooking mode: one step at a time ---------------- */
+ROUTES.cook = function(v){
+  if(!cookPlan){ route="kitchen"; render(); return; }
+  var i = 0, steps = cookPlan.steps || [], tick = null, left = 0;
+
+  function stepSeconds(txt){
+    var m = String(txt).match(/(\d+)\s*(?:-|to)?\s*(\d+)?\s*(minute|min|hour|second|sec)/i);
+    if(!m) return 0;
+    var n = parseInt(m[2]||m[1],10);
+    var unit = m[3].toLowerCase();
+    if(unit.indexOf("hour")===0) return n*3600;
+    if(unit.indexOf("sec")===0) return n;
+    return n*60;
+  }
+
+  function paint(){
+    if(tick){ clearInterval(tick); tick=null; }
+    v.innerHTML = "";
+    v.appendChild(el("h1",{class:"section-title", style:"margin-top:.4rem"}, esc(cookPlan.title)));
+
+    var box = el("div",{class:"cook"});
+    box.appendChild(el("div",{class:"of"},"Step " + (i+1) + " of " + steps.length));
+    box.appendChild(el("div",{class:"step"}, esc(steps[i])));
+
+    var secs = stepSeconds(steps[i]);
+    if(secs>0){
+      var tEl = el("div",{class:"timer"}, fmt(secs));
+      box.appendChild(tEl);
+      var tb = el("button",{class:"btn btn-brass", onclick:function(){
+        if(tick){ clearInterval(tick); tick=null; tb.innerHTML="&#9654;&nbsp; Start the timer"; return; }
+        left = left || secs;
+        tb.innerHTML = "&#10074;&#10074;&nbsp; Pause";
+        tick = setInterval(function(){
+          left--; tEl.textContent = fmt(left);
+          if(left<=0){
+            clearInterval(tick); tick=null; tEl.textContent="Time&rsquo;s up";
+            speak("That is your time up. " + (steps[i+1] ? "Next: " + steps[i+1] : "That is the last step."));
+            beep();
+          }
+        }, 1000);
+      }},"&#9654;&nbsp; Start the timer");
+      box.appendChild(tb);
+    }
+    v.appendChild(box);
+
+    var r = el("div",{class:"btn-row", style:"margin-top:1rem"});
+    if(i>0) r.appendChild(el("button",{class:"btn btn-ghost btn-lg", onclick:function(){ i--; left=0; paint(); }},"&larr; Back a step"));
+    r.appendChild(el("button",{class:"btn btn-quiet btn-lg", onclick:function(){ speak(steps[i]); }},"&#128266;&nbsp; Say it again"));
+    if(i < steps.length-1){
+      r.appendChild(el("button",{class:"btn btn-primary btn-lg", onclick:function(){ i++; left=0; paint(); }},"Next step &rarr;"));
+    } else {
+      r.appendChild(el("button",{class:"btn btn-primary btn-lg", onclick:function(){
+        if(tick) clearInterval(tick);
+        speak("That is it. Enjoy your " + cookPlan.title + ".");
+        route="kitchen"; render();
+      }},"All done &#10003;"));
+    }
+    v.appendChild(r);
+    speak(steps[i]);
+  }
+  function fmt(s){ s=Math.max(0,s); return Math.floor(s/60)+":"+pad(s%60); }
+  function beep(){
+    try{
+      var AC = window.AudioContext||window.webkitAudioContext; if(!AC) return;
+      var ctx = new AC();
+      [0,300,600].forEach(function(d){
+        setTimeout(function(){
+          var o=ctx.createOscillator(), g=ctx.createGain();
+          o.frequency.value=880; o.connect(g); g.connect(ctx.destination);
+          g.gain.setValueAtTime(.25, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+.25);
+          o.start(); o.stop(ctx.currentTime+.26);
+        }, d);
+      });
+    }catch(e){}
+  }
+  paint();
+};
+</script>
+<script>
+/* =====================================================================
+   A QUIET MINUTE — guided breathing and short grounding practices
+   Scripted locally so they are consistent, calm and always available.
+   ===================================================================== */
+var breathTimer = null;
+
+ROUTES.quiet = function(v){
+  v.appendChild(el("div",{class:"card"},
+    '<h2>A quiet minute</h2>' +
+    '<p>When the chest feels tight or the mind is racing, slow breathing settles the body ' +
+    'faster than almost anything else. Sit comfortably. I will count you through it.</p>' +
+    '<p class="muted">Breathe in through the nose, out through the mouth. If you feel light-headed, ' +
+    'stop and breathe normally.</p>'));
+
+  v.appendChild(el("h2",{class:"section-title"},"Guided breathing"));
+  var r = el("div",{class:"btn-row"});
+  [[1,"One minute"],[3,"Three minutes"],[5,"Five minutes"]].forEach(function(p){
+    r.appendChild(el("button",{class:"btn btn-primary btn-lg", onclick:function(){ breathe(p[0]); }}, p[1]));
+  });
+  v.appendChild(r);
+
+  v.appendChild(el("h2",{class:"section-title"},"Or something quicker"));
+  GROUNDING.forEach(function(gr){
+    var c = el("div",{class:"card"});
+    c.appendChild(el("h3",null, esc(gr.title)));
+    c.appendChild(el("p",{class:"muted"}, esc(gr.tag)));
+    c.appendChild(el("button",{class:"btn btn-quiet btn-block", style:"margin-top:.7rem",
+      onclick:function(){ runScript(gr.title, gr.lines, gr.pace||9); }},"Begin"));
+    v.appendChild(c);
+  });
+
+  function breathe(minutes){
+    var total = minutes*60, elapsed = 0;
+    var phases = [["Breathe in",4,"in"],["Hold",2,"hold"],["Breathe out",6,"out"],["Rest",1,"out"]];
+    var pi = 0, left = phases[0][1];
+
+    v.innerHTML = "";
+    v.appendChild(el("h1",{class:"section-title", style:"margin-top:.4rem"}, minutes + " minute" + (minutes>1?"s":"") + " of breathing"));
+    var stage = el("div",{class:"breathe-stage"});
+    var orb = el("div",{class:"orb"});
+    var word = el("div",{class:"breathe-word"},"Get comfortable");
+    var count = el("div",{class:"breathe-count"},"Starting in a moment");
+    stage.appendChild(orb); stage.appendChild(word); stage.appendChild(count);
+    v.appendChild(stage);
+
+    var ring = el("div",{class:"ring"}); var bar = el("i"); ring.appendChild(bar);
+    v.appendChild(ring);
+
+    var stop = el("button",{class:"btn btn-ghost btn-lg btn-block", style:"margin-top:1.4rem",
+      onclick:function(){ finish(true); }},"Stop");
+    v.appendChild(stop);
+
+    speak("Sit comfortably. Let your shoulders drop. We will begin.");
+
+    setTimeout(function(){
+      apply();
+      breathTimer = setInterval(function(){
+        left--; elapsed++;
+        bar.style.width = Math.min(100, elapsed/total*100) + "%";
+        if(elapsed>=total){ finish(false); return; }
+        if(left<=0){ pi = (pi+1)%phases.length; left = phases[pi][1]; apply(); }
+        else { count.textContent = left + "\u2026"; }
+      }, 1000);
+    }, 3500);
+
+    function apply(){
+      var p = phases[pi];
+      word.textContent = p[0];
+      count.textContent = p[1] + "\u2026";
+      orb.className = "orb " + p[2];
+      if(p[0]!=="Rest") speak(p[0]);
+    }
+    function finish(early){
+      if(breathTimer){ clearInterval(breathTimer); breathTimer=null; }
+      hush();
+      v.innerHTML = "";
+      var c = el("div",{class:"card center"});
+      c.innerHTML = "<h2>" + (early ? "Stopped there" : "That&rsquo;s the time") + "</h2>" +
+        "<p>" + (early ? "No matter at all. Even a few breaths help."
+                       : "Notice how your shoulders feel now compared with when you started.") + "</p>";
+      c.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:1rem",
+        onclick:function(){ route="quiet"; render(); }},"Back to the quiet minute"));
+      c.appendChild(el("button",{class:"btn btn-quiet btn-block", style:"margin-top:.6rem",
+        onclick:function(){ route="home"; stack=[]; render(); }},"Back to the start"));
+      v.appendChild(c);
+      speak(early ? "Stopped there. Even a few breaths help." : "That is the time. Well done.");
+    }
+  }
+};
+
+var GROUNDING = [
+  {title:"Five things around you", pace:11,
+   tag:"For when your thoughts are running away with you. Come back into the room through your senses.",
+   lines:[
+     "Sit still, and let your eyes wander slowly around the room.",
+     "Find five things you can see. Name each one quietly to yourself.",
+     "Now four things you can touch. The arm of the chair. Your own hands.",
+     "Three things you can hear. Perhaps a clock, or traffic, or nothing much at all.",
+     "Two things you can smell. And one thing you can taste.",
+     "You are here, in this room, and the room is safe.",
+     "Take one slow breath, and stay a moment longer."
+   ]},
+  {title:"Warm hands", pace:10,
+   tag:"A small, kind thing to do with your own hands when you feel unsettled.",
+   lines:[
+     "Rub your palms together, briskly, until they feel warm.",
+     "Now rest them gently over your closed eyes. Feel the warmth.",
+     "Let your jaw loosen. Let your shoulders drop away from your ears.",
+     "Stay here for three slow breaths.",
+     "Now lower your hands into your lap, and open your eyes slowly.",
+     "That warmth was yours all along."
+   ]},
+  {title:"Three good things", pace:12,
+   tag:"Two minutes at the end of the day. It genuinely lifts the mood over time.",
+   lines:[
+     "Think back over today, from waking up until now.",
+     "Find one small thing that went well. It can be very small indeed.",
+     "Hold it for a moment. Notice why it was good.",
+     "Now a second thing. Perhaps someone was kind, or the tea was hot.",
+     "And a third. Anything at all that you would not want to lose.",
+     "Three good things, in a single ordinary day. That is not nothing."
+   ]}
+];
+
+/* ---------------- shared scripted-session player ---------------- */
+function runScript(title, lines, pace){
+  var v = document.querySelector("#app .view"); if(!v) return;
+  var i = 0, t = null;
+  v.innerHTML = "";
+  v.appendChild(el("h1",{class:"section-title", style:"margin-top:.4rem"}, esc(title)));
+  var card = el("div",{class:"card"});
+  var line = el("div",{class:"med-line"}, esc(lines[0]));
+  card.appendChild(line);
+  var ring = el("div",{class:"ring"}); var bar = el("i"); ring.appendChild(bar); card.appendChild(ring);
+  v.appendChild(card);
+
+  var stop = el("button",{class:"btn btn-ghost btn-lg btn-block", style:"margin-top:1.2rem",
+    onclick:function(){ end(true); }},"Stop");
+  v.appendChild(stop);
+
+  speak(lines[0], true);
+  bar.style.width = (1/lines.length*100)+"%";
+  t = setInterval(function(){
+    i++;
+    if(i>=lines.length){ end(false); return; }
+    line.style.opacity = 0;
+    setTimeout(function(){
+      line.textContent = lines[i];
+      line.style.opacity = 1;
+      bar.style.width = ((i+1)/lines.length*100)+"%";
+      speak(lines[i], true);
+    }, 600);
+  }, pace*1000);
+
+  function end(early){
+    clearInterval(t); hush();
+    v.innerHTML = "";
+    var c = el("div",{class:"card center"});
+    c.innerHTML = "<h2>" + (early ? "Stopped there" : "Take your time getting up") + "</h2>" +
+      "<p class=\"muted\">" + (early ? "Come back whenever you like." : "There is no hurry at all.") + "</p>";
+    c.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:1rem",
+      onclick:function(){ render(); }},"Back"));
+    v.appendChild(c);
+    if(!early) speak("Take your time getting up. There is no hurry.");
+  }
+}
+
+/* =====================================================================
+   REST & MEDITATION — longer scripted sessions
+   ===================================================================== */
+var SESSIONS = [
+  {id:"morning", icon:"&#127749;", title:"Morning calm", mins:"4 minutes",
+   tag:"A gentle way to meet the day before it starts asking things of you.", pace:13,
+   lines:[
+     "Sit where you are. There is nowhere else you need to be for the next few minutes.",
+     "Let your eyes close, or rest them softly on a spot on the floor.",
+     "Take one long breath in through the nose. And let it go, slowly, through the mouth.",
+     "Feel the weight of your body in the chair. The floor beneath your feet holding you up.",
+     "Today has not happened yet. Whatever it holds, you will meet it one hour at a time.",
+     "Bring to mind one thing you are looking forward to, however ordinary.",
+     "A cup of tea. A voice on the telephone. A programme this evening.",
+     "Hold that for a moment. Let it be enough.",
+     "Now take a slower breath, and feel the room around you again.",
+     "When you are ready, open your eyes. The day can begin."
+   ]},
+  {id:"worry", icon:"&#127794;", title:"Setting down a worry", mins:"5 minutes",
+   tag:"For a thought that keeps circling and will not settle.", pace:14,
+   lines:[
+     "Settle into the chair. Let your hands rest open in your lap.",
+     "Breathe in slowly. And out, a little longer than the breath in.",
+     "Somewhere in your mind there is a worry going round and round.",
+     "You do not have to solve it now. You only have to notice it.",
+     "Give it a name. Just a few words. The money. My knee. Not hearing from them.",
+     "Now imagine setting it down on the table in front of you, like a heavy bag.",
+     "It is still there. You have not thrown it away. You have simply put it down.",
+     "Notice your shoulders without its weight. Let them drop.",
+     "Breathe in. And out, longer.",
+     "Some worries need a phone call tomorrow. Some need nothing at all.",
+     "You will know which is which more clearly when you are rested.",
+     "Take one more slow breath, and come back to the room."
+   ]},
+  {id:"body", icon:"&#129496;", title:"Easing the body", mins:"6 minutes",
+   tag:"A slow scan from head to feet. Good for stiffness and restless evenings.", pace:14,
+   lines:[
+     "Lie down or sit well back in the chair. Let yourself be held.",
+     "Start at the top of your head. Just notice it. Nothing to change.",
+     "Move down to your forehead. Let it smooth out.",
+     "Your jaw. Let the teeth part slightly. So much is held there.",
+     "Your neck and shoulders. Let them come down, away from your ears.",
+     "Your arms, all the way to the fingertips. Heavy, and warm.",
+     "Your chest, rising and falling without you doing anything at all.",
+     "Your stomach. Let it soften.",
+     "Your hips, and the whole weight of you pressing down into the chair.",
+     "Your knees. If there is an ache there, do not fight it. Just let it be noticed.",
+     "Your calves, your ankles, your feet. All the way to the toes.",
+     "The whole body, from head to feet, at rest.",
+     "Stay here as long as you like. There is nothing else to do."
+   ]},
+  {id:"sleep", icon:"&#127765;", title:"Winding down for sleep", mins:"6 minutes",
+   tag:"For the last few minutes before bed, or if you wake in the small hours.", pace:15,
+   lines:[
+     "You do not have to fall asleep. You only have to rest.",
+     "Let the pillow take the whole weight of your head.",
+     "Breathe in for four. And out for six. Slower out than in.",
+     "Again. In, two, three, four. Out, two, three, four, five, six.",
+     "If the mind wanders off, that is what minds do. Bring it gently back to the breath.",
+     "Think of somewhere you have felt entirely safe. A kitchen. A garden. A room from years ago.",
+     "Put yourself there. Notice the light in it.",
+     "There is nothing to decide tonight. Everything can wait until morning.",
+     "Let your feet be heavy. Your legs. Your hands.",
+     "Breathe out, slowly, one more time.",
+     "Rest is enough. Sleep will come when it comes."
+   ]}
+];
+
+ROUTES.rest = function(v){
+  v.appendChild(el("div",{class:"card"},
+    '<h2>Rest &amp; meditation</h2>' +
+    '<p>Four longer sessions. I will read each one aloud, slowly, with pauses. ' +
+    'Sit or lie somewhere comfortable and let the words do the work.</p>' +
+    '<p class="muted">Turn the speaker on in the corner if you would like to hear my voice.</p>'));
+
+  SESSIONS.forEach(function(s){
+    var c = el("div",{class:"card"});
+    var head = el("div",{style:"display:flex;gap:.9rem;align-items:center;margin-bottom:.5rem"});
+    head.appendChild(el("div",{style:"font-size:2rem;line-height:1;flex:none"}, s.icon));
+    var tx = el("div");
+    tx.appendChild(el("h3",{style:"margin:0"}, s.title));
+    tx.appendChild(el("div",{class:"muted", style:"font-size:.82rem"}, s.mins));
+    head.appendChild(tx);
+    c.appendChild(head);
+    c.appendChild(el("p",{class:"muted"}, esc(s.tag)));
+    c.appendChild(el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:.8rem",
+      onclick:function(){ S.lastRest = s.id; save(); runScript(s.title, s.lines, s.pace); }},"Begin"));
+    v.appendChild(c);
+  });
+};
+</script>
+<script>
+/* =====================================================================
+   SOMEONE TO TALK TO
+   Listens first. Never diagnoses. Gently points back towards real people
+   and real help. Distress is handled here, locally — never sent to a model.
+   ===================================================================== */
+
+var CRISIS = /\b(kill myself|killing myself|end my life|ending my life|take my own life|topping myself|top myself|suicide|suicidal|want to die|wish i was dead|wish i were dead|better off dead|no reason to live|not want to live|don'?t want to live|end it all|harm myself|hurt myself)\b/i;
+
+function crisisReply(){
+  return "I'm very glad you told me, and I don't want you to sit with this on your own.\n\n" +
+    "Please talk to a real person tonight — someone who can be properly with you. " +
+    "You can ring the Samaritans free, any hour of the day or night, on 116 123. In India, " +
+    "Tele-MANAS is free on 14416. If you are in immediate danger, please call your local emergency number.\n\n" +
+    "If there is family or a neighbour you could ring right now, please do. I will stay here with you " +
+    "either way — but a voice on the other end of the line will help more than I can.";
+}
+
+var COMPANION_PROMPT =
+  "You are a warm, unhurried companion for an older person using a simple app at home. " +
+  "You are clearly a computer companion, not a person, and you never pretend otherwise if asked.\n\n" +
+  "How to be:\n" +
+  "- Listen first. Reflect back what you heard in your own words before anything else.\n" +
+  "- Do not rush to fix things. Most of the time a person wants to be heard, not advised.\n" +
+  "- Short replies. Two or three sentences usually. Never a list unless they ask for one.\n" +
+  "- Plain, kind, everyday language. No jargon, no therapy-speak, no exclamation marks.\n" +
+  "- Ask at most one gentle question at the end, and only if it is natural.\n\n" +
+  "Firm limits:\n" +
+  "- You are not a doctor. If they mention pain, a new symptom, a fall, breathlessness, confusion or " +
+  "a change in health, take it seriously, say plainly that it is worth telling their doctor or " +
+  "pharmacist, and do not guess at a cause or a treatment.\n" +
+  "- Never advise on medicines or doses. Point them to their pharmacist.\n" +
+  "- If they sound lonely, acknowledge it honestly without brushing it off, and gently encourage " +
+  "contact with a real person they know.\n" +
+  "- You are not a substitute for company. Say so warmly if the moment calls for it.\n" +
+  "- Never claim to be, or speak as, a member of their family.";
+
+ROUTES.talk = function(v){
+  var busy = false, rec = null, listening = false;
+
+  var intro = el("div",{class:"card"});
+  intro.innerHTML = '<h2>I&rsquo;m listening</h2>' +
+    '<p>Tell me about your day, or the aches, or the quiet. There is no wrong thing to say ' +
+    'and no hurry at all. Speak into the microphone, or type if you would rather.</p>' +
+    '<p class="muted">I am a computer, not a person &mdash; but I do pay attention, ' +
+    'and I will never repeat any of this to anyone.</p>';
+  v.appendChild(intro);
+
+  var chat = el("div",{class:"chat"});
+  v.appendChild(chat);
+
+  if(!S.chat.length){
+    var opener = firstName()
+      ? "Hello " + firstName() + ". How has today been?"
+      : "Hello. How has today been?";
+    S.chat.push({who:"them", text:opener}); save();
+  }
+  paintChat();
+
+  function paintChat(){
+    chat.innerHTML = "";
+    S.chat.slice(-24).forEach(function(m){
+      chat.appendChild(el("div",{class:"bub "+(m.who==="me"?"me":"them")}, esc(m.text).replace(/\n/g,"<br>")));
+    });
+    chat.scrollIntoView({behavior:"smooth", block:"end"});
+  }
+
+  var starters = ["I&rsquo;ve had a quiet day","My knee is playing up","I&rsquo;m missing someone","I can&rsquo;t sleep"];
+  var ch = el("div",{class:"chips"});
+  starters.forEach(function(s){
+    ch.appendChild(el("button",{class:"chip", onclick:function(){ send(s.replace(/&rsquo;/g,"'")); }}, s));
+  });
+  v.appendChild(ch);
+
+  var box = el("div",{style:"display:flex;gap:.7rem;align-items:flex-end"});
+  var ta = el("textarea",{class:"inp", placeholder:"Say anything at all\u2026", style:"flex:1;min-height:70px"});
+  ta.addEventListener("keydown", function(e){
+    if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); if(ta.value.trim()) send(ta.value.trim()); }
+  });
+  box.appendChild(ta);
+  var micBtn = el("button",{class:"mic", "aria-label":"Speak instead of typing", onclick:toggleMic},"&#127908;");
+  box.appendChild(micBtn);
+  v.appendChild(box);
+
+  var sendBtn = el("button",{class:"btn btn-primary btn-lg btn-block", style:"margin-top:.8rem",
+    onclick:function(){ if(ta.value.trim()) send(ta.value.trim()); }},"Send");
+  v.appendChild(sendBtn);
+
+  var hint = el("p",{class:"muted", style:"text-align:center;margin-top:.7rem;font-size:.85rem"},
+    SR ? "Tap the red microphone and just talk." : "Speaking aloud is not supported in this browser &mdash; please type instead.");
+  v.appendChild(hint);
+
+  function toggleMic(){
+    if(listening){ if(rec) try{ rec.stop(); }catch(e){} return; }
+    if(!SR){ alert("This browser cannot listen. Please type instead."); return; }
+    hush();
+    listening = true; micBtn.classList.add("on"); micBtn.innerHTML = "&#9632;";
+    hint.textContent = "Listening\u2026 speak now.";
+    rec = listen(function(text){ ta.value = text; }, function(err){
+      listening = false; micBtn.classList.remove("on"); micBtn.innerHTML = "&#127908;";
+      hint.textContent = err ? "I did not catch that. Try again, or type it." : "Tap the red microphone and just talk.";
+      if(!err && ta.value.trim()) send(ta.value.trim());
+    });
+  }
+
+  function send(text){
+    if(busy) return;
+    ta.value = "";
+    S.chat.push({who:"me", text:text}); save(); paintChat();
+
+    if(CRISIS.test(text)){
+      var r = crisisReply();
+      S.chat.push({who:"them", text:r}); save(); paintChat();
+      speak("I'm very glad you told me. Please talk to a real person tonight. You can ring the Samaritans free on 116 123, any hour.");
+      return;
+    }
+
+    busy = true; sendBtn.disabled = true;
+    var typing = el("div",{class:"bub them typing"},"listening\u2026");
+    chat.appendChild(typing);
+    typing.scrollIntoView({behavior:"smooth", block:"end"});
+
+    var msgs = [{role:"system", content: COMPANION_PROMPT + peopleContext()}];
+    S.chat.slice(-10).forEach(function(m){
+      msgs.push({role: m.who==="me" ? "user" : "assistant", content: m.text});
+    });
+
+    askAI(msgs, function(out){
+      busy = false; sendBtn.disabled = false; typing.remove();
+      var clean = String(out).trim();
+      S.chat.push({who:"them", text:clean}); save(); paintChat();
+      speak(clean);
+    }, function(){
+      busy = false; sendBtn.disabled = false; typing.remove();
+      var f = "I have lost my connection for a moment, so I cannot answer properly. " +
+              "But I did hear you. Try me again shortly.";
+      S.chat.push({who:"them", text:f}); save(); paintChat();
+      speak(f);
+    });
+  }
+
+  function peopleContext(){
+    if(!S.faces.length) return "";
+    return "\n\nPeople they have told you about (use their names naturally, and suggest ringing " +
+      "or writing to them when loneliness comes up — but never speak as them): " +
+      S.faces.map(function(f){
+        return f.name + " (" + (f.rel||"family") + ")" + (f.notes ? " — " + f.notes : "");
+      }).join("; ");
+  }
+
+  v.appendChild(el("div",{class:"note note-calm", style:"margin-top:1.4rem"},
+    "<strong>If things feel heavy</strong>Talking to a computer helps a little. Talking to a person helps more. " +
+    "The Samaritans are free on 116 123 in the UK, any hour of the day or night. In India, Tele-MANAS is free on 14416."));
+
+  v.appendChild(el("button",{class:"btn btn-quiet btn-block", style:"margin-top:1rem", onclick:function(){
+    if(confirm("Clear this conversation?")){ S.chat = []; save(); render(); }
+  }},"Clear this conversation"));
+};
+
+/* =====================================================================
+   PEOPLE WHO MATTER
+   Photos and details of real loved ones, so the companion knows who you
+   care about and can help you reach them. It never impersonates them.
+   ===================================================================== */
+
+ROUTES.faces = function(v){
+  v.appendChild(el("div",{class:"card"},
+    '<h2>People who matter</h2>' +
+    '<p>Add the people you love &mdash; a photograph, their name, and anything you would like ' +
+    'me to remember about them. I will use it to help you stay in touch.</p>' +
+    '<p class="muted">Your companion will always be itself. It will never pretend to be your ' +
+    'son, your daughter or anyone else. Their faces are here so that reaching the real person ' +
+    'is only ever one tap away.</p>'));
+
+  if(S.faces.length){
+    S.faces.forEach(function(f){
+      var c = el("div",{class:"card"});
+      var row = el("div",{class:"facebig"});
+      var ph = el("div",{class:"ph"});
+      if(f.photo) ph.appendChild(el("img",{src:f.photo, alt:esc(f.name)}));
+      else ph.textContent = (f.name||"?").charAt(0).toUpperCase();
+      row.appendChild(ph);
+      var tx = el("div");
+      tx.appendChild(el("h3",{style:"margin:0"}, esc(f.name)));
+      tx.appendChild(el("div",{class:"muted"}, esc(f.rel||"")));
+      if(f.notes) tx.appendChild(el("p",{class:"muted", style:"font-size:.86rem;margin-top:.3rem"}, esc(f.notes)));
+      row.appendChild(tx);
+      c.appendChild(row);
+      c.appendChild(el("button",{class:"btn btn-primary btn-block", onclick:function(){ go("face",{id:f.id}); }},"Open"));
+      v.appendChild(c);
+    });
+  }
+
+  v.appendChild(el("button",{class:"btn btn-brass btn-lg btn-block", style:"margin-top:.6rem",
+    onclick:function(){ go("faceadd"); }},"+ Add someone"));
+};
+
+ROUTES.face = function(v, opts){
+  var f = S.faces.filter(function(x){return x.id===opts.id;})[0];
+  if(!f){ route="faces"; render(); return; }
+  $("barTitle").textContent = f.name;
+
+  var c = el("div",{class:"card"});
+  var row = el("div",{class:"facebig"});
+  var ph = el("div",{class:"ph"});
+  if(f.photo) ph.appendChild(el("img",{src:f.photo, alt:esc(f.name)}));
+  else ph.textContent = (f.name||"?").charAt(0).toUpperCase();
+  row.appendChild(ph);
+  var tx = el("div");
+  tx.appendChild(el("h2",{style:"margin:0"}, esc(f.name)));
+  tx.appendChild(el("div",{class:"muted"}, esc(f.rel||"")));
+  row.appendChild(tx);
+  c.appendChild(row);
+  if(f.notes) c.appendChild(el("p",null, esc(f.notes)));
+  v.appendChild(c);
+
+  if(f.phone){
+    var r = el("div",{class:"btn-row"});
+    r.appendChild(el("a",{class:"btn btn-primary btn-lg", href:"tel:"+encodeURIComponent(f.phone),
+      style:"text-decoration:none"},"&#128222;&nbsp; Ring " + esc(f.name.split(/\s+/)[0])));
+    r.appendChild(el("a",{class:"btn btn-ghost btn-lg", href:"sms:"+encodeURIComponent(f.phone),
+      style:"text-decoration:none"},"&#128172;&nbsp; Text them"));
+    v.appendChild(r);
+  }
+
+  var w = el("div",{class:"card", style:"margin-top:1rem"});
+  w.innerHTML = '<h3>Help me write to them</h3>' +
+    '<p class="muted">Tell me roughly what you want to say and I will put it into words. ' +
+    'You read it, change anything you like, and send it yourself &mdash; in your name, not mine.</p>';
+  var ta = el("textarea",{class:"inp", placeholder:"e.g. thank her for the flowers, tell her the garden is doing well, ask about the children"});
+  w.appendChild(ta);
+  var outBox = el("div");
+  w.appendChild(el("button",{class:"btn btn-brass btn-block", style:"margin-top:.8rem", onclick:function(){
+    var idea = ta.value.trim();
+    if(!idea){ alert("Tell me roughly what you would like to say first."); return; }
+    outBox.innerHTML = '<div class="spin" style="border-color:rgba(31,74,61,.25);border-top-color:var(--enamel);margin-top:1rem"></div>';
+    askAI([{role:"user", content:
+      "Write a short, warm message from an older person to their " + (f.rel||"family member") + ", " + f.name + ".\n" +
+      "What they want to say: " + idea + "\n" +
+      (f.notes ? "Background about " + f.name + ": " + f.notes + "\n" : "") +
+      "Rules: write it in the older person's own voice, plain and affectionate, not flowery. " +
+      "Four sentences at most. No subject line, no greeting like 'Dear' unless it fits naturally, " +
+      "no sign-off placeholder. Return only the message itself."
+    }], function(txt){
+      outBox.innerHTML = "";
+      var d = el("div",{class:"note note-calm", style:"margin-top:1rem;font-size:1.02rem"}, esc(txt.trim()).replace(/\n/g,"<br>"));
+      outBox.appendChild(d);
+      var rr = el("div",{class:"btn-row", style:"margin-top:.6rem"});
+      rr.appendChild(el("button",{class:"btn btn-quiet", onclick:function(){
+        if(navigator.clipboard) navigator.clipboard.writeText(txt.trim());
+        speak("Copied. You can paste it into your messages.");
+        alert("Copied. Paste it into your messages or email.");
+      }},"Copy it"));
+      if(f.phone) rr.appendChild(el("a",{class:"btn btn-primary", style:"text-decoration:none",
+        href:"sms:"+encodeURIComponent(f.phone)+"?body="+encodeURIComponent(txt.trim())},"Open in messages"));
+      outBox.appendChild(rr);
+      speak(txt.trim());
+    }, function(){
+      outBox.innerHTML = '<div class="note note-warn" style="margin-top:1rem"><strong>I could not write it just now</strong>The service was busy. Try again in a moment.</div>';
+    });
+  }},"Write it for me"));
+  w.appendChild(outBox);
+  v.appendChild(w);
+
+  var rb = el("div",{class:"btn-row", style:"margin-top:1rem"});
+  rb.appendChild(el("button",{class:"btn btn-quiet", onclick:function(){ go("faceadd",{edit:f.id}); }},"Change details"));
+  rb.appendChild(el("button",{class:"btn btn-quiet", onclick:function(){
+    if(confirm("Remove " + f.name + "?")){ S.faces = S.faces.filter(function(x){return x.id!==f.id;}); save(); route="faces"; render(); }
+  }},"Remove"));
+  v.appendChild(rb);
+};
+
+ROUTES.faceadd = function(v, opts){
+  var ed = opts.edit ? S.faces.filter(function(x){return x.id===opts.edit;})[0] : null;
+  var d = ed ? JSON.parse(JSON.stringify(ed)) : {id:uid(), name:"", rel:"", notes:"", phone:"", photo:""};
+
+  var c = el("div",{class:"card"});
+  c.appendChild(el("h2",null, ed ? "Change details" : "Add someone"));
+
+  var pw = el("div",{class:"center", style:"margin:1rem 0"});
+  var ph = el("div",{class:"ph", style:"width:130px;height:130px;border-radius:50%;overflow:hidden;border:4px solid var(--brass-br);background:var(--sage);display:grid;place-items:center;margin:0 auto;font-family:'Zilla Slab',serif;font-size:2.6rem;color:var(--enamel)"});
+  function paintPh(){
+    ph.innerHTML = "";
+    if(d.photo) ph.appendChild(el("img",{src:d.photo, alt:"", style:"width:100%;height:100%;object-fit:cover"}));
+    else ph.textContent = (d.name||"?").charAt(0).toUpperCase();
+  }
+  paintPh();
+  pw.appendChild(ph);
+  pw.appendChild(el("button",{class:"btn btn-quiet", style:"margin-top:.8rem", onclick:function(){
+    pickPhoto(function(u){ if(u){ d.photo = u; paintPh(); } }, false);
+  }},"&#128247;&nbsp; " + (d.photo ? "Change the photo" : "Add a photo")));
+  c.appendChild(pw);
+
+  function field(lbl, key, ph2, type, after){
+    c.appendChild(el("label",{class:"fl", for:"ff_"+key}, lbl));
+    var i = el(type==="area"?"textarea":"input",{class:"inp", id:"ff_"+key, placeholder:ph2,
+      type: type==="tel"?"tel":"text"});
+    i.value = d[key]||"";
+    i.addEventListener("input", function(){
+      d[key]=i.value;
+      if(key==="name" && !d.photo) paintPh();
+      if(after) after();
+    });
+    c.appendChild(i);
+  }
+  var addLabel = null;
+  field("Their name","name","e.g. Priya", null, function(){
+    if(addLabel) addLabel.innerHTML = (ed ? "Save the changes" : "Add " + (d.name.trim()||"them"));
+  });
+  field("Who they are to you","rel","e.g. my daughter");
+  field("Telephone number","phone","So you can ring them from here","tel");
+  field("Anything I should remember","notes","e.g. lives in Pune, loves cricket, usually rings on Sundays","area");
+
+  v.appendChild(c);
+  addLabel = el("button",{class:"btn btn-primary btn-lg btn-block", onclick:function(){
+    if(!d.name.trim()){ alert("Please put in their name."); return; }
+    if(ed){ for(var k in d) ed[k]=d[k]; } else { S.faces.push(d); }
+    save(); route="faces"; render();
+  }}, ed ? "Save the changes" : "Add " + (d.name.trim()||"them"));
+  v.appendChild(addLabel);
+};
+</script>
+<script>
+/* =====================================================================
+   CONTROLS + BOOT
+   ===================================================================== */
+var SIZES = [1, 1.15, 1.32];
+
+function applySize(){
+  document.documentElement.style.setProperty("--scale", String(SIZES[S.size==null?0:S.size] || 1));
+}
+function applyVoice(){
+  var b = $("voiceBtn");
+  b.setAttribute("aria-pressed", S.voice ? "true" : "false");
+  b.innerHTML = S.voice ? "&#128266;" : "&#128263;";
+  b.title = S.voice ? "Reading aloud is on" : "Reading aloud is off";
+  b.setAttribute("aria-label", b.title);
+  if(!S.voice) hush();
+}
+
+$("voiceBtn").addEventListener("click", function(){
+  S.voice = !S.voice; save(); applyVoice();
+  if(S.voice) speak("Reading aloud is on.", true);
+});
+
+$("sizeBtn").addEventListener("click", function(){
+  S.size = ((S.size||0) + 1) % SIZES.length; save(); applySize();
+  var names = ["normal","large","largest"];
+  speak("Text size " + names[S.size], true);
+});
+
+$("backBtn").addEventListener("click", back);
+
+window.addEventListener("popstate", function(){ if(route!=="home") back(); });
+
+/* keep the ribbon's "now" marker honest without redrawing the whole screen */
+setInterval(function(){
+  if(route!=="home") return;
+  var m = document.querySelector(".nowmark");
+  if(m){
+    var d = new Date();
+    m.style.left = ((d.getHours()*60 + d.getMinutes())/1440*100) + "%";
+  }
+}, 60000);
+
+applySize();
+applyVoice();
+render();
+</script>
+</body>
+</html>
