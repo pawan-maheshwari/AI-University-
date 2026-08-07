@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Communicating with Impact — Interactive Self-Paced Course</title>
+<meta name="description" content="An eight-module interactive course in communication skills: manipulable diagrams, scored labs, builders and trainers for clarity, listening, presence, storytelling, writing, hard conversations and influence." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101418;--slate:#4B5661;--mute:#78838E;--rule:#DCE2E8;--wash:#F1F4F7;--paper:#FFFFFF;
+  --crimson:#9E1B32;--crimson-dark:#771324;--gold:#B8862F;--green:#1F7A4D;--red:#B4291F;
+  --serif:"Source Serif 4",Georgia,serif;--sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:116px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.18;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4.4vw,3.2rem)}h2{font-size:clamp(1.55rem,2.8vw,2.1rem)}h3{font-size:1.18rem}
+p{margin:0 0 1rem}a{color:var(--crimson);text-decoration:none}a:hover{text-decoration:underline}
+:focus-visible{outline:2.5px solid var(--crimson);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:.71rem;letter-spacing:.16em;text-transform:uppercase;color:var(--crimson);font-weight:500;display:block;margin:0 0 .8rem}
+.lede{font-size:1.1rem;color:var(--slate)}
+.utility{background:var(--ink);color:#C9D1D9;font-size:.78rem}
+.utility .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:38px;flex-wrap:wrap}
+.utility a{color:#fff;opacity:.9}
+.masthead{border-bottom:1px solid var(--rule)}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:74px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:38px;height:38px;border:1.5px solid var(--crimson);border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;color:var(--crimson);font-weight:600}
+.brand-name{font-family:var(--serif);font-size:1.05rem;font-weight:600;line-height:1.1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.mast-nav{display:flex;gap:24px;font-size:.85rem;font-weight:500}
+.mast-nav a{color:var(--slate)}
+.crumb{font-size:.78rem;color:var(--mute);padding:14px 0 0}.crumb a{color:var(--mute)}
+.hero{padding:26px 0 50px}
+.hero-grid{display:grid;grid-template-columns:1.55fr .95fr;gap:50px;align-items:start}
+.tagrow{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--rule);padding:5px 10px;color:var(--slate)}
+.tag.new{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.units{display:flex;gap:26px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--rule)}
+.unit-k{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:block}
+.unit-v{font-family:var(--serif);font-size:1.05rem;font-weight:600}
+.enroll{border:1px solid var(--rule);border-top:3px solid var(--crimson);padding:24px;position:sticky;top:118px}
+.enroll h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:500;margin-bottom:14px}
+.enroll dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:.88rem}
+.enroll dt{color:var(--mute);font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding-top:3px}
+.enroll dd{margin:0;font-weight:500;text-align:right}
+.btn{display:block;width:100%;text-align:center;padding:12px 16px;font-weight:600;font-size:.9rem;border:1px solid var(--crimson);cursor:pointer;font-family:var(--sans);margin-top:10px;transition:.16s}
+.btn-primary{background:var(--crimson);color:#fff}.btn-primary:hover{background:var(--crimson-dark);text-decoration:none}
+.btn-ghost{background:transparent;color:var(--crimson)}.btn-ghost:hover{background:var(--wash);text-decoration:none}
+.prog{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font-size:.82rem;color:var(--slate)}
+.bar{height:6px;background:var(--rule);margin-top:8px}
+.bar span{display:block;height:100%;background:var(--gold);width:0;transition:width .35s}
+.subnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);border-bottom:1px solid var(--rule);backdrop-filter:blur(6px)}
+.subnav .wrap{display:flex;overflow-x:auto;scrollbar-width:none}
+.subnav .wrap::-webkit-scrollbar{display:none}
+.subnav a{padding:14px 16px;font-size:.83rem;font-weight:500;color:var(--slate);white-space:nowrap;border-bottom:2px solid transparent}
+.subnav a:first-child{padding-left:0}
+.subnav a.active{color:var(--crimson);border-bottom-color:var(--crimson)}
+section{padding:60px 0;border-top:1px solid var(--rule)}
+section.tint{background:var(--wash);border-top:none}
+.sec-head{max-width:66ch;margin-bottom:32px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.card{background:var(--paper);padding:26px 22px}
+.card .num{font-family:var(--mono);font-size:.72rem;color:var(--crimson);letter-spacing:.1em}
+.card h3{margin:10px 0 8px;font-size:1.05rem}.card p{font-size:.89rem;color:var(--slate);margin:0}
+ul.tick{list-style:none;padding:0;margin:0}
+ul.tick li{position:relative;padding-left:24px;margin-bottom:11px;color:var(--slate)}
+ul.tick li::before{content:"";position:absolute;left:0;top:.62em;width:11px;height:1.5px;background:var(--crimson)}
+ul.tick li b{color:var(--ink);font-weight:600}
+/* ---- diagnostic ---- */
+.diag{display:grid;grid-template-columns:1.25fr .95fr;gap:42px;align-items:start}
+.qgroup{border:1px solid var(--rule);background:var(--paper);margin-bottom:10px}
+.qgroup summary{padding:13px 16px;cursor:pointer;font-weight:600;font-size:.94rem;display:flex;justify-content:space-between;gap:12px;list-style:none}
+.qgroup summary::-webkit-details-marker{display:none}
+.qgroup .dim{font-family:var(--mono);font-size:.68rem;color:var(--crimson);letter-spacing:.1em}
+.qbody{padding:2px 16px 14px;border-top:1px solid var(--rule)}
+.q{padding:10px 0;border-bottom:1px dotted var(--rule)}.q:last-child{border-bottom:none}
+.q p{font-size:.89rem;margin:0 0 8px;color:var(--slate)}
+.scale{display:flex;gap:6px}
+.scale label{flex:1;text-align:center;border:1px solid var(--rule);padding:6px 0;font-family:var(--mono);font-size:.78rem;cursor:pointer;color:var(--mute);position:relative}
+.scale input{position:absolute;opacity:0;width:0;height:0}
+.scale span{display:block}
+.scale input:checked ~ span{color:#fff;font-weight:600}
+.scale label:has(input:checked){background:var(--crimson);border-color:var(--crimson);color:#fff}
+.profile{border:1px solid var(--rule);background:var(--paper);padding:22px;position:sticky;top:118px}
+.legend{display:grid;grid-template-columns:1fr auto;gap:5px 12px;font-size:.84rem;margin-top:14px}
+.legend .lv{font-family:var(--mono);color:var(--crimson);font-weight:500}
+.verdict{margin-top:14px;padding-top:13px;border-top:1px solid var(--rule);font-size:.87rem;color:var(--slate)}
+/* ---- module ---- */
+.mod{border:1px solid var(--rule);border-left:3px solid var(--rule);background:var(--paper);margin-bottom:12px}
+.mod[open]{border-left-color:var(--crimson)}
+.mod.done{border-left-color:var(--gold)}
+.mod>summary{display:flex;align-items:flex-start;gap:18px;padding:19px 20px;cursor:pointer;list-style:none}
+.mod>summary::-webkit-details-marker{display:none}
+.mnum{font-family:var(--mono);font-size:.95rem;color:var(--crimson);font-weight:600;min-width:32px;padding-top:2px}
+.mtitle{flex:1}.mtitle h3{font-size:1.13rem;margin-bottom:3px}.mtitle p{font-size:.87rem;color:var(--slate);margin:0}
+.mmeta{font-family:var(--mono);font-size:.7rem;color:var(--mute);white-space:nowrap;padding-top:5px;text-align:right}
+.mmeta b{display:block;color:var(--gold)}
+.mbody{padding:6px 20px 22px;border-top:1px solid var(--rule);margin-top:4px}
+.block{margin-top:26px}
+.block>h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:500;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.fw{margin-bottom:14px}
+.fw .fwn{font-family:var(--serif);font-weight:600;font-size:1.01rem}
+.fw p{font-size:.91rem;color:var(--slate);margin:3px 0 0}
+.ex{font-family:var(--mono);font-size:.81rem;background:var(--wash);padding:8px 11px;margin-top:7px;border-left:2px solid var(--gold);display:block}
+ol.drills{padding-left:20px;margin:0;font-size:.91rem;color:var(--slate)}
+ol.drills li{margin-bottom:8px}ol.drills b{color:var(--ink)}
+.selfcheck{font-size:.9rem;color:var(--slate);font-style:italic;padding-left:20px}
+.selfcheck li{margin-bottom:5px}
+.checkline{display:flex;align-items:center;gap:10px;margin-top:22px;padding-top:14px;border-top:1px solid var(--rule);font-size:.9rem}
+.checkline input{width:17px;height:17px;accent-color:var(--gold)}
+/* ---- visual + lab shells ---- */
+.viz{border:1px solid var(--rule);background:linear-gradient(180deg,#FBFCFD,#F4F7FA);padding:20px;margin-bottom:14px}
+.viz-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.viz-head h5{font-family:var(--serif);font-size:1.02rem;font-weight:600;margin:0}
+.viz-hint{font-size:.78rem;color:var(--mute);font-family:var(--mono)}
+.lab{border:1px solid var(--rule);border-top:3px solid var(--gold);background:var(--paper);padding:20px;margin-bottom:14px}
+.lab-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.lab-head h5{font-family:var(--serif);font-size:1.02rem;margin:0}
+.lab-kind{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.lab-prompt{font-size:.9rem;color:var(--slate);margin-bottom:14px}
+.score{font-family:var(--mono);font-size:.78rem;color:var(--slate)}
+.score b{color:var(--ink)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--rule);color:var(--mute)}
+.pill.ok{color:var(--green);border-color:var(--green)}
+.pill.no{color:var(--red);border-color:var(--red)}
+/* sort game */
+.sortitem{border:1px solid var(--rule);padding:12px 14px;margin-bottom:9px;background:var(--paper)}
+.sortitem .txt{font-size:.92rem;margin-bottom:9px}
+.sortbtns{display:flex;gap:8px;flex-wrap:wrap}
+.sortbtns button{font-family:var(--sans);font-size:.82rem;font-weight:500;padding:7px 14px;border:1px solid var(--rule);background:var(--paper);cursor:pointer}
+.sortbtns button:hover{border-color:var(--crimson);color:var(--crimson)}
+.sortitem.right{border-left:3px solid var(--green);background:#F4FAF6}
+.sortitem.wrong{border-left:3px solid var(--red);background:#FDF5F4}
+.why{font-size:.84rem;color:var(--slate);margin-top:9px;padding-top:8px;border-top:1px dotted var(--rule)}
+.why b{color:var(--ink)}
+/* order game */
+.orderpool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.orderpool button{font-family:var(--sans);font-size:.85rem;padding:8px 13px;border:1px solid var(--rule);background:var(--paper);cursor:pointer;text-align:left}
+.orderpool button:disabled{opacity:.32;cursor:default}
+.orderslots{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.slot{border:1px dashed var(--rule);padding:9px 12px;font-size:.88rem;color:var(--mute);display:flex;gap:10px;align-items:center;min-height:40px}
+.slot .n{font-family:var(--mono);font-size:.72rem;color:var(--crimson)}
+.slot.filled{border-style:solid;color:var(--ink)}
+.slot.ok{border-color:var(--green);background:#F4FAF6}
+.slot.bad{border-color:var(--red);background:#FDF5F4}
+/* quiz */
+.quizq{margin-bottom:16px;padding-bottom:14px;border-bottom:1px dotted var(--rule)}
+.quizq:last-child{border-bottom:none}
+.quizq p.qt{font-size:.92rem;font-weight:500;margin:0 0 4px}
+.quizq .ctx{font-family:var(--mono);font-size:.8rem;background:var(--wash);padding:8px 11px;margin:0 0 10px;display:block;border-left:2px solid var(--rule)}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opts button{text-align:left;font-family:var(--sans);font-size:.88rem;padding:9px 12px;border:1px solid var(--rule);background:var(--paper);cursor:pointer}
+.opts button:hover{border-color:var(--crimson)}
+.opts button.picked-ok{border-color:var(--green);background:#F4FAF6}
+.opts button.picked-no{border-color:var(--red);background:#FDF5F4}
+.opts button.reveal{border-color:var(--green)}
+/* builder */
+.bform{display:grid;gap:10px;margin-bottom:14px}
+.bfield label{display:block;font-family:var(--mono);font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.bfield input,.bfield textarea,textarea.plain{width:100%;font-family:var(--sans);font-size:.92rem;padding:9px 11px;border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+.bfield textarea,textarea.plain{resize:vertical;min-height:64px;line-height:1.5}
+.bout{background:var(--ink);color:#E6EAEE;padding:16px 18px;font-family:var(--mono);font-size:.83rem;line-height:1.65;white-space:pre-wrap;min-height:60px}
+.bout .ph{color:#6B7783}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.rowbtns button{font-family:var(--sans);font-size:.83rem;font-weight:500;padding:8px 14px;border:1px solid var(--crimson);background:var(--paper);color:var(--crimson);cursor:pointer}
+.rowbtns button.solid{background:var(--crimson);color:#fff}
+/* meters / trainers */
+.meterwrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.gauge{border:1px solid var(--rule);padding:14px;background:var(--paper);text-align:center}
+.gauge .big{font-family:var(--mono);font-size:2rem;font-weight:600;line-height:1.1}
+.gauge .lbl{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.tapbtn{width:100%;padding:26px;font-family:var(--serif);font-size:1.3rem;font-weight:600;border:2px solid var(--crimson);background:var(--paper);color:var(--crimson);cursor:pointer;user-select:none}
+.tapbtn:active{background:var(--crimson);color:#fff}
+.dials{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px}
+.dial label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.dial label b{color:var(--crimson)}
+input[type=range]{width:100%;accent-color:var(--crimson)}
+.passage{font-family:var(--serif);font-size:1.02rem;line-height:1.75;border-left:2px solid var(--gold);padding-left:14px;margin-bottom:14px}
+.verdictbox{margin-top:12px;padding:11px 13px;background:var(--wash);font-size:.87rem;color:var(--slate);border-left:2px solid var(--crimson)}
+.verdictbox b{color:var(--ink)}
+.svgwrap{overflow-x:auto}
+svg{max-width:100%;height:auto;display:block}
+.seg{display:flex;gap:0;border:1px solid var(--rule);margin-bottom:14px;flex-wrap:wrap}
+.seg button{flex:1;min-width:110px;font-family:var(--sans);font-size:.82rem;font-weight:500;padding:9px 8px;border:0;border-right:1px solid var(--rule);background:var(--paper);color:var(--slate);cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--ink);color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mini{font-size:.86rem;color:var(--slate)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:.67rem;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);font-weight:500}
+td.w{font-family:var(--mono);color:var(--crimson);white-space:nowrap;width:92px}
+.tabs{display:flex;gap:6px;margin-bottom:20px}
+.tabs button{font-family:var(--sans);font-size:.85rem;font-weight:600;padding:10px 18px;border:1px solid var(--rule);background:var(--paper);cursor:pointer;color:var(--slate)}
+.tabs button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.callout{border:1px solid var(--rule);border-left:3px solid var(--gold);padding:20px 22px;background:var(--paper)}
+.routine{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.routine div{border-top:2px solid var(--crimson);padding-top:11px}
+.routine .t{font-family:var(--mono);font-size:.71rem;color:var(--crimson);letter-spacing:.1em}
+.routine h4{font-family:var(--serif);font-size:1rem;margin:3px 0}
+.routine p{font-size:.85rem;color:var(--slate);margin:0}
+footer{background:var(--ink);color:#AEB8C2;padding:48px 0 30px;font-size:.87rem}
+footer h4{color:#fff;font-size:1.03rem;margin-bottom:10px}footer a{color:#fff}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:38px}
+.fbot{margin-top:30px;padding-top:18px;border-top:1px solid #2A323B;font-size:.77rem;color:#7C8792;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.totop{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;align-items:center;gap:1px;
+  width:52px;height:52px;border:1px solid var(--crimson);background:rgba(158,27,50,.96);color:#fff;cursor:pointer;
+  opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;justify-content:center}
+.totop.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.totop:hover{background:var(--crimson-dark)}
+.totop span{line-height:1}
+.sum-body svg{background:#fff}
+@media(max-width:960px){
+  .hero-grid,.diag,.two,.meterwrap,.grid2{grid-template-columns:1fr;gap:28px}
+  .enroll,.profile{position:static}
+  .cards{grid-template-columns:1fr 1fr}.routine{grid-template-columns:1fr 1fr}
+  .mast-nav{display:none}.dials{grid-template-columns:1fr}
+}
+@media(max-width:560px){.cards,.routine{grid-template-columns:1fr}.mbody{padding-left:16px;padding-right:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{.subnav,.utility,.enroll,.lab,.totop,footer .fbot{display:none}.mod{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="utility"><div class="wrap">
+  <span>Interactive edition &middot; 8 live diagrams &middot; 8 visual summaries &middot; 22 scored labs</span>
+  <a href="#curriculum">Jump to the labs &rarr;</a>
+</div></div>
+<header class="masthead"><div class="wrap">
+  <div class="brand"><div class="brand-mark">CI</div>
+    <div><div class="brand-name">Planet AI Executive Learning</div><div class="brand-sub">Communication &amp; Influence</div></div>
+  </div>
+  <nav class="mast-nav">
+    <a href="#overview">Overview</a><a href="#diagnostic">Diagnostic</a><a href="#curriculum">Curriculum</a><a href="#schedule">Study plan</a><a href="#capstone">Capstone</a>
+  </nav>
+</div></header>
+<div class="wrap"><div class="crumb"><a href="#">Home</a> / <a href="#">Self-paced courses</a> / Communicating with Impact</div></div>
+<div class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <div class="tagrow"><span class="tag new">Interactive</span><span class="tag">Communication &amp; Influence</span><span class="tag">Self-coached</span></div>
+    <h1>Communicating with Impact: The Human Advantage in Every Room</h1>
+    <p class="lede">You do not learn this by reading about it. Every concept here comes as a diagram you operate &mdash; break the message pipeline and watch meaning decay, turn the four delivery dials and hear the difference on the page, climb the ladder of inference rung by rung &mdash; followed by a scored lab that runs on your own material.</p>
+    <div class="units">
+      <div><span class="unit-k">Modules</span><span class="unit-v">8 + capstone</span></div>
+      <div><span class="unit-k">Diagrams</span><span class="unit-v">8 live + 8 summary</span></div>
+      <div><span class="unit-k">Scored labs</span><span class="unit-v">22</span></div>
+      <div><span class="unit-k">Effort</span><span class="unit-v">28&ndash;32 hrs</span></div>
+    </div>
+  </div>
+  <aside class="enroll">
+    <h4>Programme details</h4>
+    <dl>
+      <dt>Format</dt><dd>Self-paced, interactive</dd>
+      <dt>Duration</dt><dd>8 weeks</dd>
+      <dt>Commitment</dt><dd>3&ndash;4 hrs / week</dd>
+      <dt>Daily drill</dt><dd>20 minutes</dd>
+      <dt>Assessment</dt><dd>Labs + rubric + 360</dd>
+      <dt>Prerequisite</dt><dd>None</dd>
+    </dl>
+    <a class="btn btn-primary" href="#diagnostic">Start with the diagnostic</a>
+    <button class="btn btn-ghost" onclick="window.print()">Print the study plan</button>
+    <div class="prog">
+      <span id="progText">0 of 9 modules complete</span>
+      <div class="bar"><span id="progBar"></span></div>
+      <div style="margin-top:10px"><span id="labText">0 of 22 labs attempted</span><div class="bar"><span id="labBar"></span></div></div>
+    </div>
+  </aside>
+</div></div></div>
+<nav class="subnav"><div class="wrap">
+  <a href="#overview">Overview</a><a href="#howitworks">How it works</a><a href="#diagnostic">Diagnostic</a><a href="#curriculum">Curriculum</a><a href="#capstone">Capstone</a><a href="#schedule">Study plan</a><a href="#rubric">Rubric</a><a href="#audience">Who it's for</a>
+</div></nav>
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Course overview</span><h2>Why this course exists</h2></div>
+    <div class="two">
+      <div>
+        <p>Machines now draft, summarise and polish on demand. What they cannot do is read a room that has gone quiet, hold a position under pressure, or make a person feel understood. As the cost of producing words falls to nearly nothing, the premium shifts to judgment, presence and trust &mdash; and all three travel through communication.</p>
+        <p>Yet almost nobody is taught this deliberately. We learn our craft, then improvise the part where we explain it. The result is familiar: a strong recommendation buried on slide 34, a status update nobody finishes, feedback delayed until it becomes a complaint, an idea lost to whoever said it more clearly.</p>
+        <p>This course treats communication as a trainable motor skill, not a personality trait. You get a small number of frameworks that survive pressure &mdash; each one rendered as something you can push, drag, break and rebuild &mdash; then you apply them to your own meetings, mails, and the difficult conversation you have been postponing since March.</p>
+      </div>
+      <div>
+        <p><b>How it is designed.</b> Solo learning usually dies of two causes: no feedback and no forcing function. Both are engineered out here.</p>
+        <ul class="tick">
+          <li><b>Concepts are operable.</b> Every framework has a live diagram. You change an input and watch the outcome move.</li>
+          <li><b>Labs score you.</b> Sorting, sequencing, rewriting and building exercises tell you immediately whether you understood it.</li>
+          <li><b>Trainers measure you.</b> Words per minute, pause length, filler count, cut percentage &mdash; numbers, not impressions.</li>
+          <li><b>Three named witnesses.</b> Recruit three people who agree to give blunt feedback at week four and week eight.</li>
+          <li><b>One public moment.</b> The capstone is delivered to real humans. A deadline with an audience does what willpower cannot.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="howitworks" class="tint">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">The weekly loop</span><h2>How each module runs</h2>
+      <p class="lede">Same five steps every week. The middle three happen on this page.</p></div>
+    <div class="cards">
+      <div class="card"><span class="num">Step 1</span><h3>See it</h3><p>An interactive diagram makes the concept visible. Break it deliberately to learn what failure looks like.</p></div>
+      <div class="card"><span class="num">Step 2</span><h3>Test it</h3><p>Sort, sequence and choose. Immediate feedback tells you whether you have the distinction or only the vocabulary.</p></div>
+      <div class="card"><span class="num">Step 3</span><h3>Build it</h3><p>Feed in your own situation; the builder returns a script or brief you can copy and use today.</p></div>
+      <div class="card"><span class="num">Step 4</span><h3>Do it live</h3><p>One field assignment at work. Recorded whenever it involves speaking, because memory flatters you.</p></div>
+    </div>
+    <div class="callout" style="margin-top:26px">
+      <h3 style="margin-bottom:8px">A note on the trainers</h3>
+      <p style="margin:0;color:var(--slate)">The pace, pause and filler trainers use your own timing, tapped on the button &mdash; no microphone, no upload, nothing leaves the device. Record separately on your phone when a drill asks you to review yourself.</p>
+    </div>
+  </div>
+</section>
+<section id="diagnostic">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Before you start</span><h2>Your communication profile</h2>
+      <p class="lede">Twenty-four statements, six dimensions. Answer for how you behaved last month, not how you intend to behave. The radar tells you which module to open first.</p></div>
+    <div class="diag">
+      <div id="qform"></div>
+      <aside class="profile">
+        <h3>Profile</h3>
+        <p style="font-size:.82rem;color:var(--mute);margin-bottom:12px">Rate the statements to see your shape.</p>
+        <svg id="radar" viewBox="0 0 300 280" role="img" aria-label="Radar chart of six communication dimensions"></svg>
+        <div class="legend" id="legend"></div>
+        <div class="verdict" id="verdict">Start with the module matching your lowest dimension &mdash; not with Module 01, unless that <em>is</em> your lowest.</div>
+        <button class="btn btn-ghost" id="resetBtn" style="margin-top:14px">Clear my answers</button>
+      </aside>
+    </div>
+  </div>
+</section>
+<section id="curriculum" class="tint">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Curriculum</span><h2>Eight modules</h2>
+      <p class="lede">Each module opens with a live diagram, then a three-panel visual summary of every framework in it, then scored labs, drills and a field assignment. Tick a module when the field assignment is done &mdash; not when you have finished reading.</p></div>
+    <div class="viz" style="margin-bottom:26px"><div class="viz-head"><h5>The map &mdash; eight modules, three phases</h5><span class="viz-hint">tap a number to jump</span></div><div id="coursemap"></div></div>
+    <div id="modlist"></div>
+  </div>
+</section>
+<section id="capstone">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Capstone</span><h2>The showcase</h2>
+      <p class="lede">A course taken alone still needs a moment where it counts. In week eight you deliver, to real people, in real conditions.</p></div>
+    <div class="two">
+      <div>
+        <div class="fw"><span class="fwn">Part 1 &mdash; The five-minute talk</span><p>To a live audience of at least five: a team meeting, a community group, a meetup. It opens with a story, carries one governing message with three supports, and closes with a specific ask. No slides.</p></div>
+        <div class="fw"><span class="fwn">Part 2 &mdash; The one-page brief</span><p>The same argument in writing, using the decision-brief builder from Module 06. Send it to someone who can act on it.</p></div>
+        <div class="fw"><span class="fwn">Part 3 &mdash; The 360</span><p>Your three witnesses answer in writing: What was my point? What did you feel? What would you now do? What one habit should I change?</p></div>
+        <div class="fw"><span class="fwn">Part 4 &mdash; Retake the diagnostic</span><p>Same twenty-four statements, eight weeks apart. Compare the two shapes and write a one-page plan for the next quarter.</p></div>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">Pass standard</span>
+        <h3 style="margin-bottom:12px">You have completed the course when</h3>
+        <ul class="tick">
+          <li>All three witnesses can state your point, and it matches your intent.</li>
+          <li>You score 3 or better on every rubric dimension, against a recording.</li>
+          <li>Your filler count in week eight is materially lower than week one.</li>
+          <li>The overdue conversation from Module 07 has actually happened.</li>
+          <li>Your story bank holds eight stories, three told aloud to a real audience.</li>
+        </ul>
+        <label class="checkline"><input type="checkbox" data-mod="9"> Mark the capstone complete</label>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="schedule" class="tint">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Study plan</span><h2>Two ways to run it</h2>
+      <p class="lede">The eight-week track is the default and the one that changes habits. The four-week intensive suits a specific event &mdash; a keynote, a board review, an interview loop.</p></div>
+    <div class="tabs"><button class="on" data-tab="std">Eight-week standard</button><button data-tab="int">Four-week intensive</button></div>
+    <div id="tab-std">
+      <table><thead><tr><th>Week</th><th>Focus</th><th>Commitment</th></tr></thead><tbody>
+        <tr><td class="w">Week 1</td><td><b>Module 01 &mdash; Intent and impact.</b> Diagnostic, recruit three witnesses, record a baseline sixty seconds.</td><td>3 hrs</td></tr>
+        <tr><td class="w">Week 2</td><td><b>Module 02 &mdash; Listening.</b> Summarise-first day, interruption count, one no-advice conversation.</td><td>3.5 hrs</td></tr>
+        <tr><td class="w">Week 3</td><td><b>Module 03 &mdash; Clarity.</b> Five-line rewrite, headline-only deck, open a meeting with your conclusion.</td><td>4 hrs</td></tr>
+        <tr><td class="w">Week 4</td><td><b>Module 04 &mdash; Presence.</b> Daily read-aloud starts and runs to week eight. First witness check-in.</td><td>4 hrs</td></tr>
+        <tr><td class="w">Week 5</td><td><b>Module 05 &mdash; Storytelling.</b> Build the story bank; open a real meeting with a story.</td><td>4 hrs</td></tr>
+        <tr><td class="w">Week 6</td><td><b>Module 06 &mdash; Writing.</b> One-screen rewrites; draft the capstone one-pager.</td><td>3.5 hrs</td></tr>
+        <tr><td class="w">Week 7</td><td><b>Module 07 &mdash; Hard conversations.</b> Rehearse and hold the overdue conversation. People postpone this week; do not.</td><td>4 hrs</td></tr>
+        <tr><td class="w">Week 8</td><td><b>Module 08 + capstone.</b> Map, pre-wire, deliver, collect the 360, retake the diagnostic.</td><td>5 hrs</td></tr>
+      </tbody></table>
+    </div>
+    <div id="tab-int" hidden>
+      <table><thead><tr><th>Week</th><th>Focus</th><th>Commitment</th></tr></thead><tbody>
+        <tr><td class="w">Week 1</td><td>Modules 01 and 03 &mdash; diagnostic, audience brief, SCQA, five-line rewrite. Clarity first because it pays immediately.</td><td>7 hrs</td></tr>
+        <tr><td class="w">Week 2</td><td>Modules 04 and 05 &mdash; daily read-aloud, pace and filler trainers, story bank, ninety-second tellings.</td><td>8 hrs</td></tr>
+        <tr><td class="w">Week 3</td><td>Modules 02 and 07 &mdash; listening drills, and the overdue conversation rehearsed and held.</td><td>7 hrs</td></tr>
+        <tr><td class="w">Week 4</td><td>Modules 06 and 08 + capstone &mdash; one-page brief, stakeholder map, pre-wire, deliver, 360.</td><td>8 hrs</td></tr>
+      </tbody></table>
+    </div>
+    <div style="margin-top:40px">
+      <span class="eyebrow">The daily twenty minutes</span>
+      <h3 style="margin-bottom:14px">What every weekday looks like</h3>
+      <div class="routine">
+        <div><span class="t">00&ndash;05</span><h4>Read aloud</h4><p>Five minutes of well-written prose, slower than natural, consonants finished.</p></div>
+        <div><span class="t">05&ndash;12</span><h4>Module drill</h4><p>The week's mechanical exercise. Recorded whenever it involves speaking.</p></div>
+        <div><span class="t">12&ndash;17</span><h4>Apply live</h4><p>Use it once, today, on something real &mdash; a message, a meeting, a reply.</p></div>
+        <div><span class="t">17&ndash;20</span><h4>Log one line</h4><p>What happened and the single change for tomorrow. One line, not a journal.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="rubric">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Assessment</span><h2>The rubric</h2>
+      <p class="lede">Score yourself against a recording, not a memory. Memory is generous; recordings are not. Four is the working standard, not perfection.</p></div>
+    <table><thead><tr><th>Dimension</th><th>1 &mdash; Developing</th><th>3 &mdash; Competent</th><th>4 &mdash; Strong</th></tr></thead><tbody>
+      <tr><td><b>Clarity of point</b></td><td>Point emerges late or never</td><td>Stated and supported, though not always first</td><td>Conclusion and ask land in the first thirty seconds</td></tr>
+      <tr><td><b>Structure</b></td><td>Chronological narration of your process</td><td>Recognisable structure with three supports</td><td>Structure invisible but felt; nobody gets lost</td></tr>
+      <tr><td><b>Listening</b></td><td>Replies form while others speak; interruption</td><td>Summarises before responding most of the time</td><td>Surfaces the unstated concern and names it accurately</td></tr>
+      <tr><td><b>Presence</b></td><td>Rushed pace, heavy filler, unsettled body</td><td>Steady pace, deliberate pauses, filler contained</td><td>Silence used as emphasis; composure holds under challenge</td></tr>
+      <tr><td><b>Story</b></td><td>Facts only, or an anecdote with no turn</td><td>A true story with a turn and a clear point</td><td>Story, number and meaning fused; remembered a week later</td></tr>
+      <tr><td><b>Courage</b></td><td>Issues avoided or raised too late</td><td>Hard things said, occasionally hedged</td><td>Said early, said plainly, relationship intact</td></tr>
+    </tbody></table>
+  </div>
+</section>
+<section id="audience" class="tint">
+  <div class="wrap"><div class="two">
+    <div>
+      <span class="eyebrow">Who should enrol</span>
+      <h2 style="margin-bottom:18px">For people whose ideas deserve better transmission</h2>
+      <ul class="tick">
+        <li>Technical specialists asked to &ldquo;present this to leadership&rdquo; who dread it</li>
+        <li>Managers stepping into roles where influence replaces authority</li>
+        <li>Delivery and programme leads aligning stakeholders with competing incentives</li>
+        <li>Consultants and pre-sales professionals who live or die on the first three minutes</li>
+        <li>Founders about to explain the same idea a hundred times</li>
+        <li>Experienced professionals who present competently but rarely memorably</li>
+        <li>Anyone told they are &ldquo;too detailed&rdquo;, &ldquo;hard to follow&rdquo; or &ldquo;too quiet in the room&rdquo;</li>
+      </ul>
+    </div>
+    <div>
+      <span class="eyebrow">Honest caveats</span>
+      <h2 style="margin-bottom:18px">Who will struggle with it</h2>
+      <p>There is no instructor, no cohort and no register. If you will not record yourself, will not ask three people for blunt feedback, and will not run the field assignments at work, the labs alone will not carry you.</p>
+      <p>It also does not treat a clinical fear of public speaking, a speech disorder, or communication in a language you are still acquiring. Those need specialist help, and getting it is not a detour from this work.</p>
+      <p>One more: if your organisation punishes candour, Module 07 carries real risk. Use the frameworks to be precise rather than to be brave.</p>
+    </div>
+  </div></div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><h4>Planet AI Executive Learning</h4>
+        <p style="max-width:44ch">Self-paced programmes for working professionals, built around practice rather than lectures. Communication, judgment and AI-era leadership.</p></div>
+      <div><h4 style="font-size:.9rem">Course</h4>
+        <p><a href="#overview">Overview</a><br><a href="#curriculum">Curriculum</a><br><a href="#schedule">Study plan</a><br><a href="#rubric">Rubric</a></p></div>
+      <div><h4 style="font-size:.9rem">Connect</h4>
+        <p><a href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" target="_blank" rel="noopener">LinkedIn</a><br><a href="https://world-of-ai.co.in" target="_blank" rel="noopener">World of AI</a><br><a href="https://pawan-maheshwari.in" target="_blank" rel="noopener">pawan-maheshwari.in</a></p></div>
+    </div>
+    <div class="fbot"><span>&copy; 2026 Planet AI LLP &middot; Communicating with Impact &middot; Interactive edition</span><span>Your answers, labs and progress stay on this device.</span></div>
+  </div>
+</footer>
+<script>
+(function(){"use strict";
+/* ============ helpers ============ */
+var mem={};
+var store={
+  get:function(k){try{return localStorage.getItem(k);}catch(e){return k in mem?mem[k]:null;}},
+  set:function(k,v){try{localStorage.setItem(k,v);}catch(e){mem[k]=v;}},
+  del:function(k){try{localStorage.removeItem(k);}catch(e){delete mem[k];}}
+};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function words(s){return (s.trim().match(/\S+/g)||[]).length;}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ============ VISUALS ============ */
+var VIS={};
+
+/* V1 — the impact gap pipeline */
+VIS.impactGap=function(host){
+  var stages=[
+    {k:"mean",n:"What you mean",d:"The complete thought in your head, with all its context."},
+    {k:"encode",n:"How you encode it",d:"Word choice, jargon, hedging, structure. The first place meaning leaks."},
+    {k:"channel",n:"The channel",d:"Mail, call, chat, corridor. Wrong channel, right words, no result."},
+    {k:"decode",n:"How they decode it",d:"Filtered through their pressures, history and what they fear."},
+    {k:"impact",n:"What they do",d:"The only measure that counts. Everything before this is intention."}
+  ];
+  var broken={};
+  var out={
+    "0":"Ship the pilot by 30 June. I need \u20B98L and two engineers.",
+    "encode":"We should probably look at accelerating things if bandwidth allows.",
+    "channel":"...pilot by 30 J\u2014 [msg 14 of 31, sent 23:40, thread muted]",
+    "decode":"He's asking for more budget again.",
+    "impact":"Noted. Let's pick this up next quarter."
+  };
+  host.innerHTML=
+   '<div class="seg" style="flex-wrap:wrap">'+stages.map(function(s,i){
+      return '<button data-s="'+s.k+'">'+(i+1)+'. '+s.n+'</button>';}).join('')+'</div>'+
+   '<p class="mini" style="margin:-4px 0 12px">Tap a stage to break it. Watch what reaches the other person.</p>'+
+   '<div class="svgwrap"><svg viewBox="0 0 720 120" id="ig-svg"></svg></div>'+
+   '<div class="grid2" style="margin-top:12px">'+
+     '<div><span class="pill">You intended</span><div class="bout" style="margin-top:8px">Ship the pilot by 30 June. I need \u20B98L and two engineers.</div></div>'+
+     '<div><span class="pill" id="ig-pill">What lands</span><div class="bout" id="ig-out" style="margin-top:8px"></div></div>'+
+   '</div><div class="verdictbox" id="ig-note"></div>';
+  var svg=host.querySelector('#ig-svg');
+  function draw(){
+    var n=stages.length,w=118,gap=32,parts=[];
+    for(var i=0;i<n;i++){
+      var x=8+i*(w+gap), b=!!broken[stages[i].k];
+      parts.push('<rect x="'+x+'" y="26" width="'+w+'" height="52" fill="'+(b?'#FDF5F4':'#fff')+'" stroke="'+(b?'#B4291F':'#9E1B32')+'" stroke-width="'+(b?2:1.2)+'"'+(b?' stroke-dasharray="5 4"':'')+'/>');
+      parts.push('<text x="'+(x+w/2)+'" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#78838E">STAGE '+(i+1)+'</text>');
+      parts.push('<text x="'+(x+w/2)+'" y="64" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="'+(b?'#B4291F':'#101418')+'">'+esc(stages[i].n.length>17?stages[i].n.slice(0,16)+'\u2026':stages[i].n)+'</text>');
+      if(i<n-1){
+        var ax=x+w+4, dead=false;
+        for(var j=0;j<=i;j++){if(broken[stages[j].k])dead=true;}
+        parts.push('<line x1="'+ax+'" y1="52" x2="'+(ax+gap-10)+'" y2="52" stroke="'+(dead?'#DCE2E8':'#9E1B32')+'" stroke-width="'+(dead?1:2)+'"'+(dead?' stroke-dasharray="3 3"':'')+'/>');
+        parts.push('<polygon points="'+(ax+gap-10)+',48 '+(ax+gap-2)+',52 '+(ax+gap-10)+',56" fill="'+(dead?'#DCE2E8':'#9E1B32')+'"/>');
+      }
+    }
+    var lost=Object.keys(broken).filter(function(k){return broken[k];}).length;
+    var strength=Math.max(0,100-lost*28);
+    parts.push('<rect x="8" y="96" width="704" height="8" fill="#ECEFF3"/>');
+    parts.push('<rect x="8" y="96" width="'+(704*strength/100)+'" height="8" fill="'+(strength>70?'#1F7A4D':strength>40?'#B8862F':'#B4291F')+'"/>');
+    parts.push('<text x="8" y="116" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#78838E">SIGNAL REACHING THE OTHER PERSON: '+strength+'%</text>');
+    svg.innerHTML=parts.join('');
+    var order=["encode","channel","decode","impact"],msg=out["0"],note="Nothing is broken. Your intent survives the trip \u2014 rare, and worth noticing when it happens.";
+    for(var q=0;q<order.length;q++){if(broken[order[q]]){msg=out[order[q]];break;}}
+    if(broken.mean&&!msg.startsWith("We should"))
+      {msg="\u2014 (you have not actually decided what you want yet)";note="Stage 1 broken: the thought itself is unformed. No amount of delivery skill rescues this. Write the Audience-First Brief below before you speak.";}
+    else if(lost) note="First break in the chain decides the outcome. Fixing a later stage while an earlier one is broken changes nothing \u2014 which is why repeating yourself louder never works.";
+    host.querySelector('#ig-out').textContent=msg;
+    host.querySelector('#ig-note').innerHTML="<b>"+(lost?lost+" stage"+(lost>1?"s":"")+" broken.":"Clean channel.")+"</b> "+note;
+    host.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',!!broken[b.getAttribute('data-s')]);});
+  }
+  host.querySelector('.seg').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    var k=b.getAttribute('data-s'); broken[k]=!broken[k]; draw();
+  });
+  draw();
+};
+
+/* V2 — three levels of listening */
+VIS.listenLevels=function(host){
+  var lines=[
+    {say:"Yes, we can hit the date.",think:"Good, I can close this item.",cue:"said quickly, then looked away",real:"The date is a hope, not a plan."},
+    {say:"The testing plan is\u2026 mostly there.",think:"I'll suggest more automation.",cue:"four-second pause before 'mostly'",real:"There is no testing plan."},
+    {say:"We'll manage. It's fine.",think:"Great, moving on.",cue:"flat tone; 'fine' twice this week",real:"They are drowning and will not say so."}
+  ];
+  var lvl=1;
+  host.innerHTML='<div class="seg">'+
+    '<button data-l="1">Level 1 &mdash; internal</button><button data-l="2">Level 2 &mdash; focused</button><button data-l="3">Level 3 &mdash; global</button></div>'+
+    '<p class="mini" style="margin:-4px 0 12px">Same three sentences from a colleague. Change the level you are listening at.</p>'+
+    '<div id="ll-body"></div><div class="verdictbox" id="ll-note"></div>';
+  function draw(){
+    host.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')==String(lvl));});
+    host.querySelector('#ll-body').innerHTML=lines.map(function(l){
+      var h='<div style="border:1px solid var(--rule);background:#fff;padding:12px 14px;margin-bottom:9px">';
+      h+='<div style="font-family:var(--serif);font-size:1.04rem">&ldquo;'+esc(l.say)+'&rdquo;</div>';
+      if(lvl===1) h+='<div style="margin-top:8px;font-size:.85rem;color:#B4291F;font-style:italic">your head: '+esc(l.think)+'</div>';
+      if(lvl>=2) h+='<div style="margin-top:8px;font-size:.85rem;color:var(--slate)">content captured: <b>'+esc(l.say)+'</b></div>';
+      if(lvl===3){
+        h+='<div style="margin-top:6px;font-family:var(--mono);font-size:.76rem;color:#B8862F">signal: '+esc(l.cue)+'</div>';
+        h+='<div style="margin-top:6px;font-size:.86rem;color:#1F7A4D">what is actually true: '+esc(l.real)+'</div>';
+      }
+      return h+'</div>';
+    }).join('');
+    var notes={1:"<b>Level 1.</b> You heard the words and missed the meeting. Everything you caught was your own reply forming. Most professionals live here and believe they are at Level 2.",
+      2:"<b>Level 2.</b> Accurate content, zero context. You could write the minutes and still be blindsided in three weeks.",
+      3:"<b>Level 3.</b> Pauses, tone and the word they avoided. This is where you learn the project is in trouble while there is still time to help."};
+    host.querySelector('#ll-note').innerHTML=notes[lvl];
+  }
+  host.querySelector('.seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;lvl=+b.getAttribute('data-l');draw();});
+  draw();
+};
+
+/* V3 — pyramid + so-what ladder */
+VIS.pyramid=function(host){
+  var mode="buried",rung=0;
+  var ladder=[
+    {t:"Latency rose by 40ms after the June release.",l:"A fact. True, and nobody acts on it."},
+    {t:"So what? Checkout abandonment is up 3.1 points.",l:"A consequence. Now it belongs to someone."},
+    {t:"So what? That is roughly \u20B91.2 crore a quarter.",l:"A number a decision-maker recognises."},
+    {t:"So what? Fund the fix now, not in Q4.",l:"A decision. Start your message here, and use the rungs below as support."}
+  ];
+  host.innerHTML='<div class="seg"><button data-m="buried">Buried (how most people write)</button><button data-m="top">Answer-first (the pyramid)</button></div>'+
+    '<div class="svgwrap"><svg viewBox="0 0 640 230" id="py-svg"></svg></div>'+
+    '<div class="verdictbox" id="py-note"></div>'+
+    '<div style="margin-top:18px;border-top:1px solid var(--rule);padding-top:16px">'+
+      '<div class="viz-head"><h5>The &ldquo;so what?&rdquo; ladder</h5><span class="viz-hint">climb until it becomes a decision</span></div>'+
+      '<div id="py-ladder"></div>'+
+      '<div class="rowbtns"><button class="solid" id="py-climb">Ask &ldquo;so what?&rdquo;</button><button id="py-reset">Back to the fact</button></div>'+
+    '</div>';
+  var svg=host.querySelector('#py-svg');
+  function draw(){
+    host.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode);});
+    var p=[],top=mode==="top";
+    function box(x,y,w,h,label,fill,stroke,fs){
+      p.push('<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.2"/>');
+      p.push('<text x="'+(x+w/2)+'" y="'+(y+h/2+4)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="'+(fs||11)+'" fill="#101418">'+esc(label)+'</text>');
+    }
+    if(top){
+      box(180,14,280,42,"Recommendation: fund the fix now","#9E1B32","#9E1B32",12);
+      p.push('<text x="320" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#fff">Recommendation: fund the fix now</text>');
+      ["Costs \u20B91.2Cr/qtr","Fix is 3 weeks","Q4 costs double"].forEach(function(t,i){box(40+i*200,86,180,38,t,"#fff","#9E1B32");});
+      [0,1,2].forEach(function(i){
+        p.push('<line x1="320" y1="56" x2="'+(130+i*200)+'" y2="86" stroke="#9E1B32" stroke-width="1.2"/>');
+        for(var k=0;k<3;k++) p.push('<rect x="'+(48+i*200+k*58)+'" y="140" width="46" height="16" fill="#ECEFF3"/>');
+      });
+      p.push('<text x="40" y="182" font-family="IBM Plex Mono, monospace" font-size="10" fill="#78838E">READER REACHES THE POINT IN: 12 SECONDS</text>');
+      p.push('<rect x="40" y="192" width="60" height="9" fill="#1F7A4D"/><rect x="100" y="192" width="500" height="9" fill="#ECEFF3"/>');
+    } else {
+      ["1. Background since March","2. What we investigated","3. Vendor conversations","4. Data we gathered","5. Options considered"].forEach(function(t,i){
+        box(40,10+i*33,420,26,t,"#fff","#DCE2E8",11);
+      });
+      box(40,175,420,30,"6. Therefore: fund the fix now","#FDF5F4","#B4291F",11);
+      p.push('<text x="480" y="192" font-family="IBM Plex Mono, monospace" font-size="10" fill="#B4291F">\u2190 the point, at the end</text>');
+      p.push('<text x="40" y="222" font-family="IBM Plex Mono, monospace" font-size="10" fill="#78838E">READER REACHES THE POINT IN: 4 MIN \u2014 IF THEY FINISH</text>');
+    }
+    svg.innerHTML=p.join('');
+    host.querySelector('#py-note').innerHTML=top
+      ? "<b>Answer-first.</b> Governing message on top, three supports beneath, evidence under each. Questions arrive about your reasoning instead of about your point."
+      : "<b>Buried.</b> This is how thinking happens \u2014 and it is the wrong order for delivery. You are asking a busy reader to hold five things before learning why any of them matter.";
+    host.querySelector('#py-ladder').innerHTML=ladder.slice(0,rung+1).map(function(r,i){
+      var last=i===rung;
+      return '<div style="border-left:3px solid '+(last?'#9E1B32':'#DCE2E8')+';padding:7px 0 7px 13px;margin-bottom:7px">'+
+        '<div style="font-size:.95rem;font-weight:'+(last?600:400)+'">'+esc(r.t)+'</div>'+
+        '<div class="mini" style="font-size:.82rem">'+esc(r.l)+'</div></div>';
+    }).join('');
+    host.querySelector('#py-climb').disabled=rung>=ladder.length-1;
+  }
+  host.querySelector('.seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;mode=b.getAttribute('data-m');draw();});
+  host.querySelector('#py-climb').addEventListener('click',function(){if(rung<ladder.length-1)rung++;draw();});
+  host.querySelector('#py-reset').addEventListener('click',function(){rung=0;draw();});
+  draw();
+};
+
+/* V4 — anatomy of a spoken sentence */
+VIS.speechAnatomy=function(host){
+  var mode="rushed";
+  host.innerHTML='<div class="seg"><button data-m="rushed">Rushed &amp; hedged</button><button data-m="composed">Paced &amp; composed</button></div>'+
+    '<div class="svgwrap"><svg viewBox="0 0 660 150" id="sa-svg"></svg></div>'+
+    '<div class="grid2" style="margin-top:10px" id="sa-stats"></div><div class="verdictbox" id="sa-note"></div>';
+  var svg=host.querySelector('#sa-svg');
+  var data={
+    rushed:{wpm:196,fill:9,pause:0,
+      seq:[["um",1],["so",0],["basically",1],["what",0],["we",0],["found",0],["is",0],["that",0],["the",0],["numbers",0],["kind",1],["of",0],["suggest",0],["maybe",1],["we",0],["should",0],["um",1],["move",0],["the",0],["date",0],["right?",1]]},
+    composed:{wpm:138,fill:1,pause:5,
+      seq:[["We",0],["found",0],["one",0],["thing",0],["|",2],["that",0],["changes",0],["the",0],["plan.",0],["|",2],["The",0],["date",0],["moves",0],["|",2],["to",0],["the",0],["thirtieth.",0],["|",2],["Here",0],["is",0],["why.",0],["|",2]]}
+  };
+  function draw(){
+    host.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode);});
+    var d=data[mode],x=10,p=[];
+    d.seq.forEach(function(t){
+      var word=t[0],kind=t[1];
+      if(kind===2){ p.push('<rect x="'+x+'" y="30" width="26" height="60" fill="#FBF3E2" stroke="#B8862F" stroke-dasharray="3 3"/>');
+        p.push('<text x="'+(x+13)+'" y="104" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#B8862F">PAUSE</text>'); x+=34; return; }
+      var w=Math.max(18,word.length*7.4), col=kind===1?'#B4291F':'#101418';
+      var bars=Math.max(2,Math.round(w/9));
+      for(var i=0;i<bars;i++){
+        var h=kind===1?10:14+Math.sin(i*1.7+word.length)*8;
+        p.push('<rect x="'+(x+i*8)+'" y="'+(60-h/2)+'" width="5" height="'+h+'" fill="'+(kind===1?'#E8B6B0':'#C3CBD3')+'"/>');
+      }
+      p.push('<text x="'+(x+w/2)+'" y="104" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="'+col+'">'+esc(word)+'</text>');
+      if(kind===1) p.push('<line x1="'+x+'" y1="110" x2="'+(x+w)+'" y2="110" stroke="#B4291F" stroke-width="1.5"/>');
+      x+=w+8;
+    });
+    p.push('<text x="10" y="20" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#78838E">'+(mode==="rushed"?"RED = FILLER \u00B7 NO GAPS ANYWHERE":"GOLD = DELIBERATE PAUSE \u00B7 SAME IDEA, 21 WORDS")+'</text>');
+    p.push('<text x="10" y="140" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B0B8C1">0s'+'</text>');
+    p.push('<line x1="26" y1="136" x2="'+Math.min(x,650)+'" y2="136" stroke="#ECEFF3" stroke-width="2"/>');
+    svg.setAttribute('viewBox','0 0 '+Math.max(660,x+20)+' 150');
+    svg.innerHTML=p.join('');
+    host.querySelector('#sa-stats').innerHTML=
+      '<div class="gauge"><div class="big" style="color:'+(d.wpm>170?'#B4291F':'#1F7A4D')+'">'+d.wpm+'</div><div class="lbl">words / minute</div></div>'+
+      '<div class="gauge"><div class="big" style="color:'+(d.fill>4?'#B4291F':'#1F7A4D')+'">'+d.fill+' / '+d.pause+'</div><div class="lbl">fillers / pauses</div></div>';
+    host.querySelector('#sa-note').innerHTML=mode==="rushed"
+      ? "<b>Rushed and hedged.</b> Nine fillers, no gaps, and four hedges (&lsquo;kind of&rsquo;, &lsquo;maybe&rsquo;, &lsquo;right?&rsquo;) that hand your authority away. Speed is not the problem \u2014 the absence of silence is."
+      : "<b>Paced and composed.</b> Same content, fewer words, five deliberate gaps. The pauses do the emphasis that volume cannot. Nothing here requires a different personality \u2014 only different timing.";
+  }
+  host.querySelector('.seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;mode=b.getAttribute('data-m');draw();});
+  draw();
+};
+
+/* V5 — the story arc */
+VIS.storyArc=function(host){
+  var beats=[
+    {n:"Once there was",x:40,y:150,d:"Establish a person and a normal world. One sentence. Not your company history."},
+    {n:"Every day",x:150,y:140,d:"The routine that made the change matter. Two sentences at most."},
+    {n:"But one day",x:300,y:70,d:"THE TURN. Something breaks, arrives, fails. Without this you have an anecdote, not a story."},
+    {n:"Because of that",x:420,y:52,d:"Consequence and response. What you or they actually did about it."},
+    {n:"Until finally",x:520,y:38,d:"The resolution. Concrete, and honest \u2014 including when it went badly."},
+    {n:"And ever since",x:600,y:74,d:"The point. What changed permanently, and why the listener should care."}
+  ];
+  var sel=2;
+  host.innerHTML='<div class="svgwrap"><svg viewBox="0 0 660 200" id="sa2-svg"></svg></div>'+
+    '<p class="mini" style="margin:8px 0">Tap any beat on the arc.</p><div class="verdictbox" id="sa2-note"></div>';
+  var svg=host.querySelector('#sa2-svg');
+  function draw(){
+    var p=[],path="M "+beats[0].x+" "+beats[0].y;
+    for(var i=1;i<beats.length;i++){
+      var a=beats[i-1],b=beats[i];
+      path+=" C "+((a.x+b.x)/2)+" "+a.y+", "+((a.x+b.x)/2)+" "+b.y+", "+b.x+" "+b.y;
+    }
+    p.push('<path d="'+path+'" fill="none" stroke="#9E1B32" stroke-width="2"/>');
+    p.push('<line x1="20" y1="178" x2="640" y2="178" stroke="#DCE2E8"/>');
+    p.push('<text x="20" y="194" font-family="IBM Plex Mono, monospace" font-size="9" fill="#78838E">TENSION RISES \u2192 90 SECONDS TOTAL</text>');
+    beats.forEach(function(b,i){
+      var on=i===sel,turn=i===2;
+      p.push('<circle cx="'+b.x+'" cy="'+b.y+'" r="'+(on?9:6)+'" fill="'+(turn?'#B8862F':on?'#9E1B32':'#fff')+'" stroke="'+(turn?'#B8862F':'#9E1B32')+'" stroke-width="2" style="cursor:pointer" data-b="'+i+'"/>');
+      p.push('<text x="'+b.x+'" y="'+(b.y-16)+'" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="'+(turn?'#B8862F':'#78838E')+'" style="cursor:pointer" data-b="'+i+'">'+esc(b.n.toUpperCase())+'</text>');
+    });
+    p.push('<text x="300" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#B8862F">\u2191 the turn</text>');
+    svg.innerHTML=p.join('');
+    host.querySelector('#sa2-note').innerHTML='<b>'+esc(beats[sel].n)+'.</b> '+esc(beats[sel].d);
+  }
+  svg.addEventListener('click',function(e){var b=e.target.getAttribute&&e.target.getAttribute('data-b');if(b===null||b===undefined)return;sel=+b;draw();});
+  draw();
+};
+
+/* V6 — the one-screen rule */
+VIS.oneScreen=function(host){
+  var mode="long";
+  var longMail=["Hi team,","Following up on the discussion we started in March around the vendor landscape, and building on the analysis Priya shared before the quarter closed, I wanted to give everyone a full picture of where things stand.","We evaluated four vendors across nine criteria. The scoring model weighted integration effort at 30%, which was a change from last time.","There were extensive conversations with procurement about the contracting timeline, and legal has flagged two clauses that may need negotiation.","Vendor B scored highest on integration and second on cost. Vendor D was cheapest but the migration would take two quarters.","Anyway \u2014 could you approve Vendor B by Thursday so we can start the paperwork? Budget impact is \u20B942L over two years."];
+  var shortMail=["Approval needed by Thu: shortlist \u2192 Vendor B","Ask: approve Vendor B by Thursday. \u20B942L over two years.","Why: highest on integration, second on cost, live in one quarter.","Risk: legal has flagged two clauses \u2014 negotiable, not blocking.","Detail: full scoring in the attached one-pager."];
+  host.innerHTML='<div class="seg"><button data-m="long">The mail you were about to send</button><button data-m="short">One-screen version</button></div>'+
+    '<div class="grid2"><div id="os-phone"></div><div><div id="os-stats"></div><div class="verdictbox" id="os-note"></div></div></div>';
+  function draw(){
+    host.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode);});
+    var lines=mode==="long"?longMail:shortMail,fold=mode==="long"?3:5;
+    var h='<div style="border:1px solid var(--rule);border-radius:14px;padding:12px;background:#fff;max-width:330px">'+
+      '<div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--mute);border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">'+
+      (mode==="long"?"SUBJECT: VENDOR UPDATE":"SUBJECT: APPROVAL NEEDED BY THU \u00B7 VENDOR B")+'</div>';
+    lines.forEach(function(t,i){
+      var below=i>=fold, ask=/approve|Ask:/.test(t);
+      h+='<p style="font-size:.79rem;margin:0 0 7px;line-height:1.5;color:'+(below?'#C3CBD3':'#101418')+';'+(ask?'background:#FBF3E2;padding:4px 6px;border-left:2px solid #B8862F;':'')+'">'+esc(t)+'</p>';
+      if(i===fold-1) h+='<div style="border-top:2px dashed #B4291F;margin:9px 0;position:relative"><span style="position:absolute;top:-8px;right:0;background:#fff;font-family:var(--mono);font-size:.58rem;color:#B4291F;padding:0 4px">FOLD \u2014 8 SECONDS OF ATTENTION</span></div>';
+    });
+    host.querySelector('#os-phone').innerHTML=h+'</div>';
+    var wc=lines.join(' ').split(/\s+/).length, depth=mode==="long"?86:12;
+    host.querySelector('#os-stats').innerHTML=
+      '<div class="gauge" style="margin-bottom:10px"><div class="big" style="color:'+(wc>120?'#B4291F':'#1F7A4D')+'">'+wc+'</div><div class="lbl">words</div></div>'+
+      '<div class="gauge"><div class="big" style="color:'+(depth>50?'#B4291F':'#1F7A4D')+'">'+depth+'%</div><div class="lbl">scroll depth to reach the ask</div></div>';
+    host.querySelector('#os-note').innerHTML=mode==="long"
+      ? "<b>The ask is below the fold.</b> Everything above it is your process. On a phone, in a queue of forty mails, this becomes &lsquo;read later&rsquo; \u2014 and later is a place mail goes to die."
+      : "<b>Same decision, five lines.</b> The subject line alone lets someone act. Action, then context, then detail \u2014 so the approver can stop after line one and still do the right thing.";
+  }
+  host.querySelector('.seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;mode=b.getAttribute('data-m');draw();});
+  draw();
+};
+
+/* V7 — ladder of inference */
+VIS.ladder=function(host){
+  var rungs=[
+    {n:"Observable data",t:"She did not include my update in the board pack.",c:"#1F7A4D"},
+    {n:"Selected data",t:"She included two other people's updates.",c:"#5E8F4A"},
+    {n:"Interpretation",t:"She chose to leave mine out.",c:"#B8862F"},
+    {n:"Assumption",t:"She does not rate my work.",c:"#C4622C"},
+    {n:"Action",t:"I stop volunteering. I go quiet in her meetings.",c:"#B4291F"}
+  ];
+  var at=0;
+  host.innerHTML='<div class="svgwrap"><svg viewBox="0 0 640 250" id="ld-svg"></svg></div>'+
+    '<div class="rowbtns"><button class="solid" id="ld-up">Climb one rung</button><button id="ld-down">Climb back down to the fact</button></div>'+
+    '<div class="verdictbox" id="ld-note"></div>';
+  var svg=host.querySelector('#ld-svg');
+  function draw(){
+    var p=[];
+    p.push('<line x1="60" y1="20" x2="60" y2="235" stroke="#DCE2E8" stroke-width="3"/><line x1="330" y1="20" x2="330" y2="235" stroke="#DCE2E8" stroke-width="3"/>');
+    rungs.forEach(function(r,i){
+      var y=215-i*46,on=i<=at,cur=i===at;
+      p.push('<line x1="60" y1="'+y+'" x2="330" y2="'+y+'" stroke="'+(on?r.c:'#DCE2E8')+'" stroke-width="'+(cur?4:2.5)+'"/>');
+      p.push('<text x="345" y="'+(y-6)+'" font-family="IBM Plex Mono, monospace" font-size="9" fill="'+(on?r.c:'#B0B8C1')+'">'+esc(r.n.toUpperCase())+'</text>');
+      p.push('<text x="345" y="'+(y+9)+'" font-family="Inter, sans-serif" font-size="11" fill="'+(on?'#101418':'#C3CBD3')+'">'+esc(r.t.length>44?r.t.slice(0,43)+'\u2026':r.t)+'</text>');
+      if(cur) p.push('<circle cx="195" cy="'+(y-11)+'" r="7" fill="'+r.c+'"/>');
+    });
+    svg.innerHTML=p.join('');
+    var notes=["<b>Ground floor.</b> One observable fact. Anyone in the room would agree it happened. This is the only rung you can quote in a conversation without an argument starting.",
+      "<b>Rung 2.</b> You have started selecting. Two other updates were included \u2014 true, and already a case being built.",
+      "<b>Rung 3.</b> An interpretation has appeared: <i>chose</i>. You did not see a choice; you saw an absence.",
+      "<b>Rung 4.</b> Now it is about your worth. Notice you have not asked a single question yet, and you are already three floors above what happened.",
+      "<b>Top of the ladder.</b> You are acting on a story you invented. She may have had a page limit. The fix is not to think better up here \u2014 it is to climb down and say the fact: &lsquo;My update wasn&rsquo;t in the pack \u2014 was that a space call?&rsquo;"];
+    host.querySelector('#ld-note').innerHTML=notes[at];
+    host.querySelector('#ld-up').disabled=at>=rungs.length-1;
+  }
+  host.querySelector('#ld-up').addEventListener('click',function(){if(at<rungs.length-1)at++;draw();});
+  host.querySelector('#ld-down').addEventListener('click',function(){at=0;draw();});
+  draw();
+};
+
+/* V8 — stakeholder map (draggable) */
+VIS.stakeholderMap=function(host){
+  var chips=[
+    {id:"cfo",n:"CFO",x:.78,y:.62,fear:"an open-ended commitment landing mid-budget-freeze"},
+    {id:"ops",n:"Head of Ops",x:.62,y:.30,fear:"being blamed for a peak-season outage"},
+    {id:"eng",n:"Eng lead",x:.30,y:.80,fear:"another half-finished platform to maintain"},
+    {id:"pmo",n:"PMO",x:.24,y:.28,fear:"a plan that makes the dashboard go red"},
+    {id:"csuite",n:"Sponsor",x:.86,y:.86,fear:"looking uninformed in front of the board"}
+  ];
+  var W=560,H=340,PAD=44,sel=chips[0];
+  host.innerHTML='<div class="svgwrap"><svg viewBox="0 0 '+W+' '+H+'" id="sm-svg" style="touch-action:none"></svg></div>'+
+    '<p class="mini" style="margin:8px 0">Drag each person to where they really sit. Position changes the play, not the pitch.</p>'+
+    '<div class="verdictbox" id="sm-note"></div>';
+  var svg=host.querySelector('#sm-svg');
+  function px(c){return {x:PAD+c.x*(W-PAD-20),y:H-PAD-c.y*(H-PAD-30)};}
+  function quad(c){
+    var hi=c.x>.5,hp=c.y>.5;
+    if(hp&&hi) return {n:"Manage closely",a:"Pre-wire before every meeting. Show them the recommendation early and ask what would make them say no."};
+    if(hp&&!hi) return {n:"Keep satisfied",a:"High power, low interest. They will not read the detail \u2014 send three lines and a clear ask, or they will decide on a rumour."};
+    if(!hp&&hi) return {n:"Keep informed",a:"Interested but not deciding. Make them allies \u2014 they will carry your argument into rooms you are not in."};
+    return {n:"Monitor",a:"Low power, low interest today. Watch for change: a reorg can move someone into the top-right overnight."};
+  }
+  function draw(){
+    var p=[];
+    p.push('<rect x="'+PAD+'" y="10" width="'+(W-PAD-10)+'" height="'+(H-PAD-10)+'" fill="#fff" stroke="#DCE2E8"/>');
+    p.push('<line x1="'+(PAD+(W-PAD-10)/2)+'" y1="10" x2="'+(PAD+(W-PAD-10)/2)+'" y2="'+(H-PAD)+'" stroke="#ECEFF3"/>');
+    p.push('<line x1="'+PAD+'" y1="'+((H-PAD+10)/2)+'" x2="'+(W-10)+'" y2="'+((H-PAD+10)/2)+'" stroke="#ECEFF3"/>');
+    [["Monitor",PAD+16,H-PAD-14],["Keep informed",PAD+(W-PAD)/2+6,H-PAD-14],["Keep satisfied",PAD+16,32],["Manage closely",PAD+(W-PAD)/2+6,32]].forEach(function(q){
+      p.push('<text x="'+q[1]+'" y="'+q[2]+'" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B0B8C1">'+q[0].toUpperCase()+'</text>');
+    });
+    p.push('<text x="'+PAD+'" y="'+(H-14)+'" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#78838E">INTEREST \u2192</text>');
+    p.push('<text transform="translate(16,'+(H-PAD)+') rotate(-90)" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#78838E">POWER \u2192</text>');
+    chips.forEach(function(c){
+      var q=px(c),on=c===sel;
+      p.push('<circle cx="'+q.x+'" cy="'+q.y+'" r="'+(on?15:12)+'" fill="'+(on?'#9E1B32':'#fff')+'" stroke="#9E1B32" stroke-width="2" data-c="'+c.id+'" style="cursor:grab"/>');
+      p.push('<text x="'+q.x+'" y="'+(q.y+4)+'" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="'+(on?'#fff':'#9E1B32')+'" data-c="'+c.id+'" style="cursor:grab;pointer-events:none">'+esc(c.n.slice(0,3).toUpperCase())+'</text>');
+      p.push('<text x="'+(q.x+18)+'" y="'+(q.y+4)+'" font-family="Inter, sans-serif" font-size="10.5" fill="#4B5661">'+esc(c.n)+'</text>');
+    });
+    svg.innerHTML=p.join('');
+    var qd=quad(sel);
+    host.querySelector('#sm-note').innerHTML='<b>'+esc(sel.n)+' \u2014 '+qd.n+'.</b> '+qd.a+'<br><span style="color:#B4291F">Privately afraid of: '+esc(sel.fear)+'</span> \u2014 objections are usually fear wearing a business costume.';
+  }
+  var drag=null;
+  function pos(e){
+    var r=svg.getBoundingClientRect();
+    var cx=(e.clientX-r.left)/r.width*W, cy=(e.clientY-r.top)/r.height*H;
+    return {x:Math.max(0,Math.min(1,(cx-PAD)/(W-PAD-20))),y:Math.max(0,Math.min(1,(H-PAD-cy)/(H-PAD-30)))};
+  }
+  svg.addEventListener('pointerdown',function(e){
+    var id=e.target.getAttribute&&e.target.getAttribute('data-c'); if(!id) return;
+    chips.forEach(function(c){if(c.id===id){drag=c;sel=c;}});
+    if(svg.setPointerCapture) try{svg.setPointerCapture(e.pointerId);}catch(err){}
+    draw();
+  });
+  svg.addEventListener('pointermove',function(e){ if(!drag)return; var q=pos(e); drag.x=q.x; drag.y=q.y; draw(); });
+  svg.addEventListener('pointerup',function(){drag=null;});
+  svg.addEventListener('pointercancel',function(){drag=null;});
+  draw();
+};
+/* ============ LAB ENGINES ============ */
+var LABS={};
+
+/* classify items into two buckets */
+LABS.sort=function(body,cfg,mark){
+  var done=0,right=0,n=cfg.items.length;
+  body.innerHTML=cfg.items.map(function(it,i){
+    return '<div class="sortitem" data-i="'+i+'"><div class="txt">'+it.t+'</div><div class="sortbtns">'+
+      cfg.buckets.map(function(b,bi){return '<button data-b="'+bi+'">'+esc(b)+'</button>';}).join('')+'</div></div>';
+  }).join('')+'<div class="score" id="sc"></div>';
+  var sc=body.querySelector('#sc');
+  function upd(){sc.innerHTML='<b>'+right+' of '+n+'</b> correct \u00B7 '+done+' answered'+(done===n?(right===n?' \u00B7 <span class="pill ok">clean sweep</span>':' \u00B7 <span class="pill">re-read the ones you missed</span>'):'');}
+  body.addEventListener('click',function(e){
+    var b=e.target.closest('.sortbtns button'); if(!b) return;
+    var card=b.closest('.sortitem'); if(card.classList.contains('right')||card.classList.contains('wrong')) return;
+    var i=+card.getAttribute('data-i'),pick=+b.getAttribute('data-b'),ok=pick===cfg.items[i].b;
+    card.classList.add(ok?'right':'wrong'); done++; if(ok)right++;
+    card.querySelectorAll('.sortbtns button').forEach(function(x){x.disabled=true;x.style.opacity=.5;});
+    card.insertAdjacentHTML('beforeend','<div class="why"><b>'+(ok?'Correct':'Actually: '+esc(cfg.buckets[cfg.items[i].b]))+'.</b> '+cfg.items[i].why+'</div>');
+    mark(); upd();
+  });
+  upd();
+};
+
+/* put steps in the right order */
+LABS.order=function(body,cfg,mark){
+  var picked=[];
+  body.innerHTML='<div class="orderpool"></div><div class="orderslots"></div>'+
+    '<div class="rowbtns"><button class="solid" data-a="check">Check the order</button><button data-a="reset">Reset</button></div><div class="score" id="sc"></div>';
+  var pool=body.querySelector('.orderpool'),slots=body.querySelector('.orderslots'),sc=body.querySelector('#sc');
+  var bag=shuffle(cfg.items.map(function(t,i){return {t:t,i:i};}));
+  function draw(checked){
+    pool.innerHTML=bag.map(function(o){return '<button data-i="'+o.i+'"'+(picked.indexOf(o.i)>-1?' disabled':'')+'>'+esc(o.t)+'</button>';}).join('');
+    slots.innerHTML=cfg.items.map(function(_,s){
+      var v=picked[s],cls='slot'+(v!==undefined?' filled':'');
+      if(checked&&v!==undefined) cls+= (v===s?' ok':' bad');
+      return '<div class="'+cls+'"><span class="n">'+(s+1)+'</span>'+(v!==undefined?esc(cfg.items[v]):'\u2014')+'</div>';
+    }).join('');
+  }
+  body.addEventListener('click',function(e){
+    var p=e.target.closest('.orderpool button');
+    if(p&&!p.disabled&&picked.length<cfg.items.length){picked.push(+p.getAttribute('data-i'));draw(false);mark();
+      if(picked.length===cfg.items.length)sc.textContent='All placed \u2014 now check it.';return;}
+    var a=e.target.closest('.rowbtns button'); if(!a) return;
+    if(a.getAttribute('data-a')==='reset'){picked=[];bag=shuffle(bag);sc.textContent='';draw(false);return;}
+    var ok=picked.length===cfg.items.length&&picked.every(function(v,i){return v===i;});
+    draw(true); mark();
+    sc.innerHTML=ok?'<span class="pill ok">correct</span> '+cfg.why:'<span class="pill no">not yet</span> '+cfg.hint;
+  });
+  draw(false);
+};
+
+/* multiple choice with explanation */
+LABS.quiz=function(body,cfg,mark){
+  var right=0,done=0;
+  body.innerHTML=cfg.qs.map(function(q,i){
+    return '<div class="quizq" data-i="'+i+'"><p class="qt">'+q.q+'</p>'+(q.ctx?'<span class="ctx">'+q.ctx+'</span>':'')+
+      '<div class="opts">'+q.options.map(function(o,oi){return '<button data-o="'+oi+'">'+o+'</button>';}).join('')+'</div></div>';
+  }).join('')+'<div class="score" id="sc"></div>';
+  var sc=body.querySelector('#sc');
+  body.addEventListener('click',function(e){
+    var b=e.target.closest('.opts button'); if(!b||b.disabled) return;
+    var q=b.closest('.quizq'),i=+q.getAttribute('data-i'),pick=+b.getAttribute('data-o'),cor=cfg.qs[i].correct;
+    q.querySelectorAll('.opts button').forEach(function(x,xi){x.disabled=true;if(xi===cor)x.classList.add('reveal');});
+    b.classList.add(pick===cor?'picked-ok':'picked-no');
+    q.insertAdjacentHTML('beforeend','<div class="why"><b>'+(pick===cor?'Yes.':'Not quite.')+'</b> '+cfg.qs[i].why+'</div>');
+    done++; if(pick===cor)right++; mark();
+    sc.innerHTML='<b>'+right+' of '+cfg.qs.length+'</b> correct \u00B7 '+done+' answered';
+  });
+};
+
+/* fill fields -> generated script you can copy */
+LABS.build=function(body,cfg,mark){
+  var vals={};
+  body.innerHTML='<div class="bform">'+cfg.fields.map(function(f){
+      return '<div class="bfield"><label for="f-'+f.k+'">'+esc(f.label)+'</label>'+
+        (f.area?'<textarea id="f-'+f.k+'" data-k="'+f.k+'" placeholder="'+esc(f.ph)+'"></textarea>'
+               :'<input id="f-'+f.k+'" data-k="'+f.k+'" placeholder="'+esc(f.ph)+'">')+'</div>';
+    }).join('')+'</div><div class="bout" id="out"></div>'+
+    '<div class="rowbtns"><button class="solid" data-a="copy">Copy it</button><button data-a="clear">Clear</button></div><div class="score" id="sc"></div>';
+  var out=body.querySelector('#out'),sc=body.querySelector('#sc');
+  function render(){
+    var txt=cfg.render(function(k){return vals[k]||'';});
+    out.innerHTML=esc(txt).replace(/\[([^\]]+)\]/g,'<span class="ph">[$1]</span>');
+    var filled=cfg.fields.filter(function(f){return (vals[f.k]||'').trim();}).length;
+    sc.innerHTML='<b>'+filled+' of '+cfg.fields.length+'</b> fields filled'+(filled===cfg.fields.length?' \u00B7 <span class="pill ok">ready to use</span>':'');
+  }
+  body.addEventListener('input',function(e){
+    var k=e.target.getAttribute('data-k'); if(!k) return; vals[k]=e.target.value; mark(); render();
+  });
+  body.addEventListener('click',function(e){
+    var a=e.target.closest('.rowbtns button'); if(!a) return;
+    if(a.getAttribute('data-a')==='clear'){vals={};body.querySelectorAll('[data-k]').forEach(function(i){i.value='';});render();return;}
+    var t=cfg.render(function(k){return vals[k]||'';});
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t);a.textContent='Copied';setTimeout(function(){a.textContent='Copy it';},1400);}
+    else{sc.textContent='Select the text above to copy it.';}
+  });
+  render();
+};
+
+/* tap counter */
+LABS.tap=function(body,cfg,mark){
+  var n=0,t0=null;
+  body.innerHTML='<button class="tapbtn" id="tap">'+esc(cfg.label)+'</button>'+
+    '<div class="meterwrap" style="margin-top:14px"><div class="gauge"><div class="big" id="n">0</div><div class="lbl">'+esc(cfg.unit)+'</div></div>'+
+    '<div class="gauge"><div class="big" id="rate">\u2014</div><div class="lbl">per minute</div></div></div>'+
+    '<div class="rowbtns"><button data-a="reset">Reset</button></div><div class="verdictbox" id="v">'+cfg.start+'</div>';
+  body.querySelector('#tap').addEventListener('click',function(){
+    if(!t0)t0=Date.now(); n++; mark();
+    body.querySelector('#n').textContent=n;
+    var mins=(Date.now()-t0)/60000;
+    body.querySelector('#rate').textContent=mins>0.05?(n/mins).toFixed(1):'\u2014';
+    body.querySelector('#v').innerHTML=cfg.verdict(n,mins);
+  });
+  body.querySelector('[data-a="reset"]').addEventListener('click',function(){
+    n=0;t0=null;body.querySelector('#n').textContent='0';body.querySelector('#rate').textContent='\u2014';body.querySelector('#v').innerHTML=cfg.start;});
+};
+
+/* read-aloud pace trainer */
+LABS.pace=function(body,cfg,mark){
+  var t0=null,best=null;
+  var wc=words(cfg.passage);
+  body.innerHTML='<div class="passage">'+esc(cfg.passage)+'</div>'+
+    '<div class="rowbtns"><button class="solid" id="go">Start reading aloud</button><button id="stop" disabled>Finished</button></div>'+
+    '<div class="meterwrap" style="margin-top:14px"><div class="gauge"><div class="big" id="wpm">\u2014</div><div class="lbl">words per minute</div></div>'+
+    '<div class="gauge"><div class="big" id="secs">'+wc+'</div><div class="lbl">words in the passage</div></div></div>'+
+    '<div class="svgwrap" style="margin-top:12px"><svg viewBox="0 0 600 60" id="band"></svg></div><div class="verdictbox" id="v">Target band is 130&ndash;155 words per minute. Most people under pressure run at 180 and above.</div>';
+  function band(w){
+    var p=[];
+    p.push('<rect x="10" y="18" width="580" height="14" fill="#ECEFF3"/>');
+    p.push('<rect x="'+(10+580*(130-90)/(230-90))+'" y="18" width="'+(580*25/140)+'" height="14" fill="#CFE6D9"/>');
+    ['90','130','155','230'].forEach(function(v){
+      var x=10+580*(+v-90)/140;
+      p.push('<line x1="'+x+'" y1="14" x2="'+x+'" y2="36" stroke="#B0B8C1"/><text x="'+x+'" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#78838E">'+v+'</text>');
+    });
+    if(w){var x=Math.max(10,Math.min(590,10+580*(w-90)/140));
+      p.push('<polygon points="'+(x-6)+',10 '+(x+6)+',10 '+x+',20" fill="#9E1B32"/><line x1="'+x+'" y1="14" x2="'+x+'" y2="36" stroke="#9E1B32" stroke-width="2.5"/>');}
+    p.push('<text x="10" y="10" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1F7A4D">GREEN = TARGET BAND</text>');
+    body.querySelector('#band').innerHTML=p.join('');
+  }
+  body.querySelector('#go').addEventListener('click',function(){
+    t0=Date.now();this.disabled=true;body.querySelector('#stop').disabled=false;
+    body.querySelector('#v').innerHTML='Reading\u2026 finish the passage aloud, then press <b>Finished</b>.';mark();
+  });
+  body.querySelector('#stop').addEventListener('click',function(){
+    if(!t0)return; var mins=(Date.now()-t0)/60000, w=Math.round(wc/mins);
+    this.disabled=true; body.querySelector('#go').disabled=false; t0=null;
+    body.querySelector('#wpm').textContent=w; body.querySelector('#secs').textContent=Math.round(mins*60)+'s';
+    band(w); best=w;
+    body.querySelector('#v').innerHTML= w>170?'<b>'+w+' wpm \u2014 rushing.</b> Nobody can absorb a recommendation at this speed, and it reads as nerves. Read it again, deliberately slower, and put a two-second gap at every full stop.'
+      : w<115?'<b>'+w+' wpm \u2014 slower than you need.</b> Fine for a eulogy, heavy for a status update. Aim to land inside the green band.'
+      : '<b>'+w+' wpm \u2014 inside the band.</b> This is the pace at which people can follow you and still take notes. Repeat daily until it is your default under pressure.';
+  });
+  band(null);
+};
+
+/* press-and-hold silence trainer */
+LABS.hold=function(body,cfg,mark){
+  var start=null,best=0;
+  body.innerHTML='<button class="tapbtn" id="hold">Press and hold for a full three seconds</button>'+
+    '<div class="meterwrap" style="margin-top:14px"><div class="gauge"><div class="big" id="last">0.0s</div><div class="lbl">last pause</div></div>'+
+    '<div class="gauge"><div class="big" id="best">0.0s</div><div class="lbl">longest pause</div></div></div>'+
+    '<div class="verdictbox" id="v">Three seconds of silence feels like ten when you are the one holding it. That gap is where the room catches up with you \u2014 and where a colleague finally says the true thing.</div>';
+  var btn=body.querySelector('#hold');
+  function down(){start=Date.now();btn.textContent='Hold\u2026 keep holding\u2026';mark();}
+  function up(){
+    if(!start)return; var s=(Date.now()-start)/1000; start=null;
+    btn.textContent='Press and hold for a full three seconds';
+    body.querySelector('#last').textContent=s.toFixed(1)+'s';
+    if(s>best){best=s;body.querySelector('#best').textContent=s.toFixed(1)+'s';}
+    body.querySelector('#v').innerHTML= s>=3?'<b>'+s.toFixed(1)+'s \u2014 that is the pause.</b> Now do it in a live meeting after someone stops speaking. Roughly a third of the time they will start again, and the second thing is usually the true thing.'
+      : '<b>'+s.toFixed(1)+'s.</b> Short. The discomfort you just felt is exactly why you fill silences with &lsquo;does that make sense?&rsquo;. Go again and let it stretch.';
+  }
+  btn.addEventListener('pointerdown',down); btn.addEventListener('pointerup',up); btn.addEventListener('pointerleave',up);
+};
+
+/* cut-by-half word meter */
+LABS.wordcut=function(body,cfg,mark){
+  var orig=0;
+  body.innerHTML='<textarea class="plain" id="ta" style="min-height:140px" placeholder="'+esc(cfg.ph)+'"></textarea>'+
+    '<div class="rowbtns"><button class="solid" data-a="set">Lock this as the original</button><button data-a="clear">Clear</button></div>'+
+    '<div class="meterwrap" style="margin-top:14px"><div class="gauge"><div class="big" id="now">0</div><div class="lbl">words now</div></div>'+
+    '<div class="gauge"><div class="big" id="cut">\u2014</div><div class="lbl">cut so far</div></div></div>'+
+    '<div class="bar" style="height:10px;margin-top:12px"><span id="pb"></span></div>'+
+    '<div class="verdictbox" id="v">Paste something you actually wrote this week. Lock it, then cut half the words without losing meaning. Then cut ten percent more.</div>';
+  var ta=body.querySelector('#ta');
+  function upd(){
+    var n=words(ta.value); body.querySelector('#now').textContent=n;
+    if(!orig){body.querySelector('#cut').textContent='\u2014';return;}
+    var pct=Math.max(0,Math.round((1-n/orig)*100));
+    body.querySelector('#cut').textContent=pct+'%';
+    body.querySelector('#pb').style.width=Math.min(100,pct/50*100)+'%';
+    body.querySelector('#v').innerHTML= pct>=50?'<b>'+pct+'% cut \u2014 target met.</b> Read it aloud. If nothing important is missing, that is your evidence that half of what you write is scaffolding. Now take ten percent more.'
+      : '<b>'+pct+'% cut from '+orig+' words.</b> Keep going \u2014 the first things to delete are the wind-up sentence, every &lsquo;I just wanted to&rsquo;, and any word ending in &lsquo;-ation&rsquo; you can replace with a verb.';
+  }
+  ta.addEventListener('input',function(){mark();upd();});
+  body.addEventListener('click',function(e){
+    var a=e.target.closest('.rowbtns button'); if(!a)return;
+    if(a.getAttribute('data-a')==='set'){orig=words(ta.value);mark();upd();
+      body.querySelector('#v').innerHTML='<b>Locked at '+orig+' words.</b> Now edit the text above. Target: '+Math.round(orig/2)+' words.';}
+    else{orig=0;ta.value='';body.querySelector('#pb').style.width=0;upd();}
+  });
+};
+
+/* subject line scorer */
+LABS.subject=function(body,cfg,mark){
+  var VERBS=/\b(approve|approval|decide|decision|review|confirm|sign|send|need|action|input|feedback|reply|book|join|read|fix)\b/i;
+  var WHEN=/\b(today|tomorrow|tonight|mon|tue|wed|thu|fri|sat|sun|by \d|\d{1,2} ?(am|pm)|\d{1,2}[\/ -](jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)|eod|eow)\b/i;
+  var VAGUE=/\b(update|touching base|touch base|quick question|fyi|checking in|following up|thoughts\?)\b/i;
+  body.innerHTML='<div class="bfield"><label for="sl">Your subject line</label><input id="sl" placeholder="'+esc(cfg.ph)+'"></div>'+
+    '<div id="checks" style="margin-top:12px"></div><div class="bar" style="height:10px;margin-top:10px"><span id="pb"></span></div>'+
+    '<div class="verdictbox" id="v">A subject line should let someone act without opening the mail.</div>';
+  var input=body.querySelector('#sl');
+  function upd(){
+    var s=input.value,tests=[
+      {t:"Under 60 characters (survives a phone)",p:s.length>0&&s.length<=60},
+      {t:"Contains an action verb (approve, decide, review\u2026)",p:VERBS.test(s)},
+      {t:"Contains a deadline or day",p:WHEN.test(s)},
+      {t:"Contains a specific number, name or amount",p:/\d|[A-Z]{2,}/.test(s)},
+      {t:"Avoids vague filler (&lsquo;update&rsquo;, &lsquo;quick question&rsquo;, &lsquo;FYI&rsquo;)",p:s.length>0&&!VAGUE.test(s)}
+    ];
+    var score=tests.filter(function(t){return t.p;}).length;
+    body.querySelector('#checks').innerHTML=tests.map(function(t){
+      return '<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:6px;font-size:.88rem;color:'+(t.p?'#1F7A4D':'#78838E')+'">'+
+        '<span style="font-family:var(--mono)">'+(t.p?'\u2713':'\u25CB')+'</span><span>'+t.t+'</span></div>';}).join('');
+    body.querySelector('#pb').style.width=(score/5*100)+'%';
+    body.querySelector('#v').innerHTML= !s.length?'A subject line should let someone act without opening the mail.'
+      : score>=4?'<b>'+score+'/5 \u2014 this one works unopened.</b> Someone triaging forty mails on a phone knows what you want and when.'
+      : '<b>'+score+'/5.</b> Rewrite it as an instruction to the reader, not a label for the contents. Compare: &ldquo;Vendor update&rdquo; against &ldquo;Approval needed by Thu: Vendor B, \u20B942L&rdquo;.';
+  }
+  input.addEventListener('input',function(){mark();upd();});
+  upd();
+};
+
+/* sliders -> live rendering + verdict */
+LABS.dials=function(body,cfg,mark){
+  var v={}; cfg.dials.forEach(function(d){v[d.k]=d.val;});
+  body.innerHTML='<div class="dials">'+cfg.dials.map(function(d){
+      return '<div class="dial"><label for="d-'+d.k+'">'+esc(d.label)+' <b id="lab-'+d.k+'"></b></label>'+
+        '<input type="range" id="d-'+d.k+'" data-k="'+d.k+'" min="0" max="100" value="'+d.val+'"></div>';
+    }).join('')+'</div><div id="stage" style="margin-top:16px"></div><div class="verdictbox" id="v"></div>';
+  function upd(){
+    cfg.dials.forEach(function(d){body.querySelector('#lab-'+d.k).textContent=d.read(v[d.k]);});
+    var r=cfg.render(v);
+    body.querySelector('#stage').innerHTML=r.stage;
+    body.querySelector('#v').innerHTML=r.verdict;
+  }
+  body.addEventListener('input',function(e){
+    var k=e.target.getAttribute('data-k'); if(!k)return; v[k]=+e.target.value; mark(); upd();
+  });
+  upd();
+};
+/* ============ COURSE DATA ============ */
+var MODULES=[
+{n:"01",id:"module-1",t:"Intent, Impact and the Gap Between",s:"Why clear people are still misunderstood, and how to design a message before you open your mouth.",time:"3 hrs",
+ out:"You stop measuring your communication by what you said, and start measuring it by what the other person now believes and will do.",
+ vis:{k:"impactGap",title:"The impact gap \u2014 break a stage and watch meaning decay",hint:"tap the stages"},
+ fw:[
+  {n:"The Impact Gap",p:"Every message passes through five lossy stages: what you mean, how you encode it, the channel, how they decode it, what they do. Most people maintain only stage one. Diagnose failures by asking which stage broke \u2014 not by repeating stage one louder."},
+  {n:"The Audience-First Brief",p:"Four lines before any important message. <i>Who</i> is receiving it. <i>What they care about</i> right now. <i>What I want them to do</i>. <i>What could go wrong</i> in their head.",ex:"WHO: CFO, three weeks from budget lock \u00B7 CARES: cost certainty \u00B7 DO: approve the pilot \u00B7 RISK: hears \u201CAI experiment\u201D, thinks \u201Copen-ended spend\u201D"},
+  {n:"Channel fit",p:"Complexity and emotional load choose the channel. High emotion, low complexity \u2192 talk. High complexity, low emotion \u2192 write. Both high \u2192 write first so they can absorb it, then talk. Never deliver bad news where they cannot reply."}],
+ labs:[
+  {id:"L1a",type:"build",kind:"builder",title:"Build your Audience-First Brief",prompt:"Use a real message you have to send this week. The output is four lines you can keep next to you while you write.",cfg:{
+    fields:[{k:"who",label:"Who receives this",ph:"e.g. Head of Ops, in a peak-season freeze"},
+            {k:"cares",label:"What they care about this week",ph:"not what you care about"},
+            {k:"do",label:"What I want them to do",ph:"one verb, one deadline"},
+            {k:"risk",label:"What could go wrong in their head",ph:"the objection they will not say aloud"}],
+    render:function(g){return "AUDIENCE BRIEF\n\nWHO   \u2014 "+(g("who")||"[who]")+"\nCARES \u2014 "+(g("cares")||"[what matters to them now]")+
+      "\nDO    \u2014 "+(g("do")||"[the single action you want]")+"\nRISK  \u2014 "+(g("risk")||"[what they will privately fear]")+
+      "\n\nOPENING LINE:\n\"I need "+(g("do")||"[the action]")+". It matters because "+(g("cares")||"[their concern]")+", and "+(g("risk")||"[the risk]")+" is exactly what this avoids.\"";}}},
+  {id:"L1b",type:"sort",kind:"classify",title:"Talk or write?",prompt:"Sort each situation by channel. The rule: emotion goes to voice, complexity goes to text.",cfg:{
+    buckets:["Talk (call or in person)","Write (mail or doc)"],
+    items:[
+     {t:"Telling a colleague their part of the project is being moved to another team.",b:0,why:"High emotion, low complexity. In writing this reads as a demotion notice and they cannot ask the one question that would settle it."},
+     {t:"Sharing a nine-criteria vendor comparison for review before Friday.",b:1,why:"High complexity, low emotion. Nobody can hold nine criteria in a meeting \u2014 they need to read at their own pace."},
+     {t:"Correcting a number you quoted wrongly in yesterday's steering committee.",b:1,why:"Written, immediately, to everyone who heard the wrong number. Precision matters and the record needs correcting."},
+     {t:"Asking why a normally reliable teammate has missed two deadlines.",b:0,why:"Emotion, and you do not know the cause yet. A written version of this question always reads as an accusation."},
+     {t:"Announcing an org change that affects reporting lines for forty people.",b:1,why:"Write first so people can absorb it privately \u2014 then hold the meeting. Reversing that order guarantees rumour."},
+     {t:"Turning down a senior stakeholder's pet request.",b:0,why:"High emotion. A written no invites a written escalation; a spoken no lets you offer the alternative in the same breath."}]}}],
+ drills:["<b>Brief three (15 min).</b> Write the four-line brief for your next three real conversations.",
+  "<b>The role test (10 min).</b> Record sixty seconds explaining what you do. Play it to someone outside your field and ask them to repeat it back.",
+  "<b>Noise audit (20 min).</b> List the last five times you were misunderstood; mark which stage actually broke. Look for the repeat offender.",
+  "<b>Channel reassignment (10 min).</b> Find three threads that should have been a call, and one call that should have been a document."],
+ field:"Pick one message you would normally fire off. Write the brief first, send it, then ask the recipient: \u201CWhat did you take away as the next step?\u201D Record the answer verbatim.",
+ checks:["Can I name what my most important stakeholder is worried about this week, in their words?",
+  "In my last three messages, was the requested action visible without scrolling?",
+  "When I was last misunderstood, did I change my encoding \u2014 or just repeat myself?"]},
+
+{n:"02",id:"module-2",t:"Listening as an Active Skill",s:"The half of communication with the highest return and the least practice.",time:"3.5 hrs",
+ out:"People finish their sentences around you, tell you things earlier, and feel understood before they are advised.",
+ vis:{k:"listenLevels",title:"Three levels of listening \u2014 same words, three different meetings",hint:"switch levels"},
+ fw:[
+  {n:"Three levels",p:"<b>Level 1 \u2014 internal:</b> you are listening to your own reply forming. <b>Level 2 \u2014 focused:</b> full attention on their words. <b>Level 3 \u2014 global:</b> you also track tone, hesitation, what they avoided saying. Most professionals live at Level 1 and believe they are at Level 2."},
+  {n:"RASA",p:"<b>R</b>eceive \u2014 stop everything else. <b>A</b>ppreciate \u2014 small signals you are still there. <b>S</b>ummarise \u2014 \u201Cso the real constraint is the audit date, not the budget\u201D. <b>A</b>sk \u2014 one question that goes deeper rather than sideways."},
+  {n:"The three-second rule",p:"Wait three seconds after they stop. Roughly a third of the time they continue \u2014 and the second thing is usually the true thing.",ex:"\u201C\u2026so we'll probably hit the date.\u201D [3s] \u201C\u2026though honestly the testing plan is fiction.\u201D"},
+  {n:"The question ladder",p:"Open \u2192 probing \u2192 clarifying \u2192 reflective. Amateurs stay on the first rung; the value sits on the third and fourth."}],
+ labs:[
+  {id:"L2a",type:"order",kind:"sequence",title:"Put RASA in order",prompt:"Four steps, one correct sequence. Tap them in the order they happen in a real conversation.",cfg:{
+    items:["Receive \u2014 stop everything else, including the reply forming in your head",
+      "Appreciate \u2014 small signals that you are still there",
+      "Summarise \u2014 say their point back in your own words",
+      "Ask \u2014 one question that goes deeper, not sideways"],
+    why:"Summarise before you ask. A question that arrives before any evidence of understanding feels like an interrogation \u2014 and gets you a defended answer.",
+    hint:"The trap is asking before summarising. Try again: what proves you were listening before you push for more?"}},
+  {id:"L2b",type:"hold",kind:"trainer",title:"The three-second pause",prompt:"Hold the button for the length of the silence you are willing to leave after someone stops speaking. Then go do it in a real conversation.",cfg:{}},
+  {id:"L2c",type:"tap",kind:"trainer",title:"Interruption counter",prompt:"Keep this open during your next call. Tap every time you cut in \u2014 including the helpful ones, including finishing their sentence.",cfg:{
+    label:"Tap when you interrupt",unit:"interruptions",
+    start:"No judgment here, just the number. Compare it with the same count in week eight.",
+    verdict:function(n,m){return n<3?"<b>"+n+" so far.</b> Keep counting \u2014 the number matters less than the fact that you are now noticing in the moment."
+      :"<b>"+n+" interruptions"+(m>0.5?" in "+m.toFixed(0)+" minutes":"")+".</b> Every one was probably useful and every one taught the room that the ending of their sentence is optional. Try one meeting where you finish nobody's sentence.";}}}],
+ drills:["<b>Summarise-first day (1 day).</b> For one full day, summarise the other person's point before adding yours.",
+  "<b>No-advice conversation (20 min).</b> Discuss a colleague's problem and give zero advice. Questions and summaries only.",
+  "<b>Three-second discipline (1 week).</b> Hold three seconds before responding in every one-to-one. Write down what surfaced in the gap.",
+  "<b>Minutes without notes (30 min).</b> Reconstruct each person's position from memory after a meeting, send it, and ask what you got wrong."],
+ field:"Run one thirty-minute conversation with someone whose position you dislike or do not understand. Goal: state their case so accurately they would sign it. Send them your version afterwards.",
+ checks:["In my last meeting, could I state what each person actually wanted \u2014 not what they proposed?",
+  "How often do I ask a second question before answering the first one myself?",
+  "When did someone last tell me something difficult early? What made that possible?"]},
+
+{n:"03",id:"module-3",t:"Clarity: Structuring the Message",s:"Answer first, then support. The highest-leverage single change most professionals can make.",time:"4 hrs",
+ out:"Anyone can tell you your point after thirty seconds, and senior people stop asking you to get to it.",
+ vis:{k:"pyramid",title:"Buried versus answer-first \u2014 and the \u201Cso what?\u201D ladder",hint:"toggle and climb"},
+ fw:[
+  {n:"BLUF \u2014 bottom line up front",p:"Conclusion and ask in the first two sentences, evidence after. You are not writing a detective novel.",ex:"Weak: \u201CWe ran three vendor evaluations across Q2\u2026\u201D \u2192 Strong: \u201CRecommend Vendor B, signed by the 30th. Two reasons follow.\u201D"},
+  {n:"SCQA",p:"<b>S</b>ituation (what we agree on) \u2192 <b>C</b>omplication (what changed) \u2192 <b>Q</b>uestion (what it forces) \u2192 <b>A</b>nswer (your recommendation). The most reliable opening for updates, proposals and difficult mails alike."},
+  {n:"The pyramid",p:"One governing message on top, three supports beneath, evidence under each. Supports must not overlap and must cover the case. If you have seven points, you have not finished thinking."},
+  {n:"Three",p:"Three points are remembered; five are not. If a fourth matters, it belongs in the appendix or a different meeting."}],
+ labs:[
+  {id:"L3a",type:"quiz",kind:"judgement",title:"Spot the buried lede",prompt:"Four openings. Pick the one that puts the answer up front without losing the nuance.",cfg:{qs:[
+    {q:"Which opening would you send to a director who has ninety seconds?",
+     ctx:"Context: the migration will slip by three weeks; you want approval to add two contractors.",
+     options:["\u201CAs you know, we kicked off the migration in April with a plan built around four workstreams\u2026\u201D",
+       "\u201CI need approval for two contractors this week. Without them the migration slips three weeks; with them it holds.\u201D",
+       "\u201CThere have been some challenges with the migration that I wanted to bring to your attention.\u201D",
+       "\u201CQuick update on migration status \u2014 details below, happy to discuss.\u201D"],
+     correct:1,why:"The ask, the consequence and the timeframe in two sentences. Option 3 is a warning without a request, which makes a director hunt for the point \u2014 and the hunt is what they resent."},
+    {q:"Which slide title actually argues something?",
+     options:["\u201CQ3 Performance Overview\u201D","\u201CRegional Analysis \u2014 Detail\u201D","\u201CQ3 missed on volume, not price \u2014 the fix is distribution\u201D","\u201CKey Findings and Next Steps\u201D"],
+     correct:2,why:"A title that states a conclusion turns your deck into an argument you can read from the titles alone. Topics label the contents; claims move the decision."},
+    {q:"You have thirty seconds in a lift with the sponsor. Which structure?",
+     options:["Background, then complication, then your recommendation","Recommendation, then the single strongest reason, then the ask","Every option you considered, in fairness to the process","A question, so they lead the conversation"],
+     correct:1,why:"Thirty seconds holds one claim, one reason, one ask. Fairness to your process is not the sponsor's problem \u2014 and the options belong in the document you send afterwards."},
+    {q:"Applying \u201Cso what?\u201D \u2014 which is the level to open on?",
+     ctx:"Fact: support ticket volume rose 22% after the release.",
+     options:["\u201CTicket volume rose 22%.\u201D","\u201CTicket volume rose 22%, mostly on login.\u201D","\u201CThe release is costing us 40 support hours a week.\u201D","\u201CWe should roll back the login change this week \u2014 it is costing 40 support hours a week.\u201D"],
+     correct:3,why:"Climb until the answer is a decision, then start there. The 22% still appears \u2014 as support, one line down, where it belongs."}]}},
+  {id:"L3b",type:"order",kind:"sequence",title:"Assemble an SCQA opening",prompt:"Four sentences from a real-sounding proposal. Put them in the order that makes a busy reader keep reading.",cfg:{
+    items:["We agreed in April that peak season is protected \u2014 no platform changes after 1 October.",
+      "The payment provider has now announced they are retiring the current API on 15 November.",
+      "So do we break the freeze, or carry an unsupported integration through peak?",
+      "Recommend we break the freeze for this one change, in the first week of October."],
+    why:"Situation \u2192 complication \u2192 question \u2192 answer. The reader agrees with you twice before you ask for anything, and the question is one they were already forming.",
+    hint:"Start with what you both already agree on. The recommendation is never first in this structure \u2014 that is BLUF, which is what you use once the reader knows the problem."}},
+  {id:"L3c",type:"wordcut",kind:"trainer",title:"Cut it by half",prompt:"Paste something you wrote this week. Lock it, then remove half the words without removing meaning.",cfg:{
+    ph:"Paste a real email, status update or paragraph from a document\u2026"}}],
+ drills:["<b>The 5-line rewrite (15 min).</b> Take your longest recent email and rewrite it in five lines with the ask on line one.",
+  "<b>Three lengths (20 min).</b> Explain one initiative in 30 seconds, 3 minutes and 30 minutes. Build the shortest first.",
+  "<b>Headline-only deck (25 min).</b> Rewrite slide titles so each states a conclusion. Read the titles alone \u2014 that is your argument.",
+  "<b>SCQA opener (10 min daily).</b> Draft one four-sentence SCQA for whatever is live that day."],
+ field:"Open your next status meeting with a single sentence containing your conclusion and your ask, then stop talking. Note how the questions change.",
+ checks:["If someone read only my first two sentences, would they know what to do?",
+  "Do my slide titles make claims, or name topics?",
+  "Can I state my project's point in one sentence without using \u201Cand\u201D?"]},
+
+{n:"04",id:"module-4",t:"Voice, Body and Presence",s:"The mechanical layer \u2014 pace, pause, hedging, posture \u2014 trainable in twenty minutes a day.",time:"4 hrs",
+ out:"You sound composed under pressure, your fillers drop measurably, and people stop asking you to repeat yourself on calls.",
+ vis:{k:"speechAnatomy",title:"Anatomy of a spoken sentence",hint:"compare the two deliveries"},
+ fw:[
+  {n:"The four dials",p:"<b>Pace</b> (slow at the important part, not throughout), <b>pitch</b> (drop at the end \u2014 rising ends sound like requests for permission), <b>pause</b> (before and after anything that matters), <b>power</b> (volume set by the room, not by your nerves). Move one dial per talk."},
+  {n:"Silence replaces filler",p:"\u201Cum\u201D, \u201Cbasically\u201D, \u201Csort of\u201D and \u201Cright?\u201D are placeholders for thinking time. The cure is not speaking faster but allowing a gap. Silence reads as authority; filler reads as apology."},
+  {n:"Posture, breath, eyes",p:"Feet planted, weight even, hands visible above the waist. Breathe from the belly before you begin \u2014 shallow breath is what thins a voice. Hold eye contact for a complete thought, then move on; continuous sweeping signals nerves."},
+  {n:"Camera presence",p:"Camera at eye level, face filling about a third of the frame, light in front of you. Look at the lens for your key sentence and add ten percent energy \u2014 video flattens everything, including you."}],
+ labs:[
+  {id:"L4a",type:"dials",kind:"simulator",title:"The delivery dials",prompt:"Same sentence, three dials. Move them and read the result aloud \u2014 the difference is entirely timing and hedging, not personality.",cfg:{
+    dials:[{k:"pace",label:"Pace",val:80,read:function(v){return Math.round(110+v);}},
+      {k:"pause",label:"Pauses",val:10,read:function(v){return v<20?"none":v<60?"some":"deliberate";}},
+      {k:"hedge",label:"Hedging",val:70,read:function(v){return v<25?"none":v<60?"some":"heavy";}}],
+    render:function(v){
+      var core=["We","move","the","date","to","the","thirtieth."],out=[];
+      if(v.hedge>60) out=out.concat(["um,","so","I","was","thinking","maybe"]);
+      else if(v.hedge>25) out=out.concat(["so,","I","think"]);
+      out=out.concat(core);
+      if(v.hedge>60) out=out.concat(["if","that's","okay?"]); else if(v.hedge>25) out=out.concat(["\u2014","does","that","make","sense?"]);
+      var gaps=v.pause>60?3:v.pause>20?1:0,per=Math.ceil(out.length/(gaps+1)),html='',i;
+      for(i=0;i<out.length;i++){
+        var hed=/^(um,|maybe|sort|kind|I|thinking|okay\?|sense\?|think|so,?)$/i.test(out[i])&&v.hedge>25;
+        html+='<span style="color:'+(hed?'#B4291F':'#101418')+'">'+esc(out[i])+'</span> ';
+        if(gaps&&i>0&&(i+1)%per===0&&i<out.length-1) html+='<span style="font-family:var(--mono);font-size:.7rem;color:#B8862F;border:1px dashed #B8862F;padding:1px 5px;margin:0 4px">pause</span> ';
+      }
+      var wpm=Math.round(110+v.pace);
+      var stage='<div style="border:1px solid var(--rule);background:#fff;padding:16px;font-family:var(--serif);font-size:1.15rem;line-height:2;'+(v.pace>70?'letter-spacing:-.3px':'letter-spacing:.2px')+'">'+html+'</div>'+
+        '<div class="meterwrap" style="margin-top:10px"><div class="gauge"><div class="big" style="color:'+(wpm>170?'#B4291F':'#1F7A4D')+'">'+wpm+'</div><div class="lbl">words per minute</div></div>'+
+        '<div class="gauge"><div class="big" style="color:'+(out.length>10?'#B4291F':'#1F7A4D')+'">'+out.length+'</div><div class="lbl">words to say one thing</div></div></div>';
+      var bad=[];
+      if(wpm>170) bad.push("you are outrunning the room");
+      if(v.hedge>60) bad.push("six words of apology before the content");
+      if(v.pause<20) bad.push("no silence anywhere, so nothing is emphasised");
+      var verdict=bad.length?"<b>Problems: </b>"+bad.join("; ")+". Drop hedging first \u2014 it costs you authority faster than pace does."
+        :"<b>This is the version people follow.</b> Seven words, deliberate gaps, no permission-seeking. Read it aloud and notice it takes longer than the rushed version <i>feels</i> like it does.";
+      return {stage:stage,verdict:verdict};}}},
+  {id:"L4b",type:"pace",kind:"trainer",title:"Pace trainer",prompt:"Read the passage aloud at the speed you would use in a real meeting. The trainer measures you against the target band.",cfg:{
+    passage:"The change we are proposing affects three teams and one external partner. It costs four weeks of engineering time. If we do it now, peak season is protected and the partner integration holds. If we wait until January, the same work takes seven weeks because two of those engineers roll off. I am asking for a decision this week, not for a discussion next month."}},
+  {id:"L4c",type:"tap",kind:"trainer",title:"Filler counter",prompt:"Play back a recording of yourself and tap every \u201Cum\u201D, \u201Cbasically\u201D, \u201Csort of\u201D and \u201Cright?\u201D. Do not aim for zero \u2014 aim for a downward line week to week.",cfg:{
+    label:"Tap on every filler",unit:"fillers",
+    start:"Record ninety seconds on a work topic first. Then play it back and tap along.",
+    verdict:function(n,m){var pm=m>0.2?n/m:0;
+      return pm>8?"<b>"+n+" fillers ("+pm.toFixed(0)+"/min).</b> Heavy. The fix is not speaking faster \u2014 it is allowing the gap where the filler was. Run the pause trainer in Module 02, then re-record."
+        :"<b>"+n+" fillers"+(pm?" ("+pm.toFixed(0)+"/min)":"")+".</b> Log the number and the date. Any downward trend over eight weeks is a real, hard-won change.";}}}],
+ drills:["<b>Read aloud (10 min daily).</b> Well-written prose, slower than feels natural, final consonants finished.",
+  "<b>Sound-off review (5 min).</b> Watch yourself muted, note every unconscious movement; then listen with the picture off.",
+  "<b>Cold open (5 min, 3\u00D7 weekly).</b> Record two minutes on a random work topic with no preparation. Recovery is the skill.",
+  "<b>Stairs test (5 min).</b> Deliver your key sentence after two flights of stairs. Speaking steadily with your heart rate up transfers directly to high-stakes rooms."],
+ field:"Record one real meeting you lead (with consent). Watch the first five minutes only. Score pace, pause, filler and eye contact, and change exactly one thing next week.",
+ checks:["Do I pause before my most important sentence, or rush it?",
+  "What do my hands do when I do not decide what they do?",
+  "Does my voice drop or rise at the end of my recommendations?"]},
+
+{n:"05",id:"module-5",t:"Storytelling for Influence",s:"Build a bank of true, short stories from your own working life \u2014 and know when a story beats a chart.",time:"4 hrs",
+ out:"You can produce a ninety-second true story that carries a point, on demand, without notes.",
+ vis:{k:"storyArc",title:"The story spine \u2014 six beats and one turn",hint:"tap the beats"},
+ fw:[
+  {n:"The story spine",p:"Once there was \u2026 / Every day \u2026 / But one day \u2026 / Because of that \u2026 / Until finally \u2026 / And ever since \u2026. Six lines carry almost any workplace story. The turn is the whole point \u2014 without a change you have an anecdote."},
+  {n:"STAR-L",p:"Situation, Task, Action, Result, <b>Learning</b>. The L is what makes it useful to the listener rather than a claim about you."},
+  {n:"Data and story sandwich",p:"Story to open the mind, number to prove the scale, meaning to close.",ex:"\u201CA store manager in Pune called at 11pm because the reorder screen froze.\u201D \u2192 \u201CIt froze 4,100 times last quarter.\u201D \u2192 \u201CEvery freeze is a shelf empty for a day.\u201D"},
+  {n:"The curse of knowledge",p:"You cannot un-know what you know, so you skip the steps that made it obvious. Antidotes: concrete objects instead of abstractions, one named person instead of \u201Cusers\u201D, and a test on someone outside your function before it matters."}],
+ labs:[
+  {id:"L5a",type:"build",kind:"builder",title:"Story spine builder",prompt:"Take one real experience \u2014 ideally one where something went wrong. Six short lines. The output is a story you can tell aloud in ninety seconds.",cfg:{
+    fields:[{k:"once",label:"Once there was",ph:"a person and a normal world \u2014 one sentence"},
+      {k:"every",label:"Every day",ph:"the routine that made the change matter"},
+      {k:"but",label:"But one day (the turn)",ph:"what broke, arrived or failed"},
+      {k:"because",label:"Because of that",ph:"what you or they actually did"},
+      {k:"until",label:"Until finally",ph:"how it resolved \u2014 honestly, including badly"},
+      {k:"since",label:"And ever since",ph:"what changed permanently, and why they should care"}],
+    render:function(g){return "NINETY-SECOND STORY\n\n"+(g("once")||"[once there was\u2026]")+"\n"+(g("every")||"[every day\u2026]")+
+      "\n\n"+(g("but")||"[but one day \u2014 THE TURN]")+"\n"+(g("because")||"[because of that\u2026]")+"\n"+(g("until")||"[until finally\u2026]")+
+      "\n\n"+(g("since")||"[and ever since \u2014 the point]")+"\n\nCHECK: can a listener say what this story is FOR in one sentence?";}}},
+  {id:"L5b",type:"sort",kind:"classify",title:"Story or anecdote?",prompt:"A story has a turn: something changes. An anecdote is a sequence of events. Sort each one.",cfg:{
+    buckets:["Story (has a turn)","Anecdote (no turn)"],
+    items:[
+     {t:"\u201CWe ran the pilot for six weeks, gathered the data, and the results were broadly positive.\u201D",b:1,why:"Sequence, no change. Nothing is at stake and nothing is different at the end \u2014 which is why nobody remembers it by Friday."},
+     {t:"\u201CI was certain the delay was a vendor problem. Then I sat with the warehouse team for a day and watched them re-key every order by hand.\u201D",b:0,why:"The turn is the belief breaking. That is the smallest and strongest kind of turn: I was sure, and then I saw."},
+     {t:"\u201COur team has grown from four people to nineteen over three years, across two locations.\u201D",b:1,why:"Facts about growth. Interesting to you, inert to a listener. It becomes a story the moment something goes wrong at person twelve."},
+     {t:"\u201CThe client cancelled the meeting twice. The third time, their CFO joined \u2014 and asked the one question we had never prepared for.\u201D",b:0,why:"Routine established, then broken. The listener now wants to know what the question was, which is exactly the state you want them in."},
+     {t:"\u201CWe use a five-stage governance model with quarterly checkpoints and a monthly steering forum.\u201D",b:1,why:"A description of a system. If you need this in a talk, attach one moment where the system saved you \u2014 or failed."}]}}],
+ drills:["<b>Build the bank (45 min).</b> Eight moments: a failure, a save, a first, a conflict, a mentor, a regret, a small win, a change of mind.",
+  "<b>Ninety seconds (10 min daily).</b> Tell one story to a recorder in ninety seconds. Cut anything not needed for the turn.",
+  "<b>Chart to sentence (15 min).</b> Take a chart and write the one sentence a person would repeat at dinner.",
+  "<b>Outsider test (15 min).</b> Tell your best story to someone outside your industry. Where they lose interest is where your edit begins."],
+ field:"Open one real meeting with a sixty-second story instead of an agenda. Watch whether people put their phones down.",
+ checks:["Do my stories contain a turn, or just a sequence of events?",
+  "Am I the hero of every story I tell? (If yes, that is a problem.)",
+  "Can I name the point of each story in my bank in one sentence?"]},
+
+{n:"06",id:"module-6",t:"Writing and Async Communication",s:"Where most workplace communication now happens \u2014 and where most of it is quietly ignored.",time:"3.5 hrs",
+ out:"Your messages get read to the end, acted on without a chase, and forwarded intact to people you have never met.",
+ vis:{k:"oneScreen",title:"The one-screen rule \u2014 where the ask actually sits",hint:"switch versions"},
+ fw:[
+  {n:"The one-screen rule",p:"If the reader must scroll to find the request, the request will be missed. Long content goes in an attachment; the message carries the decision and the deadline."},
+  {n:"Subject lines are headlines",p:"A subject line should let someone act without opening the mail. \u201CApproval needed by Thu: vendor shortlist (2 min read)\u201D beats \u201CVendor update\u201D every time."},
+  {n:"Action \u2192 context \u2192 detail",p:"Layer it so each audience can stop where it suits them. The approver reads line one, the doer reads the middle, the auditor reads the appendix."},
+  {n:"Tone offset",p:"Written words land colder than intended and neutral reads as annoyed. Add one degree of warmth, and never send anything sharp within an hour of feeling sharp."},
+  {n:"Drafting with AI without losing your voice",p:"Draft, then <b>strip</b> every sentence that could have been written about any company, then <b>re-voice</b> with your specifics. If a colleague could not tell you wrote it, it is not finished."}],
+ labs:[
+  {id:"L6a",type:"subject",kind:"scorer",title:"Subject line scorer",prompt:"Type a subject line for a real message you need to send. Five checks, scored live.",cfg:{ph:"e.g. Approval needed by Thu: Vendor B, \u20B942L over 2 years"}},
+  {id:"L6b",type:"sort",kind:"classify",title:"Wind-up or action-first?",prompt:"Read each opening line as if you had forty unread mails and ninety seconds.",cfg:{
+    buckets:["Action-first","Wind-up"],
+    items:[
+     {t:"\u201CHope you're well! I just wanted to reach out about something we discussed a while back\u2026\u201D",b:1,why:"Nineteen words, zero information. Delete the entire first paragraph \u2014 the real message almost always starts in paragraph two."},
+     {t:"\u201CTwo decisions needed from you by Thursday. Both are one-liners.\u201D",b:0,why:"Tells the reader the shape of the work before they commit to reading it. \u2018Both are one-liners\u2019 is the sentence that stops it being deferred."},
+     {t:"\u201CFollowing several conversations with procurement, legal and the platform team over the last fortnight\u2026\u201D",b:1,why:"Your process, not their decision. Effort is not evidence \u2014 move it to the third paragraph if it survives at all."},
+     {t:"\u201CNo action needed \u2014 for your awareness only: the migration date moved to 30 November.\u201D",b:0,why:"Naming the absence of an ask is itself action-first. It buys goodwill for the next mail where you do need something."},
+     {t:"\u201CApologies for the long email, but I wanted to give you the full picture before you decide.\u201D",b:1,why:"An apology that does not shorten the mail. If it needs the full picture, attach the full picture and put the decision in five lines."}]}},
+  {id:"L6c",type:"build",kind:"builder",title:"One-page decision brief",prompt:"This is a capstone artefact. Fill it in for a real decision that is currently stuck.",cfg:{
+    fields:[{k:"dec",label:"The decision",ph:"stated as a question with a date"},
+      {k:"rec",label:"Your recommendation",ph:"one sentence, no hedging"},
+      {k:"why",label:"Three reasons",ph:"separated by semicolons",area:true},
+      {k:"alt",label:"The main alternative and why not",ph:"steelman it, then answer it"},
+      {k:"risk",label:"Biggest risk and your mitigation",ph:"the one they will raise anyway"},
+      {k:"by",label:"Decide by",ph:"date \u2014 and what happens if it slips"}],
+    render:function(g){return "DECISION BRIEF\n\nDECISION \u2014 "+(g("dec")||"[what is being decided, by when]")+
+      "\nRECOMMENDATION \u2014 "+(g("rec")||"[your call, one sentence]")+
+      "\n\nWHY\n"+(g("why")||"[three reasons]").split(/;\s*/).map(function(x,i){return "  "+(i+1)+". "+x;}).join("\n")+
+      "\n\nALTERNATIVE CONSIDERED \u2014 "+(g("alt")||"[the strongest other option, and why not]")+
+      "\nRISK \u2014 "+(g("risk")||"[the objection they will raise, and your answer]")+
+      "\nDECIDE BY \u2014 "+(g("by")||"[date, and the cost of slipping]")+
+      "\n\nDetail and workings: attached.";}}}],
+ drills:["<b>Top three rewrite (30 min).</b> Rewrite last week's three longest messages to the one-screen rule.",
+  "<b>Delete the wind-up (10 min).</b> Cut the first paragraph from five messages and read what remains.",
+  "<b>Strip test (15 min).</b> Take an AI-assisted draft and delete every generic sentence. Measure what survives.",
+  "<b>Cold read (10 min).</b> Read a message you sent as if you resented the sender, and fix what now sounds passive-aggressive."],
+ field:"Replace one recurring status meeting or long thread with a written one-pager for a week. Ask two recipients whether they preferred it, and why.",
+ checks:["Is the ask visible without scrolling, on a phone?",
+  "Would this still make sense forwarded to someone with no context?",
+  "Did I write the subject line before or after the body? (Before is better.)"]},
+
+{n:"07",id:"module-7",t:"Difficult Conversations and Feedback",s:"Saying the hard thing early, cleanly, and without becoming someone people avoid.",time:"4 hrs",
+ out:"You raise issues within days rather than months, and the relationship survives the conversation.",
+ vis:{k:"ladder",title:"The ladder of inference \u2014 climb it, then climb down",hint:"one rung at a time"},
+ fw:[
+  {n:"SBI \u2014 situation, behaviour, impact",p:"When it happened, what was observably done, what followed. No adjectives about the person. \u201CYou are careless\u201D is an argument; \u201Cthe file went out on Tuesday without the revised figures, and the client re-opened pricing\u201D is a fact."},
+  {n:"The opening sentence",p:"Hard conversations fail in their first ten seconds. Use: \u201CI want to talk about X, because Y matters to me. Is now a good time?\u201D",ex:"\u201CI want to talk about how Friday's review went, because I'd rather fix this than work around it. Is now okay?\u201D"},
+  {n:"Fact versus story",p:"We observe a fact, then climb instantly to a story about intent. Say the fact aloud, hold the story as a hypothesis, and ask."},
+  {n:"The clean no",p:"Appreciate the ask, decline plainly, one honest reason, offer what you can do. No apology cascade, no invented excuse, no maybe that is really a no."},
+  {n:"Name it to tame it",p:"\u201CI think we are both frustrated, and I would still like to finish this.\u201D Pushing through unnamed emotion produces agreements nobody keeps."}],
+ labs:[
+  {id:"L7a",type:"build",kind:"builder",title:"Script the conversation you are avoiding",prompt:"The one you have been postponing. Fill it in, read it aloud twice, then have it this week.",cfg:{
+    fields:[{k:"topic",label:"The topic, in plain words",ph:"e.g. how the review went on Friday"},
+      {k:"why",label:"Why it matters to you",ph:"your reason, not their fault"},
+      {k:"sit",label:"Situation \u2014 when and where",ph:"Tuesday's client call"},
+      {k:"beh",label:"Behaviour \u2014 what was observably done",ph:"no adjectives, no intent"},
+      {k:"imp",label:"Impact \u2014 what followed",ph:"on the work, the client, you"},
+      {k:"want",label:"What you want to be true afterwards",ph:"the outcome, not the apology"}],
+    render:function(g){return "OPENING (say this, then stop)\n\"I want to talk about "+(g("topic")||"[topic]")+", because "+(g("why")||"[why it matters to you]")+". Is now a good time?\"\n\n"+
+      "SBI\n\"In "+(g("sit")||"[situation]")+", "+(g("beh")||"[what was observably done]")+". What followed was "+(g("imp")||"[impact]")+".\"\n\n"+
+      "THEN STOP TALKING. Let them respond. Three seconds.\n\n"+
+      "WHAT I WANT\n\""+(g("want")||"[what you want to be true afterwards]")+". How do you see it?\"\n\n"+
+      "CHECK: is there a single adjective about their character above? Delete it.";}}},
+  {id:"L7b",type:"sort",kind:"classify",title:"Behaviour or judgment?",prompt:"Only one of these can be said without starting an argument. Sort them.",cfg:{
+    buckets:["Observable behaviour","Judgment about the person"],
+    items:[
+     {t:"\u201CYou sent the deck at 11pm the night before, without the pricing slide.\u201D",b:0,why:"Time, artefact, omission. Every word is checkable, so the conversation can be about the work instead of about who you both are."},
+     {t:"\u201CYou don't take deadlines seriously.\u201D",b:1,why:"A verdict on their character. There is no reply to this except defence \u2014 and now you are arguing about whether they are a serious person."},
+     {t:"\u201CIn the last three stand-ups, the blocker wasn't raised until after the client call.\u201D",b:0,why:"A pattern, dated and specific. Patterns are stronger than single incidents and still contain no accusation of motive."},
+     {t:"\u201CYou're being defensive about this.\u201D",b:1,why:"Naming their inner state as a fault. If you must name emotion, name the shared one: \u2018I think this is getting tense for both of us.\u2019"},
+     {t:"\u201CI've asked twice and haven't had a reply, so I assumed it was deprioritised \u2014 is that right?\u201D",b:0,why:"Fact, then your story flagged AS a story, then a question. This is the ladder of inference used correctly."},
+     {t:"\u201CThe team feels you're not pulling your weight.\u201D",b:1,why:"A judgment with an anonymous crowd behind it. If the team has a concern, the team's specific observations \u2014 or nothing."}]}},
+  {id:"L7c",type:"quiz",kind:"judgement",title:"Ten seconds in",prompt:"Openings and replies from real-feeling situations. Choose the one that keeps the conversation alive.",cfg:{qs:[
+    {q:"You need to raise a repeated missed handover with a peer. Best opening?",
+     options:["\u201CGot a minute? It's about the handovers \u2014 nothing serious.\u201D",
+       "\u201CI want to talk about the handovers, because the weekend cover keeps landing on Ravi. Is now a good time?\u201D",
+       "\u201CWhy do the handovers keep slipping?\u201D",
+       "\u201CI don't want to make this a big thing, but people have noticed the handovers.\u201D"],
+     correct:1,why:"Topic, your reason, and consent to talk now. \u2018Nothing serious\u2019 makes the next sentence a betrayal; \u2018people have noticed\u2019 brings an anonymous crowd into a two-person conversation."},
+    {q:"They respond with: \u201CThat's not fair \u2014 I've been covering two roles.\u201D What now?",
+     options:["\u201CThat's true, and the handovers still need to work. What would make that possible?\u201D",
+       "\u201CEveryone's busy, though.\u201D","\u201CSorry, forget I mentioned it.\u201D","\u201CI understand, but the process is the process.\u201D"],
+     correct:0,why:"Accept what is true, hold the standard, and hand them the problem to solve. Withdrawing teaches them that pushback ends the conversation \u2014 and you will still be having it in six months."},
+    {q:"You are asked to take on work you cannot absorb. The clean no is:",
+     options:["\u201CI'll try to fit it in.\u201D","\u201CI can't, I'm swamped, sorry, really sorry \u2014 maybe next month?\u201D",
+       "\u201CThanks for thinking of me. I can't take this on \u2014 the migration lands the same fortnight. I can review the draft on Friday if that helps.\u201D",
+       "\u201CThat's really a job for someone else.\u201D"],
+     correct:2,why:"Appreciate, decline, one honest reason, offer what you can do. The reluctant yes is the most expensive answer in this list \u2014 it costs you the work AND the trust when it slips."},
+    {q:"Receiving critical feedback you think is wrong. Best immediate response?",
+     options:["\u201CThat's not what happened.\u201D","\u201CThank you. Can you give me the example you were thinking of?\u201D",
+       "\u201COkay, noted.\u201D","\u201CI'll explain the context \u2014 there were three constraints you may not know about.\u201D"],
+     correct:1,why:"Thank you, then one clarifying question. Defending in the first thirty seconds ends the flow of feedback permanently \u2014 you can still disagree tomorrow, once you have the example."}]}}],
+ drills:["<b>Rehearse both sides (20 min).</b> Record yourself delivering it, then record their worst plausible response, then answer that.",
+  "<b>One SBI this week (10 min).</b> Give one piece of specific, timely feedback \u2014 positive counts, and trains the mechanics.",
+  "<b>Fact/story split (15 min).</b> Take a current irritation. Two columns: what you observed, what you concluded. Notice the ratio.",
+  "<b>Receiving practice (15 min).</b> Ask for one piece of critical feedback and respond only with \u201Cthank you\u201D and one clarifying question."],
+ field:"Have the overdue conversation. Within an hour, write down what you actually said in the first ten seconds, and what happened next.",
+ checks:["How long do I typically sit on an issue before raising it? What does that cost?",
+  "Does my feedback describe behaviour or character?",
+  "When I say yes reluctantly, what happens to the work later?"]},
+
+{n:"08",id:"module-8",t:"Persuasion, Stakeholders and the Room",s:"Moving decisions: who to convince before the meeting, and how to survive the questions in it.",time:"4 hrs",
+ out:"Your proposals arrive in the room already half-agreed, and hostile questions strengthen your case instead of ending it.",
+ vis:{k:"stakeholderMap",title:"The stakeholder map \u2014 drag people to where they really sit",hint:"drag the circles"},
+ fw:[
+  {n:"Ethos, pathos, logos \u2014 audited",p:"Credibility, emotion, logic. Technical professionals over-index on logos and wonder why the room stays unconvinced. Score your pitch out of ten on each; the low one is your work."},
+  {n:"The stakeholder map",p:"For each person: formal power, real interest, and the column everyone omits \u2014 <b>what they are afraid of</b>. Objections are usually fear wearing a business costume."},
+  {n:"Pre-wiring",p:"Decisions are made before the meeting. Show each significant stakeholder the recommendation beforehand and ask what would make them uncomfortable. Meetings should ratify, not discover."},
+  {n:"Handling questions \u2014 ABC",p:"<b>A</b>cknowledge honestly, <b>B</b>ridge to relevant ground, <b>C</b>ommit to a next step. \u201CI don't know, I'll have it by Friday\u201D is stronger than a confident guess \u2014 once. Twice is a pattern."},
+  {n:"Influence levers, used honestly",p:"Reciprocity, consistency, social proof, authority, liking, scarcity. Use them to make a true case land faster, never to make a weak one look strong."}],
+ labs:[
+  {id:"L8a",type:"quiz",kind:"judgement",title:"Hostile Q&amp;A",prompt:"Four questions of the kind that arrive at minute forty. Pick the answer that keeps both the room and your position.",cfg:{qs:[
+    {q:"\u201CThis is the third platform initiative in two years. Why will this one land?\u201D",
+     options:["\u201CThis time the technology is genuinely different.\u201D",
+       "\u201CFair \u2014 two of the three stalled at integration. That's why this one ships one workflow end to end before we widen it, and why I'm asking for a checkpoint in eight weeks, not a blank cheque.\u201D",
+       "\u201CThose were before my time.\u201D","\u201CWe've learned a lot from those experiences.\u201D"],
+     correct:1,why:"Acknowledge the real history, bridge to what is structurally different, commit to a checkpoint. Conceding the fact costs nothing and buys you the right to be believed on the next sentence."},
+    {q:"\u201CWhat's the ROI, precisely?\u201D \u2014 and you do not have a defensible number yet.",
+     options:["\u201CRoughly 3x, we think.\u201D","\u201CIt's hard to quantify at this stage.\u201D",
+       "\u201CI don't have a number I'd defend yet. I'll have one by Friday with the finance team's assumptions attached. What I can defend today is the cost of doing nothing: 40 support hours a week.\u201D",
+       "\u201CThe strategic value outweighs a narrow ROI calculation.\u201D"],
+     correct:2,why:"Straight admission, dated commitment, then the number you can defend. Inventing \u20183x\u2019 wins the meeting and loses the next three."},
+    {q:"A senior stakeholder attacks the proposal in the room, having said nothing beforehand. The real failure was:",
+     options:["Their behaviour \u2014 they should have raised it earlier","Your slides were not clear enough",
+       "You did not pre-wire them","The chair should have controlled the meeting"],
+     correct:2,why:"Ambush is a symptom. Anyone able to derail your proposal should have seen it privately first, with the question \u2018what would make you say no to this?\u2019 \u2014 which is also how you find out what they are actually afraid of."},
+    {q:"The Head of Ops keeps raising edge cases. Most likely what is underneath?",
+     options:["They enjoy detail","They want the project killed",
+       "They are afraid of owning an outage during peak and have not said so","They do not understand the proposal"],
+     correct:2,why:"Edge cases are how operational fear expresses itself in a business meeting. Lead with the rollback plan and the on-call arrangement, and the edge cases usually stop arriving."}]}},
+  {id:"L8b",type:"dials",kind:"simulator",title:"Rhetoric balance",prompt:"Set your last pitch as you actually delivered it. The verdict names the imbalance you cannot hear in your own voice.",cfg:{
+    dials:[{k:"ethos",label:"Ethos \u2014 credibility",val:50,read:function(v){return v;}},
+      {k:"pathos",label:"Pathos \u2014 emotion, stakes",val:20,read:function(v){return v;}},
+      {k:"logos",label:"Logos \u2014 logic, data",val:90,read:function(v){return v;}}],
+    render:function(v){
+      var rows=[["Ethos","Why you are worth believing",v.ethos,"#9E1B32"],["Pathos","Why anyone should care",v.pathos,"#B8862F"],["Logos","Why it is true",v.logos,"#1F7A4D"]];
+      var stage='<div style="border:1px solid var(--rule);background:#fff;padding:16px">'+rows.map(function(r){
+        return '<div style="margin-bottom:11px"><div style="display:flex;justify-content:space-between;font-size:.84rem"><b>'+r[0]+'</b><span class="mini">'+r[1]+'</span></div>'+
+        '<div style="height:12px;background:#ECEFF3;margin-top:4px"><span style="display:block;height:100%;width:'+r[2]+'%;background:'+r[3]+'"></span></div></div>';}).join('')+'</div>';
+      var lo=rows.slice().sort(function(a,b){return a[2]-b[2];})[0],hi=rows.slice().sort(function(a,b){return b[2]-a[2];})[0];
+      var fixes={Ethos:"Open with the one thing that earns you the right to speak on this \u2014 what you have shipped, seen or measured yourself. Thirty seconds, no CV.",
+        Pathos:"Add one named person and one moment. Not manipulation \u2014 the stakes are real and you have been hiding them behind averages.",
+        Logos:"You have the room's attention and nothing solid to hand them. One number, one source, one comparison \u2014 more than that will not survive the meeting anyway."};
+      var v2=(hi[2]-lo[2])>35
+        ? "<b>Lopsided: heavy on "+hi[0]+", thin on "+lo[0]+".</b> "+fixes[lo[0]]
+        : "<b>Reasonably balanced.</b> Spend the remaining effort on pre-wiring rather than on the pitch \u2014 balanced arguments still lose to unaddressed private fears.";
+      return {stage:stage,verdict:v2};}}},
+  {id:"L8c",type:"build",kind:"builder",title:"The sixty-second ask",prompt:"The version you would deliver in a lift, a corridor, or the two minutes before a meeting starts.",cfg:{
+    fields:[{k:"ask",label:"The ask",ph:"one verb, one deadline, one number"},
+      {k:"now",label:"Why now",ph:"what changes if this waits"},
+      {k:"proof",label:"The single strongest proof",ph:"one number or one moment \u2014 not three"},
+      {k:"fear",label:"Their private fear, pre-empted",ph:"the objection they have not said aloud"},
+      {k:"next",label:"The smallest next step",ph:"a meeting, a checkpoint, a signature"}],
+    render:function(g){return "SIXTY-SECOND ASK\n\n\""+(g("ask")||"[the ask]")+".\n\n"+
+      "Why now: "+(g("now")||"[what changes if this waits]")+".\n"+
+      "The one thing I'd point to: "+(g("proof")||"[strongest single proof]")+".\n"+
+      "And before you ask \u2014 "+(g("fear")||"[their private fear]")+": that's covered by the rollback plan.\n\n"+
+      "All I need today is "+(g("next")||"[smallest next step]")+".\"\n\nREAD IT ALOUD. Over 150 words? Cut until it is under.";}}}],
+ drills:["<b>Map the room (25 min).</b> For your next real decision, map every attendee: power, interest, fear.",
+  "<b>Pre-wire two (1 week).</b> Speak to two stakeholders beforehand. Ask: \u201CWhat would make you say no to this?\u201D",
+  "<b>Hostile Q&amp;A (20 min).</b> Have a colleague ask the eight worst questions. Answer with ABC. Record it.",
+  "<b>Steelman (15 min).</b> Write the strongest version of the case against your proposal. If you cannot, you do not understand the room yet."],
+ field:"Take a real proposal through the full sequence: map, pre-wire, deliver, handle Q&amp;A. Record which pre-wire conversation mattered most.",
+ checks:["Do I know what each decision-maker is privately afraid of?",
+  "When did I last change a proposal because of something a stakeholder said beforehand?",
+  "Do I answer hard questions, or the question I wish had been asked?"]}
+];
+
+/* ============ RENDER MODULES ============ */
+var labsDone={};
+try{labsDone=JSON.parse(store.get("cwi_labs")||"{}")||{};}catch(e){labsDone={};}
+var LAB_TOTAL=MODULES.reduce(function(a,m){return a+m.labs.length;},0);
+
+function labMarker(id){
+  return function(){ if(labsDone[id])return; labsDone[id]=true; store.set("cwi_labs",JSON.stringify(labsDone)); paintLabs(); };
+}
+function paintLabs(){
+  var n=Object.keys(labsDone).filter(function(k){return labsDone[k];}).length;
+  var t=document.getElementById('labText'),b=document.getElementById('labBar');
+  if(t)t.textContent=n+' of '+LAB_TOTAL+' labs attempted';
+  if(b)b.style.width=(n/LAB_TOTAL*100)+'%';
+  MODULES.forEach(function(m){
+    var el=document.querySelector('#'+m.id+' .mmeta b'); if(!el)return;
+    var c=m.labs.filter(function(l){return labsDone[l.id];}).length;
+    el.textContent=c+'/'+m.labs.length+' labs';
+  });
+}
+
+function renderModules(){
+  var host=document.getElementById('modlist');
+  host.innerHTML=MODULES.map(function(m){
+    return '<details class="mod" id="'+m.id+'"><summary>'+
+      '<span class="mnum">'+m.n+'</span>'+
+      '<span class="mtitle"><h3>'+m.t+'</h3><p>'+m.s+'</p></span>'+
+      '<span class="mmeta">'+m.time+'<b>0/'+m.labs.length+' labs</b></span></summary>'+
+      '<div class="mbody">'+
+        '<p class="lede" style="font-size:1rem;margin-top:10px"><b>Outcome:</b> '+m.out+'</p>'+
+        '<div class="block"><h4>See it \u2014 live diagram</h4>'+
+          '<div class="viz"><div class="viz-head"><h5>'+m.vis.title+'</h5><span class="viz-hint">'+m.vis.hint+'</span></div>'+
+          '<div class="viz-body" data-vis="'+m.vis.k+'"></div></div></div>'+
+        '<div class="block"><h4>At a glance \u2014 the whole module in three panels</h4>'+
+          '<div class="viz" style="padding:14px"><div class="sum-body" data-sum="'+m.n+'"></div></div></div>'+
+        '<div class="block"><h4>The same frameworks, in words</h4>'+m.fw.map(function(f){
+          return '<div class="fw"><span class="fwn">'+f.n+'</span><p>'+f.p+'</p>'+(f.ex?'<span class="ex">'+f.ex+'</span>':'')+'</div>';}).join('')+'</div>'+
+        '<div class="block"><h4>Do it \u2014 scored labs</h4>'+m.labs.map(function(l){
+          return '<div class="lab" data-lab="'+l.id+'"><div class="lab-head"><h5>'+l.title+'</h5><span class="lab-kind">'+l.kind+'</span></div>'+
+            '<p class="lab-prompt">'+l.prompt+'</p><div class="lab-body" data-type="'+l.type+'"></div></div>';}).join('')+'</div>'+
+        '<div class="block"><h4>Offline drills</h4><ol class="drills">'+m.drills.map(function(d){return '<li>'+d+'</li>';}).join('')+'</ol></div>'+
+        '<div class="block"><h4>Field assignment</h4><p style="font-size:.93rem;color:var(--slate)">'+m.field+'</p></div>'+
+        '<div class="block"><h4>Self-check</h4><ul class="selfcheck">'+m.checks.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div>'+
+        '<label class="checkline"><input type="checkbox" data-mod="'+m.n.replace(/^0/,'')+'"> Mark Module '+m.n+' complete</label>'+
+      '</div></details>';
+  }).join('');
+  MODULES.forEach(function(m){
+    var root=document.getElementById(m.id);
+    var v=root.querySelector('.viz-body');
+    try{ VIS[m.vis.k](v); }catch(e){ v.innerHTML='<p class="mini">Diagram unavailable.</p>'; }
+    var sum=root.querySelector('.sum-body');
+    try{ sum.innerHTML=summarySVG(SUMMARY[m.n]); }catch(e){ sum.innerHTML='<p class="mini">Summary unavailable.</p>'; }
+    var bodies=root.querySelectorAll('.lab-body');
+    m.labs.forEach(function(l,i){
+      try{ LABS[l.type](bodies[i],l.cfg,labMarker(l.id)); }catch(e){ bodies[i].innerHTML='<p class="mini">Lab unavailable.</p>'; }
+    });
+  });
+}
+/* ============ VISUAL SUMMARY PANELS ============ */
+var P={ink:"#101418",slate:"#4B5661",mute:"#78838E",rule:"#DCE2E8",wash:"#F1F4F7",crim:"#9E1B32",gold:"#B8862F",green:"#1F7A4D",red:"#B4291F"};
+function T(x,y,s,o){o=o||{};return '<text x="'+x+'" y="'+y+'" font-family="'+(o.f||'Inter, sans-serif')+'" font-size="'+(o.s||10)+'" fill="'+(o.c||P.ink)+'"'+
+ (o.a?' text-anchor="'+o.a+'"':'')+(o.w?' font-weight="'+o.w+'"':'')+'>'+esc(s)+'</text>';}
+function MONO(x,y,s,o){o=o||{};o.f="IBM Plex Mono, monospace";return T(x,y,s,o);}
+function BX(x,y,w,h,fill,stroke,dash){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(fill||'#fff')+'" stroke="'+(stroke||P.rule)+'"'+(dash?' stroke-dasharray="4 3"':'')+'/>';}
+function DOWN(x,y){return '<line x1="'+x+'" y1="'+y+'" x2="'+x+'" y2="'+(y+8)+'" stroke="'+P.crim+'" stroke-width="1.4"/><polygon points="'+(x-3.5)+','+(y+7)+' '+(x+3.5)+','+(y+7)+' '+x+','+(y+12)+'" fill="'+P.crim+'"/>';}
+
+function panel(x,y,w,h,sp){
+  var p=[BX(x,y,w,h,"#fff",P.rule)];
+  p.push('<rect x="'+x+'" y="'+y+'" width="'+w+'" height="3" fill="'+(sp.accent||P.crim)+'"/>');
+  p.push(MONO(x+12,y+20,sp.title.toUpperCase(),{s:8.5,c:P.mute}));
+  var cy=y+34,iw=w-24,ix=x+12;
+  if(sp.type==="chain"){
+    sp.items.forEach(function(it,i){
+      p.push(BX(ix,cy,iw,22,i===sp.hi?"#FBF3E2":"#fff",i===sp.hi?P.gold:P.rule));
+      p.push(MONO(ix+7,cy+14,(i+1)+".",{s:8.5,c:P.crim}));
+      p.push(T(ix+24,cy+14.5,it,{s:9.5,c:P.ink}));
+      cy+=22; if(i<sp.items.length-1){p.push(DOWN(ix+iw/2,cy+1));cy+=13;}
+    });
+  } else if(sp.type==="stack"){
+    sp.items.forEach(function(it,i){
+      var pad=sp.taper?i*10:0,bw=iw-pad*2;
+      p.push(BX(ix+pad,cy,bw,26,it.on?P.crim:"#fff",it.on?P.crim:P.rule));
+      p.push(T(ix+pad+8,cy+12,it.t,{s:9.5,w:600,c:it.on?"#fff":P.ink}));
+      p.push(T(ix+pad+8,cy+22,it.d,{s:8.5,c:it.on?"#F3D7DC":P.mute}));
+      cy+=32;
+    });
+  } else if(sp.type==="matrix"){
+    var mx=ix+16,my=cy+4,mw=iw-24,mh=h-(cy-y)-30;
+    p.push(BX(mx,my,mw,mh,"#fff",P.rule));
+    p.push('<line x1="'+(mx+mw/2)+'" y1="'+my+'" x2="'+(mx+mw/2)+'" y2="'+(my+mh)+'" stroke="'+P.wash+'"/>');
+    p.push('<line x1="'+mx+'" y1="'+(my+mh/2)+'" x2="'+(mx+mw)+'" y2="'+(my+mh/2)+'" stroke="'+P.wash+'"/>');
+    sp.cells.forEach(function(c,i){
+      var qx=mx+(i%2)*(mw/2)+6,qy=my+Math.floor(i/2)*(mh/2)+16;
+      p.push(T(qx,qy,c.t,{s:9,w:600,c:c.hot?P.crim:P.slate}));
+      if(c.d)p.push(T(qx,qy+11,c.d,{s:8,c:P.mute}));
+    });
+    p.push(MONO(mx,my+mh+13,sp.xl,{s:8,c:P.mute}));
+    p.push('<text transform="translate('+(mx-6)+','+(my+mh)+') rotate(-90)" font-family="IBM Plex Mono, monospace" font-size="8" fill="'+P.mute+'">'+esc(sp.yl)+'</text>');
+  } else if(sp.type==="pair"){
+    var cw=(iw-10)/2;
+    [[sp.bad,P.red,"\u2717"],[sp.good,P.green,"\u2713"]].forEach(function(col,ci){
+      var cx2=ix+ci*(cw+10);
+      p.push(BX(cx2,cy,cw,h-(cy-y)-14,ci?"#F4FAF6":"#FDF5F4",col[1]));
+      p.push(MONO(cx2+7,cy+15,col[2]+" "+col[0].h.toUpperCase(),{s:8,c:col[1]}));
+      col[0].l.forEach(function(t,i){p.push(T(cx2+7,cy+31+i*13,t,{s:9,c:P.ink}));});
+    });
+  } else if(sp.type==="gauges"){
+    sp.items.forEach(function(g,i){
+      p.push(MONO(ix,cy+8,g.t.toUpperCase(),{s:8,c:P.mute}));
+      p.push('<rect x="'+ix+'" y="'+(cy+12)+'" width="'+iw+'" height="8" fill="'+P.wash+'"/>');
+      p.push('<rect x="'+ix+'" y="'+(cy+12)+'" width="'+(iw*g.v/100)+'" height="8" fill="'+(g.c||P.crim)+'"/>');
+      p.push(T(ix,cy+31,g.d,{s:8.5,c:P.slate}));
+      cy+=40;
+    });
+  } else if(sp.type==="arc"){
+    var ax=ix,aw=iw,ay=cy+70;
+    var pts=[[0,60],[.18,54],[.42,18],[.62,10],[.82,4],[1,26]];
+    var dd="M "+ax+" "+(ay-pts[0][1]);
+    for(var i2=1;i2<pts.length;i2++){
+      var a=pts[i2-1],b=pts[i2];
+      dd+=" C "+(ax+aw*(a[0]+b[0])/2)+" "+(ay-a[1])+", "+(ax+aw*(a[0]+b[0])/2)+" "+(ay-b[1])+", "+(ax+aw*b[0])+" "+(ay-b[1]);
+    }
+    p.push('<path d="'+dd+'" fill="none" stroke="'+P.crim+'" stroke-width="1.8"/>');
+    pts.forEach(function(q,i3){
+      var turn=i3===2;
+      p.push('<circle cx="'+(ax+aw*q[0])+'" cy="'+(ay-q[1])+'" r="'+(turn?5:3.2)+'" fill="'+(turn?P.gold:"#fff")+'" stroke="'+(turn?P.gold:P.crim)+'" stroke-width="1.6"/>');
+    });
+    sp.labels.forEach(function(l,i4){p.push(MONO(ix,ay+16+i4*11,l,{s:8,c:i4===2?P.gold:P.mute}));});
+  } else if(sp.type==="triangle"){
+    var tx0=ix+iw/2,ty=cy+6,bh=72;
+    p.push('<polygon points="'+tx0+','+ty+' '+(tx0-64)+','+(ty+bh)+' '+(tx0+64)+','+(ty+bh)+'" fill="none" stroke="'+P.crim+'" stroke-width="1.5"/>');
+    p.push(T(tx0,ty-4,sp.top,{s:9.5,a:"middle",w:600,c:P.crim}));
+    p.push(T(tx0-64,ty+bh+12,sp.left,{s:9.5,a:"middle",w:600,c:P.gold}));
+    p.push(T(tx0+64,ty+bh+12,sp.right,{s:9.5,a:"middle",w:600,c:P.green}));
+    sp.notes.forEach(function(n,i5){p.push(T(ix,ty+bh+30+i5*12,n,{s:8.5,c:P.slate}));});
+  } else if(sp.type==="lines"){
+    sp.items.forEach(function(l,i6){
+      p.push(BX(ix,cy,iw,24,i6===sp.hi?"#FBF3E2":P.wash,i6===sp.hi?P.gold:P.wash));
+      p.push(MONO(ix+8,cy+15,l.k.toUpperCase(),{s:8,c:P.crim}));
+      p.push(T(ix+62,cy+15,l.v,{s:9,c:P.ink}));
+      cy+=29;
+    });
+  }
+  if(sp.foot) p.push(T(x+12,y+h-9,sp.foot,{s:8.5,c:P.mute}));
+  return p.join("");
+}
+
+function summarySVG(specs){
+  var W=690,H=272,cw=(W-30)/3,out=[];
+  specs.forEach(function(s,i){ out.push(panel(8+i*(cw+7),8,cw,H-16,s)); });
+  return '<div class="svgwrap"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Visual summary of this module\u2019s frameworks">'+out.join("")+'</svg></div>';
+}
+
+var SUMMARY={
+"01":[
+ {title:"The impact gap",type:"chain",hi:1,items:["What you mean","How you encode it","The channel","How they decode it","What they DO"],foot:"First break decides the outcome."},
+ {title:"Audience-first brief",type:"lines",hi:2,items:[{k:"who",v:"who receives it"},{k:"cares",v:"their concern now"},{k:"do",v:"the single action"},{k:"risk",v:"their private fear"}],foot:"Four lines, before you write."},
+ {title:"Channel fit",type:"matrix",accent:P.gold,xl:"COMPLEXITY \u2192",yl:"EMOTION \u2192",
+  cells:[{t:"Talk first",d:"then write",hot:true},{t:"Write, then talk",d:"absorb privately"},{t:"Either",d:"keep it short"},{t:"Write",d:"they need to re-read"}],
+  foot:"Emotion \u2192 voice. Complexity \u2192 text."}],
+"02":[
+ {title:"Three levels",type:"stack",items:[{t:"Level 3 \u2014 global",d:"tone, pauses, what they avoided",on:true},{t:"Level 2 \u2014 focused",d:"their words, accurately",on:false},{t:"Level 1 \u2014 internal",d:"your own reply forming",on:false}],foot:"Most people live at 1 and think it is 2."},
+ {title:"RASA",type:"chain",hi:2,items:["Receive \u2014 stop everything","Appreciate \u2014 stay present","Summarise \u2014 say it back","Ask \u2014 one deeper question"],foot:"Summarise before you ask."},
+ {title:"The 3-second rule",type:"pair",accent:P.gold,
+  bad:{h:"fill the gap",l:["\u201CDoes that make sense?\u201D","They stop talking.","You learn nothing new."]},
+  good:{h:"hold 3 seconds",l:["Silence.","\u2153 of the time they","continue \u2014 and the","second thing is true."]},
+  foot:"The pause is the technique."}],
+"03":[
+ {title:"BLUF",type:"pair",
+  bad:{h:"buried",l:["Background\u2026","What we did\u2026","Options\u2026","Therefore: approve."]},
+  good:{h:"answer first",l:["\u201CApprove Vendor B","by Thursday.\u201D","Two reasons follow.","(evidence after)"]},
+  foot:"4 minutes to the point vs 12 seconds."},
+ {title:"SCQA",type:"chain",hi:3,items:["Situation \u2014 what we agree","Complication \u2014 what changed","Question \u2014 what it forces","Answer \u2014 your call"],foot:"They agree twice before you ask."},
+ {title:"Pyramid + so what?",type:"stack",accent:P.gold,taper:true,
+  items:[{t:"Governing message",d:"one claim, stated first",on:true},{t:"Three supports",d:"no overlap, full cover",on:false},{t:"Evidence",d:"under each support",on:false}],
+  foot:"Climb \u201Cso what?\u201D until it is a decision."}],
+"04":[
+ {title:"The four dials",type:"gauges",items:[
+   {t:"Pace",v:55,d:"130\u2013155 wpm, slower at the point"},
+   {t:"Pitch",v:35,d:"drop at the end, never rise"},
+   {t:"Pause",v:80,d:"before and after what matters",c:P.gold},
+   {t:"Power",v:50,d:"set by the room, not by nerves"}],foot:"Move one dial per talk."},
+ {title:"Filler \u2192 silence",type:"pair",
+  bad:{h:"filler",l:["\u201Cum\u2026 basically\u2026","sort of\u2026 right?\u201D","Reads as apology.","Costs authority."]},
+  good:{h:"silence",l:["[ gap ]","Reads as authority.","Same thinking time,","opposite signal."]},
+  foot:"Do not speak faster \u2014 allow the gap."},
+ {title:"Posture \u00B7 breath \u00B7 eyes",type:"chain",accent:P.gold,hi:0,items:["Feet planted, weight even","Hands visible, above waist","Belly breath before you start","One thought per person"],foot:"On camera: lens at eye level, +10% energy."}],
+"05":[
+ {title:"The story spine",type:"arc",labels:["1 Once there was  \u00B7  2 Every day","3 BUT ONE DAY \u2014 the turn","\u2191 without this it is an anecdote","4 Because of that  \u00B7  5 Until finally","6 And ever since \u2014 the point"],foot:"Ninety seconds, six lines."},
+ {title:"STAR-L",type:"chain",hi:4,items:["Situation","Task","Action","Result","Learning \u2014 the useful bit"],foot:"The L stops it being a claim about you."},
+ {title:"Story + data sandwich",type:"stack",accent:P.gold,
+  items:[{t:"Story",d:"one person, one moment",on:true},{t:"Number",d:"proves the scale",on:false},{t:"Meaning",d:"what it costs, what to do",on:false}],
+  foot:"Number alone: forgettable. Story alone: dismissible."}],
+"06":[
+ {title:"One-screen rule",type:"stack",items:[
+   {t:"The ask",d:"line one, above the fold",on:true},{t:"Context",d:"why now, what changes",on:false},{t:"Detail",d:"attached, not pasted",on:false}],
+  foot:"Scroll to find the ask = ask is missed."},
+ {title:"Subject line = headline",type:"lines",hi:1,items:[
+   {k:"verb",v:"approve / decide / review"},{k:"when",v:"by Thursday"},{k:"what",v:"Vendor B, \u20B942L"},{k:"cost",v:"2 min read"}],
+  foot:"They should be able to act unopened."},
+ {title:"Drafting with AI",type:"chain",accent:P.gold,hi:2,items:["Draft \u2014 let it give structure","Strip \u2014 cut every generic line","Re-voice \u2014 your numbers, your idiom"],
+  foot:"If a colleague cannot tell it is you, it is not finished."}],
+"07":[
+ {title:"SBI",type:"lines",hi:0,items:[
+   {k:"situation",v:"when and where"},{k:"behaviour",v:"observable, no adjectives"},{k:"impact",v:"what followed"},{k:"then",v:"stop talking. 3 seconds."}],
+  foot:"\u201CYou are careless\u201D is an argument, not an SBI."},
+ {title:"Ladder of inference",type:"stack",accent:P.red,items:[
+   {t:"Action",d:"you go quiet",on:false},{t:"Story",d:"\u201Cshe doesn't rate me\u201D",on:false},{t:"Interpretation",d:"\u201Cshe chose to\u201D",on:false},{t:"Fact",d:"my update wasn't in the pack",on:true}],
+  foot:"Only the bottom rung can be said without a fight."},
+ {title:"The clean no",type:"chain",hi:1,items:["Appreciate the ask","Decline plainly","One honest reason","Offer what you CAN do"],
+  foot:"The reluctant yes is the expensive answer."}],
+"08":[
+ {title:"Ethos \u00B7 pathos \u00B7 logos",type:"triangle",top:"ETHOS",left:"PATHOS",right:"LOGOS",
+  notes:["Technical people over-index on logos","and lose rooms they were right in.","Score each /10 \u2014 the low one is the work."]},
+ {title:"Stakeholder map",type:"matrix",accent:P.gold,xl:"INTEREST \u2192",yl:"POWER \u2192",
+  cells:[{t:"Keep satisfied",d:"3 lines + clear ask"},{t:"Manage closely",d:"pre-wire, always",hot:true},{t:"Monitor",d:"watch for reorgs"},{t:"Keep informed",d:"make them allies"}],
+  foot:"Third column nobody writes: what they fear."},
+ {title:"Pre-wire, then ABC",type:"chain",hi:0,items:["Pre-wire: \u201Cwhat makes you say no?\u201D","Acknowledge the question honestly","Bridge to relevant ground","Commit to a step or a date"],
+  foot:"Meetings should ratify, not discover."}]
+};
+
+/* ============ COURSE MAP ============ */
+function renderCourseMap(){
+  var host=document.getElementById("coursemap"); if(!host) return;
+  var W=700,H=190,phases=[{n:"Foundation",a:0,b:2},{n:"Delivery",a:2,b:5},{n:"Influence",a:5,b:8}];
+  var p=[],x0=44,gap=(W-x0-30)/7;
+  phases.forEach(function(ph){
+    var xa=x0+ph.a*gap-18,xb=x0+(ph.b-1)*gap+18;
+    p.push('<rect x="'+xa+'" y="52" width="'+(xb-xa)+'" height="58" fill="'+(ph.n==="Influence"?"#FBF3E2":P.wash)+'"/>');
+    p.push(MONO((xa+xb)/2,44,ph.n.toUpperCase(),{s:8.5,c:P.mute,a:"middle"}));
+  });
+  p.push('<line x1="'+x0+'" y1="81" x2="'+(x0+7*gap)+'" y2="81" stroke="'+P.rule+'" stroke-width="2"/>');
+  MODULES.forEach(function(m,i){
+    var cx=x0+i*gap;
+    p.push('<circle cx="'+cx+'" cy="81" r="15" fill="#fff" stroke="'+P.crim+'" stroke-width="2" style="cursor:pointer" data-go="'+m.id+'"/>');
+    p.push(MONO(cx,85,m.n,{s:10,c:P.crim,a:"middle",w:600})+'<rect x="'+(cx-15)+'" y="66" width="30" height="30" fill="transparent" style="cursor:pointer" data-go="'+m.id+'"/>');
+    var short=["Intent &\nimpact","Listening","Clarity","Presence","Story","Writing","Hard talks","Influence"][i].split("\n");
+    short.forEach(function(s,j){p.push(T(cx,120+j*11,s,{s:9,a:"middle",c:P.slate}));});
+    p.push(MONO(cx,152,m.labs.length+" labs",{s:7.5,a:"middle",c:P.gold}));
+  });
+  p.push(MONO(8,175,"EACH MODULE: LIVE DIAGRAM \u2192 VISUAL SUMMARY \u2192 SCORED LABS \u2192 FIELD ASSIGNMENT",{s:8,c:P.mute}));
+  host.innerHTML='<div class="svgwrap"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Course map of eight modules in three phases">'+p.join("")+'</svg></div>';
+  host.addEventListener("click",function(e){
+    var id=e.target.getAttribute&&e.target.getAttribute("data-go"); if(!id) return;
+    var el=document.getElementById(id); if(!el) return;
+    el.open=true;
+    if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"start"});
+    else if(el.offsetTop) window.scrollTo(0,el.offsetTop-120);
+  });
+}
+
+/* ============ BACK TO TOP ============ */
+function initToTop(){
+  var b=document.createElement("button");
+  b.className="totop"; b.id="totop"; b.setAttribute("aria-label","Back to top");
+  b.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 5 L12 19 M12 5 L5.5 11.5 M12 5 L18.5 11.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Top</span>';
+  document.body.appendChild(b);
+  b.addEventListener("click",function(){
+    window.scrollTo({top:0,behavior:"smooth"});
+    var h=document.querySelector("h1"); if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}
+  });
+  function upd(){ b.classList.toggle("show",(window.pageYOffset||document.documentElement.scrollTop||0)>420); }
+  window.addEventListener("scroll",upd,{passive:true}); upd();
+}
+/* ============ DIAGNOSTIC ============ */
+var DIMS=[
+ {key:"clarity",name:"Clarity",items:["I open updates with my conclusion rather than my process.","People can repeat my main point back to me accurately.","My documents fit on one screen, with the ask visible first.","I can explain my current work in thirty seconds to an outsider."]},
+ {key:"listening",name:"Listening",items:["I summarise what someone said before I respond.","I let silence sit rather than filling it.","I ask a second question before offering my view.","I can state a colleague's position well enough that they would sign it."]},
+ {key:"presence",name:"Presence",items:["I pause deliberately before important sentences.","My filler words stay low when I am under pressure.","I stay composed when challenged in front of others.","On video I look at the camera for my key point."]},
+ {key:"story",name:"Storytelling",items:["I have specific stories from my own experience ready to use.","I pair numbers with a concrete human example.","My examples are specific people and moments, not abstractions.","I can tell a work story in ninety seconds without notes."]},
+ {key:"writing",name:"Writing",items:["My subject lines let someone act without opening the message.","I cut my drafts substantially before sending them.","My written tone reads as warm rather than curt.","My messages get acted on without a follow-up chase."]},
+ {key:"courage",name:"Courage",items:["I raise problems within days rather than weeks.","My feedback describes behaviour, not character.","I decline requests plainly instead of over-committing.","I ask for critical feedback and stay quiet while receiving it."]}
+];
+var answers={};
+try{answers=JSON.parse(store.get("cwi_answers")||"{}")||{};}catch(e){answers={};}
+var qform=document.getElementById("qform");
+DIMS.forEach(function(d,di){
+  var det=document.createElement("details"); det.className="qgroup"; if(di===0)det.open=true;
+  var qs=d.items.map(function(t,qi){
+    var id=d.key+"-"+qi;
+    var opts=[1,2,3,4,5].map(function(v){
+      return '<label><input type="radio" name="'+id+'" value="'+v+'"'+(answers[id]===v?' checked':'')+' aria-label="'+v+'"><span>'+v+'</span></label>';
+    }).join('');
+    return '<div class="q"><p>'+esc(t)+'</p><div class="scale">'+opts+'</div></div>';
+  }).join('');
+  det.innerHTML='<summary><span>'+d.name+'</span><span class="dim" data-score="'+d.key+'">\u2014</span></summary>'+
+    '<div class="qbody"><p style="font-size:.75rem;color:var(--mute);margin:10px 0 2px">1 = rarely true &nbsp;\u00B7&nbsp; 5 = consistently true</p>'+qs+'</div>';
+  qform.appendChild(det);
+});
+qform.addEventListener("change",function(e){
+  if(e.target.type!=="radio")return;
+  answers[e.target.name]=parseInt(e.target.value,10);
+  store.set("cwi_answers",JSON.stringify(answers)); renderRadar();
+});
+document.getElementById("resetBtn").addEventListener("click",function(){
+  answers={}; store.del("cwi_answers");
+  qform.querySelectorAll("input[type=radio]").forEach(function(r){r.checked=false;}); renderRadar();
+});
+var svgR=document.getElementById("radar"),CX=150,CY=138,R=100;
+function pt(i,n,r){var a=(Math.PI*2*i/n)-Math.PI/2;return [CX+r*Math.cos(a),CY+r*Math.sin(a)];}
+function scores(){
+  return DIMS.map(function(d){
+    var vals=d.items.map(function(_,qi){return answers[d.key+"-"+qi];}).filter(Boolean);
+    if(!vals.length)return null;
+    return {key:d.key,name:d.name,avg:vals.reduce(function(a,b){return a+b;},0)/vals.length,answered:vals.length};
+  });
+}
+function renderRadar(){
+  var s=scores(),n=DIMS.length,p=[];
+  [0.25,0.5,0.75,1].forEach(function(f){
+    var poly=[];for(var i=0;i<n;i++){var q=pt(i,n,R*f);poly.push(q[0].toFixed(1)+","+q[1].toFixed(1));}
+    p.push('<polygon points="'+poly.join(" ")+'" fill="none" stroke="#DCE2E8"/>');
+  });
+  for(var i=0;i<n;i++){
+    var q=pt(i,n,R);
+    p.push('<line x1="'+CX+'" y1="'+CY+'" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+'" stroke="#DCE2E8"/>');
+    var lp=pt(i,n,R+22),anc=lp[0]>CX+6?"start":(lp[0]<CX-6?"end":"middle");
+    p.push('<text x="'+lp[0].toFixed(1)+'" y="'+(lp[1]+4).toFixed(1)+'" text-anchor="'+anc+'" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#78838E">'+DIMS[i].name.toUpperCase()+'</text>');
+  }
+  var any=s.some(Boolean), complete=s.every(function(x){return x&&x.answered===4;});
+  if(any){
+    var poly2=[];
+    for(var j=0;j<n;j++){var v=s[j]?s[j].avg:1,q2=pt(j,n,R*(v/5));poly2.push(q2[0].toFixed(1)+","+q2[1].toFixed(1));}
+    p.push('<polygon points="'+poly2.join(" ")+'" fill="rgba(158,27,50,.14)" stroke="#9E1B32" stroke-width="2" stroke-linejoin="round"/>');
+    for(var k=0;k<n;k++){ if(!s[k])continue; var q3=pt(k,n,R*(s[k].avg/5)); p.push('<circle cx="'+q3[0].toFixed(1)+'" cy="'+q3[1].toFixed(1)+'" r="3.2" fill="#9E1B32"/>'); }
+  }
+  svgR.innerHTML=p.join('');
+  document.getElementById("legend").innerHTML=s.map(function(x,idx){
+    return '<span>'+DIMS[idx].name+'</span><span class="lv">'+(x?x.avg.toFixed(1):'\u2014')+'</span>';}).join('');
+  DIMS.forEach(function(d,idx){
+    var el=qform.querySelector('[data-score="'+d.key+'"]');
+    if(el)el.innerHTML=s[idx]?s[idx].avg.toFixed(1)+" / 5":"\u2014";
+  });
+  var v=document.getElementById("verdict");
+  if(!any){v.innerHTML="Start with the module matching your lowest dimension \u2014 not with Module 01, unless that <em>is</em> your lowest.";return;}
+  var low=null; s.forEach(function(x){if(x&&(!low||x.avg<low.avg))low=x;});
+  var map={clarity:"03",listening:"02",presence:"04",story:"05",writing:"06",courage:"07"};
+  v.innerHTML="<b>Weakest dimension: "+low.name+" ("+low.avg.toFixed(1)+"/5).</b> Open Module "+map[low.key]+
+    " first and run its labs for a fortnight before moving on. "+
+    (complete?"Save this shape and retake it after the capstone.":"<span style='color:var(--mute)'>Partial \u2014 rate the rest for a full reading.</span>");
+}
+
+/* ============ PROGRESS / TABS / SPY ============ */
+var doneMods={};
+try{doneMods=JSON.parse(store.get("cwi_progress")||"{}")||{};}catch(e){doneMods={};}
+function paintMods(){
+  var boxes=document.querySelectorAll("input[data-mod]"),count=0;
+  boxes.forEach(function(b){
+    var id=b.getAttribute("data-mod"); b.checked=!!doneMods[id]; if(doneMods[id])count++;
+    var host=b.closest("details.mod")||b.closest(".callout");
+    if(host&&host.classList.contains("mod"))host.classList.toggle("done",!!doneMods[id]);
+  });
+  document.getElementById("progText").textContent=count+" of "+boxes.length+" modules complete";
+  document.getElementById("progBar").style.width=(count/boxes.length*100)+"%";
+}
+document.addEventListener("change",function(e){
+  var b=e.target; if(!b.getAttribute||!b.getAttribute("data-mod"))return;
+  doneMods[b.getAttribute("data-mod")]=b.checked;
+  store.set("cwi_progress",JSON.stringify(doneMods)); paintMods();
+});
+document.querySelectorAll(".tabs button").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    document.querySelectorAll(".tabs button").forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on");
+    var t=btn.getAttribute("data-tab");
+    document.getElementById("tab-std").hidden=(t!=="std");
+    document.getElementById("tab-int").hidden=(t!=="int");
+  });
+});
+var links=Array.prototype.slice.call(document.querySelectorAll(".subnav a"));
+var targets=links.map(function(a){return document.querySelector(a.getAttribute("href"));}).filter(Boolean);
+if("IntersectionObserver" in window){
+  var obs=new IntersectionObserver(function(en){
+    en.forEach(function(x){ if(!x.isIntersecting)return;
+      links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+x.target.id);});});
+  },{rootMargin:"-20% 0px -70% 0px"});
+  targets.forEach(function(t){obs.observe(t);});
+}
+/* deep-link: open a module if the URL points at one */
+if(location.hash){var m=document.querySelector(location.hash); if(m&&m.tagName==='DETAILS')m.open=true;}
+
+renderModules(); renderCourseMap(); initToTop(); paintLabs(); paintMods(); renderRadar();
+
+})();
+</script>
+</body>
+</html>
