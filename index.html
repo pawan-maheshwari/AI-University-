@@ -4905,7 +4905,7 @@ function LearnScreen(props){
     gameModal?h("div",{onClick:function(){setGameModal(null);},style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.6)",zIndex:9500,display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}},
       h("div",{onClick:function(e){e.stopPropagation();},style:{background:"#fff",borderRadius:10,width:"100%",maxWidth:960,height:"88vh",display:"flex",flexDirection:"column",overflow:"hidden",boxShadow:"0 20px 60px rgba(0,0,0,0.4)"}},
         h("div",{style:{background:(gameModal.color||zc.a),padding:"12px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,flexWrap:"wrap"}},
-          h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:17}},"\ud83c\udfae "+gameModal.title),
+          h("div",{style:{color:"#fff",fontWeight:700,fontFamily:"EB Garamond,serif",fontSize:17}},(gameModal.icon||"\ud83c\udfae")+" "+gameModal.title),
           h("div",{style:{display:"flex",gap:8}},
             h("button",{onClick:function(){window.open(gameModal.file,"_blank","noopener");},style:{background:"#fff",color:(gameModal.color||zc.a),border:"none",padding:"7px 14px",borderRadius:4,cursor:"pointer",fontWeight:600,fontSize:12.5}},"\u2197 Open in new tab"),
             h("button",{onClick:function(){setGameModal(null);},style:{background:"rgba(255,255,255,0.25)",color:"#fff",border:"none",padding:"7px 12px",borderRadius:4,cursor:"pointer",fontWeight:700,fontSize:14}},"\u2715"))),
@@ -4965,7 +4965,7 @@ function LearnScreen(props){
           h("li",null,"Everything stays on the device \u2014 nothing is uploaded or shared"),
           h("li",null,"Photos are read once and discarded; the AI only ever drafts, you confirm")),
         h("div",{style:{display:"flex",gap:10,flexWrap:"wrap"}},
-          h("button",{onClick:function(){setGameModal({file:"elder-companion.html",title:"Your Companion",color:zc.a});},style:{background:zc.a,color:"#fff",border:"none",padding:"11px 24px",borderRadius:5,cursor:"pointer",fontWeight:700,fontSize:14}},"\u25B6 Open Companion"),
+          h("button",{onClick:function(){setGameModal({file:"elder-companion.html",title:"Your Companion",color:zc.a,icon:"\ud83c\udf3f"});},style:{background:zc.a,color:"#fff",border:"none",padding:"11px 24px",borderRadius:5,cursor:"pointer",fontWeight:700,fontSize:14}},"\u25B6 Open Companion"),
           h("button",{onClick:function(){window.open("elder-companion.html","_blank","noopener");},style:{background:"#fff",color:zc.a,border:"1px solid "+zc.a,padding:"11px 20px",borderRadius:5,cursor:"pointer",fontWeight:600,fontSize:14}},"\u2197 Open in new tab"))):null,
       // Game (AI Teens Studio only) \u2014 DESYNCED drone-factory sandbox
       (zone.id==="teens")?h("div",{style:{marginBottom:28,padding:"22px 24px",background:"linear-gradient(135deg,"+zc.bg+" 0%,#fff 100%)",border:"1px solid "+zc.br,borderRadius:8}},

@@ -468,24 +468,85 @@ function listen(onText, onEnd){
 /* ---------------- the AI call ---------------- */
 /* Free, key-less endpoint (same one the AI Academia Practice Lab uses).
    Everything here degrades to a working manual path if it is unreachable. */
-var API = "https://text.pollinations.ai/openai";
+var API  = "https://text.pollinations.ai/openai";
+var APIG = "https://text.pollinations.ai/";
+var REF  = "ai-university-elders-companion";
 
-function askAI(messages, ok, fail){
-  var ctrl = (window.AbortController) ? new AbortController() : null;
+/* Flatten a chat into one prompt so it can travel over the simple GET route. */
+function flatten(messages){
+  var parts = [];
+  messages.forEach(function(m){
+    var c = m.content;
+    if(typeof c !== "string"){
+      // vision payloads cannot be flattened; keep only the text part
+      if(Array.isArray(c)) c = c.filter(function(x){ return x.type==="text"; })
+                               .map(function(x){ return x.text; }).join(" ");
+      else c = "";
+    }
+    if(!c) return;
+    parts.push(m.role==="system" ? c : (m.role==="assistant" ? "You said: "+c : c));
+  });
+  var t = parts.join("\n\n");
+  return t.length > 1400 ? t.slice(t.length-1400) : t;
+}
+
+function postOnce(messages){
+  var ctrl = window.AbortController ? new AbortController() : null;
   var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 45000);
-  fetch(API, {
+  return fetch(API, {
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({ model:"openai", messages:messages, seed:Math.floor(Math.random()*99999) }),
+    body: JSON.stringify({
+      model:"openai",
+      messages:messages,
+      referrer:REF,
+      seed:Math.floor(Math.random()*99999)
+    }),
     signal: ctrl ? ctrl.signal : undefined
-  })
-  .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-  .then(function(d){
+  }).then(function(r){
     clearTimeout(timer);
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    return r.json();
+  }).then(function(d){
     var out = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-    if(out) ok(out); else throw new Error("empty");
-  })
-  .catch(function(e){ clearTimeout(timer); fail && fail(e); });
+    if(!out || !String(out).trim()) throw new Error("empty");
+    return String(out);
+  });
+}
+
+function getOnce(messages){
+  var text = flatten(messages);
+  if(!text) return Promise.reject(new Error("nothing to send"));
+  var ctrl = window.AbortController ? new AbortController() : null;
+  var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 45000);
+  return fetch(APIG + encodeURIComponent(text) + "?model=openai&referrer=" + REF +
+               "&seed=" + Math.floor(Math.random()*99999),
+               { signal: ctrl ? ctrl.signal : undefined })
+    .then(function(r){
+      clearTimeout(timer);
+      if(!r.ok) throw new Error("HTTP "+r.status);
+      return r.text();
+    }).then(function(t){
+      if(!t || !t.trim()) throw new Error("empty");
+      return t;
+    });
+}
+
+function wait(ms){ return new Promise(function(res){ setTimeout(res, ms); }); }
+
+/* The free service rate-limits often, so we try four ways before giving up:
+   POST, then the simple GET route, then both again after a short pause. */
+function askAI(messages, ok, fail){
+  var hasImage = messages.some(function(m){
+    return Array.isArray(m.content) && m.content.some(function(x){ return x.type==="image_url"; });
+  });
+
+  postOnce(messages)
+    .catch(function(){ return hasImage ? Promise.reject(new Error("vision needs POST")) : getOnce(messages); })
+    .catch(function(){ return wait(1200).then(function(){ return postOnce(messages); }); })
+    .catch(function(){ return hasImage ? Promise.reject(new Error("vision needs POST")) : wait(1200).then(function(){ return getOnce(messages); }); })
+    .then(function(out){ ok(out); })
+    .catch(function(e){ fail && fail(e); });
 }
 
 function askAIWithPhoto(promptText, dataUrl, ok, fail){
@@ -973,8 +1034,9 @@ ROUTES.medadd = function(v, opts){
     }, function(){
       step = 2; paint();
       var n = el("div",{class:"note note-warn"});
-      n.innerHTML = "<strong>I could not read the photo just now</strong>The reading service was busy. " +
-        "No harm done &mdash; type the details straight from the box below and everything else works as normal.";
+      n.innerHTML = "<strong>I could not read the photo just now</strong>The free reading service was busy. " +
+        "No harm done &mdash; type the details straight from the box below. Everything else works exactly the same, " +
+        "and you can try a photo again next time.";
       v.insertBefore(n, v.children[1]);
       speak("I could not read the photo just now. Please type the details from the box.");
     });
@@ -1231,10 +1293,15 @@ ROUTES.kitchen = function(v){
 
   function fallbackIdeas(){
     var n = el("div",{class:"note note-warn"});
-    n.innerHTML = "<strong>The kitchen helper is busy right now</strong>Please try again in a minute. " +
-      "In the meantime, something on toast with a hot drink is never a bad answer.";
+    n.innerHTML = "<strong>The kitchen helper is busy just now</strong>This is a free service and it gets crowded at times. " +
+      "Tap below to try again &mdash; it usually works on the second go.";
     v.appendChild(n);
-    speak("The kitchen helper is busy right now. Please try again in a minute.");
+    var b = el("button",{class:"btn btn-brass btn-lg btn-block", onclick:function(){
+      n.remove(); b.remove(); suggest();
+    }},"&#8635;&nbsp; Try again");
+    v.appendChild(b);
+    b.scrollIntoView({behavior:"smooth", block:"center"});
+    speak("The kitchen helper is busy just now. Tap try again.");
   }
 
   function paintIdeas(arr){
@@ -1731,9 +1798,17 @@ ROUTES.talk = function(v){
       speak(clean);
     }, function(){
       busy = false; sendBtn.disabled = false; typing.remove();
-      var f = "I have lost my connection for a moment, so I cannot answer properly. " +
-              "But I did hear you. Try me again shortly.";
+      var f = "I have lost my connection for a moment, so I cannot answer properly \u2014 " +
+              "but I did hear you. Tap the arrow below and I will try again.";
       S.chat.push({who:"them", text:f}); save(); paintChat();
+      var again = el("button",{class:"btn btn-brass btn-block", style:"margin:.2rem 0 .4rem", onclick:function(){
+        again.remove();
+        S.chat.pop();               // drop my apology
+        var last = S.chat.pop();    // and re-send what they said
+        save(); paintChat();
+        if(last) send(last.text);
+      }},"\u21BB\u00A0 Try again");
+      chat.parentNode.insertBefore(again, chat.nextSibling);
       speak(f);
     });
   }
@@ -1829,7 +1904,7 @@ ROUTES.face = function(v, opts){
   var ta = el("textarea",{class:"inp", placeholder:"e.g. thank her for the flowers, tell her the garden is doing well, ask about the children"});
   w.appendChild(ta);
   var outBox = el("div");
-  w.appendChild(el("button",{class:"btn btn-brass btn-block", style:"margin-top:.8rem", onclick:function(){
+  function writeIt(){
     var idea = ta.value.trim();
     if(!idea){ alert("Tell me roughly what you would like to say first."); return; }
     outBox.innerHTML = '<div class="spin" style="border-color:rgba(31,74,61,.25);border-top-color:var(--enamel);margin-top:1rem"></div>';
@@ -1855,9 +1930,15 @@ ROUTES.face = function(v, opts){
       outBox.appendChild(rr);
       speak(txt.trim());
     }, function(){
-      outBox.innerHTML = '<div class="note note-warn" style="margin-top:1rem"><strong>I could not write it just now</strong>The service was busy. Try again in a moment.</div>';
+      outBox.innerHTML = "";
+      outBox.appendChild(el("div",{class:"note note-warn", style:"margin-top:1rem"},
+        "<strong>The writing helper is busy just now</strong>This is a free service and it gets crowded at times. " +
+        "Tap below to try again &mdash; it usually works on the second go."));
+      outBox.appendChild(el("button",{class:"btn btn-brass btn-block", onclick:writeIt},"&#8635;&nbsp; Try again"));
+      speak("The writing helper is busy just now. Tap try again.");
     });
-  }},"Write it for me"));
+  }
+  w.appendChild(el("button",{class:"btn btn-brass btn-block", style:"margin-top:.8rem", onclick:writeIt},"Write it for me"));
   w.appendChild(outBox);
   v.appendChild(w);
 
