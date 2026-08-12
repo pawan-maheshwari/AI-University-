@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROOF — A Causal Field Framework for Measuring Copilot in Program Management | Pawan Maheshwari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E9EBE6;
+  --card:#F5F6F3;
+  --ink:#131C1A;
+  --graphite:#55635F;
+  --rule:#C4CAC2;
+  --rule-soft:#D8DCD5;
+  --teal:#0B6E61;
+  --teal-soft:rgba(11,110,97,.12);
+  --amber:#A2610C;
+  --vermilion:#A0322B;
+  --focus:#0B6E61;
+  --measure:74ch;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(to right, rgba(19,28,26,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(19,28,26,.045) 1px, transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;
+  font-size:17px;
+  line-height:1.62;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+h1,h2,h3,h4,.disp{font-family:"Space Grotesk",Helvetica,Arial,sans-serif;letter-spacing:-.02em;line-height:1.08;font-weight:700}
+p{max-width:var(--measure)}
+a{color:var(--teal);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:2px}
+
+/* ---------- eyebrow / section marks ---------- */
+.mark{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--graphite);display:flex;align-items:center;gap:12px;
+  margin:0 0 18px;
+}
+.mark::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+/* ---------- masthead ---------- */
+header.masthead{padding:52px 0 0}
+.byline{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--graphite);display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;
+}
+.byline strong{color:var(--ink);font-weight:600}
+h1{
+  font-size:clamp(38px,7.2vw,80px);margin:30px 0 0;max-width:16ch;
+}
+h1 .thin{font-weight:400;color:var(--graphite);display:block;font-size:clamp(18px,2.6vw,29px);letter-spacing:-.01em;margin-top:16px;max-width:26ch;line-height:1.28}
+.deck{font-size:clamp(18px,2.1vw,21px);max-width:60ch;margin:26px 0 0;color:var(--ink)}
+.deck em{font-style:italic;color:var(--teal)}
+
+/* ---------- hero instrument ---------- */
+.instrument{
+  margin:44px 0 0;border:1px solid var(--ink);background:var(--card);
+}
+.instr-head{
+  display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;
+  padding:14px 20px;border-bottom:1px solid var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);
+}
+.instr-body{display:grid;grid-template-columns:1.55fr 1fr}
+.chart-pane{padding:18px 12px 8px;border-right:1px solid var(--rule)}
+.ctrl-pane{padding:20px}
+svg.plot{width:100%;height:auto;display:block;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;padding:4px 12px 14px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--graphite)}
+.legend span{display:flex;align-items:center;gap:7px}
+.swatch{width:22px;height:0;border-top:2px solid}
+.swatch.dash{border-top-style:dashed}
+.swatch.fill{height:11px;border:none;background:var(--teal-soft);border-top:1px solid rgba(11,110,97,.4)}
+
+.slider{margin-bottom:20px}
+.slider label{display:flex;justify-content:space-between;align-items:baseline;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.04em;color:var(--graphite);margin-bottom:2px}
+.slider .val{color:var(--ink);font-weight:600;font-size:13px}
+.slider .hint{font-family:"Source Serif 4",serif;font-size:13.5px;color:var(--graphite);line-height:1.4;margin:0 0 8px;letter-spacing:0;text-transform:none}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;background:transparent;height:22px;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--rule)}
+input[type=range]::-moz-range-track{height:2px;background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;background:var(--ink);border-radius:50%;margin-top:-6.5px;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;background:var(--ink);border:none;border-radius:50%;cursor:pointer}
+
+.readout{border-top:1px solid var(--ink);margin-top:6px;padding-top:16px}
+.ro-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;border-bottom:1px dotted var(--rule)}
+.ro-row:last-child{border-bottom:none}
+.ro-label{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite)}
+.ro-val{font-family:"Space Grotesk",sans-serif;font-size:26px;font-weight:700;letter-spacing:-.03em}
+.ro-val.bad{color:var(--vermilion)}
+.ro-val.good{color:var(--teal)}
+.verdict{margin-top:14px;font-size:14.5px;line-height:1.5;color:var(--ink);background:rgba(160,50,43,.07);border-left:2px solid var(--vermilion);padding:10px 13px}
+
+/* ---------- generic sections ---------- */
+section{padding:74px 0 0}
+h2{font-size:clamp(27px,3.8vw,42px);margin:0 0 16px;max-width:20ch}
+.lede{font-size:18.5px;color:var(--ink);max-width:66ch;margin:0 0 30px}
+.src{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--graphite);letter-spacing:.02em;border-left:2px solid var(--teal);padding:3px 0 3px 12px;margin:0 0 26px;max-width:66ch;line-height:1.55}
+
+/* ---------- 2x2 ---------- */
+.quad-shell{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:start}
+.quad{position:relative;padding-left:34px;padding-bottom:32px}
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink)}
+.qcell{padding:16px 15px 18px;min-height:170px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--card)}
+.qcell:nth-child(2n){border-right:none}
+.qcell:nth-child(n+3){border-bottom:none}
+.qcell.target{background:rgba(11,110,97,.09)}
+.qname{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;margin:0 0 4px}
+.qsub{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);margin:0 0 10px}
+.qcell p{font-size:14px;line-height:1.48;margin:0;color:var(--graphite);max-width:none}
+.qcell.target p{color:var(--ink)}
+.axis-y{position:absolute;left:0;top:0;height:calc(100% - 32px);display:flex;align-items:center}
+.axis-y span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite)}
+.axis-x{position:absolute;bottom:0;left:34px;right:0;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite)}
+.chiplab{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--graphite);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;padding:6px 11px;border:1px solid var(--rule);
+  background:var(--card);cursor:pointer;color:var(--ink);text-align:left;line-height:1.3;
+}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.diag{border:1px solid var(--ink);background:var(--card);padding:16px 17px;min-height:150px}
+.diag .dq{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px}
+.diag .dq.warn{color:var(--vermilion)}
+.diag .dq.ok{color:var(--teal)}
+.diag h4{font-size:17px;margin:0 0 8px}
+.diag p{font-size:14.5px;line-height:1.5;margin:0 0 9px}
+.diag .fix{font-size:14.5px;border-top:1px dotted var(--rule);padding-top:9px;margin:0}
+.diag .fix b{font-family:"Space Grotesk",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);display:block;margin-bottom:3px}
+
+/* ---------- PROOF layers ---------- */
+.layers{border-top:1px solid var(--ink)}
+.layer{border-bottom:1px solid var(--rule);display:grid;grid-template-columns:78px 1fr 1.05fr;gap:26px;padding:22px 0;align-items:start}
+.layer .glyph{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:46px;line-height:.9;color:var(--teal);letter-spacing:-.04em}
+.layer .glyph small{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:400;letter-spacing:.14em;color:var(--graphite);margin-top:7px}
+.layer h3{font-size:20px;margin:0 0 7px}
+.layer .claim{font-size:14.5px;color:var(--graphite);margin:0;line-height:1.5}
+.layer .does{margin:0;font-size:15px}
+.layer .does ul{margin:0;padding-left:17px}
+.layer .does li{margin-bottom:5px}
+
+/* ---------- designer ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.panel{border:1px solid var(--ink);background:var(--card)}
+.panel-h{padding:12px 18px;border-bottom:1px solid var(--ink);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite)}
+.panel-b{padding:18px}
+.q{margin-bottom:17px}
+.q p{font-size:15px;margin:0 0 8px;font-weight:600;max-width:none}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font-family:"IBM Plex Mono",monospace;font-size:12px;padding:6px 12px;border:1px solid var(--rule);background:transparent;cursor:pointer;color:var(--ink)}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+.rec-name{font-family:"Space Grotesk",sans-serif;font-size:23px;font-weight:700;margin:0 0 4px;letter-spacing:-.02em}
+.meter{display:flex;align-items:center;gap:10px;margin:12px 0 14px}
+.meter-track{flex:1;height:8px;background:var(--rule-soft);border:1px solid var(--rule);position:relative}
+.meter-fill{position:absolute;inset:0 auto 0 0;background:var(--teal)}
+.meter-num{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600}
+.kv{font-size:14.5px;line-height:1.55;margin:0 0 10px}
+.kv b{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--graphite);display:block}
+.threats{margin:0;padding-left:17px;font-size:14px;color:var(--vermilion)}
+.threats li{margin-bottom:4px}
+
+/* ---------- calculators ---------- */
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.field label{display:block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--graphite);margin-bottom:5px}
+.field input{width:100%;font-family:"IBM Plex Mono",monospace;font-size:15px;padding:8px 9px;border:1px solid var(--rule);background:#fff;color:var(--ink)}
+.field input:focus{border-color:var(--ink)}
+.est{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink)}
+.est div{padding:14px 15px;border-right:1px solid var(--rule)}
+.est div:last-child{border-right:none}
+.est .e-l{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--graphite);margin-bottom:4px}
+.est .e-v{font-family:"Space Grotesk",sans-serif;font-size:27px;font-weight:700;letter-spacing:-.03em}
+.est .e-n{font-size:13px;color:var(--graphite);line-height:1.4;margin-top:5px}
+.note{font-size:14px;color:var(--graphite);margin-top:14px;max-width:70ch}
+
+/* ---------- metric tree ---------- */
+.tiers{border-top:1px solid var(--ink)}
+.tier{border-bottom:1px solid var(--rule)}
+.tier-btn{width:100%;display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;background:transparent;border:none;padding:17px 4px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.tier-btn:hover{background:rgba(19,28,26,.03)}
+.tier-n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--graphite);letter-spacing:.08em}
+.tier-t{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:19px;letter-spacing:-.02em}
+.tier-t small{display:block;font-family:"Source Serif 4",serif;font-weight:400;font-size:14.5px;color:var(--graphite);letter-spacing:0;margin-top:3px}
+.tier-x{font-family:"IBM Plex Mono",monospace;font-size:18px;color:var(--graphite)}
+.tier-body{display:none;padding:0 4px 22px 64px}
+.tier.open .tier-body{display:block}
+.tier.trap .tier-t{color:var(--vermilion)}
+table.m{width:100%;border-collapse:collapse;font-size:14px}
+table.m th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--graphite);text-align:left;padding:0 12px 7px 0;border-bottom:1px solid var(--rule);font-weight:500}
+table.m td{padding:9px 12px 9px 0;border-bottom:1px dotted var(--rule-soft);vertical-align:top;line-height:1.45}
+table.m td:first-child{font-weight:600;width:31%}
+.risk{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;padding:2px 7px;border:1px solid;white-space:nowrap}
+.risk.hi{color:var(--vermilion);border-color:var(--vermilion)}
+.risk.md{color:var(--amber);border-color:var(--amber)}
+.risk.lo{color:var(--teal);border-color:var(--teal)}
+
+/* ---------- interviews ---------- */
+.sessions{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.sess{border:1px solid var(--ink);background:var(--card);display:flex;flex-direction:column}
+.sess-h{padding:14px 17px;border-bottom:1px solid var(--rule)}
+.sess-tag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.sess-h h4{font-size:18px;margin:0 0 5px}
+.sess-meta{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--graphite)}
+.sess-b{padding:15px 17px;flex:1}
+.sess-b .why{font-size:14px;color:var(--graphite);margin:0 0 12px;line-height:1.5}
+.sess-b ol{margin:0;padding-left:19px;font-size:14.5px}
+.sess-b li{margin-bottom:8px;line-height:1.45}
+.probe{background:rgba(11,110,97,.09);padding:3px 5px;margin:0 -5px}
+
+/* ---------- plan ---------- */
+.plan{border-top:1px solid var(--ink)}
+.step{display:grid;grid-template-columns:110px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:start}
+.step .when{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--teal);letter-spacing:.05em;font-weight:600;padding-top:3px}
+.step h4{font-size:17px;margin:0 0 5px}
+.step p{font-size:14.5px;margin:0;color:var(--graphite)}
+.step .gate{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink);margin-top:7px;display:block}
+.step .gate b{color:var(--vermilion);letter-spacing:.08em;text-transform:uppercase;font-size:10px}
+
+/* ---------- refs / footer ---------- */
+.refs{font-size:14.5px;line-height:1.6}
+.refs ol{padding-left:20px;margin:0}
+.refs li{margin-bottom:11px;max-width:78ch}
+footer{margin-top:70px;border-top:1px solid var(--ink);padding:26px 0 60px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--graphite);letter-spacing:.03em;line-height:1.7}
+footer strong{color:var(--ink)}
+
+@media (max-width:900px){
+  .instr-body{grid-template-columns:1fr}
+  .chart-pane{border-right:none;border-bottom:1px solid var(--rule)}
+  .quad-shell,.two,.sessions{grid-template-columns:1fr}
+  .layer{grid-template-columns:56px 1fr;gap:16px}
+  .layer .does{grid-column:1/-1;padding-left:72px}
+  .calc-grid{grid-template-columns:1fr 1fr}
+  .est{grid-template-columns:1fr}
+  .est div{border-right:none;border-bottom:1px solid var(--rule)}
+  .est div:last-child{border-bottom:none}
+  .tier-body{padding-left:8px}
+  table.m td:first-child{width:auto}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:620px){
+  .layer .does{padding-left:0}
+  .quad-grid{grid-template-columns:1fr}
+  .qcell{border-right:none;border-bottom:1px solid var(--rule)!important}
+  .qcell:last-child{border-bottom:none!important}
+  table.m thead{display:none}
+  table.m td{display:block;padding:3px 0}
+  table.m tr{display:block;padding:11px 0;border-bottom:1px solid var(--rule)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .plot path,.plot polygon{transition:d .25s ease, points .25s ease}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="byline">
+    <span>Framework by <strong>Pawan Maheshwari</strong></span>
+    <span>AI Transformation &amp; Delivery</span>
+    <span>Version 1.0 &middot; August 2026</span>
+  </div>
+  <h1>PROOF
+    <span class="thin">A causal field framework for measuring Microsoft Copilot in Program Management</span>
+  </h1>
+  <p class="deck">Most Copilot programs measure whether program managers <em>like</em> the tool. Almost none can say whether the tool <em>changed the program</em>. This framework closes that gap — and the instrument below shows you exactly how wide it is.</p>
+
+  <div class="instrument">
+    <div class="instr-head">
+      <span>Fig. 01 &mdash; The attribution gap</span>
+      <span>Drag the sliders. Watch the claim collapse.</span>
+    </div>
+    <div class="instr-body">
+      <div class="chart-pane">
+        <svg class="plot" id="plot" viewBox="0 0 560 300" role="img" aria-labelledby="plotTitle plotDesc">
+          <title id="plotTitle">Observed delivery performance versus its counterfactual</title>
+          <desc id="plotDesc">A line chart comparing what happened after Copilot rollout against what would have happened anyway. The shaded gap between the two lines is the only defensible causal effect.</desc>
+        </svg>
+        <div class="legend">
+          <span><i class="swatch" style="border-color:#131C1A"></i>Observed (Copilot cohort)</span>
+          <span><i class="swatch dash" style="border-color:#A2610C"></i>Counterfactual</span>
+          <span><i class="swatch fill"></i>Causal effect</span>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="slider">
+          <label for="s1"><span>Secular improvement</span><span class="val" id="v1">8%</span></label>
+          <p class="hint">Team maturity, process fixes, learning curve — gains you would have booked with no Copilot at all.</p>
+          <input type="range" id="s1" min="0" max="20" value="8" step="1">
+        </div>
+        <div class="slider">
+          <label for="s2"><span>Concurrent initiative</span><span class="val" id="v2">9%</span></label>
+          <p class="hint">The PMO rewrite, the new tooling, the reorg — running in the same window and moving the same numbers.</p>
+          <input type="range" id="s2" min="0" max="20" value="9" step="1">
+        </div>
+        <div class="slider">
+          <label for="s3"><span>True Copilot effect</span><span class="val" id="v3">6%</span></label>
+          <p class="hint">The part that would vanish if you switched the licences off tomorrow.</p>
+          <input type="range" id="s3" min="0" max="20" value="6" step="1">
+        </div>
+        <div class="readout">
+          <div class="ro-row">
+            <span class="ro-label">Before / after claim</span>
+            <span class="ro-val bad" id="naive">+23%</span>
+          </div>
+          <div class="ro-row">
+            <span class="ro-label">Defensible causal effect</span>
+            <span class="ro-val good" id="causal">+6%</span>
+          </div>
+          <div class="ro-row">
+            <span class="ro-label">Overstatement</span>
+            <span class="ro-val" id="ratio">3.8&times;</span>
+          </div>
+          <p class="verdict" id="verdict"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ORIGIN ================= -->
+<section id="origin">
+  <p class="mark">Origin &mdash; the source argument</p>
+  <h2>The idea this is built on</h2>
+  <p class="lede">In July 2026 the Harvard Business School AI Institute published <em>Does Your AI Work? Test It Where It Lives</em>, summarising work by David Arbour, Iavor Bojinov, Avi Feller and Tu Ni. Their argument, paraphrased: benchmark scores earn credibility in the lab but may not carry over to the population that actually uses the system, while field dashboards and satisfaction surveys sit close to real work yet cannot show that the AI caused anything. Their proposed target is the <em>causal field evaluation</em> &mdash; a randomised experiment run in the live setting, measured on outcomes that matter.</p>
+  <p class="src">Source article: HBS AI Content &amp; Learning, &ldquo;Does Your AI Work? Test It Where It Lives,&rdquo; Harvard Business School AI Institute, 14 July 2026. Underlying paper: Arbour, D., Bojinov, I., Feller, A., &amp; Ni, T., &ldquo;Toward Causal Field Evaluations of AI Systems,&rdquo; <em>Harvard Data Science Review</em> 8(2), 11 May 2026. PROOF is my applied adaptation of that argument to enterprise program management; the underlying claims are theirs, the operating model is mine. &mdash; P.M.</p>
+  <p>Three consequences of that argument travel directly into program management, and they are what PROOF is designed to handle. First, the article's warning about self-selected adoption is the central measurement problem in every Copilot rollout I have seen: the program managers who take the licence early are not like the ones who don't, so any comparison between them measures the person, not the tool. Second, its caution about preference data indicts almost the whole standard Copilot scorecard &mdash; seats, prompts, satisfaction, self-reported hours saved. Third, its point that gains carry costs means a Copilot evaluation without guardrail metrics isn't an evaluation, it's a sales document.</p>
+</section>
+
+<!-- ================= 2x2 ================= -->
+<section id="map">
+  <p class="mark">Instrument 01 &mdash; diagnostic</p>
+  <h2>Where does your current Copilot metric actually sit?</h2>
+  <p class="lede">The source article's two axes &mdash; lab or field, preference or outcome &mdash; make a map. Tap any metric from a typical Copilot program dashboard and see which quadrant it falls into, and what it can and cannot support.</p>
+
+  <div class="quad-shell">
+    <div class="quad">
+      <div class="axis-y"><span>Outcome data &nbsp;&larr;&nbsp; Preference data</span></div>
+      <div class="quad-grid" id="quadGrid">
+        <div class="qcell" data-q="lab-pref">
+          <p class="qname">Lab &times; Preference</p>
+          <p class="qsub">Bench &amp; bake-off</p>
+          <p>Model comparisons, prompt bake-offs, &ldquo;which draft reads better&rdquo; panels. Useful for picking a tool. Says nothing about your programs.</p>
+        </div>
+        <div class="qcell" data-q="field-pref">
+          <p class="qname">Field &times; Preference</p>
+          <p class="qsub">The default dashboard</p>
+          <p>Seats, prompts per week, CSAT, self-reported time saved. Where most Copilot reporting lives, and where it stops.</p>
+        </div>
+        <div class="qcell" data-q="lab-out">
+          <p class="qname">Lab &times; Outcome</p>
+          <p class="qsub">Scripted task trial</p>
+          <p>Timed exercises on synthetic status reports. Clean and causal, but the population and the pressure are wrong.</p>
+        </div>
+        <div class="qcell target" data-q="field-out">
+          <p class="qname">Field &times; Outcome</p>
+          <p class="qsub">Causal field evaluation &mdash; the target</p>
+          <p>Randomised or staggered licence assignment across real programs, read on schedule, rework, risk lead time and cost. This is the quadrant PROOF drives you to.</p>
+        </div>
+      </div>
+      <div class="axis-x">Lab &nbsp;&rarr;&nbsp; Field</div>
+    </div>
+
+    <div>
+      <p class="chiplab">Pick a metric from your deck</p>
+      <div class="chips" id="chips"></div>
+      <div class="diag" id="diag">
+        <p class="dq">Awaiting selection</p>
+        <h4>Choose a metric to diagnose it</h4>
+        <p>Each one is scored on what it can legitimately support: tool selection, adoption tracking, mechanism explanation, or a causal claim about program performance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROOF ================= -->
+<section id="proof">
+  <p class="mark">The framework</p>
+  <h2>PROOF &mdash; five layers, each answering one failure</h2>
+  <p class="lede">Each layer exists because a specific claim in the source argument breaks a specific habit in enterprise program measurement. Run them in order; skipping a layer invalidates the ones after it.</p>
+
+  <div class="layers">
+    <div class="layer">
+      <div class="glyph">P<small>Layer 01</small></div>
+      <div>
+        <h3>Place it in the field</h3>
+        <p class="claim">Answers: lab results may not generalise to the deployment population.</p>
+      </div>
+      <div class="does">
+        <ul>
+          <li>Evaluate inside live programs, not in a Copilot sandbox or a training cohort.</li>
+          <li>Unit of analysis is the <b>program or squad</b>, not the individual PM &mdash; Copilot's effect travels through meetings and handovers, so person-level analysis leaks.</li>
+          <li>Freeze the deployment population up front: which portfolios, which delivery models, which client tiers.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="glyph">R<small>Layer 02</small></div>
+      <div>
+        <h3>Randomise &mdash; or declare the distance</h3>
+        <p class="claim">Answers: define the experiment you would run if you could, then measure how far your real design falls from it.</p>
+      </div>
+      <div class="does">
+        <ul>
+          <li>Write the ideal trial first, even if you cannot run it. It becomes the yardstick for every compromise.</li>
+          <li>Licences are scarce and staged anyway &mdash; that scarcity is a free randomisation instrument. Allocate wave 1 by lottery among eligible programs, not by enthusiasm.</li>
+          <li>If you cannot randomise, state the assumption your alternative rests on, in writing, in the steering pack.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="glyph">O<small>Layer 03</small></div>
+      <div>
+        <h3>Outcomes over opinions</h3>
+        <p class="claim">Answers: people may prefer output that looks better while performing worse downstream.</p>
+      </div>
+      <div class="does">
+        <ul>
+          <li>Demote seats, prompts and satisfaction to adoption telemetry. They are health checks, not evidence.</li>
+          <li>Promote one primary outcome and pre-commit to it: I default to <b>risk detection lead time</b> or <b>status report cycle time</b>, both machine-readable from the PPM tool.</li>
+          <li>Never let a self-reported hours-saved survey enter a benefits case unaccompanied.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="glyph">O<small>Layer 04</small></div>
+      <div>
+        <h3>Offset the selection</h3>
+        <p class="claim">Answers: when adoption is left to happen, the people who lean in differ from those who don't.</p>
+      </div>
+      <div class="does">
+        <ul>
+          <li>Analyse by <b>intention to treat</b> &mdash; keep programs in the arm they were assigned to, even if the PM never opened Copilot. Analysing only active users rebuilds the bias you removed.</li>
+          <li>Log the confounder register at baseline: concurrent initiatives, seniority mix, portfolio complexity, quarter-end seasonality, attrition.</li>
+          <li>Check parallel pre-trends before trusting any difference-in-differences read.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="glyph">F<small>Layer 05</small></div>
+      <div>
+        <h3>Falsify, and face the trade-off</h3>
+        <p class="claim">Answers: speed gains can carry quality costs; guardrails can cost advanced users their flexibility.</p>
+      </div>
+      <div class="does">
+        <ul>
+          <li>Pre-register the primary outcome, the analysis and the stopping rule before wave 1 goes live.</li>
+          <li>Run a negative control &mdash; a metric Copilot should not move. If it moves, your design is contaminated.</li>
+          <li>Report guardrails on the same slide as the benefit, never an appendix: artifact error rate, unchallenged-acceptance rate, senior override rate.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DESIGNER ================= -->
+<section id="designer">
+  <p class="mark">Instrument 02 &mdash; design selector</p>
+  <h2>Define the ideal experiment, then find your nearest feasible one</h2>
+  <p class="lede">Four questions about what your PMO can actually control. The output is the strongest design available to you, how far it sits from a clean randomised trial, and the specific threats you will have to defend at the steering committee.</p>
+
+  <div class="two">
+    <div class="panel">
+      <div class="panel-h">Your constraints</div>
+      <div class="panel-b" id="designerQs"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-h">Recommended design</div>
+      <div class="panel-b" id="designerOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CALCULATORS ================= -->
+<section id="calc">
+  <p class="mark">Instrument 03 &mdash; estimation</p>
+  <h2>Difference-in-differences, on the back of an envelope</h2>
+  <p class="lede">Four numbers from your PPM tool. The calculator shows the two claims a steering committee will hear and the one you can defend. Example below uses status report cycle time in hours, where lower is better.</p>
+
+  <div class="calc-grid">
+    <div class="field"><label for="t0">Copilot cohort &mdash; before</label><input type="number" id="t0" value="14.0" step="0.1"></div>
+    <div class="field"><label for="t1">Copilot cohort &mdash; after</label><input type="number" id="t1" value="9.1" step="0.1"></div>
+    <div class="field"><label for="c0">Control cohort &mdash; before</label><input type="number" id="c0" value="13.4" step="0.1"></div>
+    <div class="field"><label for="c1">Control cohort &mdash; after</label><input type="number" id="c1" value="11.2" step="0.1"></div>
+  </div>
+  <div class="est">
+    <div><p class="e-l">Before / after, treated only</p><p class="e-v bad" id="d1">&ndash;4.9 h</p><p class="e-n" id="d1n"></p></div>
+    <div><p class="e-l">Treated vs control, after only</p><p class="e-v bad" id="d2">&ndash;2.1 h</p><p class="e-n" id="d2n"></p></div>
+    <div><p class="e-l">Difference-in-differences</p><p class="e-v good" id="d3">&ndash;2.7 h</p><p class="e-n" id="d3n"></p></div>
+  </div>
+  <p class="note">Difference-in-differences is only valid if the two cohorts were drifting in parallel before rollout. Plot six or more pre-periods and eyeball it before you quote the number. It is a substitute for randomisation, not an equal to it.</p>
+
+  <h2 style="margin-top:56px">How many programs do you need?</h2>
+  <p class="lede">Underpowered pilots are the quiet failure mode: a real effect exists, the study cannot see it, and Copilot gets written off — or worse, noise gets promoted as success. Size the pilot before you run it.</p>
+  <div class="calc-grid">
+    <div class="field"><label for="base">Baseline mean</label><input type="number" id="base" value="14.0" step="0.1"></div>
+    <div class="field"><label for="sd">Std deviation across programs</label><input type="number" id="sd" value="4.2" step="0.1"></div>
+    <div class="field"><label for="eff">Effect worth acting on (%)</label><input type="number" id="eff" value="15" step="1"></div>
+    <div class="field"><label for="narm">Programs available per arm</label><input type="number" id="narm" value="20" step="1"></div>
+  </div>
+  <div class="est">
+    <div><p class="e-l">Programs needed per arm</p><p class="e-v" id="nneed">&mdash;</p><p class="e-n">At 80% power, 5% significance, two-sided.</p></div>
+    <div><p class="e-l">Smallest effect you can detect</p><p class="e-v" id="mde">&mdash;</p><p class="e-n">With the arm size you entered.</p></div>
+    <div><p class="e-l">Verdict</p><p class="e-v" id="powerv">&mdash;</p><p class="e-n" id="powern"></p></div>
+  </div>
+  <p class="note">If the numbers say your portfolio is too small, that is a finding, not a blocker. Switch to a stepped-wedge rollout so every program contributes both a control period and a treated period, or lengthen the measurement window to reduce period-level noise.</p>
+</section>
+
+<!-- ================= METRIC TREE ================= -->
+<section id="metrics">
+  <p class="mark">Instrument 04 &mdash; the metric tree</p>
+  <h2>Demote four metrics, promote four, and never drop the guardrails</h2>
+  <p class="lede">The tiers below are ordered by evidential weight, not by ease of collection — which is exactly the inverse of how most Copilot dashboards get built. Tap to open each tier.</p>
+  <div class="tiers" id="tiers"></div>
+</section>
+
+<!-- ================= INTERVIEWS ================= -->
+<section id="interviews">
+  <p class="mark">Instrument 05 &mdash; the interview kit</p>
+  <h2>Four sessions that explain the number without pretending to prove it</h2>
+  <p class="lede">Be honest about what interviews do. They cannot establish causation — that is the whole point of the source argument, and asking PMs whether Copilot helped produces exactly the preference data it warns against. What interviews <em>can</em> do is explain the mechanism behind an effect you measured, bound it when you couldn't measure it, and catch the effects your telemetry was never instrumented to see. Run them alongside the quantitative read, never instead of it. Highlighted lines are counterfactual probes: they force the respondent to reason about absence rather than benefit.</p>
+  <div class="sessions" id="sessions"></div>
+</section>
+
+<!-- ================= PLAN ================= -->
+<section id="plan">
+  <p class="mark">Operating model</p>
+  <h2>Ninety days, five gates</h2>
+  <p class="lede">The sequence matters more than the speed. Every gate below is a point where a program has historically been able to quietly convert itself back into a preference-data exercise.</p>
+  <div class="plan" id="planList"></div>
+</section>
+
+<!-- ================= REFS ================= -->
+<section id="refs">
+  <p class="mark">References &amp; attribution</p>
+  <h2>Sources</h2>
+  <div class="refs">
+    <ol>
+      <li>HBS AI Content &amp; Learning. &ldquo;Does Your AI Work? Test It Where It Lives.&rdquo; Harvard Business School AI Institute, 14 July 2026. <span class="mono">aiinstitute.hbs.edu/does-your-ai-work-test-it-where-it-lives</span> &mdash; the source article for this framework.</li>
+      <li>Arbour, David, Iavor Bojinov, Avi Feller, and Tu Ni. &ldquo;Toward Causal Field Evaluations of AI Systems.&rdquo; <em>Harvard Data Science Review</em> 8(2), 11 May 2026. &mdash; the underlying paper, and the origin of the lab/field &times; preference/outcome taxonomy, the causal field evaluation target, and the ideal-experiment yardstick used throughout PROOF.</li>
+      <li>Rubin, Donald B. &ldquo;Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies.&rdquo; <em>Journal of Educational Psychology</em> 66(5), 1974. &mdash; potential outcomes; the formal basis for the counterfactual in Fig. 01.</li>
+      <li>Campbell, Donald T., and Julian C. Stanley. <em>Experimental and Quasi-Experimental Designs for Research.</em> Rand McNally, 1963. &mdash; the quasi-experimental ladder behind Instrument 02.</li>
+      <li>Card, David, and Alan B. Krueger. &ldquo;Minimum Wages and Employment.&rdquo; <em>American Economic Review</em> 84(4), 1994. &mdash; canonical difference-in-differences application.</li>
+      <li>Abadie, Alberto, Alexis Diamond, and Jens Hainmueller. &ldquo;Synthetic Control Methods for Comparative Case Studies.&rdquo; <em>Journal of the American Statistical Association</em> 105(490), 2010.</li>
+      <li>Angrist, Joshua D., and J&ouml;rn-Steffen Pischke. <em>Mostly Harmless Econometrics.</em> Princeton University Press, 2009.</li>
+      <li>Flanagan, John C. &ldquo;The Critical Incident Technique.&rdquo; <em>Psychological Bulletin</em> 51(4), 1954. &mdash; basis for interview session B.</li>
+      <li>Dalkey, Norman, and Olaf Helmer. &ldquo;An Experimental Application of the Delphi Method to the Use of Experts.&rdquo; <em>Management Science</em> 9(3), 1963. &mdash; basis for interview session D.</li>
+      <li>Strathern, Marilyn. &ldquo;Improving Ratings: Audit in the British University System.&rdquo; <em>European Review</em> 5(3), 1997. &mdash; the widely cited formulation of Goodhart's law; the reason every metric in Instrument 04 carries a gaming-risk rating.</li>
+    </ol>
+    <p style="margin-top:22px;font-size:14.5px">The P&amp;G field research referenced in the source article is cited there as evidence that generative AI reshapes team structure and knowledge work itself, not merely individual task speed &mdash; the reason PROOF sets the unit of analysis at squad or program level rather than at the individual PM. Readers should consult the HDSR paper for that citation in full.</p>
+  </div>
+</section>
+
+<footer>
+  <strong>PROOF &mdash; A Causal Field Framework for Measuring AI in Program Management</strong><br>
+  Framework and operating model by Pawan Maheshwari &middot; Version 1.0 &middot; August 2026<br>
+  Adapted for enterprise program management from the causal field evaluation argument of Arbour, Bojinov, Feller &amp; Ni (2026), as summarised by the Harvard Business School AI Institute.<br>
+  Illustrative figures throughout. Replace with your own portfolio data before use.
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* ============ FIG 01 — counterfactual divergence ============ */
+(function(){
+  const P=24, ROLL=12;
+  const W=560,H=300,ML=44,MR=14,MT=14,MB=34;
+  const svg=document.getElementById('plot');
+  const el=id=>document.getElementById(id);
+
+  function series(sec,conf,eff){
+    const cf=[],ob=[];
+    for(let i=0;i<P;i++){
+      const t=i/(P-1);
+      const post=i>=ROLL?(i-ROLL+1)/(P-ROLL):0;
+      const wobble=Math.sin(i*1.35)*0.55+Math.cos(i*0.62)*0.4;
+      const c=100+sec*100*t+conf*100*post+wobble;
+      cf.push(c);
+      ob.push(c+eff*100*post);
+    }
+    return {cf,ob};
+  }
+
+  function draw(){
+    const sec=+el('s1').value/100, conf=+el('s2').value/100, eff=+el('s3').value/100;
+    el('v1').textContent=el('s1').value+'%';
+    el('v2').textContent=el('s2').value+'%';
+    el('v3').textContent=el('s3').value+'%';
+
+    const {cf,ob}=series(sec,conf,eff);
+    const all=cf.concat(ob);
+    const lo=Math.min(...all)-4, hi=Math.max(...all)+6;
+    const x=i=>ML+(i/(P-1))*(W-ML-MR);
+    const y=v=>MT+(1-(v-lo)/(hi-lo))*(H-MT-MB);
+    const pts=a=>a.map((v,i)=>x(i)+','+y(v)).join(' ');
+
+    // gap polygon (post period only)
+    const gap=[];
+    for(let i=ROLL;i<P;i++) gap.push(x(i)+','+y(ob[i]));
+    for(let i=P-1;i>=ROLL;i--) gap.push(x(i)+','+y(cf[i]));
+
+    let g='';
+    // horizontal gridlines
+    for(let k=0;k<=4;k++){
+      const v=lo+(hi-lo)*k/4;
+      g+=`<line x1="${ML}" x2="${W-MR}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#C4CAC2" stroke-width="1"/>`;
+      g+=`<text x="${ML-9}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#55635F">${v.toFixed(0)}</text>`;
+    }
+    // rollout marker
+    g+=`<line x1="${x(ROLL)}" x2="${x(ROLL)}" y1="${MT}" y2="${H-MB}" stroke="#131C1A" stroke-width="1" stroke-dasharray="2 3"/>`;
+    g+=`<text x="${x(ROLL)+6}" y="${MT+12}" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#131C1A">ROLLOUT</text>`;
+    // gap
+    g+=`<polygon points="${gap.join(' ')}" fill="rgba(11,110,97,.16)" stroke="none"/>`;
+    // lines
+    g+=`<polyline points="${pts(cf)}" fill="none" stroke="#A2610C" stroke-width="2" stroke-dasharray="6 4"/>`;
+    g+=`<polyline points="${pts(ob)}" fill="none" stroke="#131C1A" stroke-width="2.4"/>`;
+    // endpoint dots
+    g+=`<circle cx="${x(P-1)}" cy="${y(ob[P-1])}" r="3.6" fill="#131C1A"/>`;
+    g+=`<circle cx="${x(P-1)}" cy="${y(cf[P-1])}" r="3.6" fill="#A2610C"/>`;
+    // axis
+    g+=`<line x1="${ML}" x2="${W-MR}" y1="${H-MB}" y2="${H-MB}" stroke="#131C1A" stroke-width="1"/>`;
+    g+=`<text x="${ML}" y="${H-MB+18}" font-family="IBM Plex Mono, monospace" font-size="10" fill="#55635F">P1</text>`;
+    g+=`<text x="${x(ROLL)}" y="${H-MB+18}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#55635F">P13</text>`;
+    g+=`<text x="${W-MR}" y="${H-MB+18}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#55635F">P24</text>`;
+    g+=`<text x="${ML}" y="${H-6}" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.4" fill="#55635F">DELIVERY PERFORMANCE INDEX &#183; MONTHLY</text>`;
+    svg.innerHTML=svg.querySelector('title').outerHTML+svg.querySelector('desc').outerHTML+g;
+
+    // readouts
+    const naive=(ob[P-1]-ob[ROLL-1])/ob[ROLL-1]*100;
+    const causal=(ob[P-1]-cf[P-1])/cf[P-1]*100;
+    el('naive').textContent='+'+naive.toFixed(1)+'%';
+    el('causal').textContent='+'+causal.toFixed(1)+'%';
+    const r=causal>0.15?(naive/causal):null;
+    el('ratio').textContent=r?r.toFixed(1)+'\u00d7':'\u221e';
+    el('ratio').className='ro-val '+(r&&r<1.5?'good':'bad');
+
+    let msg;
+    if(causal<0.2){
+      msg='Copilot did nothing here — and the before/after chart still shows a rise of '+naive.toFixed(1)+'%. This is the slide that gets approved. Nothing in it is false; all of it is unearned.';
+    }else if(r>=3){
+      msg='The headline overstates the tool by '+r.toFixed(1)+'\u00d7. Trend and the concurrent initiative are doing most of the work, and a before/after read has no way to separate them.';
+    }else if(r>=1.6){
+      msg='A real effect, inflated by roughly '+(naive-causal).toFixed(1)+' points of borrowed credit. Enough to survive a friendly steering committee and not a finance review.';
+    }else{
+      msg='Clean conditions: little trend, no competing initiative. Rare in a live portfolio — and you cannot know you are here without a control group.';
+    }
+    el('verdict').textContent=msg;
+  }
+  ['s1','s2','s3'].forEach(id=>el(id).addEventListener('input',draw));
+  draw();
+})();
+
+/* ============ INSTRUMENT 01 — quadrant diagnostic ============ */
+(function(){
+  const metrics=[
+    {n:'Licences assigned',q:'field-pref',v:'Procurement fact',t:'A count of purchases. It is not adoption, let alone impact — yet it opens most Copilot steering packs.',f:'Keep it in the finance pack. Remove it from the benefits pack entirely.'},
+    {n:'Prompts per PM per week',q:'field-pref',v:'Adoption telemetry',t:'Confirms the tool is being touched. High prompt counts are just as consistent with a PM fighting the tool as mastering it.',f:'Demote to a health check with a floor threshold — below it, a program is not evaluable. Never trend it as a benefit.'},
+    {n:'Self-reported hours saved',q:'field-pref',v:'Preference data, dressed as outcome',t:'The single most quoted Copilot number and the least defensible. Respondents estimate against an imagined baseline, and people who chose to adopt are motivated to justify the choice.',f:'If you must collect it, collect it from both arms — including PMs with no licence — and report the gap, not the raw figure.'},
+    {n:'Copilot satisfaction / NPS',q:'field-pref',v:'Preference data',t:'Measures whether the experience feels good. The source argument is explicit that preferred output and better downstream results can diverge.',f:'Useful for the enablement team choosing training. Inadmissible as evidence of program improvement.'},
+    {n:'Prompt bake-off scores',q:'lab-pref',v:'Tool selection',t:'Panel judgements on which generated status summary reads better. Controlled and quick, but judged output quality is not delivered outcome.',f:'Legitimate for vendor and configuration choices. Stop there.'},
+    {n:'Timed scripted task trial',q:'lab-out',v:'Causal, wrong population',t:'A real outcome measured under real control — on synthetic artifacts, with volunteers, without a client escalating in the background.',f:'Use as a plausibility check on effect size before you commit to a field trial. Expect the field number to be smaller.'},
+    {n:'Status report cycle time',q:'field-out',v:'Primary outcome candidate',t:'Hours from data-cut to issued report, straight from the PPM tool. Real work, real setting, machine-readable, hard to self-flatter.',f:'Strong primary outcome. Pair it with an accuracy audit so speed gains cannot be booked while quality falls.'},
+    {n:'Risk detection lead time',q:'field-out',v:'Primary outcome candidate',t:'Days between the first signal in a transcript or thread and a formally logged risk with owner and mitigation. Closest thing to what a program manager is actually paid for.',f:'My default primary outcome. Requires baseline instrumentation before rollout — retrofitting it is near-impossible.'},
+    {n:'Milestone slip days',q:'field-out',v:'Outcome, slow',t:'Unambiguous business value, but the signal arrives late and is heavily confounded by scope and client behaviour.',f:'Secondary outcome. Too noisy and too lagged to power a 90-day evaluation on its own.'},
+    {n:'Artifact error rate',q:'field-out',v:'Guardrail',t:'Share of Copilot-assisted reports containing a material factual error, found by sampled audit. The cost side of the speed gain.',f:'Mandatory. Report on the same slide as the benefit — a speed claim without this number is incomplete.'},
+    {n:'Unchallenged acceptance rate',q:'field-out',v:'Guardrail',t:'Share of decisions where the AI draft was adopted with no recorded challenge. Tracks judgment atrophy rather than tool performance.',f:'Guardrail. Rising acceptance with flat error rate is fine; rising acceptance with rising errors is the failure mode to catch early.'},
+    {n:'Anecdote in the steering deck',q:'field-pref',v:'Not evidence',t:'The PM who saved a weekend. Genuinely useful for adoption momentum, routinely mistaken for proof, and always drawn from the tail.',f:'Move to the change-management narrative. Keep it out of the benefits case.'}
+  ];
+  const qname={'lab-pref':'Lab \u00d7 Preference','field-pref':'Field \u00d7 Preference','lab-out':'Lab \u00d7 Outcome','field-out':'Field \u00d7 Outcome'};
+  const chips=document.getElementById('chips');
+  const diag=document.getElementById('diag');
+  const cells=[...document.querySelectorAll('.qcell')];
+
+  metrics.forEach((m,i)=>{
+    const b=document.createElement('button');
+    b.className='chip';b.type='button';b.textContent=m.n;b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',()=>{
+      chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true');
+      cells.forEach(c=>c.style.outline='');
+      const cell=cells.find(c=>c.dataset.q===m.q);
+      if(cell){cell.style.outline='2px solid #131C1A';cell.style.outlineOffset='-2px';}
+      const causal=m.q==='field-out';
+      diag.innerHTML=
+        '<p class="dq '+(causal?'ok':'warn')+'">'+qname[m.q]+' &nbsp;/&nbsp; '+m.v+'</p>'+
+        '<h4>'+m.n+'</h4>'+
+        '<p>'+m.t+'</p>'+
+        '<p class="fix"><b>What to do with it</b>'+m.f+'</p>';
+    });
+    chips.appendChild(b);
+  });
+})();
+
+/* ============ INSTRUMENT 02 — design selector ============ */
+(function(){
+  const qs=[
+    {id:'ctrl',q:'Can the PMO decide which programs get licences first?',o:['Yes, fully','Partly','No, self-serve']},
+    {id:'stag',q:'Is the rollout staged in waves over time?',o:['Yes, 3+ waves','Two waves','All at once']},
+    {id:'pool',q:'How many comparable programs are in scope?',o:['20+','8\u201319','Under 8']},
+    {id:'hist',q:'How many months of clean pre-rollout metric history exist?',o:['6+','3\u20135','Under 3']}
+  ];
+  const state={ctrl:null,stag:null,pool:null,hist:null};
+  const box=document.getElementById('designerQs');
+  const out=document.getElementById('designerOut');
+
+  qs.forEach(q=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML='<p>'+q.q+'</p>';
+    const o=document.createElement('div');o.className='opts';
+    q.o.forEach((label,i)=>{
+      const b=document.createElement('button');
+      b.type='button';b.className='opt';b.textContent=label;b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',()=>{
+        o.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed','false'));
+        b.setAttribute('aria-pressed','true');
+        state[q.id]=i;render();
+      });
+      o.appendChild(b);
+    });
+    d.appendChild(o);box.appendChild(d);
+  });
+
+  const designs={
+    rct:{n:'Randomised licence lottery',s:100,
+      how:'Draw wave 1 from the eligible pool at random. Assignment is the treatment; enthusiasm plays no part in who gets in.',
+      an:'Intention-to-treat comparison of arms on the primary outcome. Keep non-users in the treated arm.',
+      th:['Contamination — treated PMs coaching control PMs across shared programs','Attrition differing by arm','Pressure to release licences early to a vocal control-arm stakeholder']},
+    wedge:{n:'Stepped-wedge rollout',s:88,
+      how:'Every program eventually gets Copilot, but the wave order is randomised. Each program acts as its own control while it waits.',
+      an:'Mixed model with program and period effects. Powerful on small portfolios because every unit contributes both states.',
+      th:['Time trends confounded with rollout order','Learning effects accumulating across waves','Wave order quietly reassigned for commercial reasons']},
+    did:{n:'Difference-in-differences vs matched non-adopters',s:62,
+      how:'Match adopting programs to non-adopters on complexity, size, client tier and delivery model, then compare the change in each.',
+      an:'DiD on the primary outcome, conditional on a parallel pre-trend check across six or more periods.',
+      th:['Parallel-trends assumption unverifiable after rollout starts','Selection on unobservables — the keen PM','Matching on what is recorded, not on what matters']},
+    synth:{n:'Synthetic control',s:58,
+      how:'Build a weighted composite of non-adopting programs that reproduces the treated program\u2019s pre-rollout trajectory, then track divergence.',
+      an:'Compare observed against synthetic post-rollout. Run placebo tests on untreated programs to gauge significance.',
+      th:['Needs long, clean pre-period history','Sensitive to donor-pool composition','Hard to explain to a steering committee under time pressure']},
+    its:{n:'Interrupted time series',s:38,
+      how:'Model the pre-rollout trend within treated programs and test for a level or slope break at rollout.',
+      an:'Segmented regression with autocorrelation handled. Weakest defensible option — but defensible.',
+      th:['Anything else changing at the same moment is indistinguishable from the effect','Novelty spikes that decay','Seasonality mistaken for a step change']},
+    obs:{n:'Adoption-tracking only \u2014 not a causal design',s:12,
+      how:'Uncontrolled self-serve rollout with dashboards and surveys. This is the default state of most Copilot programs.',
+      an:'Report adoption and guardrails honestly. Do not attribute outcome movement to Copilot; you have no counterfactual.',
+      th:['Selection bias is total and irreducible','Every outcome claim is contestable','Preference data will fill the vacuum where evidence should be']}
+  };
+
+  function render(){
+    const {ctrl,stag,pool,hist}=state;
+    const answered=Object.values(state).filter(v=>v!==null).length;
+    if(answered<4){
+      out.innerHTML='<p class="kv" style="color:#55635F">Answer all four questions to see the strongest design your constraints allow, its distance from a clean randomised trial, and the threats you will need to pre-empt.<br><br><b style="display:inline">'+answered+' of 4 answered</b></p>';
+      return;
+    }
+    let key;
+    if(ctrl===0 && stag<=1 && pool<=1) key='rct';
+    else if(ctrl<=1 && stag===0) key='wedge';
+    else if(pool<=1 && hist<=1) key='did';
+    else if(pool===2 && hist===0) key='synth';
+    else if(hist<=1) key='its';
+    else key='obs';
+    if(ctrl===2 && stag===2) key = hist<=1 ? 'its' : 'obs';
+
+    const d=designs[key];
+    out.innerHTML=
+      '<p class="rec-name">'+d.n+'</p>'+
+      '<div class="meter"><span class="meter-num">Distance from ideal</span><span class="meter-track"><span class="meter-fill" style="width:'+d.s+'%"></span></span><span class="meter-num">'+d.s+'/100</span></div>'+
+      '<p class="kv"><b>How to run it</b>'+d.how+'</p>'+
+      '<p class="kv"><b>How to analyse it</b>'+d.an+'</p>'+
+      '<p class="kv" style="margin-bottom:5px"><b>Threats to declare up front</b></p>'+
+      '<ul class="threats">'+d.th.map(t=>'<li>'+t+'</li>').join('')+'</ul>';
+  }
+  render();
+})();
+
+/* ============ INSTRUMENT 03 — calculators ============ */
+(function(){
+  const g=id=>document.getElementById(id);
+  const num=id=>parseFloat(g(id).value)||0;
+  const h=v=>(v>0?'+':'\u2212')+Math.abs(v).toFixed(1)+' h';
+
+  function did(){
+    const t0=num('t0'),t1=num('t1'),c0=num('c0'),c1=num('c1');
+    const a=t1-t0, b=t1-c1, c=(t1-t0)-(c1-c0);
+    g('d1').textContent=h(a);
+    g('d2').textContent=h(b);
+    g('d3').textContent=h(c);
+    g('d1n').textContent='Credits Copilot with every improvement in the period, including the ones that were already happening.';
+    g('d2n').textContent='Credits Copilot with pre-existing differences between the two cohorts.';
+    const pct=t0?Math.abs(c/t0*100):0;
+    g('d3n').textContent='Removes both. '+pct.toFixed(1)+'% of baseline \u2014 valid only if pre-trends were parallel.';
+    g('d3').className='e-v '+(Math.abs(c)<0.05?'':'good');
+  }
+  ['t0','t1','c0','c1'].forEach(id=>g(id).addEventListener('input',did));
+  did();
+
+  function power(){
+    const base=num('base'), sd=num('sd'), effPct=num('eff'), n=num('narm');
+    const delta=base*effPct/100;
+    if(!sd||!delta||!base){g('nneed').textContent='\u2014';g('mde').textContent='\u2014';g('powerv').textContent='\u2014';return;}
+    const K=15.7; // 2*(1.96+0.84)^2
+    const need=Math.ceil(K*Math.pow(sd/delta,2));
+    const mdeAbs=n>0?2.8*sd*Math.sqrt(2/n):Infinity;
+    const mdePct=mdeAbs/base*100;
+    g('nneed').textContent=need;
+    g('mde').textContent=isFinite(mdePct)?mdePct.toFixed(1)+'%':'\u2014';
+    if(n>=need){
+      g('powerv').textContent='Powered';g('powerv').className='e-v good';
+      g('powern').textContent='Your '+n+' programs per arm can see the effect you care about. Lock the design and stop adding metrics.';
+    }else{
+      g('powerv').textContent='Underpowered';g('powerv').className='e-v bad';
+      g('powern').textContent='You need '+need+' per arm and have '+n+'. A null result here would tell you nothing \u2014 switch to stepped-wedge or extend the window.';
+    }
+  }
+  ['base','sd','eff','narm'].forEach(id=>g(id).addEventListener('input',power));
+  power();
+})();
+
+/* ============ INSTRUMENT 04 — metric tree ============ */
+(function(){
+  const tiers=[
+    {t:'Tier 0 — Preference & adoption',s:'What most Copilot dashboards report. Necessary, and not evidence of anything.',trap:true,rows:[
+      ['Licences activated','Entra / M365 admin','Instant','hi','Confirms spend, not use.'],
+      ['Prompts per PM per week','Copilot usage telemetry','Weekly','hi','Trivially inflatable once it is known to be watched.'],
+      ['Feature mix (recap, draft, analyse)','Copilot usage telemetry','Weekly','md','Genuinely useful for enablement targeting.'],
+      ['Copilot CSAT / NPS','Pulse survey','Monthly','hi','Measures the experience, not the result.'],
+      ['Self-reported hours saved','Survey','Monthly','hi','Collect from both arms or not at all.']
+    ]},
+    {t:'Tier 1 — Work-product outcomes',s:'The first tier where Copilot could plausibly cause the movement. Fast enough to read inside a 90-day window.',rows:[
+      ['Status report cycle time','PPM tool timestamps','1\u20132 weeks','lo','Data-cut to issued. Strong primary outcome.'],
+      ['RAID entry latency','PPM tool / ADO','2 weeks','lo','Risk raised to logged with owner and mitigation.'],
+      ['Minutes & actions turnaround','Teams / PPM','1 week','md','Meeting end to published actions.'],
+      ['Decision-log completeness','Governance audit','Monthly','md','Share of decisions with rationale and owner recorded.'],
+      ['First-draft acceptance depth','Artifact diff audit','Monthly','md','How much of the AI draft survived to the issued version.']
+    ]},
+    {t:'Tier 2 — Program outcomes',s:'What the program office is actually accountable for. Slower, noisier, and worth the wait.',rows:[
+      ['Risk detection lead time','Transcript + RAID audit','4\u20136 weeks','lo','First signal to formal logging. My default primary outcome.'],
+      ['Schedule performance index','PPM baseline','6\u20138 weeks','md','Heavily confounded by scope change.'],
+      ['Change-request cycle time','Change register','4\u20136 weeks','lo','Raised to decided.'],
+      ['Rework / defect leakage','QA records','8\u201312 weeks','lo','The quality side of any speed claim.'],
+      ['Escalation rate per milestone','Governance log','8 weeks','md','Falling escalations can mean fewer problems or less reporting.']
+    ]},
+    {t:'Tier 3 — Firm value',s:'Where the benefits case is settled. Too lagged to steer a pilot; the reason the pilot exists.',rows:[
+      ['Cost to deliver per milestone','Finance','2 quarters','lo','The number the CFO will ask for.'],
+      ['Programs per PM (span of control)','Resourcing','2 quarters','md','The real capacity story, and the sensitive one.'],
+      ['Client CSAT / renewal','Account records','2\u20133 quarters','lo','Confounded by everything. Report as context.'],
+      ['PM overtime & attrition','HR systems','2 quarters','lo','Tests whether gains were reinvested or extracted.']
+    ]},
+    {t:'Guardrails — the cost side',s:'Non-negotiable. The source argument is explicit that gains carry trade-offs; a benefit reported without these is incomplete.',rows:[
+      ['Material error rate in AI-assisted artifacts','Sampled audit, blind to arm','Monthly','lo','Sample 20 artifacts per arm per month, minimum.'],
+      ['Fabricated risks or actions per 100 entries','RAID audit','Monthly','lo','Catches confident nonsense entering governance.'],
+      ['Unchallenged acceptance rate','Decision-log audit','Monthly','md','Judgment atrophy indicator. Rising with errors is the alarm.'],
+      ['Senior PM override rate','Artifact audit','Monthly','md','Tests whether guardrails cost experienced users flexibility.'],
+      ['Confidential data exposure events','Purview / security','Continuous','lo','Binary gate. One event pauses the wave.']
+    ]}
+  ];
+  const wrap=document.getElementById('tiers');
+  tiers.forEach((t,i)=>{
+    const d=document.createElement('div');
+    d.className='tier'+(t.trap?' trap':'')+(i===1?' open':'');
+    const rows=t.rows.map(r=>
+      '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="mono" style="font-size:12.5px;color:#55635F">'+r[2]+'</td><td><span class="risk '+r[3]+'">'+(r[3]==='hi'?'HIGH GAMING':r[3]==='md'?'MED GAMING':'LOW GAMING')+'</span></td><td>'+r[4]+'</td></tr>'
+    ).join('');
+    d.innerHTML=
+      '<button class="tier-btn" type="button" aria-expanded="'+(i===1)+'">'+
+        '<span class="tier-n">0'+(i+1)+'</span>'+
+        '<span class="tier-t">'+t.t+'<small>'+t.s+'</small></span>'+
+        '<span class="tier-x">'+(i===1?'\u2212':'+')+'</span>'+
+      '</button>'+
+      '<div class="tier-body"><table class="m"><thead><tr><th>Metric</th><th>Source</th><th>Read lag</th><th>Risk</th><th>Note</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    const btn=d.querySelector('.tier-btn');
+    btn.addEventListener('click',()=>{
+      const open=d.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+      d.querySelector('.tier-x').textContent=open?'\u2212':'+';
+    });
+    wrap.appendChild(d);
+  });
+})();
+
+/* ============ INSTRUMENT 05 — interview kit ============ */
+(function(){
+  const sessions=[
+    {tag:'Session A',t:'The counterfactual probe',meta:'30 min \u00b7 1:1 \u00b7 every PM in both arms \u00b7 week 8',
+     why:'Asking &ldquo;did Copilot help?&rdquo; harvests preference data. Every question here forces the respondent to reason about absence instead. Run it with control-arm PMs too \u2014 their answers calibrate how much of the treated arm\u2019s story is really about the tool.',
+     qs:['Walk me through last Tuesday, hour by hour. Where did the time actually go?',
+       '<span class="probe">If your Copilot licence were switched off tonight, what is the first thing that breaks tomorrow?</span>',
+       '<span class="probe">What would you stop doing entirely rather than do it manually again?</span>',
+       'Which of those things did you also do this way twelve months ago?',
+       'What changed in this program in the last quarter that had nothing to do with Copilot?',
+       '<span class="probe">If I gave you one extra junior analyst instead of the licence, which would you keep?</span>',
+       'Where has it cost you time \u2014 rewriting, checking, correcting?',
+       'What does it produce that you have learned not to trust?']},
+    {tag:'Session B',t:'Critical incident review',meta:'45 min \u00b7 1:1 \u00b7 8\u201310 PMs \u00b7 week 9',
+     why:'Flanagan\u2019s technique, applied to governance. Specific remembered events resist the retrospective glow that generic questions invite, and they surface effects your telemetry was never built to catch.',
+     qs:['Describe the last risk you caught later than you should have. Reconstruct the timeline.',
+       'Describe the last one you caught early. What was the actual first signal, and where did it appear?',
+       'Tell me about a status report that went out with an error in it this quarter.',
+       '<span class="probe">In each case \u2014 what would have happened with the opposite tooling?</span>',
+       'Describe a decision you made faster than you would have last year. What made it faster?',
+       'Describe a time you accepted a generated draft and later regretted it.']},
+    {tag:'Session C',t:'Artifact walkthrough',meta:'45 min \u00b7 1:1 \u00b7 6 PMs \u00b7 week 10',
+     why:'The only session grounded in physical evidence rather than recall. Bring three real artifacts \u2014 a status report, a RAID extract, a steering deck \u2014 and trace what the tool did, line by line, against what the PM did.',
+     qs:['Show me the first generated draft and the version that was issued. Where do they differ?',
+       'Which edits were correcting the tool, and which were adding judgment it could not have?',
+       '<span class="probe">Which paragraphs would simply not exist without the tool \u2014 and would the program be worse off?</span>',
+       'Point to anything here you did not personally verify.',
+       'How long did this artifact take end to end, and how do you know?',
+       'Show me the same artifact from before the rollout. What is genuinely different?']},
+    {tag:'Session D',t:'Delphi counterfactual panel',meta:'2 rounds \u00b7 90 min \u00b7 7\u201312 experts \u00b7 week 11',
+     why:'Where the quantitative design is weak \u2014 too few programs, no clean control \u2014 a structured expert panel bounds the effect instead of pretending to measure it. Two anonymous rounds with feedback between them, so the loudest voice in the room does not become the estimate.',
+     qs:['Round 1, independently: what share of the observed improvement would have happened without Copilot? Give a range, not a point.',
+       'State the two assumptions your range depends on most.',
+       'Round 2, after seeing the anonymised spread: revise, and say what moved you.',
+       '<span class="probe">Where would you have to be wrong for the effect to be zero?</span>',
+       'What evidence would change your estimate fastest, and can we go and get it?']}
+  ];
+  const wrap=document.getElementById('sessions');
+  sessions.forEach(s=>{
+    const d=document.createElement('div');d.className='sess';
+    d.innerHTML='<div class="sess-h"><p class="sess-tag">'+s.tag+'</p><h4>'+s.t+'</h4><p class="sess-meta">'+s.meta+'</p></div>'+
+      '<div class="sess-b"><p class="why">'+s.why+'</p><ol>'+s.qs.map(q=>'<li>'+q+'</li>').join('')+'</ol></div>';
+    wrap.appendChild(d);
+  });
+})();
+
+/* ============ 90-day plan ============ */
+(function(){
+  const steps=[
+    {w:'Days 1\u201315',h:'Write the ideal experiment',p:'Specify the randomised trial you would run with unlimited authority: unit, population, assignment, comparator, primary outcome, guardrails, duration. Then pick the feasible design and record the gap in writing.',g:'Gate: no licence moves until the primary outcome is named and instrumented.'},
+    {w:'Days 16\u201330',h:'Capture the baseline',p:'Pull six or more pre-rollout periods for the primary outcome across the full eligible pool. Run the power check. Log the confounder register \u2014 every concurrent initiative, reorg and tooling change already scheduled in the window.',g:'Gate: if the pre-period is thin, fix that now. It cannot be recovered later.'},
+    {w:'Days 31\u201345',h:'Randomise wave 1 and pre-register',g:'Gate: the analysis plan is signed before anyone sees an outcome.',p:'Draw wave 1 by lottery from the eligible pool. Publish the analysis plan \u2014 primary outcome, model, subgroups, stopping rule \u2014 to the steering committee before rollout day.'},
+    {w:'Days 46\u201375',h:'Run the field period untouched',p:'No metric changes, no mid-flight licence grants to the control arm, no expanding the definition of success. Interviews run at weeks 8\u201311 in parallel; they inform the mechanism, never the estimate.',g:'Gate: every deviation logged with a timestamp and a reason.'},
+    {w:'Days 76\u201390',h:'Analyse, then publish the whole picture',p:'Intention-to-treat first, per-protocol only as a sensitivity check. Report the effect with an interval, the guardrail metrics on the same page, and the negative control result. Name what the design cannot rule out.',g:'Gate: no point estimate leaves the room without its interval attached.'}
+  ];
+  const wrap=document.getElementById('planList');
+  steps.forEach(s=>{
+    const d=document.createElement('div');d.className='step';
+    d.innerHTML='<div class="when">'+s.w+'</div><div><h4>'+s.h+'</h4><p>'+s.p+'</p><span class="gate"><b>'+s.g.split(':')[0]+'</b> '+s.g.split(':').slice(1).join(':').trim()+'</span></div>';
+    wrap.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
