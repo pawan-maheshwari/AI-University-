@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your account · AI Academia</title>
+<meta name="robots" content="noindex">
+
+<!-- Replace YOUR-PROJECT-REF. No 'unsafe-inline' in script-src.
+     img-src allows data: because the TOTP QR arrives as a data URI. -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self';
+  connect-src https://YOUR-PROJECT-REF.supabase.co;
+  style-src 'self' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src 'self' data:;
+  base-uri 'none';
+  form-action 'none';
+  object-src 'none';
+  frame-ancestors 'none';
+">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./aiu-auth.css">
+</head>
+<body class="page">
+<main class="wide">
+  <h1>Your account</h1>
+  <p class="who" id="who">Loading…</p>
+
+  <div class="msg" id="msg" role="status" aria-live="polite"></div>
+
+  <section>
+    <h2>Public profile</h2>
+    <p class="hint">This is what appears on certificates and leaderboards.</p>
+    <label for="display_name">Display name</label>
+    <input id="display_name" maxlength="60">
+    <label for="zone">Home zone</label>
+    <select id="zone">
+      <option value="">Not set</option>
+      <option value="sprouts">Sprouts (5–8)</option>
+      <option value="explorers">Explorers (9–12)</option>
+      <option value="builders">Builders (13–17)</option>
+      <option value="architects">Architects (18+)</option>
+      <option value="educators">Educators</option>
+      <option value="leaders">Executive AI Lab</option>
+      <option value="elders">Elders Zone</option>
+    </select>
+    <div class="actions"><button class="primary inline" id="save-profile">Save profile</button></div>
+  </section>
+
+  <section>
+    <h2>Two-step sign-in</h2>
+    <p class="hint">A six-digit code from an app on your phone, on top of your password.</p>
+
+    <div id="mfa-none" hidden>
+      <p class="hint">No authenticator is set up on this account yet.</p>
+      <div class="actions"><button class="primary inline" id="mfa-start">Set up two-step sign-in</button></div>
+    </div>
+
+    <div id="mfa-enrol" hidden>
+      <p class="hint">Scan this with Google Authenticator, Authy, or your password manager, then enter the code it shows.</p>
+      <div class="qr" id="mfa-qr"></div>
+      <p class="hint">Cannot scan? Type this key into the app instead:</p>
+      <div class="secret" id="mfa-secret"></div>
+      <label for="mfa-code">Six-digit code</label>
+      <input id="mfa-code" class="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code">
+      <div class="actions">
+        <button class="primary inline" id="mfa-confirm">Turn it on</button>
+        <button class="ghost inline" id="mfa-abandon">Cancel</button>
+      </div>
+    </div>
+
+    <div id="mfa-on" hidden>
+      <div class="factor">
+        <span id="mfa-name">Authenticator</span>
+        <span class="badge">Active</span>
+      </div>
+      <div class="actions"><button class="danger" id="mfa-remove">Turn off two-step sign-in</button></div>
+      <p class="lock">While this is on, your private details below can only be read after
+      you have entered a code — the database checks it, not this page.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Private details</h2>
+    <p class="hint">Only you can read these. They never appear anywhere else on the site.</p>
+    <div id="private-locked" hidden>
+      <p class="hint">Enter your authenticator code to unlock this section.
+      <a href="/login.html?step=mfa&next=/account.html">Verify now</a></p>
+    </div>
+    <div id="private-fields">
+      <label for="full_name">Full name</label>
+      <input id="full_name">
+      <div class="row">
+        <div><label for="date_of_birth">Date of birth</label><input id="date_of_birth" type="date"></div>
+        <div><label for="phone">Phone</label><input id="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <label for="school_or_org">School or organisation</label>
+      <input id="school_or_org">
+      <div class="row">
+        <div><label for="city">City</label><input id="city"></div>
+        <div><label for="country">Country</label><input id="country"></div>
+      </div>
+      <label for="guardian_email">Parent or guardian email (required under 18)</label>
+      <input id="guardian_email" type="email">
+      <div class="actions"><button class="primary inline" id="save-private">Save details</button></div>
+      <p class="lock">Stored in a separate table that only your own signed-in session can
+      read, enforced by database policy rather than by this page. Every change is
+      written to an audit log you cannot alter.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your data</h2>
+    <p class="hint">Rights under the Digital Personal Data Protection Act, 2023.</p>
+    <div class="actions">
+      <button class="ghost inline" id="export">Download my data</button>
+      <button class="danger" id="erase">Erase my private details</button>
+      <button class="danger" id="delete">Delete my account</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="actions"><button class="ghost inline" id="signout">Sign out</button></div>
+  </section>
+</main>
+
+<script type="module" src="./account.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · AI Academia</title>
+<meta name="robots" content="noindex">
+
+<!-- ===================================================================
+     Content Security Policy
+     Replace YOUR-PROJECT-REF with your Supabase project ref.
+     script-src has NO 'unsafe-inline': all JS lives in external files,
+     so an injected <script> or inline handler simply will not run.
+     style-src keeps 'unsafe-inline' because Turnstile sets inline
+     styles on its own widget container.
+=================================================================== -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self' https://challenges.cloudflare.com;
+  connect-src https://YOUR-PROJECT-REF.supabase.co;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src 'self' data:;
+  frame-src https://challenges.cloudflare.com;
+  base-uri 'none';
+  form-action 'none';
+  object-src 'none';
+  frame-ancestors 'none';
+">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./aiu-auth.css">
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+</head>
+<body class="centred">
+<main>
+
+  <svg class="seal" viewBox="0 0 80 80" aria-hidden="true">
+    <circle class="ring" cx="40" cy="40" r="35"/>
+    <circle cx="40" cy="40" r="29" stroke-opacity=".45"/>
+    <path d="M40 22 L52 54 M40 22 L28 54 M32.5 45 H47.5"/>
+  </svg>
+
+  <h1 id="heading">Welcome back</h1>
+  <p class="sub" id="subheading">Sign in to keep your progress across every zone.</p>
+
+  <div class="card">
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+
+    <!-- SIGN IN -->
+    <form id="form-signin">
+      <label for="si-email">Email</label>
+      <input id="si-email" type="email" autocomplete="email" required>
+
+      <label for="si-pass">Password</label>
+      <input id="si-pass" type="password" autocomplete="current-password" required>
+
+      <div class="captcha" id="cap-signin"></div>
+
+      <button class="primary" type="submit">Sign in</button>
+      <button class="ghost" type="button" id="btn-google">Continue with Google</button>
+
+      <div class="foot">
+        <button class="link" type="button" data-view="reset">Forgot your password?</button>
+      </div>
+    </form>
+
+    <!-- CREATE ACCOUNT -->
+    <form id="form-signup" hidden>
+      <label for="su-name">What should we call you?</label>
+      <input id="su-name" type="text" autocomplete="nickname" maxlength="60" required>
+
+      <label for="su-email">Email</label>
+      <input id="su-email" type="email" autocomplete="email" required>
+
+      <label for="su-pass">Password (at least 8 characters)</label>
+      <input id="su-pass" type="password" autocomplete="new-password" minlength="8" required>
+
+      <label class="consent" for="su-consent">
+        <input id="su-consent" type="checkbox" required>
+        <span>I agree to the <a href="/terms.html">Terms</a> and the
+        <a href="/privacy.html">Privacy Policy</a>. Learners under 18 need a
+        parent or guardian to complete this step.</span>
+      </label>
+
+      <div class="captcha" id="cap-signup"></div>
+      <button class="primary" type="submit">Create account</button>
+    </form>
+
+    <!-- RESET -->
+    <form id="form-reset" hidden>
+      <label for="rs-email">Email</label>
+      <input id="rs-email" type="email" autocomplete="email" required>
+      <div class="captcha" id="cap-reset"></div>
+      <button class="primary" type="submit">Email me a reset link</button>
+    </form>
+
+    <!-- SECOND STEP -->
+    <form id="form-mfa" hidden>
+      <label for="mfa-code">Six-digit code from your authenticator app</label>
+      <input id="mfa-code" class="code" inputmode="numeric" autocomplete="one-time-code"
+             pattern="[0-9]{6}" maxlength="6" required>
+      <button class="primary" type="submit">Verify</button>
+      <div class="foot">
+        <button class="link" type="button" id="mfa-cancel">Use a different account</button>
+      </div>
+    </form>
+
+    <div id="switcher">
+      <div class="rule"><span>or</span></div>
+      <button class="ghost" type="button" id="btn-toggle" data-view="signup">Create an account</button>
+    </div>
+  </div>
+
+  <p class="note">
+    We store only what the site needs to work. You can export or erase your
+    details any time from <a href="/account.html">your account</a>.
+  </p>
+</main>
+
+<script type="module" src="./login.js"></script>
+</body>
+</html>
