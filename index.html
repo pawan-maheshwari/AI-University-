@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Academia - Dean's Programme</title>
 <meta name="description" content="Free AI education for everyone. Seven age-calibrated learning zones.">
+<!-- Partial CSP. This page has inline scripts throughout, so 'unsafe-inline' has
+     to stay for now; the strict policy lives on login.html and account.html.
+     What this still buys you: no plugins, no <base> hijack, and a fixed list of
+     hosts this page may talk to. If something breaks, the browser console names
+     the blocked host - add it to connect-src rather than removing the header. -->
+<meta http-equiv="Content-Security-Policy" content="
+  script-src 'self' 'unsafe-inline';
+  connect-src 'self' https://octgqicycwaxfsxaswjf.supabase.co https://text.pollinations.ai;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: https:;
+  object-src 'none';
+  base-uri 'none';
+">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI0I4OTYyRSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSIjOEMxNTE1Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzIiIGZpbGw9IiNGOUY3RjQiLz48dGV4dCB4PSI1MCIgeT0iNDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzhDMTUxNSI+QUk8L3RleHQ+PC9zdmc+">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -5092,26 +5105,45 @@ function AboutPage(){
 }
 
 
-// ===== Auth + Progress Store (browser localStorage) =====
-// NOTE: This is a lightweight local account for tracking learning progress on this
-// device only. It is NOT secure authentication. Progress does not sync across devices.
-var AIU_USER_KEY = "aiu_user";
+// ===== Auth + Progress Store (Supabase-backed) =====
+// Accounts live in Supabase. Confidential learner details sit in a separate table
+// protected by row-level security, so this page never holds them.
+// Progress stays in localStorage for signed-out visitors and syncs to the account
+// once someone signs in, so it follows them across devices.
 var AIU_PROGRESS_KEY = "aiu_progress";
-function getUser(){
-  try { var u = localStorage.getItem(AIU_USER_KEY); return u ? JSON.parse(u) : null; } catch(e){ return null; }
-}
-function saveUser(user){
-  try { localStorage.setItem(AIU_USER_KEY, JSON.stringify(user)); } catch(e){}
-}
+var AIU_CACHED_USER = null;   // populated by the module bootstrap at the end of this file
+
+function getUser(){ return AIU_CACHED_USER; }
+
+// Called by the bootstrap whenever the Supabase session changes.
+window.__aiuCacheUser = function(u){ AIU_CACHED_USER = u; };
+
 function clearUser(){
-  try { localStorage.removeItem(AIU_USER_KEY); } catch(e){}
+  AIU_CACHED_USER = null;
+  try { if(window.AIU && window.AIU.supabase) window.AIU.supabase.auth.signOut(); } catch(e){}
 }
 function getProgress(){
   try { var p = localStorage.getItem(AIU_PROGRESS_KEY); return p ? JSON.parse(p) : {}; } catch(e){ return {}; }
 }
 function saveProgress(p){
   try { localStorage.setItem(AIU_PROGRESS_KEY, JSON.stringify(p)); } catch(e){}
+  // Mirror to the account when signed in. Fire and forget: a failure here must
+  // never block the learner from finishing a lesson.
+  try { if(window.AIU && AIU_CACHED_USER) window.AIU.saveProgress("curriculum", p); } catch(e){}
 }
+// Merge progress pulled back from the account with whatever is on this device.
+// Union, never subtraction: a lesson completed anywhere stays completed.
+window.__aiuMergeProgress = function(remote){
+  if(!remote) return;
+  var local = getProgress(), changed = false;
+  for(var z in remote){
+    if(!local[z]) local[z] = {};
+    for(var k in remote[z]){
+      if(remote[z][k] && !local[z][k]){ local[z][k] = true; changed = true; }
+    }
+  }
+  if(changed){ try { localStorage.setItem(AIU_PROGRESS_KEY, JSON.stringify(local)); } catch(e){} }
+};
 // Mark a lesson complete: progress[zoneId] = { "lessonIndex": true, ... }
 function markLessonComplete(zoneId, lessonIdx){
   var p = getProgress();
@@ -5133,35 +5165,111 @@ function isZoneComplete(zoneId){
   return total > 0 && zoneCompletedCount(zoneId) >= total;
 }
 
-// ===== Login / Signup Modal =====
+// ===== Login / Signup Modal (Supabase) =====
 function AuthModal(props){
-  var n = useState(""); var name = n[0], setName = n[1];
-  var e = useState(""); var email = e[0], setEmail = e[1];
-  var er = useState(""); var err = er[0], setErr = er[1];
-  function submit(){
-    var nm = name.trim(), em = email.trim();
-    if(nm.length < 2){ setErr("Please enter your full name."); return; }
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ setErr("Please enter a valid email address."); return; }
-    var user = { name: nm, email: em, joined: new Date().toISOString() };
-    saveUser(user);
-    props.onAuth(user);
+  var m  = useState("signin"); var mode=m[0],  setMode=m[1];
+  var n  = useState("");       var name=n[0],  setName=n[1];
+  var e  = useState("");       var email=e[0], setEmail=e[1];
+  var pw = useState("");       var pass=pw[0], setPass=pw[1];
+  var c  = useState(false);    var agreed=c[0],setAgreed=c[1];
+  var er = useState("");       var err=er[0],  setErr=er[1];
+  var ok = useState("");       var note=ok[0], setNote=ok[1];
+  var b  = useState(false);    var busy=b[0],  setBusy=b[1];
+
+  var signup = (mode === "signup");
+
+  function ready(){
+    if(!window.AIU){ setErr("Still starting up \u2014 try again in a moment."); return false; }
+    return true;
   }
+  function friendly(ex){
+    var msg = (ex && ex.message) || "Something went wrong. Please try again.";
+    if(msg.indexOf("Invalid login credentials") >= 0) return "That email and password do not match.";
+    if(msg.indexOf("already registered") >= 0)        return "An account already uses that email. Sign in instead.";
+    if(msg.indexOf("Email not confirmed") >= 0)       return "Confirm your email first \u2014 check your inbox for the link.";
+    if(msg.indexOf("Failed to fetch") >= 0)           return "Could not reach the server. Check your connection and try again.";
+    return msg;
+  }
+  function submit(){
+    setErr(""); setNote("");
+    var em = email.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ setErr("Please enter a valid email address."); return; }
+    if(pass.length < 8){ setErr("Your password needs at least 8 characters."); return; }
+    if(!ready()) return;
+
+    if(signup){
+      var nm = name.trim();
+      if(nm.length < 2){ setErr("Please enter your full name."); return; }
+      if(!agreed){ setErr("Please accept the Terms and Privacy Policy to continue."); return; }
+      setBusy(true);
+      window.AIU.signUp({email:em, password:pass, displayName:nm}).then(function(res){
+        setBusy(false);
+        if(!(res && res.session)){
+          setNote("Check your inbox \u2014 we sent a link to confirm your email address.");
+        }
+        // With a session, the auth listener closes this modal on its own.
+      })["catch"](function(ex){ setBusy(false); setErr(friendly(ex)); });
+    } else {
+      setBusy(true);
+      window.AIU.signIn({email:em, password:pass}).then(function(){
+        setBusy(false);
+      })["catch"](function(ex){ setBusy(false); setErr(friendly(ex)); });
+    }
+  }
+  function resetPw(){
+    setErr(""); setNote("");
+    var em = email.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ setErr("Enter your email address above first."); return; }
+    if(!ready()) return;
+    window.AIU.sendPasswordReset(em).then(function(){
+      setNote("If that email has an account, a reset link is on its way.");
+    })["catch"](function(ex){ setErr(friendly(ex)); });
+  }
+  function onKey(ev){ if(ev.key === "Enter" && !busy) submit(); }
+
+  var inputStyle = {width:"100%",padding:"11px 14px",border:"1px solid "+BORDER,borderRadius:6,fontSize:15,marginBottom:16,boxSizing:"border-box"};
+
   return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:10000,display:"flex",alignItems:"center",justifyContent:"center",padding:20},onClick:function(ev){if(ev.target===ev.currentTarget)props.onClose();}},
     h("div",{style:{background:"#fff",maxWidth:420,width:"100%",borderRadius:8,overflow:"hidden",maxHeight:"92vh",overflowY:"auto"}},
       h("div",{style:{background:CR,padding:"22px 26px",color:"#fff",position:"relative"}},
         h("button",{onClick:props.onClose,style:{position:"absolute",top:14,right:16,background:"rgba(255,255,255,0.15)",border:"none",color:"#fff",width:30,height:30,borderRadius:"50%",cursor:"pointer",fontSize:15}},"\u2715"),
-        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700}},"Join AI Academia"),
-        h("div",{style:{fontSize:12,opacity:0.85,marginTop:2}},"Track your progress and earn certificates")),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700}}, signup ? "Join AI Academia" : "Welcome back"),
+        h("div",{style:{fontSize:12,opacity:0.85,marginTop:2}}, signup ? "One account for every zone \u2014 progress follows you everywhere" : "Sign in to pick up where you left off")),
+
       h("div",{style:{padding:"26px"}},
-        h("label",{style:{display:"block",fontSize:12,color:SLATE,fontWeight:600,marginBottom:6}},"Full Name"),
-        h("input",{value:name,onChange:function(ev){setName(ev.target.value);setErr("");},placeholder:"Your name",
-          style:{width:"100%",padding:"11px 14px",border:"1px solid "+BORDER,borderRadius:6,fontSize:15,marginBottom:16,boxSizing:"border-box"}}),
+        note ? h("p",{style:{background:"#EDF7EF",border:"1px solid #BFE0C8",color:"#276A3A",fontSize:13,padding:"10px 12px",borderRadius:6,marginBottom:16,lineHeight:1.6}}, note) : null,
+
+        signup ? h("div",null,
+          h("label",{style:{display:"block",fontSize:12,color:SLATE,fontWeight:600,marginBottom:6}},"Full Name"),
+          h("input",{value:name,autoComplete:"name",onChange:function(ev){setName(ev.target.value);setErr("");},onKeyDown:onKey,placeholder:"Your name",style:inputStyle})
+        ) : null,
+
         h("label",{style:{display:"block",fontSize:12,color:SLATE,fontWeight:600,marginBottom:6}},"Email"),
-        h("input",{value:email,type:"email",onChange:function(ev){setEmail(ev.target.value);setErr("");},placeholder:"you@example.com",
-          style:{width:"100%",padding:"11px 14px",border:"1px solid "+BORDER,borderRadius:6,fontSize:15,marginBottom:16,boxSizing:"border-box"}}),
+        h("input",{value:email,type:"email",autoComplete:"email",onChange:function(ev){setEmail(ev.target.value);setErr("");},onKeyDown:onKey,placeholder:"you@example.com",style:inputStyle}),
+
+        h("label",{style:{display:"block",fontSize:12,color:SLATE,fontWeight:600,marginBottom:6}}, signup ? "Password (at least 8 characters)" : "Password"),
+        h("input",{value:pass,type:"password",autoComplete: signup ? "new-password" : "current-password",onChange:function(ev){setPass(ev.target.value);setErr("");},onKeyDown:onKey,placeholder:"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",style:inputStyle}),
+
+        signup ? h("label",{style:{display:"flex",gap:9,alignItems:"flex-start",marginBottom:16,cursor:"pointer"}},
+          h("input",{type:"checkbox",checked:agreed,onChange:function(ev){setAgreed(ev.target.checked);setErr("");},style:{marginTop:3,flex:"none"}}),
+          h("span",{style:{fontSize:11.5,color:SLATE,lineHeight:1.6}},"I agree to the Terms and the Privacy Policy. Learners under 18 need a parent or guardian to complete this step.")
+        ) : null,
+
         err ? h("p",{style:{color:CR,fontSize:13,marginBottom:12}},err) : null,
-        h("button",{onClick:submit,style:{width:"100%",background:CR,color:"#fff",border:"none",padding:"13px",fontSize:15,fontWeight:700,cursor:"pointer",borderRadius:6}},"Sign Up / Log In"),
-        h("p",{style:{fontSize:11,color:SLATE,marginTop:14,lineHeight:1.6,textAlign:"center"}},"Your details are stored only on this device to track your learning. This is not a secure account \u2014 please don't enter a sensitive password anywhere on this site."))
+
+        h("button",{onClick:submit,disabled:busy,style:{width:"100%",background:CR,color:"#fff",border:"none",padding:"13px",fontSize:15,fontWeight:700,cursor: busy?"progress":"pointer",borderRadius:6,opacity: busy?0.6:1}},
+          busy ? (signup ? "Creating your account\u2026" : "Signing in\u2026") : (signup ? "Create account" : "Sign in")),
+
+        !signup ? h("p",{style:{textAlign:"center",marginTop:14}},
+          h("button",{onClick:resetPw,style:{background:"none",border:"none",color:SLATE,fontSize:12.5,textDecoration:"underline",cursor:"pointer",padding:0}},"Forgot your password?")) : null,
+
+        h("p",{style:{textAlign:"center",marginTop:16,fontSize:13,color:SLATE}},
+          signup ? "Already have an account? " : "New to AI Academia? ",
+          h("button",{onClick:function(){setMode(signup?"signin":"signup");setErr("");setNote("");},style:{background:"none",border:"none",color:CR,fontSize:13,fontWeight:700,textDecoration:"underline",cursor:"pointer",padding:0}},
+            signup ? "Sign in" : "Create one")),
+
+        h("p",{style:{fontSize:11,color:SLATE,marginTop:16,lineHeight:1.6,textAlign:"center"}},"Your account is stored securely and only you can read your own details. We keep only what the site needs to work.")
+      )
     )
   );
 }
@@ -5778,6 +5886,17 @@ function PrivacyPage(){
 }
 
 // ===== Page wrapper for nav pages =====
+// ===== Ownership strip =====
+// Rendered on every view via App below, so the attribution never depends on
+// which page the learner happens to be on.
+function AIUCopyright(){
+  return h("div",{style:{background:INK,borderTop:"1px solid rgba(255,255,255,0.08)",padding:"14px 24px",textAlign:"center"}},
+    h("p",{style:{color:"rgba(255,255,255,0.55)",fontSize:11.5,lineHeight:1.7,margin:0}},
+      "\u00A9 2026 Planet AI LLP. All rights reserved."),
+    h("p",{style:{color:"rgba(255,255,255,0.38)",fontSize:11,lineHeight:1.7,margin:"3px 0 0"}},
+      "AI Academia is conceptualised and developed by Planet AI LLP, part of the World of AI initiative."));
+}
+
 function PageShell(props){
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
     h("div",{style:{background:INK,padding:"14px 24px",display:"flex",alignItems:"center",justifyContent:"space-between"}},
@@ -5797,30 +5916,59 @@ function App(){
   React.useEffect(function(){
     // Bridge so the standalone chatbot can drive in-app navigation.
     window.__aiuNavigate=function(pg){ setZone(null); setPage(pg||"home"); window.scrollTo(0,0); };
+    // Bridge for the Supabase bootstrap at the end of this file: it hands us the
+    // signed-in learner on load and on every auth change.
+    window.__aiuSetUser=function(u){ setUser(u); if(u) setShowAuth(false); };
   },[]);
   function enter(zoneObj){setZone(zoneObj);window.scrollTo(0,0);}
   function login(usr){setUser(usr);setShowAuth(false);}
   function logout(){clearUser();setUser(null);}
   var authModal = showAuth ? h(AuthModal,{onClose:function(){setShowAuth(false);},onAuth:login}) : null;
   var navProps = {user:user, onLogin:function(){setShowAuth(true);}, onLogout:logout};
-  if(zone)return h("div",null, authModal, h(LearnScreen,{zone:zone,user:user,onBack:function(){setZone(null);window.scrollTo(0,0);},onLoginPrompt:function(){setShowAuth(true);}}));
-  if(page==="curriculum")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(CurriculumPage,{onEnter:enter})));
-  if(page==="practice")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PracticeLabPage)));
-  if(page==="research")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(ResearchPage)));
-  if(page==="policy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PolicyPage)));
-  if(page==="evolution")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(EvolutionPage)));
-  if(page==="about")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(AboutPage)));
-  if(page==="terms")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(TermsPage)));
-  if(page==="privacy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PrivacyPage)));
-  return h("div",null, authModal, h(Home,Object.assign({onEnter:enter,onNav:function(pg){setPage(pg);window.scrollTo(0,0);}}, navProps)));
+  if(zone)return h("div",null, authModal, h(LearnScreen,{zone:zone,user:user,onBack:function(){setZone(null);window.scrollTo(0,0);},onLoginPrompt:function(){setShowAuth(true);}}), h(AIUCopyright,null));
+  if(page==="curriculum")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(CurriculumPage,{onEnter:enter})), h(AIUCopyright,null));
+  if(page==="practice")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PracticeLabPage)), h(AIUCopyright,null));
+  if(page==="research")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(ResearchPage)), h(AIUCopyright,null));
+  if(page==="policy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PolicyPage)), h(AIUCopyright,null));
+  if(page==="evolution")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(EvolutionPage)), h(AIUCopyright,null));
+  if(page==="about")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(AboutPage)), h(AIUCopyright,null));
+  if(page==="terms")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(TermsPage)), h(AIUCopyright,null));
+  if(page==="privacy")return h("div",null, authModal, h(PageShell,{onHome:function(){setPage("home");}},h(PrivacyPage)), h(AIUCopyright,null));
+  return h("div",null, authModal, h(Home,Object.assign({onEnter:enter,onNav:function(pg){setPage(pg);window.scrollTo(0,0);}}, navProps)), h(AIUCopyright,null));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(h(App));
 
 </script>
-  <div id="auth-slot"></div>
-  <script type="module">
-    import { mountHeaderAuth } from './aiu-auth.js';
-    mountHeaderAuth(document.getElementById('auth-slot'));
-  </script>
+
+<!-- Supabase auth bootstrap. Runs after the app above has mounted (module
+     scripts are deferred), then hands the session in through the bridges. -->
+<script type="module">
+import * as AIU from './aiu-auth.js';
+window.AIU = AIU;
+
+function toSiteUser(u){
+  if(!u) return null;
+  return {
+    id: u.id,
+    email: u.email,
+    name: (u.user_metadata && u.user_metadata.display_name) || String(u.email || "").split("@")[0],
+    joined: u.created_at
+  };
+}
+
+function apply(u){
+  var su = toSiteUser(u);
+  if(window.__aiuCacheUser) window.__aiuCacheUser(su);
+  if(window.__aiuSetUser)   window.__aiuSetUser(su);
+  if(su){
+    AIU.loadProgress("curriculum").then(function(row){
+      if(row && row.state && window.__aiuMergeProgress) window.__aiuMergeProgress(row.state);
+    })["catch"](function(){});
+  }
+}
+
+AIU.getUser().then(apply)["catch"](function(){});
+AIU.onAuthChange(function(u){ apply(u); });
+</script>
 </body>
 </html>

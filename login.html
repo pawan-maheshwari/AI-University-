@@ -17,7 +17,7 @@
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'none';
   script-src 'self' https://challenges.cloudflare.com;
-  connect-src https://octgqicycwaxfsxaswjf.supabase.co https://challenges.cloudflare.com;
+  connect-src https://YOUR-PROJECT-REF.supabase.co;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src https://fonts.gstatic.com;
   img-src 'self' data:;
@@ -34,7 +34,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./aiu-auth.css">
 
-
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body class="centred">
 <main>
@@ -120,6 +120,11 @@
     We store only what the site needs to work. You can export or erase your
     details any time from <a href="/account.html">your account</a>.
   </p>
+  <p class="note" style="margin-top:14px">
+    &copy; 2026 Planet AI LLP. All rights reserved.<br>
+    AI Academia is conceptualised and developed by Planet AI LLP, part of the World of AI initiative.
+  </p>
+
 </main>
 
 <script type="module" src="./login.js"></script>
