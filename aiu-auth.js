@@ -14,8 +14,8 @@ import { createClient } from './vendor/supabase.js';
 // The anon key is PUBLIC by design and safe in this repo.
 // The service_role key is NOT and must never appear in any file here.
 // ---------------------------------------------------------------------
-export const SUPABASE_URL       = 'https://YOUR-PROJECT-REF.supabase.co';
-export const SUPABASE_ANON_KEY  = 'YOUR-PUBLISHABLE-ANON-KEY';
+export const SUPABASE_URL       = 'https://octgqicycwaxfsxaswjf.supabase.co';
+export const SUPABASE_ANON_KEY  = 'sb_publishable_MzsglSmQRtprAHzhIcOYrw_vYzCaBOZ';
 export const TURNSTILE_SITE_KEY = 'YOUR-TURNSTILE-SITE-KEY';   // public, safe here
 
 export const POLICY_VERSION = '2026-09-01';
