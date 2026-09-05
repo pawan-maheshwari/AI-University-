@@ -3920,6 +3920,117 @@ var CURRICULUM = {
       failNote: "Try again. Low adoption is usually a rational response to incentives \u2014 fix the incentives rather than the compliance. And the team's most credible sceptic is your best quality control, not your obstacle."
     }
   }]
+},{
+  id: "india",
+  icon: "[india]",
+  title: "India: Building for DPDP",
+  color: "#BE123C",
+  lessons: [{
+    id: "m9", num: "09", title: "The DPDP Act and Rules \u2014 What Changed", vk: "m3",
+    reading: "# The DPDP Act and Rules \u2014 What Changed\n\n## Why This Matters Now\n\nIndia spent two decades governing personal data through the IT Act, 2000 and the 2011 Privacy Rules. That ended. The **Digital Personal Data Protection Act, 2023** was enacted on 11 August 2023, and the **DPDP Rules, 2025** were notified in November 2025 \u2014 the point at which the Act became operational rather than theoretical.\n\nIf you build AI systems that touch Indian users, this is now the law you work under, not the EU AI Act you have probably read more about.\n\n## The Vocabulary\n\nThe Act uses its own terms, and using them correctly signals you have actually read it:\n\n- **Data Principal** \u2014 the individual the data is about. GDPR calls this the data subject.\n- **Data Fiduciary** \u2014 whoever decides why and how personal data is processed. The GDPR controller.\n- **Data Processor** \u2014 processes on a Fiduciary's behalf.\n- **Significant Data Fiduciary (SDF)** \u2014 a class notified by the government based on volume and sensitivity of data, risk to rights, and impact on sovereignty or public order. SDFs carry materially heavier duties.\n\nThe word *fiduciary* is deliberate. It frames the relationship as one of trust and duty, not merely control.\n\n## Phased Enforcement\n\nMeitY notified three commencement dates: **14 November 2025**, **14 November 2026**, and **14 May 2027**. The Data Protection Board of India was established immediately; the substantive obligations on Data Fiduciaries land across the later dates, with roughly an eighteen-month runway for phased compliance.\n\nThis matters for planning. An AI system you are designing now will be in production when the main obligations bite. Retrofitting consent architecture is far more expensive than building it in.\n\n## It Applies Outside India\n\nLike GDPR, the Act reaches processing that happens abroad where it relates to offering goods or services to individuals in India. A model hosted in Virginia serving Indian customers is in scope.\n\n## Consent Is the Default Ground\n\nThis is the sharpest difference from GDPR in practice. India's regime is **consent-first**. There is no broad \u201clegitimate interests\u201d basis to fall back on. Beyond consent, processing rests on a limited set of **legitimate uses** \u2014 including where the individual voluntarily provided data for a specified purpose, employment purposes, and certain state functions.\n\nFor AI teams the consequence is direct: **\u201cwe collected it for something else and later trained a model on it\u201d is not a defensible position.** Purpose limitation is real, and repurposing data for training generally requires fresh consent.\n\n## The Data Protection Board\n\nA four-member, digital-by-design adjudicating body seated in the National Capital Region. Complaints are filed and tracked online. It is an adjudicator, not a policy regulator \u2014 it decides on breaches and imposes penalties.\n\n## Penalties\n\nUp to **\u20b9250 crore** per instance for failure to take reasonable security safeguards, with substantial penalties across other categories. The figure is per breach, judged against gravity, duration and whether the conduct was repeated.\n\n## What to Do This Quarter\n\n1. Map where personal data enters your AI systems, including training sets\n2. Identify which processing rests on consent and whether that consent covers model training\n3. Establish whether you are likely to be notified as an SDF\n4. Check your breach detection can meet a reporting obligation measured in hours, not weeks",
+    artifact: {
+      type: "sort",
+      title: "Who is who under the Act?",
+      items: [
+        "A customer whose loan application your model scores",
+        "Your bank, deciding what data to collect and why",
+        "A cloud vendor running inference on your behalf",
+        "A large platform notified by government for its data volume",
+        "An employee whose attendance data is processed",
+        "An analytics firm following your written instructions"
+      ],
+      bins: ["Data Principal", "Data Fiduciary", "Data Processor", "Significant Data Fiduciary"],
+      answers: [0, 1, 2, 3, 0, 2]
+    }
+  },{
+    id: "m10", num: "10", title: "Consent, Notice and Children's Data", vk: "m3",
+    reading: "# Consent, Notice and Children's Data\n\n## The Notice Requirement Is Specific\n\nWhen you process personal data on the basis of consent, the Act requires a notice in **clear and plain language** that sets out what is being collected, the purpose, how the individual exercises their rights, and how to complain to the Data Protection Board.\n\nThe Rules add a requirement most teams miss: the notice must be available in **English or any of the 22 languages in the Eighth Schedule** of the Constitution. For a consumer product in India, an English-only consent flow is a compliance gap, not a localisation backlog item.\n\nThe Rules also require **retrospective notice** for personal data you were already processing before the Act came into force. Existing datasets are not grandfathered.\n\n## Consent Must Be Free, Specific, Informed and Unambiguous\n\nAnd withdrawable, as easily as it was given. Three practical consequences for AI products:\n\n- **Bundled consent fails.** \u201cAgree to our terms\u201d covering account creation, marketing and model training is not specific consent.\n- **Withdrawal must actually work.** If a person withdraws, you stop processing and cause your processors to stop. This is an engineering requirement, not a policy statement.\n- **Every purpose is separately consented.** Training a model on user content is a distinct purpose from delivering the service.\n\n## The Question Nobody Wants to Answer\n\n**Does your training data rest on consent that covers training?**\n\nFor most organisations built before 2023, honestly, no. Options are limited and none is free: obtain fresh consent, rely on a legitimate use where one genuinely applies, or exclude the data. \u201cIt was already in the warehouse\u201d is not among them.\n\n## Consent Managers\n\nThe Rules provide for **Consent Managers** \u2014 registered entities through which individuals can give, manage, review and withdraw consent across Fiduciaries. This is a genuinely distinctive feature of the Indian regime with no direct GDPR equivalent, and it points towards consent becoming portable infrastructure rather than a per-app checkbox.\n\n## Children's Data \u2014 the Hardest Part for AI\n\nFor anyone under 18, the Act requires **verifiable consent of a parent or lawful guardian**, and the Rules specify how that verification must be done.\n\nThen two prohibitions that are absolute rather than risk-assessed:\n\n- **No behavioural monitoring of children**\n- **No targeted advertising directed at children**\n\nRead those again if you build recommendation systems. A personalisation engine that profiles engagement is behavioural monitoring. If your product has under-18 users \u2014 and if you have not checked, you probably do \u2014 personalisation for that cohort is not a tuning exercise, it is prohibited.\n\nCertain purposes are exempted, including processing necessary for child protection and specified legal functions.\n\n## Design Consequences\n\n1. **Separate the consent for training** from the consent for service delivery, and record which dataset rests on which\n2. **Build withdrawal as a pipeline**, reaching processors and downstream copies\n3. **Know your under-18 population** before you design personalisation, not after\n4. **Version your notices.** You will need to show what a person was told on the date they consented",
+    artifact: {
+      type: "scenario",
+      title: "The consent audit",
+      caption: "You lead engineering on a consumer app with 4 million Indian users. Legal has asked four questions ahead of the next compliance phase.",
+      steps: [
+        {
+          situation: "Your recommendation model was trained on three years of user behaviour. Consent at signup said 'to improve our services'.",
+          options: [
+            {t: "That covers it \u2014 improving services includes the model", ok: false, why: "'Improve our services' is exactly the bundled, non-specific wording the Act is aimed at. Consent must be specific to the purpose, and model training is a distinct purpose from delivering the service."},
+            {t: "Treat training as a separate purpose needing its own consent", ok: true, why: "The right reading. It is uncomfortable and it is what purpose limitation means. The options are fresh consent, a genuine legitimate use, or excluding the data \u2014 not a broad reading of old wording."},
+            {t: "Rely on legitimate interests as you would under GDPR", ok: false, why: "There is no legitimate-interests basis in the DPDP Act. This is the most common error made by teams who learned privacy through GDPR, and the whole regime is consent-first."}
+          ]
+        },
+        {
+          situation: "Analytics shows roughly 6% of active users are likely under 18. Your app personalises the feed for everyone.",
+          options: [
+            {t: "Add a parental consent flow for new under-18 signups", ok: false, why: "Necessary and not sufficient. Verifiable guardian consent addresses processing generally, but behavioural monitoring and targeted advertising directed at children are prohibited outright \u2014 consent does not unlock them."},
+            {t: "Stop behavioural personalisation for that cohort entirely", ok: true, why: "Correct, because these are prohibitions rather than risk-assessed obligations. A feed that profiles engagement is behavioural monitoring, and no consent flow makes it permissible for a child."},
+            {t: "Wait for the Board to clarify how it will be enforced", ok: false, why: "The prohibition is in the Act, not awaiting guidance, and the phased dates are known. Waiting converts a design decision you control into an enforcement risk you do not."}
+          ]
+        },
+        {
+          situation: "Your consent screen is English-only. Product says a translation is on the roadmap for next year.",
+          options: [
+            {t: "Accept the roadmap \u2014 English is widely read in your user base", ok: false, why: "The Rules require the notice in English or any of the 22 Eighth Schedule languages. This is a stated requirement, not a localisation nicety, and 'widely read' is not the test."},
+            {t: "Treat it as a compliance item with a date, not a roadmap item", ok: true, why: "Right framing. Reclassifying it moves it out of feature prioritisation, where it will keep losing, and into the compliance plan where it has a deadline."},
+            {t: "Add a machine translation of the notice", ok: false, why: "Better than nothing and risky on its own. A consent notice that mistranslates the purpose undermines the informed element of consent \u2014 these need review."}
+          ]
+        },
+        {
+          situation: "A user withdraws consent. Engineering confirms the app stops using their data, but the training set and two vendor systems still hold it.",
+          options: [
+            {t: "That is sufficient \u2014 the live product no longer uses it", ok: false, why: "Withdrawal obliges you to cease processing and to cause your processors to cease as well. Copies sitting in a training set and in vendor systems are still processing."},
+            {t: "Build withdrawal as a pipeline reaching processors and copies", ok: true, why: "This is the engineering reality behind a one-line legal right, and it is why withdrawal has to be designed early. Retrofitting deletion across a data estate is one of the most expensive compliance projects there is."},
+            {t: "Delete from the training set at the next scheduled retrain", ok: false, why: "A retrain cycle may be months away, and the obligation is not scheduled around your release calendar. It also leaves the vendor copies untouched."}
+          ]
+        }
+      ],
+      passNote: "You treated training as its own purpose, recognised that the children's provisions are prohibitions rather than consent questions, put the language requirement on the compliance plan, and understood withdrawal as a pipeline. That is a defensible position going into the next phase.",
+      failNote: "Three things to carry away: there is no legitimate-interests basis in this Act, behavioural monitoring and targeted advertising to children are prohibited rather than consentable, and withdrawal must reach every copy including your training set."
+    }
+  },{
+    id: "m11", num: "11", title: "Breach, Retention and SDF Duties", vk: "m2",
+    reading: "# Breach, Retention and SDF Duties\n\n## Every Breach Is Reportable\n\nThis is where the Indian regime is stricter than most, and where teams built on GDPR habits get caught.\n\nGDPR has a risk threshold \u2014 you notify unless the breach is unlikely to result in risk to rights and freedoms. **The DPDP Act has no such filter.** Every personal data breach is reportable to the Data Protection Board and to affected Data Principals, regardless of severity or whether harm actually occurred.\n\nThere is no \u201cwe assessed it as low risk and closed it internally\u201d in this regime.\n\n## What This Demands Operationally\n\nA reporting obligation you cannot meet is worse than one you have planned for:\n\n- **Detection.** You cannot report what you do not know about. Most organisations discover breaches far too slowly to meet a short reporting window.\n- **Scope determination.** Which individuals, which data, over what period. This is the question that takes longest and the one the Board will ask first.\n- **A notification path to individuals**, ready before you need it.\n- **Records.** Keep the timeline, the decisions and the reasoning.\n\nRun the exercise before it is real. A team that has never traced a breach scope will not do it well under a clock.\n\n## Retention and Erasure\n\nPersonal data must be erased when the purpose is no longer being served, unless retention is required by law. For specified classes of Fiduciary the Rules set defined retention periods, with a requirement to notify the individual in advance of erasure.\n\nFor AI systems this is genuinely hard, and worth being honest about internally: personal data does not sit in one place. It is in the operational store, the warehouse, the feature store, the training set, the model checkpoints, the evaluation fixtures and the logs. A retention policy that only covers the first of those is a policy covering a fraction of the problem.\n\n## Significant Data Fiduciary Duties\n\nIf notified as an SDF, additional obligations apply that bear directly on AI teams:\n\n- **Appoint a Data Protection Officer** based in India, reporting to the board or governing body\n- **Independent data auditor** and periodic **Data Protection Impact Assessments**\n- **Algorithmic due diligence** \u2014 verifying that algorithmic software used to process personal data does not pose a risk to Data Principals' rights\n\nThat third one deserves attention. It is an explicit statutory hook for algorithmic accountability in Indian law, and it lands squarely on machine learning systems. If your organisation is likely to be notified, your model documentation, bias testing and evaluation evidence stop being good practice and become audit artefacts.\n\n## Cross-Border Transfer\n\nTransfers are permitted except to countries or territories restricted by the government. The default posture is more permissive than many expected \u2014 but it is a negative list that can change, which is an argument for knowing exactly where your inference and training actually run.\n\n## How This Interacts With Your AI Governance\n\nIf you already run a NIST AI RMF or ISO 42001 programme, much of the machinery transfers: inventory, risk classification, impact assessment, monitoring, incident response. What does not transfer is the consent architecture and the no-threshold breach reporting. Those are specific, and they are the two most common gaps in Indian AI deployments built on Western templates.",
+    artifact: {
+      type: "scenario",
+      title: "The Tuesday breach",
+      caption: "A misconfigured storage bucket exposed a feature store for eleven days. It contains derived attributes for 90,000 customers.",
+      steps: [
+        {
+          situation: "Security assesses the exposure as low risk: no evidence of access, and the data is derived features rather than raw records.",
+          options: [
+            {t: "Document the assessment and close it internally", ok: false, why: "This is the GDPR reflex and it does not apply here. The DPDP Act has no risk threshold for notification \u2014 every personal data breach is reportable regardless of severity or evidence of harm."},
+            {t: "Report it to the Board and to affected Data Principals", ok: true, why: "Correct. 'No evidence of access' is not a defence and 'low risk' is not an exemption. Reporting a breach you assessed as minor is far cheaper than explaining why you did not."},
+            {t: "Report only if forensics later shows the data was accessed", ok: false, why: "That inverts the obligation. The trigger is the breach, not confirmed exfiltration, and waiting for forensics burns the reporting window."}
+          ]
+        },
+        {
+          situation: "Derived features, not raw records. Someone argues these are not personal data.",
+          options: [
+            {t: "Agree \u2014 aggregated features are not personal data", ok: false, why: "These are per-customer derived attributes, not aggregates. If they relate to an identifiable individual they are personal data, and a feature store keyed by customer ID plainly does."},
+            {t: "Treat per-customer derived attributes as personal data", ok: true, why: "Right. Derivation does not launder personal data, and features often reveal more than the raw fields they came from \u2014 inferred income band is more sensitive than a transaction list."},
+            {t: "Ask the vendor whether their features count", ok: false, why: "The vendor is not the decision maker here. You are the Data Fiduciary; the determination and the liability are yours."}
+          ]
+        },
+        {
+          situation: "The Board asks which individuals were affected and over what period.",
+          options: [
+            {t: "Provide the customer count and the eleven-day window", ok: false, why: "A count is not a scope. The question is which individuals, and answering it is what lets you notify them \u2014 which is also required."},
+            {t: "Trace the exact records exposed and the period each was present", ok: true, why: "This is the question that takes longest and the one that decides how the rest of the incident goes. Teams who have never rehearsed scope determination consistently miss reporting windows on this step."},
+            {t: "Notify all customers to be safe, without determining scope", ok: false, why: "Over-notifying looks diligent and it means you still cannot answer the Board, and you have alarmed people whose data was never exposed."}
+          ]
+        },
+        {
+          situation: "Remediation. The bucket is fixed. Someone asks whether the exposed features also sit in the training set.",
+          options: [
+            {t: "Out of scope \u2014 the incident concerned the bucket", ok: false, why: "The question is exactly right and dismissing it repeats the mistake that caused this. Personal data lives across the operational store, warehouse, feature store, training sets, checkpoints and logs."},
+            {t: "Map every copy, and treat that map as the real deliverable", ok: true, why: "The most valuable output of any breach. The map is what makes the next retention request, withdrawal request and breach answerable \u2014 and it is the thing an SDF audit will ask to see."},
+            {t: "Add it to the backlog for the platform team", ok: false, why: "It will sit there. The moment immediately after an incident is the only time this work reliably gets prioritised."}
+          ]
+        }
+      ],
+      passNote: "You reported without a risk filter, treated derived features as personal data, determined actual scope rather than a count, and turned the incident into a data map. That map is the asset that makes every future obligation answerable.",
+      failNote: "The core point: India has no risk threshold for breach notification. Every breach is reportable. And derived per-customer features are personal data, wherever in your estate they have been copied."
+    }
+  }]
 }],
   leaders: [{
     id: "gov",
@@ -5202,6 +5313,22 @@ var QUIZBANK = {
     {q:"How do you grow with AI tools?",options:["Keep learning and verifying","Stop learning","Trust blindly","Avoid feedback"],answer:0,explain:"Continuous learning plus verification builds expertise."}
   ],
   mid: [
+    {q:"When were the DPDP Rules notified, operationalising the 2023 Act?",options:["November 2025","August 2023","May 2027","January 2024"],answer:0,explain:"The Act was enacted in August 2023; the Rules notified in November 2025 made it operational."},
+    {q:"What does the DPDP Act call the individual the data is about?",options:["Data Principal","Data Subject","Data Owner","Data Fiduciary"],answer:0,explain:"GDPR says data subject; India says Data Principal. The Fiduciary is the one who decides purpose and means."},
+    {q:"Which lawful basis does the DPDP Act NOT provide?",options:["Legitimate interests","Consent","Certain legitimate uses","Employment purposes"],answer:0,explain:"India is consent-first. There is no broad legitimate-interests basis to fall back on, unlike GDPR."},
+    {q:"Consent given at signup 'to improve our services' covers model training?",options:["No — training is a distinct purpose needing specific consent","Yes, it is broad enough","Only for anonymised data","Only for Indian users"],answer:0,explain:"Bundled, non-specific wording is exactly what the specificity requirement targets."},
+    {q:"In what languages must a DPDP consent notice be available?",options:["English or any of the 22 Eighth Schedule languages","English only","Hindi and English","Any language the Fiduciary chooses"],answer:0,explain:"An English-only consent flow is a compliance gap, not a localisation backlog item."},
+    {q:"Behavioural monitoring of children under the DPDP Act is:",options:["Prohibited outright","Allowed with parental consent","Allowed with a DPIA","Allowed for under-13s only"],answer:0,explain:"It is a prohibition, not a risk-assessed obligation. Consent does not unlock it."},
+    {q:"Targeted advertising directed at children is:",options:["Prohibited","Permitted with guardian consent","Permitted if age-appropriate","Unregulated"],answer:0,explain:"Like behavioural monitoring, this is an absolute prohibition under the Act."},
+    {q:"Which breaches must be reported to the Data Protection Board?",options:["All of them, regardless of severity","Only high-risk ones","Only those causing demonstrable harm","Only those affecting over 1,000 people"],answer:0,explain:"Unlike GDPR, there is no risk threshold. This is the most common gap in AI deployments built on Western templates."},
+    {q:"What is a Consent Manager under the DPDP Rules?",options:["A registered entity through which individuals manage consent across Fiduciaries","A role inside the Data Fiduciary","A government portal for complaints","A cookie banner vendor"],answer:0,explain:"It is a distinctive feature of the Indian regime with no direct GDPR equivalent."},
+    {q:"Which duty applies specifically to Significant Data Fiduciaries?",options:["Algorithmic due diligence on software processing personal data","Appointing any DPO worldwide","Annual public reporting","Storing all data in India"],answer:0,explain:"It is an explicit statutory hook for algorithmic accountability, landing squarely on ML systems."},
+    {q:"The maximum DPDP penalty for failing to take reasonable security safeguards is:",options:["Up to ₹250 crore","Up to ₹50 lakh","Up to ₹10 crore","Unlimited"],answer:0,explain:"Assessed per instance against gravity, duration and whether the conduct was repeated."},
+    {q:"Does the DPDP Act apply to processing outside India?",options:["Yes, where it relates to offering goods or services in India","No, only domestic processing","Only for Indian-owned companies","Only for government contractors"],answer:0,explain:"Like GDPR, it has extraterritorial reach based on who is being served."},
+    {q:"A user withdraws consent. Your training set still contains their data. You must:",options:["Cease processing, including copies held by processors","Wait for the next retrain cycle","Keep it as historical record","Do nothing if the live app stopped using it"],answer:0,explain:"Withdrawal is an engineering pipeline reaching every copy, not a policy statement."},
+    {q:"Per-customer derived features in a feature store are:",options:["Personal data, if they relate to an identifiable individual","Anonymous, because they are derived","Exempt as aggregates","Only personal data if raw fields are included"],answer:0,explain:"Derivation does not launder personal data, and inferred attributes are often more sensitive than the raw fields."},
+    {q:"Under the DPDP Rules, personal data must be erased when:",options:["The purpose is no longer served, unless law requires retention","After exactly seven years","Only on user request","When the account is deleted"],answer:0,explain:"For specified classes of Fiduciary the Rules set defined periods, with advance notice to the individual."},
+    {q:"Retrospective notice under the DPDP Rules means:",options:["You must notify for data processed before the Act took effect","Notices can be issued after processing","Old datasets are grandfathered","Notices apply only to new signups"],answer:0,explain:"Existing datasets are not grandfathered, which surprises most teams."},
     {q:"A tool saves 400 people 20 minutes a day. The benefit is:",options:["Only real if something changes as a result","133 recovered hours per day","Automatic","Immeasurable"],answer:0,explain:"The saving is real; the benefit needs the organisation to capture it."},
     {q:"Where do most AI business cases break?",options:["Adoption — a tool nobody opens has no benefit","Model accuracy","Infrastructure cost","Vendor selection"],answer:0,explain:"Cases usually prove the model works and assume every link after that."},
     {q:"The strongest way to attribute a benefit to an AI rollout:",options:["Staged rollout with a holdout group","Before-and-after comparison","Sponsor testimony","Usage statistics"],answer:0,explain:"A holdout is the cleanest evidence available in most organisations."},
@@ -5398,6 +5525,210 @@ function QuizView(props){
 }
 
 // ===== Certificate Modal =====
+// ===== Certification assessment =====
+// Terms clause 8: a certificate requires completing every lesson, paying the fee,
+// and passing the track assessment. Two attempts (the initial sit plus one re-sit
+// within 30 days). A free, unlimited practice sit is offered separately, because
+// learning on this platform is free and only the credential is paid for.
+
+var ASSESS_KEY       = "aiu_assessments";
+var ASSESS_QUESTIONS = 25;
+var ASSESS_PASS      = 0.70;
+var ASSESS_MINUTES   = 30;
+var ASSESS_ATTEMPTS  = 2;
+var ASSESS_RESIT_DAYS = 30;
+
+function getAssessments(){
+  try { var v = localStorage.getItem(ASSESS_KEY); return v ? JSON.parse(v) : {}; }
+  catch(e){ return {}; }
+}
+function recordAttempt(zoneId, correct, total, practice){
+  try {
+    var all = getAssessments();
+    var rec = all[zoneId] || { attempts:[], passed:false, firstAt:null };
+    var pct = total ? correct/total : 0;
+    if(!practice){
+      if(!rec.firstAt) rec.firstAt = new Date().toISOString();
+      rec.attempts.push({ correct:correct, total:total, pct:pct, at:new Date().toISOString() });
+      if(pct >= ASSESS_PASS) rec.passed = true;
+    } else {
+      rec.lastPractice = { correct:correct, total:total, pct:pct, at:new Date().toISOString() };
+    }
+    all[zoneId] = rec;
+    localStorage.setItem(ASSESS_KEY, JSON.stringify(all));
+    return rec;
+  } catch(e){ return null; }
+}
+function assessmentState(zoneId){
+  var rec = getAssessments()[zoneId] || { attempts:[], passed:false, firstAt:null };
+  var used = rec.attempts.length;
+  var deadline = null, expired = false;
+  if(rec.firstAt){
+    deadline = new Date(new Date(rec.firstAt).getTime() + ASSESS_RESIT_DAYS*86400000);
+    expired = !rec.passed && used >= 1 && Date.now() > deadline.getTime();
+  }
+  var best = rec.attempts.reduce(function(m,a){ return Math.max(m, a.pct); }, 0);
+  return {
+    passed: !!rec.passed,
+    attemptsUsed: used,
+    attemptsLeft: Math.max(0, ASSESS_ATTEMPTS - used),
+    bestPct: best,
+    resitBy: deadline,
+    expired: expired,
+    canSit: !rec.passed && used < ASSESS_ATTEMPTS && !expired,
+    lastPractice: rec.lastPractice || null
+  };
+}
+function assessmentPassed(zoneId){ return assessmentState(zoneId).passed; }
+
+// Deterministic-per-sit shuffle of both the question order and the options within
+// each question, so a re-sit is not the same paper in the same order.
+function buildAssessment(zoneId){
+  var pool = (typeof QUIZBANK!=="undefined" && QUIZBANK[zoneId]) ? QUIZBANK[zoneId].slice() : [];
+  for(var i=pool.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=pool[i]; pool[i]=pool[j]; pool[j]=t; }
+  var take = pool.slice(0, Math.min(ASSESS_QUESTIONS, pool.length));
+  return take.map(function(q){
+    var idx = q.options.map(function(_,n){ return n; });
+    for(var i2=idx.length-1;i2>0;i2--){ var j2=Math.floor(Math.random()*(i2+1)); var t2=idx[i2]; idx[i2]=idx[j2]; idx[j2]=t2; }
+    return {
+      q: q.q,
+      options: idx.map(function(n){ return q.options[n]; }),
+      answer: idx.indexOf(q.answer),
+      explain: q.explain
+    };
+  });
+}
+
+function fmtClock(sec){
+  if(sec<0) sec=0;
+  var m=Math.floor(sec/60), s=sec%60;
+  return m+":"+(s<10?"0":"")+s;
+}
+
+function AssessmentView(props){
+  var zone=props.zone, zc=ZC[zone.id], practice=!!props.practice;
+  var qs=useState(function(){ return buildAssessment(zone.id); }); var questions=qs[0];
+  var an=useState({}); var answers=an[0], setAnswers=an[1];
+  var iv=useState(0); var idx=iv[0], setIdx=iv[1];
+  var sv=useState(false); var submitted=sv[0], setSubmitted=sv[1];
+  var rv=useState(false); var reviewing=rv[0], setReviewing=rv[1];
+  var tv=useState(ASSESS_MINUTES*60); var left=tv[0], setLeft=tv[1];
+
+  var answeredCount=Object.keys(answers).length;
+  var correct=questions.reduce(function(n,q,i){ return n + (answers[i]===q.answer?1:0); },0);
+  var pct=questions.length?correct/questions.length:0;
+  var passed=pct>=ASSESS_PASS;
+
+  function finish(){
+    if(submitted) return;
+    setSubmitted(true);
+    recordAttempt(zone.id, questions.reduce(function(n,q,i){ return n+(answers[i]===q.answer?1:0); },0),
+                  questions.length, practice);
+    if(props.onFinish) props.onFinish();
+  }
+
+  useEffect(function(){
+    if(submitted) return;
+    if(left<=0){ finish(); return; }
+    var id=setTimeout(function(){ setLeft(left-1); },1000);
+    return function(){ clearTimeout(id); };
+  },[left,submitted]);
+
+  // ---------- results ----------
+  if(submitted){
+    return h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:8,overflow:"hidden"}},
+      h("div",{style:{padding:"26px 24px",textAlign:"center",background:passed?"#F1F8F2":"#FDF3F3",
+        borderBottom:"1px solid "+BORDER}},
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:38,fontWeight:700,color:passed?"#2E7D32":CR}},
+          Math.round(pct*100)+"%"),
+        h("div",{style:{fontSize:14,color:INK2,marginTop:4}},correct+" of "+questions.length+" correct"),
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:21,fontWeight:700,marginTop:12,color:passed?"#1B5E20":CR}},
+          practice ? (passed?"You would have passed":"Not a pass yet")
+                   : (passed?"Assessment passed":"Not passed")),
+        h("p",{style:{fontSize:13.5,color:INK2,lineHeight:1.7,maxWidth:440,margin:"10px auto 0"}},
+          practice
+            ? (passed ? "This was the free practice sit, so it does not count towards your certificate \u2014 but you are ready for the real one. The pass mark is "+Math.round(ASSESS_PASS*100)+"%."
+                      : "This was practice, so nothing is used up. Review what you missed below and sit it again whenever you like.")
+            : (passed ? "Your certificate is now available to download."
+                      : (assessmentState(zone.id).attemptsLeft>0
+                          ? "You have one re-sit remaining, included in your fee. It must be taken within "+ASSESS_RESIT_DAYS+" days of your first attempt."
+                          : "Both attempts have now been used. Please contact us if you would like to discuss this.")))),
+      h("div",{style:{padding:"18px 22px"}},
+        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:18,fontWeight:700,color:INK,marginBottom:12}},"Review your answers"),
+        questions.map(function(q,i){
+          var mine=answers[i], right=mine===q.answer;
+          return h("div",{key:i,style:{marginBottom:16,paddingBottom:14,borderBottom:"1px solid "+BORDER}},
+            h("div",{style:{display:"flex",gap:9}},
+              h("span",{style:{color:right?"#2E7D32":CR,fontWeight:700,fontSize:14}},right?"\u2713":"\u2717"),
+              h("div",{style:{flex:1}},
+                h("div",{style:{fontSize:14,fontWeight:600,color:INK,lineHeight:1.55}},q.q),
+                h("div",{style:{fontSize:13,color:right?"#2E7D32":CR,marginTop:5}},
+                  mine===undefined ? "Not answered" : q.options[mine]),
+                !right?h("div",{style:{fontSize:13,color:"#2E7D32",marginTop:2}},q.options[q.answer]):null,
+                h("p",{style:{fontSize:12.5,color:SLATE,lineHeight:1.6,marginTop:6}},q.explain))));
+        }),
+        h("button",{onClick:props.onClose,style:{background:zc.a,color:"#fff",border:"none",padding:"11px 24px",
+          borderRadius:4,fontWeight:600,fontSize:13,cursor:"pointer"}},"Close")));
+  }
+
+  // ---------- review-before-submit ----------
+  if(reviewing){
+    return h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:8,padding:"22px 24px"}},
+      h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:20,fontWeight:700,color:INK}},"Before you submit"),
+      h("p",{style:{fontSize:13.5,color:INK2,lineHeight:1.7,margin:"8px 0 14px"}},
+        answeredCount===questions.length
+          ? "All "+questions.length+" questions answered. You cannot change your answers after submitting."
+          : (questions.length-answeredCount)+" question"+(questions.length-answeredCount===1?" is":"s are")+" unanswered. Unanswered questions score zero."),
+      h("div",{style:{display:"flex",flexWrap:"wrap",gap:6,marginBottom:18}},
+        questions.map(function(q,i){
+          var done=answers[i]!==undefined;
+          return h("button",{key:i,onClick:function(){ setReviewing(false); setIdx(i); },
+            style:{width:34,height:34,borderRadius:4,fontSize:12,cursor:"pointer",
+              border:"1px solid "+(done?zc.a:BORDER),background:done?zc.bg:"#fff",
+              color:done?zc.tx:SLATE,fontWeight:done?700:400}},i+1);
+        })),
+      h("div",{style:{display:"flex",gap:10,flexWrap:"wrap"}},
+        h("button",{onClick:function(){ setReviewing(false); },
+          style:{background:"transparent",color:SLATE,border:"1px solid "+BORDER,padding:"11px 20px",borderRadius:4,fontSize:13,cursor:"pointer"}},"Keep working"),
+        h("button",{onClick:finish,
+          style:{background:CR,color:"#fff",border:"none",padding:"11px 24px",borderRadius:4,fontWeight:700,fontSize:13,cursor:"pointer"}},"Submit for marking")));
+  }
+
+  // ---------- sitting the paper ----------
+  var q=questions[idx];
+  var lowTime=left<=120;
+  return h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:8,overflow:"hidden"}},
+    h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",gap:10,
+      padding:"12px 18px",borderBottom:"1px solid "+BORDER,background:IVORY,flexWrap:"wrap"}},
+      h("span",{style:{fontSize:12.5,color:INK2,fontWeight:600}},
+        (practice?"Practice sit \u00b7 ":"")+"Question "+(idx+1)+" of "+questions.length),
+      h("span",{style:{fontSize:13,fontFamily:"JetBrains Mono,monospace",fontWeight:700,
+        color:lowTime?CR:INK2}},fmtClock(left))),
+    h("div",{style:{height:3,background:BORDER}},
+      h("div",{style:{height:"100%",width:((idx+1)/questions.length*100)+"%",background:zc.a}})),
+    h("div",{style:{padding:"22px 22px 8px"}},
+      h("div",{style:{fontSize:16,fontWeight:600,color:INK,lineHeight:1.6,marginBottom:16}},q.q),
+      q.options.map(function(o,oi){
+        var sel=answers[idx]===oi;
+        return h("div",{key:oi,onClick:function(){ var a=Object.assign({},answers); a[idx]=oi; setAnswers(a); },
+          style:{padding:"12px 15px",marginBottom:8,borderRadius:6,fontSize:14,lineHeight:1.55,cursor:"pointer",
+            border:"1px solid "+(sel?zc.a:BORDER),background:sel?zc.bg:"#fff",color:INK,
+            fontWeight:sel?600:400}},o);
+      })),
+    h("div",{style:{padding:"12px 20px",borderTop:"1px solid "+BORDER,display:"flex",
+      justifyContent:"space-between",gap:10,flexWrap:"wrap"}},
+      h("button",{disabled:idx===0,onClick:function(){ setIdx(idx-1); },
+        style:{background:"transparent",color:idx===0?BORDER:SLATE,border:"1px solid "+BORDER,
+          padding:"10px 18px",borderRadius:4,fontSize:13,cursor:idx===0?"default":"pointer"}},"Back"),
+      idx<questions.length-1
+        ? h("button",{onClick:function(){ setIdx(idx+1); },
+            style:{background:zc.a,color:"#fff",border:"none",padding:"10px 22px",borderRadius:4,
+              fontWeight:600,fontSize:13,cursor:"pointer"}},"Next")
+        : h("button",{onClick:function(){ setReviewing(true); },
+            style:{background:CR,color:"#fff",border:"none",padding:"10px 22px",borderRadius:4,
+              fontWeight:700,fontSize:13,cursor:"pointer"}},"Review and submit")));
+}
+
 function CertModal(props){
   var zone=props.zone;
   var user = props.user || getUser();
@@ -5406,6 +5737,10 @@ function CertModal(props){
   var dl = useState(""); var dlMsg = dl[0], setDlMsg = dl[1];
   var lic = useState(zone ? hasCertLicence(zone.id) : false); var licensed = lic[0], setLicensed = lic[1];
   var pm  = useState(""); var payMsg = pm[0], setPayMsg = pm[1];
+  var ex  = useState(false); var sitting = ex[0], setSitting = ex[1];
+  var pr  = useState(false); var practising = pr[0], setPractising = pr[1];
+  var av  = useState(0); var assessTick = av[0], setAssessTick = av[1]; // forces a re-read after a sit
+  var astate = zone ? assessmentState(zone.id) : null;
   var zoneLabel = zone ? zone.label : "AI Foundations";
   var zoneColor = (zone && ZC[zone.id]) ? ZC[zone.id].a : "#2E6B8A";
   var ageLabel = (zone && zone.age) ? zone.age : "Certified";
@@ -5660,6 +5995,22 @@ function CertModal(props){
   var sealSvg = (typeof zoneBadgeSVG==="function") ? zoneBadgeSVG(zoneLabel, zoneColor, ageLabel) : "";
   var previewQr = qrDataUrl(verifyUrl, 120);
 
+  // When a sit is in progress the modal becomes the exam. Nothing else is reachable
+  // until it is submitted or closed, so a paper cannot be answered with the lessons open.
+  if(zone && (sitting || practising)){
+    return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.85)",zIndex:9999,
+      display:"flex",alignItems:"flex-start",justifyContent:"center",overflowY:"auto",padding:"20px 12px"}},
+      h("div",{style:{width:"100%",maxWidth:640}},
+        h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,gap:10}},
+          h("div",{style:{color:"#fff",fontFamily:"EB Garamond,serif",fontSize:19}},
+            zone.label+(practising?" \u00b7 practice paper":" \u00b7 certification assessment")),
+          h("button",{onClick:function(){ setSitting(false); setPractising(false); setAssessTick(assessTick+1); },
+            style:{background:"transparent",color:"rgba(255,255,255,0.75)",border:"1px solid rgba(255,255,255,0.35)",
+              padding:"7px 14px",borderRadius:4,fontSize:12.5,cursor:"pointer"}},"Close")),
+        h(AssessmentView,{zone:zone,practice:practising,
+          onFinish:function(){ setAssessTick(assessTick+1); },
+          onClose:function(){ setSitting(false); setPractising(false); setAssessTick(assessTick+1); }})));
+  }
   return h("div",{style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20},onClick:function(e){if(e.target===e.currentTarget)props.onClose();}},
     h("div",{style:{background:"#fff",maxWidth:680,width:"100%",borderRadius:6,overflow:"hidden",maxHeight:"92vh",overflowY:"auto"}},
       h("div",{style:{position:"relative",margin:14,border:"8px solid "+GOLD,padding:0}},
@@ -5717,8 +6068,33 @@ function CertModal(props){
                         "Get my certificate \u2014 \u20B9"+CERT_FEE_INR.toLocaleString('en-IN')),
                       payMsg ? h("p",{style:{color:CR,fontSize:12.5,marginTop:10,lineHeight:1.6}},payMsg) : null,
                       h("p",{style:{fontSize:11.5,color:SLATE,marginTop:10,lineHeight:1.6}},
-                        "Your badge and your progress stay free and are yours either way."))
-                  : zone
+                        "Your badge and your progress stay free and are yours either way."),
+                      h("div",{style:{marginTop:14,paddingTop:14,borderTop:"1px solid "+BORDER}},
+                        h("p",{style:{fontSize:12.5,color:INK2,lineHeight:1.65,marginBottom:8}},
+                          "Not sure you would pass? Sit the practice paper first \u2014 free, unlimited, and it uses the same question bank."),
+                        astate && astate.lastPractice ? h("p",{style:{fontSize:12,color:SLATE,marginBottom:8}},
+                          "Last practice score: "+Math.round(astate.lastPractice.pct*100)+"%") : null,
+                        h("button",{onClick:function(){ setPractising(true); },
+                          style:{background:"transparent",color:CR,border:"1px solid "+CR,padding:"10px 20px",borderRadius:4,fontWeight:600,fontSize:13,cursor:"pointer",width:"100%"}},
+                          "Take a free practice paper")))
+                  : (zone && !astate.passed)
+                    ? h("div",{style:{textAlign:"left",background:IVORY,border:"1px solid "+BORDER,borderRadius:8,padding:"18px 20px",maxWidth:460,margin:"0 auto"}},
+                        h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:19,fontWeight:700,color:INK,marginBottom:4}},
+                          astate.attemptsUsed===0 ? "One step left: the assessment" : "Your re-sit is available"),
+                        h("p",{style:{fontSize:13.5,color:INK2,lineHeight:1.7,marginBottom:12}},
+                          ASSESS_QUESTIONS+" questions drawn at random from this track, "+ASSESS_MINUTES+" minutes, "+
+                          Math.round(ASSESS_PASS*100)+"% to pass. Your fee covers two attempts."),
+                        astate.attemptsUsed>0 ? h("p",{style:{fontSize:13,color:CR,lineHeight:1.7,marginBottom:12}},
+                          "Best score so far: "+Math.round(astate.bestPct*100)+"%. "+
+                          (astate.expired ? "The "+ASSESS_RESIT_DAYS+"-day re-sit window has now closed \u2014 please contact us."
+                           : astate.attemptsLeft>0 ? ("Attempts remaining: "+astate.attemptsLeft+".")
+                           : "Both attempts have been used \u2014 please contact us.")) : null,
+                        astate.canSit
+                          ? h("button",{onClick:function(){ setSitting(true); },
+                              style:{background:CR,color:"#fff",border:"none",padding:"13px 26px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:14,width:"100%"}},
+                              astate.attemptsUsed===0 ? "Begin the assessment" : "Take my re-sit")
+                          : null)
+                    : zone
                     ? h("div",null,
                         h("div",{style:{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}},
                           h("button",{onClick:downloadPNG,style:{background:CR,color:"#fff",border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download PNG"),
@@ -6096,8 +6472,20 @@ function LabView(props){
 function LessonView(props){
   var lesson=props.lesson,zone=props.zone;
   var t=useState("reading");var tab=t[0],setTab=t[1];var zc=ZC[zone.id];
+  // Switching tabs changes content ABOVE the reader's scroll position. On a long
+  // reading the "Open the lab" button sits at the bottom, so without this the tab
+  // switches and the reader sees no change at all.
+  var topRef=React.useRef(null);
+  function goTab(name){
+    setTab(name);
+    var el=topRef.current;
+    if(el && el.scrollIntoView){
+      try{ el.scrollIntoView({behavior:"smooth",block:"start"}); }
+      catch(e){ el.scrollIntoView(); }
+    }
+  }
   var done = props.complete;
-  return h("div",{style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:4,overflow:"hidden",marginBottom:16}},
+  return h("div",{ref:topRef,style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:4,overflow:"hidden",marginBottom:16,scrollMarginTop:"12px"}},
     h("div",{style:{background:zc.bg,padding:"16px 20px",borderBottom:"1px solid "+BORDER,display:"flex",justifyContent:"space-between",alignItems:"center",gap:10,flexWrap:"wrap"}},
       h("div",null,
         h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1}},"LESSON "+lesson.num),
@@ -6113,7 +6501,7 @@ function LessonView(props){
         tabs.push(["quiz","AI Quiz"]);
         return tabs;
       })().map(function(tb){
-        return h("div",{key:tb[0],onClick:function(){setTab(tb[0]);},style:{padding:"12px 20px",cursor:"pointer",fontSize:13,fontWeight:tab===tb[0]?700:400,color:tab===tb[0]?CR:SLATE,borderBottom:tab===tb[0]?"2px solid "+CR:"2px solid transparent"}},tb[1]);})),
+        return h("div",{key:tb[0],onClick:function(){goTab(tb[0]);},style:{padding:"12px 20px",cursor:"pointer",fontSize:13,fontWeight:tab===tb[0]?700:400,color:tab===tb[0]?CR:SLATE,borderBottom:tab===tb[0]?"2px solid "+CR:"2px solid transparent"}},tb[1]);})),
     tab==="reading"?h("div",{style:{padding:"24px 26px",fontSize:15}},renderMarkdown(lesson.reading)):null,
     tab==="lab"?h(LabView,{artifact:lesson.artifact,zc:zc}):null,
     tab==="video"?h("div",{style:{padding:"24px 26px",textAlign:"center"}},
@@ -6130,7 +6518,7 @@ function LessonView(props){
     // Prompt to try the lab before marking the lesson done
     (lesson.artifact && tab==="reading")?h("div",{style:{margin:"0 26px 22px",padding:"14px 16px",background:zc.bg,border:"1px solid "+zc.br,borderRadius:6,display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,flexWrap:"wrap"}},
       h("span",{style:{fontSize:13.5,color:zc.tx,lineHeight:1.6}},"This lesson has a hands-on lab \u2014 that is where the idea actually lands."),
-      h("button",{onClick:function(){setTab("lab");},style:{background:zc.a,color:"#fff",border:"none",padding:"9px 18px",borderRadius:4,fontWeight:600,fontSize:13,cursor:"pointer",whiteSpace:"nowrap"}},"Open the lab")):null,
+      h("button",{onClick:function(){goTab("lab");},style:{background:zc.a,color:"#fff",border:"none",padding:"9px 18px",borderRadius:4,fontWeight:600,fontSize:13,cursor:"pointer",whiteSpace:"nowrap"}},"Open the lab")):null,
     // Mark complete bar
     h("div",{style:{padding:"14px 20px",borderTop:"1px solid "+BORDER,background:IVORY,textAlign:"right"}},
       done
