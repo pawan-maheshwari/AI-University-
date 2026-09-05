@@ -7,7 +7,7 @@
 
   var SUPABASE_URL = "https://octgqicycwaxfsxaswjf.supabase.co";
   // Anon key. Safe to publish: the view is read-only to anon and exposes no private columns.
-  var SUPABASE_ANON_KEY = "REPLACE_WITH_YOUR_SUPABASE_ANON_KEY";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jdGdxaWN5Y3dheGZzeGFzd2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0OTMyODIsImV4cCI6MjEwNDA2OTI4Mn0.AG4KQKdJz1CurDYL7YsAMU8QbWMd_TZ1FMTFIc9W3Sw";
 
   var out = document.getElementById("out");
   var input = document.getElementById("code");
