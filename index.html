@@ -5817,7 +5817,7 @@ var AIU_VERIFY_BASE = "https://ai-university.co.in/verify.html";
 // the certificates table is protected by row-level security and a learner can only read
 // their own rows. Fill this in to enable cross-device licence restore.
 var AIU_SUPABASE_URL = "https://octgqicycwaxfsxaswjf.supabase.co";
-var AIU_SUPABASE_ANON_KEY = "";
+var AIU_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jdGdxaWN5Y3dheGZzeGFzd2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0OTMyODIsImV4cCI6MjEwNDA2OTI4Mn0.AG4KQKdJz1CurDYL7YsAMU8QbWMd_TZ1FMTFIc9W3Sw";
 var CERT_FEE_INR = 1999;
 function getCertLicences(){
   try { var v = localStorage.getItem(AIU_CERT_KEY); return v ? JSON.parse(v) : {}; } catch(e){ return {}; }
