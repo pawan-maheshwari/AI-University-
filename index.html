@@ -3131,7 +3131,85 @@ var CURRICULUM = {
         e: "DALL-E by OpenAI creates images from text prompts — type a description, get a unique AI-generated picture!"
       }]
     }]
-  }],
+  },{
+  id: "explore",
+  icon: "[play]",
+  title: "How AI Learns",
+  color: "#0EA47A",
+  lessons: [{
+    id: "k6", num: "06", title: "Teaching a Computer", vk: "k1",
+    reading: "# Teaching a Computer\n\n## Nobody Tells It the Rules\n\nHow would you explain a cat to someone who had never seen one? Four legs? So has a dog. Whiskers? So has a mouse.\n\nIt is really hard! So we do something clever instead. We do not tell the computer the rules at all.\n\n## We Show It Instead\n\nWe show the computer thousands and thousands of cat pictures. And thousands of dog pictures. Every picture has a label saying which is which.\n\nThe computer looks at all of them and slowly works out the difference by itself. Nobody ever writes down the rules. It finds them.\n\n## Guess, Check, Fix\n\nHere is the trick. The computer plays a guessing game, over and over:\n\n1. It looks at a picture and **guesses**: \u201ccat!\u201d\n2. We tell it the right answer: \u201cactually, dog\u201d\n3. It **changes itself a tiny bit** so it does better next time\n\nThen it does that again. And again. Millions of times.\n\nEach change is very small. But millions of tiny changes add up to something that gets it right nearly every time.\n\n## Just Like Learning to Ride a Bike\n\nNobody learns to ride a bike by reading rules about balance. You wobble. You put a foot down. You try again, a tiny bit better.\n\nAfter enough tries, you can ride \u2014 and you could not explain exactly how. The computer learns the same way!\n\n## More Examples, Better Learning\n\nIf we only showed it ten cats, it would be terrible at spotting cats. If we show it a million, it gets very good.\n\nThat is why AI needs so many examples. It is not clever like you. It just practises an enormous number of times.\n\n## Try It Yourself\n\nIn the lab, you get to be the teacher. Show the computer some examples and watch it get better!",
+    artifact: {
+      type: "train",
+      title: "Teach the computer to guess",
+      caption: "Each dot is a plant: how many days it was watered, and how tall it grew. Move the line so it goes through the middle of the dots. The red lines show the computer's mistakes!",
+      points: [[1,1.8],[2,2.9],[3,3.6],[4,5.0],[5,5.4],[6,6.8],[7,7.3],[8,8.6],[9,9.1]],
+      startM: 0.1, startC: 6.5, goal: 0.4,
+      xLabel: "Days watered", yLabel: "How tall it grew"
+    }
+  },{
+    id: "k7", num: "07", title: "When AI Gets It Wrong", vk: "k4",
+    reading: "# When AI Gets It Wrong\n\n## Computers Make Mistakes Too\n\nAI is clever, but it is not magic. It gets things wrong \u2014 sometimes in very silly ways.\n\nAnd here is the funny thing: **it does not know when it is wrong.** It says the wrong answer just as confidently as the right one.\n\n## Why It Goes Wrong\n\n**It only knows what it was shown.**\n\nImagine you only ever saw pictures of white sheep. Then someone shows you a black sheep. You might say \u201cthat is not a sheep!\u201d\n\nThat happens to AI all the time. If it only saw white sheep, it does not know about black ones.\n\n**It spots the wrong thing.**\n\nOne computer was taught to spot wolves and huskies. It got nearly every one right! But then someone checked how it was deciding.\n\nIt was not looking at the animals at all. It had noticed that all the wolf pictures had **snow** in the background. It was really a snow detector!\n\n**It makes things up.**\n\nAsk an AI a question it does not know and it often invents an answer that sounds right. Made-up names. Made-up dates. Made-up facts, said very confidently.\n\n## That Is Why We Check\n\nSo here is your job whenever you use AI:\n\n- If it is a **story or a picture** \u2014 have fun, it does not matter\n- If it is a **fact for your homework** \u2014 check in a book or ask a grown-up\n- If it says something **unkind or strange** \u2014 tell a grown-up straight away\n\n## You Are the Boss\n\nAI is a tool, like a calculator or a pencil. You do not have to believe it. You are allowed to say \u201cI think that is wrong\u201d \u2014 and quite often, you will be right!",
+    artifact: {
+      type: "scenario",
+      title: "Spot the mistake",
+      caption: "The computer gives four answers. Which ones can you trust, and which need checking?",
+      steps: [
+        {
+          situation: "You ask the AI to write a funny story about a dragon who is scared of butterflies. It writes a great one.",
+          options: [
+            {t: "Enjoy it \u2014 it is a story, so it cannot be wrong", ok: true, why: "Exactly right! Stories and pictures are made up on purpose. This is one of the best things to use AI for."},
+            {t: "Check whether the dragon is real", ok: false, why: "Dragons are not real, and that is fine! A made-up story is meant to be made up."},
+            {t: "Do not use it in case the story is wrong", ok: false, why: "A story cannot really be wrong. Have fun with this one."}
+          ]
+        },
+        {
+          situation: "For your homework you ask which year people first walked on the Moon. It says 1972, very confidently.",
+          options: [
+            {t: "Write it down \u2014 it sounded very sure", ok: false, why: "Sounding sure is not the same as being right! AI says wrong answers in exactly the same confident voice as right ones. (It was 1969.)"},
+            {t: "Check it in a book or ask a grown-up", ok: true, why: "Well done. Dates and numbers are exactly the sort of thing AI gets wrong, so homework facts always need a second check."},
+            {t: "Ask the AI again to see if it says the same", ok: false, why: "Good thinking, but it might say the same wrong answer twice! The check has to come from somewhere else."}
+          ]
+        },
+        {
+          situation: "You show it a photo of a black cat. It says \u201cthis is a dog\u201d.",
+          options: [
+            {t: "It must be right \u2014 computers are clever", ok: false, why: "You can see it is a cat! You are allowed to disagree with a computer. Maybe it never saw many black cats when it was learning."},
+            {t: "It probably did not see many black cats when it learned", ok: true, why: "Brilliant \u2014 that is exactly it. AI only knows what it was shown, so if it never saw black cats, it gets confused by them."},
+            {t: "The photo must be broken", ok: false, why: "The photo is fine! It is the computer that has made the mistake this time."}
+          ]
+        },
+        {
+          situation: "The AI says something unkind about a group of people.",
+          options: [
+            {t: "Tell a grown-up straight away", ok: true, why: "Always the right answer. AI learned from things people wrote online, and some of that was unkind. A grown-up needs to know."},
+            {t: "Ignore it and keep playing", ok: false, why: "Please tell someone. It is not your fault, and a grown-up will want to know so they can help."},
+            {t: "Argue with the AI about it", ok: false, why: "You could, but it will not really understand. Telling a grown-up is much more useful."}
+          ]
+        }
+      ],
+      passNote: "You checked the facts, trusted your own eyes about the cat, and knew to tell a grown-up. That is exactly how to use AI safely!",
+      failNote: "Have another go. Remember: stories are fun, facts need checking, and if anything feels unkind or strange, tell a grown-up."
+    }
+  },{
+    id: "k8", num: "08", title: "Being the Boss of AI", vk: "k5",
+    reading: "# Being the Boss of AI\n\n## You Are In Charge\n\nAI can write, draw and answer questions. That is exciting! But there is something important to remember.\n\n**AI does not have feelings. It does not know you. And it is not in charge \u2014 you are.**\n\n## Asking Good Questions\n\nAI gives much better answers when you tell it more. Watch the difference:\n\n- \u274c \u201cWrite a story\u201d\n- \u2705 \u201cWrite a funny story about a penguin who wants to be a firefighter, for a 7-year-old\u201d\n\nThe second one tells it **who** it is for, **what** it is about, and **how** it should feel. That is the trick!\n\n## Two Magic Sentences\n\nThese two work every single time:\n\n1. **\u201cCan you explain that more simply?\u201d** \u2014 it will try again, easier. As many times as you like.\n2. **\u201cCan you make it shorter?\u201d** \u2014 or longer, or funnier, or kinder.\n\nYou never have to accept the first answer!\n\n## Doing It Yourself First\n\nHere is the important bit.\n\nIf AI does your maths for you, **your brain does not get stronger**. It is like getting a robot to lift your weights \u2014 the robot gets stronger, not you.\n\nSo the rule is: **try it yourself first.** Then, if you are stuck, ask AI to *explain* \u2014 not to *do it for you*.\n\nAsk \u201cwhy is my answer wrong?\u201d, not \u201cwhat is the answer?\u201d\n\n## Things to Never Do\n\n- **Never tell AI your address, school, or phone number.** Not ever.\n- **Never share a photo of yourself** with an AI app.\n- **Never keep it secret** if something feels strange or upsetting. Tell a grown-up.\n\n## Your Own Ideas Are Better\n\nAI can only mix up things it has already seen. It has never climbed your tree, met your dog, or had your ideas.\n\nWhen you draw something, or write something, or build something \u2014 that came from **you**, and nothing else in the world could have made it. That is worth more than anything a computer can copy.",
+    artifact: {
+      type: "sort",
+      title: "Good idea or bad idea?",
+      items: [
+        "Asking AI to explain why your sum was wrong",
+        "Telling AI which school you go to",
+        "Asking AI to write your whole homework",
+        "Asking AI for a funny story at bedtime",
+        "Sending AI a photo of your face",
+        "Asking AI to explain something more simply"
+      ],
+      bins: ["Good idea", "Bad idea"],
+      answers: [0, 1, 1, 0, 1, 0]
+    }
+  }]
+}],
   college: [{
     id: "dl",
     icon: "[deep]",
@@ -3286,7 +3364,58 @@ var CURRICULUM = {
         e: "GPAI models trained with more than 10^25 FLOPs face additional obligations: adversarial testing, incident reporting, cybersecurity requirements, and energy consumption disclosure."
       }]
     }]
-  }],
+  },{
+  id: "applied",
+  icon: "[lab]",
+  title: "From Theory to Working Systems",
+  color: "#0284C7",
+  lessons: [{
+    id: "c6", num: "06", title: "Training Dynamics and Optimisation", vk: "c2",
+    reading: "# Training Dynamics and Optimisation\n\n## The Part the Diagrams Skip\n\nArchitecture diagrams tell you what a network computes. They do not tell you why training sometimes diverges, sometimes plateaus, and sometimes works. That behaviour comes from the optimisation, and it is where most practical debugging happens.\n\n## Learning Rate Dominates Everything\n\nIf you can tune one hyperparameter, tune this one.\n\n- **Too low:** loss falls slowly and stalls in a poor region. Looks like a modelling problem; is not.\n- **Too high:** loss oscillates or blows up to NaN. The steps overshoot the minimum repeatedly.\n- **Roughly right:** rapid early progress, then a smooth flattening.\n\nThe stability limit relates to the curvature of the loss surface. For a quadratic with largest Hessian eigenvalue \u03bb, gradient descent diverges above 2/\u03bb. Poorly conditioned problems \u2014 features on wildly different scales \u2014 have a large \u03bb and therefore force a small learning rate, which is why **feature normalisation speeds up training so dramatically**. It is not cosmetic; it changes the maximum stable step size.\n\n## Why Adam Is the Default\n\nSGD applies the same step size to every parameter. Adam maintains per-parameter running estimates of the gradient's first and second moments, effectively giving each parameter its own adapted learning rate.\n\nThe practical consequence: Adam is far more forgiving of poor conditioning and of parameters with very different gradient magnitudes. The cost is two extra state tensors per parameter \u2014 which is why optimiser state, not weights, often dominates training memory.\n\n## Schedules\n\n- **Warmup** \u2014 start tiny and ramp up. Early gradients are large and unreliable; a full-size step at initialisation can wreck a run. Essentially mandatory for transformers.\n- **Cosine decay** \u2014 anneal smoothly towards zero. Large steps early to explore, small steps late to settle.\n\n## Batch Size Interacts With Everything\n\nLarger batches give lower-variance gradient estimates, permitting a larger learning rate \u2014 roughly linear scaling, up to a point. They also reduce the gradient noise that appears to help generalisation, which is one reason very large batch training often needs extra regularisation to match small-batch results.\n\n## Reading a Loss Curve\n\n- **Training and validation both falling** \u2014 keep going\n- **Training falling, validation rising** \u2014 overfitting; regularise, augment, or stop early\n- **Both flat from the start** \u2014 learning rate too low, or a bug. Overfit a batch of ten examples first; if you cannot drive that to near-zero loss, the problem is a bug, not the model.\n- **Sudden spike to NaN** \u2014 learning rate too high, or numerical overflow in a normalisation layer\n\n## The Debugging Habit Worth Having\n\nBefore scaling anything, deliberately overfit a tiny subset. A model that cannot memorise ten examples has a defect in the data pipeline, the loss function or the gradient flow \u2014 and no amount of compute will fix it.",
+    artifact: {
+      type: "train",
+      title: "Watch optimisation happen",
+      caption: "A two-parameter model. Set the parameters by hand to feel the loss surface, then run gradient descent and watch the error fall towards the minimum.",
+      points: [[1,3.1],[2,3.8],[3,5.2],[4,5.6],[5,7.0],[6,7.5],[7,8.8],[8,9.3],[9,9.9]],
+      startM: 0.1, startC: 6.5, goal: 0.35,
+      xLabel: "Feature x", yLabel: "Target y"
+    }
+  },{
+    id: "c7", num: "07", title: "Sampling, Decoding and Why Models Hallucinate", vk: "c1",
+    reading: "# Sampling, Decoding and Why Models Hallucinate\n\n## The Model Outputs a Distribution, Not Text\n\nA language model's forward pass produces logits over the full vocabulary. Turning that distribution into a token is **decoding**, and it is a separate design decision from the model itself. Two systems with identical weights can behave completely differently based on decoding alone.\n\n## Temperature\n\nBefore the softmax, logits are divided by temperature T:\n\n**p\u1d62 = exp(z\u1d62/T) / \u03a3 exp(z\u2c7c/T)**\n\n- **T \u2192 0** approaches argmax \u2014 deterministic, repetitive, prone to loops\n- **T = 1** the model's own calibrated distribution\n- **T > 1** flattens the distribution, giving low-probability tokens real mass\n\nRaising temperature does not make the model more creative in any meaningful sense. It makes it more willing to sample tokens it considers unlikely \u2014 which sometimes reads as creativity and sometimes as fabrication.\n\n## Top-k and Nucleus Sampling\n\nPure temperature sampling has a flaw: it leaves probability mass on the long tail of genuinely bad tokens.\n\n- **Top-k** truncates to the k highest-probability tokens, then renormalises. Simple, but k is fixed while the appropriate cutoff varies enormously by context.\n- **Top-p (nucleus)** takes the smallest set whose cumulative probability exceeds p. Adaptive: after \u201cthe capital of France is\u201d, the nucleus may hold one token; mid-sentence in fiction it may hold two hundred.\n\nNucleus sampling is the usual default because it adapts to how confident the model actually is at that position.\n\n## Where Hallucination Comes From\n\nSeveral mechanisms, often conflated:\n\n1. **Sampling.** A low-probability token gets selected, and autoregressive generation then conditions on it. The model continues coherently from a false premise it introduced itself.\n2. **Training objective.** Next-token prediction rewards plausible continuations, never abstention. Nothing in pretraining teaches a model to say it does not know.\n3. **Distributional gaps.** Where training data was sparse or contradictory, the model still produces a confident distribution \u2014 uncertainty in the data does not reliably become uncertainty in the output.\n4. **Alignment pressure.** RLHF on human preference data can reward confident, helpful-sounding answers over hedged correct ones.\n\nThis is why hallucination is not a bug awaiting a patch. Points 2 and 3 are properties of the training objective itself.\n\n## Calibration\n\nA well-calibrated model assigns 70% probability to things true 70% of the time. Base models are often reasonably calibrated; instruction tuning frequently degrades calibration, producing systems that are more useful and more confidently wrong.\n\nToken-level probabilities are a weak but real uncertainty signal \u2014 more useful than asking the model how confident it is, since that answer is itself generated text.\n\n## Practical Consequences\n\n- Factual retrieval: low temperature, low top-p, and ground it in retrieved context\n- Creative generation: higher temperature, wider nucleus\n- Never treat a model's stated confidence as a probability\n- Grounding beats decoding tuning: no sampling parameter makes a model know something absent from its weights or its context",
+    artifact: {
+      type: "tokens",
+      title: "Decoding, in your hands",
+      caption: "Realistic next-token probabilities for this prompt. Watch how temperature reshapes the distribution, and where the tail starts producing fabrication.",
+      prompt: "The 2019 study on coral bleaching was published in the journal",
+      candidates: [
+        {w: "Nature", p: 0.38},
+        {w: "Science", p: 0.26},
+        {w: "PNAS", p: 0.15},
+        {w: "Marine Biology", p: 0.11},
+        {w: "Coral Reefs", p: 0.07},
+        {w: "Oceanus Quarterly", p: 0.03}
+      ]
+    }
+  },{
+    id: "c8", num: "08", title: "Evaluation That Means Something", vk: "c3",
+    reading: "# Evaluation That Means Something\n\n## The Hardest Unglamorous Problem\n\nModelling gets the attention; evaluation decides whether anything you built is real. Most published improvements that fail to reproduce fail here, not in the architecture.\n\n## Accuracy Is Almost Always the Wrong Metric\n\nOn imbalanced data it is actively misleading. A classifier for a condition with 0.5% prevalence achieves 99.5% accuracy by predicting negative universally.\n\nUse instead:\n\n- **Precision** \u2014 of the positives predicted, how many were right? Matters when false positives are costly.\n- **Recall** \u2014 of the actual positives, how many were caught? Matters when misses are costly.\n- **F1** \u2014 their harmonic mean. Convenient, and it hides which one you sacrificed.\n- **AUROC** \u2014 ranking quality across all thresholds. Can look strong on heavily imbalanced data where the model is not usable at any single threshold.\n- **AUPRC** \u2014 more informative than AUROC when positives are rare.\n\nThe prior question is always: **what does a false positive cost, and what does a false negative cost?** The metric follows from that, not the other way round.\n\n## Leakage: The Error That Produces Impossible Results\n\nIf your test score looks unusually good, suspect leakage before celebrating.\n\n- **Temporal leakage** \u2014 random splits on time-series data let the model see the future. Any forecasting split must be chronological.\n- **Group leakage** \u2014 multiple rows per patient, user or document split across train and test. Split by group, not by row.\n- **Preprocessing leakage** \u2014 fitting a scaler, imputer or vocabulary on the full dataset before splitting. Fit on train only, then apply.\n- **Duplicate leakage** \u2014 near-identical records in both splits. Common in scraped corpora.\n\n## Three Splits, Not Two\n\nTrain, validation, test. Tune on validation. Touch test once, at the end. Every hyperparameter chosen by looking at test performance leaks information, and a test set consulted fifty times is a second validation set with an inflated reputation.\n\n## Baselines Before Models\n\nAlways report the trivial baseline: majority class, most recent value, simple linear model. A great many deep learning results are worse than a well-tuned gradient-boosted tree, and nobody discovers this because the comparison was never run.\n\n## Evaluating Generative Systems\n\nHarder, because there is rarely one correct output.\n\n- **Reference-based metrics** (BLEU, ROUGE) measure overlap with a reference. Cheap, and they correlate weakly with quality.\n- **Model-graded evaluation** scales, and inherits the grader's biases \u2014 including a well-documented preference for outputs from similar models.\n- **Human evaluation** remains the standard, and needs multiple raters and an inter-rater agreement figure to be worth anything.\n\nFor anything deployed, build a **fixed evaluation set of real hard cases** and re-run it on every change. It is unglamorous and it is the single most valuable artefact a production ML team owns.\n\n## Report the Uncertainty\n\nA single accuracy figure on one split is a point estimate with unstated variance. Report a confidence interval or results across several seeds. Two models differing by 0.3% on one split are, in almost every case, the same model.",
+    artifact: {
+      type: "sort",
+      title: "Diagnose the evaluation",
+      items: [
+        "Random split on three years of daily sales data",
+        "Fitting the scaler on train only, then applying to test",
+        "99.7% accuracy on a condition affecting 0.3% of patients",
+        "Splitting patient records by patient rather than by row",
+        "Selecting the learning rate by test-set performance",
+        "A fixed suite of known hard cases, re-run on every change"
+      ],
+      bins: ["Sound practice", "Broken \u2014 will inflate results"],
+      answers: [1, 0, 1, 0, 1, 0]
+    }
+  }]
+}],
   early: [{
     id: "tools",
     icon: "[tools]",
@@ -3433,7 +3562,120 @@ var CURRICULUM = {
         e: "Red-teaming systematically attempts to break the AI system — finding harmful outputs, biases, jailbreaks and edge cases before they appear in production and cause real harm."
       }]
     }]
-  }],
+  },{
+  id: "shipping",
+  icon: "[ship]",
+  title: "Shipping AI at Work",
+  color: "#F59E0B",
+  lessons: [{
+    id: "e6", num: "06", title: "Evaluating Your Own Prompts", vk: "e1",
+    reading: "# Evaluating Your Own Prompts\n\n## The Habit That Separates Professionals\n\nMost people iterate on prompts by feel. They try something, read one output, decide it seems better, and move on. That is not iteration \u2014 it is a sequence of unmeasured guesses, and it produces prompts that work on the example you happened to test.\n\nThe professional version is unglamorous: build a small evaluation set, then measure.\n\n## Building One Takes Twenty Minutes\n\n1. Collect **15\u201320 real inputs**, including the awkward ones \u2014 the ambiguous request, the one with a typo, the one in mixed languages, the empty field.\n2. Write down **what a good output looks like** for each. Not the exact words; the properties. \u201cIdentifies both action items\u201d, \u201cdoes not invent a date\u201d.\n3. Run every input through the prompt. Score each output pass or fail against those properties.\n4. Change **one thing**. Re-run. Compare.\n\nTwenty inputs is enough to tell an improvement from noise, and small enough to run by hand.\n\n## Why One Change at a Time\n\nIf you alter the role, the format and the examples together and the score improves, you have learned nothing transferable. Single changes build an actual understanding of what this task responds to.\n\n## What Usually Moves the Number\n\nIn rough order of impact:\n\n- **Worked examples.** One or two well-chosen examples typically beat any amount of instruction rewriting.\n- **An explicit output format.** Specify the structure, and say what to do when a field is unknown \u2014 this single instruction eliminates a large share of fabrication.\n- **A stated failure path.** \u201cIf the document does not contain the answer, reply exactly: NOT FOUND.\u201d Without an approved way to fail, the model invents.\n- **Reasoning before answering**, for anything multi-step.\n- **Role framing.** Real but usually smaller than people assume.\n\n## Test the Edges Deliberately\n\nYour evaluation set should include inputs designed to break the prompt: empty input, very long input, a request in another language, contradictory instructions, and an input containing text that looks like an instruction. That last one is prompt injection, and finding out how your prompt behaves under it is far better done by you than by a user.\n\n## Version Your Prompts\n\nProduction prompts are code. Keep them in version control with the evaluation results attached. A prompt that changed for reasons nobody recorded, with no record of what it scored before, is a liability.\n\n## Where This Pays Off\n\nWhen a model version changes underneath you \u2014 and it will \u2014 you re-run the suite and know within minutes whether anything broke. Without one, you find out from a user.",
+    artifact: {
+      type: "scenario",
+      title: "Ten cases, one prompt",
+      caption: "Your extraction prompt is going into production next week. Four decisions about how you test it.",
+      steps: [
+        {
+          situation: "Your prompt works beautifully on the three invoices you tried. Ship it?",
+          options: [
+            {t: "Yes \u2014 three clean passes is a good signal", ok: false, why: "Three examples cannot distinguish a working prompt from one that happens to fit those three. You have no idea how it behaves on the awkward inputs, which is where production lives."},
+            {t: "Build a set of 15\u201320 real inputs including the awkward ones", ok: true, why: "Twenty minutes of work that will save days. Include the ambiguous ones, the badly scanned one, and the one in a different currency \u2014 those are the cases that will actually arrive."},
+            {t: "Ask the model to evaluate its own output quality", ok: false, why: "It will grade itself generously and with no independent reference. Model-graded evaluation has a place, but not as your only signal and not on its own output."}
+          ]
+        },
+        {
+          situation: "On 20 inputs you score 13/20. Failures are scattered across different fields.",
+          options: [
+            {t: "Rewrite the prompt substantially and re-run", ok: false, why: "If the score improves you will not know which change did it, and if it drops you will not know what to undo. Large rewrites destroy the information the evaluation set exists to give you."},
+            {t: "Add a worked example and change nothing else", ok: true, why: "One change, measurable effect. Examples usually move the number more than instruction rewriting, so it is the right first thing to try \u2014 and you will know whether it worked."},
+            {t: "Accept 65% and add a human review step", ok: false, why: "Maybe the eventual answer, but not before you have tried the cheap improvements. Twenty minutes of prompt iteration is far cheaper than a permanent review step."}
+          ]
+        },
+        {
+          situation: "Score is now 18/20. Both remaining failures invent a date when the invoice has none.",
+          options: [
+            {t: "Accept it \u2014 90% is strong for extraction", ok: false, why: "The two failures share a cause, which makes them fixable rather than residual noise. An invented date entering a finance system is also a worse failure than a blank one."},
+            {t: "Add an explicit instruction for what to do when a field is absent", ok: true, why: "The highest-value instruction in extraction prompts. Given no approved way to say \u2018not present\u2019, a model will fabricate. Naming the exact output for a missing field usually removes this failure mode entirely."},
+            {t: "Lower the temperature to zero", ok: false, why: "Worth doing for extraction generally, but it will not fix this. The model is not sampling an unlikely token \u2014 it has no permitted way to return nothing."}
+          ]
+        },
+        {
+          situation: "20/20. Two months later the provider updates the underlying model.",
+          options: [
+            {t: "Nothing to do \u2014 the prompt is unchanged", ok: false, why: "The prompt is unchanged; the system is not. Model updates shift behaviour, and formatting and edge-case handling are usually the first things to move."},
+            {t: "Re-run the evaluation set before the update reaches production", ok: true, why: "This is what the suite was built for. Ten minutes of re-running tells you whether anything broke, instead of finding out from a user in week three."},
+            {t: "Pin the old model version indefinitely", ok: false, why: "Buys time and eventually fails \u2014 old versions get retired. Better to have the suite that makes upgrading routine."}
+          ]
+        }
+      ],
+      passNote: "You built a real evaluation set, changed one thing at a time, gave the model a permitted way to fail, and re-ran the suite when the model moved. That is production prompt engineering.",
+      failNote: "The pattern is the same at each step: measure on enough real inputs to tell signal from noise, change one thing, and always give the model an explicit way to say the answer is not there."
+    }
+  },{
+    id: "e7", num: "07", title: "Cost, Latency and Context Budgets", vk: "e3",
+    reading: "# Cost, Latency and Context Budgets\n\n## The Constraints Nobody Mentions in the Demo\n\nA prototype that costs a rupee per call and answers in eight seconds is fine. The same behaviour at 50,000 calls a day is a budget problem and a user-experience problem at once.\n\n## Where the Money Goes\n\nBilling is per token, input and output, usually at different rates. Three things dominate real bills:\n\n- **Retrieved context.** RAG systems routinely send several thousand tokens of retrieved documents on every call. This is almost always the largest line, and almost always the least examined.\n- **Conversation history.** Resending the full transcript each turn makes cost grow quadratically over a long conversation.\n- **Retries.** A failed parse that triggers an automatic retry doubles the cost of that request silently.\n\n## Reducing Cost Without Reducing Quality\n\n1. **Retrieve less, better.** Going from ten chunks to four usually costs nothing in answer quality and cuts input tokens by more than half. Measure it rather than assuming.\n2. **Route by difficulty.** Send straightforward requests to a small fast model and escalate only the hard ones. A classifier or a simple heuristic in front of the call often removes most of the bill.\n3. **Cache aggressively.** Identical and near-identical queries are far more common than teams expect. Many providers also offer prompt caching for a stable prefix.\n4. **Cap output length.** Output tokens usually cost several times input tokens. \u201cAnswer in at most three sentences\u201d is a cost control.\n5. **Summarise history** rather than resending it once a conversation passes a threshold.\n\n## Latency Is a Design Problem\n\nGeneration time scales with output length, not input length. A long prompt returning twenty tokens is fast; a short prompt returning two thousand is not.\n\n- **Stream the response.** Time to first token is what users experience as speed. Streaming makes an eight-second generation feel acceptable.\n- **Run retrieval and other setup in parallel**, not in sequence.\n- **Show intermediate state.** \u201cSearching your documents\u2026\u201d holds attention that a blank spinner loses.\n- **Set explicit timeouts and a fallback.** A degraded answer beats a hung request.\n\n## Context Windows Are Not Free Real Estate\n\nA large context window is a capability, not an instruction. Filling it has three costs: money, latency, and accuracy \u2014 retrieval quality degrades when relevant content is buried among marginal content, and models attend less reliably to material in the middle of a long context.\n\nSending your entire knowledge base because it fits is usually worse than sending the four right paragraphs.\n\n## Instrument From Day One\n\nLog tokens in, tokens out, latency and model version for every call, and be able to group by feature. Without this, cost investigations become guesswork \u2014 and the answer is nearly always one feature nobody suspected, quietly sending 12,000 tokens per request.",
+    artifact: {
+      type: "weigh",
+      title: "Cut the bill without breaking the product",
+      caption: "100 units of engineering effort across five optimisations. Each saves differently, and some risk answer quality.",
+      budget: 100, step: 5, unit: "engineering days",
+      target: 16, riskCap: 26, minSpread: 3,
+      options: [
+        {name: "Retrieve 4 chunks instead of 10", desc: "Largest single saving. Needs evaluation to confirm quality holds.", yield: 7.5, scale: 18, risk: 0.30},
+        {name: "Route easy requests to a smaller model", desc: "Big saving, real complexity, and misrouting degrades hard answers.", yield: 7.0, scale: 22, risk: 0.38},
+        {name: "Cache repeated queries", desc: "Cheap to build, no quality risk, saving depends on how repetitive traffic is.", yield: 5.0, scale: 12, risk: 0.06},
+        {name: "Cap output length", desc: "Almost free. Output tokens cost several times input tokens.", yield: 4.5, scale: 10, risk: 0.10},
+        {name: "Per-feature token instrumentation", desc: "Saves nothing directly. Without it you are optimising blind.", yield: 4.0, scale: 14, risk: 0.04}
+      ],
+      passNote: "Instrumentation funded, the cheap safe wins taken, and the risky routing work sized rather than skipped. That is a cost programme you can defend when quality is questioned.",
+      failNote: "Look at what is unfunded. Optimising without per-feature instrumentation means guessing which feature is expensive \u2014 and concentrating everything in the riskiest change puts answer quality on one bet."
+    }
+  },{
+    id: "e8", num: "08", title: "Your First AI Feature at Work", vk: "e5",
+    reading: "# Your First AI Feature at Work\n\n## Scoping Is the Whole Game\n\nMost failed first AI features were not built badly. They were scoped badly \u2014 aimed at an impressive-sounding problem rather than a narrow one with a clear owner and a measurable outcome.\n\n## Choose a Problem With These Properties\n\n- **A human does it today**, so you have a baseline and a comparison\n- **The output is checkable**, quickly, by someone who will know if it is wrong\n- **Errors are recoverable.** Your first feature should not be one where a mistake is expensive or public\n- **Volume is real but not extreme.** Enough to matter, small enough to review manually at first\n- **Somebody has asked for it.** A feature nobody requested will not be adopted however well it works\n\nDrafting, summarising, classifying and extracting all fit. Anything that makes an irreversible decision about a person does not \u2014 not first.\n\n## Design for the Model Being Wrong\n\nAssume a meaningful error rate and design around it rather than hoping it away:\n\n- **Make the output editable**, not final. A draft a human adjusts is a completely different risk profile from an answer sent automatically.\n- **Show the source.** For anything retrieved, display where it came from so it can be checked in seconds.\n- **Give it a way to decline.** \u201cNot enough information\u201d must be a permitted answer, or the model will invent one.\n- **Log everything** \u2014 input, output, model version, whether the human accepted or edited it. That log is your evaluation set in three months.\n\n## Ship Behind a Flag, to Few People\n\nFive willing users beat a company-wide launch. You want the people who will tell you it is wrong, early, in detail. Expand only when the edit rate falls.\n\n## Measure Acceptance, Not Usage\n\nUsage says the feature was opened. The number that matters is **how often the human accepted the output unchanged**, and what they changed when they did not. Edits are your richest signal — they tell you exactly where the model is weak, in the words of the person who knows.\n\n## The Conversations to Have Before You Build\n\n- **Data.** What are you sending to a third party, and is that permitted? Customer data, personal data and anything under contract need a real answer, not an assumption.\n- **Who owns it in production?** Features without an operational owner degrade quietly.\n- **What is the rollback?** If it misbehaves on a Friday, who turns it off and how?\n- **What does it cost at full volume?** Estimate before, not after.\n\n## Write Down What Would Make You Stop\n\nDecide in advance: if the acceptance rate is below X at week six, we stop. Without that line, a mediocre feature survives on sunk cost and the goodwill of whoever sponsored it.\n\n## Doing This Well Is Visible\n\nA small feature that ships, gets used and has honest numbers behind it will do more for your standing than an ambitious one that demos well and never leaves staging. It also gives you the one thing that is genuinely scarce: real evidence about what these systems do in your organisation.",
+    artifact: {
+      type: "scenario",
+      title: "Scoping the first one",
+      caption: "You have been given room to build one AI feature. Four choices decide whether it survives.",
+      steps: [
+        {
+          situation: "Two options on the table: auto-drafting replies to routine support emails, or automatically approving expense claims under \u20B95,000.",
+          options: [
+            {t: "Expense approval \u2014 the saving is larger and easier to quantify", ok: false, why: "It makes an irreversible decision with money attached and no natural review step. A wrong approval is a finance problem, and a wrong rejection lands on a colleague. Wrong shape for a first feature."},
+            {t: "Draft replies \u2014 a human checks every one before it sends", ok: true, why: "Checkable output, recoverable errors, an existing human baseline, and the edit history becomes your evaluation data. This is the shape of a first feature that survives."},
+            {t: "Both \u2014 they share infrastructure", ok: false, why: "Doubles the surface area and halves the attention on each. Ship one, learn from it, then decide whether the second is still the right second."}
+          ]
+        },
+        {
+          situation: "Design review. Someone proposes auto-sending drafts when the model's confidence is high.",
+          options: [
+            {t: "Agree \u2014 the high-confidence cases are exactly where it is safe", ok: false, why: "Model confidence is not a reliable probability of correctness, especially after instruction tuning. High-confidence errors are precisely the ones nobody catches, because confidence is what triggered the auto-send."},
+            {t: "Keep every draft editable and measure the edit rate first", ok: true, why: "Right. The edit rate is the evidence you would need before automating anything, and you do not have it yet. Collect it for a few months, then revisit with numbers."},
+            {t: "Auto-send only for the simplest category", ok: false, why: "Reasonable eventually and premature now. You have not yet established the error rate on any category, so \u2018simplest\u2019 is a guess."}
+          ]
+        },
+        {
+          situation: "Ready to launch. Your sponsor wants it live for all 200 support staff on Monday.",
+          options: [
+            {t: "Launch to everyone \u2014 broad feedback is more informative", ok: false, why: "Two hundred people encountering the same flaw generates noise and burns credibility once. You get one first impression with a team, and a rough launch costs adoption you will not easily win back."},
+            {t: "Five volunteers behind a flag, expand when the edit rate falls", ok: true, why: "The volunteers will tell you what is wrong in detail, and a flag means a bad Friday is a config change rather than an incident. Expansion earns its way."},
+            {t: "Launch to everyone but keep it optional", ok: false, why: "Optional launches to a large group usually produce low usage and no useful feedback \u2014 the people who try it once and stop never tell you why."}
+          ]
+        },
+        {
+          situation: "Week six. 40% of drafts are sent unchanged, 45% lightly edited, 15% discarded. Your sponsor asks if it is working.",
+          options: [
+            {t: "Report 85% usefulness and request expansion", ok: false, why: "Combining accepted and edited into one flattering number hides the most valuable thing you have. What people changed is the signal; averaging it away discards it."},
+            {t: "Report the split, and analyse what the 45% edited and the 15% discarded had in common", ok: true, why: "The edits are your richest data \u2014 they show exactly where the model is weak, described by the person who knows. That analysis is what makes version two better rather than merely wider."},
+            {t: "Say it is too early to tell", ok: false, why: "Six weeks and 200 data points is enough to say something useful. Declining to interpret your own data invites someone else to interpret it for you."}
+          ]
+        }
+      ],
+      passNote: "You picked a checkable, recoverable problem, refused to automate on model confidence, launched small behind a flag, and mined the edits rather than averaging them away. That feature will still be running next year.",
+      failNote: "Four rules: pick work a human already does and can check, never treat model confidence as a probability of correctness, launch to a handful behind a flag, and treat edits as your most valuable data."
+    }
+  }]
+}],
   mid: [{
     id: "strategy",
     icon: "[chart]",
@@ -3565,7 +3807,120 @@ var CURRICULUM = {
         e: "Holdout testing with random assignment isolates the AI effect from other variables. Statistical significance testing confirms whether the observed difference is real and not due to chance."
       }]
     }]
-  }],
+  },{
+  id: "delivery",
+  icon: "[deliver]",
+  title: "Making It Real",
+  color: "#E11D48",
+  lessons: [{
+    id: "m6", num: "06", title: "Building the Business Case", vk: "m5",
+    reading: "# Building the Business Case\n\n## Why Most AI Business Cases Fail Review\n\nThey forecast a benefit the organisation has no way to collect. A model that saves each of 400 people twenty minutes a day does not produce 133 hours of recovered capacity \u2014 it produces 400 people with slightly easier days. The saving is real; the *benefit* is only real if something changes as a result.\n\n## The Chain That Has to Hold\n\nEvery credible case runs the same chain, and it breaks at whichever link is weakest:\n\n**Model works \u2192 people use it \u2192 a decision or task changes \u2192 that change has a measurable value \u2192 the organisation captures that value.**\n\nMost cases prove the first link and assume the rest. Adoption is where they usually break: a tool nobody opens has an accuracy figure and no benefit at all.\n\n## Costs People Forget\n\n- **Inference cost at scale.** Pilot volumes and production volumes are different businesses.\n- **The human in the loop.** If a person checks every output, you have added a step, not removed one. Sometimes that is right \u2014 but it belongs in the cost line.\n- **Monitoring and retraining.** Models decay. Budget for the second year, not just the build.\n- **Integration.** Usually the largest line and the one estimated last.\n- **Change and training.** Chronically underfunded, and the usual cause of low adoption.\n\n## Attribution Is Genuinely Hard\n\nIf handling time falls 12% after a copilot launch, how much was the copilot? Volumes changed, staffing changed, the season changed. Options, roughly in order of strength:\n\n1. **Staged rollout with a holdout group.** The cleanest evidence available in most organisations.\n2. **Before-and-after with a control team.** Weaker, workable.\n3. **Before-and-after alone.** Suggestive, not evidence. Say so.\n\nA case that is honest about attribution reads as more credible, not less.\n\n## Write Down the Kill Criteria\n\nState in advance what result would mean stopping. \u201cIf adoption is below 30% at week 12, we stop.\u201d Programmes without kill criteria do not get killed; they get quietly extended until someone senior loses interest, having consumed budget that had better uses.\n\n## Sizing Honestly\n\nGive a range and name the assumption it turns on. A single confident number invites a challenge you cannot win, and it hides the one variable everyone should be arguing about.",
+    artifact: {
+      type: "weigh",
+      title: "Fund the pilot portfolio",
+      caption: "60 units of delivery capacity across five candidates. Concentration raises the modelled return and removes your ability to survive one failing.",
+      budget: 60, step: 5, unit: "delivery weeks",
+      target: 14, riskCap: 17, minSpread: 3,
+      options: [
+        {name: "Service copilot", desc: "Clear benefit, but the saving only lands if handling volumes are rebalanced.", yield: 6.5, scale: 13, risk: 0.30},
+        {name: "Document extraction", desc: "Unglamorous, measurable, low downside. Benefit is captured automatically.", yield: 5.5, scale: 10, risk: 0.12},
+        {name: "Demand forecasting", desc: "Largest prize. Depends on data quality work landing first.", yield: 7.5, scale: 16, risk: 0.40},
+        {name: "Data quality remediation", desc: "No headline. Two other projects fail without it.", yield: 6.0, scale: 14, risk: 0.08},
+        {name: "Change and training", desc: "Chronically underfunded. The usual reason adoption stalls at 20%.", yield: 4.5, scale: 9, risk: 0.05}
+      ],
+      passNote: "Spread across genuinely different failure modes, the enabling work funded, and change capacity resourced rather than assumed. This portfolio can lose one project and continue.",
+      failNote: "Check the shape. Piling capacity into the biggest prize looks efficient until the data work it depends on is unfunded \u2014 and a portfolio with no change capacity produces accurate models nobody opens."
+    }
+  },{
+    id: "m7", num: "07", title: "Vendor Selection and Lock-In", vk: "m1",
+    reading: "# Vendor Selection and Lock-In\n\n## Buying Something That Changes Monthly\n\nAI procurement breaks the usual pattern. The capability you evaluate is not the capability you will run in a year, prices move sharply in both directions, and the strongest vendor today may not exist in three years.\n\n## Build, Buy or Wrap\n\n- **Buy** a finished application when the problem is common and the differentiation is not yours. Most document processing sits here.\n- **Wrap** a foundation model behind your own interface and data when the workflow is specific to you and the model is a component. Most enterprise AI belongs here.\n- **Build** the model itself only where you hold data nobody else has and the accuracy difference is worth the cost.\n\nThe most common error is building when wrapping would do, usually because the team wants to.\n\n## The Questions Vendors Find Uncomfortable\n\n1. **Where does our data go, and is it used for training?** Get it in the contract, not the sales deck.\n2. **What happens to our prompts, embeddings and fine-tunes if we leave?** Portable, or gone?\n3. **Which underlying model, and what notice before it changes?** A silent model swap can alter your outputs overnight.\n4. **What is the evidence for the accuracy claim?** On whose data, measured how?\n5. **What are your obligations under the EU AI Act, and which fall to us?** If you deploy their system, some obligations are yours regardless of what the contract says.\n6. **What does this cost at ten times the volume?** Per-seat pricing and per-token pricing behave very differently at scale.\n\n## Designing for Exit\n\nAssume you will change vendor within three years, then reduce what that costs:\n\n- Keep prompts, evaluation sets and business logic in **your** systems, not theirs\n- Insist on data export in a usable format, tested before you need it\n- Prefer an abstraction layer over direct calls to one provider\n- Keep your evaluation suite provider-neutral, so a swap can be measured rather than argued about\n\nThe evaluation suite is the underrated one. Without it, changing model is a leap of faith; with it, it is a Tuesday.\n\n## Pilots That Prove Something\n\nA vendor pilot on the vendor's chosen examples proves nothing. Run it on your data, including the hard cases you already know your current process fails. Define the pass mark in writing before it starts.\n\n## The Cheapest Option Nobody Considers\n\nSometimes the answer is a well-configured off-the-shelf tool your staff already have licences for, used properly. It is rarely the exciting recommendation and it is often the right one.",
+    artifact: {
+      type: "scenario",
+      title: "The procurement",
+      caption: "A vendor has demoed well and the sponsor wants to sign this quarter. Four questions decide what you are actually buying.",
+      steps: [
+        {
+          situation: "The demo scored 94% accuracy on document extraction. The sponsor wants to proceed.",
+          options: [
+            {t: "Proceed \u2014 94% comfortably beats the current process", ok: false, why: "You do not know what that number measures. Vendor accuracy figures are on vendor-selected data, and the cases your current process fails are usually the ones excluded from a demo set."},
+            {t: "Run a pilot on your own documents, including known hard cases", ok: true, why: "The only pilot worth running. Define the pass mark in writing first, and include the documents your existing process gets wrong \u2014 those are the ones you are buying a solution for."},
+            {t: "Ask for a discount given the strong result", ok: false, why: "Negotiating the price of something you have not verified. The commercial conversation is easier after the pilot, not before."}
+          ]
+        },
+        {
+          situation: "The pilot returns 81% on your documents. Still better than today's 68%.",
+          options: [
+            {t: "Reject it \u2014 the vendor overstated by 13 points", ok: false, why: "A gap between demo and reality is expected, not evidence of bad faith. 81% against 68% may be a perfectly good deal; the question is what the remaining 19% costs to handle."},
+            {t: "Accept the figure and model the cost of handling the 19%", ok: true, why: "The right analysis. If every uncertain extraction needs human review, you have added a checking step rather than removed a processing one \u2014 and that belongs in the business case as a cost line."},
+            {t: "Ask the vendor to fine-tune until it reaches 94%", ok: false, why: "Possible, and it changes what you are buying: a bespoke model with retraining obligations and a much stronger lock-in. Worth doing knowingly, not as a way to rescue a number."}
+          ]
+        },
+        {
+          situation: "Contract review. The vendor will not commit in writing that your documents are excluded from training.",
+          options: [
+            {t: "Accept their verbal assurance \u2014 their sales team was clear", ok: false, why: "A commitment that will not survive being written down is not a commitment. This clause is also the one your regulator and your customers will ask about, and a sales conversation is not an answer."},
+            {t: "Make it a condition, and walk if it is refused", ok: true, why: "Correct, and refusal tells you something important about how they treat customer data generally. This is among the few genuinely non-negotiable clauses in AI procurement."},
+            {t: "Accept it but only send low-sensitivity documents", ok: false, why: "Sounds like a control and is not one. Classification drifts, staff paste what is convenient, and you have built a policy that depends on nobody making a mistake for three years."}
+          ]
+        },
+        {
+          situation: "They agree. Now they want prompts and configuration held in their platform, for support reasons.",
+          options: [
+            {t: "Agree \u2014 it is their product and support matters", ok: false, why: "This is where lock-in is actually created. Prompts, evaluation sets and business logic are your accumulated understanding of the problem, and leaving them on the vendor's platform means changing vendor starts from zero."},
+            {t: "Keep prompts and evaluation sets in your own systems", ok: true, why: "The single most effective anti-lock-in measure available. With a provider-neutral evaluation suite, switching becomes something you can measure rather than argue about."},
+            {t: "Agree now and export them before renewal", ok: false, why: "Export paths that have never been tested tend not to work when you need them. If portability matters at renewal, it has to be proven at signature."}
+          ]
+        }
+      ],
+      passNote: "Piloted on your own hard cases, priced the residual manual work, refused to leave the training clause verbal, and kept your prompts and evaluations portable. That contract is one you can leave.",
+      failNote: "Four things decide this: pilot on your data not theirs, cost the cases the model misses, get the data-use clause in writing, and keep prompts and evaluation sets in your systems."
+    }
+  },{
+    id: "m8", num: "08", title: "Leading a Team Through AI Change", vk: "m4",
+    reading: "# Leading a Team Through AI Change\n\n## The Resistance Is Usually Rational\n\nWhen a team is unenthusiastic about an AI rollout, the standard reading is fear of change. More often it is an accurate assessment of the incentives: the tool adds a checking step, the productivity gain is measured but the quality gain is not, and nobody has said what happens to the time saved.\n\nTreat resistance as information about your plan before you treat it as an attitude problem.\n\n## The Question Everyone Is Asking Silently\n\n**\u201cAm I being made more productive, or more replaceable?\u201d**\n\nIf you do not answer it, people will answer it for themselves, usually pessimistically, and adoption will stall while everyone waits to see what happens to the first team that gets efficient.\n\nAnswer it explicitly, and only in ways you can hold to. A promise about job security you cannot guarantee is worse than an honest statement about what you do and do not know.\n\n## What the Time Is For\n\nIf a tool saves each person forty minutes a day and nothing is said about what that time is for, the team will conclude it is for more work. Naming the intent \u2014 clearing the backlog, reducing overtime, more time on complex cases \u2014 changes how the tool is received before anyone opens it.\n\n## Who to Involve First\n\nNot the enthusiasts. Involve the most respected sceptic in the team.\n\nEnthusiasts will adopt regardless and their endorsement persuades nobody. If the person who asks the hard questions is involved early and their objections visibly change the rollout, the rest of the team relaxes. If that person is bypassed, everyone notices.\n\n## Measure the Right Thing\n\nEarly AI metrics tend to measure usage because usage is easy to count. Usage tells you the tool was opened. Better questions:\n\n- What did people **stop** doing?\n- Where do they **override** the model, and are they right to?\n- Which cases still come to a human, and is that the right set?\n- Has quality moved, in either direction?\n\nThe override data is the most valuable and the least collected. It tells you where the model is weak and where your team's judgement is doing work the metrics never capture.\n\n## Protect the Learning Path\n\nAI tools are often best at the tasks juniors learn on. If the model does all the first drafts, your juniors stop developing the judgement that makes seniors. This is a real cost that appears three years later, and it needs a deliberate answer: reserved work, review-then-compare exercises, or explicit practice time.\n\n## Move at the Speed of Trust\n\nA rollout that arrives with a deadline and no consultation gets compliance. One that arrives with a pilot group, visible changes from their feedback, and an honest account of what is uncertain gets adoption. The second is slower to start and far faster to finish.",
+    artifact: {
+      type: "scenario",
+      title: "The rollout nobody asked for",
+      caption: "You are rolling a copilot out to a team of 30. Adoption is at 22% in week six.",
+      steps: [
+        {
+          situation: "Week six, 22% adoption. Your sponsor suggests mandating use and reporting weekly usage stats.",
+          options: [
+            {t: "Mandate it \u2014 adoption will not happen voluntarily", ok: false, why: "You will get logins, not use. Mandated usage produces exactly enough activity to satisfy the report and tells you nothing about whether the tool helps. It also confirms every suspicion the team already had."},
+            {t: "Find out why the 78% are not using it", ok: true, why: "The number is a symptom. Low adoption usually means the tool adds a step, produces output people do not trust, or nobody has said what the saved time is for. All three are fixable; none is fixed by a mandate."},
+            {t: "Extend the pilot and hope it improves", ok: false, why: "Time alone does not change incentives. Six more weeks of the same conditions produces the same number."}
+          ]
+        },
+        {
+          situation: "The team says the output needs checking every time, so it is faster to do the task themselves. They are largely right.",
+          options: [
+            {t: "Tell them checking gets faster with familiarity", ok: false, why: "Partly true and it dismisses an accurate observation. If verification genuinely costs more than the task, the team is behaving correctly and the deployment is wrong for this use case."},
+            {t: "Find the subset of cases where the model is reliable and scope it to those", ok: true, why: "The right move. Most copilots are strong on a narrow band and mediocre elsewhere. Scoping to where it earns its keep converts a rejected tool into a used one."},
+            {t: "Accept it does not work here and withdraw the tool", ok: false, why: "Premature. The finding is that it does not work for *every* case, which is different, and the reliable subset is usually worth having."}
+          ]
+        },
+        {
+          situation: "A respected senior member of the team is openly sceptical. Others are watching her.",
+          options: [
+            {t: "Work around her and build momentum with the enthusiasts", ok: false, why: "Everyone will notice she was bypassed, and it confirms that feedback is unwelcome. Enthusiast endorsement persuades no one who was not already persuaded."},
+            {t: "Involve her in shaping the next phase and act on what she raises", ok: true, why: "The highest-leverage move available. If the team's most credible sceptic visibly changes the rollout, her scepticism becomes your quality control instead of your obstacle."},
+            {t: "Ask her to keep concerns to one-to-ones", ok: false, why: "This suppresses the signal without addressing it, and the team reads it accurately as the objection being inconvenient rather than wrong."}
+          ]
+        },
+        {
+          situation: "Adoption reaches 71%. A team leader notices juniors now produce first drafts with the tool and their independent writing has weakened.",
+          options: [
+            {t: "Accept it \u2014 the tool is part of the job now", ok: false, why: "Possibly true for the task and false for the career. Juniors build judgement on exactly the work the model now does, and the cost of skipping that appears in three years when they cannot review what the model produces."},
+            {t: "Reserve some work as unaided practice and review the difference", ok: true, why: "A deliberate answer to a real cost. Comparing an unaided draft with the assisted one also teaches juniors where the model is weak, which is the judgement you need them to have."},
+            {t: "Restrict junior access to the tool", ok: false, why: "Solves the skill problem and creates a two-tier team, while denying juniors the tool they will be expected to use everywhere else."}
+          ]
+        }
+      ],
+      passNote: "You read low adoption as information, scoped the tool to where it genuinely helps, made your sceptic part of the design, and protected the path juniors learn on. That is the difference between a rollout and a mandate.",
+      failNote: "Try again. Low adoption is usually a rational response to incentives \u2014 fix the incentives rather than the compliance. And the team's most credible sceptic is your best quality control, not your obstacle."
+    }
+  }]
+}],
   leaders: [{
     id: "gov",
     icon: "[gov]",
@@ -3725,7 +4080,102 @@ var CURRICULUM = {
         e: "Clause 5 requires top management to demonstrate commitment by establishing an AI policy addressing: the organisation's responsible AI approach, commitments to applicable requirements, and commitments to continual improvement."
       }]
     }]
-  }],
+  },{
+  id: "practice",
+  icon: "[exec]",
+  title: "Governance Under Pressure",
+  color: "#94A3B8",
+  lessons: [{
+    id: "l6", num: "06", title: "Allocating the AI Budget", vk: "l1",
+    reading: "# Allocating the AI Budget\n\n## The Decision Nobody Prepares You For\n\nEvery board eventually faces the same paper: six credible AI proposals, one budget, and sponsors who each believe theirs is the strategic one. The failure mode is rarely picking a bad project. It is funding one thing heavily because its sponsor argued best.\n\n## Returns Diminish, and Faster Than People Expect\n\nThe first tranche of funding into a use case buys the pilot, the data access and the first working version. The fourth tranche buys marginal accuracy that nobody outside the team will notice.\n\nThis is not a reason to underfund. It is a reason to notice when a proposal is asking for its fourth tranche while three others have had none.\n\n## Portfolio Thinking\n\nTreat AI investment the way you would treat any portfolio of uncertain bets:\n\n- **Spread across failure modes, not just across departments.** Three projects that all depend on the same data platform are one bet wearing three coats.\n- **Fund the boring one.** Data quality and access work rarely has a sponsor, and almost every stalled AI programme stalled there.\n- **Size the downside, not just the upside.** For each proposal, ask what it costs if it fails publicly \u2014 regulatory exposure, customer trust, staff time already committed.\n- **Keep a reserve.** The most valuable use case in eighteen months is usually one nobody has proposed yet.\n\n## The Questions That Separate Proposals\n\nMost AI business cases look similar on paper. These four pull them apart:\n\n1. **What decision changes if this works?** If nobody acts differently, the return is zero regardless of model accuracy.\n2. **Who owns it after the pilot?** Projects without a named operational owner do not survive contact with the second quarter.\n3. **What is the failure we would not survive?** Not the likeliest failure \u2014 the worst one.\n4. **How would we know it stopped working?** Models decay. A programme with no monitoring plan has an expiry date nobody has written down.\n\n## The Concentration Trap\n\nBoards under pressure to show progress tend to concentrate. One large, visible programme is easier to report than six small ones. It is also the configuration where a single failure removes the organisation's entire AI capability and, usually, its appetite to try again.\n\n## What to Take Into the Room\n\nA one-page allocation with the reasoning attached beats a detailed case for the favourite. The reasoning is what your successor needs, and what a regulator will ask for.",
+    artifact: {
+      type: "weigh",
+      title: "Allocate the year's AI budget",
+      caption: "\u20B912 crore, six proposals. Returns diminish as you concentrate, and each carries a different downside if it fails publicly.",
+      budget: 120, step: 5, unit: "\u20B9 lakh (in tens)",
+      target: 18, riskCap: 34, minSpread: 4,
+      options: [
+        {name: "Customer service copilot", desc: "High visibility, proven pattern, moderate regulatory exposure.", yield: 7.5, scale: 22, risk: 0.30},
+        {name: "Data platform and access", desc: "No sponsor, no headline. Almost every stalled programme stalled here.", yield: 8.0, scale: 26, risk: 0.10},
+        {name: "Credit risk model refresh", desc: "Strong return, heavily regulated. A public failure is a regulatory event.", yield: 8.5, scale: 20, risk: 0.55},
+        {name: "Internal knowledge search", desc: "Unglamorous, broad benefit, low downside if it underperforms.", yield: 5.0, scale: 18, risk: 0.12},
+        {name: "Supply chain forecasting", desc: "Real savings, depends on data quality being fixed first.", yield: 6.5, scale: 24, risk: 0.25},
+        {name: "Unallocated reserve", desc: "The best use case in eighteen months has not been proposed yet.", yield: 3.5, scale: 30, risk: 0.05}
+      ],
+      passNote: "A spread portfolio, the platform work funded, downside inside the stated appetite and something held back. That allocation survives one project failing \u2014 which is the only test that matters.",
+      failNote: "Look at the shape rather than the total. Concentration raises the modelled return and removes your ability to absorb a single failure, and the unfunded platform work is what quietly stalls everything else."
+    }
+  },{
+    id: "l7", num: "07", title: "The AI Incident Tabletop", vk: "l3",
+    reading: "# The AI Incident Tabletop\n\n## The Hour That Defines the Year\n\nAI incidents do not arrive as model metrics. They arrive as a journalist's email, a regulator's letter, or a customer's screenshot with forty thousand shares. What the organisation does in the first hour largely determines the next twelve months.\n\n## Why AI Incidents Are Different\n\nThree things make them harder than a conventional outage:\n\n- **You often cannot explain what happened quickly.** \u201cWhy did it do that?\u201d may take weeks to answer properly, and \u201cwe don't yet know\u201d sounds like evasion.\n- **The harm may already be distributed.** By the time you notice, the model has made thousands of decisions on the same faulty basis.\n- **Turning it off has its own cost.** Suspending the system may itself harm customers who now depend on it.\n\n## The First Hour\n\nDecide these in advance, because you will not think clearly on the day:\n\n1. **Who can suspend the system?** Name a role, not a committee. If suspension needs three signatures, it will not happen in an hour.\n2. **What gets preserved immediately?** Model version, inputs, logs, the exact prompt and configuration. Evidence is routinely lost in the first hour of an incident.\n3. **Who speaks?** One voice. AI incidents attract confident speculation from every direction, including inside the company.\n4. **What is the holding statement?** Something true and short beats something complete and late.\n\n## Saying What You Do Not Know\n\nThe strongest position in an AI incident is precise honesty about the boundary of your knowledge. \u201cWe have suspended the system, we have identified 4,200 affected decisions, we do not yet know the cause and we will publish what we find\u201d is credible. A confident explanation later found to be wrong is not recoverable.\n\n## Remediation Is the Real Test\n\nRegulators and customers judge organisations far more on remediation than on the original failure. Who was affected, how were they made whole, and what stops it recurring. A programme that cannot answer the first question \u2014 who was affected \u2014 will find everything else harder.\n\n## Rehearse It\n\nA two-hour tabletop with the actual decision-makers is worth more than any written plan. Run it before you need it, and run it with the awkward variant: the system is working exactly as designed, and the design is the problem.",
+    artifact: {
+      type: "scenario",
+      title: "09:40 on a Tuesday",
+      caption: "A screenshot is spreading. You chair the response. Five decisions, in order, with the clock running.",
+      steps: [
+        {
+          situation: "09:40. A customer posts a screenshot showing your loan triage model declining applicants from one postcode at an unusual rate. It has 12,000 shares. Your data science lead says the model is behaving as specified.",
+          options: [
+            {t: "Respond publicly that the model works as designed", ok: false, why: "It may be true and it is the wrong first move. \u2018Working as designed\u2019 is not a defence if the design produces a discriminatory outcome \u2014 it is an admission that the outcome was specified. You also do not yet know whether the screenshot is representative."},
+            {t: "Convene the response, preserve the evidence, say nothing publicly yet", ok: true, why: "Correct order. Model version, inputs and logs are routinely lost in the first hour, and once gone you cannot reconstruct what happened. A holding position costs little; destroyed evidence costs the investigation."},
+            {t: "Suspend the model immediately", ok: false, why: "Possibly right shortly, but not before you know who depends on it. Suspension has its own victims \u2014 applicants mid-process \u2014 and doing it reflexively can turn one problem into two."}
+          ]
+        },
+        {
+          situation: "10:15. Analysis confirms a real disparity. The postcode correlates strongly with an ethnic group. The model never used ethnicity as a feature.",
+          options: [
+            {t: "State publicly that ethnicity was not used as an input", ok: false, why: "True, irrelevant, and it will read as a technicality. A proxy variable produces the same outcome as the protected characteristic. Leading with this destroys credibility for everything you say afterwards."},
+            {t: "Treat it as a live discriminatory outcome regardless of the inputs", ok: true, why: "The right framing legally and morally. Regulators assess outcomes, not feature lists. Proxy discrimination through postcode is one of the best-documented failure modes there is."},
+            {t: "Wait for the full root cause before characterising it", ok: false, why: "You already have enough to know the outcome is discriminatory. Waiting for the mechanism before acknowledging the effect is how organisations lose the benefit of having acted quickly."}
+          ]
+        },
+        {
+          situation: "11:00. You must decide on suspension. 340 applications are mid-process. Suspending delays all of them.",
+          options: [
+            {t: "Keep it running while you investigate \u2014 suspension harms customers too", ok: false, why: "Every hour it runs adds affected decisions to a harm you have already confirmed. The 340 delayed applications are a real cost, and a smaller one than continuing to decide on a basis you know to be faulty."},
+            {t: "Suspend, and move the 340 to manual review with a named owner", ok: true, why: "This is the answer that takes both harms seriously. You stop adding to the affected population and you protect the people already in the pipeline rather than abandoning them to a queue."},
+            {t: "Suspend and pause all 340 until the investigation concludes", ok: false, why: "Stops the harm and creates a new one. An investigation may take weeks; those applicants did nothing wrong and should not wait on it."}
+          ]
+        },
+        {
+          situation: "13:30. A journalist asks what caused it. You do not yet know.",
+          options: [
+            {t: "Offer your best current hypothesis to seem responsive", ok: false, why: "The most expensive sentence available. A hypothesis published as an explanation and later found wrong costs you the credibility you will need for the remediation, which is the part you will actually be judged on."},
+            {t: "State what you have done and what you do not yet know", ok: true, why: "Precise honesty about the boundary of your knowledge is the strongest position in an AI incident. Suspended, this many affected, cause unknown, findings will be published \u2014 all true, all verifiable."},
+            {t: "Decline to comment until the investigation is complete", ok: false, why: "Silence in a live incident is read as concealment, and it leaves the story to be told by people with less information than you have."}
+          ]
+        },
+        {
+          situation: "Day 9. Root cause found and fixed. The board asks what closes this out.",
+          options: [
+            {t: "The fix, plus a post-incident report to the board", ok: false, why: "Internally tidy and it leaves the affected people where they were. Remediation is what regulators and customers judge, and a report to your own board is not remediation."},
+            {t: "Identify everyone affected, re-decide their applications, and publish the findings", ok: true, why: "The three things that actually close an AI incident. Being able to answer \u2018who was affected\u2019 is the capability most programmes lack, and it is the first question you will be asked."},
+            {t: "Offer compensation to anyone who complains", ok: false, why: "This rewards the confident and misses everyone who never knew. If you can identify the affected decisions, you can put them right without waiting to be asked."}
+          ]
+        }
+      ],
+      passNote: "Evidence preserved before comment, outcome treated as discriminatory regardless of features, suspension paired with a plan for those mid-process, honest about the unknown, and remediation reaching everyone affected rather than everyone who complained. That is a defensible response.",
+      failNote: "Run it again with the order in mind: preserve evidence, judge the outcome rather than the feature list, stop the harm without creating a new one, be precise about what you do not know, and remediate to the whole affected population."
+    }
+  },{
+    id: "l8", num: "08", title: "Assurance That Survives an Audit", vk: "l5",
+    reading: "# Assurance That Survives an Audit\n\n## The Gap Between Policy and Evidence\n\nMost organisations now have an AI policy. Very few can produce, on request, the evidence that it was followed for a specific model on a specific date. That gap is what an audit finds, and it is where governance programmes fail.\n\n## What an Auditor Actually Asks For\n\nNot your principles. Artefacts:\n\n- **An inventory.** Every AI system in use, who owns it, what decisions it affects. Most organisations cannot produce this, and shadow AI in business units is the usual reason.\n- **A risk classification per system**, with the reasoning recorded, not just the conclusion.\n- **Evidence of pre-deployment testing**, including what was tested for bias and what the results were.\n- **A record of human oversight** \u2014 not that a human could intervene, but that one did, with what effect.\n- **Monitoring output over time**, showing you would notice degradation.\n- **Incident records**, including the ones that turned out to be nothing.\n\n## Documenting the Decision, Not Just the Outcome\n\nThe most common weakness is recording what was decided without recording why. \u201cClassified as limited risk\u201d is not evidence. \u201cClassified as limited risk because it makes no automated decision about individuals, ratified by the AI committee on 12 March, dissenting view from Legal recorded\u201d is.\n\nDissent in particular is worth capturing. A record showing an objection was raised and addressed is far stronger than one implying unanimity that did not exist.\n\n## Frameworks Are Scaffolding, Not Substance\n\nISO 42001, the NIST AI RMF and the EU AI Act's obligations overlap heavily. Adopting one gives you a defensible structure and a vocabulary auditors recognise. It does not give you assurance \u2014 the evidence does. Certification against a standard while the inventory is incomplete is a certificate describing a system you do not have.\n\n## The Question to Ask Your Own Programme\n\n**If a regulator wrote today asking about one specific model, how long would it take to answer, and would the answer be complete?**\n\nIf the honest answer is weeks and probably not, the gap is in evidence collection, not in policy. Policy is the cheap part.\n\n## Proportionality\n\nNot every model needs the same rigour. A model recommending internal documents does not warrant what a credit decision warrants. Assurance that applies maximum process to everything collapses under its own weight and gets quietly bypassed \u2014 which is worse than lighter controls that are actually followed.",
+    artifact: {
+      type: "sort",
+      title: "Would this satisfy an auditor?",
+      items: [
+        "A board-approved AI ethics policy",
+        "An inventory naming every AI system and its owner",
+        "\u201cClassified as limited risk\u201d with no reasoning recorded",
+        "Bias test results from before deployment, with the thresholds used",
+        "A statement that humans can override the model",
+        "A log of overrides made, by whom, and the outcome"
+      ],
+      bins: ["Evidence \u2014 holds up", "Assertion \u2014 does not"],
+      answers: [1, 0, 1, 0, 1, 0]
+    }
+  }]
+}],
   teens: [{
     id: "ml",
     icon: "[ml]",
@@ -3976,14 +4426,41 @@ var CURRICULUM = {
   teachers: [{
     id: "ai-samarth",
     icon: "[edu]",
-    title: "AI Samarth Course",
+    title: "AI Foundations for Educators",
     color: "#0F7B6C",
     lessons: [{
-      id: "ts1", num: "01", title: "Introduction", vk: "k1",
-      reading: "# AI Samarth \u2014 Free for Every Teacher\n\n## Welcome, Educators\n\n**AI Samarth** is a free, self-paced course designed specifically for teachers who want to understand Artificial Intelligence and use it confidently in the classroom. No coding background is needed \u2014 only curiosity and a willingness to learn.\n\n## Why This Course Exists\n\nAI is reshaping how students learn, how information spreads, and how the world works. Teachers are at the heart of preparing young minds for that world. When educators understand AI, they can guide students to use it wisely, spot its limitations, and stay a step ahead of misinformation.\n\n## What You Will Learn\n\nThis course moves gently from the basics to real classroom use:\n\n- **Understanding AI** \u2014 what it is, and what it is not\n- **Essential Concepts** \u2014 the key ideas every teacher should know\n- **Social Impact and Ethics** \u2014 using AI responsibly and fairly\n- **Practical Applications** \u2014 how AI can save you time and enrich lessons\n\nTwo short quizzes along the way help you check your understanding.\n\n## How to Enrol\n\nThe full **AI Samarth Course is free for all teachers**. Enrol and track your certificate at **aisamarth.centa.org**. Complete every lesson here to reach 100% and unlock your certificate.\n\n## A Note for Teachers\n\nYou already have the most important skill AI will never replace \u2014 the ability to inspire, encourage and understand a child. This course simply adds a new tool to your hands."
+      id: "ts1", num: "01", title: "Start Here", vk: "k1",
+      reading: "# Start Here\n\n## Welcome, Educators\n\nThis track is written for teachers who want to understand Artificial Intelligence and use it confidently in the classroom. No coding background is needed \u2014 only curiosity and a willingness to learn.\n\nEvery lesson, lab and quiz on this site is free to read. You never need to pay to learn here.\n\n## Why This Track Exists\n\nAI is reshaping how students learn, how information spreads, and how the world works. Teachers are at the heart of preparing young minds for that world. When educators understand AI, they can guide students to use it wisely, spot its limitations, and stay a step ahead of misinformation.\n\n## What You Will Learn\n\n**Module 1 \u2014 AI Foundations for Educators** covers the ground every teacher needs:\n\n- **Understanding AI** \u2014 what it is, and what it is not\n- **Essential Concepts** \u2014 the key ideas behind the tools your students already use\n- **Social Impact and Ethics** \u2014 using AI responsibly and fairly\n- **Practical Applications** \u2014 where it genuinely saves you time\n\n**Module 2 \u2014 AI in Your Classroom** is the part you will use on Monday morning:\n\n- **Designing AI-Resilient Assessment** \u2014 setting work that cannot simply be outsourced\n- **Planning and Differentiating with AI** \u2014 prompts that produce material worth editing\n- **Writing a School AI Policy** \u2014 including what counts as evidence in a suspected case\n\nEach lesson carries a hands-on lab. The flagged-essay simulator in Lesson 04 walks through the case most likely to cause real harm in a school.\n\n## About Certification\n\nCompleting the eight lessons is free. If you would like a certificate, that is a separate paid step \u2014 \u20B91,999 for this track \u2014 covering the assessment, a certificate with a unique credential ID, and a public verification page a school or employer can check. You are never required to pay in order to learn.\n\n## A Related Free Course\n\nSeparately from this track, **AI Samarth** is a free, self-paced AI course for teachers run by CENTA, with its own free certificate. It is not part of AI Academia and we earn nothing from it, but it is genuinely good and worth knowing about. You can find it at **aisamarth.centa.org**.\n\nMany teachers do both. They cover different ground \u2014 AI Samarth is a broad introduction, while Module 2 here is about assessment design, classroom practice and policy.\n\n## A Note for Teachers\n\nYou already have the most important skill AI will never replace \u2014 the ability to inspire, encourage and understand a child. This track simply adds a new tool to your hands."
+    ,
+      artifact: {
+    type: "flashcard",
+    title: "What is this lesson actually claiming?",
+    cards: [
+      {f: "AI 'understands' the essay it just marked", b: "No. It scores patterns that correlate with good essays in its training data. It has no model of what the student meant."},
+      {f: "An AI detector said this work is 94% AI-written", b: "That number is not a probability of guilt. Detectors misfire badly, especially on students writing in a second language."},
+      {f: "AI can save a teacher time on admin", b: "Yes, and this is where the evidence is strongest \u2014 planning, differentiation, first-draft feedback, report comments."},
+      {f: "AI can replace a subject teacher", b: "No. It has no relationship with the child, no view of the room, and no accountability for the outcome."},
+      {f: "Anything a student submits that sounds fluent is suspicious", b: "No. This assumption penalises students who have worked hard on their writing, and it is unevenly applied."}
+    ]
+  }
     },{
       id: "ts2", num: "02", title: "Understanding AI", vk: "k1",
       reading: "# Understanding AI\n\n## What Is Artificial Intelligence?\n\nArtificial Intelligence is the ability of a computer program to perform tasks that normally need human intelligence \u2014 understanding language, recognising images, making predictions and learning from examples. Unlike a traditional program that follows fixed rules, an AI system learns patterns from large amounts of data.\n\n## AI You Already Use\n\n- **Voice assistants** like Siri and Google Assistant understand spoken questions\n- **Email spam filters** learn to separate junk from real mail\n- **Recommendations** on YouTube and Netflix suggest what to watch next\n- **Maps** predict traffic and suggest the fastest route\n- **Chatbots** like ChatGPT and Claude answer questions in plain language\n\n## How AI Learns \u2014 In Simple Terms\n\nImagine teaching a child to recognise a mango. You do not give rules; you show many mangoes until the child spots the pattern. AI learns the same way \u2014 from thousands or millions of examples. This is called **machine learning**.\n\n## What AI Is *Not*\n\n- AI does not truly *understand* the way humans do \u2014 it predicts likely answers\n- AI has no feelings, opinions or common sense\n- AI can be confidently wrong; it must always be checked\n\n## Why This Matters in the Classroom\n\nWhen you understand what AI can and cannot do, you can use it as a helpful assistant \u2014 for planning lessons, explaining concepts and creating practice questions \u2014 while keeping your professional judgement firmly in charge."
+    ,
+      artifact: {
+    type: "sort",
+    title: "Where does this belong in your week?",
+    items: [
+      "Drafting five differentiated versions of a worksheet",
+      "Deciding whether a child needs a referral",
+      "Turning your lesson notes into a revision sheet",
+      "Judging whether a student understood the topic",
+      "Writing first-draft report comments to edit",
+      "Telling a parent their child is struggling"
+    ],
+    bins: ["AI can draft it, you check it", "Yours alone \u2014 never delegate"],
+    answers: [0, 1, 0, 1, 0, 1]
+  }
     },{
       id: "ts3", num: "03", title: "Essential Concepts of AI", vk: "t1",
       reading: "# Essential Concepts of AI\n\n## The Building Blocks\n\nA few key ideas unlock most conversations about AI. You do not need to be technical \u2014 just familiar with the vocabulary.\n\n## Data\n\nData is the raw material of AI \u2014 text, images, numbers, sound. The quality and fairness of the data shapes everything the AI does. Poor or biased data leads to poor or biased results.\n\n## Machine Learning\n\nThe method by which computers learn patterns from data instead of being explicitly programmed. Three common styles:\n\n- **Supervised learning** \u2014 learns from labelled examples (this is a cat, this is a dog)\n- **Unsupervised learning** \u2014 finds hidden groupings with no labels\n- **Reinforcement learning** \u2014 learns by trial, error and reward\n\n## Algorithm and Model\n\nAn **algorithm** is the step-by-step method used to learn. A **model** is the trained result \u2014 the thing that makes predictions after learning.\n\n## Generative AI\n\nTools like ChatGPT create new text, images or audio. They work by predicting the most likely next word or pixel, based on patterns learned from huge datasets.\n\n## Prompt\n\nThe instruction you give an AI tool. Clear prompts \u2014 with a role, a task and context \u2014 produce far better results. This is a skill your students will need.\n\n## Key Takeaway for Teachers\n\nAI is powerful but not magical. It is pattern-matching at a large scale. Knowing these words lets you explain AI calmly and accurately to any student or parent.",
@@ -3998,9 +4475,66 @@ var CURRICULUM = {
         a: 0,
         e: "Machine learning is the method by which computers learn patterns from data instead of being explicitly programmed for every case."
       }]
+    ,
+      artifact: {
+    type: "tokens",
+    title: "Why it invents things",
+    caption: "Ask a model for a citation and this is what happens underneath. It is not retrieving \u2014 it is choosing a likely next word.",
+    prompt: "The theory of multiple intelligences was proposed by",
+    candidates: [
+      {w: "Gardner", p: 0.52},
+      {w: "Bloom", p: 0.17},
+      {w: "Vygotsky", p: 0.12},
+      {w: "Piaget", p: 0.11},
+      {w: "Sternberg", p: 0.05},
+      {w: "Kolb", p: 0.03}
+    ]
+  }
     },{
       id: "ts4", num: "04", title: "Social Impact and Ethics of AI", vk: "t5",
       reading: "# Social Impact and Ethics of AI\n\n## Why Ethics Belongs in Every Classroom\n\nAI already influences news feeds, hiring, banking and healthcare. Helping students use it responsibly is now part of a teacher's role. The goal is simple: use AI to help people, never to harm them.\n\n## Bias and Fairness\n\nAI learns from human-created data, and humans carry biases. An AI trained mostly on one group's data may treat other groups unfairly. Teach students to ask: *whose data trained this, and who might it leave out?*\n\n## Privacy and Student Data\n\n- Avoid entering students' personal details into public AI tools\n- Remember that many free tools may use conversations to train future models\n- Model good habits: never share passwords, addresses or others' private information\n\n## Misinformation and Deepfakes\n\nAI can produce fake images, voices and videos that look real. Encourage a habit of verification: *where did this come from, and can I confirm it from a trusted source?*\n\n## Academic Honesty\n\nAI is a wonderful study partner for explaining ideas, checking work and brainstorming \u2014 but submitting AI-written work as one's own is dishonest and skips the real learning. Frame AI for students as a tool to **understand**, not to **replace** their own thinking.\n\n## The Teacher's Golden Rule\n\nKeep a human in charge of every important decision. AI can suggest; the teacher and student decide."
+    ,
+      artifact: {
+    type: "scenario",
+    title: "The flagged essay",
+    caption: "A detector has flagged a Year 10 essay at 92% AI-generated. What happens next matters enormously to this child.",
+    steps: [
+      {
+        situation: "The detector reports 92%. The student is a strong writer who has improved sharply this term. You have no other evidence.",
+        options: [
+          {t: "Treat 92% as near-certainty and open a malpractice case", ok: false, why: "That figure is not a probability that the student cheated. Detectors are unreliable in both directions, and they flag non-native English speakers and unusually polished writing at higher rates. Opening a case on this alone is the most common way real harm is done."},
+          {t: "Treat it as a prompt to look at the work and the process", ok: true, why: "Correct. The detector is at best a reason to look more closely. Drafts, version history, the student's own account and whether the work matches what you have seen from them are all better evidence than a percentage."},
+          {t: "Ignore it entirely \u2014 detectors are useless", ok: false, why: "Too far the other way. It is weak evidence, not no evidence. The right response is to look, not to convict and not to dismiss."}
+        ]
+      },
+      {
+        situation: "You open the document history. It shows forty minutes of continuous typing with no pauses, no revisions, and one paste event at the start.",
+        options: [
+          {t: "The paste event settles it \u2014 this is copied", ok: false, why: "A paste could be their own notes, a quotation, or a plan written elsewhere. It is worth asking about, but it is not proof on its own."},
+          {t: "Note the pattern and ask the student to talk you through their argument", ok: true, why: "The strongest evidence available. A student who built an argument can explain why they ordered it that way and what they cut. One who did not, usually cannot \u2014 and this conversation is fair to both outcomes."},
+          {t: "Ask the AI whether the AI wrote it", ok: false, why: "Models cannot reliably identify their own output, and they will answer confidently either way. This adds nothing except false certainty."}
+        ]
+      },
+      {
+        situation: "In conversation the student explains the argument fluently, names the sources, and describes a paragraph they cut. They also say they used AI to check their grammar.",
+        options: [
+          {t: "Record it as academic malpractice \u2014 they admitted using AI", ok: false, why: "Grammar checking is not writing the argument, and it is the same category of help as a spellchecker or a parent proofreading. Treating disclosed, legitimate use as an offence teaches students to hide it next time."},
+          {t: "Accept the work and use it to sharpen the department's guidance", ok: true, why: "The right call, and the useful part is what happens next. This case shows your policy needs to name which uses are fine, so students and staff are not guessing."},
+          {t: "Give a lower mark as a precaution", ok: false, why: "A precautionary penalty is a penalty without a finding. If the work is theirs, it should be marked as theirs."}
+        ]
+      },
+      {
+        situation: "A colleague suggests the department run every submission through a detector from now on.",
+        options: [
+          {t: "Agree \u2014 consistency is fairer than spot checks", ok: false, why: "Consistent use of an unreliable instrument produces consistent unfairness. It also falls hardest on EAL students, which turns a technical flaw into a discrimination problem."},
+          {t: "Propose assessment design that makes the question moot instead", ok: true, why: "The durable answer. In-class writing, drafts submitted in stages, oral defence of a claim, and questions tied to what happened in your room are all far harder to outsource than they are to detect."},
+          {t: "Ban AI entirely and tell students it is not permitted", ok: false, why: "Unenforceable, and it removes the chance to teach judgement. Students will use these tools for the rest of their lives; a blanket ban means nobody ever discusses how to use them well."}
+        ]
+      }
+    ],
+    passNote: "You treated the detector as a prompt rather than a verdict, went to the student's own reasoning as evidence, and pushed towards assessment design instead of surveillance. That sequence protects the child and the department at the same time.",
+    failNote: "Work through it again. A detector score is weak evidence and falls unevenly on students writing in a second language. Drafts, process and a conversation about the argument are all stronger \u2014 and redesigning the assessment beats detecting after the fact."
+  }
     },{
       id: "ts5", num: "05", title: "Practical Application of AI in Daily Life", vk: "t3",
       reading: "# Practical Application of AI in Daily Life\n\n## AI as Your Teaching Assistant\n\nUsed thoughtfully, AI can save hours of preparation time and make lessons richer. Here are practical, classroom-ready ideas.\n\n## Lesson Planning\n\n- Draft lesson outlines and learning objectives in seconds\n- Generate real-world examples and analogies for tricky topics\n- Adapt the same explanation for different grade levels\n\n## Creating Practice Material\n\n- Produce quizzes, worksheets and revision questions with answer keys\n- Rewrite a passage at an easier or harder reading level\n- Create bilingual explanations for diverse classrooms\n\n## Explaining Difficult Concepts\n\nAsk an AI tool to explain a concept 'as if to a 12-year-old', then refine it into your own words. Always check the output \u2014 you are the subject expert.\n\n## Feedback and Communication\n\n- Draft parent notes, newsletters and event announcements\n- Summarise long documents or circulars quickly\n- Get suggestions for constructive, encouraging feedback\n\n## Everyday Life Beyond School\n\nThe same skills help outside the classroom \u2014 planning travel, drafting messages, summarising articles and answering everyday questions.\n\n## A Safe Way to Start\n\nBegin with one task this week \u2014 perhaps drafting a set of quiz questions. Review the output carefully, edit freely, and keep your professional judgement in charge. Confidence grows with each use.\n\n## Continue Your Journey\n\nYou have completed the AI Samarth journey here. Enrol for the full course and your certificate \u2014 **free for all teachers** \u2014 at **aisamarth.centa.org**.",
@@ -4015,8 +4549,134 @@ var CURRICULUM = {
         a: 0,
         e: "Drafting practice material you then review is a safe, time-saving use. Protecting private data and academic honesty remain essential."
       }]
+    ,
+      artifact: {
+    type: "sort",
+    title: "Would you put this in front of a class?",
+    items: [
+      "An AI-generated worked example you have checked line by line",
+      "An AI-generated reading list you have not opened",
+      "A differentiated worksheet you adapted from an AI draft",
+      "AI-written report comments sent without reading them",
+      "A quiz the AI made from your own lesson notes, reviewed by you",
+      "An AI summary of a student's SEN needs, used instead of the plan"
+    ],
+    bins: ["Yes \u2014 checked and yours", "No \u2014 unchecked or not yours to delegate"],
+    answers: [0, 1, 0, 1, 0, 1]
+  }
     }]
-  }],
+  },{
+  id: "classroom",
+  icon: "[class]",
+  title: "AI in Your Classroom",
+  color: "#0B5F54",
+  lessons: [{
+    id: "ts6", num: "06", title: "Designing AI-Resilient Assessment", vk: "t3",
+    reading: "# Designing AI-Resilient Assessment\n\n## Detection Is a Losing Race\n\nEvery term the models get better and the detectors do not. If your academic integrity strategy rests on catching students afterwards, it will keep getting weaker and it will keep misfiring on the students least able to defend themselves.\n\nThe alternative is to set work that AI cannot do well on the student's behalf. This is more effort once, and then it holds.\n\n## What AI Is Weak At\n\nCurrent models struggle with anything anchored to a specific room, a specific week, or a specific person:\n\n- **What happened in your lesson.** \u201cUsing the titration we ran on Tuesday, explain why Priya's result differed from the class mean.\u201d\n- **Local and personal data.** Work built on a survey the class ran, a measurement they took, a text you chose that is not online.\n- **Process, not product.** A plan, three drafts and a reflection on what changed between them.\n- **Defending a claim out loud.** Two minutes explaining why they structured the argument that way.\n- **Critiquing AI output.** Give them the generated essay and ask them to find its three weakest claims. This is harder than writing one, and it teaches the skill you actually want.\n\n## Staged Submission\n\nThe single highest-value change most departments can make. Instead of one deadline, collect:\n\n1. A plan or outline\n2. A first draft\n3. The final piece, plus a short note on what changed and why\n\nEach stage is small to mark. Together they make the work traceable, and they move your feedback to the point where it can still change the outcome.\n\n## Marking the Thinking, Not the Polish\n\nIf your rubric rewards fluent prose and correct formatting, AI scores highly. If it rewards specificity, use of evidence from your lessons, and awareness of counter-arguments, it scores much less well.\n\nA practical test: **could a capable stranger with no memory of your classroom write this?** If yes, the task is outsourceable.\n\n## What to Keep\n\nNone of this means abandoning essays. Extended writing is still how students learn to hold an argument together. It means the essay sits inside a process you can see, rather than arriving whole from a printer.\n\n## A Note on Fairness\n\nWhatever you adopt, apply it to every student equally. The most common failure in this area is not students cheating \u2014 it is a policy applied more suspiciously to some children than others.",
+    artifact: {
+      type: "sort",
+      title: "Could a stranger write this?",
+      items: [
+        "Discuss the causes of the First World War",
+        "Explain why our class survey contradicted the national figure",
+        "Write a persuasive letter about climate change",
+        "Critique the three weakest claims in this AI-written essay",
+        "Summarise the plot of the novel",
+        "Compare your first draft with your final one and explain what you cut"
+      ],
+      bins: ["Outsourceable \u2014 redesign it", "Anchored \u2014 holds up"],
+      answers: [0, 1, 0, 1, 0, 1]
+    }
+  },{
+    id: "ts7", num: "07", title: "Planning and Differentiating with AI", vk: "t3",
+    reading: "# Planning and Differentiating with AI\n\n## Where the Time Actually Goes\n\nThe strongest evidence for AI in teaching is not in the classroom. It is in the two hours on Sunday evening spent making four versions of the same worksheet.\n\n## Prompts That Produce Usable Material\n\nThe difference between a useless output and a usable one is nearly always specificity. Compare:\n\n> *\u201cMake a worksheet about fractions.\u201d*\n\nwith\n\n> *\u201cYou are a Year 5 maths teacher in India. Create a 12-question worksheet on adding fractions with unlike denominators. Questions 1\u20134 use denominators under 10. Questions 5\u20139 include one word problem per pair. Questions 10\u201312 are extension. Give an answer key with working. Use rupee amounts and Indian names in the word problems.\u201d*\n\nThe second one is a first draft you can edit. The first is a waste of five minutes.\n\n## The Four Elements Worth Stating\n\n1. **Who you are and who it is for** \u2014 subject, year group, context\n2. **The precise task** \u2014 how many, what type, what difficulty spread\n3. **The format** \u2014 table, worksheet, three-column plan, answer key included\n4. **What to avoid** \u2014 \u201cno American spellings\u201d, \u201cno examples involving family income\u201d\n\n## Differentiation in Practice\n\nGive it a task you already use and ask for three versions: one for students working below the expected standard, one at it, one beyond. Then ask for the same content as a set of scaffolded questions for a student with reading difficulties.\n\nThis is the use that saves the most time and carries the least risk, because you are adapting material you already trust.\n\n## Always Check the Subject Content\n\nAI is confidently wrong about facts, dates, formulae and citations. Everything that goes in front of a class needs your eyes on it first \u2014 not because the tool is bad, but because the accountability is yours and always will be.\n\nA reasonable rhythm: generate, read every line, fix what is wrong, then use it.\n\n## What Not to Delegate\n\nSome things look like admin and are not:\n\n- Deciding a child needs a referral\n- Judging whether a student has understood something\n- The wording of a difficult message to a parent\n- Anything involving a child's SEN plan or safeguarding record\n\nAI may help you draft the words. The judgement stays with you, and so does the responsibility.\n\n## Protecting Student Data\n\nNever paste a named child's work, assessment data, medical information or behaviour record into a public AI tool. If you need help with a report comment, describe the situation without the name and without anything identifying. Your school will have a policy on this; if it does not, that is worth raising.",
+    artifact: {
+      type: "scenario",
+      title: "Sunday evening, four prompts",
+      caption: "You have two hours and a lot to prepare. Each choice either saves you time or creates a problem.",
+      steps: [
+        {
+          situation: "You need a differentiated worksheet on photosynthesis for a mixed Year 8 class.",
+          options: [
+            {t: "\u201cMake a photosynthesis worksheet\u201d", ok: false, why: "You will get something generic, pitched at no particular year group, and you will spend longer fixing it than writing it. The specificity is what makes this worth doing."},
+            {t: "State the year group, the three ability bands, the question count and the format", ok: true, why: "This is the prompt that produces an editable first draft. Naming the bands is what turns one worksheet into the three you actually needed."},
+            {t: "Ask it to teach the lesson for you", ok: false, why: "Not a real option, and it points at the wrong target. The time saving is in preparation, not delivery."}
+          ]
+        },
+        {
+          situation: "The worksheet comes back well formatted. One question describes chlorophyll absorbing green light.",
+          options: [
+            {t: "Print it \u2014 the formatting is excellent and time is short", ok: false, why: "That statement is wrong: chlorophyll reflects green, which is why leaves look green. Fluent formatting is exactly what makes these errors easy to miss, and thirty students will learn it wrong."},
+            {t: "Read every line, correct the error, then use it", ok: true, why: "The right rhythm. Generate, check, fix, use. The tool drafts; the accountability is still yours and cannot be delegated."},
+            {t: "Ask the AI whether the worksheet is accurate", ok: false, why: "It will often say yes. A model has no reliable way to audit its own output, so this adds confidence without adding accuracy."}
+          ]
+        },
+        {
+          situation: "Next, report comments. You want help with wording for a student who has struggled all term.",
+          options: [
+            {t: "Paste the child's name, grades and behaviour log and ask for a comment", ok: false, why: "This puts identifiable data about a child into a third-party system, likely in breach of your school's data policy. It is also unnecessary \u2014 the tool does not need the name to help with the wording."},
+            {t: "Describe the situation without the name or anything identifying", ok: true, why: "Exactly right. You get the help with phrasing, the child's data stays where it belongs, and you can defend the decision to anyone who asks."},
+            {t: "Write it yourself \u2014 AI cannot be trusted with reports", ok: false, why: "Understandable caution, but it gives up a legitimate saving. The problem is the identifying data, not the drafting help."}
+          ]
+        },
+        {
+          situation: "A colleague asks you to run a struggling student's SEN plan through AI to summarise it for the cover teacher.",
+          options: [
+            {t: "Do it \u2014 a summary would genuinely help the cover teacher", ok: false, why: "SEN records are among the most sensitive data a school holds. However helpful the summary, this is not yours to upload, and a cover briefing can be written without the document leaving school systems."},
+            {t: "Decline, and offer to write a short briefing yourself", ok: true, why: "The right answer, and it still solves your colleague's problem. The need was a usable summary, not the specific method."},
+            {t: "Remove the name first, then upload it", ok: false, why: "Better instinct, but SEN plans are identifying even without a name \u2014 the combination of needs, year group and provision often narrows to one child. Some documents simply do not go into these tools."}
+          ]
+        }
+      ],
+      passNote: "You were specific enough to get usable material, checked the subject content before it reached students, and kept identifiable child data out of a third-party system. That is the whole of safe, useful classroom practice.",
+      failNote: "Two rules cover all four. Be specific enough that the output is worth editing, and never let a named child's data leave your school's systems. Everything the AI produces still needs your eyes before a student sees it."
+    }
+  },{
+    id: "ts8", num: "08", title: "Writing a School AI Policy", vk: "t5",
+    reading: "# Writing a School AI Policy\n\n## Why Silence Is the Worst Option\n\nMost schools now have students using AI daily and no written position. That leaves individual teachers improvising, students guessing, and any dispute resolved by whoever argues hardest. A short, clear policy is better than a long, perfect one that never gets written.\n\n## Start by Naming What Is Allowed\n\nMost policies begin with prohibitions and never say what is fine. That produces students who hide legitimate use. Invert it. Name the permitted uses explicitly:\n\n- Asking for an explanation in simpler terms\n- Generating practice questions\n- Checking grammar and spelling\n- Asking for feedback on the student's own draft\n- Brainstorming, where the selection is the student's\n\nThen name what is not:\n\n- Submitting generated text as the student's own writing\n- Generating citations without reading the sources\n- Using it in an assessment where the tool is not permitted\n\n## Make Disclosure Routine, Not Punitive\n\nA declaration line on every submission does more work than any detector:\n\n> *State how you used AI on this piece, and what remained yours.*\n\nIf disclosure is normal and safe, students disclose. If disclosure invites suspicion, they stop. Design for the first.\n\n## Be Explicit About Evidence\n\nThis is where policies most often fail. Write down what will and will not be treated as evidence of malpractice:\n\n- A detector score, on its own, is **not** sufficient grounds\n- Drafts, version history, and the student's ability to discuss their own work **are** relevant\n- The student gets to give their account before any finding is made\n\nWithout this, a single teacher's use of an unreliable tool becomes a case against a child.\n\n## Staff Use Needs Rules Too\n\nA policy that only governs students is half a policy. Cover:\n\n- **No identifiable student data** in public AI tools \u2014 names, assessment records, SEN plans, safeguarding notes, medical information\n- **Anything shown to students is checked first** by the teacher who shares it\n- **Decisions about children are not delegated** \u2014 referrals, judgements of understanding, safeguarding\n\n## Keep It Short and Revisit It\n\nOne page that staff have read beats twelve pages in a shared drive. Put a review date on it \u2014 six months is realistic given how fast this moves.\n\n## Involve the Students\n\nThe schools with the least trouble here are the ones where students helped write the rules. They understand the reasoning, they enforce the norms among themselves, and they raise the awkward cases before those cases become incidents.",
+    artifact: {
+      type: "scenario",
+      title: "Drafting the policy",
+      caption: "You have been asked to write your school's AI policy. Four decisions will shape whether it works.",
+      steps: [
+        {
+          situation: "The head asks for a first draft. Where do you begin?",
+          options: [
+            {t: "A list of prohibited uses, so expectations are clear", ok: false, why: "Prohibition-first policies produce students who hide legitimate use, including the uses that help them learn. If a student is afraid to say they asked for an explanation, you have lost the ability to teach judgement."},
+            {t: "A list of permitted uses first, then the prohibited ones", ok: true, why: "Naming what is fine is what makes disclosure safe. Students who know grammar checking is permitted will tell you about it, and that is how you find the cases that matter."},
+            {t: "A blanket ban until the technology settles", ok: false, why: "Unenforceable, and the technology is not going to settle. A ban also means nobody in the school ever practises using these tools well."}
+          ]
+        },
+        {
+          situation: "A colleague wants the policy to say detector scores above 80% trigger an automatic malpractice hearing.",
+          options: [
+            {t: "Include it \u2014 a clear threshold is fair and consistent", ok: false, why: "A consistent rule built on an unreliable instrument produces consistent unfairness. Detectors flag EAL students and unusually polished writing at higher rates, so this clause would fall hardest on particular children."},
+            {t: "Write instead that a detector score alone is never sufficient grounds", ok: true, why: "The most important sentence in the whole policy. It protects students from a bad instrument and protects staff from making a finding they cannot defend."},
+            {t: "Leave evidence standards out and handle cases individually", ok: false, why: "Silence here is how one teacher's judgement becomes a case against a child. Writing the standard down is what makes it reviewable."}
+          ]
+        },
+        {
+          situation: "The draft covers students in detail and says nothing about staff.",
+          options: [
+            {t: "That is appropriate \u2014 staff are professionals and can be trusted", ok: false, why: "Trust is not the issue; data protection is. The likeliest serious breach in any school is a teacher pasting a named child's record into a public tool, and a policy that does not mention it offers no cover to anyone."},
+            {t: "Add rules on student data, checking outputs, and what cannot be delegated", ok: true, why: "This is the half most policies miss. It protects children's data, it protects staff who follow it, and it makes the school's position defensible if anyone asks."},
+            {t: "Write a separate staff policy later", ok: false, why: "Later usually means never, and the gap is live now. One page covering both is better than two documents where only one exists."}
+          ]
+        },
+        {
+          situation: "The draft is ready. Someone suggests circulating it to staff and publishing it.",
+          options: [
+            {t: "Publish it \u2014 it has been carefully written", ok: false, why: "A policy written about students without students tends to miss how the tools are actually used, and it arrives as something imposed rather than agreed."},
+            {t: "Take it to a student group first, then publish with a review date", ok: true, why: "Students find the awkward cases you did not think of, and having helped write the rules they enforce them among themselves. The review date matters too \u2014 six months, given how fast this moves."},
+            {t: "Wait until the exam boards issue guidance", ok: false, why: "The guidance will keep changing, and your students are using these tools this term. A short policy now, reviewed later, beats a perfect one that never arrives."}
+          ]
+        }
+      ],
+      passNote: "Permitted uses named first, detector scores explicitly ruled out as sole evidence, staff data rules included, and students involved before publication. That policy will survive its first contested case.",
+      failNote: "Three things make the difference: say what is allowed before what is not, write down that a detector score alone is never grounds for a finding, and cover staff use of student data. A policy missing any of those fails at the moment it is tested."
+    }
+  }]
+}],
   seniors: [{
     id: "ai-basics",
     icon: "[silver]",
@@ -4044,7 +4704,7 @@ var CURRICULUM = {
       id: "s2",
       num: "02",
       title: "Talking to Your Device",
-      vk: "sr1",
+      vk: "sr2",
       reading: "# Talking to Your Device\n\n## Speaking Is Easier Than Typing\n\nIf small keys and small text are a nuisance, you can simply talk instead. Every modern phone, tablet and smart speaker will listen and answer.\n\n## Waking It Up\n\n- **iPhone or iPad** \u2014 say \u201cHey Siri\u201d, or hold the side button\n- **Android phone** \u2014 say \u201cHey Google\u201d, or hold the home button\n- **Amazon Echo** \u2014 say \u201cAlexa\u201d\n- **Chat apps such as ChatGPT** \u2014 tap the small microphone beside the message box\n\nWait for the light or the tone, then speak.\n\n## How to Say It\n\nSpeak as you would to a person who is being helpful but not very quick. Ordinary sentences. No special words.\n\n- \u201cRemind me to take my tablets at eight tomorrow morning\u201d\n- \u201cRing my daughter\u201d\n- \u201cWhat is the weather this afternoon?\u201d\n- \u201cRead this page out loud to me\u201d\n- \u201cSet a timer for twenty minutes\u201d\n\n## The Two Phrases Worth Learning\n\nThese two change everything, and hardly anyone is told about them:\n\n1. **\u201cSay that again more simply.\u201d** It will. As many times as you need, and it will never sigh.\n2. **\u201cRead that out loud to me.\u201d** Any letter, article, email or web page, in a clear voice.\n\n## If It Mishears You\n\nIt will, sometimes. Accents, background noise, a quiet room \u2014 all of it matters. If it gets something wrong:\n\n- Say it again a little slower, no need to shout\n- Turn the television down first\n- Hold the phone a hand's width from your face, not right against it\n\nGetting it wrong costs nothing. Say \u201cno, I meant\u2026\u201d and carry on.\n\n## One Rule for Speaking to Any Device\n\nNever say a password, a PIN, or a card number out loud to a device. Not to Siri, not to Alexa, not to a chat app. No genuine assistant will ever need one.",
       artifact: {
         type: "flashcard",
@@ -4062,7 +4722,7 @@ var CURRICULUM = {
       id: "s3",
       num: "03",
       title: "Staying Connected with Family",
-      vk: "sr2",
+      vk: "sr4",
       reading: "# Staying Connected with Family\n\n## The Distance Is the Problem AI Is Best At Solving\n\nChildren and grandchildren move away, and the tools that keep you in touch are often the ones designed with the least patience for anyone over sixty. A few small settings change that entirely.\n\n## Video Calls Without the Fuss\n\nYou do not have to find the app and remember the name. You can say it:\n\n- \u201cVideo call my daughter\u201d\n- \u201cFaceTime [name]\u201d on an iPhone\n- \u201cCall [name] on WhatsApp\u201d\n\n**Worth doing once:** ask a family member to set your three or four most-called people as favourites. After that it is one tap.\n\n## Messages Without the Keyboard\n\n- **Dictate instead of typing.** Tap the microphone on the keyboard and simply speak. It writes it out.\n- **Send a voice note.** Hold the microphone button in WhatsApp, speak, let go. Grandchildren often prefer these.\n- **Ask for help with the words.** \u201cHelp me write a short message congratulating my grandson on his exam results.\u201d Then change it so it sounds like you.\n\n## Photographs\n\n- \u201cShow me photos of [name]\u201d finds them without any scrolling\n- \u201cShow me photos from last Christmas\u201d works too\n- A shared album means new pictures of the grandchildren simply appear on your phone\n\n## Subtitles on Calls\n\nIf hearing is a struggle, live captions will put the words on screen as they are spoken. It is in the accessibility settings on both iPhone and Android \u2014 worth asking someone to switch on for you.\n\n## Keep It Yours\n\nAI can help you find the words when they will not come. Always change them so they sound like you. A message that sounds like a greetings card tells your family less than three plain sentences in your own voice.\n\n## A Word on Loneliness\n\nAn assistant can hold a conversation, and on a quiet day that has some value. It is not company, and it is not a substitute for your people. Use it to reach them more easily \u2014 that is where its real worth is.",
       artifact: {
         type: "sort",
@@ -4082,7 +4742,7 @@ var CURRICULUM = {
       id: "s4",
       num: "04",
       title: "AI for Hobbies and Learning",
-      vk: "sr4",
+      vk: "sr3",
       reading: "# AI for Hobbies and Learning\n\n## An Endlessly Patient Companion\n\nThe best thing about asking a machine is that it never minds being asked again. No sighing, no rush, no sense that you are taking up someone's afternoon.\n\n## In the Garden\n\n- Photograph a plant and ask \u201cwhat is this?\u201d\n- Photograph a poorly leaf and ask what might be wrong with it\n- \u201cWhat should I be planting in November?\u201d\n- \u201cWhat will grow in a shady corner that stays damp?\u201d\n\n## In the Kitchen\n\n- \u201cI have potatoes, half an onion and some cheese. What can I make?\u201d\n- \u201cGive me that recipe for two people instead of six\u201d\n- \u201cWhat can I use instead of buttermilk?\u201d\n- \u201cRead me the next step\u201d \u2014 useful when your hands are covered in flour\n\n## Family History\n\n- Photograph an old handwritten letter and ask it to read the handwriting out\n- \u201cWhat would daily life have been like in Lancashire in 1911?\u201d\n- Ask it to help you write down a memory so the grandchildren have it\n\n## Learning Something New\n\n- A language, at your own pace, practising out loud with no one listening\n- \u201cTeach me one chess opening, one move at a time\u201d\n- \u201cExplain what my consultant meant by \u2018arrhythmia\u2019 in plain English\u201d\n\n## Reading Made Easier\n\nAnything at all can be read aloud \u2014 a novel, a letter, a newspaper, a website. Ask it to read more slowly if it goes too fast.\n\n## Always Check the Facts\n\nHere is the one habit worth building. AI is confidently wrong more often than people expect.\n\n- **A recipe** \u2014 harmless if it is odd, you will taste it\n- **A plant it says is edible** \u2014 check a second source before eating anything\n- **A dose of medicine, a date, a legal fact, a name** \u2014 always verify elsewhere\n\nA good rule: if being wrong would cost you money, health or an apology, check it somewhere else.",
       artifact: {
         type: "flashcard",
@@ -4261,6 +4921,13 @@ function totalLabCount(){
 }
 
 var VIDS = {
+  // Seniors track. These keys were referenced by the curriculum but never defined,
+  // which left the Video tab empty for all eight lessons.
+  sr1: "Z_X785bN6zI",   // AI for Seniors: Beginner-Friendly Introduction — Lesson 1, What is AI?
+  sr2: "3aXzq0I5hdo",   // AI for Seniors: using AI for research, writing and fun
+  sr3: "TWFFYzssUac",   // Introduction: An Older Adult's Guide to Artificial Intelligence
+  sr4: "iLMU4hhDL70",   // AI for Seniors Made Simple — a guide for senior citizens
+  sr5: "vCkn4dN5_aE",   // AI Voice Cloning Scams Explained: how they work and how to stay safe
   k1: "G6de8L7cVvM",
   k2: "ttIOdAdQaUE",
   k3: "3WcghYphTyk",
@@ -4334,6 +5001,21 @@ function VisitorCounter(){
 // Each zone has a pool of questions; QuizView picks 4 at random per generation.
 var QUIZBANK = {
   kids: [
+    {q:"How does a computer learn to tell cats from dogs?",options:["We show it thousands of labelled pictures","We write down every rule","We ask it nicely","It already knows"],answer:0,explain:"Nobody writes the rules. The computer works them out from lots and lots of examples."},
+    {q:"What happens when the computer guesses wrong?",options:["It changes itself a tiny bit to do better","It gives up","It deletes the picture","Nothing at all"],answer:0,explain:"Guess, check, fix — millions of tiny changes add up to getting it right."},
+    {q:"A computer was taught to spot wolves but really spotted snow. Why?",options:["Every wolf picture happened to have snow in it","Wolves are white","It was broken","Snow is cold"],answer:0,explain:"It found the wrong pattern, because that pattern was in all the examples it saw."},
+    {q:"If AI says something for your homework, what should you do?",options:["Check it in a book or ask a grown-up","Write it down straight away","Ask the AI again","Ignore your homework"],answer:0,explain:"AI gets dates and facts wrong, and it sounds just as sure when it does."},
+    {q:"Should you tell an AI which school you go to?",options:["No, never","Yes, so it can help","Only on Fridays","Only your class"],answer:0,explain:"Never share your address, school or phone number with an AI."},
+    {q:"If AI says something unkind, what do you do?",options:["Tell a grown-up straight away","Argue with it","Ignore it","Tell your friends only"],answer:0,explain:"It is not your fault, and a grown-up will want to know."},
+    {q:"Why does AI need so many examples?",options:["It learns by practising an enormous number of times","It has a bad memory","It reads slowly","Examples are free"],answer:0,explain:"It is not clever like you — it just practises a huge number of times."},
+    {q:"Which is a good way to use AI for maths?",options:["Asking why your answer was wrong","Asking for all the answers","Copying its working","Skipping the homework"],answer:0,explain:"If AI does the maths, your brain does not get stronger. Ask it to explain instead."},
+    {q:"Is it fine to ask AI for a silly made-up story?",options:["Yes — stories are meant to be made up","No, never","Only for grown-ups","Only true stories"],answer:0,explain:"Stories and pictures are one of the best and safest things to use AI for."},
+    {q:"AI says a black cat is a dog. What is most likely?",options:["It did not see many black cats when it learned","The photo is broken","Black cats are dogs","Your eyes are wrong"],answer:0,explain:"AI only knows what it was shown. You are allowed to disagree with it!"},
+    {q:"Who is in charge when you use AI?",options:["You are","The computer is","Nobody","The internet"],answer:0,explain:"AI is a tool, like a pencil or a calculator. You are the boss of it."},
+    {q:"What makes your own drawing special?",options:["Nothing else in the world could have made it","It is neater","It is faster","It uses more colours"],answer:0,explain:"AI can only mix up things it has already seen. Your ideas came from you."},
+    {q:"Which question gets a better answer?",options:["A story about a penguin firefighter, for a 7-year-old","Write a story","Story please","Do something"],answer:0,explain:"Telling it who it is for and what it is about makes the answer much better."},
+    {q:"Does AI have feelings?",options:["No","Yes, lots","Only when sad","Only on birthdays"],answer:0,explain:"AI does not have feelings and does not know you. It is a tool."},
+    {q:"Can you ask AI to explain something again more simply?",options:["Yes, as many times as you like","No, only once","Only twice","Only if a grown-up asks"],answer:0,explain:"It will never get impatient. Ask as often as you need!"},
     {q:"What does AI stand for?",options:["Artificial Intelligence","Automatic Internet","Amazing Ideas","Apple Industries"],answer:0,explain:"AI means Artificial Intelligence — machines that can think and learn."},
     {q:"Which of these uses AI?",options:["A voice assistant like Alexa","A wooden chair","A paper book","A glass of water"],answer:0,explain:"Voice assistants use AI to understand and answer you."},
     {q:"Can AI learn from examples?",options:["Yes, by looking at lots of data","No, it never learns","Only on weekends","Only if you ask nicely"],answer:0,explain:"AI learns patterns by studying many examples."},
@@ -4402,6 +5084,29 @@ var QUIZBANK = {
     {q:"What does an AI project usually start with?",options:["A clear problem and good data","Buying the biggest screen","A fancy logo","A long holiday"],answer:0,explain:"Define the problem and gather quality data first."}
   ],
   teachers: [
+    {q:"Marking a rubric that rewards fluent prose means:",options:["AI scores highly on it","Students write better","Marking is faster","Plagiarism falls"],answer:0,explain:"Rubrics rewarding specificity and use of classroom evidence are far harder to outsource."},
+    {q:"The test for whether a task is outsourceable:",options:["Could a stranger with no memory of your classroom write it?","Is it longer than 500 words?","Is it set as homework?","Does it need sources?"],answer:0,explain:"If yes, redesign it. Anchoring to your room is the durable defence."},
+    {q:"Asking students to critique an AI-written essay is:",options:["Harder than writing one, and teaches the right skill","An easy lesson filler","Not assessable","Discouraged"],answer:0,explain:"Finding the weakest claims requires deeper understanding than producing the text."},
+    {q:"A prompt that produces usable classroom material states:",options:["Year group, task, format and what to avoid","Please and thank you","The teacher's name","The school address"],answer:0,explain:"Specificity is the difference between a first draft and a wasted five minutes."},
+    {q:"Report comments drafted with AI should:",options:["Describe the situation without naming the child","Include full assessment data","Be sent unread","Include the SEN plan"],answer:0,explain:"You get the help with phrasing while the child's data stays in school systems."},
+    {q:"An unenforceable blanket AI ban in school:",options:["Removes any chance to teach judgement","Protects standards","Satisfies exam boards","Reduces workload"],answer:0,explain:"Students will use these tools for life; a ban means nobody discusses using them well."},
+    {q:"Before any AI-generated material reaches students it must be:",options:["Read line by line by the teacher","Approved by the head","Run through a detector","Printed in colour"],answer:0,explain:"Fluent formatting hides factual errors, and the accountability stays with the teacher."},
+    {q:"Which is the strongest single change to assessment design?",options:["Staged submission of plan, draft and final","Longer word counts","Handwritten only","More frequent tests"],answer:0,explain:"It makes work traceable and moves feedback to where it can still change the outcome."},
+    {q:"A detector reports an essay is 92% AI-written. What does that justify?",options:["Looking more closely at the work and process","An immediate malpractice finding","An automatic zero","Informing the exam board"],answer:0,explain:"Detector scores are unreliable in both directions and are never sufficient grounds on their own."},
+    {q:"Which students do AI detectors disproportionately flag?",options:["Students writing in a second language","Students who write briefly","Students who submit late","Students who use pencil"],answer:0,explain:"EAL students and unusually polished writing are flagged at higher rates, which turns a technical flaw into a fairness problem."},
+    {q:"What is the strongest evidence a student wrote their own essay?",options:["They can explain their argument and what they cut","A low detector score","Fast typing speed","A long word count"],answer:0,explain:"A student who built an argument can discuss it. One who did not, usually cannot."},
+    {q:"Which is safe to put into a public AI tool?",options:["A lesson topic with no student named","A child's SEN plan","A named student's assessment record","A safeguarding note"],answer:0,explain:"Identifiable student data must never leave school systems. The tool does not need a name to help with wording."},
+    {q:"What makes an assessment task AI-resilient?",options:["Anchoring it to what happened in your classroom","Making it longer","Banning phones","Setting it as homework"],answer:0,explain:"AI is weakest on anything tied to a specific room, week or person."},
+    {q:"What is staged submission?",options:["Collecting a plan, a draft and the final piece","Marking in year groups","Submitting by ability band","Two deadlines a term"],answer:0,explain:"It makes work traceable and moves feedback to where it can still change the outcome."},
+    {q:"Why list permitted AI uses before prohibited ones?",options:["So students disclose legitimate use instead of hiding it","To make the policy shorter","Because it is legally required","To satisfy inspectors"],answer:0,explain:"If disclosure invites suspicion, students stop disclosing and you lose the ability to teach judgement."},
+    {q:"A school AI policy that covers only students is:",options:["Incomplete — staff data use needs rules too","Sufficient","Best practice","Legally safest"],answer:0,explain:"The likeliest serious breach is a teacher pasting a child's record into a public tool."},
+    {q:"Why must you check AI-generated subject content?",options:["It is confidently wrong about facts and formulae","It writes too formally","It is slow","It uses American spelling"],answer:0,explain:"Fluent formatting makes factual errors easy to miss, and the accountability remains the teacher's."},
+    {q:"Which task is safe to draft with AI?",options:["Differentiated versions of a worksheet you wrote","Deciding a child needs a referral","Judging whether a student understood","A safeguarding decision"],answer:0,explain:"Drafting and differentiating are the strongest uses. Judgements about children are never delegated."},
+    {q:"Why involve students in writing the AI policy?",options:["They find the awkward cases and then enforce the norms","To reduce staff workload","It is a legal requirement","To improve exam results"],answer:0,explain:"Students who helped write the rules understand the reasoning and raise cases before they become incidents."},
+    {q:"Why does a model invent a plausible-looking citation?",options:["It predicts likely next words rather than retrieving sources","It is programmed to deceive","Its database is offline","The prompt was too short"],answer:0,explain:"References that match the shape of real ones are exactly what next-token prediction produces."},
+    {q:"A review date on an AI policy is:",options:["Essential, because the field moves fast","Optional bureaucracy","Only needed for exam policies","Set by the government"],answer:0,explain:"Six months is realistic. A policy written once and never revisited goes stale quickly."},
+    {q:"What is the best first response to low staff adoption of an AI tool?",options:["Find out what is not working for them","Mandate its use","Report usage weekly","Extend the deadline"],answer:0,explain:"Low adoption is usually a rational response to the tool adding work rather than removing it."},
+    {q:"Grammar checking with AI on a student essay is:",options:["Legitimate use, comparable to a spellchecker","Always malpractice","Only allowed in exams","Undetectable"],answer:0,explain:"Treating disclosed legitimate use as an offence teaches students to hide it next time."},
     {q:"What is Artificial Intelligence, in simple terms?",options:["Programs that learn patterns from data to perform human-like tasks","A brand of classroom projector","A type of exam paper","A government school scheme"],answer:0,explain:"AI systems learn patterns from data to do tasks that normally need human intelligence."},
     {q:"How does machine learning mainly work?",options:["By learning from many examples","By following one fixed rule forever","By copying a textbook word for word","By guessing randomly"],answer:0,explain:"Machine learning finds patterns from large numbers of examples rather than fixed rules."},
     {q:"Why can an AI system be biased?",options:["It learns from data that may contain human bias","It has personal opinions","It dislikes certain students","It is always fair by design"],answer:0,explain:"If the training data carries bias, the AI can reflect and repeat that bias."},
@@ -4414,6 +5119,22 @@ var QUIZBANK = {
     {q:"Who should stay in charge of important decisions when using AI?",options:["The human teacher","The AI alone","No one","The software company"],answer:0,explain:"AI can suggest, but the teacher and student should always make the final decision."}
   ],
   college: [
+    {q:"Which hyperparameter should you tune first?",options:["Learning rate","Batch size","Dropout","Weight decay"],answer:0,explain:"It dominates training dynamics more than any other single setting."},
+    {q:"Why does feature normalisation speed up training so much?",options:["It improves conditioning, allowing a larger stable step size","It reduces memory","It removes outliers","It prevents overfitting"],answer:0,explain:"Poor conditioning forces a small learning rate; normalisation raises the stability limit."},
+    {q:"Why does Adam handle poor conditioning better than SGD?",options:["It adapts a learning rate per parameter","It uses larger batches","It skips bad gradients","It normalises the loss"],answer:0,explain:"Per-parameter moment estimates effectively give each parameter its own step size."},
+    {q:"Why is warmup near-mandatory for transformers?",options:["Early gradients are large and unreliable","It saves memory","It improves calibration","It reduces overfitting"],answer:0,explain:"A full-size step at initialisation can wreck a run."},
+    {q:"Loss flat from step one usually means:",options:["Learning rate too low, or a bug","The model has converged","Perfect initialisation","Too much data"],answer:0,explain:"Overfit ten examples first; if you cannot, the problem is a bug."},
+    {q:"Training loss falls, validation loss rises. This is:",options:["Overfitting","Underfitting","Divergence","Correct behaviour"],answer:0,explain:"Regularise, augment, or stop early."},
+    {q:"What does temperature do to the logits?",options:["Divides them before the softmax","Multiplies the loss","Truncates the vocabulary","Reorders the tokens"],answer:0,explain:"Lower T sharpens towards argmax; higher T flattens the distribution."},
+    {q:"How does nucleus sampling differ from top-k?",options:["It adapts the cutoff to the model's confidence","It is deterministic","It is faster","It ignores probability"],answer:0,explain:"Top-p takes the smallest set exceeding cumulative probability p, so the size varies by context."},
+    {q:"Why is hallucination not simply a fixable bug?",options:["Next-token prediction never rewards abstention","The datasets are too small","Compute is limited","Tokenisers are lossy"],answer:0,explain:"Nothing in pretraining teaches a model to say it does not know."},
+    {q:"Instruction tuning typically affects calibration by:",options:["Degrading it — more useful, more confidently wrong","Improving it","Leaving it unchanged","Removing it entirely"],answer:0,explain:"Base models are often better calibrated than their instruction-tuned versions."},
+    {q:"A model's stated confidence should be treated as:",options:["Generated text, not a probability","A calibrated estimate","A hard guarantee","An error bar"],answer:0,explain:"Token-level probabilities are a weaker but more genuine signal."},
+    {q:"Random splitting three years of daily sales data causes:",options:["Temporal leakage — the model sees the future","Class imbalance","Underfitting","Nothing problematic"],answer:0,explain:"Forecasting splits must be chronological."},
+    {q:"Fitting a scaler on the full dataset before splitting is:",options:["Preprocessing leakage","Standard practice","Required for normalisation","Harmless"],answer:0,explain:"Fit on train only, then apply to validation and test."},
+    {q:"On data with 0.3% positives, which metric is most informative?",options:["AUPRC","Accuracy","AUROC","Error rate"],answer:0,explain:"AUROC can look strong on heavily imbalanced data where the model is unusable at any threshold."},
+    {q:"Two models differ by 0.3% on one test split. This means:",options:["Almost certainly nothing — report variance across seeds","Model A is better","A significant improvement","The test set is too large"],answer:0,explain:"A single figure on one split is a point estimate with unstated variance."},
+    {q:"The most valuable artefact a production ML team owns is:",options:["A fixed evaluation set of real hard cases","The largest model","The training pipeline","The feature store"],answer:0,explain:"Re-run it on every change. Unglamorous and irreplaceable."},
     {q:"What architecture underpins modern large language models?",options:["The Transformer","Decision trees","K-means","Linear regression"],answer:0,explain:"The 2017 Transformer architecture powers today's LLMs."},
     {q:"What does 'attention' do in a Transformer?",options:["Weighs the relevance of different tokens","Saves battery","Compresses images","Encrypts data"],answer:0,explain:"Self-attention lets the model focus on relevant parts of the input."},
     {q:"What is gradient descent?",options:["An optimization method to minimize loss","A type of neural layer","A dataset","A GPU brand"],answer:0,explain:"Gradient descent iteratively adjusts weights to reduce error."},
@@ -4440,6 +5161,21 @@ var QUIZBANK = {
     {q:"Why use cross-validation?",options:["More robust performance estimates","To train faster always","To skip testing","To shrink the model"],answer:0,explain:"Cross-validation reduces variance in performance estimates."}
   ],
   early: [
+    {q:"How many inputs does a usable prompt evaluation set need?",options:["Around 15–20 real ones, including awkward cases","Three","One hundred","One per user"],answer:0,explain:"Enough to distinguish improvement from noise, small enough to run by hand."},
+    {q:"Why change only one thing between prompt runs?",options:["Otherwise you learn nothing transferable","It is faster","It uses fewer tokens","Providers require it"],answer:0,explain:"Single changes build real understanding of what the task responds to."},
+    {q:"Which usually improves a prompt most?",options:["One or two well-chosen worked examples","A longer role description","Politer wording","More adjectives"],answer:0,explain:"Examples typically beat any amount of instruction rewriting."},
+    {q:"A model invents a date when the field is missing. The fix is:",options:["Give it an explicit output for absent fields","Lower the temperature","Use a bigger model","Shorten the prompt"],answer:0,explain:"Without a permitted way to say 'not present', a model fabricates."},
+    {q:"Production prompts should be:",options:["Version controlled with their evaluation results","Kept in a shared document","Held by the vendor","Rewritten each sprint"],answer:0,explain:"A prompt that changed for unrecorded reasons is a liability."},
+    {q:"What usually dominates the token bill in a RAG system?",options:["Retrieved context sent on every call","The system prompt","Output length","Embeddings"],answer:0,explain:"It is the largest line and the least examined."},
+    {q:"Resending full conversation history each turn makes cost grow:",options:["Quadratically","Linearly","Logarithmically","Not at all"],answer:0,explain:"Summarise history once a conversation passes a threshold."},
+    {q:"Generation latency scales with:",options:["Output length","Input length","Context window size","Model parameters only"],answer:0,explain:"A long prompt returning few tokens is fast; a short prompt returning many is not."},
+    {q:"What most improves perceived speed?",options:["Streaming the response","A faster spinner","A smaller model","Shorter prompts"],answer:0,explain:"Time to first token is what users experience as speed."},
+    {q:"Filling a large context window because it fits is:",options:["Usually worse — cost, latency and accuracy all suffer","Best practice","Free","Required for RAG"],answer:0,explain:"Models attend less reliably to material buried mid-context."},
+    {q:"Before optimising cost you should:",options:["Instrument tokens per feature","Switch to a cheaper model","Reduce users","Cache everything"],answer:0,explain:"Without it you are guessing which feature is expensive."},
+    {q:"Which is the right shape for a first AI feature?",options:["A checkable task a human already does","An irreversible decision about a person","The highest-volume process","The most visible one"],answer:0,explain:"Checkable output, recoverable errors, and an existing baseline."},
+    {q:"Should you auto-send outputs when model confidence is high?",options:["No — confidence is not a probability of correctness","Yes, that is what it is for","Only above 95%","Only for short outputs"],answer:0,explain:"High-confidence errors are precisely the ones nobody catches."},
+    {q:"The most valuable signal from a launched AI feature is:",options:["What people edited and why","Daily active users","Total requests","Session length"],answer:0,explain:"Edits show where the model is weak, described by the person who knows."},
+    {q:"Launching a first AI feature is best done:",options:["To five volunteers behind a flag","To everyone at once","Optionally, company-wide","After full automation"],answer:0,explain:"Volunteers report faults in detail, and a flag makes rollback a config change."},
     {q:"What is a practical first step to use AI at work?",options:["Identify repetitive tasks it can assist with","Replace your whole team","Ignore it","Only use it for games"],answer:0,explain:"Start by augmenting repetitive or time-consuming tasks."},
     {q:"What is 'prompt engineering'?",options:["Crafting clear instructions for an AI","Building hardware","Writing legal contracts","Designing buildings"],answer:0,explain:"Good prompts produce better, more reliable AI output."},
     {q:"Why verify AI-generated content at work?",options:["It can produce confident but wrong answers","It is always perfect","To waste time","It is required by law everywhere"],answer:0,explain:"AI can hallucinate; verification protects quality."},
@@ -4466,6 +5202,21 @@ var QUIZBANK = {
     {q:"How do you grow with AI tools?",options:["Keep learning and verifying","Stop learning","Trust blindly","Avoid feedback"],answer:0,explain:"Continuous learning plus verification builds expertise."}
   ],
   mid: [
+    {q:"A tool saves 400 people 20 minutes a day. The benefit is:",options:["Only real if something changes as a result","133 recovered hours per day","Automatic","Immeasurable"],answer:0,explain:"The saving is real; the benefit needs the organisation to capture it."},
+    {q:"Where do most AI business cases break?",options:["Adoption — a tool nobody opens has no benefit","Model accuracy","Infrastructure cost","Vendor selection"],answer:0,explain:"Cases usually prove the model works and assume every link after that."},
+    {q:"The strongest way to attribute a benefit to an AI rollout:",options:["Staged rollout with a holdout group","Before-and-after comparison","Sponsor testimony","Usage statistics"],answer:0,explain:"A holdout is the cleanest evidence available in most organisations."},
+    {q:"Why write kill criteria before starting?",options:["Programmes without them get quietly extended, not killed","Regulators require it","It reassures vendors","It speeds up procurement"],answer:0,explain:"State in advance what result would mean stopping."},
+    {q:"If a human checks every AI output, you have:",options:["Added a step, which belongs in the cost line","Removed a step","Automated the process","Eliminated risk"],answer:0,explain:"Sometimes correct, but it must be costed rather than assumed away."},
+    {q:"When should you build a model rather than wrap one?",options:["Only where you hold data nobody else has","Whenever the team wants to","For all customer-facing work","To avoid vendor fees"],answer:0,explain:"Building when wrapping would do is the most common procurement error."},
+    {q:"A vendor will not put the data-training clause in writing. You should:",options:["Make it a condition and walk if refused","Accept the verbal assurance","Send only low-sensitivity data","Negotiate the price down"],answer:0,explain:"A commitment that cannot be written down is not a commitment."},
+    {q:"The most effective anti-lock-in measure is:",options:["Keeping prompts and evaluation sets in your own systems","A shorter contract","Multi-year pricing","An exit clause"],answer:0,explain:"A provider-neutral evaluation suite makes switching measurable rather than a leap of faith."},
+    {q:"A vendor pilot should run on:",options:["Your data, including the hard cases you already fail","The vendor's demo set","Synthetic data","A random sample"],answer:0,explain:"Demo sets exclude exactly the cases you are buying a solution for."},
+    {q:"Team resistance to an AI rollout is usually:",options:["An accurate reading of the incentives","Fear of change","Lack of training","Generational"],answer:0,explain:"Treat it as information about your plan before treating it as an attitude problem."},
+    {q:"Who should you involve first in a rollout?",options:["The most respected sceptic","The enthusiasts","Senior management","The vendor"],answer:0,explain:"Enthusiast endorsement persuades nobody. A sceptic who visibly shapes the rollout does."},
+    {q:"Which metric matters most after launch?",options:["What people stopped doing, and where they override the model","Daily active users","Logins per week","Time in app"],answer:0,explain:"Override data is the most valuable signal and the least collected."},
+    {q:"Why does AI risk juniors' development?",options:["It does the tasks juniors learn judgement on","It is too complex for them","It replaces training budgets","It is restricted by licence"],answer:0,explain:"The cost appears three years later when they cannot review what the model produces."},
+    {q:"If a tool saves time and nobody says what the time is for:",options:["The team will assume it is for more work","Adoption will rise","Morale improves","Nothing changes"],answer:0,explain:"Naming the intent changes how the tool is received before anyone opens it."},
+    {q:"Per-seat and per-token pricing differ most:",options:["At ten times the pilot volume","During procurement","In the first month","For small teams"],answer:0,explain:"Always ask what it costs at full volume, before signing."},
     {q:"How should a manager approach AI adoption?",options:["Start with clear use-cases and measure impact","Adopt everything at once","Ban it entirely","Hide it from the team"],answer:0,explain:"Targeted use-cases with measurable ROI work best."},
     {q:"What is a key AI governance concern?",options:["Data privacy and responsible use","Office furniture","Lunch menus","Parking"],answer:0,explain:"Governance covers privacy, bias, security and accountability."},
     {q:"What is 'human-in-the-loop'?",options:["Humans review/approve AI decisions","AI replaces all humans","No oversight","Only machines decide"],answer:0,explain:"Keeping humans in the loop maintains oversight on important decisions."},
@@ -4492,6 +5243,21 @@ var QUIZBANK = {
     {q:"What is the manager's role in AI ethics?",options:["Set policy and model good practice","Delegate and forget","Avoid the topic","Block all use"],answer:0,explain:"Leaders set and model responsible AI practices."}
   ],
   leaders: [
+    {q:"Six proposals, one budget. What is the usual board failure?",options:["Funding one heavily because its sponsor argued best","Underfunding everything","Delaying a quarter","Hiring consultants"],answer:0,explain:"Concentration driven by advocacy rather than portfolio reasoning is the standard failure."},
+    {q:"Why fund data platform work with no visible sponsor?",options:["Almost every stalled AI programme stalled there","It is cheap","Regulators require it","It looks good in reports"],answer:0,explain:"Enabling work has no advocate and blocks everything downstream when unfunded."},
+    {q:"Three projects depending on the same data platform are:",options:["One bet wearing three coats","A diversified portfolio","Three independent bets","Best practice"],answer:0,explain:"Spread across failure modes, not just across departments."},
+    {q:"The first hour of an AI incident should prioritise:",options:["Preserving evidence: model version, inputs, logs","A public statement","A root cause","A board briefing"],answer:0,explain:"Evidence is routinely lost in the first hour and cannot be reconstructed later."},
+    {q:"A model excludes ethnicity but declines one postcode heavily. This is:",options:["A discriminatory outcome regardless of the features","Acceptable, since ethnicity was not used","A data quality issue only","Not a governance matter"],answer:0,explain:"Regulators assess outcomes, not feature lists. Proxy discrimination is well documented."},
+    {q:"A journalist asks the cause and you do not know it. Best response:",options:["State what you have done and what you do not yet know","Offer your best hypothesis","Decline to comment","Blame the vendor"],answer:0,explain:"A published hypothesis later found wrong costs the credibility you need for remediation."},
+    {q:"What actually closes out an AI incident?",options:["Identifying everyone affected and putting it right","A fix and a board report","A press release","A new policy"],answer:0,explain:"Organisations are judged far more on remediation than on the original failure."},
+    {q:"Who should be able to suspend a live AI system?",options:["A named role, not a committee","The full board","The vendor","The data science team collectively"],answer:0,explain:"If suspension needs three signatures it will not happen inside an hour."},
+    {q:"What does an auditor ask for first?",options:["An inventory of every AI system and its owner","Your ethics principles","The board minutes","A vendor list"],answer:0,explain:"Most organisations cannot produce this, and shadow AI in business units is the usual reason."},
+    {q:"Which is evidence rather than assertion?",options:["A log of human overrides and their outcomes","A statement that humans can override","A board-approved policy","A certification certificate"],answer:0,explain:"Auditors want artefacts showing the policy was followed, not that it exists."},
+    {q:"Why record dissent in a governance decision?",options:["It shows an objection was raised and addressed","It satisfies ISO 42001","It protects the dissenter","It speeds up decisions"],answer:0,explain:"A record implying unanimity that did not exist is far weaker than one showing the debate."},
+    {q:"Certification while the AI inventory is incomplete gives you:",options:["A certificate describing a system you do not have","Full assurance","Regulatory immunity","A defensible position"],answer:0,explain:"Frameworks are scaffolding. The evidence is the substance."},
+    {q:"Applying maximum governance process to every model:",options:["Collapses and gets bypassed","Is best practice","Satisfies the EU AI Act","Reduces cost"],answer:0,explain:"Proportionality matters. Lighter controls that are followed beat heavy ones that are not."},
+    {q:"The best question to test your assurance programme:",options:["Could we answer a regulator about one model, completely, today?","Do we have a policy?","Are we certified?","Has the board approved it?"],answer:0,explain:"If the honest answer is weeks and probably not, the gap is in evidence, not policy."},
+    {q:"Why hold an unallocated reserve in the AI budget?",options:["The best use case in 18 months has not been proposed yet","To return it to shareholders","Regulators require it","To fund overruns"],answer:0,explain:"Full allocation to today's proposals leaves nothing for what emerges."},
     {q:"At board level, AI strategy should align with what?",options:["Long-term business value and risk appetite","Short-term hype","Competitor logos","Personal preference"],answer:0,explain:"AI strategy must serve enterprise value and managed risk."},
     {q:"What is a core executive responsibility for AI?",options:["Ethical and responsible deployment","Writing the code","Buying the most GPUs","Avoiding all AI"],answer:0,explain:"Leaders own responsible, ethical AI deployment."},
     {q:"Which is a strategic AI risk to oversee?",options:["Regulatory, reputational and security risk","Office snacks","Wi-Fi speed","Desk layout"],answer:0,explain:"Boards oversee regulatory, reputational and security exposure."},
@@ -5245,6 +6011,76 @@ function ScenarioLab(props){
         st.i+1>=a.steps.length?"See how I did":"Next step")):null);
 }
 
+// --- Weigh: allocate a fixed budget and see what the portfolio returns ----
+// Teaches two things text cannot: returns diminish as you pile money into one
+// bet, and a concentrated portfolio carries downside a spreadsheet average hides.
+function WeighLab(props){
+  var a=props.art,zc=props.zc;
+  var init={}; a.options.forEach(function(o,i){ init[i]=0; });
+  var s=useState(init); var alloc=s[0],setAlloc=s[1];
+  var spent=0; a.options.forEach(function(_,i){ spent+=alloc[i]||0; });
+  var left=a.budget-spent;
+
+  // Diminishing returns: the first units of funding buy far more than the last.
+  function valueOf(i){
+    var o=a.options[i], x=alloc[i]||0;
+    if(!x) return 0;
+    return o.yield*(1-Math.exp(-x/o.scale));
+  }
+  var gain=0, downside=0, used=0;
+  a.options.forEach(function(o,i){
+    gain+=valueOf(i);
+    downside+=(alloc[i]||0)*o.risk;
+    if((alloc[i]||0)>0) used++;
+  });
+  var concentration=0;
+  a.options.forEach(function(_,i){ var p=spent?(alloc[i]||0)/spent:0; concentration+=p*p; });
+
+  function set(i,v){
+    var n=Object.assign({},alloc);
+    var others=0; a.options.forEach(function(_,k){ if(k!==i) others+=n[k]||0; });
+    n[i]=Math.max(0,Math.min(v, a.budget-others));
+    setAlloc(n);
+  }
+  var placed=spent===a.budget;
+  var strong=placed && gain>=a.target && downside<=a.riskCap && used>=a.minSpread;
+
+  return h(LabFrame,{title:a.title,tx:zc.tx,caption:a.caption},
+    h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:14,
+      padding:"10px 14px",background:left===0?zc.bg:IVORY,border:"1px solid "+(left===0?zc.br:BORDER),borderRadius:6}},
+      h("span",{style:{fontSize:13,color:INK2}},a.unit+" remaining"),
+      h("span",{style:{fontFamily:"EB Garamond,serif",fontSize:24,fontWeight:700,color:left===0?zc.a:CR}},left)),
+    a.options.map(function(o,i){
+      return h("div",{key:i,style:{marginBottom:16}},
+        h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"baseline",gap:10}},
+          h("span",{style:{fontSize:14,fontWeight:600,color:INK}},o.name),
+          h("span",{style:{fontSize:13,fontFamily:"JetBrains Mono,monospace",color:zc.tx}},(alloc[i]||0))),
+        h("p",{style:{fontSize:12.5,color:SLATE,lineHeight:1.55,margin:"3px 0 6px"}},o.desc),
+        h("input",{type:"range",min:0,max:a.budget,step:a.step||5,value:alloc[i]||0,
+          onChange:function(e){set(i,parseInt(e.target.value,10));},style:{width:"100%"}}));
+    }),
+    h("div",{style:{marginTop:18,padding:"14px 16px",background:IVORY,border:"1px solid "+BORDER,borderRadius:6}},
+      h("div",{style:{display:"flex",gap:18,flexWrap:"wrap",marginBottom:10}},
+        h("div",null,
+          h("div",{style:{fontSize:11,color:SLATE}},"Modelled return"),
+          h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700,color:gain>=a.target?"#2E7D32":INK}},gain.toFixed(1))),
+        h("div",null,
+          h("div",{style:{fontSize:11,color:SLATE}},"Exposure if it goes wrong"),
+          h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700,color:downside>a.riskCap?CR:INK}},downside.toFixed(1))),
+        h("div",null,
+          h("div",{style:{fontSize:11,color:SLATE}},"Bets funded"),
+          h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:22,fontWeight:700,color:used<a.minSpread?CR:INK}},used+" of "+a.options.length))),
+      h("p",{style:{fontSize:13,color:INK2,lineHeight:1.7}},
+        !placed ? "Allocate the whole budget to see the outcome."
+        : strong ? a.passNote
+        : concentration>0.55 ? "Almost everything is riding on one bet. The modelled return looks acceptable, but a single failure takes the whole programme with it \u2014 and the returns curve means those last units bought very little."
+        : downside>a.riskCap ? "The return is there, but the exposure is above what this organisation said it could absorb. A portfolio that only works when nothing goes wrong is not a portfolio."
+        : used<a.minSpread ? "Too few bets funded. With this little spread, one failure ends the programme."
+        : a.failNote)),
+    h("button",{onClick:function(){setAlloc(init);},
+      style:{marginTop:12,background:"transparent",color:SLATE,border:"1px solid "+BORDER,padding:"9px 18px",borderRadius:4,fontSize:13,cursor:"pointer"}},"Clear and start again"));
+}
+
 function LabView(props){
   var a=props.artifact,zc=props.zc;
   if(!a)return null;
@@ -5253,6 +6089,7 @@ function LabView(props){
   if(a.type==="train")return h(TrainLab,{art:a,zc:zc});
   if(a.type==="tokens")return h(TokensLab,{art:a,zc:zc});
   if(a.type==="scenario")return h(ScenarioLab,{art:a,zc:zc});
+  if(a.type==="weigh")return h(WeighLab,{art:a,zc:zc});
   return null;
 }
 
@@ -5267,8 +6104,15 @@ function LessonView(props){
         h("div",{style:{fontFamily:"EB Garamond,serif",fontSize:20,fontWeight:700,color:zc.tx}},lesson.title)),
       done ? h("span",{style:{background:"#2E7D32",color:"#fff",fontSize:11,fontWeight:700,padding:"4px 12px",borderRadius:20,whiteSpace:"nowrap"}},"\u2713 Completed") : null),
     h("div",{style:{display:"flex",borderBottom:"1px solid "+BORDER,overflowX:"auto"}},
-      (lesson.artifact?[["reading","Reading"],["lab","Lab"],["video","Video"],["quiz","AI Quiz"]]
-                      :[["reading","Reading"],["video","Video"],["quiz","AI Quiz"]]).map(function(tb){
+      (function(){
+        // Only offer a tab that has something behind it. The Seniors track references
+        // video keys that were never added to VIDS, which previously rendered an empty tab.
+        var tabs=[["reading","Reading"]];
+        if(lesson.artifact) tabs.push(["lab","Lab"]);
+        if(lesson.vk && typeof VIDS!=="undefined" && VIDS[lesson.vk]) tabs.push(["video","Video"]);
+        tabs.push(["quiz","AI Quiz"]);
+        return tabs;
+      })().map(function(tb){
         return h("div",{key:tb[0],onClick:function(){setTab(tb[0]);},style:{padding:"12px 20px",cursor:"pointer",fontSize:13,fontWeight:tab===tb[0]?700:400,color:tab===tb[0]?CR:SLATE,borderBottom:tab===tb[0]?"2px solid "+CR:"2px solid transparent"}},tb[1]);})),
     tab==="reading"?h("div",{style:{padding:"24px 26px",fontSize:15}},renderMarkdown(lesson.reading)):null,
     tab==="lab"?h(LabView,{artifact:lesson.artifact,zc:zc}):null,
@@ -5817,7 +6661,7 @@ var AIU_VERIFY_BASE = "https://ai-university.co.in/verify.html";
 // the certificates table is protected by row-level security and a learner can only read
 // their own rows. Fill this in to enable cross-device licence restore.
 var AIU_SUPABASE_URL = "https://octgqicycwaxfsxaswjf.supabase.co";
-var AIU_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jdGdxaWN5Y3dheGZzeGFzd2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0OTMyODIsImV4cCI6MjEwNDA2OTI4Mn0.AG4KQKdJz1CurDYL7YsAMU8QbWMd_TZ1FMTFIc9W3Sw";
+var AIU_SUPABASE_ANON_KEY = "";
 var CERT_FEE_INR = 1999;
 function getCertLicences(){
   try { var v = localStorage.getItem(AIU_CERT_KEY); return v ? JSON.parse(v) : {}; } catch(e){ return {}; }
