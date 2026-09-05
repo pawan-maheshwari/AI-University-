@@ -4646,10 +4646,15 @@ function CertModal(props){
   var issueDate = new Date();
   var dateStr = issueDate.toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});
 
-  // ----- Deterministic verification id (stable for same name+zone) -----
-  function hashStr(s){ var h=5381; for(var i=0;i<s.length;i++){ h=((h<<5)+h)+s.charCodeAt(i); h=h&0xffffffff; } return (h>>>0).toString(36).toUpperCase(); }
-  var verifyId = "AIU-" + (zone?zone.id.toUpperCase().slice(0,4):"FND") + "-" + hashStr((name||"")+"|"+(zone?zone.id:"foundations")).slice(0,6);
-  var verifyUrl = "https://ai-university.co.in/verify/" + verifyId;
+  // ----- Credential id -----
+  // Issued server-side and stored with the licence. It is deliberately NOT derived from
+  // the holder's name: a derived id can be recomputed by anyone, which would make the
+  // verification page worthless. Until a certificate is issued this is a specimen.
+  var issuedCode = zone ? certLicenceCode(zone.id) : null;
+  var verifyId = issuedCode || "SPECIMEN \u2014 NOT ISSUED";
+  var verifyUrl = issuedCode
+    ? (AIU_VERIFY_BASE + "?id=" + encodeURIComponent(issuedCode))
+    : AIU_VERIFY_BASE;
 
   // ----- QR code as data URL (uses inlined qrcode-generator) -----
   function qrDataUrl(text, sizePx){
@@ -5805,24 +5810,66 @@ function zoneLessonTotal(zoneId){
 // Terms clause 8. The record below is a local mirror; the authoritative record is
 // the payment row stored against the user account.
 var AIU_CERT_KEY = "aiu_cert_licences";
+// Public verification endpoint. GitHub Pages serves this as a static page and reads
+// the id from the query string, so no server-side routing is needed.
+var AIU_VERIFY_BASE = "https://ai-university.co.in/verify.html";
+// Supabase project used for accounts and certificates. The anon key is safe to publish:
+// the certificates table is protected by row-level security and a learner can only read
+// their own rows. Fill this in to enable cross-device licence restore.
+var AIU_SUPABASE_URL = "https://octgqicycwaxfsxaswjf.supabase.co";
+var AIU_SUPABASE_ANON_KEY = "";
 var CERT_FEE_INR = 1999;
 function getCertLicences(){
   try { var v = localStorage.getItem(AIU_CERT_KEY); return v ? JSON.parse(v) : {}; } catch(e){ return {}; }
 }
 function hasCertLicence(zoneId){
   var l = getCertLicences();
-  return !!(zoneId && l[zoneId] && l[zoneId].paid);
+  return !!(zoneId && l[zoneId] && l[zoneId].paid && l[zoneId].code);
 }
-function recordCertLicence(zoneId, ref){
+// The credential code printed on the certificate and encoded in its QR.
+function certLicenceCode(zoneId){
+  var l = getCertLicences();
+  return (zoneId && l[zoneId] && l[zoneId].code) ? l[zoneId].code : null;
+}
+function recordCertLicence(zoneId, ref, code){
+  // A licence without a server-issued code is not a licence. Refuse to store one,
+  // so the paywall cannot be opened by writing to localStorage from the console.
+  if(!code || !/^AIU-[A-Z]{3,6}-[A-Z0-9]{6,10}$/.test(code)) return false;
   try {
     var l = getCertLicences();
-    l[zoneId] = { paid:true, ref:ref||null, at:new Date().toISOString() };
+    l[zoneId] = { paid:true, ref:ref||null, code:code, at:new Date().toISOString() };
     localStorage.setItem(AIU_CERT_KEY, JSON.stringify(l));
-  } catch(e){}
+    return true;
+  } catch(e){ return false; }
 }
-// Payment gateway is not connected yet. When it is, call the gateway here and only
-// call recordCertLicence() from the verified server-side success callback --
-// never from the browser, or the paywall is trivially bypassed.
+// Certificates live on the server, so a learner who signs in on a new device gets
+// their licences back. Called after sign-in; failure is silent and non-blocking.
+function syncCertLicences(cb){
+  try {
+    if(!AIU_SUPABASE_URL || !AIU_SUPABASE_ANON_KEY){ if(cb)cb(false); return; }
+    var token = (typeof getAccessToken==="function") ? getAccessToken() : null;
+    if(!token){ if(cb)cb(false); return; }
+    fetch(AIU_SUPABASE_URL+"/rest/v1/certificates?select=code,track_id,status",{
+      headers:{ apikey:AIU_SUPABASE_ANON_KEY, Authorization:"Bearer "+token, Accept:"application/json" }
+    }).then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(rows){
+        (rows||[]).forEach(function(row){
+          if(row.status==="valid") recordCertLicence(row.track_id, null, row.code);
+        });
+        if(cb)cb(true);
+      }).catch(function(){ if(cb)cb(false); });
+  } catch(e){ if(cb)cb(false); }
+}
+// Payment gateway is not connected yet.
+//
+// When it is, the order is: create a Razorpay order server-side, open checkout, then
+// POST the order/payment/signature triple to the issue-certificate Edge Function.
+// That function re-computes the HMAC with the key secret and confirms with Razorpay
+// that the payment was captured for the right amount before it writes a row.
+//
+// recordCertLicence() must only ever be called with the credential code returned by
+// that function. Never mark a licence paid from the browser's own success callback --
+// Razorpay's client callback can be replayed, and localStorage can be edited by hand.
 function startCertCheckout(zoneId, cb){
   cb({ok:false, message:"Card payments are not live on this site yet. Certification opens shortly \u2014 your progress is saved and will still count."});
 }
