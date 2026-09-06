@@ -1,0 +1,22 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-executive-ai-lab.json",
+  "name": "Executive AI Lab (India / DPDP)",
+  "description": "Awarded for completing and passing the Executive AI Lab: board-level AI oversight, legal liability, ISO 42001 and governance frameworks, AI budget allocation, incident response, audit-ready assurance, and board accountability under India's Digital Personal Data Protection Act.",
+  "image": "https://ai-university.co.in/openbadges/img/executive-ai-lab.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-executive-ai-lab.json#criteria",
+    "narrative": "Complete all 11 lessons and their interactive labs — including an incident tabletop, a budget allocation exercise and a written board paper assessed against a rubric — then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "ai governance",
+    "board oversight",
+    "dpdp act",
+    "risk management",
+    "india"
+  ]
+}

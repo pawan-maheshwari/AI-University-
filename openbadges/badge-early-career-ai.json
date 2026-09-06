@@ -1,0 +1,20 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-early-career-ai.json",
+  "name": "Early Career AI Practitioner",
+  "description": "Awarded for completing and passing the Early Career AI track: prompt engineering, retrieval-augmented generation, MLOps, hallucination management, responsible AI, prompt evaluation, cost and latency budgets, and shipping a first AI feature.",
+  "image": "https://ai-university.co.in/openbadges/img/early-career-ai.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-early-career-ai.json#criteria",
+    "narrative": "Complete all 8 lessons and their interactive labs, including a written feature-scoping task assessed against a rubric, then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "prompt engineering",
+    "mlops",
+    "professional development"
+  ]
+}

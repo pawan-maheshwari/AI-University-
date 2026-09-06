@@ -1,0 +1,20 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-little-explorers.json",
+  "name": "AI Foundations — Little Explorers",
+  "description": "Awarded for completing and passing the Little Explorers track: an introduction to artificial intelligence for ages 5–12, covering how machines learn from examples, why AI makes mistakes, fairness, and safe use.",
+  "image": "https://ai-university.co.in/openbadges/img/little-explorers.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-little-explorers.json#criteria",
+    "narrative": "Complete all 8 lessons and their interactive labs, then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "ai literacy",
+    "primary education",
+    "children"
+  ]
+}

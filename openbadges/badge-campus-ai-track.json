@@ -1,0 +1,20 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-campus-ai-track.json",
+  "name": "Campus AI Track",
+  "description": "Awarded for completing and passing the Campus AI Track: transformer architecture, backpropagation, convolutional networks, diffusion models, training dynamics and optimisation, decoding and hallucination, and evaluation methodology.",
+  "image": "https://ai-university.co.in/openbadges/img/campus-ai-track.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-campus-ai-track.json#criteria",
+    "narrative": "Complete all 8 lessons and their interactive labs — including a live gradient descent trainer, a token probability explorer and a written evaluation critique — then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "deep learning",
+    "machine learning evaluation",
+    "higher education"
+  ]
+}

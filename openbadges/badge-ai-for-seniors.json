@@ -1,0 +1,21 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-ai-for-seniors.json",
+  "name": "AI for Seniors — Safe and Confident",
+  "description": "Awarded for completing and passing the AI for Seniors track: understanding AI in plain language, using voice assistants, staying connected with family, health and safety, recognising AI voice-cloning scams, online safety, and knowing when not to trust AI.",
+  "image": "https://ai-university.co.in/openbadges/img/ai-for-seniors.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-ai-for-seniors.json#criteria",
+    "narrative": "Complete all 8 lessons and their interactive labs, including a scam-call simulator, then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "digital literacy",
+    "online safety",
+    "scam awareness",
+    "older adults"
+  ]
+}

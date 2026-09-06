@@ -1,0 +1,20 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-ai-teens-studio.json",
+  "name": "AI Teens Studio",
+  "description": "Awarded for completing and passing the AI Teens Studio track: supervised, unsupervised and reinforcement learning, how neural networks train, why models fail, language model decoding, deepfake detection, prompt injection, and honest academic use of AI.",
+  "image": "https://ai-university.co.in/openbadges/img/ai-teens-studio.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-ai-teens-studio.json#criteria",
+    "narrative": "Complete all 8 lessons and their interactive labs — including a hands-on gradient descent trainer and four decision simulators — then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "machine learning",
+    "media literacy",
+    "secondary education"
+  ]
+}

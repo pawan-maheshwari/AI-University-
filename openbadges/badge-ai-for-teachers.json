@@ -1,0 +1,20 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-ai-for-teachers.json",
+  "name": "AI for Teachers",
+  "description": "Awarded for completing and passing the AI for Teachers track: AI fundamentals for educators, AI-resilient assessment design, planning and differentiation with AI, pupil data protection, and writing a school AI policy.",
+  "image": "https://ai-university.co.in/openbadges/img/ai-for-teachers.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-ai-for-teachers.json#criteria",
+    "narrative": "Complete all 8 lessons and their interactive labs — including a flagged-essay simulator and a written policy task assessed against a rubric — then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "education",
+    "teacher professional development",
+    "assessment design"
+  ]
+}
