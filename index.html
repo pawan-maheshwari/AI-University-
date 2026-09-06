@@ -6162,6 +6162,159 @@ function AssessmentView(props){
               fontWeight:700,fontSize:13,cursor:"pointer"}},"Review and submit")));
 }
 
+// ===== Open Badges 2.0 =====
+//
+// Makes a certificate machine-readable and portable. A baked badge carries its own
+// assertion inside the PNG, so LinkedIn, badge wallets and any Open Badges reader can
+// extract and verify it without visiting this site first.
+//
+// We implement OB 2.0 with HOSTED verification rather than 3.0 with signed Verifiable
+// Credentials, for one practical reason: OB 3.0 requires a private signing key, and a
+// static site served from GitHub Pages has nowhere safe to keep one. Hosted verification
+// puts the trust in a URL we control, which is honest about where the trust actually sits.
+//
+// Spec: iTXt chunk, keyword "openbadges", compression MUST NOT be used.
+
+var OB_BASE = "https://ai-university.co.in/openbadges";
+
+// --- CRC32, needed to write a valid PNG chunk ---------------------------
+var OB_CRC_TABLE = (function(){
+  var t = new Uint32Array(256);
+  for (var n = 0; n < 256; n++) {
+    var c = n;
+    for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function obCrc32(bytes){
+  var c = 0xFFFFFFFF;
+  for (var i = 0; i < bytes.length; i++) c = OB_CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+
+/**
+ * Insert an Open Badges assertion into a PNG.
+ * Returns a new Uint8Array, leaving the original untouched.
+ * Throws if the input is not a PNG or already carries a badge.
+ */
+function bakeOpenBadge(pngBytes, assertionJson){
+  var sig = [137, 80, 78, 71, 13, 10, 26, 10];
+  for (var s = 0; s < 8; s++) {
+    if (pngBytes[s] !== sig[s]) throw new Error("not a PNG");
+  }
+
+  var enc = new TextEncoder();
+  var text = enc.encode(assertionJson);
+  var keyword = enc.encode("openbadges");
+
+  // keyword \0 compressionFlag compressionMethod languageTag \0 translatedKeyword \0 text
+  var dataLen = keyword.length + 1 + 1 + 1 + 0 + 1 + 0 + 1 + text.length;
+  var data = new Uint8Array(dataLen);
+  var o = 0;
+  data.set(keyword, o); o += keyword.length;
+  data[o++] = 0;      // null after keyword
+  data[o++] = 0;      // compression flag: MUST be 0, uncompressed
+  data[o++] = 0;      // compression method
+  data[o++] = 0;      // empty language tag, then null
+  data[o++] = 0;      // empty translated keyword, then null
+  data.set(text, o);
+
+  var type = enc.encode("iTXt");
+  var chunk = new Uint8Array(4 + 4 + data.length + 4);
+  var dv = new DataView(chunk.buffer);
+  dv.setUint32(0, data.length);
+  chunk.set(type, 4);
+  chunk.set(data, 8);
+  var crcInput = new Uint8Array(4 + data.length);
+  crcInput.set(type, 0);
+  crcInput.set(data, 4);
+  dv.setUint32(8 + data.length, obCrc32(crcInput));
+
+  // Walk the chunk stream and insert immediately before IEND.
+  var pos = 8, iendAt = -1, seen = {};
+  while (pos < pngBytes.length) {
+    var len = new DataView(pngBytes.buffer, pngBytes.byteOffset + pos, 4).getUint32(0);
+    var t = String.fromCharCode(pngBytes[pos+4], pngBytes[pos+5], pngBytes[pos+6], pngBytes[pos+7]);
+    if (t === "iTXt") {
+      var kwEnd = pos + 8;
+      while (kwEnd < pngBytes.length && pngBytes[kwEnd] !== 0) kwEnd++;
+      var kw = "";
+      for (var q = pos + 8; q < kwEnd; q++) kw += String.fromCharCode(pngBytes[q]);
+      if (kw.toLowerCase() === "openbadges") seen.badge = true;
+    }
+    if (t === "IEND") { iendAt = pos; break; }
+    pos += 12 + len;
+  }
+  if (seen.badge) throw new Error("this image already carries a badge");
+  if (iendAt < 0) throw new Error("malformed PNG: no IEND");
+
+  var out = new Uint8Array(pngBytes.length + chunk.length);
+  out.set(pngBytes.subarray(0, iendAt), 0);
+  out.set(chunk, iendAt);
+  out.set(pngBytes.subarray(iendAt), iendAt + chunk.length);
+  return out;
+}
+
+/** Read an assertion back out of a baked PNG. Used by the tests, and by anyone curious. */
+function readOpenBadge(pngBytes){
+  var pos = 8;
+  while (pos < pngBytes.length - 8) {
+    var len = new DataView(pngBytes.buffer, pngBytes.byteOffset + pos, 4).getUint32(0);
+    var t = String.fromCharCode(pngBytes[pos+4], pngBytes[pos+5], pngBytes[pos+6], pngBytes[pos+7]);
+    if (t === "iTXt") {
+      var p = pos + 8, kw = "";
+      while (pngBytes[p] !== 0) { kw += String.fromCharCode(pngBytes[p]); p++; }
+      if (kw.toLowerCase() === "openbadges") {
+        p++;            // null after keyword
+        p += 2;         // compression flag + method
+        while (pngBytes[p] !== 0) p++; p++;   // language tag
+        while (pngBytes[p] !== 0) p++; p++;   // translated keyword
+        var end = pos + 8 + len;
+        return new TextDecoder().decode(pngBytes.subarray(p, end));
+      }
+    }
+    if (t === "IEND") break;
+    pos += 12 + len;
+  }
+  return null;
+}
+
+function obAssertionUrl(code){
+  return AIU_SUPABASE_URL + "/functions/v1/badge-assertion?id=" + encodeURIComponent(code);
+}
+
+/**
+ * Fetch the hosted assertion, bake it into the supplied PNG blob and hand back a
+ * downloadable Blob. The assertion is generated server-side so the copy baked into
+ * the image always matches the copy hosted at its own id URL -- if they diverge,
+ * every validator reports the badge as invalid.
+ */
+function buildOpenBadge(code, pngBlob, cb){
+  if (!AIU_SUPABASE_URL || !AIU_SUPABASE_ANON_KEY) {
+    cb({ ok:false, message:"Open Badge issuing is not configured on this site yet." });
+    return;
+  }
+  fetch(obAssertionUrl(code), { headers:{ apikey: AIU_SUPABASE_ANON_KEY, Accept:"application/json" } })
+    .then(function(r){ return r.ok ? r.text() : Promise.reject(new Error("http " + r.status)); })
+    .then(function(assertionJson){
+      var reader = new FileReader();
+      reader.onload = function(){
+        try {
+          var baked = bakeOpenBadge(new Uint8Array(reader.result), assertionJson);
+          cb({ ok:true, blob: new Blob([baked], { type:"image/png" }), assertion: assertionJson });
+        } catch (e) {
+          cb({ ok:false, message:"Could not create the badge image: " + e.message });
+        }
+      };
+      reader.onerror = function(){ cb({ ok:false, message:"Could not read the badge image." }); };
+      reader.readAsArrayBuffer(pngBlob);
+    })
+    .catch(function(){
+      cb({ ok:false, message:"Could not reach the badge service. Your certificate is unaffected." });
+    });
+}
+
 function CertModal(props){
   var zone=props.zone;
   var user = props.user || getUser();
@@ -6170,6 +6323,8 @@ function CertModal(props){
   var dl = useState(""); var dlMsg = dl[0], setDlMsg = dl[1];
   var lic = useState(zone ? hasCertLicence(zone.id) : false); var licensed = lic[0], setLicensed = lic[1];
   var pm  = useState(""); var payMsg = pm[0], setPayMsg = pm[1];
+  var ob  = useState(""); var obMsg = ob[0], setObMsg = ob[1];
+  var obb = useState(false); var obBusy = obb[0], setObBusy = obb[1];
   var ex  = useState(false); var sitting = ex[0], setSitting = ex[1];
   var pr  = useState(false); var practising = pr[0], setPractising = pr[1];
   var av  = useState(0); var assessTick = av[0], setAssessTick = av[1]; // forces a re-read after a sit
@@ -6373,6 +6528,38 @@ function CertModal(props){
     });
   }
 
+  // Renders the badge artwork, then bakes the hosted assertion into it.
+  function buildOpenBadgeForZone(cb){
+    var code = zone ? certLicenceCode(zone.id) : null;
+    if(!code){ cb({message:"No credential to badge yet."}); return; }
+    try{
+      var svgStr = zoneBadgeSVG(zone.label, ZC[zone.id].a, zone.age || "Certified");
+      var img = new Image();
+      img.onload = function(){
+        var c = document.createElement("canvas"); c.width = 512; c.height = 512;
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#F9F7F4"; ctx.fillRect(0,0,512,512);
+        ctx.drawImage(img,0,0,512,512);
+        c.toBlob(function(blob){
+          if(!blob){ cb({message:"Could not render the badge image."}); return; }
+          buildOpenBadge(code, blob, function(res){
+            if(!res.ok){ cb({message:res.message}); return; }
+            try{
+              var url = URL.createObjectURL(res.blob);
+              var a = document.createElement("a");
+              a.href = url; a.download = "AI-Academia-OpenBadge-"+code+".png";
+              document.body.appendChild(a); a.click(); document.body.removeChild(a);
+              setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+              cb({ok:true, message:"Badge downloaded. Upload it to a badge wallet, or add the credential to LinkedIn using the verification link."});
+            }catch(e){ cb({message:"Download failed \u2014 please try again."}); }
+          });
+        }, "image/png");
+      };
+      img.onerror = function(){ cb({message:"Could not render the badge image."}); };
+      img.src = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr);
+    }catch(e){ cb({message:"Could not build the badge."}); }
+  }
+
   function downloadPNG(){
     buildCanvas(function(canvas){
       var link=document.createElement('a');
@@ -6537,7 +6724,21 @@ function CertModal(props){
                         h("div",{style:{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}},
                           h("button",{onClick:downloadPNG,style:{background:CR,color:"#fff",border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download PNG"),
                           h("button",{onClick:downloadPDF,style:{background:GOLD,color:INK,border:"none",padding:"11px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download PDF")),
-                        dlMsg ? h("p",{style:{color:"#2E7D32",fontSize:12,marginTop:10}},dlMsg) : null)
+                        dlMsg ? h("p",{style:{color:"#2E7D32",fontSize:12,marginTop:10}},dlMsg) : null,
+                        h("div",{style:{marginTop:16,paddingTop:16,borderTop:"1px solid "+BORDER,textAlign:"left"}},
+                          h("div",{style:{fontSize:13.5,fontWeight:700,color:INK,marginBottom:4}},"Open Badge"),
+                          h("p",{style:{fontSize:12.5,color:SLATE,lineHeight:1.65,marginBottom:10}},
+                            "A portable, machine-readable version of this credential. The badge image carries its own verification data, so LinkedIn and badge wallets can read and check it without visiting this site."),
+                          h("button",{disabled:obBusy,onClick:function(){
+                              setObBusy(true); setObMsg("Building your badge\u2026");
+                              buildOpenBadgeForZone(function(r){
+                                setObBusy(false); setObMsg(r.message||"");
+                              });
+                            },
+                            style:{background:obBusy?BORDER:INK,color:"#fff",border:"none",padding:"10px 20px",
+                              borderRadius:4,fontWeight:600,fontSize:12.5,cursor:obBusy?"default":"pointer"}},
+                            obBusy?"Building\u2026":"Download Open Badge"),
+                          obMsg?h("p",{style:{fontSize:12,color:SLATE,marginTop:8,lineHeight:1.6}},obMsg):null))
                     : h("p",{style:{color:INK3,fontSize:13,fontStyle:"italic"}},"Sample certificate \u2014 every lesson is free to read; certification is \u20B9"+CERT_FEE_INR.toLocaleString('en-IN')+" per track.")
           )
         )
