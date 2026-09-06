@@ -6763,7 +6763,15 @@ var KIDS_GAMES = [
 
 function LearnScreen(props){
   var zone=props.zone;var zc=ZC[zone.id];
-  var lessons=(CURRICULUM[zone.id]&&CURRICULUM[zone.id][0]&&CURRICULUM[zone.id][0].lessons)?CURRICULUM[zone.id][0].lessons:[];
+  // Every module, not just the first. Reading only CURRICULUM[zone][0] made Module 2
+  // (and Module 3 on Mid-career) invisible on this page, and under-counted progress.
+  var mods = CURRICULUM[zone.id] || [];
+  var lessons = [];
+  mods.forEach(function(mod, mi){
+    (mod.lessons||[]).forEach(function(l){
+      lessons.push({ lesson:l, modIndex:mi, mod:mod });
+    });
+  });
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
   var bd=useState(false);var showBadge=bd[0],setShowBadge=bd[1];
   // gameModal holds {file, title} for whichever game is playing in the pop-up, or null.
@@ -6809,13 +6817,55 @@ function LearnScreen(props){
           h("span",{style:{fontWeight:700,color:allDone?"#2E7D32":zc.a}},pct+"%")),
         h("div",{style:{height:8,background:BORDER,borderRadius:4,overflow:"hidden"}},
           h("div",{style:{height:"100%",width:pct+"%",background:allDone?"#2E7D32":zc.a,transition:"width 0.3s"}})),
-        allDone ? h("div",{style:{marginTop:14,padding:"14px 18px",background:"#E8F5E9",border:"1px solid #A5D6A7",borderRadius:6,textAlign:"center"}},
-          h("p",{style:{color:"#1B5E20",fontWeight:600,fontSize:14,marginBottom:8}},"\ud83c\udf93 You've completed this track!"),
-          h("button",{onClick:function(){setShowCert(true);},style:{background:"#2E7D32",color:"#fff",border:"none",padding:"10px 22px",fontWeight:700,cursor:"pointer",borderRadius:4,fontSize:13}},"Download Your Certificate")) : null
+        allDone ? (function(){
+          // Finishing the lessons is step one of three. The old banner promised a
+          // download at this point, which was untrue and hid the assessment entirely.
+          var lic = hasCertLicence(zone.id);
+          var ast = assessmentState(zone.id);
+          function step(n, label, state, detail){
+            var colour = state==="done" ? "#2E7D32" : state==="now" ? zc.a : BORDER;
+            return h("div",{key:n,style:{display:"flex",gap:11,alignItems:"flex-start",marginBottom:10,textAlign:"left"}},
+              h("div",{style:{width:22,height:22,borderRadius:"50%",flex:"0 0 auto",display:"flex",alignItems:"center",
+                justifyContent:"center",fontSize:11,fontWeight:700,marginTop:1,
+                background:state==="done"?"#2E7D32":state==="now"?zc.a:"#fff",
+                color:state==="todo"?SLATE:"#fff",border:"1px solid "+colour}},
+                state==="done"?"\u2713":String(n)),
+              h("div",{style:{flex:1}},
+                h("div",{style:{fontSize:13.5,fontWeight:state==="now"?700:600,
+                  color:state==="todo"?SLATE:INK}},label),
+                detail?h("div",{style:{fontSize:12.5,color:SLATE,lineHeight:1.55,marginTop:2}},detail):null));
+          }
+          var cta, ctaLabel;
+          if(!lic){ ctaLabel = "See certification options"; }
+          else if(!ast.passed && ast.canSit){ ctaLabel = ast.attemptsUsed===0 ? "Begin the assessment" : "Take my re-sit"; }
+          else if(ast.passed){ ctaLabel = "Download your certificate"; }
+          else { ctaLabel = "View certification status"; }
+          return h("div",{style:{marginTop:14,padding:"16px 18px",background:"#E8F5E9",border:"1px solid #A5D6A7",borderRadius:6}},
+            h("p",{style:{color:"#1B5E20",fontWeight:700,fontSize:14,marginBottom:12,textAlign:"center"}},
+              "\ud83c\udf93 All "+total+" lessons complete"),
+            h("div",{style:{background:"#fff",border:"1px solid #C8E6C9",borderRadius:6,padding:"14px 16px",marginBottom:12}},
+              step(1,"Complete every lesson","done",null),
+              step(2,"Pay the certification fee", lic?"done":"now",
+                lic ? "Paid \u2014 two assessment attempts included"
+                    : "\u20b91,999 for this track. Learning stays free; only the credential is paid."),
+              step(3,"Pass the assessment", ast.passed?"done":(lic?"now":"todo"),
+                ast.passed ? ("Passed with "+Math.round(ast.bestPct*100)+"%")
+                : ast.expired ? "The re-sit window has closed \u2014 please contact us."
+                : ast.attemptsUsed>0 ? ("Best so far "+Math.round(ast.bestPct*100)+"%. Attempts left: "+ast.attemptsLeft+".")
+                : (ASSESS_QUESTIONS+" questions, "+ASSESS_MINUTES+" minutes, "+Math.round(ASSESS_PASS*100)+"% to pass.")),
+              step(4,"Certificate issued", ast.passed?"done":"todo",
+                ast.passed ? "Ready to download, with a verifiable credential ID"
+                           : "Issued once you pass, with a public verification page")),
+            h("button",{onClick:function(){setShowCert(true);},
+              style:{background:"#2E7D32",color:"#fff",border:"none",padding:"11px 24px",fontWeight:700,
+                cursor:"pointer",borderRadius:4,fontSize:13,width:"100%"}},ctaLabel),
+            (!lic && ast.lastPractice) ? h("p",{style:{fontSize:12,color:SLATE,textAlign:"center",marginTop:8}},
+              "Last practice paper: "+Math.round(ast.lastPractice.pct*100)+"%") : null);
+        })() : null
       ) : h("div",{style:{marginBottom:24,padding:"14px 18px",background:"#FFF8E1",border:"1px solid "+GOLD,borderRadius:6}},
         h("p",{style:{fontSize:13,color:INK3,lineHeight:1.6}},"Log in to track your progress through these lessons and earn a certificate when you finish. ",
           h("span",{onClick:props.onLoginPrompt,style:{color:CR,fontWeight:700,cursor:"pointer",textDecoration:"underline"}},"Log in / Sign up"))),
-      h("p",{style:{color:SLATE,marginBottom:24,fontSize:14}},total+" lessons \u00B7 Reading \u00B7 Video \u00B7 AI Quiz"),
+      h("p",{style:{color:SLATE,marginBottom:24,fontSize:14}},total+" lessons \u00B7 Reading \u00B7 Interactive lab \u00B7 Video \u00B7 AI Quiz"),
       // Game Section (AI for Teachers only)
       (zone.id==="teachers")?h("div",{style:{marginBottom:28,padding:"22px 24px",background:"linear-gradient(135deg,"+zc.bg+" 0%,#fff 100%)",border:"1px solid "+zc.br,borderRadius:8}},
         h("div",{style:{fontSize:11,color:zc.a,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:6}},"\ud83c\udfae Game Section"),
@@ -6908,9 +6958,17 @@ function LearnScreen(props){
           h("button",{onClick:function(){window.open("proof-framework.html","_blank","noopener");},style:{background:"#fff",color:zc.a,border:"1px solid "+zc.a,padding:"11px 20px",borderRadius:5,cursor:"pointer",fontWeight:600,fontSize:14}},"\u2197 Open in new tab")),
         h("div",{style:{fontSize:11.5,color:SLATE,fontStyle:"italic",lineHeight:1.6}},"Framework by Pawan Maheshwari, built on causal field-evaluation research published in the Harvard Data Science Review.")):null,
       (allDone && user)?h(ZoneBadge,{zone:zone}):null,
-      lessons.length?lessons.map(function(l,i){
+      lessons.length?lessons.map(function(entry,i){
         var done = !!(prog[zone.id] && prog[zone.id][i]);
-        return h(LessonView,{key:i,lesson:l,lessonIndex:i,zone:zone,complete:done,onToggle:function(val){toggle(i,val);}});
+        var first = (i===0) || lessons[i-1].modIndex!==entry.modIndex;
+        var head = first ? h("div",{key:"m"+entry.modIndex,style:{margin:(i===0?"0 0 14px":"26px 0 14px"),
+          paddingBottom:8,borderBottom:"2px solid "+zc.br,display:"flex",alignItems:"baseline",gap:10,flexWrap:"wrap"}},
+          h("span",{style:{fontSize:11,fontWeight:700,letterSpacing:1,textTransform:"uppercase",color:zc.a}},
+            "Module "+(entry.modIndex+1)),
+          h("span",{style:{fontFamily:"EB Garamond,serif",fontSize:21,fontWeight:700,color:INK}},entry.mod.title),
+          h("span",{style:{fontSize:12,color:SLATE}},(entry.mod.lessons||[]).length+" lessons")) : null;
+        return h("div",{key:i},head,
+          h(LessonView,{lesson:entry.lesson,lessonIndex:i,zone:zone,complete:done,onToggle:function(val){toggle(i,val);}}));
       }):h("p",{style:{color:SLATE}},"Content coming soon.")));
 }
 
