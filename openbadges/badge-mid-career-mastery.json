@@ -1,0 +1,22 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://ai-university.co.in/openbadges/badge-mid-career-mastery.json",
+  "name": "Mid-Career AI Mastery (India / DPDP)",
+  "description": "Awarded for completing and passing the Mid-Career Mastery track: enterprise AI roadmaps, the NIST AI Risk Management Framework, the EU AI Act, change management, ROI measurement, business case construction, vendor selection, and India's Digital Personal Data Protection Act as it applies to AI systems.",
+  "image": "https://ai-university.co.in/openbadges/img/mid-career-mastery.svg",
+  "criteria": {
+    "type": "Criteria",
+    "id": "https://ai-university.co.in/openbadges/badge-mid-career-mastery.json#criteria",
+    "narrative": "Complete all 11 lessons and their interactive labs — including portfolio allocation exercises, a consent-audit simulator and a written benefit-chain task — then pass a 20-question assessment at 70% or above. The assessment is taken online and is not proctored."
+  },
+  "issuer": "https://ai-university.co.in/openbadges/issuer.json",
+  "tags": [
+    "artificial intelligence",
+    "ai governance",
+    "dpdp act",
+    "data protection",
+    "india",
+    "enterprise ai"
+  ]
+}

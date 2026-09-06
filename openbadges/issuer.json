@@ -1,0 +1,10 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "Issuer",
+  "id": "https://ai-university.co.in/openbadges/issuer.json",
+  "name": "AI Academia",
+  "url": "https://ai-university.co.in",
+  "email": "REPLACE_WITH_YOUR_CONTACT_EMAIL",
+  "description": "AI Academia is an AI education initiative of Planet AI LLP, Bengaluru, offering age-calibrated artificial intelligence tracks from ages 5 to 60+. All learning material is free to read; certification is assessed and paid. Certificates recognise completion and assessed understanding. They are not accredited by any statutory or governing body and carry no academic credit.",
+  "image": "https://ai-university.co.in/openbadges/img/issuer.svg"
+}
