@@ -3382,7 +3382,9 @@ var CURRICULUM = {
       startM: 0.1, startC: 6.5, goal: 0.35,
       xLabel: "Feature x", yLabel: "Target y"
     }
-  },{
+  ,
+      vk: "grad_descent"
+    },{
     id: "c7", num: "07", title: "Sampling, Decoding and Why Models Hallucinate", 
     reading: "# Sampling, Decoding and Why Models Hallucinate\n\n## The Model Outputs a Distribution, Not Text\n\nA language model's forward pass produces logits over the full vocabulary. Turning that distribution into a token is **decoding**, and it is a separate design decision from the model itself. Two systems with identical weights can behave completely differently based on decoding alone.\n\n## Temperature\n\nBefore the softmax, logits are divided by temperature T:\n\n**p\u1d62 = exp(z\u1d62/T) / \u03a3 exp(z\u2c7c/T)**\n\n- **T \u2192 0** approaches argmax \u2014 deterministic, repetitive, prone to loops\n- **T = 1** the model's own calibrated distribution\n- **T > 1** flattens the distribution, giving low-probability tokens real mass\n\nRaising temperature does not make the model more creative in any meaningful sense. It makes it more willing to sample tokens it considers unlikely \u2014 which sometimes reads as creativity and sometimes as fabrication.\n\n## Top-k and Nucleus Sampling\n\nPure temperature sampling has a flaw: it leaves probability mass on the long tail of genuinely bad tokens.\n\n- **Top-k** truncates to the k highest-probability tokens, then renormalises. Simple, but k is fixed while the appropriate cutoff varies enormously by context.\n- **Top-p (nucleus)** takes the smallest set whose cumulative probability exceeds p. Adaptive: after \u201cthe capital of France is\u201d, the nucleus may hold one token; mid-sentence in fiction it may hold two hundred.\n\nNucleus sampling is the usual default because it adapts to how confident the model actually is at that position.\n\n## Where Hallucination Comes From\n\nSeveral mechanisms, often conflated:\n\n1. **Sampling.** A low-probability token gets selected, and autoregressive generation then conditions on it. The model continues coherently from a false premise it introduced itself.\n2. **Training objective.** Next-token prediction rewards plausible continuations, never abstention. Nothing in pretraining teaches a model to say it does not know.\n3. **Distributional gaps.** Where training data was sparse or contradictory, the model still produces a confident distribution \u2014 uncertainty in the data does not reliably become uncertainty in the output.\n4. **Alignment pressure.** RLHF on human preference data can reward confident, helpful-sounding answers over hedged correct ones.\n\nThis is why hallucination is not a bug awaiting a patch. Points 2 and 3 are properties of the training objective itself.\n\n## Calibration\n\nA well-calibrated model assigns 70% probability to things true 70% of the time. Base models are often reasonably calibrated; instruction tuning frequently degrades calibration, producing systems that are more useful and more confidently wrong.\n\nToken-level probabilities are a weak but real uncertainty signal \u2014 more useful than asking the model how confident it is, since that answer is itself generated text.\n\n## Practical Consequences\n\n- Factual retrieval: low temperature, low top-p, and ground it in retrieved context\n- Creative generation: higher temperature, wider nucleus\n- Never treat a model's stated confidence as a probability\n- Grounding beats decoding tuning: no sampling parameter makes a model know something absent from its weights or its context",
     artifact: {
@@ -3944,6 +3946,7 @@ var CURRICULUM = {
   id: "india",
   icon: "[india]",
   title: "India: Building for DPDP",
+  exclusive: true,
   color: "#BE123C",
   lessons: [{
     id: "m9", num: "09", title: "The DPDP Act and Rules \u2014 What Changed", 
@@ -4320,6 +4323,126 @@ var CURRICULUM = {
     ,
       write: {type:"write",title:"Draft the board paragraph",caption:"Multiple choice cannot show whether you can actually write this. Write it.",task:"Your board meets in a fortnight. Write the single paragraph you would put in the papers explaining the current state of AI oversight in your organisation, aimed at non-executive directors who are not technical.",rubric:["States what is in place, in concrete terms rather than principles","Names at least one specific gap honestly, rather than implying everything is covered","Says what a non-executive should ask about next","Avoids vague assurance language such as \"robust\" or \"world-class\" with nothing behind it","Would be intelligible to a director with no technical background"],minWords:90,placeholder:"The board should be aware that…"}
     }]
+},{
+  id: "dpdp-board",
+  icon: "[india]",
+  title: "DPDP: The Board\u2019s Exposure",
+  color: "#BE123C",
+  exclusive: true,
+  lessons: [{
+    id: "l9", num: "09", title: "What the Board Is Answerable For", vk: null,
+    reading: "# What the Board Is Answerable For\n\n## The Law That Will Actually Be Enforced\n\nMost Indian boards have been briefed on the EU AI Act. Very few have been briefed on the Digital Personal Data Protection Act, 2023 \u2014 which is the statute their own regulator will enforce against them.\n\nThe Act was passed in August 2023. The DPDP Rules were notified in November 2025, at which point it stopped being a policy discussion. The Data Protection Board of India is constituted. Commencement is phased across **14 November 2025, 14 November 2026 and 14 May 2027**.\n\nIf your last board briefing on data protection predates November 2025, it is out of date.\n\n## Your Organisation Is a Fiduciary\n\nThe Act does not call you a controller. It calls you a **Data Fiduciary**, and the word is deliberate. It frames the relationship with the individual as one of trust and duty rather than one of control over an asset.\n\nThat framing matters at board level because it shapes how the Board of India will read your conduct. An organisation that technically complied while behaving as though the data were its own property is in a weaker position than the compliance file suggests.\n\n## Significant Data Fiduciary Status\n\nThe government may notify a class of Fiduciaries as **Significant**, based on the volume and sensitivity of data processed, the risk to the rights of individuals, and impact on the sovereignty and integrity of India or public order.\n\nIf your organisation is notified, three obligations land directly on the board's agenda:\n\n1. **A Data Protection Officer based in India, reporting to the board** or its governing body. Not to the CIO. Not to Legal. To you.\n2. **An independent data auditor** and periodic Data Protection Impact Assessments.\n3. **Algorithmic due diligence** \u2014 verifying that algorithmic software used to process personal data does not pose a risk to Data Principals' rights.\n\nThat third obligation is the one to understand properly. It is an explicit statutory hook for algorithmic accountability in Indian law, and it applies to your machine learning systems. Once notified, your model documentation, bias testing and evaluation evidence are no longer engineering good practice. They are artefacts an auditor will request.\n\n## The Question to Ask Management This Quarter\n\n**\u201cAre we likely to be notified as a Significant Data Fiduciary, and if we were notified tomorrow, what would we be unable to produce?\u201d**\n\nThe second half is the useful half. Most organisations can guess at the first.\n\n## Penalties\n\nUp to **\u20b9250 crore** for failure to take reasonable security safeguards, assessed per instance against gravity, duration, and whether the conduct was repeated. Substantial penalties apply across other categories.\n\nThe figure matters less than the structure. Per-instance assessment means a systemic failure across many individuals is not one penalty. It is a pattern the Board will price accordingly.\n\n## Extraterritorial Reach Cuts Both Ways\n\nThe Act reaches processing outside India where it relates to offering goods or services to individuals in India. Your offshore model hosting is in scope. So is your vendor's.\n\nEqually: if you serve customers in India from anywhere, a foreign parent's global privacy programme does not discharge the obligation. Someone in India is answerable.\n\n## What Good Looks Like at Board Level\n\nNot a policy. Four things you can ask for and read:\n\n- A statement of whether SDF notification is expected, with reasoning\n- The inventory of AI systems processing personal data, with owners named\n- The list of processing activities currently relying on consent, and whether that consent covers model training\n- The date of the last breach-response rehearsal\n\nIf management cannot supply those four in a fortnight, that is the finding, and it is a more useful finding than any assurance statement.",
+    artifact: {
+      type: "scenario",
+      title: "The board briefing",
+      caption: "Your audit committee has 40 minutes on DPDP. Four exchanges decide whether the board leaves informed or reassured.",
+      steps: [
+        {
+          situation: "The CIO opens by saying the organisation is GDPR-compliant, so DPDP is largely covered.",
+          options: [
+            {t: "Accept it \u2014 GDPR is the stricter regime", ok: false, why: "A common and expensive assumption. GDPR is stricter in some respects and materially weaker in others: it has a risk threshold for breach notification and a legitimate-interests basis, neither of which exists here. Being GDPR-compliant does not make you DPDP-compliant."},
+            {t: "Ask specifically where the two regimes differ for us", ok: true, why: "The right question, and it produces the three gaps that matter: no legitimate-interests basis, no risk threshold on breach reporting, and prohibitions rather than consent questions for children's data."},
+            {t: "Ask for the GDPR audit report", ok: false, why: "It will tell you about a different statute. The board's exposure is under Indian law, and the audit was not scoped to it."}
+          ]
+        },
+        {
+          situation: "Asked whether the organisation might be notified as a Significant Data Fiduciary, management says it is unlikely and moves on.",
+          options: [
+            {t: "Accept the assessment \u2014 management knows the data volumes", ok: false, why: "Perhaps, and the question the board needs answered is not whether it is likely. It is what would be unproducible if it happened. That question surfaces the real gaps regardless of how the notification question resolves."},
+            {t: "Ask what we would be unable to produce if notified tomorrow", ok: true, why: "This is the version of the question that yields something useful. It converts a speculative discussion into a gap list with owners, whether or not designation ever comes."},
+            {t: "Instruct management to prepare as though notified", ok: false, why: "Well intentioned and disproportionate. Applying SDF-grade process across everything collapses under its own weight and gets bypassed, which is worse than lighter controls that are followed."}
+          ]
+        },
+        {
+          situation: "The head of data science mentions the recommendation model was trained on three years of customer behaviour collected under a general terms acceptance.",
+          options: [
+            {t: "Note it and ask Legal to review the wording", ok: false, why: "Understates it. This is not a drafting question \u2014 model training is a distinct purpose requiring its own specific consent, and bundled terms acceptance does not provide it. The options are fresh consent, a genuine legitimate use, or excluding the data."},
+            {t: "Treat it as a live exposure and ask for a remediation plan with a date", ok: true, why: "Correct, and the timing matters. Re-basing training data is a long project. Started now it is a programme; discovered by the Board it is an enforcement matter."},
+            {t: "Ask whether competitors are doing the same", ok: false, why: "Widespread non-compliance is not a defence, and it is the reasoning that produces sector-wide enforcement actions."}
+          ]
+        },
+        {
+          situation: "You ask when the breach response was last rehearsed. The answer is that a written plan exists.",
+          options: [
+            {t: "Accept the plan as evidence of readiness", ok: false, why: "A plan that has never been run is a document, not a capability. Under DPDP every breach is reportable with no risk threshold, and the hardest question \u2014 which individuals were affected \u2014 is the one no untested team answers quickly."},
+            {t: "Ask for a tabletop with the actual decision-makers, and a date", ok: true, why: "The single most useful instruction a board can give here. Two hours with the real decision-makers reveals more than any written plan review, particularly the scope-determination step."},
+            {t: "Ask for the plan to be circulated to the board", ok: false, why: "You will read a document that describes intentions. It will not tell you whether the organisation can determine breach scope inside a reporting window."}
+          ]
+        }
+      ],
+      passNote: "You separated DPDP from GDPR rather than assuming coverage, asked what would be unproducible rather than what was likely, treated the training-data basis as a live exposure, and required a rehearsal instead of a plan. That is a board doing its job on this statute.",
+      failNote: "Four habits carry this: GDPR compliance is not DPDP compliance, ask what you could not produce rather than what is likely, treat bundled consent for model training as an exposure with a date, and never accept an unrehearsed plan as readiness."
+    }
+  },{
+    id: "l10", num: "10", title: "Consent-First Changes What You Can Build", vk: null,
+    reading: "# Consent-First Changes What You Can Build\n\n## This Is a Strategy Question, Not a Compliance One\n\nBoards tend to receive data protection as a cost line and a control framework. Under the DPDP Act it is neither. It is a constraint on which AI products are buildable at all, and that belongs in the strategy discussion rather than the audit committee.\n\n## The Absence That Reshapes Everything\n\nGDPR permits processing on the basis of legitimate interests \u2014 a balancing test that, in practice, is how a great deal of analytics and model training is justified in Europe.\n\n**The DPDP Act contains no equivalent.** Processing rests on consent, or on a narrow set of specified legitimate uses such as data the individual voluntarily provided for a stated purpose, employment purposes, and certain state functions.\n\nThe strategic consequence: **an AI roadmap that assumes existing customer data is available for training is an AI roadmap with a hole in it.** Not a compliance gap to be closed later. A hole in the plan.\n\n## Three Questions That Reprice a Roadmap\n\n1. **Which planned models depend on data collected before 2023?** Those are the exposed ones.\n2. **What would fresh consent collection cost, and what response rate would we get?** This is a real number and usually a sobering one. It belongs in the business case before approval, not after.\n3. **Which use cases survive if we can only use data consented for that specific purpose?** Some will. The honest exercise is finding out which.\n\n## Children Are a Product Constraint\n\nFor anyone under 18 the Act requires verifiable guardian consent. Beyond that sit two prohibitions:\n\n- **No behavioural monitoring of children**\n- **No targeted advertising directed at children**\n\nThese are absolute. They are not risk-assessed, and consent does not unlock them.\n\nAt board level the implication is direct: if your product has under-18 users, personalisation for that cohort is not a feature to be governed. It cannot be built. Any revenue model assuming otherwise needs revising, and the first step is establishing whether you have under-18 users at all \u2014 most organisations have never checked.\n\n## Withdrawal Is a Capital Expenditure\n\nAn individual may withdraw consent as easily as they gave it. The obligation then extends to your processors.\n\nIn a modern AI estate that means the operational store, the warehouse, the feature store, the training sets, the model checkpoints, the evaluation fixtures and the logs. Organisations that never designed for deletion discover the cost of retrofitting it at exactly the wrong moment.\n\nThis is worth funding deliberately. It is unglamorous, it has no sponsor, and it is the capability that makes every other obligation answerable.\n\n## Vendors Do Not Absorb Your Liability\n\nYou remain the Data Fiduciary. A contractual commitment from a processor is worth having and does not transfer the obligation.\n\nThe two clauses to insist on personally: **whether your data trains their models**, in writing; and **portability of your data and configuration on exit**, tested rather than promised.\n\n## Cross-Border Is More Permissive Than Expected\n\nTransfers are permitted except to countries the government restricts. This is a negative list rather than an adequacy whitelist, and it is a lighter regime than many boards assume.\n\nIt can change. The practical requirement is knowing precisely where your inference and training actually run \u2014 which a surprising number of organisations cannot answer.",
+    artifact: {
+      type: "weigh",
+      title: "Fund the DPDP readiness programme",
+      caption: "\u20b98 crore across five workstreams, ahead of the November 2026 phase. Concentration looks efficient and leaves you unable to answer the questions that will actually be asked.",
+      budget: 80, step: 5, unit: "\u20b9 lakh (in tens)",
+      target: 17, riskCap: 24, minSpread: 4,
+      options: [
+        {name: "Consent re-basing for training data", desc: "The largest exposure. Long lead time, uncertain response rates.", yield: 8.0, scale: 24, risk: 0.35},
+        {name: "Deletion and withdrawal pipeline", desc: "No sponsor, no headline. Makes every other obligation answerable.", yield: 7.5, scale: 20, risk: 0.10},
+        {name: "Breach scope determination capability", desc: "Answers the first question the Board will ask. Untested teams fail here.", yield: 6.5, scale: 16, risk: 0.15},
+        {name: "Notice rework in Eighth Schedule languages", desc: "A stated requirement, routinely deprioritised as localisation.", yield: 5.0, scale: 12, risk: 0.12},
+        {name: "Algorithmic due diligence evidence", desc: "Model documentation and bias testing as audit artefacts, not engineering notes.", yield: 6.0, scale: 18, risk: 0.20}
+      ],
+      passNote: "Spread across the obligations that will actually be tested, with the deletion pipeline funded despite having no sponsor. That programme can answer a regulator on any of the five fronts.",
+      failNote: "Look at what is unfunded. Consent re-basing is the biggest exposure and it is useless without a deletion pipeline to enforce withdrawal \u2014 and a programme that cannot determine breach scope fails at the first question it is asked."
+    },
+    takeaway: {
+      filename: "dpdp-board-questions.md",
+      title: "Board Questions on DPDP",
+      blurb: "The questions to put to management, with the answers that should worry you.",
+      content: "# DPDP \u2014 Questions for the Board to Ask\n\n**Meeting:** ____________  **Prepared by:** ____________\n\n## 1. Scope and status\n- Are we likely to be notified as a Significant Data Fiduciary? On what reasoning?\n- **If notified tomorrow, what could we not produce?**\n- Where does our inference and training physically run?\n\n_Worrying answer: \u201cWe're GDPR-compliant so we're covered.\u201d GDPR has a legitimate-interests basis and a breach risk threshold. DPDP has neither._\n\n## 2. Consent and training data\n- Which processing activities rely on consent?\n- Does that consent name model training as its own purpose?\n- Which planned models depend on data collected before 2023?\n- What would fresh consent collection cost, and at what response rate?\n\n_Worrying answer: \u201cOur terms cover improving our services.\u201d That is bundled, non-specific consent._\n\n## 3. Children\n- Do we know our under-18 population, measured rather than assumed?\n- Do we run behavioural personalisation for that cohort?\n\n_Worrying answer: \u201cWe'll add guardian consent.\u201d Behavioural monitoring and targeted advertising to children are prohibitions. Consent does not unlock them._\n\n## 4. Withdrawal and deletion\n- When a person withdraws, which systems stop processing?\n- Does that reach the warehouse, feature store, training sets, checkpoints, evaluation fixtures and logs?\n\n_Worrying answer: \u201cThe live application stops using it.\u201d_\n\n## 5. Breach readiness\n- When was breach response last rehearsed with the actual decision-makers?\n- Can we determine **which individuals** were affected, not just how many?\n- Does the team know every breach is reportable, with no risk threshold?\n\n_Worrying answer: \u201cWe have a documented plan.\u201d A plan never run is a document, not a capability._\n\n## 6. Vendors\n- Is \u201cour data does not train your models\u201d in writing, in the contract?\n- Has data export on exit been tested, not just promised?\n\n## 7. Evidence\n- Inventory of AI systems processing personal data, with named owners: available? Y / N\n- Model documentation and bias testing fit to show an auditor: Y / N\n- Date of last DPIA: ____________\n\n---\n_Not legal advice. Prepared for board discussion; confirm positions with qualified counsel._\n"
+    }
+  },{
+    id: "l11", num: "11", title: "A DPDP Breach Is Not Your Usual Incident", vk: null,
+    reading: "# A DPDP Breach Is Not Your Usual Incident\n\n## Your Crisis Plan Was Written for a Different Statute\n\nMost Indian enterprise incident plans were built around materiality. Assess the severity, decide whether it crosses a threshold, notify if it does. That logic is embedded in the runbook, the escalation matrix and the judgement of everyone who will be in the room.\n\nUnder the DPDP Act it is wrong.\n\n## No Risk Threshold\n\n**Every personal data breach is reportable** \u2014 to the Data Protection Board and to affected Data Principals \u2014 regardless of severity, regardless of whether harm occurred, regardless of whether there is evidence anyone accessed the data.\n\nThere is no \u201cassessed as low risk and closed internally\u201d in this regime. A board that does not know this will discover it when a team has already made the wrong call in good faith, following a runbook the board approved.\n\n## The Question That Decides the Incident\n\nNot \u201chow bad is it\u201d. **\u201cWhich individuals were affected?\u201d**\n\nThis is the question the Board will ask first, it is the one required to notify individuals at all, and it is the one that most organisations cannot answer quickly. Determining scope across an AI estate \u2014 where the same personal data exists in an operational store, a warehouse, a feature store, training sets, checkpoints and logs \u2014 takes far longer than executives expect.\n\nAn organisation that has never traced a breach scope will not do it well against a clock.\n\n## Derived Data Is Still Personal Data\n\nA predictable argument will be made in the room: the exposure was only derived features, not raw records, so it is not personal data.\n\nIf those attributes relate to identifiable individuals, they are personal data. A feature store keyed by customer identifier plainly does. And inferred attributes are frequently *more* sensitive than the raw fields they came from \u2014 an inferred income band or health proxy reveals more than the transaction list it was built from.\n\nA board that accepts the derived-data argument is accepting a position that will not survive scrutiny.\n\n## What the Board Should Have Settled in Advance\n\nDecide these before an incident, because they will not be decided well during one:\n\n1. **Who can suspend a live AI system.** A named role, not a committee. Three signatures means it will not happen inside an hour.\n2. **What is preserved immediately** \u2014 model version, inputs, configuration, logs. Evidence is routinely destroyed in the first hour.\n3. **Who speaks.** One voice.\n4. **That reporting is not a judgement call.** Say it explicitly, because the instinct in the room will be to assess materiality.\n\n## Remediation Is What You Are Judged On\n\nRegulators and customers weigh remediation far more heavily than the original failure. Who was affected, how were they made whole, what prevents recurrence.\n\nAn organisation that can answer \u201cwho was affected\u201d can remediate to the whole population rather than to whoever complains. One that cannot will compensate the confident and miss everyone else \u2014 which is both unjust and, in front of the Board, indefensible.\n\n## The Cheapest Preparation Available\n\nA two-hour tabletop with the actual decision-makers, run before you need it. Use the awkward variant: the system worked exactly as designed, and the design is the problem.\n\nIt costs an afternoon. It is the highest-return governance activity available on this statute.",
+    artifact: {
+      type: "scenario",
+      title: "The call at 21:40",
+      caption: "You chair the audit committee. The CISO rings on a Thursday evening. Four decisions, in order.",
+      steps: [
+        {
+          situation: "A misconfigured store exposed a feature set for 90,000 customers over eleven days. Security reports no evidence of access and has classified it low risk, not reportable.",
+          options: [
+            {t: "Accept the classification \u2014 security assessed it properly", ok: false, why: "They applied a materiality threshold that does not exist in this statute. Under the DPDP Act every breach is reportable regardless of severity or evidence of access. The classification is competent work against the wrong rulebook."},
+            {t: "Correct the framing \u2014 reporting is not a judgement call here", ok: true, why: "The most valuable thing a board member can contribute in that moment. Reporting a breach you assessed as minor costs little; explaining to the Board why you did not report is a different conversation entirely."},
+            {t: "Ask for a legal opinion before deciding", ok: false, why: "Worth obtaining and not a reason to pause. The reporting window is running, and the position under the Act is not genuinely ambiguous."}
+          ]
+        },
+        {
+          situation: "Someone argues these are derived model features, not personal data, so nothing is reportable.",
+          options: [
+            {t: "Accept it \u2014 derived attributes are not raw personal data", ok: false, why: "Derivation does not launder personal data. Per-customer attributes relate to identifiable individuals, and inferred features are often more revealing than the raw fields behind them."},
+            {t: "Reject it \u2014 per-customer attributes identify individuals", ok: true, why: "Correct, and worth saying firmly. This argument is predictable, comfortable, and will not survive scrutiny by the Board."},
+            {t: "Ask the vendor whether their features count as personal data", ok: false, why: "The vendor is not the decision maker. You are the Data Fiduciary; the determination and the liability are yours."}
+          ]
+        },
+        {
+          situation: "The Board asks which individuals were affected. Management offers the customer count and the eleven-day window.",
+          options: [
+            {t: "Provide that \u2014 it is accurate and available", ok: false, why: "A count is not a scope. You cannot notify individuals you have not identified, and notification of affected Data Principals is required."},
+            {t: "Require the actual list, and treat the delay as the real finding", ok: true, why: "Right on both counts. The inability to answer this quickly is a capability gap that will recur at every future retention request, withdrawal request and breach."},
+            {t: "Notify all customers to be safe", ok: false, why: "Looks diligent, still fails to answer the Board, and alarms people whose data was never exposed."}
+          ]
+        },
+        {
+          situation: "Day nine. Remediated. Management proposes closing with a post-incident report to the board.",
+          options: [
+            {t: "Accept \u2014 the fix is in and the board is informed", ok: false, why: "Internally tidy, and it leaves the affected individuals exactly where they were. Remediation is what you are judged on, and a report to your own board is not remediation."},
+            {t: "Require a data map of every copy, as the lasting deliverable", ok: true, why: "The most valuable output of any breach, and the moment immediately afterwards is the only time this work reliably gets funded. That map is what an SDF audit will ask to see."},
+            {t: "Commission an external review of the security team", ok: false, why: "Possibly warranted, and it addresses the proximate cause rather than the capability gap the incident exposed."}
+          ]
+        }
+      ],
+      passNote: "You corrected a materiality reflex that does not apply here, refused the derived-data argument, insisted on actual scope rather than a count, and converted the incident into a data map. That is a board adding value during an incident rather than after it.",
+      failNote: "Three things to carry: there is no risk threshold for reporting under this Act, derived per-customer features are personal data, and \u2018how many\u2019 is not an answer to \u2018which individuals\u2019."
+    }
+  }]
 }],
   teens: [{
     id: "ml",
@@ -4384,6 +4507,8 @@ var CURRICULUM = {
           {w: "octopus", p: 0.05}
         ]
       }
+    ,
+      vk: "llm_intro"
     }]
   },{
     id: "build",
@@ -5079,6 +5204,10 @@ function totalLabCount(){
 }
 
 var VIDS = {
+  // Added Sep 2026 to fill lesson gaps. Distinct keys so they cannot collide with
+  // the original per-zone keys.
+  grad_descent: "IHZwWFHWa-w",   // 3Blue1Brown - Gradient descent, how neural networks learn (Ch.2)
+  llm_intro:    "LPZh9BOjkQs",   // 3Blue1Brown - Large Language Models explained briefly (9 min)
   // Seniors track. These keys were referenced by the curriculum but never defined,
   // which left the Video tab empty for all eight lessons.
   sr1: "Z_X785bN6zI",   // AI for Seniors: Beginner-Friendly Introduction — Lesson 1, What is AI?
@@ -5417,6 +5546,22 @@ var QUIZBANK = {
     {q:"What is the manager's role in AI ethics?",options:["Set policy and model good practice","Delegate and forget","Avoid the topic","Block all use"],answer:0,explain:"Leaders set and model responsible AI practices."}
   ],
   leaders: [
+    {q:"Under the DPDP Act, your organisation is called a:",options:["Data Fiduciary","Data Controller","Data Owner","Data Custodian"],answer:0,explain:"The word is deliberate — it frames the relationship as one of trust and duty."},
+    {q:"If notified as a Significant Data Fiduciary, the DPO must report to:",options:["The board or governing body","The CIO","Legal","The parent company"],answer:0,explain:"It lands directly on the board's agenda, not in the technology function."},
+    {q:"Which SDF duty applies specifically to machine learning systems?",options:["Algorithmic due diligence","Annual public reporting","Local data storage","Board-level sign-off on models"],answer:0,explain:"An explicit statutory hook for algorithmic accountability in Indian law."},
+    {q:"The most useful board question about SDF status is:",options:["If notified tomorrow, what could we not produce?","Are we likely to be notified?","What would it cost?","Who else has been notified?"],answer:0,explain:"It yields a gap list regardless of how designation resolves."},
+    {q:"“We are GDPR-compliant so DPDP is covered” is:",options:["Wrong — GDPR has bases and thresholds DPDP lacks","Broadly correct","Correct for EU subsidiaries","Correct if audited"],answer:0,explain:"No legitimate interests, no breach risk threshold, and prohibitions for children."},
+    {q:"An AI roadmap assuming pre-2023 customer data is available for training has:",options:["A hole in the plan, not a compliance task for later","No issue","A minor documentation gap","A vendor problem"],answer:0,explain:"Model training is its own purpose requiring its own specific consent."},
+    {q:"Behavioural personalisation for under-18 users is:",options:["Not buildable — it is a prohibition","Permitted with guardian consent","Permitted with a DPIA","A governance question"],answer:0,explain:"Consent does not unlock it. It is a product constraint."},
+    {q:"Withdrawal of consent obliges you to reach:",options:["Processors and every copy, including training sets and checkpoints","The live application","The warehouse only","Nothing beyond the account"],answer:0,explain:"Retrofitting deletion across an AI estate is expensive and rarely funded early."},
+    {q:"A vendor's contractual commitment on data protection:",options:["Is worth having but does not transfer your liability","Transfers the obligation","Removes board exposure","Satisfies the Act"],answer:0,explain:"You remain the Data Fiduciary."},
+    {q:"Cross-border transfer under the DPDP Act operates on:",options:["A negative list of restricted countries","An adequacy whitelist","A blanket ban","Case-by-case approval"],answer:0,explain:"Lighter than many boards assume, and it can change."},
+    {q:"Under the DPDP Act, a breach assessed as low risk with no evidence of access is:",options:["Still reportable — there is no threshold","Closed internally","Reported only if harm occurs","Logged only"],answer:0,explain:"Materiality reflexes from other regimes produce the wrong call here."},
+    {q:"The first question the Board will ask after a breach is:",options:["Which individuals were affected","How severe was it","Who was responsible","What did it cost"],answer:0,explain:"You cannot notify individuals you have not identified."},
+    {q:"A colleague argues exposed derived features are not personal data. They are:",options:["Wrong — per-customer attributes identify individuals","Right, derivation anonymises","Right if raw fields are safe","Right for internal use"],answer:0,explain:"Inferred attributes are often more revealing than the raw fields behind them."},
+    {q:"Authority to suspend a live AI system should sit with:",options:["A named role","The audit committee","The full board","The vendor"],answer:0,explain:"Three signatures means it will not happen inside an hour."},
+    {q:"The highest-return governance activity on this statute is:",options:["A two-hour tabletop with the actual decision-makers","A policy refresh","An external audit","A board briefing deck"],answer:0,explain:"A plan that has never been run is a document, not a capability."},
+    {q:"Remediating only those who complain after a DPDP breach:",options:["Misses everyone who never knew, and is indefensible","Is proportionate","Limits liability","Is standard practice"],answer:0,explain:"If you can identify affected individuals, put it right unasked."},
     {q:"Six proposals, one budget. What is the usual board failure?",options:["Funding one heavily because its sponsor argued best","Underfunding everything","Delaying a quarter","Hiring consultants"],answer:0,explain:"Concentration driven by advocacy rather than portfolio reasoning is the standard failure."},
     {q:"Why fund data platform work with no visible sponsor?",options:["Almost every stalled AI programme stalled there","It is cheap","Regulators require it","It looks good in reports"],answer:0,explain:"Enabling work has no advocate and blocks everything downstream when unfunded."},
     {q:"Three projects depending on the same data platform are:",options:["One bet wearing three coats","A diversified portfolio","Three independent bets","Best practice"],answer:0,explain:"Spread across failure modes, not just across departments."},
@@ -5713,6 +5858,18 @@ var EXAMBANK_2 = {
     {q:"Concentrating an AI budget in one large visible programme:",options:["Removes your ability to absorb a single failure","Improves reporting and returns","Reduces risk","Is best practice"],answer:0,explain:"One failure then removes the organisation's entire capability and appetite."}
   ],
   leaders: [
+    {q:"A board briefed on data protection before November 2025 is:",options:["Working from a position that predates the DPDP Rules","Adequately briefed","Compliant","Ahead of peers"],answer:0,explain:"The Rules notified in November 2025 made the Act operational."},
+    {q:"Penalties under the DPDP Act are assessed:",options:["Per instance, against gravity and duration","As a single annual cap","As a share of turnover","At a fixed rate"],answer:0,explain:"A systemic failure across many individuals is a pattern, not one penalty."},
+    {q:"A foreign parent's global privacy programme:",options:["Does not discharge the Indian obligation","Satisfies the Act","Covers Indian subsidiaries","Transfers liability abroad"],answer:0,explain:"Someone in India is answerable where services are offered to individuals in India."},
+    {q:"Which four artefacts should a board be able to request and read?",options:["SDF assessment, AI inventory, consent basis list, last rehearsal date","Policy, audit report, budget, roadmap","DPIA, DPO CV, contracts, logs","Training records only"],answer:0,explain:"If management cannot supply those in a fortnight, that is the finding."},
+    {q:"Instructing SDF-grade process across every system:",options:["Collapses under its own weight and gets bypassed","Is the safest posture","Satisfies the regulator","Reduces cost"],answer:0,explain:"Proportionality is what makes assurance survivable."},
+    {q:"Fresh consent collection for existing training data should be priced:",options:["In the business case, before approval","After remediation begins","Only if the regulator asks","At year end"],answer:0,explain:"The response rate is usually sobering and belongs in the plan."},
+    {q:"The capability that makes every other DPDP obligation answerable is:",options:["A deletion pipeline reaching every copy","A policy framework","A DPO appointment","An external audit"],answer:0,explain:"Unglamorous, sponsorless, and load-bearing."},
+    {q:"“Widespread non-compliance in our sector” is:",options:["Not a defence, and the reasoning behind sector-wide actions","A mitigating factor","A reason to delay","Evidence of proportionality"],answer:0,explain:"It is how enforcement sweeps begin."},
+    {q:"Notifying every customer without determining scope:",options:["Still fails to answer the Board, and alarms the unaffected","Is the safe choice","Satisfies the obligation","Reduces penalties"],answer:0,explain:"A count is not a scope."},
+    {q:"The most valuable lasting deliverable from a DPDP breach is:",options:["A map of every copy of personal data","A post-incident report","An external security review","A revised policy"],answer:0,explain:"The moment after an incident is the only time this reliably gets funded."},
+    {q:"A board that accepts the derived-data argument is:",options:["Accepting a position that will not survive scrutiny","Being appropriately technical","Correctly scoping the incident","Reducing exposure"],answer:0,explain:"Predictable, comfortable, and wrong."},
+    {q:"Knowing where inference and training physically run matters because:",options:["Cross-border restrictions are a list that can change","Latency affects cost","Vendors require it","It is an ISO control"],answer:0,explain:"A surprising number of organisations cannot answer this."},
     {q:"The usual board failure when allocating an AI budget is:",options:["Concentrating on whichever proposal was argued best","Spreading too thinly","Delaying decisions","Over-consulting"],answer:0,explain:"Advocacy rather than portfolio reasoning drives it."},
     {q:"Enabling work such as data platform investment is typically:",options:["Unfunded because it has no sponsor, and blocks everything downstream","Over-funded","Quick to deliver","Highly visible"],answer:0,explain:"Almost every stalled programme stalled there."},
     {q:"Three projects sharing one data platform represent:",options:["A single concentrated bet","Three independent bets","A diversified portfolio","Reduced risk"],answer:0,explain:"Spread across failure modes, not just departments."},
@@ -7426,6 +7583,9 @@ function LearnScreen(props){
           paddingBottom:8,borderBottom:"2px solid "+zc.br,display:"flex",alignItems:"baseline",gap:10,flexWrap:"wrap"}},
           h("span",{style:{fontSize:11,fontWeight:700,letterSpacing:1,textTransform:"uppercase",color:zc.a}},
             "Module "+(entry.modIndex+1)),
+          entry.mod.exclusive?h("span",{style:{fontSize:10,fontWeight:700,letterSpacing:0.8,
+            textTransform:"uppercase",color:"#fff",background:CR,padding:"3px 8px",borderRadius:3}},
+            "Exclusive"):null,
           h("span",{style:{fontFamily:"EB Garamond,serif",fontSize:21,fontWeight:700,color:INK}},entry.mod.title),
           h("span",{style:{fontSize:12,color:SLATE}},(entry.mod.lessons||[]).length+" lessons")) : null;
         return h("div",{key:i},head,
