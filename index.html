@@ -33,19 +33,15 @@ em{font-style:italic}
 @keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.06) translate(-1%,-1%)}}
 @media(prefers-reduced-motion:reduce){.zone-img{animation:none}}
 
-/* Skills-course rail: continuous horizontal slide, pauses on hover/focus */
-.skills-view{position:relative;overflow:hidden;padding:4px 0 10px;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
-.skills-rail{display:flex;gap:20px;width:max-content;animation:skillslide 46s linear infinite;}
-.skills-view:hover .skills-rail,.skills-view:focus-within .skills-rail{animation-play-state:paused;}
-@keyframes skillslide{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.skills-card{flex:0 0 300px;}
-@media(max-width:600px){.skills-card{flex:0 0 260px}.skills-rail{animation-duration:34s}}
-@media(prefers-reduced-motion:reduce){
-  .skills-rail{animation:none;width:auto;flex-wrap:wrap}
-  .skills-view{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
-}
+/* Skills-course rail: a real horizontal scroller, nudged along by JS.
+   No transforms and no masks -- iOS Safari drops the paint layer when a
+   mask sits over an element with an animated child. Swipe works too. */
+.skills-view{overflow-x:auto;overflow-y:hidden;padding:4px 2px 12px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.skills-view::-webkit-scrollbar{display:none;}
+.skills-rail{display:flex;gap:20px;align-items:stretch;}
+.skills-card{flex:0 0 300px;width:300px;}
+@media(max-width:600px){.skills-card{flex:0 0 260px;width:260px}}
 
 /* Scroll-to-top arrow */
 #scrollTop{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;
@@ -9133,20 +9129,59 @@ function PracticeLabPage(){
 
 // ===== Home =====
 // ===== Skills-course rail =====
-// Standalone skills courses live outside the age zones, so they get their own
-// band under the track grid. The rail repeats the list until it is wider than
-// the screen, then duplicates that run so the slide loops with no visible seam.
+// Standalone skills courses sit outside the age zones, so they get their own
+// band under the track grid. The list repeats until it is wider than the
+// screen, then that whole run is duplicated; scrollLeft wraps between the two
+// copies so the slide never shows a seam however many courses are added.
 function SkillsRail(){
   if(!COURSES.length) return null;
+  var viewRef=React.useRef(null), railRef=React.useRef(null), holdRef=React.useRef(0);
   var reps=Math.max(2,Math.ceil(6/COURSES.length)), run=[], i, j;
   for(i=0;i<reps;i++) for(j=0;j<COURSES.length;j++) run.push(COURSES[j]);
   var rail=run.concat(run);
+
+  React.useEffect(function(){
+    var view=viewRef.current, track=railRef.current;
+    if(!view||!track) return;
+    var still=false;
+    try{ still=window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
+    var frame=0, last=0;
+    function half(){ return track.scrollWidth/2; }
+    function wrap(){
+      var h=half();
+      if(h<=0) return;
+      if(view.scrollLeft<1) view.scrollLeft+=h;
+      else if(view.scrollLeft>=h) view.scrollLeft-=h;
+    }
+    // Start inside the second copy so the rail can slide either way.
+    var init=setTimeout(function(){ view.scrollLeft=half(); },0);
+    function step(now){
+      frame=window.requestAnimationFrame(step);
+      if(!last){ last=now; return; }
+      var dt=Math.min(now-last,64); last=now;
+      if(still||document.hidden||holdRef.current||view.scrollWidth<=view.clientWidth) return;
+      view.scrollLeft-=dt*0.028;   // ~28px/sec, sliding left to right
+      wrap();
+    }
+    frame=window.requestAnimationFrame(step);
+    view.addEventListener("scroll",wrap,{passive:true});
+    return function(){
+      clearTimeout(init);
+      window.cancelAnimationFrame(frame);
+      view.removeEventListener("scroll",wrap);
+    };
+  },[]);
+
+  function hold(on){ return function(){ holdRef.current=on?holdRef.current+1:Math.max(0,holdRef.current-1); }; }
+  function release(){ setTimeout(function(){ holdRef.current=0; },2500); }
+
+  function open(c){ window.open(c.file,"_blank","noopener"); }
   function card(c,idx){
     var cc=c.c;
     return h("div",{key:c.id+"-"+idx,className:"zone-card-wrap skills-card",
       role:"link",tabIndex:0,
-      onClick:function(){window.open(c.file,"_blank","noopener");},
-      onKeyDown:function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();window.open(c.file,"_blank","noopener");}},
+      onClick:function(){open(c);},
+      onKeyDown:function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open(c);}},
       style:{background:"#fff",border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",cursor:"pointer",boxShadow:"0 1px 3px rgba(0,0,0,0.06)"}},
       h("div",{style:{height:160,overflow:"hidden",background:cc.bg,position:"relative"}},
         h("img",{src:IMG[c.img],className:"zone-img",alt:c.label}),
@@ -9157,12 +9192,16 @@ function SkillsRail(){
         h("p",{style:{fontSize:13,color:SLATE,lineHeight:1.6,marginBottom:14}},c.tag),
         h("div",{style:{display:"inline-block",background:cc.a,color:"#fff",padding:"8px 18px",borderRadius:4,fontSize:13,fontWeight:600}},c.cta+" \u2197")));
   }
+
   return h("div",{id:"skills-courses",style:{maxWidth:1200,margin:"0 auto",padding:"8px 24px 48px"}},
     h("h2",{style:{fontFamily:"EB Garamond,serif",fontSize:26,color:INK2,marginBottom:6}},"Skills courses"),
     h("p",{style:{fontSize:14,color:SLATE,lineHeight:1.6,maxWidth:620,marginBottom:20}},
-      "Open to everyone, whatever track you are on. Hover to pause the rail."),
-    h("div",{className:"skills-view"},
-      h("div",{className:"skills-rail"}, rail.map(card))));
+      "Open to everyone, whatever track you are on. Swipe or hover to take control."),
+    h("div",{ref:viewRef,className:"skills-view",
+      onMouseEnter:hold(true),onMouseLeave:hold(false),
+      onFocus:hold(true),onBlur:hold(false),
+      onTouchStart:hold(true),onTouchEnd:release,onTouchCancel:release},
+      h("div",{ref:railRef,className:"skills-rail"}, rail.map(card))));
 }
 
 function Home(props){
