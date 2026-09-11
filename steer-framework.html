@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S.T.E.E.R. — AI Governance Validation Instrument</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%229%22%20fill%3D%22%23fff%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23A51C30%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%2211%22/%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2220%22%20r%3D%224%22/%3E%3Cline%20x1%3D%2220%22%20y1%3D%222.5%22%20x2%3D%2220%22%20y2%3D%229%22/%3E%3Cline%20x1%3D%2220%22%20y1%3D%2231%22%20x2%3D%2220%22%20y2%3D%2237.5%22/%3E%3Cline%20x1%3D%222.5%22%20y1%3D%2220%22%20x2%3D%229%22%20y2%3D%2220%22/%3E%3Cline%20x1%3D%2231%22%20y1%3D%2220%22%20x2%3D%2237.5%22%20y2%3D%2220%22/%3E%3Cline%20x1%3D%227.6%22%20y1%3D%227.6%22%20x2%3D%2212.2%22%20y2%3D%2212.2%22/%3E%3Cline%20x1%3D%2227.8%22%20y1%3D%2227.8%22%20x2%3D%2232.4%22%20y2%3D%2232.4%22/%3E%3Cline%20x1%3D%2232.4%22%20y1%3D%227.6%22%20x2%3D%2227.8%22%20y2%3D%2212.2%22/%3E%3Cline%20x1%3D%2212.2%22%20y1%3D%2227.8%22%20x2%3D%227.6%22%20y2%3D%2232.4%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --paper2:#FAFAF8; --inkk:#16181D; --body:#3A4254; --mute:#6B7486; --faint:#9AA1B0;
+  --hair:#E5E7EC; --hair2:#D4D8E0;
+  --crimson:#A51C30; --crimson-d:#8B1628; --crimson-wash:#FBF3F4;
+  --c1:#0E7490; --c2:#B45309; --c3:#5B21B6; --c4:#047857; --c5:#BE123C;
+  --c1w:#F0F8FA; --c2w:#FBF5EE; --c3w:#F6F2FC; --c4w:#EFF8F4; --c5w:#FCF1F4;
+  --rail:78px;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--body);font-family:var(--sans);font-weight:400;line-height:1.7;font-size:16.5px;-webkit-font-smoothing:antialiased}
+::selection{background:var(--crimson);color:#fff}
+
+/* ───── typographic system ───── */
+.eyebrow{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--mute)}
+.bar-head{display:flex;gap:16px;align-items:flex-start}
+.bar-head::before{content:'';width:5px;align-self:stretch;background:var(--crimson);flex-shrink:0;margin-top:9px;margin-bottom:9px}
+.stat-num{font-family:var(--serif);font-weight:700;color:var(--crimson);line-height:.95;letter-spacing:-.01em}
+
+/* ───── spine rail ───── */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);background:var(--paper);border-right:1px solid var(--hair);display:flex;flex-direction:column;align-items:center;z-index:50;padding:20px 0}
+.rail .seal{width:36px;height:36px;margin-bottom:28px;flex-shrink:0}
+.rail .seal svg{width:100%;height:100%}
+.rail nav{display:flex;flex-direction:column;gap:8px;flex:1;justify-content:center}
+.rail a{width:46px;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:var(--faint);font-family:var(--serif);font-weight:700;font-size:22px;position:relative;transition:color .25s;border-left:3px solid transparent;border-right:3px solid transparent}
+.rail a small{font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:1px;color:var(--faint);margin-top:2px}
+.rail a .fill{position:absolute;left:6px;right:6px;bottom:2px;height:3px;border-radius:2px;background:var(--hair);overflow:hidden}
+.rail a .fill i{display:block;height:100%;width:0;background:var(--pc,var(--crimson));transition:width .4s}
+.rail a.active,.rail a:hover{color:var(--pc,var(--crimson))}
+.gauge{margin-top:auto;text-align:center;flex-shrink:0;text-decoration:none}
+.gauge svg{display:block;margin:0 auto 4px}
+.gauge .pct{font-family:var(--serif);font-weight:700;font-size:13px;color:var(--inkk)}
+.gauge .lbl{font-family:var(--sans);font-size:7.5px;font-weight:600;letter-spacing:1.5px;color:var(--faint)}
+
+.wrap{margin-left:var(--rail);max-width:1140px;padding:0 56px 60px}
+@media(max-width:900px){
+  :root{--rail:0px}
+  .rail{position:fixed;top:0;left:0;right:0;bottom:auto;width:auto;height:60px;flex-direction:row;padding:0 14px;border-right:none;border-bottom:1px solid var(--hair)}
+  .rail .seal{margin:0 10px 0 0;width:30px;height:30px}
+  .rail nav{flex-direction:row;gap:4px;justify-content:flex-start}
+  .rail a{width:40px;height:46px;font-size:17px}
+  .rail a small{display:none}
+  .gauge{margin:0 0 0 auto;display:flex;align-items:center;gap:8px}
+  .gauge svg{margin:0}
+  .wrap{margin-left:0;padding:84px 22px 40px}
+}
+
+/* ───── masthead ───── */
+header.mast{padding:96px 0 64px;border-bottom:1px solid var(--hair)}
+.hero-icon{width:56px;height:56px;margin-bottom:30px}
+.hero-icon svg{width:100%;height:100%}
+.mast .eyebrow{margin-bottom:22px}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(42px,6vw,72px);line-height:1.06;letter-spacing:-.015em;color:var(--inkk)}
+h1 .steer{color:var(--crimson)}
+.sub{font-size:21px;color:var(--body);max-width:700px;font-weight:300;margin-top:26px;line-height:1.6}
+.sub b{font-weight:600;color:var(--inkk)}
+.contrib{margin-top:30px;display:flex;align-items:center;gap:14px}
+.contrib .av{width:44px;height:44px;border-radius:50%;background:var(--crimson);color:#fff;font-family:var(--serif);font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contrib b{display:block;font-weight:600;color:var(--inkk);font-size:15px}
+.contrib small{font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mute);font-weight:500}
+.audience{display:flex;gap:8px;flex-wrap:wrap;margin-top:34px}
+.audience span{font-size:12px;font-weight:500;letter-spacing:1.5px;border:1px solid var(--hair2);padding:7px 16px;color:var(--mute)}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--hair);margin-top:52px}
+.principles div{padding:24px 20px;border-right:1px solid var(--hair)}
+.principles div:last-child{border-right:none}
+.principles .pn{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--crimson);line-height:1;display:block;margin-bottom:10px}
+.principles b{display:block;font-weight:600;font-size:14.5px;color:var(--inkk);margin-bottom:4px}
+.principles small{font-size:12.5px;color:var(--mute);line-height:1.55;display:block;font-weight:400}
+@media(max-width:900px){.principles{grid-template-columns:1fr 1fr}.principles div{border-bottom:1px solid var(--hair)}}
+
+/* case banner */
+.case{margin-top:44px;border:1px solid var(--hair);border-left:5px solid var(--crimson);padding:26px 30px;background:var(--paper2);display:flex;gap:20px;align-items:flex-start}
+.case .tag{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--crimson);white-space:nowrap;margin-top:4px}
+.case p{font-size:15.5px;color:var(--body)}
+.case p b{color:var(--inkk);font-weight:600}
+
+/* ───── phase sections ───── */
+section.phase{padding:84px 0 10px;scroll-margin-top:20px}
+.ph-eyebrow{margin-bottom:18px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-eyebrow .out-lbl{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--pc)}
+.ph-head{display:flex;gap:26px;align-items:flex-start;margin-bottom:20px}
+.ph-letter{font-family:var(--serif);font-weight:700;font-size:clamp(72px,9vw,118px);color:var(--crimson);line-height:.85;flex-shrink:0}
+.ph-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(30px,4vw,46px);letter-spacing:-.01em;color:var(--inkk);line-height:1.1;padding-top:8px}
+.ph-head .deliver{font-size:14px;color:var(--mute);font-weight:400;display:block;margin-top:8px;letter-spacing:.5px}
+.ph-head .deliver b{color:var(--pc);font-weight:600}
+.ph-q{font-size:18.5px;color:var(--body);max-width:740px;margin-bottom:42px;font-weight:300;line-height:1.65}
+.ph-q b{color:var(--inkk);font-weight:600}
+
+/* outputs grid */
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--hair);margin-bottom:40px}
+@media(max-width:760px){.outs{grid-template-columns:1fr}}
+.out{padding:30px 32px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);transition:background .25s}
+.out:nth-child(2n){border-right:none}
+.out:nth-last-child(-n+2){border-bottom:none}
+@media(max-width:760px){.out{border-right:none}.out:nth-last-child(2){border-bottom:1px solid var(--hair)}}
+.out:hover{background:var(--pcw)}
+.out .onum{font-family:var(--serif);font-weight:700;font-size:44px;color:var(--crimson);line-height:1;display:block;margin-bottom:14px}
+.out h4{font-weight:600;font-size:17px;color:var(--inkk);margin-bottom:8px;letter-spacing:-.01em}
+.out p{font-size:14.5px;color:var(--body);margin-bottom:16px;line-height:1.65}
+.out .ex{font-size:13.5px;line-height:1.7;color:var(--body);background:var(--paper2);border-left:3px solid var(--pc);padding:14px 18px}
+.out .ex::before{content:'Case example — Helios';display:block;font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--pc);margin-bottom:6px}
+
+/* tool panels */
+.tool{border:1px solid var(--hair);padding:34px 36px;margin-bottom:40px;background:var(--paper)}
+.tool>h3{font-size:12.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--pc);margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.tool>h3::after{content:'';flex:1;height:1px;background:var(--hair)}
+.tool .lede{font-size:15px;color:var(--body);margin-bottom:20px;max-width:680px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--mute);text-align:left;padding:10px 12px;border-bottom:2px solid var(--inkk)}
+td{padding:14px 12px;border-bottom:1px solid var(--hair);color:var(--body);vertical-align:top}
+td b{color:var(--inkk);font-weight:600}
+td .mono{font-family:var(--mono);font-size:12px}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .2s}
+tbody tr:hover{background:var(--paper2)}
+.pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:1px;padding:3px 10px;border:1px solid var(--hair2);color:var(--mute);white-space:nowrap}
+.pill.hot{border-color:var(--c5);color:var(--c5);background:var(--c5w)}
+.pill.warm{border-color:var(--c2);color:var(--c2);background:var(--c2w)}
+.pill.ok{border-color:var(--c4);color:var(--c4);background:var(--c4w)}
+.pill.info{border-color:var(--c1);color:var(--c1);background:var(--c1w)}
+.pill.v{border-color:var(--c3);color:var(--c3);background:var(--c3w)}
+
+/* power/interest grid */
+.pi-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;min-height:340px;border:1px solid var(--hair)}
+.pi-cell{padding:22px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.pi-cell:nth-child(2n){border-right:none}
+.pi-cell:nth-child(n+3){border-bottom:none}
+.pi-cell h5{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--mute);text-transform:uppercase;margin-bottom:2px}
+.pi-cell .strat{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--inkk);margin-bottom:14px}
+.chip{display:inline-block;font-size:13.5px;font-weight:500;border:1px solid var(--hair2);padding:6px 16px;margin:0 6px 8px 0;cursor:pointer;color:var(--body);background:var(--paper);transition:all .2s;border-radius:99px}
+.chip:hover,.chip.sel{border-color:var(--crimson);color:var(--crimson);background:var(--crimson-wash)}
+.pi-detail{margin-top:18px;border:1px solid var(--hair);border-left:4px solid var(--crimson);padding:18px 22px;font-size:14.5px;color:var(--body);background:var(--paper2);display:none}
+.pi-detail.show{display:block}
+.pi-detail b{color:var(--crimson);font-size:12px;font-weight:600;letter-spacing:1.5px;display:block;margin-bottom:6px;text-transform:uppercase}
+.axis{font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--faint);text-transform:uppercase}
+
+/* tension slider */
+.tension{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.tension .ends{display:flex;justify-content:space-between;font-size:12px;font-weight:600;letter-spacing:1.5px}
+.tension .ends span:first-child{color:var(--c1)}.tension .ends span:last-child{color:var(--c2)}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;background:linear-gradient(90deg,var(--c1),var(--c2));border-radius:3px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2.5px solid var(--inkk);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.tension .read{font-size:15px;color:var(--body);border-left:4px solid var(--c2);padding:14px 20px;background:var(--c2w);min-height:64px;line-height:1.65}
+.tension .read b{color:var(--inkk);font-weight:600;font-family:var(--serif);font-size:17px}
+
+/* red lines */
+.redlines{display:grid;gap:0;border:1px solid var(--hair)}
+.redline{display:flex;gap:20px;align-items:flex-start;padding:20px 26px;font-size:15px;border-bottom:1px solid var(--hair)}
+.redline:last-child{border-bottom:none}
+.redline .no{font-family:var(--serif);font-weight:700;color:var(--crimson);font-size:24px;white-space:nowrap;line-height:1.3}
+.redline p{color:var(--body)}.redline b{color:var(--inkk);font-weight:600}
+
+/* model card */
+details.mc{border:1px solid var(--hair);border-bottom:none;background:var(--paper)}
+details.mc:last-of-type{border-bottom:1px solid var(--hair)}
+details.mc summary{cursor:pointer;padding:18px 24px;font-weight:600;font-size:15.5px;color:var(--inkk);list-style:none;display:flex;align-items:center;gap:16px;transition:background .2s}
+details.mc summary:hover{background:var(--paper2)}
+details.mc summary::-webkit-details-marker{display:none}
+details.mc summary .mnum{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--crimson);width:26px}
+details.mc summary::after{content:'+';font-family:var(--serif);color:var(--mute);margin-left:auto;font-size:22px}
+details.mc[open] summary::after{content:'−'}
+details.mc .mbody{padding:0 24px 22px 66px;font-size:14.5px;color:var(--body)}
+details.mc .mbody .mono{font-family:var(--mono);font-size:12.5px;color:var(--inkk);background:var(--paper2);border:1px solid var(--hair);padding:16px 18px;line-height:1.9;display:block;margin-top:12px;white-space:pre-wrap}
+
+/* 90-day plan */
+.plan{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--hair)}
+@media(max-width:860px){.plan{grid-template-columns:1fr}}
+.plan-col{border-right:1px solid var(--hair)}
+.plan-col:last-child{border-right:none}
+@media(max-width:860px){.plan-col{border-right:none;border-bottom:1px solid var(--hair)}.plan-col:last-child{border-bottom:none}}
+.plan-col h4{padding:20px 24px;border-bottom:1px solid var(--hair);background:var(--paper2)}
+.plan-col h4 .pdays{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--crimson);display:block;line-height:1}
+.plan-col h4 small{display:block;color:var(--mute);font-size:12.5px;font-weight:500;margin-top:6px;line-height:1.45}
+.plan-item{padding:18px 24px;border-bottom:1px solid var(--hair);font-size:13.5px;color:var(--body)}
+.plan-item:last-child{border-bottom:none}
+.plan-item b{color:var(--inkk);font-weight:600;display:block;font-size:14.5px;margin-bottom:3px}
+.plan-item .meta{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+
+/* checklist */
+.check{border:1px solid var(--hair);margin-bottom:18px;background:var(--paper)}
+.check h3{padding:20px 28px;border-bottom:1px solid var(--hair);display:flex;justify-content:space-between;align-items:baseline;background:var(--paper2)}
+.check h3 .vt{font-size:12.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--inkk)}
+.check h3 .sc{font-family:var(--serif);font-weight:700;font-size:26px;color:var(--crimson)}
+.check h3 .sc small{font-size:14px;color:var(--mute);font-weight:400;font-family:var(--sans)}
+.ck-item{display:flex;align-items:center;gap:20px;padding:17px 28px;border-bottom:1px solid var(--hair);cursor:pointer;transition:background .15s;user-select:none}
+.ck-item:last-of-type{border-bottom:none}
+.ck-item:hover{background:var(--paper2)}
+.ck-state{font-size:10px;font-weight:600;letter-spacing:1px;width:104px;flex-shrink:0;text-align:center;border:1px solid var(--hair2);padding:6px 0;color:var(--faint);transition:all .2s;border-radius:99px}
+.ck-item[data-s="1"] .ck-state{border-color:var(--c2);color:var(--c2);background:var(--c2w)}
+.ck-item[data-s="2"] .ck-state{border-color:var(--c4);color:#fff;background:var(--c4)}
+.ck-item p{font-size:15px;color:var(--body)}
+.ck-item[data-s="2"] p{color:var(--inkk)}
+.ck-hint{font-size:11.5px;font-weight:500;letter-spacing:1px;color:var(--faint);padding:14px 28px;border-top:1px dashed var(--hair);text-transform:uppercase}
+
+/* scorecard */
+#scorecard{padding-top:84px;scroll-margin-top:20px}
+.score-grid{display:grid;grid-template-columns:320px 1fr;gap:0;border:1px solid var(--hair);align-items:stretch}
+@media(max-width:860px){.score-grid{grid-template-columns:1fr}}
+.tier{padding:44px 36px;text-align:left;border-right:1px solid var(--hair);background:var(--paper2)}
+@media(max-width:860px){.tier{border-right:none;border-bottom:1px solid var(--hair)}}
+.tier .big{font-family:var(--serif);font-weight:700;font-size:104px;line-height:.9;color:var(--crimson)}
+.tier .of{font-size:11.5px;font-weight:600;letter-spacing:2px;color:var(--mute);text-transform:uppercase;margin-top:10px}
+.tier .name{font-family:var(--serif);font-weight:700;font-size:30px;margin:24px 0 8px;color:var(--inkk)}
+.tier .desc{font-size:14.5px;color:var(--body);line-height:1.65}
+.bars-wrap{padding:40px 36px}
+.bars{display:grid;gap:20px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 64px;gap:18px;align-items:center}
+.bar-row .nm{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--body)}
+.bar-track{height:12px;background:var(--paper2);border:1px solid var(--hair);overflow:hidden}
+.bar-fill{height:100%;width:0%;transition:width .5s}
+.bar-row .val{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--inkk);text-align:right}
+.bar-row .val small{font-size:12px;color:var(--mute);font-weight:400;font-family:var(--sans)}
+.tiers-legend{margin-top:30px;border-top:1px dashed var(--hair);padding-top:20px;display:flex;gap:20px;flex-wrap:wrap;font-size:11.5px;color:var(--mute)}
+.tiers-legend b{color:var(--inkk);font-weight:600}
+
+/* CTA — reference-style full-width crimson */
+.cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.cta-row .btn.primary{flex:1;min-width:280px}
+@media(max-width:640px){.cta-row{grid-template-columns:1fr}}
+button.btn{font-family:var(--sans);font-size:16px;font-weight:600;padding:18px 34px;border:1px solid var(--hair2);background:var(--paper);color:var(--body);cursor:pointer;transition:all .2s;border-radius:8px}
+button.btn:hover{border-color:var(--inkk);color:var(--inkk)}
+button.btn.primary{border:none;background:var(--crimson);color:#fff;letter-spacing:.2px}
+button.btn.primary:hover{background:var(--crimson-d);color:#fff}
+
+/* vision quote */
+.vision{border-left:5px solid var(--crimson);padding:8px 0 8px 30px;margin-bottom:42px}
+.vision p{font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.45;color:var(--inkk);letter-spacing:-.01em}
+.vision small{font-size:11.5px;font-weight:600;letter-spacing:2px;color:var(--mute);text-transform:uppercase;display:block;margin-top:14px}
+
+footer{margin-top:100px;border-top:1px solid var(--hair);padding:30px 0 50px;font-size:11.5px;font-weight:500;letter-spacing:1px;color:var(--mute);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;text-transform:uppercase}
+
+a:focus-visible,button:focus-visible,.ck-item:focus-visible,.chip:focus-visible,details summary:focus-visible{outline:2.5px solid var(--crimson);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+@media print{
+  .rail{display:none}.wrap{margin:0;padding:0}
+  button.btn{display:none}
+  section.phase,header.mast{padding-top:30px}
+}
+
+/* ───── your-case workspace ───── */
+.intake{margin-top:44px;border:2px solid var(--crimson);background:var(--paper)}
+.intake .ihead{background:var(--crimson);color:#fff;padding:16px 28px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline}
+.intake .ihead .t{font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase}
+.intake .ihead small{font-size:12px;opacity:.85}
+.intake .ibody{padding:26px 28px}
+.frm{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end}
+.frm label{display:block}
+.frm label span{display:block;font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.frm input,.frm select,.frm textarea{font-family:var(--sans);font-size:14.5px;padding:12px 14px;border:1px solid var(--hair2);background:var(--paper);color:var(--inkk);width:100%;border-radius:6px;transition:border-color .2s}
+.frm input:focus,.frm select:focus,.frm textarea:focus{outline:none;border-color:var(--crimson)}
+.frm textarea{resize:vertical;min-height:84px;grid-column:1/-1}
+.addbtn{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.5px;padding:12px 22px;background:var(--crimson);color:#fff;border:none;cursor:pointer;border-radius:6px;transition:background .2s;white-space:nowrap}
+.addbtn:hover{background:var(--crimson-d)}
+.ws{border:2px solid var(--pc);margin-bottom:40px;background:var(--paper)}
+.ws-head{background:var(--pcw);padding:16px 28px;border-bottom:1px solid var(--hair);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.ws-head .t{font-size:12.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--pc)}
+.ws-head .org-echo{font-family:var(--serif);font-weight:700;color:var(--inkk);font-size:17px}
+.ws-body{padding:24px 28px}
+.ws-body .hint{font-size:13px;color:var(--mute);margin-bottom:16px}
+.ws-list{margin-top:18px}
+.empty{font-size:13.5px;color:var(--faint);font-style:italic;padding:10px 2px}
+.rm{font-family:var(--sans);font-size:15px;color:var(--faint);background:none;border:none;cursor:pointer;padding:2px 8px;line-height:1}
+.rm:hover{color:var(--crimson)}
+.ws .redline .no{font-size:24px}
+.mc-status{font-size:10.5px;font-weight:600;letter-spacing:1px;padding:4px 12px;border:1px solid var(--hair2);color:var(--faint);cursor:pointer;border-radius:99px;background:var(--paper);transition:all .2s}
+.mc-status[data-m="1"]{border-color:var(--c2);color:var(--c2);background:var(--c2w)}
+.mc-status[data-m="2"]{border-color:var(--c4);color:#fff;background:var(--c4)}
+.uplan{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--hair);margin-top:18px}
+@media(max-width:860px){.uplan{grid-template-columns:1fr}}
+.uplan .ucol{border-right:1px solid var(--hair);min-height:90px}
+.uplan .ucol:last-child{border-right:none}
+.uplan .ucol h5{padding:12px 18px;border-bottom:1px solid var(--hair);background:var(--paper2);font-family:var(--serif);font-weight:700;font-size:19px;color:var(--crimson)}
+.vision-echo{display:none}
+.vision-echo.has{display:block;border-left:5px solid var(--crimson);padding:8px 0 8px 26px;margin-top:18px}
+.vision-echo p{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.45;color:var(--inkk)}
+.vision-echo small{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--mute);text-transform:uppercase;display:block;margin-top:10px}
+@media print{.frm,.addbtn,.rm,.ck-hint{display:none}.ws,.intake{border-width:1px}}
+
+/* phase color scoping */
+#situate{--pc:var(--c1);--pcw:var(--c1w)}
+#tension{--pc:var(--c2);--pcw:var(--c2w)}
+#establish{--pc:var(--c3);--pcw:var(--c3w)}
+#evidence{--pc:var(--c4);--pcw:var(--c4w)}
+#rollout{--pc:var(--c5);--pcw:var(--c5w)}
+#scorecard{--pc:var(--crimson);--pcw:var(--crimson-wash)}
+</style>
+</head>
+<body>
+
+<!-- ───────── S.T.E.E.R. SPINE ───────── -->
+<aside class="rail" aria-label="Phase navigation">
+  <div class="seal" title="S.T.E.E.R. — AI Governance Instrument">
+    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="11" stroke="#A51C30" stroke-width="2.2"/>
+      <circle cx="20" cy="20" r="4" stroke="#A51C30" stroke-width="2.2"/>
+      <g stroke="#A51C30" stroke-width="2.2" stroke-linecap="round">
+        <line x1="20" y1="2.5" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="37.5"/>
+        <line x1="2.5" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="37.5" y2="20"/>
+        <line x1="7.6" y1="7.6" x2="12.2" y2="12.2"/><line x1="27.8" y1="27.8" x2="32.4" y2="32.4"/>
+        <line x1="32.4" y1="7.6" x2="27.8" y2="12.2"/><line x1="12.2" y1="27.8" x2="7.6" y2="32.4"/>
+      </g>
+    </svg>
+  </div>
+  <nav>
+    <a href="#situate"  style="--pc:var(--c1)" data-ph="0">S<small>SITUATE</small><span class="fill"><i></i></span></a>
+    <a href="#tension"  style="--pc:var(--c2)" data-ph="1">T<small>TENSION</small><span class="fill"><i></i></span></a>
+    <a href="#establish"style="--pc:var(--c3)" data-ph="2">E<small>ESTABL.</small><span class="fill"><i></i></span></a>
+    <a href="#evidence" style="--pc:var(--c4)" data-ph="3">E<small>EVIDEN.</small><span class="fill"><i></i></span></a>
+    <a href="#rollout"  style="--pc:var(--c5)" data-ph="4">R<small>ROLLOUT</small><span class="fill"><i></i></span></a>
+  </nav>
+  <a href="#scorecard" class="gauge" aria-label="Governance health gauge — go to scorecard">
+    <svg width="46" height="46" viewBox="0 0 46 46">
+      <circle cx="23" cy="23" r="19" fill="none" stroke="#E5E7EC" stroke-width="4"/>
+      <circle id="gaugeArc" cx="23" cy="23" r="19" fill="none" stroke="#A51C30" stroke-width="4"
+        stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 23 23)" style="transition:stroke-dashoffset .5s,stroke .5s"/>
+    </svg>
+    <div class="pct" id="gaugePct">0%</div>
+    <div class="lbl">HEALTH</div>
+  </a>
+</aside>
+
+<div class="wrap">
+
+<!-- ───────── MASTHEAD ───────── -->
+<header class="mast">
+  <div class="hero-icon" aria-hidden="true">
+    <svg viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="11" stroke="#A51C30" stroke-width="2"/>
+      <circle cx="20" cy="20" r="4" stroke="#A51C30" stroke-width="2"/>
+      <g stroke="#A51C30" stroke-width="2" stroke-linecap="round">
+        <line x1="20" y1="2.5" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="37.5"/>
+        <line x1="2.5" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="37.5" y2="20"/>
+        <line x1="7.6" y1="7.6" x2="12.2" y2="12.2"/><line x1="27.8" y1="27.8" x2="32.4" y2="32.4"/>
+        <line x1="32.4" y1="7.6" x2="27.8" y2="12.2"/><line x1="12.2" y1="27.8" x2="7.6" y2="32.4"/>
+      </g>
+    </svg>
+  </div>
+  <div class="eyebrow">AI Governance Validation Instrument</div>
+  <div class="bar-head">
+    <h1><span class="steer">S.T.E.E.R.</span><br>AI governance, validated — not assumed.</h1>
+  </div>
+  <p class="sub">A working instrument, not a slide. Apply all five phases — <b>Situate, Tension-test, Establish, Evidence, Roll out &amp; review</b> — to your own organization's risks, stakeholders, and regulatory exposure, and leave with a scored governance posture.</p>
+
+  <div class="contrib">
+    <div class="av">PM</div>
+    <div><small>Contributor</small><b>Pawan Maheshwari</b></div>
+  </div>
+
+  <div class="audience">
+    <span>EXECUTIVES &amp; BOARDS</span><span>LEGISLATORS &amp; REGULATORS</span><span>RESEARCHERS</span><span>RISK &amp; COMPLIANCE</span><span>BUILDERS</span>
+  </div>
+
+  <div class="principles" role="list" aria-label="Principles of AI governance">
+    <div role="listitem"><span class="pn">01</span><b>Accountability</b><small>A named human answers for every consequential model decision.</small></div>
+    <div role="listitem"><span class="pn">02</span><b>Transparency</b><small>Purpose, data, and limits are documented and discoverable.</small></div>
+    <div role="listitem"><span class="pn">03</span><b>Fairness</b><small>Disparate impact is measured, not presumed absent.</small></div>
+    <div role="listitem"><span class="pn">04</span><b>Human oversight</b><small>Override paths exist and are exercised, not theoretical.</small></div>
+    <div role="listitem"><span class="pn">05</span><b>Robustness</b><small>Systems fail safely, are monitored, and can be withdrawn.</small></div>
+  </div>
+
+  <div class="case">
+    <span class="tag">RUNNING CASE</span>
+    <p><b>Helios Capital</b> — a mid-size retail bank operating in the EU and India. Two AI systems in production: an <b>ML credit-scoring model</b> (high-risk under the EU AI Act) and a <b>GenAI customer assistant</b> built on a foundation model. Every output below carries a worked Helios example. Replace Helios with your organization as you go.</p>
+  </div>
+
+  <div class="intake">
+    <div class="ihead"><span class="t">Start here — your case</span><small>Everything you enter flows into the workspaces below and your exported board report</small></div>
+    <div class="ibody">
+      <div class="frm">
+        <label><span>Organization name</span><input id="orgName" placeholder="e.g., Meridian Health"></label>
+        <label><span>Sector</span><input id="orgSector" placeholder="e.g., Healthcare, Banking, Public sector"></label>
+        <label><span>Operating regions</span><input id="orgRegions" placeholder="e.g., EU, India, US"></label>
+        <label><span>Primary regulatory exposure</span><input id="orgReg" placeholder="e.g., EU AI Act, HIPAA, DPDP"></label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═════════ PHASE 1 — SITUATE ═════════ -->
+<section class="phase" id="situate">
+  <div class="ph-eyebrow"><span class="eyebrow">Phase one</span><span class="out-lbl">Output · Landscape scan &amp; stakeholder map</span></div>
+  <div class="ph-head">
+    <div class="ph-letter">S</div>
+    <div><h2>Situate</h2><span class="deliver">You cannot govern what you cannot see — <b>find every system, sanctioned or not.</b></span></div>
+  </div>
+  <p class="ph-q">Where does AI actually live in your organization, and <b>who has power over it?</b></p>
+
+  <div class="outs">
+    <div class="out"><span class="onum">1.1</span>
+      <h4>Strategic context &amp; AI footprint map</h4>
+      <p>Inventory every AI system by purpose, criticality, data sensitivity, and decision authority (advisory vs. autonomous).</p>
+      <div class="ex">17 systems found across 6 business units. 2 make autonomous decisions (credit limits, fraud blocks); 11 are advisory; 4 are vendor-embedded and previously invisible to risk.</div>
+    </div>
+    <div class="out"><span class="onum">1.2</span>
+      <h4>Shadow AI identification</h4>
+      <p>Surface ungoverned use: personal LLM accounts, browser extensions, vendor features quietly switched on, spreadsheet macros calling APIs.</p>
+      <div class="ex">Amnesty survey + expense-line scan revealed 240 staff pasting customer correspondence into consumer chatbots, and an HR tool's "AI ranking" feature enabled by default since 2024.</div>
+    </div>
+    <div class="out"><span class="onum">1.3</span>
+      <h4>Governance gap assessment &amp; priority matrix</h4>
+      <p>Score each system on impact × oversight maturity. The top-right quadrant — high impact, low oversight — is your burn-down list.</p>
+      <div class="ex">Credit scoring: impact 5/5, oversight 2/5 → Priority 1. GenAI assistant: impact 4/5, oversight 1/5 → Priority 2. Marketing copy generator: impact 2/5 → monitor only.</div>
+    </div>
+    <div class="out"><span class="onum">1.4</span>
+      <h4>Stakeholder map — power/interest grid</h4>
+      <p>Map regulators, board, unions, customers, model owners, and civil society on power vs. interest. The grid below is interactive — tap a stakeholder.</p>
+      <div class="ex">RBI &amp; EU market-surveillance authority: high power / high interest → manage closely with proactive disclosure, not reactive responses.</div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>Interactive — power / interest grid (Helios)</h3>
+    <div class="pi-grid">
+      <div class="pi-cell"><h5>High power · Low interest</h5><div class="strat">Keep satisfied</div>
+        <span class="chip" tabindex="0" data-d="Group CFO|Funds the program but delegates detail. Strategy: quarterly one-page risk digest; escalate only red-line breaches and budget asks.">Group CFO</span>
+        <span class="chip" tabindex="0" data-d="Data Protection Authority|Dormant until an incident. Strategy: keep DPIA records audit-ready; brief annually so the first contact isn't a breach notice.">Data Protection Authority</span>
+      </div>
+      <div class="pi-cell"><h5>High power · High interest</h5><div class="strat">Manage closely</div>
+        <span class="chip" tabindex="0" data-d="Board Risk Committee|Owns risk appetite. Strategy: standing AI agenda item; approve red lines and the governance charter; receive the quarterly health scorecard.">Board Risk Committee</span>
+        <span class="chip" tabindex="0" data-d="Banking Regulators (RBI / EU NCA)|Can halt deployment. Strategy: pre-notify high-risk system changes; map evidence to EU AI Act Annex IV before being asked.">Banking regulators</span>
+        <span class="chip" tabindex="0" data-d="Chief Risk Officer|Accountable executive for model risk. Strategy: chairs the AI Governance Council; holds veto on high-risk deployment.">Chief Risk Officer</span>
+      </div>
+      <div class="pi-cell"><h5>Low power · Low interest</h5><div class="strat">Monitor</div>
+        <span class="chip" tabindex="0" data-d="General staff (non-users)|Low direct exposure. Strategy: annual awareness module; acceptable-use policy acknowledgment; channel to report shadow AI.">General staff</span>
+        <span class="chip" tabindex="0" data-d="Technology vendors (non-AI)|Peripheral today. Strategy: AI-use disclosure clause added to standard procurement terms so they cannot drift into scope silently.">Non-AI vendors</span>
+      </div>
+      <div class="pi-cell"><h5>Low power · High interest</h5><div class="strat">Keep informed</div>
+        <span class="chip" tabindex="0" data-d="Declined loan applicants|Most affected, least powerful. Strategy: plain-language adverse-action notices; human-review appeal channel with 10-day SLA; publish appeal statistics.">Declined applicants</span>
+        <span class="chip" tabindex="0" data-d="Frontline credit officers|Live with the model daily. Strategy: override authority with logged rationale; monthly feedback loop into model monitoring.">Credit officers</span>
+        <span class="chip" tabindex="0" data-d="Consumer advocacy groups|Reputational amplifiers. Strategy: publish a model fact sheet; invite structured comment during annual review.">Civil society</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:10px"><span class="axis">INTEREST →</span><span class="axis">↑ POWER (VERTICAL)</span></div>
+    <div class="pi-detail" id="piDetail"><b id="piName"></b><span id="piText"></span></div>
+  </div>
+
+  <div class="ws">
+    <div class="ws-head"><span class="t">Your workspace — Situate</span><span class="org-echo" data-org>Your organization</span></div>
+    <div class="ws-body">
+      <p class="hint">Build your AI footprint map. Priority is computed automatically from impact × oversight gap — your burn-down list forms itself.</p>
+      <div class="frm">
+        <label><span>AI system name</span><input id="sysName" placeholder="e.g., Triage model"></label>
+        <label><span>Decision authority</span><select id="sysAuth"><option>Advisory</option><option>Autonomous</option></select></label>
+        <label><span>Impact (1–5)</span><select id="sysImp"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option></select></label>
+        <label><span>Oversight maturity (1–5)</span><select id="sysOver"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
+        <button class="addbtn" id="sysAdd">Add system</button>
+      </div>
+      <div class="ws-list" id="sysList"><p class="empty">No systems added yet — your inventory appears here.</p></div>
+
+      <p class="hint" style="margin-top:28px">Map your stakeholders. The engagement strategy is assigned by quadrant.</p>
+      <div class="frm">
+        <label><span>Stakeholder</span><input id="stkName" placeholder="e.g., State health regulator"></label>
+        <label><span>Power</span><select id="stkPow"><option>High</option><option>Low</option></select></label>
+        <label><span>Interest</span><select id="stkInt"><option>High</option><option>Low</option></select></label>
+        <button class="addbtn" id="stkAdd">Add stakeholder</button>
+      </div>
+      <div class="ws-list" id="stkList"><p class="empty">No stakeholders mapped yet.</p></div>
+    </div>
+  </div>
+
+  <div class="check" data-phase="0">
+    <h3><span class="vt">Validate — Situate</span><span class="sc"><span class="scn">0</span> <small>/ 10</small></span></h3>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A complete AI inventory exists, including vendor-embedded and shadow systems, refreshed at least quarterly.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Every system is classified by decision authority (advisory / autonomous) and data sensitivity.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A shadow-AI amnesty or detection mechanism has run in the last 6 months.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Governance gaps are scored on an impact × oversight matrix with a named priority list.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A stakeholder power/interest map exists with an engagement strategy per quadrant.</p></div>
+    <div class="ck-hint">Tap to cycle: Not started → In progress (1) → Evidenced (2). Scores feed the health gauge.</div>
+  </div>
+</section>
+
+<!-- ═════════ PHASE 2 — TENSION-TEST ═════════ -->
+<section class="phase" id="tension">
+  <div class="ph-eyebrow"><span class="eyebrow">Phase two</span><span class="out-lbl">Output · Fairness audit &amp; ethical red lines</span></div>
+  <div class="ph-head">
+    <div class="ph-letter">T</div>
+    <div><h2>Tension-test</h2><span class="deliver">Trade-offs are inevitable — <b>make them explicit, decide them deliberately.</b></span></div>
+  </div>
+  <p class="ph-q">Governance is not about eliminating trade-offs. It is about deciding them in the open — and <b>writing down what you will never trade.</b></p>
+
+  <div class="outs">
+    <div class="out"><span class="onum">2.1</span>
+      <h4>Bias pipeline analysis</h4>
+      <p>Trace bias entry points across the lifecycle: historical data → labels → features → objective function → thresholds → human use.</p>
+      <div class="ex">Helios found "pin-code" acted as a proxy for religion and caste in Indian portfolios; 1990s repayment data encoded redlining-era patterns into "creditworthiness."</div>
+    </div>
+    <div class="out"><span class="onum">2.2</span>
+      <h4>Fairness tensions &amp; trade-off register</h4>
+      <p>Log each tension (accuracy vs. equity, personalization vs. privacy, speed vs. review), the options considered, the decision, and the owner.</p>
+      <div class="ex">Register entry T-04: equalizing approval rates across protected groups costs 1.8% portfolio accuracy. Decided: accept cost; CRO signed; revisit at annual model review.</div>
+    </div>
+    <div class="out"><span class="onum">2.3</span>
+      <h4>Ethical red lines for your context</h4>
+      <p>Non-negotiables that no business case can override. Few, absolute, board-ratified.</p>
+      <div class="ex">Helios ratified five red lines (below), including "no fully autonomous loan denial without human appeal path" — invoked once in 2026 to block a vendor feature.</div>
+    </div>
+    <div class="out"><span class="onum">2.4</span>
+      <h4>Non-discrimination compliance check</h4>
+      <p>Test outcomes against applicable law: EU AI Act Art. 10 (data governance), ECOA-style fair-lending rules, Indian DPDP Act, local equality statutes.</p>
+      <div class="ex">Quarterly disparate-impact test: approval-rate ratio across gender held at 0.91 (above the 0.80 internal floor); one regional anomaly escalated to the council in Q1.</div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>Interactive — feel the trade-off (Helios credit model)</h3>
+    <p class="lede">Drag the threshold. There is no setting where nothing is sacrificed — which is precisely why the decision must be owned, documented, and reviewable.</p>
+    <div class="tension">
+      <div class="ends"><span>◀ MAXIMIZE ACCURACY</span><span>MAXIMIZE PARITY ▶</span></div>
+      <input type="range" id="tSlider" min="0" max="100" value="50" aria-label="Accuracy versus parity trade-off">
+      <div class="read" id="tRead"></div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>Helios — ethical red lines (board-ratified)</h3>
+    <div class="redlines">
+      <div class="redline"><span class="no">1</span><p><b>No fully autonomous adverse decision.</b> Every loan denial, account closure, or fraud freeze has a human appeal path with a 10-day SLA.</p></div>
+      <div class="redline"><span class="no">2</span><p><b>No protected attributes or close proxies as features.</b> Proxy audit (pin-code, name, device language) runs at every retrain.</p></div>
+      <div class="redline"><span class="no">3</span><p><b>No customer data into external models without contractual no-training guarantees</b> and regional data residency.</p></div>
+      <div class="redline"><span class="no">4</span><p><b>No deployment of an undocumented model.</b> No model card, no production — regardless of revenue at stake.</p></div>
+      <div class="redline"><span class="no">5</span><p><b>No dark patterns from the GenAI assistant.</b> It must disclose it is AI, must not impersonate staff, and must hand off on request.</p></div>
+    </div>
+  </div>
+
+  <div class="ws">
+    <div class="ws-head"><span class="t">Your workspace — Tension-test</span><span class="org-echo" data-org>Your organization</span></div>
+    <div class="ws-body">
+      <p class="hint">Write your ethical red lines — few, absolute, board-ratifiable.</p>
+      <div class="frm">
+        <label style="grid-column:1/-1"><span>Red line</span><input id="rlText" placeholder="e.g., No AI-only clinical diagnosis without physician sign-off"></label>
+        <button class="addbtn" id="rlAdd">Add red line</button>
+      </div>
+      <div class="ws-list" id="rlList"><p class="empty">No red lines yet — aim for three to six.</p></div>
+
+      <p class="hint" style="margin-top:28px">Log your fairness tensions and the decisions you've made — owned trade-offs, not hidden ones.</p>
+      <div class="frm">
+        <label><span>Tension</span><input id="toTension" placeholder="e.g., Accuracy vs. demographic parity"></label>
+        <label><span>Decision taken</span><input id="toDecision" placeholder="e.g., Accept 1.2% accuracy cost"></label>
+        <label><span>Owner</span><input id="toOwner" placeholder="e.g., CRO"></label>
+        <button class="addbtn" id="toAdd">Add to register</button>
+      </div>
+      <div class="ws-list" id="toList"><p class="empty">Trade-off register is empty.</p></div>
+    </div>
+  </div>
+
+  <div class="check" data-phase="1">
+    <h3><span class="vt">Validate — Tension-test</span><span class="sc"><span class="scn">0</span> <small>/ 10</small></span></h3>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Bias entry points are mapped across the full pipeline for each high-impact system.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A trade-off register exists with decisions, rationale, named owners, and review dates.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Ethical red lines are written, board-ratified, and have actually blocked at least one proposal (or are credibly enforceable).</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Disparate-impact metrics are measured on production outcomes, not just training data.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Fairness definitions used (parity, equalized odds, calibration) are chosen deliberately and documented per use case.</p></div>
+    <div class="ck-hint">A red line that has never cost you anything may not be a red line.</div>
+  </div>
+</section>
+
+<!-- ═════════ PHASE 3 — ESTABLISH ═════════ -->
+<section class="phase" id="establish">
+  <div class="ph-eyebrow"><span class="eyebrow">Phase three</span><span class="out-lbl">Output · Governance charter &amp; policy framework</span></div>
+  <div class="ph-head">
+    <div class="ph-letter">E</div>
+    <div><h2>Establish</h2><span class="deliver">Principles without decision rights are poetry — <b>name who decides.</b></span></div>
+  </div>
+  <p class="ph-q">Who decides, who is consulted, who can veto — and <b>what happens when they disagree?</b></p>
+
+  <div class="outs">
+    <div class="out"><span class="onum">3.1</span>
+      <h4>Governance principles — tensions acknowledged</h4>
+      <p>State each principle alongside the tension it creates, so the charter reads as honest rather than aspirational.</p>
+      <div class="ex">"We pursue innovation velocity AND demand pre-deployment review — when they conflict, risk tier decides: Tier 1 waits, Tier 3 ships with monitoring."</div>
+    </div>
+    <div class="out"><span class="onum">3.2</span>
+      <h4>AI Governance Council — charter &amp; membership</h4>
+      <p>A standing cross-functional body with quorum rules, cadence, veto rights, and a published escalation path to the board.</p>
+      <div class="ex">Helios council: CRO (chair), CDO, CISO, General Counsel, Head of Data Science, business-line lead, employee representative, external ethics advisor. Monthly; quorum 5; CRO veto on Tier 1.</div>
+    </div>
+    <div class="out"><span class="onum">3.3</span>
+      <h4>Roles, decision rights &amp; accountability</h4>
+      <p>A decision-rights table (below) so every consequential call has exactly one accountable name — committees advise, individuals answer.</p>
+      <div class="ex">Tier 1 deployment approval: Accountable = CRO. Model retraining sign-off: Accountable = model owner. Red-line exception: nobody — escalate to board.</div>
+    </div>
+    <div class="out"><span class="onum">3.4</span>
+      <h4>Policy framework &amp; council design</h4>
+      <p>A small policy stack — acceptable use, procurement, data, incident response, model lifecycle — each mapped to an owner and review cycle.</p>
+      <div class="ex">5 policies, each ≤4 pages, owned, reviewed annually. The acceptable-use policy is the only one all 12,000 staff must read; the rest bind specific roles.</div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>Helios — decision rights (RACI extract)</h3>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Decision</th><th>Accountable</th><th>Consulted</th><th>Veto held by</th><th>Tier</th></tr></thead>
+      <tbody>
+        <tr><td><b>Approve high-risk system for production</b></td><td>Chief Risk Officer</td><td>Council, Legal, DPO</td><td>CRO</td><td><span class="pill hot">TIER 1</span></td></tr>
+        <tr><td><b>Approve new external GenAI tool</b></td><td>CDO</td><td>CISO, Procurement</td><td>CISO (security)</td><td><span class="pill warm">TIER 2</span></td></tr>
+        <tr><td><b>Retrain / threshold change, existing model</b></td><td>Model owner</td><td>Validation team</td><td>Head of Model Risk</td><td><span class="pill warm">TIER 2</span></td></tr>
+        <tr><td><b>Low-risk internal productivity use</b></td><td>Business-line lead</td><td>—</td><td>—</td><td><span class="pill ok">TIER 3</span></td></tr>
+        <tr><td><b>Exception to a red line</b></td><td>None — not delegable</td><td>Full board</td><td>Board Risk Committee</td><td><span class="pill v">BOARD</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="ws">
+    <div class="ws-head"><span class="t">Your workspace — Establish</span><span class="org-echo" data-org>Your organization</span></div>
+    <div class="ws-body">
+      <p class="hint">Assign your decision rights — every consequential decision gets exactly one accountable name.</p>
+      <div class="frm">
+        <label><span>Decision</span><input id="drDecision" placeholder="e.g., Approve Tier-1 deployment"></label>
+        <label><span>Accountable (one name)</span><input id="drAcc" placeholder="e.g., Chief Risk Officer"></label>
+        <label><span>Veto held by</span><input id="drVeto" placeholder="e.g., CRO / Board"></label>
+        <label><span>Risk tier</span><select id="drTier"><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option><option>Board</option></select></label>
+        <button class="addbtn" id="drAdd">Add decision right</button>
+      </div>
+      <div class="ws-list" id="drList"><p class="empty">No decision rights assigned yet.</p></div>
+    </div>
+  </div>
+
+  <div class="check" data-phase="2">
+    <h3><span class="vt">Validate — Establish</span><span class="sc"><span class="scn">0</span> <small>/ 10</small></span></h3>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A governance council exists with a written charter, quorum rules, and a board escalation path.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Every consequential AI decision type maps to exactly one accountable individual.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A risk-tiering scheme determines which approvals each system needs before deployment.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>The policy stack is short, owned, versioned, and reviewed on a fixed cycle.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Stated principles explicitly acknowledge the tensions they create and how conflicts are resolved.</p></div>
+    <div class="ck-hint">If two people believe they own the same decision, nobody owns it.</div>
+  </div>
+</section>
+
+<!-- ═════════ PHASE 4 — EVIDENCE ═════════ -->
+<section class="phase" id="evidence">
+  <div class="ph-eyebrow"><span class="eyebrow">Phase four</span><span class="out-lbl">Output · Documentation &amp; assurance layer</span></div>
+  <div class="ph-head">
+    <div class="ph-letter">E</div>
+    <div><h2>Evidence</h2><span class="deliver">Governance is whatever you can <b>prove in 48 hours.</b></span></div>
+  </div>
+  <p class="ph-q">When the regulator, the auditor, or the journalist calls — <b>everything else is intention.</b></p>
+
+  <div class="outs">
+    <div class="out"><span class="onum">4.1</span>
+      <h4>Model card — applied to your systems</h4>
+      <p>One card per production system: purpose, data lineage, performance by subgroup, known limits, and the human-oversight design. Expand the live template below.</p>
+      <div class="ex">Helios credit model card v3.2: 14 sections, 6 pages, subgroup AUC table, "do not use for" list, owner + reviewer signatures, next-review date on the cover.</div>
+    </div>
+    <div class="out"><span class="onum">4.2</span>
+      <h4>Decision log structure</h4>
+      <p>An append-only register of governance decisions: what, who, when, evidence considered, dissent recorded. Dissent is data, not noise.</p>
+      <div class="ex">Entry DL-2026-014: GenAI assistant scope extension to investment FAQs — approved 6–1; employee representative's dissent (mis-selling risk) logged with mitigations attached.</div>
+    </div>
+    <div class="out"><span class="onum">4.3</span>
+      <h4>Regulatory compliance map</h4>
+      <p>One cross-walk from EU AI Act articles to NIST AI RMF functions to ISO/IEC 42001 clauses — so one piece of evidence serves three frameworks (table below).</p>
+      <div class="ex">Helios's single risk-assessment artifact satisfies EU AI Act Art. 9, NIST MAP/MEASURE, and ISO 42001 §6.1 simultaneously — written once, cited thrice.</div>
+    </div>
+    <div class="out"><span class="onum">4.4</span>
+      <h4>Audit trail &amp; assurance mechanisms</h4>
+      <p>Immutable logs of model versions, inputs to consequential decisions, overrides, and incidents — plus periodic independent review.</p>
+      <div class="ex">Every credit decision stores model version, feature snapshot hash, score, threshold, and reviewer ID for 7 years; internal audit replays a 1% sample quarterly.</div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>Live template — model card (expand sections)</h3>
+    <details class="mc"><summary><span class="mnum">1</span>System overview &amp; intended use</summary><div class="mbody">What the model does, for whom, and explicitly what it must <b>not</b> be used for.<span class="mono">SYSTEM: Helios Retail Credit Score v3.2
+PURPOSE: Rank-order default risk for unsecured retail lending ≤ €50k
+DECISION AUTHORITY: Advisory below threshold band; autonomous approval only — denial always human-reviewed
+OUT OF SCOPE: SME lending · employment screening · insurance pricing</span></div></details>
+    <details class="mc"><summary><span class="mnum">2</span>Data lineage &amp; governance</summary><div class="mbody">Sources, time ranges, consent basis, exclusions, and known gaps.<span class="mono">SOURCES: Core banking (2014–2025) · bureau data (licensed) · application form
+EXCLUDED: Pin-code, name tokens, device language (proxy risk — see red line 2)
+KNOWN GAP: Thin-file applicants under-represented (8% of training vs 19% of applicants)</span></div></details>
+    <details class="mc"><summary><span class="mnum">3</span>Performance — including by subgroup</summary><div class="mbody">Aggregate metrics hide the story; subgroup tables tell it.<span class="mono">AUC overall: 0.81 · Gender approval-rate ratio: 0.91 · Age 60+: AUC 0.74 ⚠ flagged
+CALIBRATION: Within ±2pts across regions except NE cluster (remediation ticket MR-118)</span></div></details>
+    <details class="mc"><summary><span class="mnum">4</span>Human oversight &amp; appeal design</summary><div class="mbody">Who can override, how it is logged, and how appeals work.<span class="mono">OVERRIDE: Credit officers, ±1 band, rationale mandatory, monthly pattern review
+APPEAL: Customer-initiated, human re-decision, 10-day SLA, outcomes published annually</span></div></details>
+    <details class="mc"><summary><span class="mnum">5</span>Limits, risks &amp; review schedule</summary><div class="mbody">Honest limitations and the date this card expires.<span class="mono">LIMITS: Degrades under macro shock (2020 backtest); thin-file bias under remediation
+OWNER: A. Rao (Model Risk) · REVIEWED BY: Validation + DPO · NEXT REVIEW: 2026-09-30</span></div></details>
+  </div>
+
+  <div class="tool">
+    <h3>Compliance cross-walk — write once, satisfy three</h3>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Governance artifact</th><th>EU AI Act</th><th>NIST AI RMF</th><th>ISO/IEC 42001</th></tr></thead>
+      <tbody>
+        <tr><td><b>Risk assessment &amp; tiering</b></td><td class="mono">Art. 9 — risk management</td><td class="mono">MAP · MEASURE</td><td class="mono">§6.1 risk &amp; opportunity</td></tr>
+        <tr><td><b>Model card + data lineage</b></td><td class="mono">Art. 10–11, Annex IV</td><td class="mono">MAP 1.6 / MEASURE 2.x</td><td class="mono">§7.5 documented info</td></tr>
+        <tr><td><b>Human-oversight design</b></td><td class="mono">Art. 14 — oversight</td><td class="mono">GOVERN 3 / MANAGE 2</td><td class="mono">§8 operational control</td></tr>
+        <tr><td><b>Decision log + audit trail</b></td><td class="mono">Art. 12 — record-keeping</td><td class="mono">GOVERN 4 / MANAGE 4</td><td class="mono">§9.1 monitoring</td></tr>
+        <tr><td><b>Incident &amp; withdrawal procedure</b></td><td class="mono">Art. 73 — serious incidents</td><td class="mono">MANAGE 4.1–4.3</td><td class="mono">§10 improvement</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="ws">
+    <div class="ws-head"><span class="t">Your workspace — Evidence</span><span class="org-echo" data-org>Your organization</span></div>
+    <div class="ws-body">
+      <p class="hint">Your documentation ledger. Systems you added in <b>Situate</b> appear here automatically — tap a status to cycle it (None → Draft → Signed). Red line 4 applies: no model card, no production.</p>
+      <div class="ws-list" id="mcList"><p class="empty">Add AI systems in the Situate workspace to track their model cards here.</p></div>
+    </div>
+  </div>
+
+  <div class="check" data-phase="3">
+    <h3><span class="vt">Validate — Evidence</span><span class="sc"><span class="scn">0</span> <small>/ 10</small></span></h3>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Every production AI system has a current, signed model card with subgroup performance.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>An append-only decision log captures rationale and dissent for governance decisions.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A single cross-walk maps your evidence to EU AI Act, NIST AI RMF, and ISO 42001.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Consequential decisions are reproducible: model version, inputs, and override identity are retained.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>An independent party (internal audit or external) has tested the assurance layer in the last 12 months.</p></div>
+    <div class="ck-hint">The 48-hour test: could you hand a regulator this evidence by Friday?</div>
+  </div>
+</section>
+
+<!-- ═════════ PHASE 5 — ROLL OUT & REVIEW ═════════ -->
+<section class="phase" id="rollout">
+  <div class="ph-eyebrow"><span class="eyebrow">Phase five</span><span class="out-lbl">Output · 90-day action plan &amp; health scorecard</span></div>
+  <div class="ph-head">
+    <div class="ph-letter">R</div>
+    <div><h2>Roll out &amp; review</h2><span class="deliver">Governance dies two ways: <b>it never ships, or it ships and is never reviewed.</b></span></div>
+  </div>
+  <p class="ph-q">A 90-day plan with named owners prevents the first. <b>A quarterly scorecard prevents the second.</b></p>
+
+  <div class="vision">
+    <p>"By 2027, every consequential AI decision at Helios will be explainable to the customer it affects, defensible to the regulator who asks, and reversible by the human who owns it."</p>
+    <small>Helios — board-ratified governance vision statement · Output 1 of 5</small>
+  </div>
+
+  <div class="tool">
+    <h3>Helios — prioritized 90-day plan · named owners · S.T.E.E.R.-mapped</h3>
+    <div class="plan">
+      <div class="plan-col">
+        <h4><span class="pdays">1–30</span><small>Quick wins — visible, cheap, momentum-building</small></h4>
+        <div class="plan-item"><b>Run shadow-AI amnesty</b>No-penalty disclosure window + tool survey.<div class="meta"><span class="pill info">S · SITUATE</span><span class="pill">OWNER: CISO</span></div></div>
+        <div class="plan-item"><b>Publish acceptable-use policy (1 page)</b>What's green, amber, red for all 12,000 staff.<div class="meta"><span class="pill v">E · ESTABLISH</span><span class="pill">OWNER: CDO</span></div></div>
+        <div class="plan-item"><b>Stand up the AI inventory register</b>Seed with the 17 known systems; make additions mandatory at procurement.<div class="meta"><span class="pill info">S · SITUATE</span><span class="pill">OWNER: Head of Architecture</span></div></div>
+        <div class="plan-item"><b>Draft the 5 red lines for board ratification</b><div class="meta"><span class="pill warm">T · TENSION-TEST</span><span class="pill">OWNER: CRO</span></div></div>
+      </div>
+      <div class="plan-col">
+        <h4><span class="pdays">31–60</span><small>Structure — councils, rights, and the first audit</small></h4>
+        <div class="plan-item"><b>Convene the AI Governance Council</b>Charter signed; first meeting decides the Tier-1 backlog.<div class="meta"><span class="pill v">E · ESTABLISH</span><span class="pill">OWNER: CRO (chair)</span></div></div>
+        <div class="plan-item"><b>Fairness audit of the credit model</b>Bias-pipeline analysis + subgroup metrics on live outcomes.<div class="meta"><span class="pill warm">T · TENSION-TEST</span><span class="pill">OWNER: Head of Model Risk</span></div></div>
+        <div class="plan-item"><b>Model card for both Tier-1 systems</b>Using the template; signed by owner + DPO.<div class="meta"><span class="pill ok">E · EVIDENCE</span><span class="pill">OWNER: Model owners</span></div></div>
+      </div>
+      <div class="plan-col">
+        <h4><span class="pdays">61–90</span><small>Assurance — prove it works, then report up</small></h4>
+        <div class="plan-item"><b>Compliance cross-walk completed</b>EU AI Act / NIST / ISO 42001 mapping with gap register.<div class="meta"><span class="pill ok">E · EVIDENCE</span><span class="pill">OWNER: General Counsel</span></div></div>
+        <div class="plan-item"><b>Incident &amp; model-withdrawal drill</b>Tabletop: GenAI assistant gives harmful financial advice — rehearse the kill switch.<div class="meta"><span class="pill hot">R · ROLL OUT</span><span class="pill">OWNER: CISO</span></div></div>
+        <div class="plan-item"><b>First quarterly health scorecard to board</b>Baseline scores + 12-month targets.<div class="meta"><span class="pill hot">R · ROLL OUT</span><span class="pill">OWNER: CRO</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>Stakeholder communication plan — by audience</h3>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Audience</th><th>Message</th><th>Channel &amp; cadence</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td><b>Board</b></td><td>Risk posture, red-line status, health scorecard trend</td><td>Quarterly committee paper</td><td>CRO</td></tr>
+        <tr><td><b>Regulators</b></td><td>Proactive disclosure of Tier-1 changes; evidence readiness</td><td>Pre-notification + annual brief</td><td>General Counsel</td></tr>
+        <tr><td><b>All staff</b></td><td>What you may use, how to report concerns — no jargon</td><td>Launch town hall + intranet hub</td><td>CDO</td></tr>
+        <tr><td><b>Customers</b></td><td>Where AI touches them, how to appeal a decision</td><td>Plain-language fact sheet, always-on</td><td>Head of CX</td></tr>
+        <tr><td><b>Researchers / public</b></td><td>Methodology transparency; published fairness statistics</td><td>Annual transparency report</td><td>Council</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="ws">
+    <div class="ws-head"><span class="t">Your workspace — Roll out &amp; review</span><span class="org-echo" data-org>Your organization</span></div>
+    <div class="ws-body">
+      <p class="hint">Write your board-ready vision statement — one sentence, ratifiable.</p>
+      <div class="frm">
+        <textarea id="visText" placeholder='e.g., "By 2027, every consequential AI decision at [org] will be explainable, defensible, and reversible."'></textarea>
+      </div>
+      <div class="vision-echo" id="visEcho"><p id="visP"></p><small id="visOrg">Your governance vision statement</small></div>
+
+      <p class="hint" style="margin-top:28px">Build your 90-day plan — every action needs a named owner and a S.T.E.E.R. phase.</p>
+      <div class="frm">
+        <label><span>Action</span><input id="acText" placeholder="e.g., Run shadow-AI amnesty"></label>
+        <label><span>Owner</span><input id="acOwner" placeholder="e.g., CISO"></label>
+        <label><span>Window</span><select id="acWin"><option>Days 1–30</option><option>Days 31–60</option><option>Days 61–90</option></select></label>
+        <label><span>S.T.E.E.R. phase</span><select id="acPhase"><option>S · Situate</option><option>T · Tension-test</option><option>E · Establish</option><option>E · Evidence</option><option>R · Roll out</option></select></label>
+        <button class="addbtn" id="acAdd">Add action</button>
+      </div>
+      <div class="uplan">
+        <div class="ucol"><h5>1–30</h5><div data-win="0"><p class="empty">No quick wins yet.</p></div></div>
+        <div class="ucol"><h5>31–60</h5><div data-win="1"><p class="empty">Nothing scheduled.</p></div></div>
+        <div class="ucol"><h5>61–90</h5><div data-win="2"><p class="empty">Nothing scheduled.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="check" data-phase="4">
+    <h3><span class="vt">Validate — Roll out &amp; review</span><span class="sc"><span class="scn">0</span> <small>/ 10</small></span></h3>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>A board-ready governance vision statement exists in one sentence, ratified — not drafted.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>The 90-day plan has named individual owners and each action maps to a S.T.E.E.R. phase.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>At least three 30-day quick wins are complete and visible to staff.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>Each stakeholder audience has a defined message, channel, cadence, and owner.</p></div>
+    <div class="ck-item" tabindex="0" data-s="0"><span class="ck-state">NOT STARTED</span><p>The health scorecard is reviewed quarterly and at least one action changed because of it.</p></div>
+    <div class="ck-hint">A scorecard that never changes a decision is decoration.</div>
+  </div>
+</section>
+
+<!-- ═════════ SCORECARD ═════════ -->
+<section id="scorecard">
+  <div class="ph-eyebrow"><span class="eyebrow">Quarterly review</span><span class="out-lbl" style="color:var(--crimson)">Computed live from your validations</span></div>
+  <div class="bar-head" style="margin-bottom:36px">
+    <h2 style="font-family:var(--serif);font-weight:700;font-size:clamp(30px,4vw,46px);color:var(--inkk);letter-spacing:-.01em">Governance health scorecard</h2>
+  </div>
+
+  <div class="score-grid">
+    <div class="tier">
+      <div class="big" id="scTotal">0</div>
+      <div class="of">of 50 · Governance Health Index</div>
+      <div class="name" id="scTier">Exposed</div>
+      <div class="desc" id="scDesc">AI is in use without visibility or control. Start with Situate — you cannot govern what you cannot see.</div>
+    </div>
+    <div class="bars-wrap">
+      <div class="bars">
+        <div class="bar-row"><span class="nm">Situate</span><div class="bar-track"><div class="bar-fill" data-bar="0" style="background:var(--c1)"></div></div><span class="val"><span data-val="0">0</span><small>/10</small></span></div>
+        <div class="bar-row"><span class="nm">Tension-test</span><div class="bar-track"><div class="bar-fill" data-bar="1" style="background:var(--c2)"></div></div><span class="val"><span data-val="1">0</span><small>/10</small></span></div>
+        <div class="bar-row"><span class="nm">Establish</span><div class="bar-track"><div class="bar-fill" data-bar="2" style="background:var(--c3)"></div></div><span class="val"><span data-val="2">0</span><small>/10</small></span></div>
+        <div class="bar-row"><span class="nm">Evidence</span><div class="bar-track"><div class="bar-fill" data-bar="3" style="background:var(--c4)"></div></div><span class="val"><span data-val="3">0</span><small>/10</small></span></div>
+        <div class="bar-row"><span class="nm">Roll out</span><div class="bar-track"><div class="bar-fill" data-bar="4" style="background:var(--c5)"></div></div><span class="val"><span data-val="4">0</span><small>/10</small></span></div>
+      </div>
+      <div class="tiers-legend">
+        <span><b>0–10 Exposed</b> · no visibility</span>
+        <span><b>11–20 Reactive</b> · incident-driven</span>
+        <span><b>21–30 Defined</b> · structures exist</span>
+        <span><b>31–40 Managed</b> · evidenced &amp; audited</span>
+        <span><b>41–50 Steered</b> · governance shapes strategy</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <button class="btn primary" id="dlReport">Download board report (.html)</button>
+    <button class="btn" onclick="window.print()">Print / PDF</button>
+    <button class="btn" id="dlData">Download data (.json)</button>
+    <button class="btn" id="importBtn">Import data</button>
+    <button class="btn" id="resetBtn">Reset assessment</button>
+  </div>
+  <input type="file" id="importFile" accept=".json,application/json" style="display:none" aria-hidden="true">
+  <p id="importMsg" role="status" style="font-size:13px;color:var(--c4);font-weight:600;margin-top:10px;min-height:18px"></p>
+  <p style="font-size:12.5px;color:var(--mute);margin-top:6px">Data lives in this browser session only — download your <b>.json</b> to save progress and import it later to resume.</p>
+</section>
+
+<footer>
+  <span>S.T.E.E.R. — Situate · Tension-test · Establish · Evidence · Roll out &amp; review</span>
+  <span>Contributor — Pawan Maheshwari · Helios Capital is a fictional worked case</span>
+</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const val=id=>$(id).value.trim();
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const labels=['NOT STARTED','IN PROGRESS','EVIDENCED'];
+const phaseNames=['Situate','Tension-test','Establish','Evidence','Roll out & review'];
+const tiers=[
+  [10,'Exposed','AI is in use without visibility or control. Start with Situate — you cannot govern what you cannot see.'],
+  [20,'Reactive','Governance responds to incidents rather than anticipating them. Ratify red lines and stand up the council.'],
+  [30,'Defined','Structures exist on paper. The gap is now proof — build the evidence and assurance layer.'],
+  [40,'Managed','Evidenced and audited. Push toward review loops that actually change decisions.'],
+  [50,'Steered','Governance shapes strategy rather than chasing it. Maintain, drill, and publish.']
+];
+
+/* ───────── state ───────── */
+const S={systems:[],stakeholders:[],redlines:[],tradeoffs:[],rights:[],actions:[]};
+
+/* ───────── scoring ───────── */
+const phaseEls=[...document.querySelectorAll('.check')];
+const railLinks=[...document.querySelectorAll('.rail nav a')];
+function phaseScore(ph){return [...ph.querySelectorAll('.ck-item')].reduce((a,i)=>a+(+i.dataset.s),0)}
+function scores(){return phaseEls.map(phaseScore)}
+function tierFor(total){return tiers.find(t=>total<=t[0])}
+function refresh(){
+  let total=0;
+  phaseEls.forEach((ph,idx)=>{
+    const s=phaseScore(ph); total+=s;
+    ph.querySelector('.scn').textContent=s;
+    const link=railLinks[idx];
+    if(link)link.querySelector('.fill i').style.width=(s*10)+'%';
+    const bar=document.querySelector('[data-bar="'+idx+'"]');
+    const v=document.querySelector('[data-val="'+idx+'"]');
+    if(bar)bar.style.width=(s*10)+'%';
+    if(v)v.textContent=s;
+  });
+  const pct=Math.round(total/50*100);
+  const arc=$('gaugeArc');
+  arc.style.strokeDashoffset=119.4-(119.4*pct/100);
+  $('gaugePct').textContent=pct+'%';
+  $('scTotal').textContent=total;
+  const t=tierFor(total);
+  $('scTier').textContent=t[1];
+  $('scDesc').textContent=t[2];
+}
+function cycle(item){
+  item.dataset.s=((+item.dataset.s)+1)%3;
+  item.querySelector('.ck-state').textContent=labels[+item.dataset.s];
+  refresh();
+}
+document.querySelectorAll('.ck-item').forEach(item=>{
+  item.addEventListener('click',()=>cycle(item));
+  item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();cycle(item)}});
+});
+function resetAll(){
+  document.querySelectorAll('.ck-item').forEach(i=>{i.dataset.s=0;i.querySelector('.ck-state').textContent=labels[0]});
+  refresh();
+}
+$('resetBtn').addEventListener('click',resetAll);
+
+/* scroll-spy (guarded for non-browser environments) */
+if(typeof IntersectionObserver!=='undefined'){
+  const sections=['situate','tension','establish','evidence','rollout'].map(id=>$(id));
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      const i=sections.indexOf(e.target);
+      if(e.isIntersecting&&i>-1){railLinks.forEach(l=>l.classList.remove('active'));railLinks[i].classList.add('active')}
+    });
+  },{rootMargin:'-30% 0px -55% 0px'});
+  sections.forEach(s=>spy.observe(s));
+}
+
+/* stakeholder example chips */
+const detail=$('piDetail');
+document.querySelectorAll('.chip').forEach(c=>{
+  const open=()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel');
+    const parts=c.dataset.d.split('|');
+    $('piName').textContent=parts[0];
+    $('piText').textContent=parts[1];
+    detail.classList.add('show');
+  };
+  c.addEventListener('click',open);
+  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+});
+
+/* trade-off slider */
+const slider=$('tSlider'),read=$('tRead');
+function tUpdate(){
+  const v=+slider.value;
+  const acc=(81-(v*0.022)).toFixed(1);
+  const parity=(0.74+(v*0.0024)).toFixed(2);
+  const flagged=Math.round(120-v*0.9);
+  let note;
+  if(v<25)note='Below the 0.80 fair-lending floor — legally and ethically untenable regardless of accuracy.';
+  else if(v<55)note='Compliant but uncomfortable: the council must document why this point, this quarter.';
+  else if(v<85)note='Helios\u2019s chosen operating band — accuracy cost accepted and signed by the CRO (register entry T-04).';
+  else note='Near-parity: portfolio risk rises; pricing and provisioning must absorb it knowingly.';
+  read.innerHTML='Model AUC <b>'+acc+'</b> · approval-rate ratio <b>'+parity+'</b> · ~<b>'+flagged+'</b> additional human reviews/week. '+note;
+}
+slider.addEventListener('input',tUpdate);tUpdate();
+
+/* ───────── your-case workspaces ───────── */
+const orgFields=['orgName','orgSector','orgRegions','orgReg'];
+function orgEcho(){
+  const n=val('orgName')||'Your organization';
+  document.querySelectorAll('[data-org]').forEach(e=>e.textContent=n);
+  $('visOrg').textContent=n+' — governance vision statement';
+}
+$('orgName').addEventListener('input',orgEcho);
+
+function prio(imp,over){
+  if(imp>=4&&over<=2)return['P1','hot'];
+  if(imp>=3&&over<=3)return['P2','warm'];
+  return['MONITOR','ok'];
+}
+const mcLabels=['NO CARD','DRAFT','SIGNED'];
+const strat={'HighHigh':'Manage closely','HighLow':'Keep satisfied','LowHigh':'Keep informed','LowLow':'Monitor'};
+const tierCls={'Tier 1':'hot','Tier 2':'warm','Tier 3':'ok','Board':'v'};
+const phasePill={'S · Situate':'info','T · Tension-test':'warm','E · Establish':'v','E · Evidence':'ok','R · Roll out':'hot'};
+
+function renderSys(){
+  const el=$('sysList');
+  if(!S.systems.length){el.innerHTML='<p class="empty">No systems added yet — your inventory appears here.</p>'}
+  else el.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>System</th><th>Authority</th><th>Impact</th><th>Oversight</th><th>Priority</th><th></th></tr></thead><tbody>'+
+    S.systems.map((s,i)=>{const p=prio(s.imp,s.over);return '<tr><td><b>'+esc(s.name)+'</b></td><td>'+esc(s.auth)+'</td><td>'+s.imp+'/5</td><td>'+s.over+'/5</td><td><span class="pill '+p[1]+'">'+p[0]+'</span></td><td><button class="rm" data-rm-sys="'+i+'" aria-label="Remove">×</button></td></tr>'}).join('')+
+    '</tbody></table></div>';
+  renderMC();
+}
+function renderStk(){
+  const el=$('stkList');
+  if(!S.stakeholders.length){el.innerHTML='<p class="empty">No stakeholders mapped yet.</p>';return}
+  el.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>Stakeholder</th><th>Power</th><th>Interest</th><th>Strategy</th><th></th></tr></thead><tbody>'+
+    S.stakeholders.map((s,i)=>'<tr><td><b>'+esc(s.name)+'</b></td><td>'+esc(s.pow)+'</td><td>'+esc(s.int)+'</td><td><span class="pill info">'+strat[s.pow+s.int].toUpperCase()+'</span></td><td><button class="rm" data-rm-stk="'+i+'">×</button></td></tr>').join('')+
+    '</tbody></table></div>';
+}
+function renderRL(){
+  const el=$('rlList');
+  if(!S.redlines.length){el.innerHTML='<p class="empty">No red lines yet — aim for three to six.</p>';return}
+  el.innerHTML='<div class="redlines">'+S.redlines.map((r,i)=>'<div class="redline"><span class="no">'+(i+1)+'</span><p><b>'+esc(r)+'</b></p><button class="rm" data-rm-rl="'+i+'" style="margin-left:auto">×</button></div>').join('')+'</div>';
+}
+function renderTO(){
+  const el=$('toList');
+  if(!S.tradeoffs.length){el.innerHTML='<p class="empty">Trade-off register is empty.</p>';return}
+  el.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>#</th><th>Tension</th><th>Decision</th><th>Owner</th><th></th></tr></thead><tbody>'+
+    S.tradeoffs.map((t,i)=>'<tr><td class="mono">T-'+String(i+1).padStart(2,'0')+'</td><td><b>'+esc(t.tension)+'</b></td><td>'+esc(t.decision)+'</td><td>'+esc(t.owner)+'</td><td><button class="rm" data-rm-to="'+i+'">×</button></td></tr>').join('')+
+    '</tbody></table></div>';
+}
+function renderDR(){
+  const el=$('drList');
+  if(!S.rights.length){el.innerHTML='<p class="empty">No decision rights assigned yet.</p>';return}
+  el.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>Decision</th><th>Accountable</th><th>Veto</th><th>Tier</th><th></th></tr></thead><tbody>'+
+    S.rights.map((r,i)=>'<tr><td><b>'+esc(r.d)+'</b></td><td>'+esc(r.a)+'</td><td>'+esc(r.v)+'</td><td><span class="pill '+tierCls[r.t]+'">'+esc(r.t).toUpperCase()+'</span></td><td><button class="rm" data-rm-dr="'+i+'">×</button></td></tr>').join('')+
+    '</tbody></table></div>';
+}
+function renderMC(){
+  const el=$('mcList');
+  if(!S.systems.length){el.innerHTML='<p class="empty">Add AI systems in the Situate workspace to track their model cards here.</p>';return}
+  el.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>System</th><th>Priority</th><th>Model card status</th></tr></thead><tbody>'+
+    S.systems.map((s,i)=>{const p=prio(s.imp,s.over);return '<tr><td><b>'+esc(s.name)+'</b></td><td><span class="pill '+p[1]+'">'+p[0]+'</span></td><td><button class="mc-status" data-mc="'+i+'" data-m="'+s.mc+'">'+mcLabels[s.mc]+'</button></td></tr>'}).join('')+
+    '</tbody></table></div>';
+}
+function renderAC(){
+  for(let w=0;w<3;w++){
+    const el=document.querySelector('[data-win="'+w+'"]');
+    const items=S.actions.map((a,i)=>({a,i})).filter(x=>x.a.win===w);
+    el.innerHTML=items.length?items.map(x=>'<div class="plan-item"><b>'+esc(x.a.text)+'</b><div class="meta"><span class="pill '+phasePill[x.a.phase]+'">'+esc(x.a.phase).toUpperCase()+'</span><span class="pill">OWNER: '+esc(x.a.owner).toUpperCase()+'</span><button class="rm" data-rm-ac="'+x.i+'">×</button></div></div>').join('')
+      :'<p class="empty">'+(w===0?'No quick wins yet.':'Nothing scheduled.')+'</p>';
+  }
+}
+function renderVision(){
+  const t=$('visText').value.trim(),e=$('visEcho');
+  if(t){$('visP').textContent='\u201C'+t+'\u201D';e.classList.add('has')}else e.classList.remove('has');
+}
+function renderAllWS(){renderSys();renderStk();renderRL();renderTO();renderDR();renderAC();renderVision();orgEcho()}
+
+$('sysAdd').addEventListener('click',()=>{
+  if(!val('sysName'))return $('sysName').focus();
+  S.systems.push({name:val('sysName'),auth:val('sysAuth'),imp:+val('sysImp'),over:+val('sysOver'),mc:0});
+  $('sysName').value='';renderSys();
+});
+$('stkAdd').addEventListener('click',()=>{
+  if(!val('stkName'))return $('stkName').focus();
+  S.stakeholders.push({name:val('stkName'),pow:val('stkPow'),int:val('stkInt')});
+  $('stkName').value='';renderStk();
+});
+$('rlAdd').addEventListener('click',()=>{
+  if(!val('rlText'))return $('rlText').focus();
+  S.redlines.push(val('rlText'));$('rlText').value='';renderRL();
+});
+$('toAdd').addEventListener('click',()=>{
+  if(!val('toTension'))return $('toTension').focus();
+  S.tradeoffs.push({tension:val('toTension'),decision:val('toDecision')||'—',owner:val('toOwner')||'—'});
+  $('toTension').value='';$('toDecision').value='';$('toOwner').value='';renderTO();
+});
+$('drAdd').addEventListener('click',()=>{
+  if(!val('drDecision')||!val('drAcc'))return $('drDecision').focus();
+  S.rights.push({d:val('drDecision'),a:val('drAcc'),v:val('drVeto')||'—',t:val('drTier')});
+  $('drDecision').value='';$('drAcc').value='';$('drVeto').value='';renderDR();
+});
+$('acAdd').addEventListener('click',()=>{
+  if(!val('acText')||!val('acOwner'))return $('acText').focus();
+  S.actions.push({text:val('acText'),owner:val('acOwner'),win:$('acWin').selectedIndex,phase:val('acPhase')});
+  $('acText').value='';$('acOwner').value='';renderAC();
+});
+$('visText').addEventListener('input',renderVision);
+
+document.addEventListener('click',e=>{
+  const b=e.target;
+  if(!(b instanceof Element))return;
+  if(b.dataset.rmSys!==undefined){S.systems.splice(+b.dataset.rmSys,1);renderSys()}
+  else if(b.dataset.rmStk!==undefined){S.stakeholders.splice(+b.dataset.rmStk,1);renderStk()}
+  else if(b.dataset.rmRl!==undefined){S.redlines.splice(+b.dataset.rmRl,1);renderRL()}
+  else if(b.dataset.rmTo!==undefined){S.tradeoffs.splice(+b.dataset.rmTo,1);renderTO()}
+  else if(b.dataset.rmDr!==undefined){S.rights.splice(+b.dataset.rmDr,1);renderDR()}
+  else if(b.dataset.rmAc!==undefined){S.actions.splice(+b.dataset.rmAc,1);renderAC()}
+  else if(b.dataset.mc!==undefined){const s=S.systems[+b.dataset.mc];s.mc=(s.mc+1)%3;renderMC()}
+});
+document.querySelectorAll('.ws .frm input, .intake .frm input').forEach(inp=>{
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();const f=inp.closest('.frm');const btn=f?f.querySelector('.addbtn'):null;if(btn)btn.click()}
+  });
+});
+
+/* ───────── snapshot / restore ───────── */
+function snapshot(){
+  return {
+    version:1, exported:new Date().toISOString(),
+    org:{name:val('orgName'),sector:val('orgSector'),regions:val('orgRegions'),reg:val('orgReg')},
+    vision:$('visText').value.trim(),
+    systems:S.systems,stakeholders:S.stakeholders,redlines:S.redlines,
+    tradeoffs:S.tradeoffs,rights:S.rights,actions:S.actions,
+    checks:phaseEls.map(ph=>[...ph.querySelectorAll('.ck-item')].map(i=>+i.dataset.s))
+  };
+}
+function restore(d){
+  if(!d||typeof d!=='object')throw new Error('Invalid data');
+  $('orgName').value=(d.org&&d.org.name)||'';
+  $('orgSector').value=(d.org&&d.org.sector)||'';
+  $('orgRegions').value=(d.org&&d.org.regions)||'';
+  $('orgReg').value=(d.org&&d.org.reg)||'';
+  $('visText').value=d.vision||'';
+  S.systems=Array.isArray(d.systems)?d.systems:[];
+  S.stakeholders=Array.isArray(d.stakeholders)?d.stakeholders:[];
+  S.redlines=Array.isArray(d.redlines)?d.redlines:[];
+  S.tradeoffs=Array.isArray(d.tradeoffs)?d.tradeoffs:[];
+  S.rights=Array.isArray(d.rights)?d.rights:[];
+  S.actions=Array.isArray(d.actions)?d.actions:[];
+  if(Array.isArray(d.checks))phaseEls.forEach((ph,pi)=>{
+    [...ph.querySelectorAll('.ck-item')].forEach((it,ii)=>{
+      const v=d.checks[pi]&&[0,1,2].includes(d.checks[pi][ii])?d.checks[pi][ii]:0;
+      it.dataset.s=v;it.querySelector('.ck-state').textContent=labels[v];
+    });
+  });
+  renderAllWS();refresh();
+}
+
+/* ───────── report builder ───────── */
+function buildReportHTML(){
+  const d=snapshot();
+  const sc=scores(), total=sc.reduce((a,b)=>a+b,0), tier=tierFor(total);
+  const org=d.org.name||'Your organization';
+  const row=(cells)=>'<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+  const tbl=(heads,rows)=>rows.length?'<table><thead><tr>'+heads.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>':'<p class="none">None recorded.</p>';
+  const sysRows=d.systems.map(s=>{const p=prio(s.imp,s.over);return row([ '<b>'+esc(s.name)+'</b>',esc(s.auth),s.imp+'/5',s.over+'/5',p[0],mcLabels[s.mc] ])});
+  const stkRows=d.stakeholders.map(s=>row(['<b>'+esc(s.name)+'</b>',esc(s.pow),esc(s.int),strat[s.pow+s.int]]));
+  const toRows=d.tradeoffs.map((t,i)=>row(['T-'+String(i+1).padStart(2,'0'),'<b>'+esc(t.tension)+'</b>',esc(t.decision),esc(t.owner)]));
+  const drRows=d.rights.map(r=>row(['<b>'+esc(r.d)+'</b>',esc(r.a),esc(r.v),esc(r.t)]));
+  const wins=['Days 1–30','Days 31–60','Days 61–90'];
+  const acRows=d.actions.map(a=>row([wins[a.win],'<b>'+esc(a.text)+'</b>',esc(a.owner),esc(a.phase)]));
+  const rlList=d.redlines.length?'<ol class="rl">'+d.redlines.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ol>':'<p class="none">None recorded.</p>';
+  const barRows=phaseNames.map((n,i)=>'<tr><td>'+n+'</td><td><div class="bar"><i style="width:'+(sc[i]*10)+'%"></i></div></td><td><b>'+sc[i]+'</b>/10</td></tr>').join('');
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+  +'<title>S.T.E.E.R. Board Report — '+esc(org)+'</title><style>'
+  +'body{font-family:Georgia,"Times New Roman",serif;color:#16181D;max-width:880px;margin:0 auto;padding:56px 28px;line-height:1.65}'
+  +'.eyebrow{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#6B7486}'
+  +'h1{font-size:42px;margin:10px 0 4px;border-left:6px solid #A51C30;padding-left:18px;line-height:1.1}'
+  +'h1 span{color:#A51C30}'
+  +'.meta{font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#6B7486;margin-bottom:6px}'
+  +'h2{font-size:24px;margin:44px 0 6px;color:#A51C30}'
+  +'h2 small{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:2px;color:#6B7486;display:block;text-transform:uppercase;margin-bottom:2px}'
+  +'table{width:100%;border-collapse:collapse;font-family:Helvetica,Arial,sans-serif;font-size:13.5px;margin-top:10px}'
+  +'th{text-align:left;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:#6B7486;border-bottom:2px solid #16181D;padding:8px 10px}'
+  +'td{border-bottom:1px solid #E5E7EC;padding:10px;vertical-align:top;color:#3A4254}td b{color:#16181D}'
+  +'.none{font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#9AA1B0;font-style:italic}'
+  +'.rl{margin:12px 0 0 22px}.rl li{margin-bottom:8px;color:#3A4254}.rl li::marker{color:#A51C30;font-weight:bold}'
+  +'.score{display:flex;gap:30px;align-items:baseline;border:1px solid #E5E7EC;padding:24px 28px;margin-top:14px}'
+  +'.score .big{font-size:84px;font-weight:bold;color:#A51C30;line-height:1}'
+  +'.score .tname{font-size:26px;font-weight:bold}'
+  +'.score p{font-family:Helvetica,Arial,sans-serif;font-size:13.5px;color:#3A4254;margin:4px 0 0}'
+  +'.bar{background:#F2F3F6;border:1px solid #E5E7EC;height:12px;width:100%}.bar i{display:block;height:100%;background:#A51C30}'
+  +'.vision{border-left:6px solid #A51C30;padding:6px 0 6px 22px;font-size:22px;font-weight:bold;line-height:1.45;margin-top:12px}'
+  +'footer{margin-top:60px;border-top:1px solid #E5E7EC;padding-top:16px;font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#6B7486;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}'
+  +'@media print{body{padding:20px}}'
+  +'</style></head><body>'
+  +'<div class="eyebrow">S.T.E.E.R. — AI Governance Board Report</div>'
+  +'<h1><span>'+esc(org)+'</span><br>Governance posture</h1>'
+  +'<div class="meta">Sector: '+esc(d.org.sector||'—')+' · Regions: '+esc(d.org.regions||'—')+' · Regulatory exposure: '+esc(d.org.reg||'—')+' · Generated: '+new Date().toLocaleDateString()+'</div>'
+  +'<h2><small>Summary</small>Governance Health Index</h2>'
+  +'<div class="score"><div><div class="big">'+total+'</div><div class="meta">OF 50</div></div>'
+  +'<div><div class="tname">'+tier[1]+'</div><p>'+tier[2]+'</p></div></div>'
+  +'<table><thead><tr><th style="width:170px">Phase</th><th>Validation</th><th style="width:70px">Score</th></tr></thead><tbody>'+barRows+'</tbody></table>'
+  +(d.vision?'<h2><small>Roll out &amp; review</small>Governance vision statement</h2><div class="vision">\u201C'+esc(d.vision)+'\u201D</div>':'')
+  +'<h2><small>Situate</small>AI footprint &amp; priority</h2>'+tbl(['System','Authority','Impact','Oversight','Priority','Model card'],sysRows)
+  +'<h2><small>Situate</small>Stakeholder map</h2>'+tbl(['Stakeholder','Power','Interest','Strategy'],stkRows)
+  +'<h2><small>Tension-test</small>Ethical red lines</h2>'+rlList
+  +'<h2><small>Tension-test</small>Trade-off register</h2>'+tbl(['#','Tension','Decision','Owner'],toRows)
+  +'<h2><small>Establish</small>Decision rights</h2>'+tbl(['Decision','Accountable','Veto','Tier'],drRows)
+  +'<h2><small>Roll out &amp; review</small>90-day action plan</h2>'+tbl(['Window','Action','Owner','S.T.E.E.R. phase'],acRows)
+  +'<footer><span>S.T.E.E.R. — Situate · Tension-test · Establish · Evidence · Roll out &amp; review</span><span>Contributor — Pawan Maheshwari</span></footer>'
+  +'</body></html>';
+}
+
+/* ───────── downloads ───────── */
+function download(name,content,type){
+  const blob=new Blob([content],{type:type||'text/plain'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+function slug(){return (val('orgName')||'steer').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'steer'}
+$('dlReport').addEventListener('click',()=>download(slug()+'-steer-board-report.html',buildReportHTML(),'text/html'));
+$('dlData').addEventListener('click',()=>download(slug()+'-steer-data.json',JSON.stringify(snapshot(),null,2),'application/json'));
+$('importBtn').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{restore(JSON.parse(r.result));$('importMsg').textContent='Imported \u2713';}
+    catch(err){$('importMsg').textContent='Import failed — invalid JSON file.';}
+    setTimeout(()=>{$('importMsg').textContent=''},4000);
+  };
+  r.readAsText(f);
+  e.target.value='';
+});
+
+renderAllWS();
+refresh();
+
+/* test/automation API */
+window.STEER={state:S,snapshot,restore,refresh,scores,buildReportHTML,download,prio,reset:resetAll,cycle};
+})();
+
+</script>
+</body>
+</html>
