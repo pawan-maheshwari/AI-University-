@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LPI® Leadership Practices Inventory — Self Assessment</title>
+<meta name="description" content="Leadership Practices Inventory self-assessment based on Kouzes & Posner's Five Practices of Exemplary Leadership. Created by Pawan Maheshwari. Published by planetAI LLP."/>
+<meta name="author" content="Pawan Maheshwari"/>
+<meta name="publisher" content="planetAI LLP"/>
+<meta name="color-scheme" content="only light"/>
+<meta name="theme-color" content="#4A0C16"/>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="%234A0C16"/><circle cx="32" cy="32" r="29" fill="none" stroke="%23C9A24B" stroke-width="2"/><g fill="%23ffffff"><rect x="13" y="37" width="6" height="12"/><rect x="21" y="29" width="6" height="20"/><rect x="29" y="19" width="6" height="30"/><rect x="37" y="29" width="6" height="20"/><rect x="45" y="37" width="6" height="12"/></g></svg>'/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   LPI  EXECUTIVE FOLIO DESIGN SYSTEM
+   Oxblood #6E1421 · Crimson #A51C30 · Brass #A8842C
+   Ink #211F1D · Paper #FAF8F4 · Hairline #E3DFD6
+   Display: Playfair Display · Text serif: Merriweather · Body: Source Sans 3
+   Built for planetAI LLP
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --crimson:#A51C30; --crimson-dk:#7f1525; --oxblood:#6E1421; --oxblood-dp:#4A0C16;
+  --ink:#211F1D; --ink-2:#2E2B27; --slate:#5B5C60; --mute:#8A8880;
+  --paper:#FAF8F4; --stone:#F2EFE8; --stone-2:#EBE7DE; --hairline:#E3DFD6;
+  --white:#fff; --brass:#A8842C; --brass-lt:#C9A24B; --gold:#b08d3e;
+  --green:#2e6b4f; --green-bg:#EDF5F0; --red-bg:#FBF1F2;
+  --fdd:'Playfair Display',Georgia,serif;
+  --fd:'Merriweather',Georgia,serif;
+  --fb:'Source Sans 3','Helvetica Neue',Arial,sans-serif;
+  --sh-1:0 1px 2px rgba(33,31,29,.05);
+  --sh-2:0 1px 2px rgba(33,31,29,.05),0 10px 28px -18px rgba(33,31,29,.35);
+  --sh-3:0 2px 4px rgba(33,31,29,.06),0 22px 48px -26px rgba(33,31,29,.45);
+  --r:4px;
+}
+html{scroll-behavior:smooth;color-scheme:only light;background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%}
+button{font-family:var(--fb)}
+::selection{background:rgba(165,28,48,.16)}
+
+/* ==========  MASTHEAD  ========== */
+.crimson-bar{height:3px;background:linear-gradient(90deg,var(--oxblood-dp),var(--crimson) 45%,var(--brass-lt))}
+.masthead{position:relative;background:
+  radial-gradient(120% 180% at 8% -40%,rgba(201,162,75,.20),transparent 60%),
+  linear-gradient(135deg,#4A0C16 0%,#6E1421 48%,#8A1A2A 100%);
+  color:#fff;padding:1.7rem 1.75rem 1.55rem;display:flex;align-items:center;gap:1.15rem;
+  border-bottom:1px solid rgba(201,162,75,.35)}
+.masthead::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,162,75,.75),transparent)}
+.masthead svg{flex-shrink:0;filter:drop-shadow(0 3px 10px rgba(0,0,0,.35))}
+.mast-kicker{font-size:.63rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--brass-lt);margin-bottom:.3rem}
+.mast-title{font-family:var(--fdd);font-size:clamp(1.45rem,3.6vw,2.15rem);font-weight:800;
+  line-height:1.12;letter-spacing:-.012em;color:#fff}
+.mast-title sup{font-size:.42em;font-weight:500;top:-.85em;opacity:.75}
+.mast-sub{font-size:.8rem;color:rgba(255,255,255,.72);margin-top:.32rem;letter-spacing:.005em}
+.mast-ver{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(201,162,75,.55);
+  color:var(--brass-lt);font-size:.57rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:.16rem .5rem;border-radius:2px;vertical-align:middle;margin-left:.15rem}
+.mast-right{margin-left:auto;display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.mast-creator{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit}
+.mast-creator img{width:48px;height:48px;border-radius:50%;object-fit:cover;
+  border:1.5px solid rgba(201,162,75,.85);box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.mast-creator-name{font-size:.8rem;font-weight:700;line-height:1.3;color:#fff}
+.mast-creator-role{font-size:.67rem;color:rgba(255,255,255,.62)}
+.mast-creator-link{font-size:.66rem;color:var(--brass-lt);font-weight:600}
+.mast-creator:hover .mast-creator-link{text-decoration:underline}
+/* planetAI lockup */
+.pai-lock{display:flex;align-items:center;gap:.55rem;text-decoration:none;
+  padding:.4rem .7rem .4rem .55rem;border:1px solid rgba(201,162,75,.4);border-radius:3px;
+  background:rgba(0,0,0,.16);transition:border-color .18s,background .18s}
+.pai-lock:hover{border-color:var(--brass-lt);background:rgba(0,0,0,.28)}
+.pai-lock-tx{line-height:1.2}
+.pai-lock-ey{display:block;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.pai-lock-nm{display:block;font-family:var(--fdd);font-size:.85rem;font-weight:700;color:#fff;letter-spacing:.01em}
+.pai-lock-nm em{font-style:normal;color:var(--brass-lt)}
+@media(max-width:1000px){.mast-creator-text{display:none}}
+@media(max-width:820px){.pai-lock-tx{display:none}.pai-lock{padding:.4rem}}
+@media(max-width:560px){
+  .masthead{flex-wrap:wrap;gap:.85rem;padding:1.15rem 1rem 1.1rem}
+  .masthead>div:not(.mast-right){flex:1 1 100%;order:2}
+  .masthead svg{order:1;width:44px;height:44px}
+  .mast-right{order:1;margin-left:auto}
+  .mast-title{font-size:1.32rem}
+  .mast-sub{font-size:.72rem}
+  .page{padding:1.4rem 1rem 2.5rem}
+  .nav-inner{padding:0 1rem}
+  .ov-row{grid-template-columns:96px 1fr 52px 44px;gap:.5rem}
+  .ov-label{font-size:.72rem}
+  .pq{grid-template-columns:1fr 96px}
+  .book{grid-template-columns:1.4rem 1fr}
+}
+
+/* ==========  NAV  ========== */
+nav{border-bottom:1px solid var(--hairline);background:rgba(250,248,244,.92);
+  backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px);
+  position:sticky;top:0;z-index:50;box-shadow:0 1px 0 rgba(33,31,29,.03)}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;padding:0 1.75rem;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.ntab{flex-shrink:0;padding:.9rem 1.15rem;font-size:.755rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--slate);cursor:pointer;transition:color .18s,border-color .18s;white-space:nowrap}
+.ntab:hover{color:var(--ink)}
+.ntab.on{color:var(--oxblood);border-bottom-color:var(--crimson)}
+.ntab:focus-visible{outline:2px solid var(--crimson);outline-offset:-3px;border-radius:2px}
+
+.page{max-width:1060px;margin:0 auto;padding:2.4rem 1.75rem 3.5rem}
+.hidden{display:none!important}
+
+/* ==========  SECTION HEADERS  ========== */
+.sec-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--crimson);margin-bottom:.6rem}
+.sec-eyebrow::before{content:'';width:22px;height:2px;background:var(--brass);display:inline-block}
+.sec-title{font-family:var(--fdd);font-size:1.85rem;font-weight:700;letter-spacing:-.015em;
+  line-height:1.18;margin-bottom:.55rem}
+.sec-lede{font-size:.95rem;color:var(--slate);max-width:64ch;margin-bottom:1.7rem;line-height:1.72}
+.rule{border:none;border-top:1px solid var(--hairline);margin:2rem 0}
+
+/* ==========  FORMS  ========== */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;max-width:780px;
+  background:var(--white);border:1px solid var(--hairline);border-radius:var(--r);
+  padding:1.5rem;box-shadow:var(--sh-2)}
+@media(max-width:600px){.fgrid{grid-template-columns:1fr;padding:1.1rem}}
+.field label{display:block;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--slate);margin-bottom:.4rem}
+.field input,.field select{width:100%;border:1px solid var(--hairline);border-radius:3px;
+  background:var(--paper);padding:.62rem .75rem;font-family:var(--fb);font-size:.92rem;color:var(--ink);
+  outline:none;transition:border-color .18s,box-shadow .18s,background .18s}
+.field input::placeholder{color:#B3B0A8}
+.field input:focus,.field select:focus{border-color:var(--crimson);background:var(--white);
+  box-shadow:0 0 0 3px rgba(165,28,48,.1)}
+.req{color:var(--crimson)}
+.note{font-size:.85rem;color:var(--slate);border:1px solid var(--hairline);border-left:3px solid var(--brass);
+  background:var(--white);padding:.85rem 1.1rem;margin-bottom:1.5rem;line-height:1.7;border-radius:2px;
+  box-shadow:var(--sh-1)}
+
+/* ==========  BUTTONS  ========== */
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.72rem 1.6rem;font-size:.76rem;
+  font-weight:700;letter-spacing:.11em;text-transform:uppercase;border:1px solid transparent;
+  border-radius:3px;cursor:pointer;transition:transform .16s,box-shadow .16s,background .18s,color .18s}
+.btn-crimson{background:linear-gradient(180deg,#9A1B2D,var(--oxblood));color:#fff;
+  box-shadow:0 1px 2px rgba(110,20,33,.3),inset 0 1px 0 rgba(255,255,255,.14)}
+.btn-crimson:hover{background:linear-gradient(180deg,#8A1727,#5C111C);
+  box-shadow:0 6px 18px -8px rgba(110,20,33,.7),inset 0 1px 0 rgba(255,255,255,.14);transform:translateY(-1px)}
+.btn-ink{background:linear-gradient(180deg,var(--ink-2),var(--ink));color:#fff;
+  box-shadow:0 1px 2px rgba(33,31,29,.3),inset 0 1px 0 rgba(255,255,255,.1)}
+.btn-ink:hover{background:#000;transform:translateY(-1px);box-shadow:0 6px 18px -8px rgba(33,31,29,.6)}
+.btn-out{background:var(--white);color:var(--oxblood);border-color:rgba(110,20,33,.35)}
+.btn-out:hover{background:var(--oxblood);color:#fff;border-color:var(--oxblood);transform:translateY(-1px)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btn-row{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.5rem}
+
+/* ==========  ASSESSMENT  ========== */
+.prog-label{display:flex;justify-content:space-between;font-size:.73rem;font-weight:700;
+  letter-spacing:.07em;color:var(--slate);text-transform:uppercase;margin-bottom:.4rem}
+.prog-track{height:6px;background:var(--stone-2);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--oxblood),var(--crimson) 70%,var(--brass-lt));
+  transition:width .45s cubic-bezier(.16,1,.3,1);width:0;border-radius:99px}
+.scale-note{font-size:.78rem;color:var(--slate);background:var(--white);border:1px solid var(--hairline);
+  border-radius:3px;padding:.7rem .95rem;margin-top:1.1rem;line-height:1.75;box-shadow:var(--sh-1)}
+.scale-note strong{color:var(--ink)}
+.ptabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:1.2rem 0 1.5rem}
+.ptab{padding:.38rem .85rem;font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--hairline);background:var(--white);color:var(--slate);cursor:pointer;
+  border-radius:99px;transition:all .18s}
+.ptab.on,.ptab:hover{background:var(--oxblood);color:#fff;border-color:var(--oxblood)}
+.ptab.done{border-color:var(--green);color:var(--green)}
+.ptab.done.on{background:var(--green);color:#fff;border-color:var(--green)}
+.qblock{padding:1.35rem 1.25rem;background:var(--white);border:1px solid var(--hairline);
+  border-radius:var(--r);margin-bottom:.75rem;box-shadow:var(--sh-1);transition:box-shadow .2s,border-color .2s}
+.qblock:hover{box-shadow:var(--sh-2)}
+.qrow{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.9rem}
+.qnum{font-family:var(--fdd);font-size:.95rem;font-weight:700;color:var(--crimson);min-width:2.2rem;padding-top:.05rem}
+.qtext{font-size:.96rem;line-height:1.6;flex:1}
+.qtag{font-size:.58rem;font-weight:700;letter-spacing:.1em;padding:.2rem .45rem;color:#fff;
+  white-space:nowrap;margin-top:.15rem;border-radius:2px}
+.srow{display:flex;gap:6px;margin-left:2.9rem;flex-wrap:wrap}
+.sbtn{width:40px;height:40px;border:1px solid var(--hairline);background:var(--paper);font-size:.85rem;
+  font-weight:600;color:var(--slate);cursor:pointer;border-radius:3px;
+  transition:transform .12s,background .16s,color .16s,border-color .16s,box-shadow .16s}
+.sbtn:hover{border-color:var(--crimson);color:var(--crimson);background:var(--white);transform:translateY(-1px)}
+.sbtn.sel{background:var(--crimson);border-color:var(--crimson);color:#fff;
+  box-shadow:0 4px 12px -5px rgba(165,28,48,.75)}
+.sbtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.scap{margin-left:2.9rem;margin-top:.45rem;display:flex;justify-content:space-between;font-size:.64rem;
+  color:var(--mute);max-width:472px;letter-spacing:.03em}
+.warn{background:#FDF7EA;border:1px solid #E6CE9B;border-left:3px solid var(--brass);border-radius:3px;
+  padding:.75rem 1rem;font-size:.83rem;color:#6E5518;margin-top:1.1rem}
+
+/* ==========  REPORT  ========== */
+.rpt-sec{margin-top:2.4rem}
+.ov-row{display:grid;grid-template-columns:190px 1fr 70px 56px;align-items:center;gap:.85rem;
+  padding:.62rem 0;border-bottom:1px solid var(--hairline)}
+@media(max-width:620px){.ov-row{grid-template-columns:120px 1fr 60px 50px}}
+.ov-label{font-family:var(--fd);font-size:.84rem;font-weight:700}
+.ov-track{height:22px;background:var(--stone);border:1px solid var(--hairline);border-radius:2px;
+  position:relative;overflow:hidden}
+.ov-fill{height:100%;transition:width .7s cubic-bezier(.16,1,.3,1)}
+.ov-score{font-size:.85rem;font-weight:700;text-align:right}
+.ov-pct{font-size:.7rem;color:var(--slate)}
+table.rtbl{width:100%;border-collapse:collapse;font-size:.85rem;background:var(--white);
+  border:1px solid var(--hairline);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-1)}
+.rtbl th{font-size:.65rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--slate);
+  text-align:left;padding:.65rem;background:var(--stone);border-bottom:1px solid var(--hairline)}
+.rtbl td{padding:.52rem .65rem;border-bottom:1px solid var(--hairline);vertical-align:middle}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl .top10 td{background:var(--green-bg)}
+.rtbl .bot10 td{background:var(--red-bg)}
+.badge{font-size:.61rem;font-weight:700;padding:.14rem .45rem;color:#fff;white-space:nowrap;border-radius:2px}
+.minibar{height:8px;background:var(--stone);min-width:56px;border:1px solid var(--hairline);border-radius:99px;overflow:hidden}
+.minifill{height:100%;border-radius:99px}
+.prac{border:1px solid var(--hairline);border-radius:var(--r);margin-top:1.7rem;overflow:hidden;
+  background:var(--white);box-shadow:var(--sh-2)}
+.prac-hd{display:flex;align-items:center;gap:.85rem;padding:.9rem 1.15rem;color:#fff}
+.prac-hd-num{font-family:var(--fdd);font-weight:700;font-size:1.15rem;background:rgba(255,255,255,.2);
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prac-hd-title{font-family:var(--fd);font-size:1.02rem;font-weight:700;letter-spacing:-.005em}
+.prac-hd-score{margin-left:auto;font-size:.84rem;font-weight:600;opacity:.95}
+.prac-commit{padding:.85rem 1.15rem;border-bottom:1px solid var(--hairline);font-size:.82rem;
+  color:var(--slate);background:var(--paper)}
+.prac-commit li{margin-left:1.1rem;line-height:1.7}
+.pq{display:grid;grid-template-columns:1fr 120px;gap:.6rem;align-items:center;padding:.58rem 1.15rem;
+  border-bottom:1px solid var(--hairline)}
+.pq-text{font-size:.84rem;line-height:1.55}
+.pq-bar{display:flex;align-items:center;gap:.45rem}
+.pq-track{flex:1;height:14px;background:var(--stone);border:1px solid var(--hairline);border-radius:2px;overflow:hidden}
+.pq-fill{height:100%}
+.pq-val{font-size:.8rem;font-weight:700;min-width:1.3rem;text-align:right}
+.reflect{padding:.95rem 1.15rem;border-top:1px solid var(--hairline);background:var(--paper)}
+.reflect-t{font-family:var(--fd);font-size:.9rem;font-weight:700;color:var(--oxblood);margin-bottom:.5rem}
+.reflect-q{font-size:.8rem;font-weight:700;margin:.65rem 0 .3rem}
+.reflect textarea{width:100%;border:1px solid var(--hairline);border-radius:3px;background:var(--white);
+  padding:.6rem .75rem;font-family:var(--fb);font-size:.85rem;min-height:64px;resize:vertical;outline:none;
+  transition:border-color .18s,box-shadow .18s}
+.reflect textarea:focus{border-color:var(--crimson);box-shadow:0 0 0 3px rgba(165,28,48,.1)}
+.sugg{padding:.95rem 1.15rem;background:var(--stone);border-top:1px solid var(--hairline)}
+.sugg-t{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--oxblood);
+  margin-bottom:.6rem}
+.sugg-i{display:flex;gap:.5rem;font-size:.83rem;line-height:1.68;margin-bottom:.5rem}
+.sugg-n{font-weight:700;color:var(--brass);flex-shrink:0}
+
+/* ==========  READING  ========== */
+.read-cat{margin-top:2.1rem}
+.read-cat-title{font-family:var(--fdd);font-size:1.2rem;font-weight:700;border-bottom:2px solid var(--crimson);
+  padding-bottom:.4rem;margin-bottom:1rem;display:flex;align-items:baseline;gap:.6rem}
+.read-cat-count{font-family:var(--fb);font-size:.7rem;color:var(--slate);font-weight:400;letter-spacing:.04em}
+.book{display:grid;grid-template-columns:2rem 1fr;gap:.3rem .85rem;padding:1rem 1.15rem;
+  background:var(--white);border:1px solid var(--hairline);border-radius:var(--r);margin-bottom:.6rem;
+  box-shadow:var(--sh-1);transition:box-shadow .2s,transform .2s}
+.book:hover{box-shadow:var(--sh-2);transform:translateY(-1px)}
+.book-n{font-family:var(--fdd);font-size:1rem;color:var(--brass);font-weight:700;padding-top:.05rem}
+.book-title{font-family:var(--fd);font-size:.96rem;font-weight:700;line-height:1.45}
+.book-title a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--hairline);
+  transition:color .15s,border-color .15s}
+.book-title a:hover{color:var(--crimson);border-bottom-color:var(--crimson)}
+.book-meta{font-size:.74rem;color:var(--slate);margin:.18rem 0 .4rem}
+.book-learn{font-size:.85rem;line-height:1.68;color:var(--ink)}
+.book-learn strong{color:var(--oxblood);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:700;margin-right:.4rem}
+.book-link{display:inline-block;margin-top:.45rem;font-size:.73rem;font-weight:700;color:var(--crimson);
+  text-decoration:none;letter-spacing:.06em}
+.book-link:hover{text-decoration:underline}
+
+/* ==========  FOOTER  ========== */
+footer{background:linear-gradient(180deg,var(--ink),#151311);color:#fff;margin-top:3.5rem;
+  border-top:3px solid var(--oxblood)}
+.foot-inner{max-width:1060px;margin:0 auto;padding:2.2rem 1.75rem;display:flex;align-items:center;
+  gap:1.3rem;flex-wrap:wrap}
+.foot-inner img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1.5px solid var(--brass)}
+.foot-name{font-family:var(--fd);font-size:1rem;font-weight:700}
+.foot-role{font-size:.77rem;opacity:.68;margin-top:.12rem}
+.foot-link{font-size:.77rem;color:var(--brass-lt);text-decoration:none;font-weight:600}
+.foot-link:hover{text-decoration:underline}
+.foot-legal{margin-left:auto;font-size:.67rem;opacity:.5;max-width:340px;line-height:1.75}
+@media(max-width:700px){.foot-legal{margin-left:0}}
+.foot-pai{width:100%;border-top:1px solid rgba(255,255,255,.12);margin-top:.4rem;padding-top:1.3rem;
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.foot-pai-mark{flex-shrink:0}
+.foot-pai-name{font-family:var(--fdd);font-size:1.05rem;font-weight:700;letter-spacing:.01em}
+.foot-pai-name em{font-style:normal;color:var(--brass-lt)}
+.foot-pai-tag{font-size:.75rem;opacity:.62;margin-top:.1rem;line-height:1.6}
+.foot-pai-links{margin-left:auto;display:flex;gap:1.1rem;flex-wrap:wrap}
+.foot-pai-links a{font-size:.74rem;color:var(--brass-lt);text-decoration:none;font-weight:600;
+  border-bottom:1px solid transparent;transition:border-color .16s}
+.foot-pai-links a:hover{border-bottom-color:var(--brass-lt)}
+@media(max-width:700px){.foot-pai-links{margin-left:0}}
+
+/* ==========  MODAL  ========== */
+.modal-bg{position:fixed;inset:0;background:rgba(20,18,16,.6);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;z-index:200;padding:1rem}
+.modal{background:var(--white);padding:1.9rem;max-width:440px;width:100%;position:relative;
+  border-radius:var(--r);border-top:4px solid var(--crimson);box-shadow:var(--sh-3)}
+.modal-x{position:absolute;top:.8rem;right:.9rem;background:none;border:none;cursor:pointer;
+  font-size:.76rem;color:var(--slate)}
+.modal-x:hover{color:var(--ink)}
+.modal-t{font-family:var(--fdd);font-size:1.3rem;font-weight:700;margin-bottom:.25rem}
+.modal-s{font-size:.78rem;color:var(--slate);margin-bottom:1.1rem}
+.modal-ok{font-size:.78rem;color:var(--green);font-weight:700;margin-top:.75rem;min-height:1.1rem}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,.btn-row,.no-print,.masthead .mast-right{display:none!important}
+  body{background:#fff}
+  .qblock,.prac,.book,table.rtbl{box-shadow:none!important;break-inside:avoid}
+}
+
+/* ==========  LEADERS  ========== */
+.leaders-wrap{display:grid;grid-template-columns:236px 1fr 292px;border:1px solid var(--hairline);
+  border-radius:var(--r);overflow:hidden;min-height:70vh;background:var(--white);box-shadow:var(--sh-2)}
+.l-sidebar{overflow-y:auto;scrollbar-width:none;border-right:1px solid var(--hairline);background:var(--stone)}
+.l-sidebar::-webkit-scrollbar{display:none}
+.l-impact{padding:1.35rem 1.6rem;overflow-y:auto;background:var(--white)}
+.l-style{padding:1.35rem 1.6rem;overflow-y:auto;background:var(--paper);border-left:1px solid var(--hairline)}
+.l-col-ey{font-size:.57rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--crimson);
+  padding:.8rem 1.2rem .6rem;border-bottom:1px solid var(--hairline)}
+.l-li{display:flex;align-items:center;gap:.75rem;padding:.62rem 1.2rem;cursor:pointer;
+  border-left:3px solid transparent;transition:background .16s,border-color .16s}
+.l-li:hover{background:rgba(165,28,48,.05)}
+.l-li.on{background:var(--white);border-left-color:var(--crimson);box-shadow:inset -1px 0 0 var(--white)}
+.l-av{width:50px;height:50px;border-radius:50%;position:relative;overflow:hidden;flex-shrink:0;
+  transition:box-shadow .2s;box-shadow:0 2px 8px -3px rgba(33,31,29,.5)}
+.l-li.on .l-av{box-shadow:0 0 0 2px var(--white),0 0 0 3.5px var(--crimson)}
+.l-av-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--fdd);font-size:1.05rem;font-weight:700;color:#fff;z-index:1;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.l-av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;
+  z-index:2;opacity:0;transition:opacity .5s ease}
+.l-li-name{font-family:var(--fd);font-size:.81rem;font-weight:700;line-height:1.25}
+.l-li-co{font-size:.64rem;color:var(--slate);margin-top:.08rem}
+.l-li-yr{font-size:.57rem;color:var(--mute);margin-top:.04rem}
+.l-arr{font-size:.85rem;color:#CCC7BC;transition:color .15s,transform .15s;flex-shrink:0;margin-left:auto}
+.l-li.on .l-arr{color:var(--crimson);transform:translateX(2px)}
+.l-panel{transition:opacity .2s}
+.l-panel.out{opacity:0}
+.l-stat{font-family:var(--fdd);font-size:clamp(2.6rem,5.2vw,4.4rem);font-weight:700;line-height:.95;
+  letter-spacing:-.025em;color:var(--oxblood);margin:.5rem 0 .2rem}
+.l-stat-lbl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--slate);
+  margin-bottom:1.15rem;padding-bottom:.9rem;border-bottom:1px solid var(--hairline)}
+.l-imp-list{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.2rem}
+.l-imp-row{display:grid;grid-template-columns:28px 1fr;gap:.55rem;align-items:start}
+.l-imp-ic{width:28px;height:28px;border-radius:50%;background:var(--red-bg);border:1px solid #EBD0D3;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.l-imp-tx{font-size:.83rem;line-height:1.6;color:var(--ink);padding-top:.28rem}
+.l-bq{border-left:3px solid var(--brass);padding:.75rem 1.1rem;background:var(--stone);font-size:.87rem;
+  font-style:italic;line-height:1.72;color:var(--ink);position:relative;border-radius:0 3px 3px 0}
+.l-bq::before{content:'\201C';font-family:var(--fdd);font-size:2.8rem;color:var(--brass);opacity:.22;
+  position:absolute;top:-.1rem;left:.35rem;font-style:normal;line-height:1}
+.l-bq cite{display:block;font-style:normal;font-size:.65rem;font-weight:700;color:var(--oxblood);
+  margin-top:.4rem;letter-spacing:.07em}
+.l-st-flag{display:inline-flex;border:1px solid var(--hairline);padding:.24rem .7rem;font-size:.57rem;
+  font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-bottom:.8rem;
+  background:var(--white);border-radius:99px}
+.l-st-name{font-family:var(--fdd);font-size:clamp(1.25rem,2.6vw,1.7rem);font-weight:700;letter-spacing:-.015em;
+  line-height:1.18;margin-bottom:.7rem}
+.l-st-desc{font-size:.83rem;line-height:1.74;color:var(--slate);margin-bottom:1.15rem;padding-bottom:.95rem;
+  border-bottom:1px solid var(--hairline)}
+.l-tr-hd{font-size:.56rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);
+  margin-bottom:.65rem}
+.l-traits{display:flex;flex-direction:column;gap:.42rem;margin-bottom:1.05rem}
+.l-trait{display:flex;align-items:center;gap:.55rem;font-size:.84rem;font-weight:600}
+.l-tdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.l-meters{display:flex;flex-direction:column;gap:0}
+.l-m-row{margin-bottom:.6rem}
+.l-m-lbls{display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.04em;color:var(--slate);
+  margin-bottom:.28rem}
+.l-m-track{height:3px;background:var(--stone-2);overflow:hidden;border-radius:99px}
+.l-m-fill{height:100%;width:0;transition:width .8s cubic-bezier(.16,1,.3,1);border-radius:99px}
+.l-promo{border:1px solid var(--hairline);border-radius:var(--r);background:var(--white);
+  padding:1.15rem 1.45rem;margin-bottom:1.7rem;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;box-shadow:var(--sh-2);border-left:3px solid var(--brass)}
+.l-promo-t{font-family:var(--fd);font-size:.98rem;font-weight:700;margin-bottom:.15rem}
+.l-promo-s{font-size:.8rem;color:var(--slate)}
+.l-kbd{display:inline-flex;border:1px solid var(--hairline);background:var(--white);padding:.08rem .32rem;
+  font-size:.6rem;color:var(--slate);border-radius:3px;font-family:monospace;margin:0 .1rem}
+
+/* ==========  SAMPLE / GUEST MODE  ========== */
+.sample-ribbon{display:flex;align-items:center;gap:.8rem;background:#FDF7EA;border:1px solid #E6CE9B;
+  border-left:4px solid var(--brass);padding:.9rem 1.15rem;margin-bottom:1.5rem;font-size:.85rem;
+  line-height:1.62;border-radius:3px;box-shadow:var(--sh-1)}
+.sample-ribbon-icon{font-size:1.3rem;flex-shrink:0}
+.sample-ribbon strong{display:block;font-weight:700;margin-bottom:.12rem;color:#6E5518}
+.sample-ribbon span{color:#6E5518}
+.sample-badge{display:inline-block;background:var(--brass);color:#fff;font-size:.57rem;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;padding:.2rem .55rem;vertical-align:middle;margin-left:.4rem;
+  border-radius:2px}
+.sample-lock{border:1px dashed #CFC9BC;border-radius:var(--r);padding:2.5rem 1rem;text-align:center;
+  margin-top:1.5rem;color:var(--slate);background:var(--white)}
+.sample-lock strong{display:block;font-family:var(--fdd);font-size:1.15rem;margin-bottom:.35rem;color:var(--ink)}
+.sample-q-item .sbtn{opacity:.42;cursor:not-allowed;pointer-events:none}
+.guest-cta{border:1px solid var(--hairline);border-radius:var(--r);background:var(--white);
+  border-left:3px solid var(--crimson);padding:1.25rem 1.5rem;display:flex;align-items:center;
+  justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem;box-shadow:var(--sh-2)}
+.guest-cta-t{font-family:var(--fd);font-size:1rem;font-weight:700;margin-bottom:.2rem}
+.guest-cta-s{font-size:.82rem;color:var(--slate)}
+
+/* ==========  REPORT BRANDING  ========== */
+.rpt-logo-bar{display:flex;align-items:center;gap:1.15rem;background:
+  linear-gradient(135deg,#4A0C16,#6E1421 55%,#8A1A2A);color:#fff;padding:1.35rem 1.5rem;
+  border-radius:var(--r) var(--r) 0 0;box-shadow:var(--sh-2)}
+.rpt-logo-bar-text{flex:1;min-width:0}
+.rpt-logo-kicker{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--brass-lt);margin-bottom:.22rem}
+.rpt-logo-title{font-family:var(--fdd);font-size:1.4rem;font-weight:700;line-height:1.18}
+.rpt-logo-title sup{font-size:.42em;font-weight:500;top:-.85em;opacity:.75}
+.rpt-logo-sub{font-size:.74rem;color:rgba(255,255,255,.7);margin-top:.2rem}
+.rpt-logo-pai{margin-left:auto;text-align:right;flex-shrink:0;line-height:1.3}
+.rpt-logo-pai span{display:block;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.5)}
+.rpt-logo-pai strong{font-family:var(--fdd);font-size:.9rem;font-weight:700;color:#fff}
+.rpt-logo-pai strong em{font-style:normal;color:var(--brass-lt)}
+@media(max-width:620px){.rpt-logo-pai{display:none}}
+.rpt-meta-row{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  margin-bottom:1.7rem;padding:1.2rem 1.5rem;background:var(--white);border:1px solid var(--hairline);
+  border-top:none;border-radius:0 0 var(--r) var(--r);flex-wrap:wrap;box-shadow:var(--sh-1)}
+.rpt-meta-name{font-family:var(--fdd);font-size:1.5rem;font-weight:700;margin-bottom:.2rem;letter-spacing:-.01em}
+.rpt-meta-detail{font-size:.8rem;color:var(--slate);line-height:1.85}
+.rpt-total-box{background:linear-gradient(180deg,var(--ink-2),var(--ink));color:#fff;border-radius:3px;
+  padding:.75rem 1.35rem;text-align:center;flex-shrink:0;box-shadow:var(--sh-2)}
+.rpt-total-num{font-family:var(--fdd);font-size:2.2rem;font-weight:700;color:var(--brass-lt);line-height:1}
+.rpt-total-lbl{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);margin-top:.25rem}
+
+/* ==========  MODERATOR / PREPARED-BY CARD  ========== */
+.mod-card{display:flex;align-items:center;gap:1rem;border:1px solid var(--hairline);border-radius:var(--r);
+  background:var(--white);padding:1rem 1.2rem;margin-top:1.9rem;box-shadow:var(--sh-2);flex-wrap:wrap}
+.mod-photo{width:54px;height:54px;border-radius:50%;object-fit:cover;border:1.5px solid var(--brass);flex-shrink:0}
+.mod-info{flex:1;min-width:180px}
+.mod-label{font-size:.57rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--crimson);
+  margin-bottom:.18rem}
+.mod-name{font-family:var(--fd);font-size:.96rem;font-weight:700;line-height:1.25}
+.mod-role{font-size:.74rem;color:var(--slate);margin-top:.12rem}
+.mod-link{font-size:.72rem;color:var(--crimson);text-decoration:none;font-weight:600}
+.mod-link:hover{text-decoration:underline}
+.mod-pai{display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;background:var(--ink);
+  border-radius:3px;flex-shrink:0}
+.mod-pai-tx{line-height:1.25}
+.mod-pai-tx span{display:block;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.55)}
+.mod-pai-tx strong{font-family:var(--fdd);font-size:.85rem;color:#fff;font-weight:700}
+.mod-pai-tx strong em{font-style:normal;color:var(--brass-lt)}
+.mod-disclaimer{font-size:.68rem;color:var(--slate);line-height:1.75;border-top:1px solid var(--hairline);
+  padding-top:.6rem;margin-top:.8rem}
+
+/* nav SAMPLE badge */
+.ntab .sbadge{font-size:.5rem;background:var(--brass);color:#fff;padding:.1rem .32rem;border-radius:2px;
+  margin-left:.35rem;vertical-align:middle;letter-spacing:.08em;font-weight:700}
+
+@media(max-width:820px){
+  .leaders-wrap{grid-template-columns:1fr;display:block;min-height:auto}
+  .l-sidebar{display:flex;flex-direction:row;overflow-x:auto;overflow-y:visible;padding:.65rem .75rem;
+    gap:.3rem;border-right:none;border-bottom:1px solid var(--hairline)}
+  .l-col-ey{display:none}
+  .l-li{flex-direction:column;align-items:center;padding:.45rem .5rem;min-width:66px;border-left:none;
+    border-bottom:2.5px solid transparent;text-align:center;gap:.3rem;flex-shrink:0;border-radius:3px}
+  .l-li.on{border-left:none;border-bottom-color:var(--crimson);box-shadow:none}
+  .l-li-name{font-size:.58rem;font-weight:700;white-space:normal;line-height:1.3}
+  .l-li-co,.l-li-yr,.l-arr{display:none}
+  .l-av{width:42px;height:42px}
+  .l-av-init{font-size:.88rem}
+  .l-impact{padding:1.1rem .95rem;border-bottom:1px solid var(--hairline)}
+  .l-style{border-left:none;padding:1.1rem .95rem}
+  .l-stat{font-size:2.6rem}
+}
+
+</style>
+</head>
+<body>
+
+<div class="crimson-bar"></div>
+
+<header class="masthead">
+  <svg id="lpi-icon" width="58" height="58" viewBox="0 0 64 64" role="img" aria-label="LPI summit seal">
+    <circle cx="32" cy="32" r="32" fill="#4A0C16"/>
+    <circle cx="32" cy="32" r="30" fill="none" stroke="#C9A24B" stroke-width="1.1" opacity=".95"/>
+    <circle cx="32" cy="32" r="26.5" fill="none" stroke="#C9A24B" stroke-width=".5" opacity=".55"/>
+    <g fill="#ffffff">
+      <rect x="13" y="37" width="6" height="12" rx="1" opacity=".78"/>
+      <rect x="21" y="29" width="6" height="20" rx="1" opacity=".88"/>
+      <rect x="29" y="19" width="6" height="30" rx="1"/>
+      <rect x="37" y="29" width="6" height="20" rx="1" opacity=".88"/>
+      <rect x="45" y="37" width="6" height="12" rx="1" opacity=".78"/>
+    </g>
+    <path d="M32 7.5 l1.5 3 3.3.5-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3-2.4-2.3 3.3-.5z" fill="#C9A24B"/>
+  </svg>
+  <div>
+    <div class="mast-kicker">Kouzes &amp; Posner · Self Report</div>
+    <h1 class="mast-title">LPI<sup>®</sup>: Leadership Practices Inventory<sup>®</sup></h1>
+    <div class="mast-sub">The Five Practices of Exemplary Leadership® · 30-item behavioural self-assessment &nbsp;<span class="mast-ver">v2.1 · Jun 2026</span></div>
+  </div>
+  <div class="mast-right">
+  <a class="mast-creator" href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" target="_blank" rel="noopener">
+    <img src="data:image/jpeg;base64,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" alt="Pawan Maheshwari"/>
+    <span class="mast-creator-text">
+      <span class="mast-creator-name">Pawan Maheshwari</span><br/>
+      <span class="mast-creator-role">Creator · AI Transformation Lead</span><br/>
+      <span class="mast-creator-link">View LinkedIn →</span>
+    </span>
+  </a>
+  <a class="pai-lock" href="https://world-of-ai.co.in" target="_blank" rel="noopener" title="An initiative of planetAI LLP">
+    <svg width="30" height="30" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="8.6" fill="#A51C30"/><circle cx="20" cy="20" r="8.6" fill="none" stroke="#C9A24B" stroke-width="1"/><ellipse cx="20" cy="20" rx="18" ry="7.4" transform="rotate(-28 20 20)" fill="none" stroke="#C9A24B" stroke-width="1.4" opacity=".92"/><circle cx="35.9" cy="11.5" r="2.3" fill="#C9A24B"/></svg>
+    <span class="pai-lock-tx">
+      <span class="pai-lock-ey">An initiative of</span>
+      <span class="pai-lock-nm">planet<em>AI</em> LLP</span>
+    </span>
+  </a>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner" id="nav"></div>
+</nav>
+
+<main class="page">
+  <!-- ════════════ PROFILE ════════════ -->
+  <section id="view-profile">
+    <div class="sec-eyebrow">Step 1 of 4</div>
+    <h2 class="sec-title">Respondent Profile</h2>
+    <p class="sec-lede">Your details appear on the printed report. Data stays in this browser only — nothing is transmitted.</p>
+    <div class="note">This is a self-assessment. Rate each statement by how you <em>actually</em> behave, not how you aspire to behave. Honest responses produce the most useful developmental profile.</div>
+    <div class="fgrid">
+      <div class="field"><label>Full Name <span class="req">*</span></label><input id="f-name" type="text" placeholder="e.g. Amanda Lopez"/></div>
+      <div class="field"><label>Role / Title</label><input id="f-role" type="text" placeholder="e.g. Senior Director"/></div>
+      <div class="field"><label>Organisation</label><input id="f-org" type="text" placeholder="e.g. Tata Consultancy Services"/></div>
+      <div class="field"><label>Email</label><input id="f-email" type="email" placeholder="for report delivery"/></div>
+      <div class="field"><label>Assessment Date</label><input id="f-date" type="date"/></div>
+      <div class="field"><label>Industry / Sector</label>
+        <select id="f-sector"><option value="">— Select —</option>
+        <option>Technology &amp; IT</option><option>Financial Services</option><option>Healthcare</option><option>Manufacturing</option><option>Education</option><option>Government &amp; Public Sector</option><option>Consulting</option><option>Retail &amp; Consumer</option><option>Energy &amp; Utilities</option><option>Other</option></select>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn btn-crimson" id="btn-profile-next">Continue to Assessment →</button><button class="btn btn-out" id="btn-clear">Clear saved progress</button></div>
+    <p style="font-size:.75rem;color:var(--slate);margin-top:.8rem">Your answers save automatically in this browser, so you can close the tab and pick up where you left off.</p>
+  </section>
+
+  <!-- ════════════ ASSESSMENT ════════════ -->
+  <section id="view-assessment" class="hidden">
+    <div class="sec-eyebrow">Step 2 of 4</div>
+    <h2 class="sec-title">Self Assessment</h2>
+    <div class="prog-label"><span>Completion</span><span id="prog-text">0/30 items rated</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    <div class="scale-note"><strong>Response scale:</strong> 1-Almost Never · 2-Rarely · 3-Seldom · 4-Once in a While · 5-Occasionally · 6-Sometimes · 7-Fairly Often · 8-Usually · 9-Very Frequently · 10-Almost Always</div>
+    <div class="ptabs" id="ptabs"></div>
+    <div id="qlist"></div>
+    <div class="warn hidden" id="warn-incomplete"></div>
+    <div class="btn-row"><button class="btn btn-crimson hidden" id="btn-finish">View Your Report →</button></div>
+  </section>
+
+  <!-- ════════════ REPORT ════════════ -->
+  <section id="view-report" class="hidden"></section>
+
+  <!-- ════════════ READING ════════════ -->
+  <section id="view-reading" class="hidden">
+    <div class="sec-eyebrow">Continue Learning</div>
+    <h2 class="sec-title">Suggested Reading</h2>
+    <p class="sec-lede">Drawn from the official LPI Self Report bibliography. Each title links to the book and notes its key learning so you can target your development by practice.</p>
+    <div class="l-promo">
+      <div>
+        <div class="l-promo-t">See the Five Practices in action →</div>
+        <div class="l-promo-s">Explore how 8 global leaders applied these principles to transform their organisations</div>
+      </div>
+      <button class="btn btn-crimson" onclick="setTab('leaders')">Global Leaders Gallery</button>
+    </div>
+    <div class="ptabs" id="read-tabs"></div>
+    <div id="read-list"></div>
+  </section>
+
+  <!-- ════════════ LEADERS ════════════ -->
+  <section id="view-leaders" class="hidden">
+    <div class="sec-eyebrow">Leadership Intelligence · Kouzes &amp; Posner in Practice</div>
+    <h2 class="sec-title">Global Leaders &amp; Their Leadership Style</h2>
+    <p class="sec-lede">Eight world-class leaders — each representing a distinct leadership philosophy that maps to the Five Practices. Select any leader to explore their organisational impact and style.</p>
+    <div class="leaders-wrap">
+      <aside class="l-sidebar" id="l-sidebar">
+        <div class="l-col-ey">Global Leaders</div>
+      </aside>
+      <main class="l-impact">
+        <div class="l-col-ey" style="padding:.75rem 0 .5rem;margin-bottom:1rem">Organisational Impact</div>
+        <div class="l-panel" id="l-ipanel"></div>
+      </main>
+      <section class="l-style">
+        <div class="l-col-ey" style="padding:.75rem 0 .5rem;margin-bottom:1rem">Leadership Style</div>
+        <div class="l-panel" id="l-spanel"></div>
+      </section>
+    </div>
+    <div style="margin-top:.9rem;font-size:.7rem;color:var(--slate);text-align:center">
+      Use <span class="l-kbd">↑</span><span class="l-kbd">↓</span> arrow keys or tap a leader to switch · Wikipedia photos load in your browser
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <img src="data:image/jpeg;base64,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" alt="Pawan Maheshwari"/>
+    <div>
+      <div class="foot-name">Created by Pawan Maheshwari</div>
+      <div class="foot-role">Founder, planetAI LLP &middot; AI Transformation Lead, · Tata Consultancy Services</div>
+      <a class="foot-link" href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" target="_blank" rel="noopener">linkedin.com/in/pawan-maheshwari-4b9b4715</a>
+    </div>
+    <div class="foot-legal">LPI® and Leadership Practices Inventory® are based on the work of James M. Kouzes &amp; Barry Z. Posner, The Leadership Challenge, A Wiley Brand. This tool is for developmental purposes only.</div>
+    <div class="foot-pai">
+      <div class="foot-pai-mark"><svg width="44" height="44" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="8.6" fill="#A51C30"/><circle cx="20" cy="20" r="8.6" fill="none" stroke="#C9A24B" stroke-width="1"/><ellipse cx="20" cy="20" rx="18" ry="7.4" transform="rotate(-28 20 20)" fill="none" stroke="#C9A24B" stroke-width="1.4" opacity=".92"/><circle cx="35.9" cy="11.5" r="2.3" fill="#C9A24B"/></svg></div>
+      <div>
+        <div class="foot-pai-name">planet<em>AI</em> LLP</div>
+        <div class="foot-pai-tag">Applied AI research and enterprise transformation studio. This instrument is published under the World of AI programme.</div>
+      </div>
+      <div class="foot-pai-links">
+        <a href="https://world-of-ai.co.in" target="_blank" rel="noopener">world-of-ai.co.in</a>
+        <a href="https://pawan-maheshwari.in" target="_blank" rel="noopener">pawan-maheshwari.in</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-bg hidden" id="email-modal">
+  <div class="modal">
+    <button class="modal-x" id="email-close">✕ Close</button>
+    <div class="modal-t">Email Report</div>
+    <div class="modal-s">Opens your email client with the report summary pre-filled.</div>
+    <div class="field"><label>Recipient Email</label><input id="email-to" type="email" placeholder="you@organisation.com"/></div>
+    <div class="btn-row"><button class="btn btn-crimson" id="email-send">Open Email Client →</button></div>
+    <div class="modal-ok" id="email-status"></div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════ DATA ═══════════════════════════ */
+const QUESTIONS=[
+[1,"MI","I set a personal example of what I expect of others."],
+[2,"IV","I talk about future trends that will influence how our work gets done."],
+[3,"CP","I seek out challenging opportunities that test my own skills and abilities."],
+[4,"EO","I develop cooperative relationships among the people I work with."],
+[5,"EC","I praise people for a job well done."],
+[6,"MI","I make certain that people adhere to the principles and standards that have been agreed upon."],
+[7,"IV","I describe a compelling image of what our future could be like."],
+[8,"CP","I challenge people to try out new and innovative ways to do their work."],
+[9,"EO","I actively listen to diverse points of view."],
+[10,"EC","I make it a point to let people know about my confidence in their abilities."],
+[11,"MI","I follow through on the promises and commitments that I make."],
+[12,"IV","I appeal to others to share an exciting dream of the future."],
+[13,"CP","I actively search for innovative ways to improve what we do."],
+[14,"EO","I treat others with dignity and respect."],
+[15,"EC","I make sure that people are creatively recognized for their contributions to the success of our projects."],
+[16,"MI","I ask for feedback on how my actions affect other people's performance."],
+[17,"IV","I show others how their long-term interests can be realized by enlisting in a common vision."],
+[18,"CP","I ask 'What can we learn?' when things don't go as expected."],
+[19,"EO","I involve people in the decisions that directly impact their job performance."],
+[20,"EC","I publicly recognize people who exemplify commitment to shared values."],
+[21,"MI","I build consensus around a common set of values for running our organization."],
+[22,"IV","I paint the 'big picture' of what we aspire to accomplish."],
+[23,"CP","I identify measurable milestones that keep projects moving forward."],
+[24,"EO","I give people a great deal of freedom and choice in deciding how to do their work."],
+[25,"EC","I tell stories of encouragement about the good work of others."],
+[26,"MI","I am clear about my philosophy of leadership."],
+[27,"IV","I speak with genuine conviction about the higher meaning and purpose of our work."],
+[28,"CP","I take initiative in anticipating and responding to change."],
+[29,"EO","I ensure that people grow in their jobs by learning new skills and developing themselves."],
+[30,"EC","I get personally involved in recognizing people and celebrating accomplishments."]
+].map(([id,p,text])=>({id,p,text}));
+
+const PRACTICES=[
+{id:"MI",num:1,label:"Model the Way",color:"#5a7a2e",
+ commitments:["Clarify values by finding your voice and affirming shared values","Set the example by aligning actions with shared values"],
+ suggestions:["At the end of every day, ask yourself: 'What have I done today that demonstrated one of my key values? What can I do tomorrow to live out a key value?'","Answer the question: 'What are the values that should guide my decisions and actions?'","Do something dramatic to demonstrate your commitment to a team value — if customer service is a value, spend a day visiting customers at their locations."]},
+{id:"IV",num:2,label:"Inspire a Shared Vision",color:"#1d6fa5",
+ commitments:["Envision the future by imagining exciting and ennobling possibilities","Enlist others in a common vision by appealing to shared aspirations"],
+ suggestions:["Become a futurist. Read about future trends in your industry and list what reputable people predict will happen in the next ten years.","Every week interview one of your constituents and ask: 'What are your aspirations for the future?'","Be positive, upbeat, and energetic when talking about the future of your team and organisation."]},
+{id:"CP",num:3,label:"Challenge the Process",color:"#0e7a5f",
+ commitments:["Search for opportunities by seizing the initiative and looking outward for innovative ways to improve","Experiment and take risks by consistently generating small wins and learning from experience"],
+ suggestions:["At least once a month, think about what challenging opportunities you could seek to test your skills and abilities.","At least once a month, identify something you can do to challenge the status quo at work — then take the initiative to make change happen.","Once a week at a regular meeting, ask each team member: 'What have you done in the last week to improve?'"]},
+{id:"EO",num:4,label:"Enable Others to Act",color:"#8e2a6b",
+ commitments:["Foster collaboration by building trust and facilitating relationships","Strengthen others by increasing self-determination and developing competence"],
+ suggestions:["Review how projects are planned and decisions made, and identify actions that involve others in planning and decision-making.","Before every interaction ask: 'What can I do to make this person feel more capable and powerful?'","Talk one-on-one with team members about the support and coaching they need, then connect them to the resources required."]},
+{id:"EC",num:5,label:"Encourage the Heart",color:"#c2571a",
+ commitments:["Recognize contributions by showing appreciation for individual excellence","Celebrate the values and victories by creating a spirit of community"],
+ suggestions:["Think of ten small ways to reward people who have done something especially well — don't let extraordinary efforts go unnoticed.","Identify those who best embody your values and plan three ways to single them out and praise them in the coming weeks.","Tell a public story about a person in your organisation who went above and beyond the call of duty."]}
+];
+
+/* Reading list with links + key learnings */
+const READING={
+GENERAL:{label:"General Leadership",books:[
+{a:"Kouzes & Posner",t:"A Leader's Legacy",pub:"Jossey-Bass, 2006",u:"https://www.wiley.com/en-us/A+Leader%27s+Legacy-p-9780787982966",learn:"Leadership is measured by the difference you make in others' lives — legacy is built daily through significance, relationships, aspirations, and courage."},
+{a:"Kouzes & Posner",t:"The Leadership Challenge (5th ed.)",pub:"Jossey-Bass, 2012",u:"https://www.leadershipchallenge.com/",learn:"The foundational text: leadership is a learnable set of behaviours, codified into the Five Practices this assessment measures."},
+{a:"Kouzes & Posner",t:"The Truth About Leadership",pub:"Jossey-Bass, 2010",u:"https://www.wiley.com/en-us/The+Truth+About+Leadership%3A+The+No+fads%2C+Heart+of+the+Matter+Facts+You+Need+to+Know-p-9780470633540",learn:"Ten evidence-based truths that hold across generations and cultures — credibility remains the foundation of all leadership."}]},
+MI:{label:"Model the Way",books:[
+{a:"Conant & Norgaard",t:"TouchPoints",pub:"Jossey-Bass, 2011",u:"https://www.wiley.com/en-us/TouchPoints%3A+Creating+Powerful+Leadership+Connections+in+the+Smallest+of+Moments-p-9781118004357",learn:"Every brief interaction is a leadership moment — use the head-heart-hands model to turn interruptions into points of influence."},
+{a:"Kouzes & Posner",t:"Credibility (2nd ed.)",pub:"Jossey-Bass, 2011",u:"https://www.wiley.com/en-us/Credibility%3A+How+Leaders+Gain+and+Lose+It%2C+Why+People+Demand+It%2C+2nd+Edition-p-9780470651711",learn:"Credibility = honesty + competence + inspiration; leaders earn it by doing what they say they will do (DWYSYWD)."},
+{a:"Harry M. Kraemer Jr.",t:"From Values to Action",pub:"Jossey-Bass, 2011",u:"https://www.wiley.com/en-us/From+Values+to+Action%3A+The+Four+Principles+of+Values+Based+Leadership-p-9780470881255",learn:"Values-based leadership rests on four principles: self-reflection, balance, true self-confidence, and genuine humility."},
+{a:"Ann Rhoades",t:"Built on Values",pub:"Jossey-Bass, 2011",u:"https://www.wiley.com/en-us/Built+on+Values%3A+Creating+an+Enviable+Culture+that+Outperforms+the+Competition-p-9780470901922",learn:"Culture is designed, not inherited — hire, reward, and lead by explicitly defined values to outperform competitors."},
+{a:"Edgar Schein",t:"Organizational Culture and Leadership (4th ed.)",pub:"Jossey-Bass, 2010",u:"https://www.wiley.com/en-us/Organizational+Culture+and+Leadership%2C+5th+Edition-p-9781119212041",learn:"The classic framework: culture operates at three levels — artifacts, espoused values, and underlying assumptions — and leaders shape all three."}]},
+IV:{label:"Inspire a Shared Vision",books:[
+{a:"James Geary",t:"I Is an Other",pub:"Harper, 2011",u:"https://www.harpercollins.com/products/i-is-an-other-james-geary",learn:"Metaphor shapes how people see the world — visionary leaders communicate futures through vivid, concrete imagery."},
+{a:"John P. Schuster",t:"The Power of Your Past",pub:"Berrett-Koehler, 2011",u:"https://www.penguinrandomhouse.com/books/575285/the-power-of-your-past-by-john-p-schuster/",learn:"Mining your own story — recalling, recasting, reclaiming — gives your vision authenticity others can believe in."},
+{a:"Simon Sinek",t:"Start With Why",pub:"Portfolio, 2010",u:"https://simonsinek.com/books/start-with-why/",learn:"People don't buy what you do, they buy why you do it — purpose precedes product in inspiring action."},
+{a:"Roy Spence",t:"It's Not What You Sell, It's What You Stand For",pub:"Portfolio, 2010",u:"https://www.penguinrandomhouse.com/books/305744/its-not-what-you-sell-its-what-you-stand-for-by-roy-m-spence-jr-with-haley-rushing/",learn:"Organisations driven by an authentic purpose outperform — define what you stand for and let it drive every decision."},
+{a:"Dave & Wendy Ulrich",t:"The Why of Work",pub:"McGraw-Hill, 2010",u:"https://www.mhprofessional.com/the-why-of-work-how-great-leaders-build-abundant-organizations-that-win-9780071739351-usa",learn:"Meaning-making is a leadership job: abundant organisations connect daily work to identity, purpose, and contribution."}]},
+CP:{label:"Challenge the Process",books:[
+{a:"Amabile & Kramer",t:"The Progress Principle",pub:"HBR Press, 2011",u:"https://store.hbr.org/product/the-progress-principle-using-small-wins-to-ignite-joy-engagement-and-creativity-at-work/10106",learn:"Of all motivators, the single most powerful is making progress in meaningful work — engineer small wins daily."},
+{a:"Steven Johnson",t:"Where Good Ideas Come From",pub:"Riverhead, 2010",u:"https://www.penguinrandomhouse.com/books/303057/where-good-ideas-come-from-by-steven-johnson/",learn:"Innovation emerges from networks, slow hunches, and adjacent possibilities — build environments where ideas collide."},
+{a:"Martin Seligman",t:"Flourish",pub:"Free Press, 2011",u:"https://www.simonandschuster.com/books/Flourish/Martin-E-P-Seligman/9781439190760",learn:"Well-being (PERMA: positive emotion, engagement, relationships, meaning, accomplishment) fuels resilience for sustained challenge."},
+{a:"Peter Sims",t:"Little Bets",pub:"Free Press, 2011",u:"https://www.simonandschuster.com/books/Little-Bets/Peter-Sims/9781439170434",learn:"Breakthroughs come from many small experiments, not grand plans — fail fast, learn cheap, iterate forward."}]},
+EO:{label:"Enable Others to Act",books:[
+{a:"David Brooks",t:"The Social Animal",pub:"Random House, 2011",u:"https://www.penguinrandomhouse.com/books/85569/the-social-animal-by-david-brooks/",learn:"Human achievement is profoundly social and emotional — relationships and unconscious bonds drive performance more than raw IQ."},
+{a:"Burchell & Robin",t:"The Great Workplace",pub:"Jossey-Bass, 2011",u:"https://www.wiley.com/en-us/The+Great+Workplace%3A+How+to+Build+It%2C+How+to+Keep+It%2C+and+Why+It+Matters-p-9780470596265",learn:"Great workplaces rest on trust — credibility, respect, and fairness — plus pride and camaraderie."},
+{a:"Robert F. Hurley",t:"The Decision to Trust",pub:"Jossey-Bass, 2012",u:"https://www.wiley.com/en-us/The+Decision+to+Trust%3A+How+Leaders+Create+High+Trust+Organizations-p-9781118072646",learn:"Trust is a decision that can be systematically earned — ten factors determine whether people choose to trust you."},
+{a:"Nilofer Merchant",t:"The New How",pub:"O'Reilly, 2010",u:"https://www.oreilly.com/library/view/the-new-how/9780596802387/",learn:"Strategy fails in the gap between the air (ideas) and the ground (execution) — co-creation closes it."},
+{a:"Liz Wiseman",t:"Multipliers",pub:"HarperCollins, 2010",u:"https://thewisemangroup.com/books/multipliers/",learn:"Multipliers amplify the intelligence of everyone around them; diminishers drain it — lead by asking, not telling."}]},
+EC:{label:"Encourage the Heart",books:[
+{a:"Shawn Achor",t:"The Happiness Advantage",pub:"Crown, 2010",u:"https://www.penguinrandomhouse.com/books/87412/the-happiness-advantage-by-shawn-achor/",learn:"Happiness precedes success, not the reverse — positive brains are more creative, resilient, and productive."},
+{a:"Gostick & Elton",t:"All In",pub:"Free Press, 2012",u:"https://www.simonandschuster.com/books/All-In/Adrian-Gostick/9781451659825",learn:"Managers create belief through a culture of E+E+E: engaged, enabled, and energised — recognition is the catalyst."},
+{a:"Kouzes & Posner",t:"Encouraging the Heart",pub:"Jossey-Bass, 2003",u:"https://www.wiley.com/en-us/Encouraging+the+Heart%3A+A+Leader%27s+Guide+to+Rewarding+and+Recognizing+Others-p-9780787964634",learn:"The definitive guide to recognition: set clear standards, expect the best, pay attention, personalise, tell stories, celebrate together, set the example."},
+{a:"Rath & Harter",t:"Well-Being: The Five Essential Elements",pub:"Gallup, 2010",u:"https://store.gallup.com/p/en-us/10049/wellbeing-the-five-essential-elements",learn:"Career, social, financial, physical, and community well-being interlock — leaders who tend all five sustain team energy."},
+{a:"Martin Seligman",t:"Flourish",pub:"Free Press, 2011",u:"https://www.simonandschuster.com/books/Flourish/Martin-E-P-Seligman/9781439190760",learn:"Celebrating accomplishment is one of the five pillars of flourishing — recognition is well-being infrastructure."}]}
+};
+
+const SCALE=[1,2,3,4,5,6,7,8,9,10];
+const TABS=[["profile","Profile"],["assessment","Assessment"],["report","Report"],["reading","Reading"],["leaders","Leaders"]];
+
+/* Official LPI sample data (Amanda Lopez — Kouzes & Posner Self Report, May 1 2021) */
+const SAMPLE_RESPONSES={1:10,2:10,3:10,4:8,5:6,6:9,7:7,8:9,9:9,10:9,11:10,12:9,13:8,14:10,15:5,16:7,17:7,18:8,19:8,20:5,21:9,22:6,23:10,24:10,25:6,26:8,27:6,28:9,29:8,30:8};
+const SAMPLE_PROFILE={name:"Amanda Lopez",role:"Sample Participant",org:"Leadership Challenge Sample Report",sector:"",date:"May 1, 2021",email:""};
+
+/* ═══════════════════════ STATE ═══════════════════════ */
+const state={tab:"profile",responses:{},pFilter:"ALL",readFilter:"ALL",reflections:{}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pOf=id=>PRACTICES.find(p=>p.id===id);
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const LS_KEY="lpi.selfreport.v2";
+function persist(){try{localStorage.setItem(LS_KEY,JSON.stringify({p:profile(),r:state.responses,f:state.reflections}));}catch(e){}}
+function restore(){try{
+  const d=JSON.parse(localStorage.getItem(LS_KEY)||"null"); if(!d)return false;
+  if(d.p){const P=d.p;
+    if(P.name)$("f-name").value=P.name; if(P.role)$("f-role").value=P.role;
+    if(P.org)$("f-org").value=P.org;   if(P.email)$("f-email").value=P.email;
+    if(P.sector)$("f-sector").value=P.sector; if(P.date)$("f-date").value=P.date;}
+  state.responses=d.r||{}; state.reflections=d.f||{};
+  return true;
+}catch(e){return false;}}
+function clearSaved(){
+  if(!confirm("Clear your saved profile, ratings and reflections from this browser?"))return;
+  try{localStorage.removeItem(LS_KEY);}catch(e){}
+  location.reload();
+}
+function prettyDate(d){if(!d)return"";const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d);if(!m)return d;return `${+m[3]} ${MONTHS[+m[2]-1]} ${m[1]}`;}
+const profile=()=>({name:$("f-name").value.trim(),role:$("f-role").value.trim(),org:$("f-org").value.trim(),email:$("f-email").value.trim(),sector:$("f-sector").value,date:$("f-date").value});
+const profileOk=()=>$("f-name").value.trim().length>0;
+function approxPct(sum){if(sum>=55)return 90;if(sum>=52)return 80;if(sum>=49)return 70;if(sum>=46)return 60;if(sum>=43)return 50;if(sum>=40)return 40;if(sum>=37)return 30;if(sum>=34)return 20;return 10;}
+function scoresFrom(resp){return PRACTICES.map(p=>{const qs=QUESTIONS.filter(q=>q.p===p.id);const sum=qs.reduce((a,q)=>a+(resp[q.id]||0),0);return{...p,sum,avg:sum/6,pct:approxPct(sum)};});}
+function rankedFrom(resp){return QUESTIONS.map(q=>({...q,score:resp[q.id]||0})).sort((a,b)=>b.score-a.score||a.id-b.id);}
+function scores(){return scoresFrom(state.responses);}
+function ranked(){return rankedFrom(state.responses);}
+const answered=()=>Object.keys(state.responses).length;
+const complete=()=>answered()===30;
+
+/* ═══════════════════════ NAV ═══════════════════════ */
+function renderNav(){
+  const guest=!profileOk();
+  $("nav").innerHTML=TABS.map(([k,l])=>{
+    let suffix="";
+    if(k==="profile" && profileOk()) suffix=" ✓";
+    if(k==="assessment"){
+      suffix = guest
+        ? `<span class="sbadge">SAMPLE</span>`
+        : complete()?" ✓":answered()>0?` (${answered()}/30)`:"";
+    }
+    if(k==="report" && guest) suffix=`<span class="sbadge">SAMPLE</span>`;
+    return `<button class="ntab${state.tab===k?" on":""}" data-tab="${k}">${l}${suffix}</button>`;
+  }).join("");
+  $("nav").querySelectorAll(".ntab").forEach(b=>b.onclick=()=>{setTab(b.dataset.tab);});
+}
+function setTab(t){
+  state.tab=t;
+  ["profile","assessment","report","reading","leaders"].forEach(k=>$("view-"+k).classList.toggle("hidden",k!==t));
+  if(t==="report")renderReport();
+  if(t==="reading")renderReading();
+  if(t==="assessment")renderAssessment();
+  if(t==="leaders"){lBuildSidebar();lLoadPhotos();if(!lInitDone){lPaintImpact(LD[0]);lPaintStyle(LD[0]);lInitDone=true;}}
+  renderNav();
+  window.scrollTo({top:0});
+}
+
+/* ═══════════════════════ ASSESSMENT ═══════════════════════ */
+function renderAssessment(){
+  if(!profileOk()){
+    /* ── GUEST MODE: 5-question preview (one per practice, all disabled) ── */
+    $("ptabs").innerHTML="";
+    $("prog-text").textContent="Preview — 5 of 30 questions";
+    $("prog-fill").style.width="16%";
+    $("warn-incomplete").classList.add("hidden");
+    $("btn-finish").classList.add("hidden");
+    $("qlist").innerHTML=`
+      <div class="sample-ribbon">
+        <div class="sample-ribbon-icon">🔍</div>
+        <div>
+          <strong>Preview Mode — 5 of 30 questions shown</strong>
+          <span>Enter your name in the <strong>Profile</strong> tab to unlock all 30 assessment items and generate your personalised LPI report.</span>
+        </div>
+        <button onclick="setTab('profile')" class="btn btn-crimson" style="flex-shrink:0;margin-top:.2rem">Enter Profile →</button>
+      </div>
+      ${[1,2,3,4,5].map(id=>{
+        const q=QUESTIONS.find(x=>x.id===id);
+        const c=pOf(q.p).color;
+        return `<div class="qblock sample-q-item">
+          <div class="qrow">
+            <span class="qnum">Q${q.id}</span>
+            <span class="qtag" style="background:${c}">${q.p}</span>
+            <p class="qtext">${esc(q.text)}</p>
+          </div>
+          <div class="srow">${SCALE.map(v=>`<button class="sbtn" disabled>${v}</button>`).join("")}</div>
+          <div class="scap"><span>1 — Almost Never</span><span>10 — Almost Always</span></div>
+        </div>`;}).join("")}
+      <div class="sample-lock">
+        <div style="font-size:1.6rem;margin-bottom:.6rem">🔒</div>
+        <strong>25 more questions are locked</strong>
+        <div style="font-size:.85rem;margin-top:.35rem">Complete your Profile to access all 30 items and get your personalised leadership report.</div>
+        <div class="btn-row" style="justify-content:center;margin-top:1rem">
+          <button onclick="setTab('profile')" class="btn btn-crimson">Enter Your Profile →</button>
+          <button onclick="setTab('report')" class="btn btn-out">See Sample Report →</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  /* ── PROFILE MODE: full 30-question assessment ── */
+  const done=id=>QUESTIONS.filter(q=>q.p===id).every(q=>state.responses[q.id]);
+  $("ptabs").innerHTML=`<button class="ptab${state.pFilter==="ALL"?" on":""}" data-f="ALL">All 30 Items</button>`+
+    PRACTICES.map(p=>`<button class="ptab${state.pFilter===p.id?" on":""}${done(p.id)?" done":""}" data-f="${p.id}">${p.num}. ${p.label}${done(p.id)?" ✓":""}</button>`).join("");
+  $("ptabs").querySelectorAll(".ptab").forEach(b=>b.onclick=()=>{state.pFilter=b.dataset.f;renderAssessment();});
+
+  const qs=state.pFilter==="ALL"?QUESTIONS:QUESTIONS.filter(q=>q.p===state.pFilter);
+  $("qlist").innerHTML=qs.map(q=>{
+    const c=pOf(q.p).color;
+    return `<div class="qblock">
+      <div class="qrow">
+        <span class="qnum">Q${q.id}</span>
+        <span class="qtag" style="background:${c}">${q.p}</span>
+        <p class="qtext">${esc(q.text)}</p>
+      </div>
+      <div class="srow">${SCALE.map(v=>`<button class="sbtn${state.responses[q.id]===v?" sel":""}" data-q="${q.id}" data-v="${v}" ${state.responses[q.id]===v?`style="background:${c};border-color:${c}"`:""}>${v}</button>`).join("")}</div>
+      <div class="scap"><span>1 — Almost Never</span><span>10 — Almost Always</span></div>
+    </div>`;
+  }).join("");
+  $("qlist").querySelectorAll(".sbtn").forEach(b=>b.onclick=()=>{
+    state.responses[+b.dataset.q]=+b.dataset.v;
+    persist();renderAssessment();renderNav();
+  });
+
+  const a=answered(),pc=Math.round(a/30*100);
+  $("prog-text").textContent=`${a}/30 items rated`;
+  $("prog-fill").style.width=pc+"%";
+  $("warn-incomplete").classList.toggle("hidden",complete()||a===0);
+  if(!complete()&&a>0)$("warn-incomplete").textContent=`⚡ ${30-a} item${30-a!==1?"s":""} remaining. Complete all 30 to unlock the full report.`;
+  $("btn-finish").classList.toggle("hidden",!complete());
+}
+
+/* ═══════════════════════ REPORT ═══════════════════════ */
+function moderatorHTML(){
+  const avatar=document.querySelector('.mast-creator img')?.src||'';
+  return `<div class="mod-card">
+    ${avatar?`<img class="mod-photo" src="${avatar}" alt="Pawan Maheshwari"/>`:''}
+    <div class="mod-info">
+      <div class="mod-label">Report Prepared By</div>
+      <div class="mod-name">Pawan Maheshwari</div>
+      <div class="mod-role">Founder, planetAI LLP &middot; AI Transformation Lead, Tata Consultancy Services &middot; Bengaluru, India</div>
+      <a class="mod-link" href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" target="_blank" rel="noopener">linkedin.com/in/pawan-maheshwari-4b9b4715 ↗</a>
+    </div>
+    <div class="mod-pai">
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="8.6" fill="#A51C30"/><circle cx="20" cy="20" r="8.6" fill="none" stroke="#C9A24B" stroke-width="1"/><ellipse cx="20" cy="20" rx="18" ry="7.4" transform="rotate(-28 20 20)" fill="none" stroke="#C9A24B" stroke-width="1.4" opacity=".92"/><circle cx="35.9" cy="11.5" r="2.3" fill="#C9A24B"/></svg>
+      <span class="mod-pai-tx">
+        <span>Published by</span>
+        <strong>planet<em>AI</em> LLP</strong>
+      </span>
+    </div>
+  </div>
+  <div class="mod-disclaimer">LPI® and Leadership Practices Inventory® are registered trademarks of James M. Kouzes and Barry Z. Posner. Published by The Leadership Challenge, A Wiley Brand. This instrument is for developmental purposes only. · Tool adapted by Pawan Maheshwari · ${new Date().getFullYear()}</div>`;
+}
+
+function reportLogoBar(){
+  return `<div class="rpt-logo-bar">
+    ${ICON_SVG.replace('id="lpi-icon"','').replace('width="58" height="58"','width="52" height="52"')}
+    <div class="rpt-logo-bar-text">
+      <div class="rpt-logo-kicker">Kouzes &amp; Posner · Self Report</div>
+      <div class="rpt-logo-title">LPI<sup>®</sup>: Leadership Practices Inventory<sup>®</sup></div>
+      <div class="rpt-logo-sub">The Five Practices of Exemplary Leadership® · Individual Self Report</div>
+    </div>
+    <div class="rpt-logo-pai">
+      <span>Published by</span>
+      <strong>planet<em>AI</em> LLP</strong>
+    </div>
+  </div>`;
+}
+
+function buildReportSections(pr, resp, isSample){
+  const sc=scoresFrom(resp), rk=rankedFrom(resp), total=sc.reduce((a,s)=>a+s.sum,0);
+  const detailRows=PRACTICES.map(p=>{
+    const qs=QUESTIONS.filter(q=>q.p===p.id);
+    const sum=qs.reduce((a,q)=>a+(resp[q.id]||0),0);
+    const reflectBlock = isSample
+      ? `<div class="reflect" style="opacity:.45;pointer-events:none;filter:blur(1.5px)">
+           <div class="reflect-t">Reflections</div>
+           <div class="reflect-q">What is your immediate reaction to viewing your ${p.label} ratings? Why?</div>
+           <textarea placeholder="Your reflections will appear here…" disabled></textarea>
+         </div>`
+      : `<div class="reflect">
+           <div class="reflect-t">Reflections</div>
+           <div class="reflect-q">What is your immediate reaction to viewing your ${p.label} ratings? Why?</div>
+           <textarea data-ref="${p.id}_1" placeholder="Type your reflections here…">${esc(state.reflections[p.id+"_1"]||"")}</textarea>
+           <div class="reflect-q">Anything in your ${p.label} ratings that is confusing or contradictory?</div>
+           <textarea data-ref="${p.id}_2" placeholder="Type your notes here…">${esc(state.reflections[p.id+"_2"]||"")}</textarea>
+         </div>`;
+    return `<div class="prac">
+      <div class="prac-hd" style="background:${p.color}">
+        <span class="prac-hd-num">${p.num}</span>
+        <span class="prac-hd-title">${p.label}</span>
+        <span class="prac-hd-score">${sum}/60 · avg ${(sum/6).toFixed(1)}</span>
+      </div>
+      <ul class="prac-commit">${p.commitments.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>
+      ${qs.map(q=>`<div class="pq"><div class="pq-text"><span style="color:var(--slate);font-size:.72rem">${q.id}.</span> ${esc(q.text)}</div>
+        <div class="pq-bar"><div class="pq-track"><div class="pq-fill" style="width:${(resp[q.id]||0)*10}%;background:${p.color}"></div></div>
+        <span class="pq-val" style="color:${p.color}">${resp[q.id]||0}</span></div></div>`).join("")}
+      ${reflectBlock}
+      <div class="sugg">
+        <div class="sugg-t">Suggestions for Becoming a Better Leader</div>
+        ${p.suggestions.map((s,i)=>`<div class="sugg-i"><span class="sugg-n">${i+1}.</span><span>${esc(s)}</span></div>`).join("")}
+      </div>
+    </div>`;}).join("");
+
+  return `
+  ${reportLogoBar()}
+  <div class="rpt-meta-row">
+    <div>
+      <div class="rpt-meta-name">${esc(pr.name)}</div>
+      <div class="rpt-meta-detail">
+        ${pr.role ? `<strong>Role:</strong> ${esc(pr.role)}<br/>` : ""}
+        ${pr.org  ? `<strong>Organisation:</strong> ${esc(pr.org)}<br/>` : ""}
+        ${pr.sector ? `<strong>Sector:</strong> ${esc(pr.sector)}<br/>` : ""}
+        <strong>Date:</strong> ${esc(prettyDate(pr.date))}
+      </div>
+    </div>
+    <div class="rpt-total-box">
+      <div class="rpt-total-num">${total}</div>
+      <div class="rpt-total-lbl">Overall Score<br/>/300</div>
+    </div>
+  </div>
+
+  <div class="rpt-sec">
+    <div class="sec-eyebrow">Section 1</div>
+    <h3 class="sec-title" style="font-size:1.2rem">The Five Practices — Overview</h3>
+    <p class="sec-lede">Each Practice total ranges 6–60: the sum of six behavioural statements rated 1–10.</p>
+    ${sc.map(s=>`<div class="ov-row">
+      <div class="ov-label" style="color:${s.color}">${s.label}</div>
+      <div class="ov-track"><div class="ov-fill" style="width:${s.sum/60*100}%;background:${s.color}"></div></div>
+      <div class="ov-score" style="color:${s.color}">${s.sum}/60</div>
+      <div class="ov-pct">${s.pct}th</div>
+    </div>`).join("")}
+  </div>
+
+  <div class="rpt-sec">
+    <div class="sec-eyebrow">Section 2</div>
+    <h3 class="sec-title" style="font-size:1.2rem">Leadership Behaviours Ranking</h3>
+    <p class="sec-lede">All 30 behaviours ranked most → least frequent. Green = top 10, red = bottom 10.</p>
+    <table class="rtbl"><thead><tr><th>#</th><th>Statement</th><th>Practice</th><th>Rating</th><th>Bar</th></tr></thead><tbody>
+    ${rk.map((q,i)=>{const c=pOf(q.p).color;const cls=i<10?"top10":i>=20?"bot10":"";
+      return `<tr class="${cls}"><td style="color:var(--slate);font-size:.72rem">${i+1}</td><td>${q.id}. ${esc(q.text)}</td>
+      <td><span class="badge" style="background:${c}">${pOf(q.p).label}</span></td>
+      <td style="font-weight:700;text-align:center;color:${c}">${q.score}</td>
+      <td><div class="minibar"><div class="minifill" style="width:${q.score*10}%;background:${c}"></div></div></td></tr>`;}).join("")}
+    </tbody></table>
+  </div>
+
+  <div class="rpt-sec">
+    <div class="sec-eyebrow">Section 3</div>
+    <h3 class="sec-title" style="font-size:1.2rem">Percentile Ranking</h3>
+    <p class="sec-lede">Your scores versus the LPI normative database. Dashed lines at 30th and 70th percentiles divide Least Frequent, Frequent, and Most Frequent zones.</p>
+    ${percentileSVG(sc)}
+  </div>
+
+  <div class="rpt-sec">
+    <div class="sec-eyebrow">Section 4</div>
+    <h3 class="sec-title" style="font-size:1.2rem">Practice Detail, Reflections &amp; Suggestions</h3>
+    ${detailRows}
+  </div>
+  ${moderatorHTML()}`;
+}
+
+function renderReport(){
+  const el=$("view-report");
+  const guest=!profileOk();
+
+  /* ── GUEST MODE: show sample report with Amanda Lopez data ── */
+  if(guest){
+    el.innerHTML=`
+      <div class="sample-ribbon">
+        <div class="sample-ribbon-icon">📋</div>
+        <div>
+          <strong>Sample Report — Amanda Lopez <span class="sample-badge">SAMPLE</span></strong>
+          <span>This is the official LPI sample from Kouzes &amp; Posner (May 2021). Enter your profile and complete the 30-item assessment to generate <em>your</em> personalised report.</span>
+        </div>
+      </div>
+      <div class="guest-cta">
+        <div>
+          <div class="guest-cta-t">Ready for your own report?</div>
+          <div class="guest-cta-s">Enter your profile → complete 30 items → receive your personalised LPI leadership profile</div>
+        </div>
+        <button class="btn btn-crimson" onclick="setTab('profile')">Start Your Assessment →</button>
+      </div>
+      ${buildReportSections(SAMPLE_PROFILE, SAMPLE_RESPONSES, true)}`;
+    return;
+  }
+
+  /* ── PROFILE ENTERED but assessment incomplete ── */
+  if(!complete()){
+    el.innerHTML=`
+      ${reportLogoBar()}
+      <div class="rpt-meta-row">
+        <div>
+          <div class="rpt-meta-name">${esc(profile().name)}</div>
+          <div class="rpt-meta-detail">${esc([profile().role,profile().org].filter(Boolean).join(" · "))}</div>
+        </div>
+      </div>
+      <div class="warn" style="margin-bottom:1.25rem">⚡ Complete all 30 assessment items to generate your full personalised report. You have rated ${answered()}/30 items so far.</div>
+      <div class="btn-row">
+        <button class="btn btn-crimson" onclick="setTab('assessment')">Continue Assessment →</button>
+      </div>
+      ${moderatorHTML()}`;
+    return;
+  }
+
+  /* ── FULL PERSONALISED REPORT ── */
+  el.innerHTML=`
+    <div class="btn-row no-print" style="margin-bottom:1.4rem">
+      <button class="btn btn-crimson" id="btn-download">⬇ Download Full Report</button>
+      <button class="btn btn-ink" id="btn-email">✉ Email Report</button>
+      <button class="btn btn-out" onclick="setTab('assessment')">← Revise Responses</button>
+    </div>
+    ${buildReportSections(profile(), state.responses, false)}`;
+  el.querySelectorAll("textarea[data-ref]").forEach(t=>t.oninput=()=>{state.reflections[t.dataset.ref]=t.value;persist();});
+  $("btn-download").onclick=downloadReport;
+  $("btn-email").onclick=()=>{$("email-modal").classList.remove("hidden");$("email-to").value=profile().email||"";};
+}
+function percentileSVG(sc){
+  const W=560,H=230,padT=14,padB=14,padL=26,padR=14;
+  const colW=(W-padL-padR)/sc.length;
+  const y=v=>padT+(1-v/100)*(H-padT-padB);
+  const pts=sc.map((s,i)=>({x:padL+colW*(i+.5),y:y(s.pct),s}));
+  const line=pts.map(p=>`${p.x},${p.y}`).join(" ");
+  return `<svg viewBox="0 0 ${W} ${H+44}" style="width:100%;max-width:640px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="${y(100)}" width="${W}" height="${y(70)-y(100)}" fill="#eef6f1"/>
+    <rect x="0" y="${y(70)}" width="${W}" height="${y(30)-y(70)}" fill="#f7f6f3"/>
+    <rect x="0" y="${y(30)}" width="${W}" height="${y(0)-y(30)}" fill="#faf0f0"/>
+    ${[30,70].map(v=>`<line x1="0" y1="${y(v)}" x2="${W}" y2="${y(v)}" stroke="#bbb" stroke-width="1" stroke-dasharray="5 4"/><text x="3" y="${y(v)-4}" font-size="9" fill="#999" font-family="sans-serif">${v}th</text>`).join("")}
+    ${[0,20,40,60,80,100].map(v=>`<text x="${padL-4}" y="${y(v)+3}" font-size="8" fill="#bbb" text-anchor="end" font-family="sans-serif">${v}</text>`).join("")}
+    <polyline points="${line}" fill="none" stroke="#A51C30" stroke-width="2.5" stroke-linejoin="round"/>
+    ${pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="5.5" fill="${p.s.color}" stroke="#fff" stroke-width="2"/><text x="${p.x}" y="${p.y-10}" font-size="10" font-weight="bold" fill="${p.s.color}" text-anchor="middle" font-family="sans-serif">${p.s.pct}th</text>`).join("")}
+    ${pts.map(p=>`<text x="${p.x}" y="${H+14}" font-size="9" font-weight="bold" fill="${p.s.color}" text-anchor="middle" font-family="sans-serif">${p.s.id}</text><text x="${p.x}" y="${H+26}" font-size="7.5" fill="#777" text-anchor="middle" font-family="sans-serif">${p.s.label.length>20?p.s.label.slice(0,18)+"…":p.s.label}</text>`).join("")}
+    <text x="${W/2}" y="${H+40}" font-size="8.5" fill="#999" text-anchor="middle" font-family="sans-serif">Most Frequent &gt;70th · Frequent 30–70th · Least Frequent &lt;30th — vs. LPI normative database (approximate)</text>
+  </svg>`;
+}
+const ICON_SVG=document.getElementById("lpi-icon").outerHTML;
+
+/* ═══════════════════════ DOWNLOAD (data: URI — sandbox & GitHub Pages safe) ═══════════════════════ */
+function triggerDownload(filename,content,mime){
+  const a=document.createElement("a");
+  a.href=`data:${mime};charset=utf-8,`+encodeURIComponent(content);
+  a.download=filename;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function downloadIcon(){
+  const svg=`<?xml version="1.0" encoding="UTF-8"?>\n`+ICON_SVG.replace('id="lpi-icon"','').replace('width="58" height="58"','width="512" height="512"');
+  triggerDownload("LPI-icon.svg",svg,"image/svg+xml");
+}
+function downloadReport(){
+  if(!complete()){alert("Please complete all 30 items first.");return;}
+  const pr=profile(),sc=scores(),rk=ranked(),total=sc.reduce((a,s)=>a+s.sum,0);
+  const pctChart=percentileSVG(sc);
+  const icon=ICON_SVG.replace('id="lpi-icon"','').replace('width="58" height="58"','width="52" height="52"');
+
+  const scoreRows=sc.map(s=>`<tr>
+    <td style="padding:8px 10px;border-bottom:1px solid #eee"><strong style="color:${s.color}">${s.label}</strong></td>
+    <td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center">${s.sum}/60</td>
+    <td style="padding:8px 10px;border-bottom:1px solid #eee"><div style="height:14px;background:#F2EFE8;border:1px solid #e2e0db"><div style="height:100%;width:${s.sum/60*100}%;background:${s.color}"></div></div></td>
+    <td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center;font-weight:700">${s.avg.toFixed(1)}</td>
+    <td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center">${s.pct}th</td></tr>`).join("");
+
+  const rankRows=rk.map((q,i)=>{const c=pOf(q.p).color;const bg=i<10?"background:#eef6f1":i>=20?"background:#faf0f0":"";
+    return `<tr style="${bg}"><td style="padding:6px 9px;border-bottom:1px solid #eee;font-size:11px;color:#999">${i+1}</td>
+    <td style="padding:6px 9px;border-bottom:1px solid #eee">${q.id}. ${esc(q.text)}</td>
+    <td style="padding:6px 9px;border-bottom:1px solid #eee"><span style="background:${c};color:#fff;font-size:10px;font-weight:700;padding:2px 6px">${pOf(q.p).label}</span></td>
+    <td style="padding:6px 9px;border-bottom:1px solid #eee;text-align:center;font-weight:700;color:${c}">${q.score}</td></tr>`;}).join("");
+
+  const pracHtml=PRACTICES.map(p=>{
+    const qs=QUESTIONS.filter(q=>q.p===p.id);
+    const sum=qs.reduce((a,q)=>a+(state.responses[q.id]||0),0);
+    const r1=state.reflections[p.id+"_1"]||"",r2=state.reflections[p.id+"_2"]||"";
+    return `<h2 style="font-family:Georgia,serif;color:${p.color};border-left:5px solid ${p.color};padding-left:10px;margin:28px 0 4px">${p.num}. ${p.label}</h2>
+    <p style="font-size:12px;color:#666;margin:0 0 6px">${p.commitments.map(c=>"• "+esc(c)).join(" &nbsp; ")}</p>
+    <p style="font-size:13px;margin:0 0 8px"><strong>Total:</strong> ${sum}/60 &nbsp;|&nbsp; <strong>Average:</strong> ${(sum/6).toFixed(1)} &nbsp;|&nbsp; <strong>~Percentile:</strong> ${approxPct(sum)}th</p>
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:10px">
+    <thead><tr style="background:#F2EFE8"><th style="padding:5px 8px;text-align:left">Statement</th><th style="padding:5px 8px;width:50px">Rating</th><th style="padding:5px 8px;width:150px">Bar</th></tr></thead><tbody>
+    ${qs.map(q=>`<tr><td style="padding:5px 8px;border-bottom:1px solid #eee">${q.id}. ${esc(q.text)}</td>
+    <td style="padding:5px 8px;border-bottom:1px solid #eee;text-align:center;font-weight:700">${state.responses[q.id]||0}</td>
+    <td style="padding:5px 8px;border-bottom:1px solid #eee"><div style="height:11px;background:#F2EFE8"><div style="height:100%;width:${(state.responses[q.id]||0)*10}%;background:${p.color}"></div></div></td></tr>`).join("")}
+    </tbody></table>
+    ${(r1||r2)?`<div style="background:#f7f6f3;border-left:4px solid ${p.color};padding:9px 12px;margin-bottom:9px;font-size:12.5px"><strong>Reflections</strong>${r1?`<p style="margin:5px 0 0"><em>Immediate reaction:</em> ${esc(r1)}</p>`:""}${r2?`<p style="margin:5px 0 0"><em>Confusing/contradictory:</em> ${esc(r2)}</p>`:""}</div>`:""}
+    <div style="background:#f7f6f3;padding:9px 12px;font-size:12.5px"><strong style="color:#6E1421;letter-spacing:.1em">SUGGESTIONS FOR BECOMING A BETTER LEADER</strong>
+    <ol style="margin:6px 0 0;padding-left:18px">${p.suggestions.map(s=>`<li style="margin-bottom:5px;line-height:1.6">${esc(s)}</li>`).join("")}</ol></div>`;
+  }).join("");
+
+  const readHtml=Object.values(READING).map(cat=>`
+    <h3 style="font-family:Georgia,serif;font-size:14px;border-bottom:2px solid #6E1421;padding-bottom:4px;margin:20px 0 8px">${cat.label}</h3>
+    ${cat.books.map((b,i)=>`<div style="margin-bottom:11px;font-size:12.5px;line-height:1.6">
+      <strong>${i+1}. <a href="${b.u}" style="color:#1e1e1e">${esc(b.t)}</a></strong> — ${esc(b.a)} (${esc(b.pub)})<br/>
+      <span style="color:#A51C30;font-size:10.5px;font-weight:700;letter-spacing:.08em">KEY LEARNING</span> ${esc(b.learn)}<br/>
+      <a href="${b.u}" style="color:#A51C30;font-size:11px;font-weight:600">→ ${b.u}</a></div>`).join("")}`).join("");
+
+  const html=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
+<title>LPI Self Report — ${esc(pr.name||"Participant")}</title></head>
+<body style="font-family:'Segoe UI',-apple-system,Helvetica,Arial,sans-serif;max-width:880px;margin:0 auto;padding:34px;color:#1e1e1e;background:#fff;font-size:14px">
+<div style="height:5px;background:linear-gradient(90deg,#4A0C16,#A51C30 45%,#C9A24B);margin:-34px -34px 26px"></div>
+<table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tr>
+<td style="width:60px;vertical-align:top">${icon}</td>
+<td style="vertical-align:top;padding-left:14px">
+<div style="font-size:11px;font-weight:700;letter-spacing:.24em;color:#A51C30">KOUZES &amp; POSNER · SELF REPORT</div>
+<h1 style="font-family:Georgia,serif;font-size:26px;margin:2px 0">LPI®: Leadership Practices Inventory®</h1>
+<div style="font-size:12px;color:#666">The Five Practices of Exemplary Leadership® · Prepared for <strong>${esc(pr.name||"—")}</strong> &nbsp;|&nbsp; ${esc(prettyDate(pr.date))}</div>
+</td>
+<td style="vertical-align:top;text-align:right;width:150px">
+<div style="font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#999">Published by</div>
+<div style="font-family:Georgia,serif;font-size:14px;font-weight:700;color:#211F1D">planet<span style="color:#A8842C">AI</span> LLP</div>
+<div style="font-size:9px;color:#999;margin-top:1px">world-of-ai.co.in</div>
+</td></tr></table>
+<div style="font-size:12px;color:#666;line-height:2;border:1px solid #e2e0db;background:#faf8f4;padding:9px 14px;margin:14px 0 22px">
+<strong>Role:</strong> ${esc(pr.role||"—")} &nbsp;|&nbsp; <strong>Organisation:</strong> ${esc(pr.org||"—")} &nbsp;|&nbsp; <strong>Sector:</strong> ${esc(pr.sector||"—")} &nbsp;|&nbsp; <strong>Overall Score:</strong> ${total}/300
+</div>
+
+<h2 style="font-family:Georgia,serif;color:#6E1421">The Five Practices — Summary</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px">
+<thead><tr style="background:#F2EFE8"><th style="padding:7px 10px;text-align:left">Practice</th><th style="padding:7px 10px">Score</th><th style="padding:7px 10px;width:32%">Profile</th><th style="padding:7px 10px">Avg</th><th style="padding:7px 10px">~Percentile</th></tr></thead>
+<tbody>${scoreRows}</tbody></table>
+
+<h2 style="font-family:Georgia,serif;color:#6E1421">Percentile Ranking</h2>
+<p style="font-size:12px;color:#666">Your scores versus the LPI normative database (approximate). Dashed lines mark the 30th and 70th percentiles.</p>
+${pctChart}
+
+<h2 style="font-family:Georgia,serif;color:#6E1421;margin-top:26px">Leadership Behaviours Ranking</h2>
+<p style="font-size:12px;color:#666">Most → least frequent. Green = top 10; red = bottom 10.</p>
+<table style="width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:24px">
+<thead><tr style="background:#F2EFE8"><th style="padding:6px 9px">#</th><th style="padding:6px 9px;text-align:left">Statement</th><th style="padding:6px 9px">Practice</th><th style="padding:6px 9px">Rating</th></tr></thead>
+<tbody>${rankRows}</tbody></table>
+
+<h2 style="font-family:Georgia,serif;color:#6E1421">Practice Detail, Reflections &amp; Suggestions</h2>
+${pracHtml}
+
+<h2 style="font-family:Georgia,serif;color:#6E1421;margin-top:28px">Suggested Reading — With Key Learnings</h2>
+${readHtml}
+
+<div style="margin-top:34px;border-top:1px solid #e2e0db;padding-top:12px;font-size:11px;color:#999;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+<span>LPI Self-Assessment Instrument by <strong>Pawan Maheshwari</strong>, Founder, <strong>planetAI LLP</strong> · <a href="https://www.linkedin.com/in/pawan-maheshwari-4b9b4715" style="color:#A51C30">LinkedIn</a></span>
+<span>planetAI LLP &middot; world-of-ai.co.in<br/>Based on Kouzes &amp; Posner, The Leadership Challenge, A Wiley Brand · Developmental use only · Generated ${new Date().toLocaleDateString()}</span>
+</div>
+</body></html>`;
+
+  triggerDownload(`LPI-Self-Report-${(pr.name||"report").replace(/\s+/g,"-")}.html`,html,"text/html");
+}
+
+/* ═══════════════════════ EMAIL ═══════════════════════ */
+$("email-close").onclick=()=>$("email-modal").classList.add("hidden");
+$("email-modal").onclick=e=>{if(e.target===$("email-modal"))$("email-modal").classList.add("hidden");};
+$("email-send").onclick=()=>{
+  const pr=profile(),sc=scores(),total=sc.reduce((a,s)=>a+s.sum,0);
+  const sorted=[...sc].sort((a,b)=>b.avg-a.avg);
+  const body=encodeURIComponent(
+`LPI SELF-ASSESSMENT REPORT
+${"─".repeat(48)}
+Name: ${pr.name||"—"}  |  Role: ${pr.role||"—"}
+Org: ${pr.org||"—"}  |  Date: ${prettyDate(pr.date)}
+
+FIVE PRACTICES SUMMARY
+${"─".repeat(30)}
+${sc.map(s=>`${s.label}: ${s.sum}/60  avg ${s.avg.toFixed(1)}  ~${s.pct}th pct`).join("\n")}
+Overall Total: ${total}/300
+
+TOP STRENGTHS: ${sorted.slice(0,2).map(s=>s.label).join(", ")}
+DEVELOPMENT FOCUS: ${sorted.slice(-2).map(s=>s.label).join(", ")}
+
+${"─".repeat(48)}
+Created with the LPI Self-Assessment Instrument
+Pawan Maheshwari  |  Founder, planetAI LLP
+world-of-ai.co.in
+https://www.linkedin.com/in/pawan-maheshwari-4b9b4715
+Based on Kouzes & Posner · Developmental use only.`);
+  window.open(`mailto:${$("email-to").value}?subject=${encodeURIComponent("LPI Self-Assessment Report — "+(pr.name||"Participant"))}&body=${body}`,"_blank");
+  $("email-status").textContent="✓ Email client opened with the report summary.";
+  setTimeout(()=>$("email-status").textContent="",4000);
+};
+
+/* ═══════════════════════ READING ═══════════════════════ */
+function renderReading(){
+  const keys=Object.keys(READING);
+  $("read-tabs").innerHTML=`<button class="ptab${state.readFilter==="ALL"?" on":""}" data-f="ALL">All</button>`+
+    keys.map(k=>`<button class="ptab${state.readFilter===k?" on":""}" data-f="${k}">${READING[k].label}</button>`).join("");
+  $("read-tabs").querySelectorAll(".ptab").forEach(b=>b.onclick=()=>{state.readFilter=b.dataset.f;renderReading();});
+  const show=state.readFilter==="ALL"?keys:[state.readFilter];
+  $("read-list").innerHTML=show.map(k=>{
+    const cat=READING[k];
+    return `<div class="read-cat">
+      <div class="read-cat-title">${cat.label}<span class="read-cat-count">${cat.books.length} titles</span></div>
+      ${cat.books.map((b,i)=>`<div class="book">
+        <div class="book-n">${i+1}</div>
+        <div>
+          <div class="book-title"><a href="${b.u}" target="_blank" rel="noopener">${esc(b.t)}</a></div>
+          <div class="book-meta">${esc(b.a)} · ${esc(b.pub)}</div>
+          <div class="book-learn"><strong>Key learning</strong>${esc(b.learn)}</div>
+          <a class="book-link" href="${b.u}" target="_blank" rel="noopener">View book →</a>
+        </div>
+      </div>`).join("")}
+    </div>`;
+  }).join("");
+}
+
+/* ════════════════════════ LEADERS SECTION ════════════════════════ */
+/* SVG icon paths (Feather Icons style) */
+const LI={
+  cloud:'<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>',
+  cpu:'<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+  target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  globe:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  briefcase:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  rocket:'<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+  compass:'<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  trending:'<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+  battery:'<rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="10" x2="23" y2="14"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  truck:'<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+  barchart:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+  eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+  leaf:'<path d="M17 8C8 10 5.9 16.17 3.82 19c-1.6-1.4-2.36-2.91-2.32-4.5C1.64 10.07 6.82 5 17 4v4z"/><path d="M3.82 19l4-4"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>',
+  bulb:'<line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>',
+};
+function lsvg(k,color){return `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${color||'#A51C30'}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${LI[k]||''}</svg>`;}
+
+/* 8 global leaders data */
+const LD=[
+  {id:1,name:"Satya Nadella",wiki:"Satya_Nadella",company:"Microsoft",title:"CEO",tenure:"2014–Present",initials:"SN",bg:"linear-gradient(145deg,#0A78D4,#004E99)",color:"#0A78D4",stat:"$3T+",statLabel:"Market cap — Microsoft became the world's most valuable company",impacts:[{i:"cloud",tx:"Pivoted to cloud-first: Azure grew from 4% to 40%+ of total revenue"},{i:"cpu",tx:"Forged the OpenAI partnership and shipped Copilot AI across the Microsoft 365 ecosystem"},{i:"users",tx:"Replaced 'know-it-all' with 'learn-it-all' growth mindset across 220,000 employees"},{i:"link",tx:"Strategic acquisitions: LinkedIn ($26B), GitHub, Activision Blizzard ($69B)"}],quote:"Our industry does not respect tradition — it only respects innovation.",style:"Empathetic Leadership",styleTag:"Transformational · Servant",styleDesc:"Satya leads with intellectual humility and compassion. He reversed Microsoft's siloed culture by making vulnerability and learning competitive advantages — demonstrating that empathy is the most scalable business strategy of the AI era.",traits:[{l:"Growth Mindset",v:95},{l:"Servant Leadership",v:88},{l:"Inclusive Culture",v:91},{l:"Purpose-Driven",v:93}]},
+  {id:2,name:"Indra Nooyi",wiki:"Indra_Nooyi",company:"PepsiCo",title:"CEO",tenure:"2006–2018",initials:"IN",bg:"linear-gradient(145deg,#6B2FA0,#2D0D55)",color:"#9B59D0",stat:"80%",statLabel:"Revenue growth — $35B to $63.5B across her 12-year tenure",impacts:[{i:"target",tx:"Launched 'Performance with Purpose' — first ESG-linked strategy at CPG scale"},{i:"globe",tx:"Expanded PepsiCo globally and pivoted the portfolio toward healthier categories"},{i:"users",tx:"Longest-serving female CEO of a Fortune 50 company; redefined boardroom diversity"},{i:"briefcase",tx:"Delivered consistent shareholder returns through the 2008 financial crisis"}],quote:"Just because you are CEO, don't think you have landed. You must continually increase your learning.",style:"Transformational Leadership",styleTag:"Inclusive · Strategic",styleDesc:"Indra combined bold strategy with deep inclusivity — writing personal letters to senior executives' parents as a signature act of servant leadership. She proved that purpose and profit reinforce each other.",traits:[{l:"Strategic Vision",v:97},{l:"Inclusive Culture",v:94},{l:"Stakeholder Empathy",v:93},{l:"Bold Decision-Making",v:89}]},
+  {id:3,name:"Elon Musk",wiki:"Elon_Musk",company:"Tesla · SpaceX",title:"CEO & Founder",tenure:"2004–Present",initials:"EM",bg:"linear-gradient(145deg,#C94A0A,#7A2200)",color:"#E8641A",stat:"100×",statLabel:"Tesla's market cap growth since IPO — world's most valuable automaker",impacts:[{i:"zap",tx:"Made EVs mainstream — Tesla disrupted a 100-year-old industry from scratch"},{i:"rocket",tx:"Built the world's most powerful rockets and made orbital spaceflight reusable"},{i:"compass",tx:"Institutionalised first-principles engineering: question every assumption"},{i:"trending",tx:"Created extreme execution velocity as a cultural standard faster than any incumbent"}],quote:"When something is important enough, you do it even if the odds are not in your favor.",style:"Visionary / Disruptive Leadership",styleTag:"Mission-Driven · Authoritative",styleDesc:"Musk leads through audacious mission-setting and extreme personal accountability. He works beside his engineers, sets impossible deadlines, and treats every constraint as a design problem to be eliminated.",traits:[{l:"Visionary Ambition",v:99},{l:"First-Principles Thinking",v:97},{l:"Risk Tolerance",v:96},{l:"Execution Velocity",v:94}]},
+  {id:4,name:"Mary Barra",wiki:"Mary_Barra",company:"General Motors",title:"CEO",tenure:"2014–Present",initials:"MB",bg:"linear-gradient(145deg,#1A7A4A,#083320)",color:"#28A868",stat:"$35B+",statLabel:"Committed to EVs & autonomous vehicles — boldest EV pivot in US history",impacts:[{i:"battery",tx:"Committed GM to full electrification by 2035, launching 30+ EV models"},{i:"shield",tx:"Overhauled safety culture after the ignition switch crisis — accountability became non-negotiable"},{i:"truck",tx:"Exited 15+ unprofitable global markets, reorienting toward software-defined vehicles"},{i:"users",tx:"First female CEO of a major US automaker; built an inclusion benchmark for automotive"}],quote:"I never underestimate the importance of listening.",style:"Servant Leadership",styleTag:"Accountable · Transformational",styleDesc:"Mary Barra leads with radical transparency and genuine care for people and customers. She never deflects responsibility, models the safety culture she expects, and navigates transformation with steady, human-centred courage.",traits:[{l:"Authentic Accountability",v:97},{l:"Listening & Empathy",v:95},{l:"Long-Term Transformation",v:92},{l:"Inclusive Leadership",v:91}]},
+  {id:5,name:"Jensen Huang",wiki:"Jensen_Huang",company:"NVIDIA",title:"CEO & Co-Founder",tenure:"1993–Present",initials:"JH",bg:"linear-gradient(145deg,#5A8E28,#234010)",color:"#76B900",stat:"$3T+",statLabel:"NVIDIA market cap — fastest company ever to reach this milestone",impacts:[{i:"cpu",tx:"Pivoted NVIDIA from gaming GPUs to the foundational infrastructure of global AI"},{i:"barchart",tx:"Every major AI model — GPT, Gemini, Claude, Llama — runs on NVIDIA hardware"},{i:"globe",tx:"Extended the platform to robotics, autonomous vehicles, and scientific computing"},{i:"compass",tx:"Maintained 30-year conviction in a single platform bet — from gaming to AI"}],quote:"Software is eating the world, but AI is going to eat software.",style:"Technical Visionary Leadership",styleTag:"Platform-Thinking · Long-Horizon",styleDesc:"Jensen combines extraordinary technical depth with 30-year conviction. He has 40+ direct reports — eliminating hierarchy to stay close to the work. His patient, platform-anchored style produced the most improbable value creation in corporate history.",traits:[{l:"Technical Depth",v:98},{l:"Visionary Conviction",v:97},{l:"Platform Thinking",v:96},{l:"Long-Horizon Patience",v:95}]},
+  {id:6,name:"Jeff Bezos",wiki:"Jeff_Bezos",company:"Amazon",title:"Founder & Chairman",tenure:"1994–Present",initials:"JB",bg:"linear-gradient(145deg,#E8A000,#7A4A00)",color:"#E8A800",stat:"$1.8T+",statLabel:"Amazon market cap — from online bookstore to the world's most customer-centric company",impacts:[{i:"eye",tx:"Built the most customer-obsessed company in the world — the flywheel as a core strategy"},{i:"cloud",tx:"Invented cloud computing with AWS — now generates the majority of Amazon's operating profit"},{i:"clock",tx:"Institutionalised 'Day 1' mentality: permanent startup urgency at global enterprise scale"},{i:"bulb",tx:"The Two-Pizza Rule and Working Backwards process transformed how Amazon innovates"}],quote:"We are stubborn on vision. We are flexible on details.",style:"Customer-Obsession Leadership",styleTag:"High Standards · Demanding",styleDesc:"Bezos leads through relentless customer focus and long time-horizon thinking. He codified leadership principles into a cultural operating system — building an organisation that improves itself because the principles are self-enforcing.",traits:[{l:"Customer Obsession",v:99},{l:"Long-Term Thinking",v:96},{l:"High Standards",v:97},{l:"Inventive Mindset",v:94}]},
+  {id:7,name:"Tim Cook",wiki:"Tim_Cook",company:"Apple",title:"CEO",tenure:"2011–Present",initials:"TC",bg:"linear-gradient(145deg,#555,#1a1a1a)",color:"#888",stat:"$3.5T",statLabel:"Market cap — Apple: first company in history to surpass $3 trillion",impacts:[{i:"truck",tx:"Built the world's most sophisticated supply chain — driver of Apple's industry-leading margins"},{i:"shield",tx:"Championed privacy as a core product value and competitive differentiator"},{i:"barchart",tx:"Grew the Services division (App Store, iCloud) from zero to $100B+ annual revenue"},{i:"leaf",tx:"Committed Apple to carbon-neutral operations by 2030 — most ambitious sustainability pledge in tech"}],quote:"I believe in the simple, not the complex.",style:"Operational Excellence Leadership",styleTag:"Values-First · Disciplined",styleDesc:"Tim Cook leads with rigorous operational discipline and unwavering commitment to Apple's values — privacy, sustainability, and inclusion. He transformed Apple from a product company into a platform ecosystem while preserving the brand's cultural identity.",traits:[{l:"Operational Mastery",v:98},{l:"Values-First Culture",v:96},{l:"Supply Chain Precision",v:99},{l:"Disciplined Execution",v:95}]},
+  {id:8,name:"Sundar Pichai",wiki:"Sundar_Pichai",company:"Google / Alphabet",title:"CEO",tenure:"2015–Present",initials:"SP",bg:"linear-gradient(145deg,#1967D2,#093680)",color:"#4285F4",stat:"$2T+",statLabel:"Alphabet market cap — led Google's transformation into the AI-first company",impacts:[{i:"cpu",tx:"Led Google's pivot to AI-first (Bard, Gemini, AI Overviews) — most consequential search transformation"},{i:"trending",tx:"Built Alphabet into a $2T+ conglomerate spanning cloud, health, autonomous vehicles"},{i:"users",tx:"Known for broad consensus-building across engineers and executives before major bets"},{i:"bulb",tx:"Championed developer ecosystems (Android, Chrome, TensorFlow) as Google's growth flywheel"}],quote:"Wear your failure as a badge of honour.",style:"Collaborative Leadership",styleTag:"Democratic · Quiet Strength",styleDesc:"Sundar leads through inclusive consensus — involving engineers deeply in strategy and building alignment before execution. His quiet confidence and technical empathy create an environment where people think big without fear.",traits:[{l:"Collaborative Consensus",v:95},{l:"Technical Empathy",v:94},{l:"Inclusive Decision-Making",v:96},{l:"Quiet Strength",v:92}]},
+];
+
+/* Wikipedia image URLs (MD5-computed Wikimedia Commons paths) */
+const LW='https://upload.wikimedia.org/wikipedia/commons/thumb';
+const LIMGS={
+  1:[`${LW}/7/78/MS-Exec-Nadella-Satya-2017-08-31-22_(cropped).jpg/280px-MS-Exec-Nadella-Satya-2017-08-31-22_(cropped).jpg`,`${LW}/6/6c/Satya_Nadella.jpg/280px-Satya_Nadella.jpg`],
+  2:[`${LW}/e/e0/Indra_Nooyi_2.jpg/280px-Indra_Nooyi_2.jpg`,`${LW}/d/d8/Indra_Nooyi.jpg/280px-Indra_Nooyi.jpg`],
+  3:[`${LW}/3/34/Elon_Musk_Royal_Society_(crop2).jpg/280px-Elon_Musk_Royal_Society_(crop2).jpg`,`${LW}/4/49/Elon_Musk_2015.jpg/280px-Elon_Musk_2015.jpg`],
+  4:[`${LW}/3/3e/Mary_Barra_at_the_White_House_(cropped).jpg/280px-Mary_Barra_at_the_White_House_(cropped).jpg`,`${LW}/6/66/Mary_Barra_2019.jpg/280px-Mary_Barra_2019.jpg`],
+  5:[`${LW}/7/7e/Jensen_Huang_2019_cropped.jpg/280px-Jensen_Huang_2019_cropped.jpg`,`${LW}/e/e6/Jensen_Huang.jpg/280px-Jensen_Huang.jpg`],
+  6:[`${LW}/f/fb/Jeff_Bezos_2016_crop.jpg/280px-Jeff_Bezos_2016_crop.jpg`,`${LW}/4/42/Jeff_Bezos_visits_LAAFB_SMC_(3908618).jpg/280px-Jeff_Bezos_visits_LAAFB_SMC_(3908618).jpg`],
+  7:[`${LW}/5/5e/Tim_Cook_Headshot_2010-2013.jpg/280px-Tim_Cook_Headshot_2010-2013.jpg`,`${LW}/d/d5/Tim_Cook_2009_cropped.jpg/280px-Tim_Cook_2009_cropped.jpg`],
+  8:[`${LW}/5/55/Sundar_Pichai_in_2022_cropped.jpg/280px-Sundar_Pichai_in_2022_cropped.jpg`,`${LW}/0/07/Sundar_Pichai.png/280px-Sundar_Pichai.png`],
+};
+
+let lCur=0, lBusy=false, lInitDone=false;
+
+function lBuildSidebar(){
+  const col=$('l-sidebar'), ey=col.querySelector('.l-col-ey');
+  col.innerHTML=''; if(ey)col.appendChild(ey);
+  LD.forEach((l,i)=>{
+    const el=document.createElement('div');
+    el.className='l-li'+(i===lCur?' on':'');
+    el.dataset.i=i;
+    el.innerHTML=`<div class="l-av" id="lav${l.id}" style="background:${l.bg}"><span class="l-av-init">${l.initials}</span></div>
+      <div><div class="l-li-name">${l.name}</div><div class="l-li-co">${l.company}</div><div class="l-li-yr">${l.tenure}</div></div>
+      <div class="l-arr">›</div>`;
+    el.addEventListener('click',()=>lPick(i));
+    col.appendChild(el);
+  });
+}
+
+function lLoadPhotos(){
+  LD.forEach(l=>{
+    const av=$('lav'+l.id); if(!av)return;
+    av.querySelectorAll('img').forEach(e=>e.remove());
+    const img=document.createElement('img');
+    img.alt=l.name;
+    img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;z-index:2;opacity:0;transition:opacity .5s ease';
+    img.onload=()=>{img.style.opacity='1';};
+    av.appendChild(img);
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(l.wiki)}`)
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(d=>{const src=d.originalimage?.source||d.thumbnail?.source; if(!src)return Promise.reject(); img.src=src.replace(/\/\d+px-/,'/280px-');})
+      .catch(()=>{
+        const urls=LIMGS[l.id]||[]; let idx=0;
+        const tryNext=()=>{if(idx>=urls.length){img.remove();return;} img.onerror=()=>{idx++;tryNext();}; img.src=urls[idx];};
+        tryNext();
+      });
+  });
+}
+
+function lPaintImpact(l){
+  $('l-ipanel').innerHTML=`<div><div class="l-stat">${l.stat}</div><div class="l-stat-lbl">${l.statLabel}</div>
+    <div class="l-imp-list">${l.impacts.map(it=>`<div class="l-imp-row"><div class="l-imp-ic">${lsvg(it.i,l.color)}</div><div class="l-imp-tx">${it.tx}</div></div>`).join('')}</div>
+    <div class="l-bq">${l.quote}<cite>— ${l.name}, ${l.company}</cite></div></div>`;
+}
+
+function lPaintStyle(l){
+  $('l-spanel').innerHTML=`<div><div class="l-st-flag">${l.styleTag}</div>
+    <div class="l-st-name">${l.style}</div><div class="l-st-desc">${l.styleDesc}</div>
+    <div class="l-tr-hd">Core Leadership Dimensions</div>
+    <div class="l-traits">${l.traits.map(t=>`<div class="l-trait"><div class="l-tdot" style="background:${l.color}"></div><span>${t.l}</span></div>`).join('')}</div>
+    <div class="l-meters">${l.traits.map(t=>`<div class="l-m-row"><div class="l-m-lbls"><span>${t.l}</span><span>${t.v}%</span></div><div class="l-m-track"><div class="l-m-fill" style="background:${l.color}" data-v="${t.v}"></div></div></div>`).join('')}</div></div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.l-m-fill').forEach(el=>{el.style.width=el.dataset.v+'%';});}));
+}
+
+function lPick(i){
+  if(i===lCur||lBusy)return; lBusy=true;
+  const ip=$('l-ipanel'),sp=$('l-spanel');
+  ip.classList.add('out'); sp.classList.add('out');
+  setTimeout(()=>{lCur=i;lPaintImpact(LD[i]);lPaintStyle(LD[i]);lBuildSidebar();lLoadPhotos();ip.classList.remove('out');sp.classList.remove('out');lBusy=false;},200);
+}
+
+document.addEventListener('keydown',e=>{
+  if(state.tab!=='leaders')return;
+  if(e.key==='ArrowDown'||e.key==='ArrowRight')lPick((lCur+1)%LD.length);
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft')lPick((lCur-1+LD.length)%LD.length);
+});
+
+/* ═══════════════════════ INIT ═══════════════════════ */
+$("f-date").value=new Date().toISOString().split("T")[0];
+restore();
+["f-name","f-role","f-org","f-email","f-date","f-sector"].forEach(id=>{
+  $(id).addEventListener("input",()=>{persist();renderNav();});
+  $(id).addEventListener("change",()=>{persist();renderNav();});
+});
+$("btn-clear").onclick=clearSaved;
+$("btn-profile-next").onclick=()=>{
+  if(!$("f-name").value.trim()){$("f-name").focus();$("f-name").style.borderColor="#A51C30";return;}
+  persist();
+  setTab("assessment");
+};
+$("btn-finish").onclick=()=>setTab("report");
+renderNav();
+</script>
+</body>
+</html>
