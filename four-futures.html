@@ -1,0 +1,1059 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Four Futures</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: guided story in one 820px column. Today (as-is) → Doors → Moments (Next) → Door summary → Compare. */
+:root{
+  --bg:#f2f5f5; --panel:#ffffff; --panel-2:#e7eeed; --line:#d3dddb;
+  --fg:#13201f; --muted:#566965; --faint:#82938f;
+  --accent:#b8690c; --accent-ink:#ffffff;
+  --onprem:#b9622b; --cloud:#2a78b0; --priv:#178a70; --hybrid:#6d55a8;
+  --bad:#c9412f; --good:#2c8a4f; --stage:#e9efee; --alert:#fbe9e6; --biz:#fbf1e2;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1516;--panel:#122022;--panel-2:#1a2b2e;--line:#253a3d;--fg:#e3ece9;--muted:#93aaa5;--faint:#64807a;
+  --accent:#f0a742;--accent-ink:#1c1206;--onprem:#e0915a;--cloud:#72b8e8;--priv:#52c9a8;--hybrid:#ad97e3;--bad:#f07261;--good:#76d39a;--stage:#0f1c1e;--alert:#3a1c18;--biz:#33270f;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1516;--panel:#122022;--panel-2:#1a2b2e;--line:#253a3d;--fg:#e3ece9;--muted:#93aaa5;--faint:#64807a;
+  --accent:#f0a742;--accent-ink:#1c1206;--onprem:#e0915a;--cloud:#72b8e8;--priv:#52c9a8;--hybrid:#ad97e3;--bad:#f07261;--good:#76d39a;--stage:#0f1c1e;--alert:#3a1c18;--biz:#33270f;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+p{margin:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:700;font-size:19px}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pill{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:14px;color:var(--muted)}
+.pill[aria-current="true"]{color:var(--fg);border-color:var(--fg);font-weight:600}
+.pill:disabled{opacity:.4;cursor:default}
+select.cur{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:14px;font-family:var(--f-mono)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(29px,5.6vw,42px);line-height:1.06;margin:0;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,4.6vw,32px);line-height:1.1;margin:0;text-wrap:balance}
+h3{font-family:var(--f-display);font-weight:700;font-size:19px;margin:0}
+.lead{font-size:17px;color:var(--muted);max-width:62ch}
+.screen{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.btn{border:none;border-radius:10px;padding:13px 22px;font-weight:600;font-size:16px;background:var(--accent);color:var(--accent-ink)}
+.btn.sec{background:var(--panel-2);color:var(--fg)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sub{font-size:14px;color:var(--muted)}
+.ref{font-family:var(--f-mono);font-size:12px;color:var(--faint)}
+
+/* as-is form */
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}
+@media (max-width:560px){.form{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.f label{font-size:13.5px;color:var(--muted)}
+.f input,.f select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%;font-variant-numeric:tabular-nums}
+.f .u{font-size:12px;color:var(--faint)}
+.group-t{grid-column:1/-1;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.group-t:first-child{border-top:none;padding-top:0;margin-top:0}
+.snap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.snap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.snap div{display:flex;flex-direction:column;gap:2px}
+.snap b{font-family:var(--f-display);font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.snap span{font-size:13px;color:var(--muted)}
+.hook{font-size:18px;font-weight:500;border-left:4px solid var(--bad);padding-left:12px}
+.hook b{color:var(--bad)}
+
+/* doors */
+.doors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:800px){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.doors{grid-template-columns:minmax(0,1fr)}}
+.door{text-align:left;background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.door:hover{border-color:var(--c)}
+.door b{font-family:var(--f-display);font-size:21px;line-height:1.15}
+.door span{color:var(--muted);font-size:14.5px}
+.door em{font-style:normal;font-family:var(--f-mono);font-size:12px;color:var(--c);margin-top:auto}
+.door em.done{color:var(--good)}
+.guess{display:flex;gap:8px;flex-wrap:wrap}
+.chipbtn{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px;font-size:14px}
+.chipbtn[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--panel));font-weight:600}
+
+/* moment */
+.progress{display:flex;gap:4px}
+.progress i{flex:1;height:5px;border-radius:3px;background:var(--panel-2)}
+.progress i.on{background:var(--wc)}
+.world-tag{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:700;color:var(--wc);font-size:16px}
+.world-tag i{width:10px;height:10px;border-radius:50%;background:var(--wc)}
+.alert{display:flex;align-items:center;gap:10px;border-radius:10px;padding:8px 12px;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+.alert.crisis{background:var(--alert);color:var(--bad)}
+.alert.biz{background:var(--biz);color:var(--accent)}
+.alert.calm{background:var(--panel-2);color:var(--muted)}
+.alert .dot{width:9px;height:9px;border-radius:50%;background:currentColor;animation:pulse 1.1s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.stagebox{position:relative;background:var(--stage);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+#cv{display:block;width:100%;height:250px}
+@media (max-width:640px){#cv{height:215px}}
+.clock{position:absolute;left:12px;top:30px;background:var(--panel);border:1px solid var(--bad);border-radius:10px;padding:8px 12px;display:flex;flex-direction:column;gap:0;font-variant-numeric:tabular-nums}
+.clock .a{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--bad)}
+.clock b{font-family:var(--f-display);font-size:22px;line-height:1.1}
+.clock .l{font-family:var(--f-mono);font-size:13px;color:var(--bad)}
+.caption{display:flex;flex-wrap:wrap;gap:14px;padding:8px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.caption span{display:flex;align-items:center;gap:6px}
+.caption i{width:9px;height:9px;border-radius:50%}
+.decide{border:2px solid var(--accent)}
+.decide .q{font-size:18px;font-weight:600}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.opts{grid-template-columns:minmax(0,1fr)}}
+.opt{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.opt b{font-size:16px}
+.opt span{font-size:13.5px;color:var(--muted)}
+.opt:hover{border-color:var(--accent)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--panel))}
+.happened{font-size:18px;font-weight:500}
+.take{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.take .eyebrow{color:var(--accent)}
+.take p{font-size:16.5px;max-width:64ch}
+.meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:680px){.meters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.m{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.m .k{font-size:13px;color:var(--muted)}
+.m .v{font-family:var(--f-display);font-weight:700;font-size:25px;line-height:1.1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.m .d{font-family:var(--f-mono);font-size:11.5px;min-height:1.3em}
+.d.bad{color:var(--bad)} .d.good{color:var(--good)}
+.gauge{height:7px;border-radius:4px;background:var(--panel-2);overflow:hidden}
+.gauge i{display:block;height:100%;border-radius:4px;transition:width .8s ease,background .3s}
+.navrow{display:flex;justify-content:space-between;gap:10px;align-items:center}
+[data-out][hidden]{display:none!important}
+
+/* summary + compare */
+.totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.totals{grid-template-columns:minmax(0,1fr)}}
+.big{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.05;font-variant-numeric:tabular-nums}
+.conf{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12px;padding:2px 8px;border-radius:6px;background:var(--panel-2)}
+.conf.High{color:var(--good)} .conf.Medium{color:var(--accent)} .conf.Low{color:var(--bad)}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font-family:var(--f-mono);font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--good);color:var(--good)}
+.jmap{display:flex;flex-direction:column}
+.jrow{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.jrow:last-child{border-bottom:none}
+.jrow .w{font-family:var(--f-mono);font-size:11.5px;color:var(--faint)}
+.jrow .t{font-weight:600}
+.jrow .c{font-size:13px;color:var(--muted);font-weight:400;display:block}
+.jrow .n{font-family:var(--f-mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.jrow .n.bad{color:var(--bad)}
+.cbar{display:grid;grid-template-columns:120px minmax(0,1fr) 128px;gap:10px;align-items:center;font-size:14.5px}
+@media (max-width:560px){.cbar{grid-template-columns:96px minmax(0,1fr) 96px;font-size:13px}}
+.cbar .nm{font-weight:600;color:var(--c)}
+.cbar .track{position:relative;height:18px;border-radius:9px;background:var(--panel-2)}
+.cbar .track .rng{position:absolute;top:5px;height:8px;border-radius:4px;background:color-mix(in srgb,var(--c) 35%,transparent)}
+.cbar .track .mid{position:absolute;top:1px;width:4px;height:16px;border-radius:2px;background:var(--c);transform:translateX(-50%)}
+.cbar .track .fillb{position:absolute;inset:0 auto 0 0;border-radius:9px;background:var(--c)}
+.cbar .val{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:13px}
+.cbar .val.best{color:var(--good)}
+.prob{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.prob{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.prob{grid-template-columns:minmax(0,1fr)}}
+.prob div{border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:10px 12px}
+.prob b{font-family:var(--f-display);font-size:30px;color:var(--c);line-height:1}
+.prob span{display:block;font-size:13px;color:var(--muted)}
+.matrix{overflow-x:auto}
+.matrix table{border-collapse:collapse;min-width:720px;width:100%;font-size:12.5px}
+.matrix th,.matrix td{padding:6px 5px;text-align:center;border-bottom:1px solid var(--line)}
+.matrix th{font-weight:500;color:var(--muted);font-size:11.5px;vertical-align:bottom}
+.matrix td:first-child,.matrix th:first-child{text-align:left;font-family:var(--f-display);font-weight:700;font-size:14px;white-space:nowrap}
+.matrix td.cell{font-family:var(--f-mono);font-variant-numeric:tabular-nums;border-radius:4px}
+.gantt{display:flex;flex-direction:column;gap:7px}
+.g-row{display:grid;grid-template-columns:180px minmax(0,1fr);gap:10px;align-items:center;font-size:13.5px}
+@media (max-width:560px){.g-row{grid-template-columns:118px minmax(0,1fr);font-size:12.5px}}
+.g-row .g-n{min-width:0}
+.g-row .g-n small{display:block;color:var(--faint);font-family:var(--f-mono);font-size:11px}
+.g-track{position:relative;height:20px;background:var(--panel-2);border-radius:5px}
+.g-bar{position:absolute;top:0;height:100%;border-radius:5px;background:var(--c)}
+.g-delay{position:absolute;top:4px;height:12px;border-radius:3px;background:repeating-linear-gradient(45deg,var(--bad) 0 3px,transparent 3px 7px);opacity:.75}
+.g-live{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}
+.g-axis .g-track{background:none;height:16px}
+.g-axis span{position:absolute;transform:translateX(-50%);font-family:var(--f-mono);font-size:10.5px;color:var(--faint)}
+.plan-head{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline}
+.plan-head .big{font-size:26px}
+.pre{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);align-items:start}
+.pre:last-child{border-bottom:none}
+.pre input{width:18px;height:18px;margin-top:3px;accent-color:var(--good)}
+.pre label{font-size:14.5px;cursor:pointer}
+.pre label small{display:block;color:var(--muted);font-size:13px}
+.pre .dl{font-family:var(--f-mono);font-size:12px;white-space:nowrap}
+.pre .dl.bad{color:var(--bad)} .pre .dl.good{color:var(--good)}
+.crit{font-family:var(--f-mono);font-size:10.5px;color:var(--bad);border:1px solid var(--bad);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+.plans{display:flex;flex-direction:column;gap:16px}
+.stages{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--faint)}
+.stages span{padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+.stages span.on{border-color:var(--wc);color:var(--fg);font-weight:600;background:color-mix(in srgb,var(--wc) 12%,var(--panel))}
+.stages span.done{color:var(--good);border-color:var(--good)}
+.stages i{font-style:normal;color:var(--faint)}
+.bstat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.bstat{grid-template-columns:minmax(0,1fr)}}
+.now{font-family:var(--f-display);font-weight:700;font-size:20px}
+.now.blocked{color:var(--bad)}
+.blocker{border:2px solid var(--bad);background:var(--alert)}
+.blocker h3{color:var(--bad)}
+.b-head{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--fg);transform:translateX(-50%)}
+.g-track.live .g-bar,.g-track.live .g-delay{transition:none}
+.prov{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:600px){.prov{grid-template-columns:minmax(0,1fr)}}
+.pv{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:2px;font-size:13.5px;color:var(--muted)}
+.pv b{color:var(--fg);font-family:var(--f-display);font-size:18px}
+.pv .bill{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--fg);font-variant-numeric:tabular-nums}
+.pv[aria-pressed="true"]{border:2px solid var(--cloud);background:color-mix(in srgb,var(--cloud) 10%,var(--panel))}
+.tag{font-family:var(--f-mono);font-size:10.5px;color:var(--good);border:1px solid var(--good);border-radius:4px;padding:0 5px;vertical-align:2px;margin-left:4px}
+.link-btn{background:none;border:none;padding:0;color:var(--accent);text-decoration:underline;font:inherit;cursor:pointer}
+.tog{display:flex;gap:8px;align-items:center;font-size:14.5px}
+.tog input{width:18px;height:18px;accent-color:var(--cloud)}
+.calcframe{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.calcframe iframe{display:block;width:100%;height:1400px;border:0}
+.f input.bad{border-color:var(--bad)}
+.err{font-size:12.5px;color:var(--bad)}
+.checks.warn{border-left:4px solid var(--accent)}
+.checks.extreme{border-left:4px solid var(--bad);background:var(--alert)}
+.chk{font-size:14.5px;padding-left:18px;position:relative}
+.chk::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.chk.extreme::before{background:var(--bad)}
+.flag{font-family:var(--f-mono);font-size:12px;color:var(--bad);border:1px solid var(--bad);border-radius:6px;padding:4px 8px;display:inline-block}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+summary{cursor:pointer;font-weight:600}
+.sliders{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.sl .top{display:flex;justify-content:space-between;font-size:14.5px;gap:8px}
+.sl output{font-family:var(--f-mono);color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.fx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.fx{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.note{font-size:13px;color:var(--faint)}
+@media (prefers-reduced-motion:reduce){.alert .dot{animation:none}.gauge i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Four <span>Futures</span></div>
+    <div class="nav">
+      <button class="pill" data-go="sToday">1 · Today</button>
+      <button class="pill" data-go="sCalc">2 · Cloud costs</button>
+      <button class="pill" data-go="sDoors">3 · Doors</button>
+      <button class="pill" data-go="sCompare">4 · Compare</button>
+      <select class="cur" id="cur" aria-label="Currency"></select>
+    </div>
+  </div>
+
+  <!-- TODAY -->
+  <section class="screen" id="sToday">
+    <div class="eyebrow">Step 1 · Where the client is today</div>
+    <h1>Every journey starts from today's estate</h1>
+    <p class="lead">Describe the client's current datacenter. Sample manufacturer data is filled in so you can start straight away. Change anything, or switch industry, and every future recalculates.</p>
+    <div class="card">
+      <h3 id="snapTitle">Today at a glance</h3>
+      <div class="snap" id="snap"></div>
+      <p class="hook" id="hook"></p>
+    </div>
+    <div class="card checks" id="checks" hidden></div>
+    <div class="card">
+      <div class="form" id="form">
+        <div class="group-t">Company</div>
+        <div class="f"><label for="iCompany">Client name</label><input id="iCompany"></div>
+        <div class="f"><label for="iIndustry">Industry</label><select id="iIndustry"><option value="mfg">Manufacturing</option><option value="retail">Retail</option><option value="fin">Financial services</option></select><span class="u">Changing it loads that industry's sample values</span></div>
+        <div class="f"><label for="iCountry">Country</label><input id="iCountry"></div>
+        <div class="f"><label for="iSource">Where these numbers come from</label><select id="iSource"><option value="sample">Sample data (wider cost ranges)</option><option value="client">Validated with the client</option></select></div>
+        <div class="group-t">Estate</div>
+        <div class="f"><label for="iVms">Virtual machines</label><input id="iVms" type="number" min="20" step="10"></div>
+        <div class="f"><label for="iServers">Physical servers</label><input id="iServers" type="number" min="1"></div>
+        <div class="f"><label for="iStorage">Storage</label><input id="iStorage" type="number" min="1"><span class="u">Terabytes</span></div>
+        <div class="f"><label for="iAge">Age of current hardware</label><input id="iAge" type="number" min="0" max="15"><span class="u">Years</span></div>
+        <div class="group-t">Money</div>
+        <div class="f"><label for="iRun">Annual infrastructure run cost</label><input id="iRun" type="number" min="0" step="0.1"><span class="u" data-curu="per year">Millions per year</span></div>
+        <div class="f"><label for="iRev">Revenue lost per hour offline</label><input id="iRev" type="number" min="0" step="0.05"><span class="u" data-curu="per hour">Millions per hour</span></div>
+        <div class="f"><label for="iStaff">Infrastructure team</label><input id="iStaff" type="number" min="1"><span class="u">People</span></div>
+        <div class="f"><label for="iOutage">Unplanned outage hours last year</label><input id="iOutage" type="number" min="0"></div>
+        <div class="group-t">Business outlook</div>
+        <div class="f"><label for="iGrowth">Expected growth per year</label><input id="iGrowth" type="number" min="0" max="40"><span class="u">Percent</span></div>
+        <div class="f"><label for="iPeak">Seasonal peak</label><select id="iPeak"><option value="1.25">Mild (+25%)</option><option value="1.4">Noticeable (+40%)</option><option value="1.55">Strong (+55%)</option><option value="1.8">Extreme (+80%)</option></select></div>
+        <div class="f"><label for="iReg">Share of data that is regulated</label><input id="iReg" type="number" min="0" max="100"><span class="u">Percent (POPIA, GDPR, banking rules)</span></div>
+        <div class="f"><label for="iHyb">Hybrid door: share of workloads moved to cloud</label><input id="iHyb" type="number" min="10" max="90" step="5"><span class="u">Percent. The rest stays on a smaller on-prem refresh</span></div>
+        <div class="f"><label for="iShed">Exposure to power cuts</label><select id="iShed"><option value="0">None</option><option value="1">Light</option><option value="2">Regular (load-shedding)</option><option value="3">Severe</option></select></div>
+      </div>
+    </div>
+    <div class="row"><button class="btn" id="toCalcBtn">Next: price the cloud</button><button class="btn sec" id="toDoorsBtn">Skip to the four doors</button></div>
+  </section>
+
+  <!-- CLOUD COSTS -->
+  <section class="screen" id="sCalc" hidden>
+    <div class="eyebrow">Step 2 · Price the cloud with real rate cards</div>
+    <h1>What would the cloud actually cost?</h1>
+    <p class="lead">The cloud cost calculator below starts from today's estate and prices AWS, Azure and Google Cloud from dated list prices. Pick the provider for the vendor cloud door. Anything you change in the calculator flows straight into the doors.</p>
+    <div class="card" id="calcBridge">
+      <div class="row" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1 1 300px"><h3>What the doors will use</h3><p class="sub" id="calcSync">Loading the calculator…</p></div><button class="btn sec" id="calcResync">Re-send today's estate</button></div>
+      <div class="prov" id="calcProv"></div>
+      <label class="tog"><input type="checkbox" id="useCalc" checked> Use these figures in the vendor cloud and hybrid doors</label>
+      <div id="calcFlags" hidden></div>
+      <p class="sub" id="calcEffect"></p>
+    </div>
+    <div class="calcframe"><iframe id="calcFrame" src="cloud-cost-calculator.html" title="Cloud migration cost calculator"></iframe></div>
+    <div class="row"><button class="btn" id="calcToDoors">Open the four doors</button></div>
+  </section>
+
+  <!-- DOORS -->
+  <section class="screen" id="sDoors" hidden>
+    <div class="eyebrow">Step 3 · Choose a future to live in</div>
+    <h1 id="doorsTitle"></h1>
+    <div class="card">
+      <h3>Before you start: which door do you think costs least over five years?</h3>
+      <p class="sub">Make a guess. I'll show you whether the numbers agree at the end.</p>
+      <div class="guess" id="guess"></div>
+    </div>
+    <p class="flag" id="doorFlag" hidden>Inputs flagged as extreme on Today. Treat these futures as unreliable.</p>
+    <div class="doors" id="doors"></div>
+    <p class="sub">Each door takes about three minutes: ten moments over five years, three decisions for you to make, and a full journey summary at the end.</p>
+  </section>
+
+
+  <!-- READINESS GATE -->
+  <section class="screen" id="sGate" hidden>
+    <div class="world-tag gtag"><i></i><span></span></div>
+    <div class="stages" data-stage="0"></div>
+    <div class="alert biz"><span class="dot"></span><span>Before you open this door</span></div>
+    <h2>Is the client ready to start?</h2>
+    <p class="lead">Every future has preconditions. Tick the ones the client already has in place. Anything left unticked will block the build later, and you will feel the delay.</p>
+    <div class="card"><div id="gateList"></div></div>
+    <div class="card"><div class="plan-head" id="gateHead"></div><div class="gantt" id="gateGantt"></div></div>
+    <div class="navrow"><button class="btn sec" id="gateBack">Choose another door</button><button class="btn" id="gateGo">Start the build</button></div>
+  </section>
+
+  <!-- BUILD -->
+  <section class="screen" id="sBuild" hidden>
+    <div class="world-tag gtag"><i></i><span></span></div>
+    <div class="stages" data-stage="1"></div>
+    <div class="alert calm" id="bAlert"><span class="dot"></span><span id="bAlertTxt">Building</span></div>
+    <h2 id="bTitle">Building the future, month by month</h2>
+    <div class="bstat">
+      <div class="m"><div class="k">Month</div><div class="v" id="bMonth">0</div></div>
+      <div class="m"><div class="k" id="bOldK">Old datacenter still costing</div><div class="v" id="bOld">0</div></div>
+      <div class="m"><div class="k">Time lost to blockers</div><div class="v" id="bLost">0 mo</div></div>
+    </div>
+    <div class="card"><div class="now" id="bNow">Starting</div><div class="gantt" id="bGantt"></div></div>
+    <div class="card blocker" id="bBlock" hidden></div>
+    <div class="navrow"><button class="btn sec" id="bBack">Back to readiness</button><div class="row"><button class="btn sec" id="bSkip">Skip to go-live</button><button class="btn" id="bGo" disabled>Go live</button></div></div>
+  </section>
+
+  <!-- MOMENT -->
+  <section class="screen" id="sMoment" hidden>
+    <div class="world-tag" id="wTag"><i></i><span></span></div>
+    <div class="stages" data-stage="2"></div>
+    <div class="progress" id="prog" aria-hidden="true"></div>
+    <div class="alert" id="alert"><span class="dot"></span><span id="alertTxt"></span></div>
+    <h2 id="mTitle"></h2>
+    <div class="stagebox">
+      <canvas id="cv" aria-label="Animated view of customers arriving at the client's systems"></canvas>
+      <div class="clock" id="clock" hidden><span class="a">Systems offline</span><b id="clockH">0 h 00 m</b><span class="l" id="clockL"></span></div>
+      <div class="caption">
+        <span><i style="background:var(--wc)"></i><span id="capServed">Order served</span></span>
+        <span><i style="background:var(--bad)"></i><span id="capLost">Order lost</span></span>
+        <span>Boxes on the right are your systems</span>
+      </div>
+    </div>
+    <div class="card decide" id="decide" hidden>
+      <div class="eyebrow">Your decision</div>
+      <p class="q" id="dq"></p>
+      <div class="opts" id="dopts"></div>
+    </div>
+    <p class="happened" id="mHappened" data-out></p>
+    <div class="take" data-out><div class="eyebrow">What I think</div><p id="mThought"></p></div>
+    <div class="meters" data-out>
+      <div class="m"><div class="k">Spent so far</div><div class="v" id="vSpend">0</div><div class="d" id="dSpend"></div></div>
+      <div class="m"><div class="k">Hours offline</div><div class="v" id="vDown">0 h</div><div class="d" id="dDown"></div></div>
+      <div class="m"><div class="k">Revenue lost</div><div class="v" id="vLost">0</div><div class="d" id="dLost"></div></div>
+      <div class="m"><div class="k">Exposure</div><div class="v" id="vRisk">Low</div><div class="gauge"><i id="gRisk"></i></div></div>
+    </div>
+    <div class="navrow">
+      <button class="btn sec" id="back">Back</button>
+      <button class="btn" id="next">Next</button>
+    </div>
+  </section>
+
+  <!-- DOOR SUMMARY -->
+  <section class="screen" id="sSummary" hidden>
+    <div class="world-tag" id="sTag"><i></i><span></span></div>
+    <h1 id="sumTitle"></h1>
+    <div class="totals" id="sumTotals"></div>
+    <div class="badges" id="sumBadges"></div>
+    <div class="take"><div class="eyebrow">What I think</div><p id="sumThought"></p></div>
+    <div class="card" id="sumPlan"></div>
+    <div class="card"><h3>Your journey, moment by moment</h3><div class="jmap" id="jmap"></div></div>
+    <div class="row" id="sumNext"></div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="screen" id="sCompare" hidden>
+    <div class="eyebrow">Step 4 · After five years</div>
+    <h1 id="cmpTitle">The four futures, side by side</h1>
+    <div class="card" id="guessReveal" hidden></div>
+    <div class="card">
+      <h3>What each future really costs</h3>
+      <p class="sub">Spending plus revenue lost to downtime. The line marks the most likely figure, and the shaded band shows where 80% of 600 simulated futures landed.</p>
+      <div id="cmpEcon" class="screen" style="gap:10px"></div>
+    </div>
+    <div class="card">
+      <h3>How often each door came out cheapest</h3>
+      <p class="sub">Across 600 simulated futures with different growth, prices, incidents and overruns.</p>
+      <div class="prob" id="cmpProb"></div>
+    </div>
+    <div class="card" id="cmpOther"></div>
+    <div class="card" id="cmpPlan"></div>
+    <div class="card"><h3>The whole journey, all four doors</h3><p class="sub">Cost of each moment (spend plus revenue lost). Darker cells hurt more.</p><div class="matrix" id="matrix"></div></div>
+    <div class="take"><div class="eyebrow">My recommendation</div><p id="verdict"></p></div>
+    <details>
+      <summary>Presenter settings: market assumptions and exchange rates</summary>
+      <div class="sliders">
+        <div class="sl"><div class="top"><label for="sEsc">Cloud price + local currency vs USD, per year</label><output id="oEsc"></output></div><input type="range" id="sEsc" min="0" max="20" value="9"></div>
+        <div class="sl"><div class="top"><label for="sTar">Electricity price increase per year</label><output id="oTar"></output></div><input type="range" id="sTar" min="0" max="20" value="12"></div>
+        <div><div class="sub" style="margin-bottom:8px">Exchange rates per 1 USD (indicative, edit to today's rates)</div><div class="fx" id="fx"></div></div>
+      </div>
+    </details>
+    <p class="note">This is an illustrative model. The engine is scaled from the as-is estate you entered, with typical rates for each option. Validate the base rates, contracts and tariffs with the client before using it for a real decision.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const CUR={ZAR:{sym:'R',rate:17.8},USD:{sym:'$',rate:1},EUR:{sym:'€',rate:.92},GBP:{sym:'£',rate:.78},INR:{sym:'₹',rate:86.5},AED:{sym:'AED ',rate:3.67},KES:{sym:'KSh ',rate:129}};
+let cur='ZAR';
+const IND={
+  mfg:{unit:'orders',one:'Order',peak:'Quarter-end production and shipping surge',down:'the production lines stopped',
+    preset:{company:'Mzansi Precision Components (sample)',country:'South Africa',vms:420,servers:110,storage:380,age:6,run:14.5,rev:.6,staff:12,outage:10,growth:12,peak:'1.4',reg:30,shed:'2',hyb:50}},
+  retail:{unit:'shoppers',one:'Shopper',peak:'Black Friday rush',down:'the tills stopped',
+    preset:{company:'Sample retailer',country:'South Africa',vms:400,servers:95,storage:300,age:5,run:12.8,rev:.5,staff:14,outage:8,growth:18,peak:'1.55',reg:45,shed:'2',hyb:55}},
+  fin:{unit:'transactions',one:'Transaction',peak:'Month-end salary run',down:'payments stopped',
+    preset:{company:'Sample financial services firm',country:'South Africa',vms:650,servers:160,storage:900,age:5,run:24,rev:1.8,staff:22,outage:6,growth:10,peak:'1.25',reg:85,shed:'2',hyb:35}}
+};
+// A holds model values in rand (base unit)
+const A={industry:'mfg',source:'sample'};Object.assign(A,IND.mfg.preset);
+const P={esc:9,tariff:12};
+const W={
+  onprem:{name:'Refresh on-premises',short:'On-prem',css:'--onprem',risk0:40,promise:'Buy new servers for your own building. Familiar, and nothing has to move.'},
+  cloud:{name:'Move to a vendor cloud',short:'Vendor cloud',css:'--cloud',risk0:38,promise:'A hyperscaler runs your systems under a managed service. Pay for what you use.'},
+  priv:{name:'Build a private cloud',short:'Private cloud',css:'--priv',risk0:30,promise:'Your own cloud platform, hosted in a secure, power-protected facility.'},
+  hybrid:{name:'Go hybrid',short:'Hybrid',css:'--hybrid',risk0:34,promise:'Keep some systems on a smaller on-prem refresh and move the rest to cloud.'}
+};
+const ORDER=['onprem','cloud','priv','hybrid'];
+const T=(s)=>s.replace(/\{unit\}/g,IND[A.industry].unit).replace(/\{down\}/g,IND[A.industry].down);
+
+/* Moments. c = one-off cost in base rand m at 400 VMs, d = downtime hours, r = exposure change */
+const EV=[
+ {q:1,id:'power',kind:'crisis',title:()=>'The power grid fails for a week',shed:true,p:()=>Math.min(1,A.shed/3+.1),w:{
+  onprem:{c:.9,d:14,r:6,t:"Owning the building means owning the power problem. The diesel bill hurts, but the 14 hours when {down} is what {unit} remember. A spreadsheet shows this as a small contingency line."},
+  cloud:{c:0,d:0,r:0,t:"Nothing happened. The provider's facility runs on its own generation. That calm is what the monthly premium buys."},
+  priv:{c:.3,d:2,r:1,t:"The facility kept the power on; one branch rack tripped. You put the risk with people who are built for this."},hybrid:{c:.5,d:4,r:3,t:"The cloud half kept running; the on-prem half went dark for four hours. Hybrid halves the blast radius, but only if your most critical systems sit on the right side."}}},
+ {q:3,id:'peak',kind:'biz',title:()=>IND[A.industry].peak,p:()=>1,decision:true,w:{
+  onprem:{c:0,d:0,r:2,q:"Demand will be higher than your fixed servers can handle. What do you do?",
+    A:{l:'Rent emergency cloud capacity',s:'Extra spend, far fewer lost {unit}',c:1.8,dm:.35,r:-1,t:"Renting capacity for a few weeks is a taste of the cloud world, and it saved most of the {unit} you would have lost. Remember this when we compare."},
+    B:{l:'Ride it out',s:'No extra spend',c:0,dm:1,r:1,t:"Watch the red dots: those are {unit} you lost. New servers take six months to arrive, so next year's peak is already being decided today."}},
+  cloud:{c:0,d:0,r:0,q:"Capacity will grow automatically. How do you want to pay for it?",
+    A:{l:'Pay on demand',s:'Flexible, higher unit price',c:0,rm:1,r:0,t:"Capacity appeared when it was needed and disappeared afterwards. The bill this quarter jumped, but nothing was lost."},
+    B:{l:'Commit to 3-year reserved capacity',s:'About 10% cheaper, more lock-in',c:.6,rm:.9,r:3,t:"You cut the running cost by about a tenth and tied yourself more tightly to one provider. A good trade if you are sure you'll stay."}},
+  priv:{c:0,d:0,r:0,q:"The platform forecasts the peak. How do you cover it?",
+    A:{l:'Burst overflow to public cloud',s:'Small extra spend, zero lost {unit}',c:.5,dm:0,r:0,t:"Hybrid in action: your platform plus a public-cloud safety valve. Nothing was lost."},
+    B:{l:'Rely on platform headroom',s:'No extra spend',c:0,dm:1,r:0,t:"The platform added capacity a quarter ahead. Some of it sits idle most of the year, but almost nobody was turned away."}},
+  hybrid:{c:0,d:0,r:0,q:"Demand will outgrow your on-prem share. How do you handle the peak?",
+    A:{l:'Burst the overflow to cloud',s:'Pay only for the extra capacity',c:.3,r:0,t:"This is hybrid at its best: steady load at home, peaks in the cloud. Nothing was lost, and you paid only for the burst."},
+    B:{l:'Keep everything on-prem for the peak',s:'No extra spend',c:0,r:2,t:"You had the cloud right next door and didn't use it. The red dots are {unit} lost to a policy choice, not a technology limit."}}}},
+ {q:6,id:'ransom',kind:'crisis',title:()=>'Ransomware locks part of your systems',p:()=>.6,decision:true,w:{
+  onprem:{c:2.8,d:30,r:8,t:"Old network design and backups too close to production. New hardware does not fix old ways of working."},
+  cloud:{c:1.1,d:4,r:2,t:"Modern controls kept it small. The weak spot was a setting your own team owns. Cloud speeds up recovery; it does not make you secure by itself."},
+  priv:{c:1.4,d:9,r:3,t:"The platform stopped the attack spreading, but restores ran at your own team's pace."},hybrid:{c:1.9,d:12,r:5,t:"Two environments, two sets of controls. The attackers came in on the on-prem side and probed the link to the cloud. Hybrid widens the attack surface unless security is unified."},
+  shared:{q:"Attackers are inside. What is your call?",
+    A:{l:'Shut down and restore clean',s:'Longer outage, you know they are gone',dm:1.4,cm:1,r:-4,t:"Restoring clean takes longer, but the attackers are out."},
+    B:{l:'Contain it and keep running',s:'Shorter outage, some doubt remains',dm:.6,cm:1.3,r:6,t:"You kept trading, but you can't be sure they're gone. Exposure rises."}}}},
+ {q:8,id:'hw',kind:'crisis',title:()=>'A critical storage unit breaks',p:()=>.75,w:{
+  onprem:{c:1.6,d:18,r:5,t:"The spare part was stuck at customs: eighteen hours offline. Hardware is reliable right up until the day it becomes your problem."},
+  cloud:{c:0,d:.5,r:0,t:"A machine failed somewhere and your systems moved before anyone noticed. The failure became the provider's problem. That is real value, and it belongs in the business case."},
+  priv:{c:.4,d:3,r:1,t:"The platform moved your systems to healthy machines in minutes. Same hardware risk as a refresh, much smaller impact."},hybrid:{c:.8,d:6,r:2,t:"The on-prem half lost a storage unit. Critical systems failed over to the cloud in hours rather than days, because the recovery runbook spanned both sides."}}},
+ {q:10,id:'audit',kind:'biz',title:()=>'Regulators audit where your data lives',p:()=>1,w:{
+  onprem:{c:.3,d:0,r:-2,t:"Your data sits in your own building, so this was easy. Owning the location is on-prem's quiet strength."},
+  cloud:{c:1.8,d:0,r:6,t:"Auditors wanted proof of where every backup and support log sits, and who at the provider can see it. Gathering it took weeks. The more regulated your data, the more this hurts."},
+  priv:{c:.2,d:0,r:-3,t:"Data location is designed in, and the platform produces evidence on request. For regulated businesses, this is where private cloud earns its keep."},hybrid:{c:.4,d:0,r:-2,t:"Regulated data stayed on-prem by design, so the audit was straightforward. Placing each kind of data deliberately is hybrid's real strength."}}},
+ {q:12,id:'ai',kind:'biz',title:()=>'The board wants AI in production',p:()=>.85,decision:true,w:{
+  onprem:{c:9,d:0,r:4,t:"AI needs special servers. They take six months to arrive and your building struggles to cool them."},
+  cloud:{c:2.4,d:0,r:2,t:"AI capacity was ready in a week. The catch is running it all the time: within months it costs more than owning a small set would."},
+  priv:{c:5.5,d:0,r:2,t:"You added an AI pool to your platform within a quarter. Slower than cloud, cheaper once it's in steady use."},hybrid:{c:3,d:0,r:2,t:"You trained models in the cloud and kept sensitive data at home. Flexible, but the data pipeline between the two sides needs care."},
+  shared:{q:"Go now, or wait for a clearer business case?",
+    A:{l:'Go now',s:'Full cost now, first-mover advantage',cm:1,r:0,t:"You moved first."},
+    B:{l:'Wait six months',s:'Half the spend now, competitors may move first',cm:.5,r:4,t:"You saved money and lost time. A competitor launched first, so your exposure rises."}}}},
+ {q:13,id:'power2',kind:'crisis',title:()=>'Power cuts come back',shed:true,p:()=>Math.min(1,A.shed/3+.1),w:{
+  onprem:{c:.9,d:12,r:5,t:"Second time. The board now asks why you refreshed inside a building that depends on diesel deliveries. Each outage now costs you credibility as well as money."},
+  cloud:{c:0,d:0,r:0,t:"Again, nothing. You've been paying for this resilience in every monthly bill."},
+  priv:{c:.3,d:1,r:0,t:"The facility held. You paid for resilience once, up front, and now you own it."},hybrid:{c:.4,d:3,r:2,t:"The on-prem half wobbled again. Systems that must run through power cuts belong in the cloud half or in a protected facility."}}},
+ {q:14,id:'talent',kind:'biz',title:()=>'Your best engineer resigns',p:()=>.6,w:{
+  onprem:{c:1.2,d:6,r:7,t:"She was the only person who fully understood the storage setup. Owned hardware concentrates knowledge in a few people. Replacing her took five months."},
+  cloud:{c:.4,d:0,r:2,t:"The setup is standard and documented, so a replacement started in six weeks. The skill you really lack now is managing the cloud bill."},
+  priv:{c:.8,d:2,r:4,t:"Platform engineers are hard to hire, so you leaned on your managed-service partner. Private cloud needs a stronger in-house team than most people plan for."},hybrid:{c:1,d:3,r:6,t:"Hybrid needs two skill sets, and losing one engineer leaves a gap on one side. The knowledge of how the two sides connect is the hardest to replace."}}},
+ {q:16,id:'price',kind:'biz',title:()=>'The currency weakens and prices rise',p:()=>.75,w:{
+  onprem:{c:0,d:0,r:0,t:"You barely feel it this year because the servers are paid for. You'll feel it at the next refresh, when hardware is priced in dollars again."},
+  cloud:{c:0,d:0,r:5,t:"Your bill is tied to the dollar and the provider raised prices, with no room to renegotiate until the contract ends. Leaving now would feel like a second migration. This is lock-in."},
+  priv:{c:.5,d:0,r:1,t:"Software licences rose a little. Most of what you use is already owned."},hybrid:{c:.2,d:0,r:3,t:"About half your bill moved with the dollar. Hybrid softens currency shocks and keeps the option of bringing workloads back home."}}},
+ {q:19,id:'eol',kind:'calm',title:()=>'Year five: time to decide again',p:()=>1,w:{
+  onprem:{c:0,d:0,r:6,t:"Your servers are ageing and you're writing another refresh business case. A refresh renews the cycle rather than breaking it."},
+  cloud:{c:0,d:0,r:2,t:"The contract is up for renewal. You have speed and resilience, and a bill that grew faster than the business. Now the talk is savings and exit options."},
+  priv:{c:0,d:0,r:-2,t:"Replacing hardware inside the platform is routine. You own the platform and the skills: the most effort up front, the calmest year five."},hybrid:{c:0,d:0,r:1,t:"You now decide workload by workload where each one should live. Hybrid is a portfolio you keep rebalancing, not a destination. That flexibility has value, and so does the complexity it brings."}}}
+];
+const DEF={peak:'B',ransom:'A',ai:'A'};
+const choices={onprem:{},cloud:{},priv:{},hybrid:{}};
+const pick=(w,id)=>choices[w][id]||DEF[id];
+function optOf(e,w,ch){const x=e.w[w];return (x.A?x:e.w.shared)[ch];}
+function decQ(e,w){const x=e.w[w];return x.q||e.w.shared.q;}
+
+/* ---- model ---- */
+function rngOf(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+function gauss(r){let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function simulate(w,rng){
+  const k=A.source==='sample'?1.4:1,N=()=>rng?gauss(rng):0;
+  const g=Math.max(-.03,(A.growth/100)*(1+N()*.3*k)),esc=Math.max(0,P.esc/100*(1+N()*.35*k)),tar=Math.max(0,P.tariff/100*(1+N()*.3*k));
+  const s=Math.max(.05,(A.vms||0)/400),rq=Math.max(.01,(A.run||0)/4),pk=+A.peak,sf=A.shed/2,reg=A.reg/40;
+  const capM=1+N()*.1*k,migC=1+Math.abs(N())*.3*k,migP=1+Math.abs(N())*.2*k,runC=1+N()*(calcOn()?.07:.12)*k,capP=1+N()*.12*k;
+  const dem=q=>Math.pow(1+g,q/4)*((q%4===3)?pk:1)+(q>=12?.35:0);
+  const cc=calcOn()?calcQ():null;const h=Math.min(.9,Math.max(.1,(A.hyb||50)/100));let capOn=1.35*(1-h)*1.05;
+  let cap=w==='onprem'?1.35:w==='priv'?1.7:1.15,pending=[],cum=0,down=0,risk=W[w].risk0+(w==='onprem'?Math.max(0,A.age-5):0),runMul=1;const out=[],log={};
+  for(let q=0;q<20;q++){
+    const d=dem(q);let cost=0,dh=0;
+    pending=pending.filter(o=>{if(o.at<=q){cap+=o.add;return false}return true});
+    if(q===0){const lost=planOf(w).lost;if(w==='onprem'){cost+=lost*rq/3*.3;risk+=lost*1.2;}else cost+=lost*rq/3;}
+    if(w==='onprem'){if(q===0)cost+=48*s*capM;cost+=rq*.85*Math.pow(1+tar,q/4)*(.75+.25*cap/1.35);if(q>=12){cost+=.3*s;risk+=1}}
+    if(w==='cloud'){cap=d*1.15;if(q<3)cost+=((cc?cc.mig:14*s)*migC)/3+rq*.8;if(q===1)dh+=6;cost+=(cc?cc.runQ:rq*1.38)*d*runMul*runC*Math.pow(1+esc,q/4)*(q>=16?1+esc*.9:1);if(q>=12)cost+=1.1*s;}
+    if(w==='hybrid'){const cs=h*d,over=Math.max(0,(1-h)*d-capOn),burst=!(q===3&&pick('hybrid','peak')==='B');
+      if(q===0)cost+=48*s*(1-h)*1.05*capM;if(q<3)cost+=((cc?cc.mig/(CALC.share||1):14*s)*h*migC)/3+rq*.8*h;if(q===1)dh+=3;
+      cost+=(rq*.85*(1-h)+rq*.08)*Math.pow(1+tar,q/4);
+      cost+=(cc?cc.runQ/(CALC.share||1):rq*1.38)*(cs+(burst?over:0))*runMul*runC*Math.pow(1+esc,q/4)*(q>=16?1+esc*.45:1);
+      cost+=rq*.05;if(q>=12)cost+=.6*s;
+      cap=capOn+cs*1.15+(burst?over:0);}
+    if(w==='priv'){if(q===0)cost+=36*s*capP;if(q<2)cost+=4.5*s*migP;if(q===1)dh+=3;cost+=rq*.84*Math.pow(1+tar*.5,q/4)*(.8+.2*cap/1.7);if(q>=12)cost+=.3*s;}
+    const serve=Math.min(1,cap/d);let shortH=(1-serve)*90;
+    const e=EV.find(x=>x.q===q);let evC=0,evD=0;
+    if(e){
+      let x=e.w[w],c=x.c*s,dd=x.d,r=x.r;
+      if(e.shed){c*=sf;dd*=sf;r*=Math.min(1,sf+.25);}
+      if(e.id==='audit'&&w==='cloud'){c*=reg;r*=Math.min(1.5,reg);}
+      const hit=rng?rng()<e.p():true,mag=rng?Math.exp(N()*.5):1;
+      if(e.decision){const ch=pick(w,e.id),o=optOf(e,w,ch);
+        if(e.id==='peak'){c+=(o.c||0)*s;if(o.dm!==undefined)shortH*=o.dm;if(o.rm){runMul=o.rm;}r+=o.r;}
+        else{c*=(o.cm||1);dd*=(o.dm||1);r+=o.r;}}
+      if(hit&&e.id!=='peak'){evC=c*mag;evD=dd*mag;risk+=r;}
+      if(e.id==='peak'){evC=c;risk+=r;}
+      if(e.id==='peak')evD=shortH;
+      cost+=evC;dh+=e.id==='peak'?0:evD;
+      log[e.id]={c:evC,d:evD};
+    }
+    dh+=shortH;
+    if(w==='onprem'&&!pending.length&&d>cap*.92){pending.push({at:q+2,add:.5});cost+=11*s*capM;}
+    if(w==='priv'&&!pending.length){const dn=dem(q+1);if(dn>cap*.9){const add=Math.max(.35,dn*1.05-cap);pending.push({at:q+1,add});cost+=20*add*s*capP;}}
+    risk=Math.max(5,Math.min(95,risk));cum+=cost;down+=dh;
+    out.push({q,d,cap,cost,cum,down,dh,risk,serve,loss:down*A.rev,econ:cum+down*A.rev});
+  }
+  out.log=log;return out;
+}
+let S={},MC={};
+function pct(a,p){const b=a.slice().sort((x,y)=>x-y);return b[Math.min(b.length-1,Math.floor(p*b.length))];}
+function recompute(){
+  ORDER.forEach(w=>S[w]=simulate(w,null));
+  const R=600,tot={},spend={},wins={};ORDER.forEach(w=>{tot[w]=[];spend[w]=[];wins[w]=0;});
+  ORDER.forEach((w,i)=>{const r=rngOf(9001+i*7919);for(let n=0;n<R;n++){const s=simulate(w,r)[19];if(isFinite(s.econ)&&isFinite(s.cum)){tot[w].push(s.econ);spend[w].push(s.cum);}}});
+  const nR=Math.min(...ORDER.map(w=>tot[w].length));for(let n=0;n<nR;n++){let b=ORDER[0];ORDER.forEach(w=>{if(tot[w][n]<tot[b][n])b=w});wins[b]++;}
+  ORDER.forEach(w=>{const p10=pct(tot[w],.1),p50=pct(tot[w],.5),p90=pct(tot[w],.9),spr=p50>0?(p90-p10)/p50:9;
+    MC[w]={p10,p50,p90,s10:pct(spend[w],.1),s90:pct(spend[w],.9),win:nR?wins[w]/nR:0,conf:spr<.25?'High':spr<.45?'Medium':'Low'};});
+}
+
+/* ---- formatting ---- */
+const conv=z=>z/CUR.ZAR.rate*CUR[cur].rate;
+const unconv=v=>v/CUR[cur].rate*CUR.ZAR.rate;
+function num(v){if(!isFinite(v))return '—';const a=Math.abs(v),d=a>=100?0:a>=10?1:2;return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});}
+const money=z=>isFinite(z)?CUR[cur].sym+num(conv(z))+'m':'—';
+const usd=z=>cur==='USD'||!isFinite(z)?'':`≈ $${num(z/CUR.ZAR.rate)}m`;
+const riskWord=r=>r<35?'Low':r<55?'Medium':'High';
+const riskCol=r=>r<35?'var(--good)':r<55?'var(--accent)':'var(--bad)';
+const when=q=>`Year ${Math.floor(q/4)+1}, quarter ${q%4+1}`;
+const cssv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---- screens ---- */
+let screen='sToday',world='onprem',step=0,visited={},guess=null;
+function show(id){screen=id;['sToday','sCalc','sDoors','sGate','sBuild','sMoment','sSummary','sCompare'].forEach(s=>$(s).hidden=s!==id);
+  document.querySelectorAll('[data-go]').forEach(b=>b.setAttribute('aria-current',b.dataset.go===id||(['sMoment','sSummary','sGate','sBuild'].includes(id))&&b.dataset.go==='sDoors'));
+  window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.go;if(g==='sDoors')renderDoors();if(g==='sCalc'){renderCalcBridge();try{calcFrame.contentWindow.postMessage({type:'ff-height'},'*')}catch(e){}}if(g==='sCompare')renderCompare();show(g);}));
+
+/* TODAY */
+const F={iCompany:'company',iCountry:'country',iVms:'vms',iServers:'servers',iStorage:'storage',iAge:'age',iRun:'run',iRev:'rev',iStaff:'staff',iOutage:'outage',iGrowth:'growth',iPeak:'peak',iReg:'reg',iHyb:'hyb',iShed:'shed',iSource:'source'};
+const MONEY=['run','rev'];
+function fillForm(){
+  $('iIndustry').value=A.industry;fieldIssues={};setTimeout(()=>{setBoundsAttrs();renderFieldIssues();},0);
+  for(const id in F){const k=F[id];let v=A[k];if(MONEY.includes(k))v=+conv(v).toFixed(2);$(id).value=v;}
+  document.querySelectorAll('[data-curu]').forEach(el=>el.textContent=`${cur} (${CUR[cur].sym.trim()}) millions ${el.dataset.curu}`);
+}
+/* Input bounds: [min, max] in model units (money in rand millions). Values outside are clamped and flagged. */
+const BOUNDS={vms:[20,20000,'VMs'],servers:[1,5000,'servers'],storage:[1,50000,'TB'],age:[0,15,'years'],run:[.5,5000,'m'],rev:[0,500,'m'],
+  staff:[1,1000,'people'],outage:[0,2000,'hours'],growth:[0,40,'%'],reg:[0,100,'%'],hyb:[10,90,'%']};
+let fieldIssues={};
+const showB=(k,v)=>MONEY.includes(k)?CUR[cur].sym+num(conv(v))+'m':v.toLocaleString('en-US')+' '+BOUNDS[k][2];
+function errEl(id){let e=$('e-'+id);if(!e){e=document.createElement('span');e.className='err';e.id='e-'+id;e.setAttribute('role','status');$(id).insertAdjacentElement('afterend',e);}return e;}
+function readForm(){
+  fieldIssues={};
+  for(const id in F){const k=F[id],el=$(id);let v=el.value;
+    if(el.type==='number'){
+      const b=BOUNDS[k];v=parseFloat(v);
+      if(!isFinite(v)){fieldIssues[id]='Enter a number. Using '+showB(k,A[k])+' for now.';continue;}
+      if(MONEY.includes(k))v=unconv(v);
+      if(b){const c=Math.min(b[1],Math.max(b[0],v));if(c!==v)fieldIssues[id]=`Outside the model's range (${showB(k,b[0])} to ${showB(k,b[1])}). Using ${showB(k,c)}.`;v=c;}
+      if(['vms','servers','staff','outage','age'].includes(k))v=Math.round(v);
+    }else if(k==='shed')v=+v;
+    A[k]=v;}
+  renderFieldIssues();
+}
+function renderFieldIssues(){
+  for(const id in F){if($(id).type!=='number')continue;const m=fieldIssues[id]||'',e=errEl(id);e.textContent=m;e.hidden=!m;$(id).classList.toggle('bad',!!m);$(id).setAttribute('aria-invalid',m?'true':'false');}
+}
+function setBoundsAttrs(){for(const id in F){const k=F[id],b=BOUNDS[k];if(!b)continue;$(id).min=MONEY.includes(k)?+conv(b[0]).toFixed(2):b[0];$(id).max=MONEY.includes(k)?+conv(b[1]).toFixed(2):b[1];}}
+/* Cross-field plausibility checks. level 'extreme' pauses the calculator hand-off and flags results. */
+function estateChecks(){
+  const out=[],usdRun=A.run/CUR.ZAR.rate*1e6,perVm=usdRun/A.vms/12,tb=A.storage/A.vms,dens=A.vms/A.servers,lost=A.outage*A.rev;
+  if(tb>20)out.push(['extreme',`${num(tb)} TB of storage per VM is far above the usual 0.2 to 3 TB. Check the storage figure.`]);
+  else if(tb>5)out.push(['warn',`${num(tb)} TB of storage per VM is high. Archive-heavy estates exist, but check the figure.`]);
+  if(perVm<10||perVm>3000)out.push(['extreme',`The run cost works out to $${num(perVm)} per VM per month. Typical estates sit between $30 and $1,000.`]);
+  else if(perVm<30||perVm>1000)out.push(['warn',`The run cost works out to $${num(perVm)} per VM per month, outside the usual $30 to $1,000.`]);
+  if(A.servers>A.vms)out.push(['warn','There are more physical servers than VMs. Check the counts.']);
+  else if(dens>60)out.push(['warn',`${num(dens)} VMs per physical server is unusually dense.`]);
+  if(A.vms/A.staff>400)out.push(['warn',`${num(A.vms/A.staff)} VMs per engineer is a very lean team.`]);
+  if(lost>A.run*2)out.push(['warn','Last year’s outages cost more than twice the infrastructure budget. Check revenue per hour and outage hours.']);
+  return out;
+}
+const isExtreme=()=>estateChecks().some(c=>c[0]==='extreme');
+function renderChecks(){
+  const c=estateChecks(),el=$('checks');
+  el.hidden=!c.length;
+  el.innerHTML=c.length?`<h3>${isExtreme()?'This estate looks extreme':'A few figures to double-check'}</h3>${c.map(x=>`<p class="chk ${x[0]}">${x[1]}</p>`).join('')}<p class="sub">${isExtreme()?'Results are flagged as unreliable, and the estate is not sent to the cloud calculator until it looks realistic.':'The model still runs; results are only as good as these inputs.'}</p>`:'';
+  el.className='card checks '+(isExtreme()?'extreme':'warn');
+}
+function renderSnap(){
+  const lost=Math.max(0,A.outage*A.rev),risk=Math.min(95,28+Math.max(0,A.age-4)*5+A.shed*4+(A.reg>50?6:0));
+  $('snapTitle').textContent=`${A.company||'The client'} today`;
+  $('snap').innerHTML=[
+    [money(A.run),'run cost per year'],
+    [A.vms>0?CUR[cur].sym+num(conv(A.run)*1e6/A.vms/12):'—','per VM per month'],
+    [A.age+' yrs','hardware age'],
+    [riskWord(risk),'exposure today']
+  ].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join('');
+  const share=A.run>0?(lost/A.run*100).toFixed(0)+'%':'an unknown share';
+  $('hook').innerHTML=lost>0?`Every hour offline costs about <b>${money(A.rev)}</b>. Last year's ${A.outage} hours of outages cost roughly <b>${money(lost)}</b>${usd(lost)?' ('+usd(lost)+')':''}, ${share} of the whole infrastructure budget.`:`No outage losses entered. Add revenue lost per hour and last year's outage hours to see what downtime costs.`;
+  $('doorsTitle').textContent=`${A.company||'The client'}: which future do you want to live in?`;
+  renderChecks();
+}
+$('form').addEventListener('input',e=>{if(e.target.id==='iIndustry')return;readForm();recompute();renderSnap();sendSoon();});
+$('form').addEventListener('change',e=>{const id=e.target.id,el=e.target;if(!fieldIssues[id]||el.type!=='number')return;const k=F[id];el.value=MONEY.includes(k)?+conv(A[k]).toFixed(2):A[k];if(/^Enter/.test(fieldIssues[id]))delete fieldIssues[id];else fieldIssues[id]=fieldIssues[id].replace('Using','Adjusted to');renderFieldIssues();});
+$('iIndustry').addEventListener('change',e=>{A.industry=e.target.value;Object.assign(A,IND[A.industry].preset);fillForm();recompute();renderSnap();sendSoon();});
+$('toDoorsBtn').addEventListener('click',()=>{renderDoors();show('sDoors')});
+
+/* DOORS */
+function renderDoors(){$('doorFlag').hidden=!isExtreme();
+  $('guess').innerHTML=ORDER.map(w=>`<button class="chipbtn" data-g="${w}" aria-pressed="${guess===w}" style="--c:var(${W[w].css})">${W[w].short}</button>`).join('');
+  $('guess').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{guess=b.dataset.g;renderDoors();}));
+  $('doors').innerHTML=ORDER.map(w=>`<button class="door" data-w="${w}" style="--c:var(${W[w].css})"><b>${W[w].name}</b><span>${W[w].promise}</span><span>Live in about <b>${mo(planOf(w).total)}</b> · ${PLAN[w].pre.length-preOk[w].filter(Boolean).length} preconditions open</span><em class="${visited[w]?'done':''}">${visited[w]?'Walked through · go again':'Step through this door'}</em></button>`).join('');
+  $('doors').querySelectorAll('.door').forEach(b=>b.addEventListener('click',()=>enter(b.dataset.w)));
+}
+
+/* MOMENT */
+let shown={cum:0,down:0,loss:0,risk:40},anim=null,clockAnim=null;
+function enter(w){world=w;document.documentElement.style.setProperty('--wc',`var(${W[w].css})`);renderGate();show('sGate');}
+function goLive(){const w=world;step=0;document.documentElement.style.setProperty('--wc',`var(${W[w].css})`);
+  $('wTag').querySelector('span').textContent=W[w].name;$('prog').innerHTML=Array.from({length:EV.length+1},()=>'<i></i>').join('');
+  $('capServed').textContent=IND[A.industry].one+' served';$('capLost').textContent=IND[A.industry].one+' lost';
+  shown={cum:0,down:0,loss:0,risk:W[w].risk0};show('sMoment');renderStages();renderStep();}
+function snapAt(q){const s=S[world][q];return{cum:s.cum,down:s.down,loss:s.loss,risk:s.risk};}
+function renderStep(){
+  const s=S[world];
+  $('prog').querySelectorAll('i').forEach((el,i)=>el.classList.toggle('on',i<=step));
+  $('next').textContent=step===EV.length?'See my five-year journey':'Next moment';
+  $('back').textContent=step===0?'Back to the build':'Back';
+  let q,title,happened,thought,kind,fx=null,hitD=0,needs=false;
+  if(step===0){
+    q=0;kind='calm';const sc=A.vms/400;
+    title={onprem:'Day one: you bought new servers for your own building',cloud:'Day one: you started moving everything to a cloud provider',priv:'Day one: you started building your own cloud platform',hybrid:'Day one: you split the estate between your building and the cloud'}[world];
+    happened={onprem:`You spent <b>${money(48*sc)}</b> on new hardware. Nothing had to move, and your team knows the setup.`,
+      cloud:`Moving ${A.vms} servers takes about nine months and costs around <b>${money((calcOn()?calcQ().mig:14*sc)+A.run/4*.8*3)}</b>, with old and new running side by side.`,
+      priv:`You invested about <b>${money(45*sc)}</b> in a platform hosted in a professional, power-protected facility.`,hybrid:`You refreshed a smaller on-prem footprint for about <b>${money(48*sc*(1-A.hyb/100)*1.05)}</b> and started moving ${A.hyb}% of workloads to the cloud for about <b>${money(14*sc*A.hyb/100+A.run/4*.8*3*A.hyb/100)}</b>.`}[world];
+    thought={onprem:"This is the least disruptive option on day one, and the CFO can see the asset. Watch two things as we go: the fixed amount of capacity, and the building itself.",
+      cloud:"The migration is the hard part. After that you get capacity on demand. The thing to watch in this world is the monthly bill.",
+      priv:"The biggest cheque comes up front. You get the cloud way of working and still own the kit. The question is whether it pays back.",hybrid:"You get to place each workload where it fits best. The price is running two worlds and the link between them. Watch the security and skills moments closely."}[world]+` Delivery takes about ${mo(planOf(world).total)} with today's preconditions; the full plan is in your journey summary.`;
+  }else{
+    const e=EV[step-1];q=e.q;kind=e.kind;title=e.title();fx=e.id;
+    if(e.decision&&!choices[world][e.id])needs=true;
+    const lg=s.log[e.id]||{c:0,d:0};hitD=lg.d;
+    const lossE=lg.d*A.rev;
+    if(e.id==='peak'){const lostPct=(1-s[q].serve)*100*(pick(world,'peak')==='A'?(optOf(e,world,'A').dm??1):1);
+      happened=`Spending this quarter: <b>${money(s[q].cost)}</b>. ${lg.d>.5?`<b>${Math.min(99,lostPct).toFixed(0)}% of ${IND[A.industry].unit} were turned away</b>, worth about ${money(lossE)}.`:`Every ${IND[A.industry].one.toLowerCase()} was handled.`}`;}
+    else happened=(lg.c>.01||lg.d>.4)?`This cost you ${lg.c>.01?'<b>'+money(lg.c)+'</b> in direct spend':'nothing in direct spend'}${lg.d>.4?`, and you were <b>offline for ${lg.d.toFixed(lg.d<10?1:0)} hours</b>, losing about <b>${money(lossE)}</b> in revenue`:', with no downtime'}.`:`No extra cost and no downtime.`;
+    const x=e.w[world];thought=T(x.t||'');
+    if(e.decision){const o=optOf(e,world,pick(world,e.id));thought=e.id==='peak'?T(o.t):T(o.t)+' '+thought;}
+  }
+  $('alert').className='alert '+kind;$('alertTxt').textContent=(kind==='crisis'?'Incident · ':kind==='biz'?'Business moment · ':'')+(step===0?'Day one':when(q));
+  $('mTitle').textContent=title;
+  // decision
+  const dec=$('decide');
+  if(step>0&&EV[step-1].decision){const e=EV[step-1];dec.hidden=false;$('dq').textContent=T(decQ(e,world));
+    $('dopts').innerHTML=['A','B'].map(c=>{const o=optOf(e,world,c);return `<button class="opt" data-c="${c}" aria-pressed="${choices[world][e.id]===c}"><b>${T(o.l)}</b><span>${T(o.s)}</span></button>`}).join('');
+    $('dopts').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{choices[world][e.id]=b.dataset.c;recompute();shown=step>1?snapAt(EV[step-2].q):{cum:0,down:0,loss:0,risk:W[world].risk0};renderStep();}));
+  }else dec.hidden=true;
+  document.querySelectorAll('[data-out]').forEach(el=>el.hidden=needs);
+  $('next').disabled=needs;
+  scene.set(world,S[world][q],fx,needs?0:hitD);
+  if(needs){$('clock').hidden=true;return;}
+  $('mHappened').innerHTML=happened;$('mThought').textContent=thought;
+  const tgt=snapAt(q),dc=tgt.cum-shown.cum,dd=tgt.down-shown.down,dl=tgt.loss-shown.loss;
+  $('dSpend').textContent=step===0?`5-yr range ${money(MC[world].s10)}–${money(MC[world].s90)}`:dc>.01?`+${money(dc)} this step`:'';$('dSpend').className='d '+(step&&dc>A.run/2?'bad':'');
+  $('dDown').textContent=dd>.4?`+${dd.toFixed(0)} h this step`:(step?'none this step':'');$('dDown').className='d '+(dd>.4?'bad':'good');
+  $('dLost').textContent=dl>.01?`+${money(dl)} this step`:(step?'none this step':'');$('dLost').className='d '+(dl>.01?'bad':'good');
+  animateMeters(tgt);runClock(hitD);
+}
+function animateMeters(t){
+  const f={...shown},t0=performance.now(),dur=matchMedia('(prefers-reduced-motion: reduce)').matches?1:1200;cancelAnimationFrame(anim);
+  const tick=now=>{const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3),L=k=>f[k]+(t[k]-f[k])*e;
+    $('vSpend').textContent=money(L('cum'));$('vDown').textContent=L('down').toFixed(0)+' h';$('vLost').textContent=money(L('loss'));
+    const r=L('risk');$('vRisk').textContent=riskWord(r);$('vRisk').style.color=riskCol(r);$('gRisk').style.width=r+'%';$('gRisk').style.background=riskCol(r);
+    if(p<1)anim=requestAnimationFrame(tick);else shown={...t};};anim=requestAnimationFrame(tick);
+}
+function runClock(h){
+  cancelAnimationFrame(clockAnim);const c=$('clock');if(h<.5){c.hidden=true;return}c.hidden=false;
+  const t0=performance.now(),dur=matchMedia('(prefers-reduced-motion: reduce)').matches?1:3500;
+  const tick=now=>{const p=Math.min(1,(now-t0)/dur),v=h*p,hh=Math.floor(v),mm=Math.floor((v-hh)*60);
+    $('clockH').textContent=`${hh} h ${String(mm).padStart(2,'0')} m`;$('clockL').textContent=`${money(v*A.rev)} lost`;
+    if(p<1)clockAnim=requestAnimationFrame(tick);};clockAnim=requestAnimationFrame(tick);
+}
+$('next').addEventListener('click',()=>{if(step===EV.length){visited[world]=true;renderSummary();show('sSummary');return}step++;renderStep();});
+$('back').addEventListener('click',()=>{if(step===0){show('sBuild');renderBuild(true);return}step--;shown=step>0?snapAt(EV[step-1].q):{cum:0,down:0,loss:0,risk:W[world].risk0};renderStep();});
+
+/* SUMMARY */
+function payback(w){if(w==='onprem')return null;const a=S[w],b=S.onprem;for(let q=0;q<20;q++){if(a.slice(q).every((x,i)=>x.econ<=b[q+i].econ))return q;}return -1;}
+function badges(w){const out=[],end=x=>S[x][19];
+  const best=k=>ORDER.reduce((b,x)=>end(x)[k]<end(b)[k]?x:b,ORDER[0]);
+  if(best('econ')===w)out.push('Lowest true cost');if(best('cum')===w)out.push('Lowest spend');if(best('down')===w)out.push('Most reliable');if(best('risk')===w)out.push('Lowest exposure');
+  if(MC[w].win>=.5)out.push(`Cheapest in ${Math.round(MC[w].win*100)}% of futures`);return out;}
+function renderSummary(){
+  const s=S[world][19],m=MC[world];
+  document.documentElement.style.setProperty('--wc',`var(${W[world].css})`);
+  $('sTag').querySelector('span').textContent=W[world].name;
+  $('sumTitle').textContent=`Your five years in this future`;
+  $('sumTotals').innerHTML=`
+   <div class="card"><div class="sub">True cost of your journey (spend + revenue lost)</div><div class="big">${money(s.econ)}</div><div class="sub">Across 600 simulated futures: most likely ${money(m.p50)}, range ${money(m.p10)} to ${money(m.p90)}</div><span class="conf ${m.conf}">Confidence: ${m.conf}</span><div class="ref">${usd(s.econ)}</div></div>
+   <div class="card"><div class="sub">Spend</div><div class="big">${money(s.cum)}</div><div class="sub">Revenue lost to ${s.down.toFixed(0)} h offline: ${money(s.loss)}</div></div>
+   <div class="card"><div class="sub">Exposure at year five</div><div class="big" style="color:${riskCol(s.risk)}">${riskWord(s.risk)}</div><div class="sub">${s.risk.toFixed(0)} of 100 · team of ${fte(world)} people</div></div>`;
+  $('sumBadges').innerHTML=badges(world).map(b=>`<span class="badge">${b}</span>`).join('');
+  const pb=payback(world);
+  let th=finale(world);
+  if(pb!==null)th+=pb>=0?` Compared with a plain refresh, this future breaks even in ${when(pb).toLowerCase()} and stays ahead.`:` Over five years it does not overtake a plain refresh on true cost.`;
+  $('sumThought').textContent=th;
+  const lg=S[world].log;
+  $('jmap').innerHTML=`<div class="jrow"><span class="w">Day one</span><span class="t">Start: ${W[world].name}<span class="c">Investment and migration</span></span><span class="n">${money(S[world][0].cost)}</span></div>`+
+    `<div class="jrow"><span class="w">Build</span><span class="t">Implementation: live in ${mo(planOf(world).total)}<span class="c">${planOf(world).lost>.05?mo(planOf(world).lost)+' lost to unmet preconditions':'No delays, all preconditions met'}</span></span><span class="n ${planOf(world).lost>.05?'bad':''}">${planOf(world).lost>.05&&world!=='onprem'?money(planOf(world).lost*A.run/12):'—'}</span></div>`+
+    EV.map(e=>{const l=lg[e.id]||{c:0,d:0},imp=l.c+l.d*A.rev,ch=e.decision?`You chose: ${T(optOf(e,world,pick(world,e.id)).l)}`:(l.d>.4?`${l.d.toFixed(0)} h offline`:'Handled');
+      return `<div class="jrow"><span class="w">${when(e.q).replace('Year ','Y').replace(', quarter ',' Q')}</span><span class="t">${e.title()}<span class="c">${ch}</span></span><span class="n ${imp>A.run/8?'bad':''}">${imp>.005?money(imp):'—'}</span></div>`}).join('');
+  planCard($('sumPlan'),world);
+  const rest=ORDER.filter(w=>w!==world&&!visited[w]);
+  $('sumNext').innerHTML=rest.map(w=>`<button class="btn sec" data-enter="${w}">Try: ${W[w].name}</button>`).join('')+`<button class="btn" id="goCmp">Compare all four</button>`;
+  $('sumNext').querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',()=>enter(b.dataset.enter)));
+  $('goCmp').addEventListener('click',()=>{renderCompare();show('sCompare')});
+}
+const fte=w=>({onprem:A.staff,cloud:Math.max(2,Math.round(A.staff*.55)),priv:Math.max(3,Math.round(A.staff*.75)),hybrid:Math.max(3,Math.round(A.staff*.85))})[w];
+function finale(w){const e=S[w][19],o=ORDER.filter(x=>x!==w);
+  const ch=o.filter(x=>S[x][19].econ<e.econ).map(x=>W[x].short),cl=o.filter(x=>S[x][19].down<e.down).map(x=>W[x].short);
+  return `On true cost, this future was ${ch.length?'beaten by '+ch.join(' and '):'the best of the four'}, and ${cl.length?'it had more downtime than '+cl.join(' and '):'it had the least downtime'}.`;}
+
+
+/* IMPLEMENTATION PLANS: phases in months at 400 VMs; preconditions delay phase `ph` and everything after when not ready */
+const PLAN={
+ onprem:{phases:[['Assess and size','Capacity for 5-year growth',0,1.5,0],['Procure hardware','Vendor lead time',1.5,3,0],['Install and rack','Power, cooling, cabling',4.5,1.5,0],['Refresh in waves','Move workloads onto new kit',5.5,3,1],['Decommission old kit','Data wiping, disposal',8.5,1,0]],
+  pre:[['Five-year capacity plan agreed','Otherwise you buy too little and order again within a year',0,1,true],
+       ['Capex approved by the board','Hardware orders wait for budget sign-off',1,1.5,false],
+       ['Power and cooling checked for new density','New servers draw more power per rack',2,1,false],
+       ['Vendor lead times confirmed in writing','Global supply can slip by months',1,2,false],
+       ['Maintenance windows agreed with the business','Each cut-over needs downtime approval',3,.5,true],
+       ['Backups and DR tested before cut-over','No safe rollback without them',3,.5,true]]},
+ cloud:{phases:[['Discovery and app assessment','Which apps move, and how',0,2,0],['Landing zone, security, network','Foundations in the cloud',1.5,2,0],['Pilot wave','A few low-risk apps first',3.5,1.5,0],['Migration waves','Bulk of the estate',5,5,1],['Optimise and exit the datacenter','Right-size, close old site',10,2,0]],
+  pre:[['Application inventory and dependency map','Unknown dependencies break migrations',0,1.5,false],
+       ['Data residency and POPIA sign-off','Regulated data cannot move until legal agrees',1,2,false,'reg'],
+       ['Dedicated network link ordered','Private links take months to provision',1,1,false],
+       ['Cloud skills or migration partner contracted','Your team learns while it migrates',2,1,true],
+       ['FinOps owner and budget guardrails in place','Otherwise the first bills are a shock',4,.5,false],
+       ['Exit terms negotiated in the contract','Cheapest to agree before you sign',1,.5,false]]},
+ priv:{phases:[['Design and sizing','Platform architecture',0,2,0],['Colocation contract and build-out','Space, power, connectivity',1.5,3,0],['Platform build and automation','Compute, storage, self-service',3.5,3,0],['Migration waves','Move workloads onto the platform',6,4,1],['Self-service and decommission','Hand over, close old site',10,2,0]],
+  pre:[['Tier III colocation facility selected','Site visits and contracts take time',1,1.5,true],
+       ['Capex approved by the board','Platform hardware waits for budget',1,1.5,false],
+       ['Platform engineering skills in place','Scarce skills: hire or partner early',2,2,false],
+       ['Workloads standardised on common templates','Snowflake servers slow every wave',3,1,false],
+       ['Security segmentation design approved','Needed before the first workload lands',2,1,true],
+       ['Operating model and SLAs agreed','Who runs what, and how fast',4,.5,true]]}
+};
+PLAN.hybrid={phases:[['Workload placement assessment','Which apps stay, which move',0,2,0],['Smaller on-prem refresh','Right-sized hardware order',1.5,3,0],['Cloud landing zone and secure link','Network and identity across both',1.5,2.5,0],['Migrate cloud-bound workloads','Waves to cloud',4.5,4,1],['Unified operations and monitoring','One view across both sides',8,2,0]],
+  pre:[['Workload placement rules agreed','Which apps stay home, which move, and why',0,1.5,false],
+       ['Unified identity and security policy','One set of controls across both sides',2,1.5,false],
+       ['Dedicated link between datacenter and cloud','Hybrid lives or dies on this connection',2,1,false],
+       ['Data residency sign-off for cloud-bound data','Only for the data that moves',3,1,true,'reg'],
+       ['Capex approved for the smaller refresh','Hardware orders wait for budget',1,1,true],
+       ['Operating model covering both sides','Who owns an incident that crosses the link',4,.5,false]]};
+const preOk={};ORDER.forEach(w=>preOk[w]=PLAN[w].pre.map(p=>p[4]));
+function planOf(w){
+  const f=Math.min(1.6,Math.max(.8,Math.sqrt(A.vms/400))),pl=PLAN[w];
+  const delays=pl.pre.map((p,i)=>preOk[w][i]?0:p[3]*(p[5]==='reg'?(A.reg>50?1.5:A.reg<15?.4:1):1));
+  const raw=Math.max(...pl.phases.map(ph=>ph[2]*Math.sqrt(f)+ph[3]*(ph[4]?f:Math.sqrt(f))));
+  const csc=(w==='cloud'&&calcOn()&&!CALC.longProg&&CALC.months>0)?CALC.months/raw:1;
+  let lost=0;const phases=pl.phases.map((ph,i)=>{
+    const shift=pl.pre.reduce((a,p,j)=>a+(p[2]<=i?delays[j]:0),0);
+    const own=pl.pre.reduce((a,p,j)=>a+(p[2]===i?delays[j]:0),0);
+    const dur=ph[3]*(ph[4]?f:Math.sqrt(f))*csc;const start=ph[2]*Math.sqrt(f)*csc+shift;
+    return{n:ph[0],sub:ph[1],s:start,d:dur,delay:own};});
+  const total=Math.max(...phases.map(p=>p.s+p.d)),base=raw*csc;
+  return{phases,total,base,lost:total-base,delays};
+}
+const mo=v=>`${v.toFixed(v<10?1:0).replace('.0','')} mo`;
+function ganttHTML(w,compact){
+  const p=planOf(w),max=Math.max(18,Math.ceil(Math.max(...ORDER.map(x=>planOf(x).total))/3)*3);
+  const X=v=>(v/max*100).toFixed(2)+'%';
+  const axis=`<div class="g-row g-axis"><span></span><div class="g-track">${Array.from({length:max/3+1},(_,i)=>`<span style="left:${X(i*3)}">${i*3}</span>`).join('')}</div></div>`;
+  if(compact)return ORDER.map(x=>{const q=planOf(x);return `<div class="g-row" style="--c:var(${W[x].css})"><span class="g-n"><b style="color:var(${W[x].css})">${W[x].short}</b><small>${mo(q.total)}${q.lost>.05?' · '+mo(q.lost)+' lost':''}</small></span><div class="g-track">${q.phases.map(ph=>`${ph.delay>.05?`<span class="g-delay" style="left:${X(ph.s-ph.delay)};width:${X(ph.delay)}"></span>`:''}<span class="g-bar" title="${ph.n}" style="left:${X(ph.s)};width:${X(ph.d)};opacity:${.55+.45*(q.phases.indexOf(ph)%2)}"></span>`).join('')}<span class="g-live" style="left:${X(q.total)}"></span></div></div>`}).join('')+axis;
+  return p.phases.map(ph=>`<div class="g-row" style="--c:var(${W[w].css})"><span class="g-n">${ph.n}<small>${mo(ph.d)}</small></span><div class="g-track">${ph.delay>.05?`<span class="g-delay" style="left:${X(ph.s-ph.delay)};width:${X(ph.delay)}"></span>`:''}<span class="g-bar" style="left:${X(ph.s)};width:${X(ph.d)}"></span></div></div>`).join('')+axis;
+}
+function planCard(el,w){
+  const p=planOf(w),pl=PLAN[w],dcost=(w==='onprem'?0:A.run/12)*p.lost,ready=preOk[w].filter(Boolean).length;
+  el.innerHTML=`<h3>Implementation timeline and preconditions</h3>
+   <div class="plan-head"><div><div class="sub">Live in about</div><div class="big">${mo(p.total)}</div></div>
+   <div><div class="sub">Lost to unmet preconditions</div><div class="big" style="color:${p.lost>.05?'var(--bad)':'var(--good)'}">${p.lost>.05?'+'+mo(p.lost):'None'}</div></div>
+   <div><div class="sub">Readiness</div><div class="big">${ready} of ${pl.pre.length}</div></div></div>
+   ${p.lost>.05?`<p class="sub">${w==='onprem'?'Every month of delay keeps you on ageing hardware with rising failure risk.':`Every month of delay keeps you paying for the old datacenter, about <b>${money(A.run/12)}</b> a month, so these gaps cost roughly <b>${money(dcost)}</b>.`}</p>`:''}
+   <div class="gantt">${ganttHTML(w,false)}</div>
+   <p class="sub">Striped sections are delays caused by preconditions that are not yet met. Phase lengths scale with the estate size (${A.vms} VMs).</p>
+   <div class="eyebrow" style="margin-top:4px">Preconditions: tick what the client already has in place</div>
+   <div>${pl.pre.map((x,i)=>{const crit=x[5]==='reg'&&A.reg>50;return `<div class="pre"><input type="checkbox" id="pre-${w}-${i}" data-w="${w}" data-i="${i}" ${preOk[w][i]?'checked':''}><label for="pre-${w}-${i}">${x[0]}${crit?'<span class="crit">Critical</span>':''}<small>${x[1]}</small></label><span class="dl ${preOk[w][i]?'good':'bad'}">${preOk[w][i]?'Ready':'+'+mo(p.delays[i])}</span></div>`}).join('')}</div>`;
+  el.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.addEventListener('change',()=>{preOk[cb.dataset.w][+cb.dataset.i]=cb.checked;recompute();refreshScreen();}));
+}
+
+
+/* STAGES, GATE, BUILD */
+function renderStages(){document.querySelectorAll('.stages').forEach(el=>{const k=+el.dataset.stage;
+  el.innerHTML=['1 Readiness','2 Build','3 Five years live'].map((t,i)=>`<span class="${i===k?'on':i<k?'done':''}">${t}</span>`).join('<i>→</i>');});
+  document.querySelectorAll('.gtag span').forEach(e=>e.textContent=W[world].name);}
+function renderGate(){
+  renderStages();const w=world,pl=PLAN[w],p=planOf(w);
+  $('gateList').innerHTML=pl.pre.map((x,i)=>{const crit=x[5]==='reg'&&A.reg>50;return `<div class="pre"><input type="checkbox" id="g-${i}" data-i="${i}" ${preOk[w][i]?'checked':''}><label for="g-${i}">${x[0]}${crit?'<span class="crit">Critical</span>':''}<small>${x[1]}</small></label><span class="dl ${preOk[w][i]?'good':'bad'}">${preOk[w][i]?'Ready':'Will block: +'+mo(p.delays[i])}</span></div>`}).join('');
+  $('gateList').querySelectorAll('input').forEach(cb=>cb.addEventListener('change',()=>{preOk[w][+cb.dataset.i]=cb.checked;recompute();renderGate();}));
+  const ready=preOk[w].filter(Boolean).length;
+  $('gateHead').innerHTML=`<div><div class="sub">If you start today, live in</div><div class="big">${mo(p.total)}</div></div><div><div class="sub">Lost to gaps</div><div class="big" style="color:${p.lost>.05?'var(--bad)':'var(--good)'}">${p.lost>.05?'+'+mo(p.lost):'None'}</div></div><div><div class="sub">Readiness</div><div class="big">${ready} of ${pl.pre.length}</div></div>`;
+  $('gateGantt').innerHTML=ganttHTML(w,false);
+  $('gateGo').textContent=ready===pl.pre.length?'Start the build':`Start anyway with ${pl.pre.length-ready} gap${pl.pre.length-ready>1?'s':''}`;
+}
+$('gateBack').addEventListener('click',()=>{renderDoors();show('sDoors')});
+$('gateGo').addEventListener('click',()=>{show('sBuild');renderBuild(false);});
+
+let bT=0,bPlay=false,bShown={},bRAF=null,bLast=0,bPlan=null;
+function renderBuild(finished){
+  renderStages();bPlan=planOf(world);const p=bPlan,max=Math.ceil(p.total)+1;
+  const X=v=>(Math.max(0,v)/max*100).toFixed(2)+'%';
+  $('bGantt').innerHTML=p.phases.map((ph,i)=>`<div class="g-row" style="--c:var(${W[world].css})"><span class="g-n">${ph.n}<small>${ph.sub}</small></span><div class="g-track live">${ph.delay>.05?`<span class="g-delay" id="bd${i}" style="left:${X(ph.s-ph.delay)};width:0"></span>`:''}<span class="g-bar" id="bb${i}" style="left:${X(ph.s)};width:0"></span></div></div>`).join('')+
+   `<div class="g-row g-axis"><span></span><div class="g-track">${Array.from({length:Math.floor(max/3)+1},(_,i)=>`<span style="left:${X(i*3)}">${i*3}</span>`).join('')}<span class="b-head" id="bHead" style="left:0"></span></div></div>`;
+  $('bOldK').textContent=world==='onprem'?'Ageing hardware still in service':'Old datacenter still costing';
+  $('bBlock').hidden=true;bShown={};bT=finished?p.total:0;bPlay=!finished;$('bGo').disabled=!finished;
+  drawBuild();cancelAnimationFrame(bRAF);bLast=performance.now();if(bPlay)bRAF=requestAnimationFrame(buildTick);
+}
+function buildTick(now){
+  const dt=Math.min(.05,(now-bLast)/1000);bLast=now;
+  if(bPlay){bT=Math.min(bPlan.total,bT+dt*(matchMedia('(prefers-reduced-motion: reduce)').matches?20:1.4));
+    bPlan.phases.forEach((ph,i)=>{if(ph.delay>.05&&!bShown[i]&&bT>=ph.s-ph.delay){bShown[i]=1;bT=ph.s-ph.delay;block(i);}});
+    if(bT>=bPlan.total){bPlay=false;$('bGo').disabled=false;}}
+  drawBuild();if(bPlay||bT<bPlan.total)bRAF=requestAnimationFrame(buildTick);
+}
+function drawBuild(){
+  const p=bPlan,max=Math.ceil(p.total)+1,X=v=>(Math.max(0,v)/max*100).toFixed(2)+'%';
+  let lost=0,now=null,blocked=false;
+  p.phases.forEach((ph,i)=>{const b=$('bb'+i),d=$('bd'+i);
+    b.style.width=X(Math.min(ph.d,bT-ph.s));
+    if(d){const v=Math.min(ph.delay,bT-(ph.s-ph.delay));d.style.width=X(v);lost+=Math.max(0,v);if(bT>=ph.s-ph.delay&&bT<ph.s){blocked=true;now=ph.n;}}
+    if(!blocked&&bT>=ph.s&&bT<ph.s+ph.d)now=ph.n;});
+  $('bHead').style.left=X(bT);
+  $('bMonth').textContent=bT.toFixed(1);
+  $('bOld').textContent=world==='onprem'?mo(bT+A.age*12).replace(' mo',' months old'):money(bT*A.run/12);
+  $('bLost').textContent=mo(lost);$('bLost').style.color=lost>.05?'var(--bad)':'';
+  const done=bT>=p.total-1e-6;
+  $('bNow').className='now'+(blocked?' blocked':'');
+  $('bNow').textContent=done?`Live in month ${p.total.toFixed(1)}${p.lost>.05?`, ${mo(p.lost)} later than it could have been`:' with no delays'}`:blocked?`Blocked: waiting before "${now}"`:`Now: ${now||'Starting'}`;
+  $('bAlert').className='alert '+(done?'calm':blocked?'crisis':'biz');$('bAlertTxt').textContent=done?'Ready to go live':blocked?'Blocked':'Building';
+}
+function block(i){
+  bPlay=false;const pl=PLAN[world],ph=bPlan.phases[i];
+  const items=pl.pre.map((x,j)=>({x,j})).filter(o=>o.x[2]===i&&!preOk[world][o.j]);
+  const cost=world==='onprem'?0:ph.delay*A.run/12;
+  $('bBlock').hidden=false;
+  $('bBlock').innerHTML=`<h3>Blocked in month ${bT.toFixed(1)}: ${ph.n} cannot start</h3>
+   ${items.map(o=>`<p><b>${o.x[0]}</b> is not in place. ${o.x[1]}. <span class="d bad">+${mo(bPlan.delays[o.j])}</span></p>`).join('')}
+   <p class="sub">${world==='onprem'?`The old hardware stays in service ${mo(ph.delay)} longer, and failure risk keeps rising.`:`The old datacenter keeps running ${mo(ph.delay)} longer, costing about <b>${money(cost)}</b>.`} This is why readiness work pays for itself.</p>
+   <div class="row"><button class="btn" id="bCont">Continue</button><button class="btn sec" id="bFix">Go back and fix readiness</button></div>`;
+  $('bCont').addEventListener('click',()=>{$('bBlock').hidden=true;bPlay=true;bLast=performance.now();cancelAnimationFrame(bRAF);bRAF=requestAnimationFrame(buildTick);});
+  $('bFix').addEventListener('click',()=>{cancelAnimationFrame(bRAF);renderGate();show('sGate');});
+}
+$('bSkip').addEventListener('click',()=>{cancelAnimationFrame(bRAF);renderBuild(true);});
+$('bBack').addEventListener('click',()=>{cancelAnimationFrame(bRAF);renderGate();show('sGate');});
+$('bGo').addEventListener('click',()=>{cancelAnimationFrame(bRAF);goLive();});
+
+/* CLOUD COST CALCULATOR BRIDGE */
+const PN={aws:'Amazon Web Services',azure:'Microsoft Azure',gcp:'Google Cloud'},PS={aws:'AWS',azure:'Azure',gcp:'Google'};
+const RG={na:'US East',euf:'Frankfurt',euw:'Ireland',uk:'London',in:'Mumbai',me:'UAE',za:'South Africa',ap:'Singapore'};
+let CALC=null,useCalc=true,calcProv=null,calcReady=false,sendT=null;
+const calcFrame=$('calcFrame');
+function calcOn(){return !!(useCalc&&CALC&&!CALC.bad&&(!isExtreme()||forceSend)&&calcProv&&CALC.providers[calcProv]);}
+/* Reject calculator results that are not finite or wildly out of proportion to today's run cost */
+function checkCalc(){const runM=A.run/CUR.ZAR.rate*1e6/12,why=[];
+  ['aws','azure','gcp'].forEach(p=>{const x=CALC.providers[p];if(!x||!isFinite(x.bill)||!isFinite(x.oneTime)||x.bill<0||x.oneTime<0)why.push(`${PS[p]} returned an invalid figure`);});
+  if(!why.length){const b=CALC.providers[CALC.best];
+    if(b.bill>runM*8)why.push(`the cheapest monthly bill is ${num(b.bill/runM)} times today's monthly run cost`);
+    if(b.oneTime>runM*12*15)why.push(`the migration costs ${num(b.oneTime/(runM*12))} years of today's run cost`);}
+  CALC.bad=why.length?why.join('; '):null;
+  CALC.longProg=!isFinite(CALC.months)||CALC.months>48||CALC.capped;}
+function calcQ(){const p=CALC.providers[calcProv],z=CUR.ZAR.rate/1e6;return{runQ:p.bill*3*z,mig:p.oneTime*z};}
+const usdM=v=>money(v*CUR.ZAR.rate/1e6);
+function regionOf(c){c=(c||'').toLowerCase();
+  return /south africa|kenya|nigeria|ghana|africa/.test(c)?'za':/india/.test(c)?'in':/uae|emirates|dubai|qatar|saudi|oman|bahrain|kuwait/.test(c)?'me':/united kingdom|\buk\b|england|britain|scotland/.test(c)?'uk':/germany|france|switzerland|austria|poland/.test(c)?'euf':/ireland|europe|netherlands|belgium|spain|italy|portugal|sweden/.test(c)?'euw':/singapore|asia|malaysia|indonesia|australia/.test(c)?'ap':/united states|usa|\bus\b|canada|america/.test(c)?'na':'za';}
+let forceSend=false,lastSent=null;
+function sendEstate(){if(!calcReady)return;if(isExtreme()&&!forceSend){renderCalcBridge();return;}
+  lastSent={vms:A.vms,servers:A.servers,storage:A.storage,run:A.run,staff:A.staff,growth:A.growth};
+  calcFrame.contentWindow.postMessage({type:'ff-load',estate:{vms:A.vms,servers:A.servers,storage:A.storage,staff:A.staff,growth:A.growth,runUsd:A.run/CUR.ZAR.rate*1e6,region:regionOf(A.country),currency:cur,fx:Object.fromEntries(Object.keys(CUR).map(c=>[c,CUR[c].rate]))}},'*');}
+function sendSoon(){if(!isExtreme())forceSend=false;clearTimeout(sendT);sendT=setTimeout(sendEstate,400);}
+function applyCloudName(){
+  if(calcOn()){W.cloud.name=`Move to ${PN[calcProv]}`;W.cloud.short=`${PS[calcProv]} cloud`;W.cloud.promise=`${PN[calcProv]} runs your systems under a managed service, priced from the cloud cost calculator.`;}
+  else{W.cloud.name='Move to a vendor cloud';W.cloud.short='Vendor cloud';W.cloud.promise='A hyperscaler runs your systems under a managed service. Pay for what you use.';}
+}
+function renderCalcBridge(){
+  if(!CALC){$('calcSync').textContent=isExtreme()?'Today’s estate is flagged as extreme, so it has not been sent to the calculator. Fix the figures on Today first.':'Loading the calculator…';return;}
+  const L=lastSent||A;$('calcSync').textContent=`${lastSent?'Last sent from Today':'Calculator defaults'}: ${L.vms} VMs, ${L.servers} servers, ${L.storage} TB, ${money(L.run)} a year to run, ${L.staff} people, ${L.growth}% growth, region ${RG[CALC.region]||CALC.region}. Change anything in the calculator below and the doors follow.`;
+  $('calcProv').innerHTML=['aws','azure','gcp'].map(p=>{const x=CALC.providers[p];return `<button class="pv" data-p="${p}" aria-pressed="${p===calcProv}"><b>${PS[p]}${p===CALC.best?'<span class="tag">Cheapest</span>':''}</b><span class="bill">${usdM(x.bill)}</span><span>per month, provider bill</span><span>One-time migration ${usdM(x.oneTime)}</span><span>${x.breakEven?'Breaks even in month '+x.breakEven:'No break-even in horizon'}</span></button>`}).join('');
+  $('calcProv').querySelectorAll('.pv').forEach(b=>b.addEventListener('click',()=>{calcProv=b.dataset.p;applyCloudName();recompute();renderCalcBridge();}));
+  const flags=[];
+  if(isExtreme())flags.push(forceSend?'Today’s estate is flagged as extreme; you sent it anyway, so treat these results as unreliable.':'Today’s estate is flagged as extreme, so it has not been sent. Fix the figures on Today, or <button class="link-btn" id="forceSend">send it anyway</button>.');
+  if(CALC.bad)flags.push(`The calculator's result looks unrealistic (${CALC.bad}). The doors are using built-in estimates until the inputs look sensible.`);
+  if(CALC.longProg)flags.push(`The calculator's programme runs ${isFinite(CALC.months)?mo(CALC.months):'beyond its limit'}${CALC.capped?', hitting its 10-year cap':''}. That usually means an extreme estate or too few migration squads, so the cloud timeline keeps the built-in plan.`);
+  $('calcFlags').innerHTML=flags.map(x=>`<p class="chk extreme">${x}</p>`).join('');$('calcFlags').hidden=!flags.length;
+  const fs=$('forceSend');if(fs)fs.addEventListener('click',()=>{forceSend=true;sendEstate();});
+  $('calcEffect').innerHTML=calcOn()?`The vendor cloud door now runs on <b>${PN[calcProv]}</b>: about <b>${usdM(CALC.providers[calcProv].bill)}</b> a month at today's demand, a one-time migration of <b>${usdM(CALC.providers[calcProv].oneTime)}</b>, and a programme of about <b>${mo(CALC.months)}</b>. The hybrid door prices its cloud share at the same rates. Five-year true cost for this door: <b>${money(MC.cloud.p50)}</b> most likely.`:'The doors are using the built-in estimates instead of the calculator.';
+}
+window.addEventListener('message',e=>{const d=e.data||{};if(typeof d.type!=='string'||d.type.indexOf('ff-')!==0)return;
+  if(d.type==='ff-ready'&&!calcReady){calcReady=true;sendEstate();}
+  if(d.type==='ff-height'&&isFinite(d.h))calcFrame.style.height=Math.min(4200,Math.max(700,d.h+24))+'px';
+  if(d.type==='ff-result'&&d.data&&d.data.providers){CALC=d.data;checkCalc();if(!calcProv)calcProv=CALC.best;applyCloudName();recompute();renderCalcBridge();if(screen!=='sCalc')refreshScreen();}
+});
+$('useCalc').addEventListener('change',e=>{useCalc=e.target.checked;applyCloudName();recompute();renderCalcBridge();});
+$('calcResync').addEventListener('click',sendEstate);
+$('toCalcBtn').addEventListener('click',()=>{show('sCalc');renderCalcBridge();try{calcFrame.contentWindow.postMessage({type:'ff-height'},'*')}catch(e){}});
+$('calcToDoors').addEventListener('click',()=>{renderDoors();show('sDoors')});
+calcFrame.addEventListener('load',()=>{try{calcFrame.contentWindow.postMessage({type:'ff-ping'},'*')}catch(e){}});
+
+/* COMPARE */
+function renderCompare(){
+  const end=w=>S[w][19];
+  // guess
+  const gr=$('guessReveal'),bestW=ORDER.reduce((b,x)=>MC[x].p50<MC[b].p50?x:b,ORDER[0]);
+  if(guess){gr.hidden=false;gr.innerHTML=`<h3>${guess===bestW?'Your guess was right.':'Your guess was different from what the numbers say.'}</h3><p class="sub">You guessed <b>${W[guess].short}</b>. On true cost, the most likely winner is <b>${W[bestW].short}</b>.${guess!==bestW?' That gap between gut feel and the numbers is exactly the conversation to have with the client.':''}</p>`;}else gr.hidden=true;
+  const mx=Math.max(...ORDER.map(w=>MC[w].p90))*1.04,mn=Math.min(...ORDER.map(w=>MC[w].p50));
+  $('cmpEcon').innerHTML=ORDER.map(w=>{const m=MC[w];return `<div class="cbar" style="--c:var(${W[w].css})"><span class="nm">${W[w].short}</span><span class="track"><span class="rng" style="left:${m.p10/mx*100}%;width:${(m.p90-m.p10)/mx*100}%"></span><span class="mid" style="left:${m.p50/mx*100}%"></span></span><span class="val ${m.p50===mn?'best':''}">${money(m.p50)}<br><span class="conf ${m.conf}">${m.conf}</span></span></div>`}).join('')+
+    `<p class="ref">${ORDER.map(w=>`${W[w].short}: ${money(MC[w].p10)}–${money(MC[w].p90)}${cur!=='USD'?' ('+usd(MC[w].p50)+')':''}`).join(' · ')}</p>`;
+  $('cmpProb').innerHTML=ORDER.map(w=>`<div style="--c:var(${W[w].css})"><b>${Math.round(MC[w].win*100)}%</b><span>${W[w].short} was cheapest</span></div>`).join('');
+  const M=[{k:'cum',t:'Spend',f:money},{k:'down',t:'Hours offline',f:v=>v.toFixed(0)+' h'},{k:'risk',t:'Exposure at year five',f:v=>riskWord(v)+' · '+v.toFixed(0)}];
+  $('cmpOther').innerHTML=`<h3>Spend, downtime and exposure</h3>`+M.map(m=>{const vals=ORDER.map(w=>end(w)[m.k]),vmax=Math.max(...vals)||1,vmin=Math.min(...vals);
+    return `<div class="sub" style="margin-top:4px">${m.t}</div>`+ORDER.map((w,i)=>`<div class="cbar" style="--c:var(${W[w].css})"><span class="nm">${W[w].short}</span><span class="track"><span class="fillb" style="width:${vals[i]/vmax*100}%"></span></span><span class="val ${vals[i]===vmin?'best':''}">${m.f(vals[i])}</span></div>`).join('')}).join('')+
+    `<div class="sub" style="margin-top:4px">Breaks even against a refresh</div>`+['cloud','priv'].map(w=>{const p=payback(w);return `<div class="cbar" style="--c:var(${W[w].css})"><span class="nm">${W[w].short}</span><span>${p===null?'':p>=0?when(p):'Not within five years'}</span><span></span></div>`}).join('');
+  // matrix
+  const cells=ORDER.map(w=>[S[w][0].cost].concat(EV.map(e=>{const l=S[w].log[e.id]||{c:0,d:0};return l.c+l.d*A.rev;})));
+  const cmax=Math.max(...cells.map(r=>r.slice(1)).flat())||1;
+  $('matrix').innerHTML=`<table><thead><tr><th>Door</th><th>Day one</th>${EV.map(e=>`<th>${e.title()}</th>`).join('')}<th>Total</th></tr></thead><tbody>`+
+    ORDER.map((w,i)=>`<tr><td style="color:var(${W[w].css})">${W[w].short}</td>${cells[i].map(v=>`<td class="cell" style="background:color-mix(in srgb,var(--bad) ${Math.round(Math.min(1,v/cmax)*55)}%,transparent)">${v>.005?num(conv(v)):'—'}</td>`).join('')}<td class="cell"><b>${num(conv(end(w).econ))}</b></td></tr>`).join('')+`</tbody></table><p class="ref">Figures in ${CUR[cur].sym.trim()} millions. Totals include quarterly running costs and capacity purchases not shown as moments.</p>`;
+  const fastest=ORDER.reduce((b,x)=>planOf(x).total<planOf(b).total?x:b,ORDER[0]);
+  $('cmpPlan').innerHTML=`<h3>How long each future takes to deliver</h3><p class="sub">Months from decision to go-live, with delays from unmet preconditions striped. ${W[fastest].short} is quickest to deliver. Open a door's summary to tick off preconditions.</p><div class="gantt">${ganttHTML(world,true)}</div>`+
+    ORDER.map(w=>{const q=planOf(w),miss=PLAN[w].pre.filter((x,i)=>!preOk[w][i]);return `<p class="sub"><b style="color:var(${W[w].css})">${W[w].short}:</b> ${miss.length?'still needs '+miss.map(x=>x[0].charAt(0).toLowerCase()+x[0].slice(1)).join('; ')+'.':'all preconditions met.'}</p>`}).join('');
+  $('verdict').textContent=verdict();
+}
+function verdict(){
+  const by=k=>ORDER.slice().sort((a,b)=>S[a][19][k]-S[b][19][k]);
+  const cheap=ORDER.reduce((b,x)=>MC[x].p50<MC[b].p50?x:b,ORDER[0]),resil=by('down')[0],safe=by('risk')[0];
+  const u=IND[A.industry].unit;
+  let t=`For ${A.company}, ${W[cheap].short} has the lowest likely true cost (${money(MC[cheap].p50)}) and came out cheapest in ${Math.round(MC[cheap].win*100)}% of simulated futures. ${W[resil].short} kept ${u} flowing best. `;
+  if(cheap==='onprem')t+="On-prem only wins if outages stay rare. With this much revenue tied to uptime, I would treat the refresh as the low-cost, high-exposure option.";
+  else if(cheap==='cloud')t+=A.reg>50?"The vendor cloud wins on cost, but with this much regulated data I would keep the regulated core on a private platform and move the rest.":"The vendor cloud wins on cost and resilience here. I would negotiate exit terms and FinOps support into the contract from day one.";
+  else if(cheap==='hybrid')t+=`Hybrid wins here because ${A.hyb}% in the cloud absorbs peaks while regulated and steady workloads stay home. I would make the placement rules and unified security the first deliverables, because hybrid fails at the seams.`;
+  else t+="Private cloud asks for the most up front and costs the least over five years, with the lowest exposure. I would recommend it for core systems, with public cloud kept for peaks and AI experiments.";
+  if(cheap!=='hybrid')t+=` Hybrid lands at ${money(MC.hybrid.p50)}: it buys flexibility, but you pay to run two environments and the link between them.`;
+  if(MC[cheap].win<.6)t+=` The result is close, so validating the client's real numbers matters more than the choice of model.`;
+  if(isExtreme())t=`Warning: the estate entered on Today is flagged as extreme, so these results are unreliable. `+t;
+  if(calcOn())t+=` Cloud figures come from the calculator, priced on ${PN[calcProv]} list prices.`;
+  if(A.source==='sample')t+=" These are sample figures, so treat the ranges as wide until the client confirms their data.";
+  return t;
+}
+
+/* presenter + currency */
+const curSel=$('cur');curSel.innerHTML=Object.keys(CUR).map(c=>`<option value="${c}">${c}</option>`).join('');curSel.value=cur;
+curSel.addEventListener('change',()=>{cur=curSel.value;fillForm();renderSnap();renderFx();refreshScreen();renderCalcBridge();sendSoon();});
+function renderFx(){$('fx').innerHTML=Object.keys(CUR).filter(c=>c!=='USD').map(c=>`<div class="f"><label for="fx${c}">${c}</label><input id="fx${c}" type="number" step="0.01" value="${CUR[c].rate}"></div>`).join('');
+  Object.keys(CUR).filter(c=>c!=='USD').forEach(c=>$('fx'+c).addEventListener('input',e=>{const v=parseFloat(e.target.value);e.target.classList.toggle('bad',!(v>=.01&&v<=100000));if(v>=.01&&v<=100000){
+    CUR[c].rate=v;recompute();renderSnap();renderCompare();sendSoon();}}));}
+[['sEsc','esc','oEsc'],['sTar','tariff','oTar']].forEach(([id,k,o])=>{const el=$(id),up=()=>{P[k]=+el.value;$(o).textContent=el.value+'%'};up();el.addEventListener('input',()=>{up();recompute();renderCompare();});});
+function refreshScreen(){if(screen==='sMoment')renderStep();if(screen==='sSummary')renderSummary();if(screen==='sCompare')renderCompare();}
+
+/* 2D scene */
+const scene=(function(){
+  const cv=$('cv'),ctx=cv.getContext('2d');let Wd=0,H=0;
+  let st={w:'onprem',q:null,fx:null,hit:0,t0:0},people=[],acc=0;
+  function size(){const r=cv.getBoundingClientRect();const dpr=window.devicePixelRatio||1;Wd=r.width;H=r.height;cv.width=Wd*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  function set(w,q,fx,hit){st={w,q,fx,hit,t0:performance.now()};people=[];}
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function frame(now){
+    requestAnimationFrame(frame);
+    if($('sMoment').hidden||!st.q)return;if(!Wd)size();
+    const el=(now-st.t0)/1000,active=el<4,q=st.q,hit=st.hit>=1.5;
+    const wc=cssv(W[st.w].css),bad=cssv('--bad'),muted=cssv('--muted'),line=cssv('--line'),panel=cssv('--panel'),acc2=cssv('--accent'),good=cssv('--good');
+    ctx.clearRect(0,0,Wd,H);
+    const zx=Wd*.54,zw=Wd*.42,zy=H*.16,zh=H*.7,power=active&&hit&&(st.fx==='power'||st.fx==='power2'),attack=active&&hit&&st.fx==='ransom';
+    const flick=power?(Math.random()<.5?.2:1):1;
+    ctx.font='600 12px "IBM Plex Sans",sans-serif';ctx.fillStyle=muted;ctx.textAlign='left';ctx.fillText('Your '+IND[A.industry].unit,12,20);
+    ctx.textAlign='right';ctx.fillText(st.w==='cloud'?'Your systems (provider’s cloud)':st.w==='priv'?'Your systems (your platform)':st.w==='hybrid'?'Your systems (building + cloud)':'Your systems (your building)',Wd-12,20);
+    ctx.strokeStyle=line;ctx.lineWidth=2;
+    if(st.w==='onprem'){ctx.beginPath();ctx.moveTo(zx-8,zy+zh+6);ctx.lineTo(zx-8,zy+14);ctx.lineTo(zx+zw/2,zy-6);ctx.lineTo(zx+zw+6,zy+14);ctx.lineTo(zx+zw+6,zy+zh+6);ctx.stroke();}
+    else if(st.w==='hybrid'){ctx.beginPath();ctx.moveTo(zx-8,zy+zh+6);ctx.lineTo(zx-8,zy+14);ctx.lineTo(zx+zw*.25,zy-6);ctx.lineTo(zx+zw*.5,zy+14);ctx.lineTo(zx+zw*.5,zy+zh+6);ctx.stroke();ctx.globalAlpha=.55;[[.68,.08],[.9,.16]].forEach(([a,b])=>{ctx.beginPath();ctx.arc(zx+zw*a,zy+zh*b,20,0,7);ctx.stroke();});ctx.globalAlpha=1;}
+    else if(st.w==='priv'){rr(zx-8,zy,zw+14,zh+6,18);ctx.setLineDash([6,5]);ctx.stroke();ctx.setLineDash([]);}
+    else{ctx.globalAlpha=.55;[[.2,.15],[.5,.05],[.8,.17]].forEach(([a,b])=>{ctx.beginPath();ctx.arc(zx+zw*a,zy+zh*b,24,0,7);ctx.stroke();});ctx.globalAlpha=1;}
+    const n=Math.max(2,Math.min(32,Math.round(q.cap*6))),load=q.d/q.cap,cols=8,bw=Math.min(24,zw/cols-6),bh=bw*1.15,boxes=[];
+    for(let i=0;i<n;i++){const cx=zx+(i%cols)*(zw/cols)+4,cy=zy+zh-((Math.floor(i/cols)+1)*(bh+8))+(st.w==='cloud'?Math.sin(now/600+i)*3:0);boxes.push([cx+bw/2,cy+bh/2]);
+      let c=load<.8?good:load<.97?acc2:bad;if(attack&&i%2===0)c=bad;if(active&&hit&&st.fx==='hw'&&i===2)c=bad;
+      ctx.globalAlpha=flick;ctx.fillStyle=panel;rr(cx,cy,bw,bh,st.w==='cloud'||(st.w==='hybrid'&&i%8>=4)?bw/2.4:4);ctx.fill();ctx.strokeStyle=c;ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle=c;ctx.fillRect(cx+4,cy+bh*.3,bw-8,3);ctx.fillRect(cx+4,cy+bh*.55,(bw-8)*.6,3);ctx.globalAlpha=1;}
+    const dx=Wd*.44;ctx.strokeStyle=wc;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(dx,H*.3);ctx.lineTo(dx,H*.72);ctx.stroke();
+    let serve=q.serve;if(st.fx==='peak'&&st.hit<.5)serve=1;if(active&&hit)serve*=.15;
+    acc+=7*q.d/60;while(acc>=1){acc-=1;const b=boxes[Math.floor(Math.random()*boxes.length)];people.push({y:H*.32+Math.random()*H*.38,ok:Math.random()<serve,tx:b[0],ty:b[1],p:0,sp:.35+Math.random()*.2});}
+    people=people.filter(p=>p.p<1);
+    for(const p of people){p.p+=p.sp/60;let x,y,c=wc,a=1;
+      if(p.p<.5){x=-6+(dx+6)*(p.p/.5);y=p.y;}
+      else if(p.ok){const u=(p.p-.5)/.5;x=dx+(p.tx-dx)*u;y=p.y+(p.ty-p.y)*u;a=1-Math.max(0,(u-.8)/.2);}
+      else{const u=(p.p-.5)/.5;c=bad;x=dx-6-u*dx*.5;y=p.y+u*u*H*.5;a=1-u;}
+      ctx.globalAlpha=a;ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,4,0,7);ctx.fill();}
+    ctx.globalAlpha=1;
+    if(active&&hit){const lb={power:'Power cut',power2:'Power cut',ransom:'Locked out by attackers',hw:'Hardware failure',talent:'Key skills lost',peak:'Overloaded'}[st.fx];
+      if(lb){ctx.font='700 18px "IBM Plex Sans Condensed",sans-serif';ctx.textAlign='center';ctx.fillStyle=bad;ctx.fillText(lb,zx+zw/2,zy+16);}}
+    ctx.font='500 12px "IBM Plex Mono",monospace';ctx.textAlign='right';ctx.fillStyle=muted;ctx.fillText(`This quarter: ${money(q.cost)}`,Wd-12,H-10);
+  }
+  window.addEventListener('resize',size);requestAnimationFrame(frame);
+  return{set,size};
+})();
+new ResizeObserver(()=>scene.size()).observe($('cv'));
+
+fillForm();renderFx();recompute();renderSnap();renderDoors();show('sToday');
+})();
+</script>
+
+</body></html>

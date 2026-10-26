@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Migration Cost Calculator · AI Academia</title>
+<meta name="description" content="Estimate cloud OpEx on AWS, Microsoft Azure and Google Cloud from your on-premise estate and costs, with migration cost, timeline, cash flow, sensitivity and break-even.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI0I4OTYyRSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSIjOEMxNTE1Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzIiIGZpbGw9IiNGOUY3RjQiLz48dGV4dCB4PSI1MCIgeT0iNDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzhDMTUxNSI+QUk8L3RleHQ+PC9zdmc+">
+<style>
+:root{
+  --ivory:#F9F7F4;--paper:#FFFFFF;--panel:#F4F1EC;--ink:#1A1917;--ink2:#3A3733;--muted:#6B6560;
+  --line:#E5E0D8;--line2:#CFC9C0;--cardinal:#8C1515;--cardinal2:#A81A1A;--gold:#B8962E;--gold-d:#8A6E1E;--gold-bg:#FBF3DC;
+  --good:#2E7D32;--good-bg:#E8F5E9;--warn:#B26A00;--warn-bg:#FFF4E5;--bad:#C62828;--bad-bg:#FFEBEE;
+  --serif:'EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1380px;margin:0 auto;padding:0 20px}
+@media(max-width:480px){.wrap{padding:0 14px}}
+
+/* Masthead */
+.mast{background:var(--paper);border-bottom:2px solid var(--gold)}
+.mast .wrap{display:flex;align-items:center;gap:18px;padding-top:18px;padding-bottom:16px;flex-wrap:wrap}
+.mast-t{flex:1 1 380px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);font-weight:700}
+h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:2px 0 4px}
+h1 em{color:var(--cardinal);font-style:italic}
+.lede{color:var(--muted);font-size:14px;max-width:760px}
+.mast-ctl{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.ctl-lab{display:block;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:3px}
+select,.num,.txt{background:var(--paper);border:1px solid var(--line2);border-radius:4px;padding:7px 9px;min-height:36px;max-width:100%}
+select:focus,.num:focus,.txt:focus,button:focus-visible,summary:focus-visible,input[type=range]:focus-visible,input[type=checkbox]:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:none;padding:8px 12px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);min-height:36px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--cardinal);color:#fff}
+.seg button:not(.on):hover{background:var(--panel)}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:minmax(330px,440px) minmax(0,1fr);gap:22px;padding-top:22px;padding-bottom:40px;align-items:start}
+@media(max-width:1020px){.layout{grid-template-columns:1fr}}
+.inputs{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media(min-width:1021px){.inputs{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;padding-right:4px;scrollbar-width:thin}}
+.issues-banner{display:none;background:var(--bad-bg);border:1px solid #EF9A9A;color:var(--bad);border-radius:5px;padding:9px 12px;font-size:12.5px}
+.issues-banner.show{display:block}
+
+details.sec{background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+details.sec[open]{border-color:var(--line2)}
+details.sec>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:12px}
+details.sec>summary::-webkit-details-marker{display:none}
+.numeral{font-family:var(--serif);font-size:18px;color:var(--cardinal);font-weight:600;width:24px;text-align:center}
+.sum-t{flex:1;min-width:0}
+.sum-t b{display:block;font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.2}
+.sum-t span{font-size:12px;color:var(--muted)}
+.chev{transition:transform .2s;color:var(--muted);flex:0 0 auto}
+details[open] .chev{transform:rotate(180deg)}
+.sec-body{padding:2px 16px 16px;border-top:1px solid var(--line)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin-top:12px}
+@media(max-width:420px){.fgrid{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:3px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label,.f .lab{font-size:12px;color:var(--ink2);font-weight:600;line-height:1.3}
+.f small{font-size:11px;color:var(--muted);line-height:1.35}
+.f small.err{color:var(--bad);font-weight:600}
+.inwrap{display:flex;align-items:stretch;border:1px solid var(--line2);border-radius:4px;background:var(--paper);overflow:hidden}
+.inwrap:focus-within{outline:2px solid var(--gold);outline-offset:1px}
+.inwrap.invalid,.rtable input.invalid,.gtable .invalid{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad) inset}
+.inwrap .num{border:0;border-radius:0;flex:1;min-width:0;width:100%;outline:none;font-family:var(--mono);font-size:13px}
+.inwrap .num:disabled{background:var(--panel);color:var(--muted)}
+.inwrap .unit{display:flex;align-items:center;padding:0 8px;font-size:11px;color:var(--muted);background:var(--panel);border-left:1px solid var(--line);white-space:nowrap}
+.inwrap .pre{border-left:0;border-right:1px solid var(--line)}
+.rng{display:flex;align-items:center;gap:10px}
+.rng input{flex:1;accent-color:var(--cardinal);min-height:28px;min-width:0}
+.rng input:disabled{opacity:.45}
+.rng output{font-family:var(--mono);font-size:12.5px;min-width:50px;text-align:right;color:var(--cardinal);font-weight:600}
+.tog{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--panel);cursor:pointer}
+.tog input{margin-top:3px;accent-color:var(--cardinal);width:16px;height:16px;flex:0 0 auto}
+.tog b{display:block;font-size:12.5px}
+.tog span{font-size:11.5px;color:var(--muted)}
+.sec-tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:12px;padding:10px 12px;background:var(--panel);border-radius:4px;border-left:3px solid var(--gold)}
+.sec-tot span{font-size:12px;color:var(--muted)}
+.sec-tot b{font-family:var(--serif);font-size:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line2);background:var(--paper);border-radius:4px;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:600;min-height:36px}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--cardinal);border-color:var(--cardinal);color:#fff}
+.btn.primary:hover{background:var(--cardinal2)}
+.btn.ghost{border-color:transparent;background:none;color:var(--cardinal)}
+.btn.sm{padding:5px 9px;min-height:30px;font-size:12px}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.mixbar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:12px;background:var(--line)}
+.mixbar i{display:block;height:100%}
+.mixnote{font-size:11.5px;margin-top:6px;color:var(--muted)}
+.mixnote.bad{color:var(--bad);font-weight:600}
+.sublab{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-top:16px}
+
+/* Workload groups */
+.gtable-wrap{overflow-x:auto;margin-top:10px;border:1px solid var(--line);border-radius:5px}
+.gtable{border-collapse:collapse;font-size:12px;min-width:760px;width:100%}
+.gtable th{background:var(--panel);font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:6px 5px;text-align:left;white-space:nowrap}
+.gtable td{padding:4px 4px;border-top:1px solid var(--line)}
+.gtable input,.gtable select{width:100%;border:1px solid var(--line2);border-radius:3px;padding:4px 5px;font-size:12px;background:var(--paper);min-height:30px}
+.gtable input[type=number]{font-family:var(--mono);min-width:58px}
+.gtable input.name{min-width:140px}
+.gtable select{min-width:108px}
+.gtable .x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0 6px;min-height:30px}
+.gtable .x:hover{color:var(--bad)}
+
+/* Rate card */
+.rlegend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:12px}
+.rlegend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-2px}
+.rtable{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
+.rtable th,.rtable td{padding:5px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.rtable th{font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.rtable td:first-child{color:var(--ink2);line-height:1.25;min-width:120px}
+.rtable td small{display:block;color:var(--muted);font-size:10.5px;margin-top:2px}
+.rtable input{width:100%;min-width:58px;border:1px solid var(--line2);border-radius:3px;padding:4px 5px;font-family:var(--mono);font-size:12px;background:var(--paper)}
+.rtable input.st-v{border-left:3px solid var(--good)}
+.rtable input.st-q{background:var(--gold-bg);border-color:var(--gold);border-left:3px solid var(--gold)}
+.rtable-wrap{overflow-x:auto}
+.stamp{font-size:11.5px;color:var(--muted);margin-top:10px;padding:8px 10px;background:var(--panel);border-radius:4px}
+.badge-q{display:inline-block;background:var(--gold);color:var(--ink);font-size:10px;font-weight:800;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:1px}
+
+/* Results */
+.results{display:flex;flex-direction:column;gap:18px;min-width:0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.05);padding:18px 20px;min-width:0}
+@media(max-width:480px){.card{padding:14px 14px}}
+.card h2{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.2}
+.card h2 small{display:block;font-family:var(--sans);font-size:12.5px;color:var(--muted);font-weight:400;margin-top:3px}
+.card-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.verdict{background:var(--ink);color:#F4F1EC;border:0;position:relative;overflow:hidden}
+.verdict .eyebrow{color:var(--gold)}
+.verdict h2{color:#fff;font-size:26px;margin:4px 0 6px;position:relative;z-index:1}
+.verdict p{color:#CFC9C0;font-size:14px;max-width:860px;position:relative;z-index:1}
+.verdict p b{color:#fff}
+.verdict:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(184,150,46,.35);box-shadow:0 0 0 22px rgba(184,150,46,.06)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+@media(min-width:1400px){.kpis{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--paper);padding:14px 16px;min-width:0}
+.kpi span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700}
+.kpi b{display:block;font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi em{display:block;font-style:normal;font-size:12px;color:var(--muted)}
+.kpi .rg{color:var(--gold-d);font-weight:600}
+.kpi .up{color:var(--good)}.kpi .down{color:var(--bad)}
+
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:820px){.pgrid{grid-template-columns:1fr}}
+.pcard{border:1px solid var(--line);border-radius:6px;padding:14px 16px;border-top:4px solid var(--c);position:relative;background:var(--paper)}
+.pcard.best{box-shadow:0 0 0 2px var(--gold) inset}
+.pcard .badge{position:absolute;top:-11px;right:12px;background:var(--gold);color:var(--ink);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.pcard h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--c)}
+.pcard .big{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.1;margin:8px 0 0;font-variant-numeric:tabular-nums}
+.pcard .big small{font-family:var(--sans);font-size:12px;color:var(--muted);font-weight:400}
+.pcard .rng-l{font-size:11.5px;color:var(--gold-d);font-weight:600;margin-top:2px}
+.pcard dl{display:grid;grid-template-columns:1fr auto;gap:5px 10px;margin-top:12px;font-size:12.5px}
+.pcard dt{color:var(--muted)}
+.pcard dd{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.pcard dd small{display:block;font-weight:400;color:var(--muted);font-size:11px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px}
+.pill.good{background:var(--good-bg);color:var(--good)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.conf{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:12px;background:var(--line)}
+.conf i{display:block;height:100%}
+.conf-l{font-size:11px;color:var(--muted);margin-top:4px}
+
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink2);margin-top:10px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.legend i.ln{height:3px;width:16px;vertical-align:3px;border-radius:0}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+.tabs{display:inline-flex;gap:4px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line2);background:var(--paper);padding:6px 11px;border-radius:14px;font-size:12px;font-weight:600;cursor:pointer;min-height:32px}
+.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ctlrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th,.tbl td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child{text-align:left;white-space:normal}
+.tbl thead th{font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);border-bottom:2px solid var(--line2)}
+.tbl tfoot td{font-weight:700;border-top:2px solid var(--line2);border-bottom:0}
+.tbl td small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+.tbl tr.sub td{color:var(--muted);font-size:12px}
+.tbl tr.em td{font-weight:700;background:var(--panel)}
+.tbl-wrap{overflow-x:auto}
+.pos{color:var(--good)}.neg{color:var(--bad)}
+
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.phase{border-left:3px solid var(--c);padding:6px 10px;background:var(--panel);border-radius:0 4px 4px 0}
+.phase b{display:block;font-size:12.5px}
+.phase span{font-size:11.5px;color:var(--muted)}
+
+.insights{list-style:none;display:flex;flex-direction:column;gap:10px}
+.insights li{display:flex;gap:12px;padding:11px 13px;border:1px solid var(--line);border-radius:5px;background:var(--paper)}
+.insights li .ic{flex:0 0 26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;background:var(--gold)}
+.insights li.good .ic{background:var(--good)}
+.insights li.warn .ic{background:var(--warn)}
+.insights li.bad .ic{background:var(--bad)}
+.insights li p{font-size:13px}
+.insights li p b{font-weight:700}
+.empty{padding:22px;text-align:center;color:var(--muted);background:var(--panel);border-radius:5px;font-size:13px}
+
+.scen-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.scen-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);border-radius:4px;background:var(--panel);font-size:12.5px}
+.scen-item b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scen-item small{color:var(--muted);font-size:11px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:5px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.method{font-size:13px;color:var(--ink2)}
+.method h3{font-family:var(--serif);font-size:16px;margin:12px 0 4px;color:var(--ink)}
+.method ul{padding-left:18px}
+.method li{margin:3px 0}
+.method a,.card a{color:var(--cardinal)}
+.disclaimer{margin-top:14px;padding:12px 14px;background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:0 4px 4px 0;font-size:12.5px}
+.foot{text-align:center;font-size:12px;color:var(--muted);padding:6px 0 30px}
+.foot b{font-family:var(--serif);color:var(--cardinal);font-size:14px}
+#selftest{display:none}
+#selftest.show{display:block}
+#selftest li{font-family:var(--mono);font-size:12px;list-style:none;padding:2px 0}
+#selftest li.f{color:var(--bad);font-weight:700}
+
+@media print{
+  body{background:#fff}
+  .inputs,.mast-ctl,.no-print{display:none!important}
+  .layout{grid-template-columns:1fr}
+  .card{break-inside:avoid;box-shadow:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <svg class="crest" width="54" height="54" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="48" fill="#B8962E"/><circle cx="50" cy="50" r="40" fill="#8C1515"/>
+      <circle cx="50" cy="50" r="32" fill="#F9F7F4"/>
+      <path d="M33 58c0-7 5-12 11-12 2-6 8-9 14-7 4 1 7 5 7 9 5 0 9 4 9 9 0 4-3 7-7 7H40c-4 0-7-3-7-6z" fill="none" stroke="#8C1515" stroke-width="3.2" stroke-linejoin="round"/>
+      <text x="50" y="80" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="11" fill="#8C1515">AI</text>
+    </svg>
+    <div class="mast-t">
+      <div class="eyebrow"><a class="aiu-back" href="index.html" style="color:inherit;text-decoration:none">AI Academia</a> · Tools &amp; Utilities</div>
+      <h1>Cloud Migration <em>Cost Calculator</em></h1>
+      <p class="lede">Enter your on-premise estate and what it costs today. Compare the run-rate on AWS, Microsoft Azure and Google Cloud, the investment to get there, the programme timeline, cash flow, and how sure you can be of the answer.</p>
+    </div>
+    <div class="mast-ctl">
+      <div>
+        <span class="ctl-lab">Sample estate</span>
+        <div class="seg" id="presets" role="group" aria-label="Sample estate">
+          <button type="button" data-p="small">Small</button>
+          <button type="button" data-p="mid" class="on">Mid-market</button>
+          <button type="button" data-p="large">Enterprise</button>
+        </div>
+      </div>
+      <div>
+        <label class="ctl-lab" for="currency">Currency</label>
+        <select id="currency">
+          <option value="USD">USD $</option><option value="INR">INR ₹</option><option value="ZAR">ZAR R</option>
+          <option value="EUR">EUR €</option><option value="GBP">GBP £</option><option value="AED">AED</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <!-- ============ INPUTS ============ -->
+  <aside class="inputs" id="inputs" aria-label="Inputs">
+    <div class="issues-banner" id="issues-banner" role="status"></div>
+
+    <details class="sec" open id="sec-estate">
+      <summary><span class="numeral">I</span><span class="sum-t"><b>Your on-premise estate</b><span>Scale and shape of what you run today</span></span><svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></summary>
+      <div class="sec-body"><div class="fgrid" id="f-estate"></div><p class="mixnote" id="estate-note"></p></div>
+    </details>
+
+    <details class="sec" open id="sec-costs">
+      <summary><span class="numeral">II</span><span class="sum-t"><b>What it costs today</b><span>Annual run cost, in your currency</span></span><svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></summary>
+      <div class="sec-body">
+        <div class="row-btns"><button type="button" class="btn" id="btn-estimate" title="Fill cost lines from industry benchmarks for the estate in section I">⟲ Estimate from my estate</button></div>
+        <div class="fgrid" id="f-costs"></div>
+        <div class="sec-tot"><span>On-premise total cost of ownership / year</span><b id="onprem-total">–</b></div>
+        <div class="sublab">Hardware refresh (cash view)</div>
+        <div class="fgrid" id="f-refresh"></div>
+      </div>
+    </details>
+
+    <details class="sec" id="sec-mig">
+      <summary><span class="numeral">III</span><span class="sum-t"><b>Migration approach</b><span>Strategy per workload, team and delivery rates</span></span><svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></summary>
+      <div class="sec-body">
+        <div class="row-btns" style="align-items:center">
+          <div class="seg" id="modeseg" role="group" aria-label="Strategy mode">
+            <button type="button" data-m="simple" class="on">Estate-wide mix</button>
+            <button type="button" data-m="groups">Workload groups</button>
+          </div>
+        </div>
+        <div id="mode-simple">
+          <div class="fgrid" id="f-mig"></div>
+        </div>
+        <div id="mode-groups" hidden>
+          <p class="note">Give each group of workloads its own strategy, size, utilisation and complexity. Estate totals in section I are calculated from these rows.</p>
+          <div class="gtable-wrap"><table class="gtable" id="gtable"></table></div>
+          <div class="row-btns"><button type="button" class="btn sm" id="btn-addgroup">+ Add workload group</button><button type="button" class="btn sm ghost" id="btn-seedgroups">Rebuild from estate-wide mix</button></div>
+        </div>
+        <div class="mixbar" id="mixbar"></div>
+        <div class="mixnote" id="mixnote"></div>
+        <div class="fgrid" id="f-mig2"></div>
+      </div>
+    </details>
+
+    <details class="sec" id="sec-ops">
+      <summary><span class="numeral">IV</span><span class="sum-t"><b>Cloud operating model</b><span>Region, commitments, growth and optimisation</span></span><svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></summary>
+      <div class="sec-body"><div class="fgrid" id="f-ops"></div></div>
+    </details>
+
+    <details class="sec" id="sec-rates">
+      <summary><span class="numeral">V</span><span class="sum-t"><b>Rate card <span id="quote-count"></span></b><span id="rate-sub">USD list prices · verified rates dated</span></span><svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></summary>
+      <div class="sec-body">
+        <div class="rlegend"><span><i style="background:#fff;border:1px solid var(--line2);border-left:3px solid var(--good)"></i>Verified list price</span><span><i style="background:#fff;border:1px solid var(--line2)"></i>Built-in estimate</span><span><i style="background:var(--gold-bg);border:1px solid var(--gold)"></i>Your quote</span></div>
+        <div class="rtable-wrap"><table class="rtable" id="rtable"></table></div>
+        <div class="sublab">Regional price index (compute list price vs US East)</div>
+        <div class="rtable-wrap"><table class="rtable" id="regtable"></table></div>
+        <div class="sublab">Exchange rates</div>
+        <table class="rtable" id="fxtable"></table>
+        <div class="stamp" id="rate-stamp"></div>
+        <div class="row-btns"><button type="button" class="btn ghost" id="btn-reset-rates">Reset rate card to built-in values</button></div>
+      </div>
+    </details>
+
+    <details class="sec" id="sec-scen">
+      <summary><span class="numeral">VI</span><span class="sum-t"><b>Scenarios &amp; export</b><span>Save, share and audit your assumptions</span></span><svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></summary>
+      <div class="sec-body">
+        <div class="fgrid">
+          <div class="f full"><label for="scen-name">Scenario name</label>
+            <div style="display:flex;gap:8px"><input class="txt" id="scen-name" type="text" maxlength="80" placeholder="e.g. Base case — 1-yr commit" style="flex:1;min-width:0"><button type="button" class="btn primary" id="btn-save">Save</button></div>
+            <small id="scen-store-note">Saved in this browser only.</small></div>
+        </div>
+        <div class="scen-list" id="scen-list"></div>
+        <div class="row-btns">
+          <button type="button" class="btn sm" id="btn-json">⤓ Export assumptions (JSON)</button>
+          <label class="btn sm" for="file-import" style="cursor:pointer">⤒ Import JSON</label><input type="file" id="file-import" accept="application/json,.json" hidden>
+          <button type="button" class="btn sm" id="btn-link">🔗 Copy share link</button>
+          <button type="button" class="btn sm" id="btn-csv2">⤓ Full CSV</button>
+        </div>
+      </div>
+    </details>
+  </aside>
+
+  <!-- ============ RESULTS ============ -->
+  <main class="results" id="results" aria-live="polite">
+    <section class="card" id="selftest"><div class="card-head"><h2>Self-test<small id="st-sum"></small></h2></div><ul id="st-list"></ul></section>
+    <section class="card verdict" id="verdict"></section>
+    <section class="kpis" id="kpis"></section>
+
+    <section class="card">
+      <div class="card-head"><h2>Provider comparison<small id="pc-sub"></small></h2></div>
+      <div class="pgrid" id="pgrid"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Monthly run-rate, like for like<small>Total cost of ownership per month, today vs. after migration (first steady-state month)</small></h2></div>
+      <div id="runrate"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>What the cloud bill is made of<small>Provider invoice per month by service area</small></h2></div>
+      <div id="billmix"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Cumulative cost and break-even<small id="cum-sub"></small></h2>
+        <div class="seg no-print" id="viewseg" role="group" aria-label="Cost view"><button type="button" data-v="econ" class="on">Economic</button><button type="button" data-v="cash">Cash</button></div>
+      </div>
+      <div id="cumchart"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Sensitivity<small id="sens-sub"></small></h2></div>
+      <div id="tornado"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Cash flow by year<small id="cf-sub"></small></h2>
+        <div class="ctlrow no-print"><div class="tabs" id="cftabs"></div></div>
+      </div>
+      <div class="tbl-wrap" id="cftable"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Migration programme timeline<small id="tl-sub"></small></h2></div>
+      <div id="gantt"></div>
+      <div class="phases" id="phases"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>One-time migration cost<small>Investment to move the estate, by cost line</small></h2>
+        <div class="tabs no-print" id="migtabs"></div>
+      </div>
+      <div class="tbl-wrap" id="migtable"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Reading the result<small>What is driving these numbers</small></h2></div>
+      <ul class="insights" id="insights"></ul>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Pricing confidence<small>Where the rates come from, and how to check them</small></h2></div>
+      <div id="confidence"></div>
+    </section>
+
+    <section class="card method">
+      <details>
+        <summary style="cursor:pointer"><h2 style="display:inline">Method and assumptions</h2></summary>
+        <h3>Workloads and strategy</h3>
+        <ul>
+          <li>Each workload group has its own strategy. In estate-wide mode, the estate is split into one group per strategy in proportion to the mix. Shares used elsewhere (staff reduction, storage, egress, data moved) are weighted by vCPU.</li>
+          <li>Rehosted databases stay on virtual machines; replatformed and refactored databases move to managed services. Retired workloads drop their infrastructure and application licences; retained workloads stay on-premise with a 15% inefficiency penalty for a smaller footprint.</li>
+        </ul>
+        <h3>The cloud bill</h3>
+        <ul>
+          <li><b>Compute.</b> Allocated vCPUs (less database vCPUs) are right-sized to a 60% target from each group's utilisation, never below 45% of today. Refactored workloads get a further 20% efficiency. Priced at general-purpose (≈4 GB/vCPU) list rates, plus a Windows uplift and a memory premium above 4 GB/vCPU.</li>
+          <li><b>Hours and commitments.</b> Production runs 730 h/month; non-production 730 h or ≈60 h/week when scheduled. The committed share of production compute gets the 1- or 3-year discount; Google's sustained-use discount applies to always-on uncommitted hours. Databases get 80% of the compute discount.</li>
+          <li><b>Storage and network.</b> Block storage at 75% of allocated capacity; files as object storage; backups as incremental snapshots at 30% of on-premise backup volume. Internet egress at first-tier rates; two redundant private links per data centre; 4% of compute for load balancers, NAT and firewalls.</li>
+          <li><b>Operations and support.</b> Monitoring, logging and security as a % of infrastructure. Support: AWS Business tiers; Azure ≈5% with a $1,000 floor; Google ≈3% with a $500 floor.</li>
+          <li><b>Region.</b> Each provider has its own regional index, taken from published general-purpose compute list prices and applied to every service — an approximation, since storage and network uplifts differ.</li>
+        </ul>
+        <h3>Over time</h3>
+        <ul>
+          <li>On-premise costs rise with cost escalation; capacity-driven lines (everything except staff and application licences) also rise with workload growth.</li>
+          <li>The cloud bill rises with workload growth and the cloud price trend, and falls by the optimisation % from year 2.</li>
+          <li><b>Economic view</b> uses your annualised hardware line. <b>Cash view</b> replaces it with the actual refresh spend in the year it falls; in the cloud scenario only the retained share is refreshed (extended support is assumed to bridge the rest until exit).</li>
+          <li>During migration waves, cloud spend ramps up while the data centre keeps running — the dual-running cost. Variable on-premise costs taper by up to 30% of the migrated share as waves complete.</li>
+        </ul>
+        <h3>Migration effort and timeline</h3>
+        <ul>
+          <li>Person-days per application: Rehost 8 · Replatform 25 · Refactor 90 · Retire 4 · Retain 2, scaled by complexity (0.75 / 1 / 1.4). Per VM: Rehost 1 · Replatform 1.5 · Refactor 2 · Retire 0.25. Per database: Rehost 3 · Replatform 8 · Refactor 12 · Retire 0.5. Plus 0.3 days per TB of data moved.</li>
+          <li>Assessment (10% of execution + $15k tooling), programme management (12%), landing zone by estate size, training per IT FTE, transfer appliances above 50 TB, decommissioning and contingency on top.</li>
+          <li>Waves = execution effort ÷ (squads × 6 people × 5 days) + 10% ramp-up. Squads default to one per 250 VMs (max 12). The programme is capped at 10 years.</li>
+        </ul>
+        <h3>Ranges and sensitivity</h3>
+        <ul>
+          <li>The <b>range</b> combines the uncertain inputs: cloud rates ±15%, migration effort −25% / +35%, utilisation ∓10 points, staff reduction ±10 points and commitment coverage ±15 points.</li>
+          <li>The <b>sensitivity</b> chart moves one input at a time and shows the effect on net saving for the lowest-cost provider.</li>
+        </ul>
+        <div class="disclaimer"><b>Indicative only.</b> Verified rates are public on-demand list prices for a reference machine type on the date shown; other rates are built-in estimates. Enterprise agreements, private pricing, marketplace licences and provider funding can move the result materially. Confirm with each provider's official calculator and a formal assessment before making a decision.</div>
+      </details>
+    </section>
+  </main>
+</div>
+<div class="foot"><b>AI Academia</b> · Executive Tools · Indicative estimates for planning and education · v<span id="ver"></span></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* =================================================================
+   1. Reference data (dated)
+================================================================= */
+var VERSION="2.0";
+var RATE_DATE="24 Oct 2026";
+var FX_DATE="24 Oct 2026";
+var SOURCES={
+  aws:{l:"aws-pricing.com (AWS public price list), updated 24 Oct 2026",u:"https://aws-pricing.com/m7i.large.html"},
+  azure:{l:"azurespeed.com (Azure retail prices API), retrieved 24 Oct 2026",u:"https://www.azurespeed.com/AzureVmPricing/Standard_D2s_v5"},
+  gcp:{l:"gcloud-compute.com (Google Cloud SKU data), updated 18 Oct 2026",u:"https://gcloud-compute.com/n2-standard-2.html"}
+};
+var CALCS={aws:"https://calculator.aws/",azure:"https://azure.microsoft.com/pricing/calculator/",gcp:"https://cloud.google.com/products/calculator"};
+var FX_DEFAULT={USD:1,INR:88,ZAR:17.6,EUR:0.86,GBP:0.75,AED:3.6725};
+var SYM={USD:"$",INR:"₹",ZAR:"R",EUR:"€",GBP:"£",AED:"AED "};
+var PROVIDERS=["aws","azure","gcp"];
+var PNAME={aws:"AWS",azure:"Microsoft Azure",gcp:"Google Cloud"};
+var PSHORT={aws:"AWS",azure:"Azure",gcp:"Google"};
+var PCOLOR={aws:"#C26A1B",azure:"#2B5D9A",gcp:"#2D7D6E",onprem:"#8C1515"};
+var STRATS=["rehost","replatform","refactor","retire","retain"];
+var SNAME={rehost:"Rehost",replatform:"Replatform",refactor:"Refactor",retire:"Retire",retain:"Retain"};
+var SCOLOR={rehost:"#8C1515",replatform:"#B8962E",refactor:"#2D7D6E",retire:"#6B6560",retain:"#CFC9C0"};
+var MIGRATED={rehost:1,replatform:1,refactor:1};
+var APP_PD={rehost:8,replatform:25,refactor:90,retire:4,retain:2};
+var VM_PD={rehost:1,replatform:1.5,refactor:2,retire:0.25,retain:0};
+var DB_PD={rehost:3,replatform:8,refactor:12,retire:0.5,retain:0};
+var CX={low:0.75,med:1,high:1.4};
+var MAX_WEEKS=520, WK=4.345;
+
+/* Regional index: published general-purpose compute list price relative to US East
+   AWS m7i.large · Azure D2s v5 · Google n2-standard-2 (us-east1 base). */
+var REGIONS={
+  na: {n:"US East (Virginia / East US / S. Carolina)",aws:1.000,azure:1.000,gcp:1.000},
+  euf:{n:"Europe — Frankfurt",                         aws:1.197,azure:1.198,gcp:1.288},
+  euw:{n:"Europe — Ireland / N. Europe / Belgium",     aws:1.115,azure:1.115,gcp:1.100},
+  uk: {n:"United Kingdom — London",                    aws:1.157,azure:1.156,gcp:1.288},
+  in: {n:"India — Mumbai / Central India",             aws:1.053,azure:1.052,gcp:1.201},
+  me: {n:"Middle East — UAE / Doha",                   aws:1.226,azure:1.229,gcp:1.215},
+  za: {n:"South Africa — Cape Town / Johannesburg",    aws:1.322,azure:1.323,gcp:1.100},
+  ap: {n:"Singapore",                                  aws:1.250,azure:1.250,gcp:1.234}
+};
+/* v = verified list price on RATE_DATE; e = built-in estimate. price:true → scaled by region & sensitivity. */
+var RATES_DEFAULT={
+  vcpu:     {l:"Compute, Linux, per vCPU-hour",u:"$/vCPU-h",aws:0.0504,azure:0.0480,gcp:0.0486,st:{aws:"v",azure:"v",gcp:"v"},price:1,max:5,
+             n:"m7i.large $0.1008/h · D2s v5 $0.096/h · n2-standard-2 $0.0971/h, ÷ 2 vCPU"},
+  win:      {l:"Windows licence uplift, per vCPU-hour",u:"$/vCPU-h",aws:0.046,azure:0.046,gcp:0.046,st:{aws:"e",azure:"e",gcp:"v"},price:1,max:2,
+             n:"Google: $67.16/month per 2 vCPU"},
+  mem:      {l:"Memory above 4 GB/vCPU, per GB-hour",u:"$/GB-h",aws:0.0063,azure:0.0062,gcp:0.0057,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:1},
+  block:    {l:"Block storage, per GB-month",u:"$/GB-mo",aws:0.080,azure:0.085,gcp:0.100,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:2},
+  object:   {l:"Object storage, per GB-month",u:"$/GB-mo",aws:0.023,azure:0.0184,gcp:0.020,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:1},
+  backup:   {l:"Snapshot / backup, per GB-month",u:"$/GB-mo",aws:0.050,azure:0.050,gcp:0.050,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:1},
+  egress:   {l:"Internet egress, per GB",u:"$/GB",aws:0.090,azure:0.087,gcp:0.120,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:2},
+  db:       {l:"Managed database, per vCPU-hour",u:"$/vCPU-h",aws:0.086,azure:0.089,gcp:0.069,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:5},
+  dblic:    {l:"Commercial DB licence uplift, per vCPU-h",u:"$/vCPU-h",aws:0.170,azure:0.100,gcp:0.130,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:5},
+  link:     {l:"Private link (1 Gbps), per month",u:"$/mo",aws:300,azure:440,gcp:350,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:100000},
+  ops:      {l:"Monitoring, security & logging",u:"% infra",aws:6,azure:6,gcp:5,st:{aws:"e",azure:"e",gcp:"e"},max:50},
+  c1:       {l:"1-year commitment discount",u:"%",aws:34,azure:33,gcp:37,st:{aws:"v",azure:"e",gcp:"v"},max:95,
+             n:"AWS 1-yr RI no upfront $48.68/mo vs $73.58; Google 1-yr CUD $44.66/mo vs $70.88"},
+  c3:       {l:"3-year commitment discount",u:"%",aws:55,azure:55,gcp:55,st:{aws:"v",azure:"e",gcp:"v"},max:95,
+             n:"AWS 3-yr RI $33.38/mo; Google 3-yr CUD $31.91/mo"},
+  sud:      {l:"Sustained-use discount (always-on)",u:"%",aws:0,azure:0,gcp:20,st:{aws:"v",azure:"v",gcp:"v"},max:95,
+             n:"Google full-month $56.73 vs $70.88; AWS and Azure have no equivalent"},
+  appliance:{l:"Data-transfer appliance, per 80 TB",u:"$",aws:500,azure:400,gcp:1000,st:{aws:"e",azure:"e",gcp:"e"},price:1,max:1000000}
+};
+
+var PRESETS={
+  small:{vms:40,hosts:4,vcpu:160,ram:640,blockTb:20,objectTb:5,backupTb:30,egressTb:2,dbs:6,dbVcpu:4,apps:12,dcs:1,util:30,winPct:60,nonProd:35,commDb:60},
+  mid:  {vms:400,hosts:24,vcpu:1600,ram:6400,blockTb:200,objectTb:100,backupTb:300,egressTb:20,dbs:40,dbVcpu:4,apps:80,dcs:1,util:30,winPct:40,nonProd:35,commDb:50},
+  large:{vms:2500,hosts:130,vcpu:10000,ram:40000,blockTb:1500,objectTb:800,backupTb:2500,egressTb:120,dbs:250,dbVcpu:6,apps:450,dcs:2,util:28,winPct:45,nonProd:40,commDb:55}
+};
+
+/* =================================================================
+   2. Field definitions (min / max drive validation)
+================================================================= */
+var F_ESTATE=[
+  {id:"vms",l:"Virtual machines",u:"VMs",max:1e6,grp:1},
+  {id:"hosts",l:"Physical servers / hosts",u:"hosts",max:1e5},
+  {id:"vcpu",l:"Allocated vCPUs, total",u:"vCPU",max:1e7,grp:1},
+  {id:"ram",l:"Allocated memory, total",u:"GB",max:1e8,grp:1},
+  {id:"blockTb",l:"Primary storage (SAN / block)",u:"TB",max:1e6,grp:1},
+  {id:"objectTb",l:"File & archive data",u:"TB",max:1e6},
+  {id:"backupTb",l:"Backup storage",u:"TB",max:1e6},
+  {id:"egressTb",l:"Internet egress / month",u:"TB",step:0.5,max:1e5},
+  {id:"dbs",l:"Database instances",u:"DBs",max:1e5,grp:1},
+  {id:"dbVcpu",l:"Avg vCPU per database",u:"vCPU",max:512},
+  {id:"apps",l:"Applications in scope",u:"apps",max:1e5,grp:1},
+  {id:"dcs",l:"Data centres / server rooms",u:"sites",max:500},
+  {id:"util",l:"Average CPU utilisation",type:"range",min:5,max:95,u:"%",help:"Drives right-sizing. Most estates sit at 15–40%.",grp:1},
+  {id:"winPct",l:"Windows share of servers",type:"range",min:0,max:100,u:"%",grp:1},
+  {id:"nonProd",l:"Non-production share",type:"range",min:0,max:80,u:"%",help:"Dev, test, UAT — can be scheduled off out of hours."},
+  {id:"commDb",l:"Commercial DB engines",type:"range",min:0,max:100,u:"%",help:"Share on SQL Server / Oracle vs. open source."}
+];
+var F_COSTS=[
+  {id:"hardware",l:"Hardware (servers, storage, network) — annualised",m:1,full:1,help:"Purchase cost ÷ refresh cycle (typically 5 years), or lease payments."},
+  {id:"virtLic",l:"Virtualisation & OS licences",m:1},
+  {id:"dbLic",l:"Database licences & support",m:1},
+  {id:"appLic",l:"Application software licences",m:1,help:"Moves with you to the cloud."},
+  {id:"facilities",l:"Facilities: power, cooling, space",m:1},
+  {id:"network",l:"Network & connectivity",m:1},
+  {id:"storageBackup",l:"Backup & archive",m:1},
+  {id:"maintenance",l:"Maintenance & support contracts",m:1},
+  {id:"dr",l:"Disaster-recovery site",m:1},
+  {id:"other",l:"Other (tools, audits, insurance)",m:1},
+  {id:"staffFte",l:"Infrastructure staff",u:"FTE",step:0.5,max:1e5},
+  {id:"staffCost",l:"Loaded cost per FTE / year",m:1,max:5e6}
+];
+var F_REFRESH=[
+  {id:"refreshAmt",l:"Next refresh spend",m:1,help:"0 = annualised hardware × cycle."},
+  {id:"refreshYear",l:"Falls in year",u:"year",min:0,max:10,int:1,help:"0 = no refresh in horizon."},
+  {id:"refreshCycle",l:"Refresh cycle",u:"years",min:3,max:10,int:1}
+];
+var F_MIG=[
+  {id:"rehost",l:"Rehost (lift & shift)",type:"range",min:0,max:100,u:"%",c:SCOLOR.rehost,full:1},
+  {id:"replatform",l:"Replatform (managed services)",type:"range",min:0,max:100,u:"%",c:SCOLOR.replatform,full:1},
+  {id:"refactor",l:"Refactor (cloud-native)",type:"range",min:0,max:100,u:"%",c:SCOLOR.refactor,full:1},
+  {id:"retire",l:"Retire (switch off)",type:"range",min:0,max:100,u:"%",c:SCOLOR.retire,full:1},
+  {id:"retain",l:"Retain (stay on-premise)",type:"range",min:0,max:100,u:"%",c:SCOLOR.retain,full:1},
+  {id:"complexity",l:"Application complexity",type:"select",opts:[["low","Low — standard, well-documented"],["med","Medium — typical enterprise"],["high","High — legacy, tightly coupled"]],full:1}
+];
+var F_MIG2=[
+  {id:"dayRate",l:"Blended delivery day rate",m:1,max:1e5,help:"Onshore / offshore mix."},
+  {id:"squads",l:"Migration squads",u:"squads",max:200,int:1,help:"0 = sized automatically."},
+  {id:"contingency",l:"Contingency",type:"range",min:0,max:50,u:"%"},
+  {id:"credits",l:"Provider migration funding",type:"range",min:0,max:50,u:"%",help:"Credits such as AWS MAP, Azure Migrate & Modernize, Google RaMP — offsets one-time cost."}
+];
+var F_OPS=[
+  {id:"region",l:"Target cloud region",type:"select",opts:Object.keys(REGIONS).map(function(k){return [k,REGIONS[k].n];}),full:1},
+  {id:"pricing",l:"Pricing model",type:"select",opts:[["c1","1-year commitment"],["c3","3-year commitment"],["od","On-demand only"]]},
+  {id:"coverage",l:"Commitment coverage",type:"range",min:0,max:100,u:"%",help:"Share of production compute committed."},
+  {id:"sched",l:"Schedule non-production off-hours",type:"toggle",help:"Run dev/test ~60 hours a week instead of 24×7.",full:1},
+  {id:"haDb",l:"High-availability databases",type:"toggle",help:"Standby replica in a second zone — doubles database compute.",full:1},
+  {id:"ahb",l:"Bring Windows & SQL licences to Azure",type:"toggle",help:"Azure Hybrid Benefit: removes the Windows/SQL uplift on Azure; you keep paying Software Assurance.",full:1},
+  {id:"staffRed",l:"Ops staff reduction",type:"range",min:0,max:70,u:"%",help:"On the migrated share — redeployed or not backfilled."},
+  {id:"optimise",l:"Optimisation from year 2",type:"range",min:0,max:40,u:"%",help:"FinOps: rightsizing, tiering, waste removal."},
+  {id:"demand",l:"Workload growth",type:"range",min:0,max:40,u:"%/yr",help:"Demand growth — applies to cloud and on-premise capacity."},
+  {id:"growth",l:"On-prem cost escalation",type:"range",min:0,max:15,u:"%/yr",help:"Inflation, licence and support increases."},
+  {id:"cloudPrice",l:"Cloud price trend",type:"range",min:-10,max:10,u:"%/yr",help:"Negative = list prices falling."},
+  {id:"horizon",l:"Analysis horizon",type:"select",opts:[["3","3 years"],["5","5 years"],["7","7 years"]]}
+];
+var GROUP_FIELDS=[
+  {k:"vms",l:"VMs",max:1e6},{k:"vcpu",l:"vCPU",max:1e7},{k:"ram",l:"RAM GB",max:1e8},{k:"blockTb",l:"Storage TB",max:1e6},
+  {k:"dbs",l:"DBs",max:1e5},{k:"apps",l:"Apps",max:1e5},{k:"winPct",l:"Win %",max:100},{k:"util",l:"Util %",min:5,max:95}
+];
+var NUM_FIELDS=[].concat(F_ESTATE,F_COSTS,F_REFRESH,F_MIG,F_MIG2,F_OPS).filter(function(f){return f.type!=="select"&&f.type!=="toggle";});
+var MONEY_MAX=1e11;
+
+/* =================================================================
+   3. State
+================================================================= */
+var BASE_INPUTS={mode:"simple",groups:[],rehost:50,replatform:25,refactor:10,retire:10,retain:5,complexity:"med",dayRate:350,squads:0,contingency:15,credits:0,
+  region:"na",pricing:"c1",coverage:70,sched:true,haDb:true,ahb:false,staffRed:35,optimise:10,demand:5,growth:4,cloudPrice:0,horizon:"5",
+  refreshAmt:0,refreshYear:2,refreshCycle:5};
+var S=clone(BASE_INPUTS);
+S.currency="USD";S.fx=clone(FX_DEFAULT);S.rates=clone(RATES_DEFAULT);S.regions=clone(REGIONS);
+var UI={migTab:null,cfTab:null,view:"econ"};
+var last=null,lastIssues={};
+
+function clone(o){return JSON.parse(JSON.stringify(o));}
+function num(v){var n=typeof v==="number"?v:parseFloat(v);return isFinite(n)?n:NaN;}
+function fin(v){return isFinite(v)?v:0;}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function sum(a){return a.reduce(function(s,v){return s+v;},0);}
+function round(v){var m=v>=1e6?1000:v>=1e4?100:10;return Math.round(v/m)*m;}
+
+/* Estimates (USD/yr) from estate benchmarks */
+function estimateCosts(T){
+  T=T||estateTotals(S);
+  var hw=S.hosts*3500+T.blockTb*400;
+  var fac=S.hosts*2000+T.blockTb*40+S.dcs*30000;
+  S.hardware=round(hw);
+  S.virtLic=round(S.hosts*(6080+T.winPct/100*3000)+T.vms*(1-T.winPct/100)*0.5*350);
+  S.dbLic=round(T.dbs*S.commDb/100*S.dbVcpu*2000);
+  S.appLic=round(T.apps*6000);
+  S.facilities=round(fac);
+  S.network=round(S.dcs*60000+S.hosts*300+S.egressTb*12*20);
+  S.storageBackup=round(S.backupTb*120+S.objectTb*100);
+  S.maintenance=round(hw*0.15);
+  S.dr=round(hw*0.35+fac*0.3);
+  S.staffFte=Math.max(T.vms>0?2:0,Math.round(T.vms/70+S.hosts/40));
+  S.staffCost=95000;
+  S.other=round((S.hardware+S.virtLic+S.dbLic+S.appLic+S.facilities+S.network+S.storageBackup+S.maintenance+S.dr)*0.02);
+}
+function applyPreset(p){var d=PRESETS[p];for(var k in d)S[k]=d[k];S.mode="simple";S.groups=[];estimateCosts();}
+
+/* =================================================================
+   4. Validation — every input is sanitised before the model sees it
+================================================================= */
+function fieldBounds(f){return {min:f.min!=null?f.min:0,max:f.m?(f.max||MONEY_MAX):(f.max!=null?f.max:1e12)};}
+function sanitize(src){
+  var I=clone(src),iss={};
+  NUM_FIELDS.forEach(function(f){
+    var b=fieldBounds(f),v=num(src[f.id]);
+    if(isNaN(v)){iss[f.id]="Not a number — using "+b.min;v=b.min;}
+    else if(v<b.min){iss[f.id]="Below minimum — using "+b.min;v=b.min;}
+    else if(v>b.max){iss[f.id]="Above maximum — capped";v=b.max;}
+    if(f.int)v=Math.round(v);
+    I[f.id]=v;
+  });
+  if(["low","med","high"].indexOf(I.complexity)<0)I.complexity="med";
+  if(!REGIONS[I.region])I.region="na";
+  if(["c1","c3","od"].indexOf(I.pricing)<0)I.pricing="c1";
+  if(["3","5","7"].indexOf(String(I.horizon))<0)I.horizon="5";
+  I.sched=!!I.sched;I.haDb=!!I.haDb;I.ahb=!!I.ahb;
+  /* rates */
+  Object.keys(RATES_DEFAULT).forEach(function(k){
+    if(!I.rates[k])I.rates[k]=clone(RATES_DEFAULT[k]);
+    PROVIDERS.forEach(function(p){
+      var v=num(I.rates[k][p]),mx=RATES_DEFAULT[k].max,key="rate:"+k+"|"+p;
+      if(isNaN(v)){iss[key]="Not a number — using built-in";v=RATES_DEFAULT[k][p];}
+      else if(v<0){iss[key]="Rates cannot be negative — using 0";v=0;}
+      else if(v>mx){iss[key]="Implausible — capped at "+mx;v=mx;}
+      I.rates[k][p]=v;
+    });
+  });
+  /* regional index */
+  Object.keys(REGIONS).forEach(function(r){
+    if(!I.regions[r])I.regions[r]=clone(REGIONS[r]);
+    PROVIDERS.forEach(function(p){
+      var v=num(I.regions[r][p]),key="reg:"+r+"|"+p;
+      if(isNaN(v)||v<0.5||v>3){iss[key]="Index must be 0.5–3 — using built-in";v=REGIONS[r][p];}
+      I.regions[r][p]=v;
+    });
+  });
+  /* FX */
+  Object.keys(FX_DEFAULT).forEach(function(c){
+    var v=num(I.fx[c]);if(isNaN(v)||v<=0||v>1e6){if(c!=="USD")iss["fx:"+c]="Must be above 0 — using default";v=FX_DEFAULT[c];}
+    I.fx[c]=c==="USD"?1:v;
+  });
+  /* groups */
+  I.groups=(I.groups||[]).map(function(g,i){
+    var o={name:String(g.name||("Group "+(i+1))).slice(0,60),strategy:STRATS.indexOf(g.strategy)>=0?g.strategy:"rehost",complexity:CX[g.complexity]?g.complexity:"med"};
+    GROUP_FIELDS.forEach(function(f){
+      var mn=f.min||0,v=num(g[f.k]),key="grp:"+i+"|"+f.k;
+      if(isNaN(v)){iss[key]="Not a number";v=mn;}else if(v<mn){iss[key]="Minimum "+mn;v=mn;}else if(v>f.max){iss[key]="Maximum "+f.max;v=f.max;}
+      o[f.k]=v;
+    });
+    return o;
+  });
+  /* mix */
+  var mixSum=STRATS.reduce(function(s,k){return s+I[k];},0);
+  if(I.mode==="simple"&&mixSum<=0)iss.mix="Strategy mix is all zero — treating everything as Retain (nothing migrates).";
+  if(I.mode==="groups"&&!I.groups.length)iss.mix="No workload groups — add at least one.";
+  return {I:I,issues:iss};
+}
+
+/* Totals across the estate (derived from groups in group mode) */
+function estateTotals(I){
+  if(I.mode!=="groups")return {vms:I.vms,vcpu:I.vcpu,ram:I.ram,blockTb:I.blockTb,dbs:I.dbs,apps:I.apps,util:I.util,winPct:I.winPct};
+  var g=I.groups||[],t={vms:0,vcpu:0,ram:0,blockTb:0,dbs:0,apps:0,util:0,winPct:0};
+  g.forEach(function(x){["vms","vcpu","ram","blockTb","dbs","apps"].forEach(function(k){t[k]+=fin(num(x[k]));});});
+  var wv=sum(g.map(function(x){return fin(num(x.vcpu));}));
+  t.util=wv>0?sum(g.map(function(x){return fin(num(x.util))*fin(num(x.vcpu));}))/wv:(g.length?sum(g.map(function(x){return fin(num(x.util));}))/g.length:30);
+  t.winPct=wv>0?sum(g.map(function(x){return fin(num(x.winPct))*fin(num(x.vcpu));}))/wv:0;
+  return t;
+}
+function groupsFromMix(I){
+  var s=STRATS.reduce(function(a,k){return a+I[k];},0),out=[];
+  STRATS.forEach(function(k){
+    var sh=s>0?I[k]/s:(k==="retain"?1:0);if(sh<=0)return;
+    out.push({name:SNAME[k]+" workloads",strategy:k,complexity:I.complexity,vms:I.vms*sh,vcpu:I.vcpu*sh,ram:I.ram*sh,blockTb:I.blockTb*sh,dbs:I.dbs*sh,apps:I.apps*sh,winPct:I.winPct,util:I.util});
+  });
+  return out;
+}
+
+/* =================================================================
+   5. Model — pure function of sanitised inputs (+ sensitivity overrides)
+================================================================= */
+function model(I,ov){
+  ov=ov||{};
+  var rm=ov.rateMult||1, R=I.rates;
+  var groups=(I.mode==="groups"?clone(I.groups):groupsFromMix(I)).map(function(g){
+    g.util=clamp(g.util+(ov.utilDelta||0),5,95);return g;});
+  var T={vms:0,vcpu:0,apps:0,dbs:0,blockTb:0};
+  groups.forEach(function(g){for(var k in T)T[k]+=g[k];});
+  function shareBy(pred){
+    var base=T.vcpu>0?"vcpu":T.vms>0?"vms":null;if(!base)return 0;
+    return sum(groups.filter(pred).map(function(g){return g[base];}))/T[base];
+  }
+  var mShare=shareBy(function(g){return MIGRATED[g.strategy];});
+  var retainShare=shareBy(function(g){return g.strategy==="retain";});
+  var retireShare=shareBy(function(g){return g.strategy==="retire";});
+  var retireApps=T.apps>0?sum(groups.filter(function(g){return g.strategy==="retire";}).map(function(g){return g.apps;}))/T.apps:retireShare;
+  var staffRed=clamp(I.staffRed+(ov.staffDelta||0),0,90)/100;
+  var coverage=I.pricing==="od"?0:clamp(I.coverage+(ov.covDelta||0),0,100)/100;
+  var esc=(I.growth+(ov.escDelta||0))/100, dem=Math.max(-0.5,(I.demand+(ov.demandDelta||0))/100), cpt=I.cloudPrice/100;
+  var H=parseInt(I.horizon,10)*12;
+
+  /* On-prem baseline */
+  var staffAnnual=I.staffFte*I.staffCost;
+  var infraLines=I.hardware+I.virtLic+I.dbLic+I.facilities+I.network+I.storageBackup+I.maintenance+I.dr+I.other;
+  var onpremAnnual=infraLines+I.appLic+staffAnnual;
+
+  /* Hours */
+  var np=I.nonProd/100, schedF=I.sched?0.357:1, prodH=(1-np)*730, npH=np*730*schedF;
+
+  /* Effort & timeline (provider-independent) */
+  var execPD=0,dataTb=0;
+  groups.forEach(function(g){
+    var cx=CX[g.complexity]||1,mig=!!MIGRATED[g.strategy];
+    g.pd=(g.apps*APP_PD[g.strategy]*cx+g.vms*VM_PD[g.strategy]+g.dbs*DB_PD[g.strategy]+(mig?g.blockTb*0.3:0));
+    execPD+=g.pd; if(mig)dataTb+=g.blockTb;
+  });
+  dataTb+=I.objectTb*mShare; execPD+=I.objectTb*mShare*0.3;
+  execPD*=(ov.effortMult||1);
+  var vmsMig=sum(groups.filter(function(g){return MIGRATED[g.strategy];}).map(function(g){return g.vms;}));
+  var sizeVms=T.vms>0?T.vms:T.vcpu/4;
+  var tier=sizeVms<100?"S":sizeVms<500?"M":sizeVms<2000?"L":"E";
+  var tierW={S:4,M:6,L:10,E:14}[tier];
+  var squads=I.squads>0?I.squads:clamp(Math.ceil(sizeVms/250),1,12);
+  var assessW=tierW+T.apps/50, lzW=tierW, lzStart=Math.max(0,assessW-2), wavesStart=lzStart+lzW;
+  var wavesW=execPD>0?Math.max(4,execPD/(squads*30)*1.1):0;
+  var hyperW=mShare>0?8:0, decomW={S:4,M:8,L:12,E:16}[tier];
+  var capped=false;
+  if(wavesStart+wavesW+Math.max(hyperW,decomW)>MAX_WEEKS){capped=true;wavesW=Math.max(0,MAX_WEEKS-wavesStart-Math.max(hyperW,decomW));}
+  var wavesEnd=wavesStart+wavesW, decomStart=wavesStart+wavesW*0.75;
+  var endW=Math.min(MAX_WEEKS,Math.max(wavesEnd+hyperW,decomStart+decomW));
+  var tl={tier:tier,squads:squads,assessW:assessW,lzStart:lzStart,lzW:lzW,wavesStart:wavesStart,wavesW:wavesW,wavesEnd:wavesEnd,
+    hyperW:hyperW,decomStart:decomStart,decomW:decomW,endW:endW,totalMonths:endW/WK,waves:wavesW>0?Math.max(1,Math.ceil(wavesW/6)):0,
+    execPD:execPD,capped:capped,vmsMig:vmsMig};
+
+  /* One-time labour (shared) */
+  var labourExec=execPD*I.dayRate;
+  var assess=execPD>0?labourExec*0.10+15000:0;
+  var pmo=labourExec*0.12;
+  var lz=mShare>0?{S:35000,M:80000,L:160000,E:300000}[tier]:0;
+  var training=mShare>0?I.staffFte*2500:0;
+  var decom=(mShare+retireShare)>0?I.hosts*300*(1-retainShare)+I.dcs*25000*(retainShare>0.2?0.5:1):0;
+
+  var out={I:I,groups:groups,T:T,onpremAnnual:onpremAnnual,onpremMonthly:onpremAnnual/12,staffAnnual:staffAnnual,infraLines:infraLines,
+    m:mShare,retainShare:retainShare,retireShare:retireShare,retireApps:retireApps,tl:tl,H:H,providers:{}};
+
+  PROVIDERS.forEach(function(p){
+    var reg=I.regions[I.region][p];
+    function g(k){var v=R[k][p];return RATES_DEFAULT[k].price?v*rm:v;}
+    var ahb=(p==="azure"&&I.ahb);
+    var disc=I.pricing==="od"?0:g(I.pricing)/100, sud=g("sud")/100;
+    var hf=prodH*(coverage*(1-disc)+(1-coverage)*(1-sud))+npH*(I.sched?1:(1-sud));
+    var compute=0,database=0,block=0;
+    groups.forEach(function(gr){
+      if(!MIGRATED[gr.strategy])return;
+      var rs=clamp(gr.util/60,0.45,1);
+      var dbVc=gr.dbs*I.dbVcpu, compV=Math.max(0,gr.vcpu-dbVc);
+      var effV=compV*rs*(gr.strategy==="refactor"?0.8:1);
+      var memPer=gr.vcpu>0?gr.ram/gr.vcpu:4;
+      var unit=g("vcpu")+(ahb?0:gr.winPct/100*g("win"))+Math.max(0,memPer-4)*g("mem");
+      compute+=effV*unit*hf;
+      var dbV=Math.min(dbVc,gr.vcpu>0?gr.vcpu:dbVc)*Math.max(rs,0.6);
+      var dbUnit=(gr.strategy==="rehost"?unit:g("db"))+(ahb?0:I.commDb/100*g("dblic"));
+      database+=dbV*730*dbUnit*(I.haDb?2:1)*(1-coverage*disc*0.8);
+      block+=gr.blockTb*1024*0.75*g("block");
+      gr["eff_"+p]=effV;
+    });
+    compute*=reg;database*=reg;
+    var storage=(block+I.objectTb*1024*mShare*g("object")+I.backupTb*1024*mShare*0.3*g("backup"))*reg;
+    var network=mShare>0?(I.egressTb*1024*mShare*g("egress")+Math.max(1,I.dcs)*2*g("link"))*reg+compute*0.04:0;
+    var infra=compute+database+storage+network;
+    var ops=infra*g("ops")/100;
+    var support=infra>0?supportCost(p,infra+ops):0;
+    var bill=infra+ops+support;
+
+    /* Retained / carried costs (monthly, year-0 prices) */
+    var retainedStaff=staffAnnual*(1-staffRed*mShare)/12;
+    var appLicCarry=I.appLic*(1-retireApps)/12;
+    var retainedOnprem=infraLines*retainShare*1.15/12;
+    var retainedHw=I.hardware*retainShare*1.15/12;
+    var saCarry=ahb?(I.virtLic+I.dbLic)*0.5*mShare/12:0;
+    var tco=bill+retainedStaff+appLicCarry+retainedOnprem+saCarry;
+
+    /* One-time */
+    var appliances=dataTb>50?Math.ceil(dataTb/80)*g("appliance"):0;
+    var base=labourExec+assess+pmo+lz+training+appliances+decom;
+    var cont=base*I.contingency/100;
+    var credit=-(base+cont)*I.credits/100;
+    var oneTimeEx=base+cont+credit;
+
+    /* Monthly cash & economic model */
+    var progM=endW/WK, wsM=wavesStart/WK, weM=wavesEnd/WK, progEnd=Math.ceil(progM);
+    var spreadN=Math.max(1,progEnd), spread=oneTimeEx/spreadN;
+    var refreshAmt=I.refreshAmt>0?I.refreshAmt:I.hardware*I.refreshCycle;
+    function lump(t){
+      if(I.refreshYear<=0)return 0;
+      var first=(I.refreshYear-1)*12+1;
+      if(t<first)return 0;
+      return ((t-first)%(I.refreshCycle*12)===0)?refreshAmt:0;
+    }
+    var M={sq:[0],sqCash:[0],onRun:[0],onRunCash:[0],cloud:[0],dual:[0],mig:[0]};
+    for(var t=1;t<=H;t++){
+      var yr=Math.floor((t-1)/12),E=Math.pow(1+esc,yr),D=Math.pow(1+dem,yr),C=Math.pow(1+cpt,yr);
+      var sq=(infraLines*D*E+I.appLic*E+staffAnnual*E)/12, hwM=I.hardware*D*E/12, L=lump(t)*D*E;
+      var onRun,onRunCash,cloud=0,dual=0,mg=0;
+      if(t<=progEnd){
+        var f=t<=wsM?0:clamp((t-wsM)/Math.max(0.5,weM-wsM),0,1);
+        var taper=1-0.3*f*mShare;
+        onRun=sq*taper; onRunCash=(sq-hwM)*taper+L*retainShare;
+        dual=bill*f*D*C; mg=spread;
+      }else{
+        var opt=yr>=1?(1-I.optimise/100):1;
+        onRun=(retainedOnprem*D+retainedStaff+appLicCarry+saCarry)*E;
+        onRunCash=onRun-retainedHw*D*E+L*retainShare;
+        cloud=bill*opt*D*C;
+      }
+      M.sq.push(sq);M.sqCash.push(sq-hwM+L);M.onRun.push(onRun);M.onRunCash.push(onRunCash);M.cloud.push(cloud);M.dual.push(dual);M.mig.push(mg);
+    }
+    function cum(arrs){var c=[0];for(var t=1;t<=H;t++){var s=0;arrs.forEach(function(a){s+=a[t];});c.push(c[t-1]+s);}return c;}
+    var cumSq=cum([M.sq]),cumSc=cum([M.onRun,M.cloud,M.dual,M.mig]),cumSqC=cum([M.sqCash]),cumScC=cum([M.onRunCash,M.cloud,M.dual,M.mig]);
+    function beOf(a,b){for(var t=1;t<=H;t++){if(t>progM&&b[t]<=a[t])return t;}return null;}
+    var yearly=[];
+    for(var y=0;y<H/12;y++){
+      var o={};Object.keys(M).forEach(function(k){o[k]=sum(M[k].slice(y*12+1,y*12+13));});
+      yearly.push(o);
+    }
+    var dualRun=sum(M.dual);
+    var dualFull=dualRun; /* if programme outlasts horizon, extend estimate to programme end */
+    if(progEnd>H){for(var t2=H+1;t2<=progEnd;t2++){var yr2=Math.floor((t2-1)/12),f2=t2<=wsM?0:clamp((t2-wsM)/Math.max(0.5,weM-wsM),0,1);dualFull+=bill*f2*Math.pow(1+dem,yr2)*Math.pow(1+cpt,yr2);}}
+    out.providers[p]={p:p,reg:reg,compute:compute,database:database,storage:storage,network:network,ops:ops,support:support,infra:infra,bill:bill,
+      retainedStaff:retainedStaff,appLicCarry:appLicCarry,retainedOnprem:retainedOnprem,saCarry:saCarry,tco:tco,
+      mig:{labourExec:labourExec,assess:assess,pmo:pmo,lz:lz,training:training,appliances:appliances,decom:decom,cont:cont,credit:credit,dualRun:dualFull},
+      oneTimeEx:oneTimeEx,oneTime:oneTimeEx+dualFull,M:M,yearly:yearly,
+      cumSq:cumSq,cumSc:cumSc,cumSqC:cumSqC,cumScC:cumScC,
+      breakEven:beOf(cumSq,cumSc),breakEvenCash:beOf(cumSqC,cumScC),
+      saving:cumSq[H]-cumSc[H],savingCash:cumSqC[H]-cumScC[H],monthlySaving:out.onpremMonthly-tco};
+  });
+  out.rank=PROVIDERS.slice().sort(function(a,b){return out.providers[a].cumSc[H]-out.providers[b].cumSc[H];});
+  out.best=out.rank[0];
+  return out;
+}
+function supportCost(p,spend){
+  if(p==="aws"){
+    var c=0,tiers=[[10000,0.10],[80000,0.07],[250000,0.05],[Infinity,0.03]],prev=0;
+    for(var i=0;i<tiers.length;i++){var cap=tiers[i][0];if(spend>prev)c+=(Math.min(spend,cap)-prev)*tiers[i][1];prev=cap;}
+    return Math.max(100,c);
+  }
+  if(p==="azure")return Math.max(1000,spend*0.05);
+  return Math.max(500,spend*0.03);
+}
+
+/* Ranges & sensitivity */
+var PESS={rateMult:1.15,effortMult:1.35,utilDelta:10,staffDelta:-10,covDelta:-15};
+var OPTI={rateMult:0.85,effortMult:0.75,utilDelta:-10,staffDelta:10,covDelta:15};
+function ranges(I){return {pess:model(I,PESS),opti:model(I,OPTI)};}
+var SENS=[
+  {k:"rate",l:"Cloud prices ±15%",lo:{rateMult:0.85},hi:{rateMult:1.15}},
+  {k:"effort",l:"Migration effort −25% / +35%",lo:{effortMult:0.75},hi:{effortMult:1.35}},
+  {k:"util",l:"Utilisation −10 / +10 pts",lo:{utilDelta:-10},hi:{utilDelta:10}},
+  {k:"staff",l:"Staff reduction +15 / −15 pts",lo:{staffDelta:15},hi:{staffDelta:-15}},
+  {k:"cov",l:"Commitment coverage +20 / −20 pts",lo:{covDelta:20},hi:{covDelta:-20}},
+  {k:"esc",l:"On-prem escalation +2 / −2 pts",lo:{escDelta:2},hi:{escDelta:-2}},
+  {k:"dem",l:"Workload growth −5 / +5 pts",lo:{demandDelta:-5},hi:{demandDelta:5}}
+];
+function sensitivity(I,p){
+  var base=model(I).providers[p].saving;
+  return {base:base,rows:SENS.map(function(s){
+    var a=model(I,s.lo).providers[p],b=model(I,s.hi).providers[p];
+    return {l:s.l,lo:a.saving,hi:b.saving,beLo:a.breakEven,beHi:b.breakEven};
+  }).sort(function(x,y){return Math.abs(y.hi-y.lo)-Math.abs(x.hi-x.lo);})};
+}
+
+/* =================================================================
+   6. Formatting (guards against non-finite values)
+================================================================= */
+function money(usd){
+  if(!isFinite(usd))return "—";
+  var c=S.currency,f=last?last.I.fx[c]:S.fx[c],v=usd*f,s=SYM[c],neg=v<0;v=Math.abs(v);var o;
+  if(c==="INR"){
+    if(v>=1e7)o=s+trim(v/1e7,v>=1e9?0:2)+" Cr";else if(v>=1e5)o=s+trim(v/1e5,1)+" L";else if(v>=1e3)o=s+trim(v/1e3,1)+"k";else o=s+Math.round(v);
+  }else{
+    if(v>=1e9)o=s+trim(v/1e9,2)+"B";else if(v>=1e6)o=s+trim(v/1e6,v>=1e8?0:2)+"M";else if(v>=1e3)o=s+trim(v/1e3,v>=1e5?0:1)+"k";else o=s+Math.round(v);
+  }
+  return (neg&&o.replace(/[^1-9]/g,"")?"−":"")+o;
+}
+function trim(x,d){return x.toFixed(d).replace(/\.0+$/,"").replace(/(\.\d*[1-9])0+$/,"$1");}
+function full(usd){if(!isFinite(usd))return "—";var c=S.currency;return SYM[c]+Math.round(usd*S.fx[c]).toLocaleString(c==="INR"?"en-IN":"en-US");}
+function pct(x,d){return isFinite(x)?(x*100).toFixed(d==null?0:d)+"%":"—";}
+function rel(a,b){return b>0?a/b:NaN;}
+function mrange(a,b){var lo=Math.min(a,b),hi=Math.max(a,b);return money(lo)+" – "+money(hi);}
+function beTxt(b,H){return b?"Month "+b:"Beyond "+H/12+" yrs";}
+
+/* =================================================================
+   7. Form rendering
+================================================================= */
+function fieldHTML(f){
+  var cls="f"+(f.full?" full":""),id="in-"+f.id;
+  var help='<small id="h-'+f.id+'" data-help="'+esc(f.help||"")+'">'+esc(f.help||"")+'</small>';
+  if(f.type==="range"){
+    return '<div class="'+cls+'"><label for="'+id+'">'+(f.c?'<i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+f.c+';margin-right:6px"></i>':"")+esc(f.l)+'</label>'+
+      '<div class="rng"><input type="range" id="'+id+'" data-k="'+f.id+'" min="'+f.min+'" max="'+f.max+'" step="'+(f.step||1)+'"><output id="o-'+f.id+'"></output></div>'+help+'</div>';
+  }
+  if(f.type==="select"){
+    return '<div class="'+cls+'"><label for="'+id+'">'+esc(f.l)+'</label><select id="'+id+'" data-k="'+f.id+'">'+
+      f.opts.map(function(o){return '<option value="'+o[0]+'">'+esc(o[1])+'</option>';}).join("")+'</select>'+help+'</div>';
+  }
+  if(f.type==="toggle"){
+    return '<label class="tog '+cls+'" for="'+id+'"><input type="checkbox" id="'+id+'" data-k="'+f.id+'"><span><b>'+esc(f.l)+'</b>'+(f.help?'<span>'+esc(f.help)+'</span>':"")+'</span></label>';
+  }
+  var b=fieldBounds(f);
+  var pre=f.m?'<span class="unit pre" data-sym></span>':"";
+  var unit=f.m?(f.id==="staffCost"?"/FTE":f.id==="dayRate"?"/day":f.id==="refreshAmt"?"once":"/yr"):f.u;
+  return '<div class="'+cls+'"><label for="'+id+'">'+esc(f.l)+'</label><div class="inwrap" id="w-'+f.id+'">'+pre+
+    '<input class="num" type="number" inputmode="decimal" min="'+b.min+'"'+(f.m?"":' max="'+b.max+'"')+' step="'+(f.step||(f.int?1:"any"))+'" id="'+id+'" data-k="'+f.id+'"'+(f.m?' data-m="1"':"")+'>'+
+    '<span class="unit">'+esc(unit)+'</span></div>'+help+'</div>';
+}
+function buildForm(){
+  $("f-estate").innerHTML=F_ESTATE.map(fieldHTML).join("");
+  $("f-costs").innerHTML=F_COSTS.map(fieldHTML).join("");
+  $("f-refresh").innerHTML=F_REFRESH.map(fieldHTML).join("");
+  $("f-mig").innerHTML=F_MIG.map(fieldHTML).join("");
+  $("f-mig2").innerHTML=F_MIG2.map(fieldHTML).join("");
+  $("f-ops").innerHTML=F_OPS.map(fieldHTML).join("");
+  document.querySelectorAll("[data-k]").forEach(function(el){
+    el.addEventListener((el.type==="checkbox"||el.tagName==="SELECT")?"change":"input",onField);
+  });
+  buildRateTables();
+}
+function cellState(kind,k,p,v){
+  var def=kind==="rate"?RATES_DEFAULT[k][p]:REGIONS[k][p];
+  if(Math.abs(num(v)-def)>1e-12)return "q";
+  return kind==="rate"?RATES_DEFAULT[k].st[p]:"v";
+}
+function buildRateTables(){
+  var h='<thead><tr><th>Rate</th>'+PROVIDERS.map(function(p){return '<th>'+PSHORT[p]+'</th>';}).join("")+'</tr></thead><tbody>';
+  Object.keys(RATES_DEFAULT).forEach(function(k){
+    var r=RATES_DEFAULT[k],nv=PROVIDERS.filter(function(p){return r.st[p]==="v";}).map(function(p){return PSHORT[p];});
+    h+='<tr><td>'+esc(r.l)+' <span style="color:var(--muted)">'+esc(r.u)+'</span><small>'+(nv.length?"Verified "+RATE_DATE+": "+nv.join(", ")+(r.n?" — "+esc(r.n):""):"Built-in estimate")+'</small></td>'+
+      PROVIDERS.map(function(p){return '<td><input type="number" step="any" min="0" data-rate="'+k+'" data-p="'+p+'" aria-label="'+esc(r.l+" "+PNAME[p])+'"></td>';}).join("")+'</tr>';
+  });
+  $("rtable").innerHTML=h+'</tbody>';
+  var g='<thead><tr><th>Region</th>'+PROVIDERS.map(function(p){return '<th>'+PSHORT[p]+'</th>';}).join("")+'</tr></thead><tbody>';
+  Object.keys(REGIONS).forEach(function(r){
+    g+='<tr><td>'+esc(REGIONS[r].n)+'</td>'+PROVIDERS.map(function(p){return '<td><input type="number" step="0.001" min="0.5" max="3" data-reg="'+r+'" data-p="'+p+'" aria-label="'+esc(REGIONS[r].n+" "+PNAME[p])+'"></td>';}).join("")+'</tr>';
+  });
+  $("regtable").innerHTML=g+'</tbody>';
+  var fx='<thead><tr><th>1 USD =</th><th></th></tr></thead><tbody>';
+  Object.keys(FX_DEFAULT).filter(function(c){return c!=="USD";}).forEach(function(c){
+    fx+='<tr><td>'+c+'<small>Indicative, set '+FX_DATE+' — not a live feed</small></td><td><input type="number" step="any" min="0" data-fx="'+c+'" aria-label="'+c+' per USD"></td></tr>';
+  });
+  $("fxtable").innerHTML=fx+'</tbody>';
+  $("rtable").querySelectorAll("input").forEach(function(el){el.addEventListener("input",function(){S.rates[el.dataset.rate][el.dataset.p]=el.value;update();});});
+  $("regtable").querySelectorAll("input").forEach(function(el){el.addEventListener("input",function(){S.regions[el.dataset.reg][el.dataset.p]=el.value;update();});});
+  $("fxtable").querySelectorAll("input").forEach(function(el){el.addEventListener("input",function(){S.fx[el.dataset.fx]=el.value;var v=num(el.value);if(v>0)syncForm();update();});});
+  $("rate-stamp").innerHTML='Verified compute prices: '+PROVIDERS.map(function(p){return '<a href="'+SOURCES[p].u+'" target="_blank" rel="noopener">'+esc(SOURCES[p].l)+'</a>';}).join(" · ")+'. Exchange rates are indicative as at '+FX_DATE+'.';
+}
+function onField(e){
+  var el=e.target,k=el.dataset.k;
+  if(el.type==="checkbox")S[k]=el.checked;
+  else if(el.tagName==="SELECT")S[k]=el.value;
+  else{
+    var v=num(el.value);
+    if(el.dataset.m){var fx=num(S.fx[S.currency]);S[k]=isNaN(v)?el.value:v/(fx>0?fx:FX_DEFAULT[S.currency]);}
+    else S[k]=isNaN(v)?el.value:v;
+    var o=$("o-"+k);if(o)o.textContent=fmtRange(k,v);
+  }
+  if(k in PRESETS.mid||k==="mode")clearPreset();
+  update();
+}
+function fmtRange(k,v){
+  for(var i=0;i<NUM_FIELDS.length;i++)if(NUM_FIELDS[i].id===k){var u=NUM_FIELDS[i].u||"";return (isFinite(v)?Math.round(v*10)/10:"—")+(u==="%/yr"?"%":u);}
+  return v;
+}
+function syncForm(){
+  var fx=num(S.fx[S.currency]);if(!(fx>0))fx=FX_DEFAULT[S.currency];
+  var T=estateTotals(sanitize(S).I);
+  document.querySelectorAll("[data-k]").forEach(function(el){
+    var k=el.dataset.k,v=S[k],derived=(S.mode==="groups"&&isGrpField(k));
+    if(derived)v=T[k];
+    if(el.type==="checkbox")el.checked=!!v;
+    else if(el.tagName==="SELECT")el.value=v;
+    else if(document.activeElement!==el){
+      if(el.dataset.m)el.value=isFinite(num(v))?Math.round(num(v)*fx):v;
+      else el.value=isFinite(num(v))?(derived?Math.round(v*10)/10:v):v;
+    }
+    el.disabled=derived;
+    var o=$("o-"+k);if(o)o.textContent=fmtRange(k,num(v));
+  });
+  document.querySelectorAll("[data-sym]").forEach(function(s){s.textContent=SYM[S.currency].trim();});
+  document.querySelectorAll("[data-rate]").forEach(function(el){if(document.activeElement!==el)el.value=S.rates[el.dataset.rate][el.dataset.p];});
+  document.querySelectorAll("[data-reg]").forEach(function(el){if(document.activeElement!==el)el.value=S.regions[el.dataset.reg][el.dataset.p];});
+  document.querySelectorAll("[data-fx]").forEach(function(el){if(document.activeElement!==el)el.value=S.fx[el.dataset.fx];});
+  $("currency").value=S.currency;
+  document.querySelectorAll("#modeseg button").forEach(function(b){b.classList.toggle("on",b.dataset.m===S.mode);});
+  $("mode-simple").hidden=S.mode!=="simple";$("mode-groups").hidden=S.mode!=="groups";
+  $("estate-note").textContent=S.mode==="groups"?"Shaded fields are totals from your workload groups (section III).":"";
+  renderGroups();
+}
+function isGrpField(k){for(var i=0;i<F_ESTATE.length;i++)if(F_ESTATE[i].id===k)return !!F_ESTATE[i].grp;return false;}
+function clearPreset(){document.querySelectorAll("#presets button").forEach(function(b){b.classList.remove("on");});}
+
+/* Workload group editor */
+function renderGroups(){
+  if(S.mode!=="groups"){$("gtable").innerHTML="";return;}
+  var h='<thead><tr><th>Workload group</th><th>Strategy</th>'+GROUP_FIELDS.map(function(f){return '<th>'+f.l+'</th>';}).join("")+'<th>Complexity</th><th></th></tr></thead><tbody>';
+  S.groups.forEach(function(g,i){
+    h+='<tr><td><input class="name" type="text" maxlength="60" data-g="'+i+'" data-gk="name" value="'+esc(g.name)+'" aria-label="Group name"></td>'+
+      '<td><select data-g="'+i+'" data-gk="strategy" aria-label="Strategy">'+STRATS.map(function(s){return '<option value="'+s+'"'+(g.strategy===s?" selected":"")+'>'+SNAME[s]+'</option>';}).join("")+'</select></td>'+
+      GROUP_FIELDS.map(function(f){var v=num(g[f.k]);return '<td><input type="number" step="any" min="'+(f.min||0)+'" max="'+f.max+'" data-g="'+i+'" data-gk="'+f.k+'" value="'+(isFinite(v)?Math.round(v*100)/100:esc(g[f.k]))+'" aria-label="'+f.l+'"></td>';}).join("")+
+      '<td><select data-g="'+i+'" data-gk="complexity" aria-label="Complexity">'+["low","med","high"].map(function(c){return '<option value="'+c+'"'+(g.complexity===c?" selected":"")+'>'+{low:"Low",med:"Medium",high:"High"}[c]+'</option>';}).join("")+'</select></td>'+
+      '<td><button type="button" class="x" data-del="'+i+'" aria-label="Remove group">×</button></td></tr>';
+  });
+  if(!S.groups.length)h+='<tr><td colspan="12" style="padding:12px;color:var(--muted)">No groups yet — add one below.</td></tr>';
+  $("gtable").innerHTML=h+'</tbody>';
+  $("gtable").querySelectorAll("[data-g]").forEach(function(el){
+    el.addEventListener(el.tagName==="SELECT"?"change":"input",function(){
+      var g=S.groups[+el.dataset.g],k=el.dataset.gk;
+      g[k]=(k==="name"||k==="strategy"||k==="complexity")?el.value:(isNaN(num(el.value))?el.value:num(el.value));
+      update(true);
+    });
+  });
+  $("gtable").querySelectorAll("[data-del]").forEach(function(b){b.onclick=function(){S.groups.splice(+b.dataset.del,1);syncForm();update();};});
+}
+
+/* =================================================================
+   8. Charts — hand-built SVG with bounded loops
+================================================================= */
+function niceMax(v){if(!isFinite(v)||v<=0)return 1;var e=Math.pow(10,Math.floor(Math.log10(v))),n=v/e;return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*e;}
+function niceMin(v){return v<0?-niceMax(-v):0;}
+
+function runRateChart(r){
+  var cats=[{k:"infra",l:"Infrastructure / cloud bill",c:"#1A1917"},{k:"staff",l:"Operations staff",c:"#B8962E"},{k:"app",l:"Application licences",c:"#CFC9C0"},{k:"ret",l:"Kept on-premise + licence SA",c:"#8C1515"}];
+  var rows=[{n:"On-premise today",c:PCOLOR.onprem,v:{infra:r.infraLines/12,staff:r.staffAnnual/12,app:r.I.appLic/12,ret:0}}];
+  PROVIDERS.forEach(function(p){var x=r.providers[p];rows.push({n:PNAME[p],c:PCOLOR[p],v:{infra:x.bill,staff:x.retainedStaff,app:x.appLicCarry,ret:x.retainedOnprem+x.saCarry}});});
+  var tot=rows.map(function(o){return cats.reduce(function(s,c){return s+o.v[c.k];},0);});
+  var mx=niceMax(Math.max.apply(null,tot));
+  var W=760,lab=128,right=84,bh=30,gap=16,top=8,H=top+rows.length*(bh+gap)+22,pw=W-lab-right;
+  var s='<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Monthly total cost of ownership by scenario">';
+  for(var i=0;i<=4;i++){var x=lab+pw*i/4;s+='<line x1="'+x+'" x2="'+x+'" y1="'+top+'" y2="'+(H-20)+'" stroke="#E5E0D8"/><text x="'+x+'" y="'+(H-6)+'" font-size="11" fill="#6B6560" text-anchor="middle">'+money(mx*i/4)+'</text>';}
+  rows.forEach(function(o,i){
+    var y=top+i*(bh+gap),x=lab;
+    s+='<text x="'+(lab-10)+'" y="'+(y+bh/2+4)+'" font-size="12.5" font-weight="700" fill="'+o.c+'" text-anchor="end">'+esc(o.n)+'</text>';
+    cats.forEach(function(c){var w=pw*o.v[c.k]/mx;if(w>0.3){s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+bh+'" fill="'+c.c+'"><title>'+esc(o.n+" · "+c.l+": "+full(o.v[c.k])+"/mo")+'</title></rect>';x+=w;}});
+    var d=i>0?rel(tot[i]-tot[0],tot[0]):NaN;
+    s+='<text x="'+(x+8)+'" y="'+(y+bh/2-1)+'" font-size="12.5" font-weight="700" fill="#1A1917">'+money(tot[i])+'</text>';
+    if(i>0&&isFinite(d))s+='<text x="'+(x+8)+'" y="'+(y+bh/2+13)+'" font-size="11" font-weight="700" fill="'+(d<=0?"#2E7D32":"#C62828")+'">'+(d<=0?"▼ ":"▲ ")+pct(Math.abs(d))+'</text>';
+  });
+  return s+'</svg><div class="legend">'+cats.map(function(c){return '<span><i style="background:'+c.c+'"></i>'+esc(c.l)+'</span>';}).join("")+'</div>';
+}
+
+function billMixChart(r){
+  var cats=[["compute","Compute","#8C1515"],["database","Databases","#B8962E"],["storage","Storage & backup","#2D7D6E"],["network","Network & egress","#2B5D9A"],["ops","Monitoring & security","#6B6560"],["support","Support plan","#CFC9C0"]];
+  var mx=niceMax(Math.max.apply(null,PROVIDERS.map(function(p){return r.providers[p].bill;})));
+  var W=760,H=280,l=62,b=34,t=12,pw=W-l-20,ph=H-b-t,bw=Math.min(120,pw/3*0.46);
+  var s='<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Cloud bill by service area">';
+  for(var i=0;i<=4;i++){var y=t+ph-ph*i/4;s+='<line x1="'+l+'" x2="'+(W-20)+'" y1="'+y+'" y2="'+y+'" stroke="#E5E0D8"/><text x="'+(l-8)+'" y="'+(y+4)+'" font-size="11" fill="#6B6560" text-anchor="end">'+money(mx*i/4)+'</text>';}
+  PROVIDERS.forEach(function(p,j){
+    var x=l+pw*(j+0.5)/3-bw/2,y=t+ph,x0=r.providers[p];
+    cats.forEach(function(c){var h=ph*x0[c[0]]/mx;y-=h;if(h>0.3)s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="'+c[2]+'"><title>'+esc(PNAME[p]+" · "+c[1]+": "+full(x0[c[0]])+"/mo ("+pct(rel(x0[c[0]],x0.bill))+")")+'</title></rect>';});
+    s+='<text x="'+(x+bw/2)+'" y="'+(y-6)+'" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A1917">'+money(x0.bill)+'</text>';
+    s+='<text x="'+(x+bw/2)+'" y="'+(H-12)+'" font-size="12.5" font-weight="700" text-anchor="middle" fill="'+PCOLOR[p]+'">'+esc(PNAME[p])+'</text>';
+    var ly=t+ph;
+    cats.forEach(function(c){var h=ph*x0[c[0]]/mx;ly-=h;if(h>16)s+='<text x="'+(x+bw+6)+'" y="'+(ly+h/2+4)+'" font-size="10.5" fill="#6B6560">'+pct(rel(x0[c[0]],x0.bill))+'</text>';});
+  });
+  return s+'</svg><div class="legend">'+cats.map(function(c){return '<span><i style="background:'+c[2]+'"></i>'+c[1]+'</span>';}).join("")+'</div>';
+}
+
+function cumChart(r,rg){
+  var cash=UI.view==="cash",H=r.H,a=r.providers[r.best];
+  var keySq=cash?"cumSqC":"cumSq",keySc=cash?"cumScC":"cumSc",keyBe=cash?"breakEvenCash":"breakEven";
+  var series=[{n:"On-premise",c:PCOLOR.onprem,d:a[keySq],dash:"6 4"}].concat(PROVIDERS.map(function(p){return {n:PNAME[p],c:PCOLOR[p],d:r.providers[p][keySc]};}));
+  var bandLo=rg.opti.providers[r.best][keySc],bandHi=rg.pess.providers[r.best][keySc];
+  var all=[].concat.apply([],series.map(function(s){return s.d;})).concat(bandHi);
+  var mx=niceMax(Math.max.apply(null,all));
+  var W=760,Ht=320,l=64,b=36,t=14,rp=16,pw=W-l-rp,ph=Ht-b-t;
+  function X(i){return l+pw*i/H;}function Y(v){return t+ph-ph*clamp(v/mx,0,1.05);}
+  var s='<svg class="chart" viewBox="0 0 '+W+' '+Ht+'" role="img" aria-label="Cumulative cost over time">';
+  var pe=Math.min(H,r.tl.totalMonths);
+  s+='<rect x="'+l+'" y="'+t+'" width="'+Math.max(0,X(pe)-l)+'" height="'+ph+'" fill="#F4F1EC"/>';
+  if(pe>0)s+='<text x="'+(l+6)+'" y="'+(t+14)+'" font-size="10.5" fill="#8A6E1E" font-weight="700" letter-spacing="1">MIGRATION PROGRAMME</text>';
+  for(var i=0;i<=4;i++){var y=t+ph-ph*i/4;s+='<line x1="'+l+'" x2="'+(W-rp)+'" y1="'+y+'" y2="'+y+'" stroke="#E5E0D8"/><text x="'+(l-8)+'" y="'+(y+4)+'" font-size="11" fill="#6B6560" text-anchor="end">'+money(mx*i/4)+'</text>';}
+  for(var yr=0;yr<=H/12&&yr<=10;yr++){var x=X(yr*12);s+='<line x1="'+x+'" x2="'+x+'" y1="'+(t+ph)+'" y2="'+(t+ph+5)+'" stroke="#6B6560"/><text x="'+x+'" y="'+(Ht-14)+'" font-size="11" fill="#6B6560" text-anchor="middle">'+(yr===0?"Start":"Yr "+yr)+'</text>';}
+  var band="M"+bandLo.map(function(v,i){return X(i).toFixed(1)+","+Y(v).toFixed(1);}).join(" L")+" L"+bandHi.slice().reverse().map(function(v,i){return X(H-i).toFixed(1)+","+Y(v).toFixed(1);}).join(" L")+"Z";
+  s+='<path d="'+band+'" fill="'+PCOLOR[r.best]+'" opacity="0.13"><title>'+esc(PNAME[r.best]+" range (optimistic to pessimistic)")+'</title></path>';
+  series.forEach(function(se){
+    s+='<path d="M'+se.d.map(function(v,i){return X(i).toFixed(1)+","+Y(v).toFixed(1);}).join(" L")+'" fill="none" stroke="'+se.c+'" stroke-width="2.4"'+(se.dash?' stroke-dasharray="'+se.dash+'"':"")+'/>';
+  });
+  PROVIDERS.forEach(function(p){var be=r.providers[p][keyBe];if(be)s+='<circle cx="'+X(be)+'" cy="'+Y(r.providers[p][keySc][be])+'" r="5" fill="#fff" stroke="'+PCOLOR[p]+'" stroke-width="2.4"><title>'+esc(PNAME[p]+" breaks even in month "+be)+'</title></circle>';});
+  return s+'</svg><div class="legend"><span><i class="ln" style="background:'+PCOLOR.onprem+'"></i>On-premise (status quo)</span>'+
+    PROVIDERS.map(function(p){return '<span><i class="ln" style="background:'+PCOLOR[p]+'"></i>'+PNAME[p]+'</span>';}).join("")+
+    '<span><i style="background:'+PCOLOR[r.best]+';opacity:.25"></i>'+PSHORT[r.best]+' range</span><span>○ break-even</span></div>';
+}
+
+function tornado(sv,p,H){
+  var rows=sv.rows,vals=[sv.base];rows.forEach(function(r){vals.push(r.lo,r.hi);});
+  var mx=niceMax(Math.max.apply(null,vals.map(Math.abs))),mn=Math.min.apply(null,vals)<0?-mx:0;
+  var W=760,lab=230,rp=20,rh=34,t=26,Ht=t+rows.length*rh+26,pw=W-lab-rp;
+  function X(v){return lab+pw*(v-mn)/(mx-mn);}
+  var s='<svg class="chart" viewBox="0 0 '+W+' '+Ht+'" role="img" aria-label="Sensitivity of net saving">';
+  for(var i=0;i<=4;i++){var v=mn+(mx-mn)*i/4,x=X(v);s+='<line x1="'+x+'" x2="'+x+'" y1="'+(t-6)+'" y2="'+(Ht-22)+'" stroke="#E5E0D8"/><text x="'+x+'" y="'+(Ht-6)+'" font-size="11" fill="#6B6560" text-anchor="middle">'+money(v)+'</text>';}
+  if(mn<0)s+='<line x1="'+X(0)+'" x2="'+X(0)+'" y1="'+(t-6)+'" y2="'+(Ht-22)+'" stroke="#6B6560"/>';
+  s+='<line x1="'+X(sv.base)+'" x2="'+X(sv.base)+'" y1="'+(t-10)+'" y2="'+(Ht-22)+'" stroke="#1A1917" stroke-width="1.5" stroke-dasharray="3 3"/><text x="'+X(sv.base)+'" y="'+(t-12)+'" font-size="11" font-weight="700" text-anchor="middle" fill="#1A1917">Base '+money(sv.base)+'</text>';
+  rows.forEach(function(r,i){
+    var y=t+i*rh+6;
+    s+='<text x="'+(lab-10)+'" y="'+(y+15)+'" font-size="12" font-weight="600" fill="#1A1917" text-anchor="end">'+esc(r.l)+'</text>';
+    [["lo",r.lo],["hi",r.hi]].forEach(function(e){
+      var x0=X(Math.min(sv.base,e[1])),x1=X(Math.max(sv.base,e[1])),good=e[1]>=sv.base;
+      s+='<rect x="'+x0+'" y="'+y+'" width="'+Math.max(1,x1-x0)+'" height="20" fill="'+(good?"#2E7D32":"#C62828")+'" opacity="0.8"><title>'+esc(r.l+": "+full(e[1])+" net saving · break-even "+beTxt(e[0]==="lo"?r.beLo:r.beHi,H))+'</title></rect>';
+    });
+  });
+  return s+'</svg><div class="legend"><span><i style="background:#2E7D32"></i>Improves the case</span><span><i style="background:#C62828"></i>Weakens the case</span><span>Hover a bar for the break-even month</span></div>';
+}
+
+function gantt(tl){
+  if(tl.endW<=0)return '<div class="empty">Nothing to migrate — set a strategy mix or add workload groups.</div>';
+  var ph=[
+    {n:"Assess & plan",s:0,w:tl.assessW,c:"#6B6560"},
+    {n:"Landing zone & foundations",s:tl.lzStart,w:tl.wavesW>0?tl.lzW:0,c:"#B8962E"},
+    {n:"Migration waves ("+tl.waves+")",s:tl.wavesStart,w:tl.wavesW,c:"#8C1515",waves:tl.waves},
+    {n:"Hypercare & optimise",s:tl.wavesEnd,w:tl.hyperW,c:"#2D7D6E"},
+    {n:"Data-centre exit",s:tl.decomStart,w:tl.decomW,c:"#2B5D9A"}
+  ];
+  var tot=tl.endW,W=760,lab=180,rp=14,rh=30,t=26,H=t+ph.length*rh+8,pw=W-lab-rp;
+  function X(w){return lab+pw*clamp(w/tot,0,1);}
+  var s='<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Migration timeline">';
+  var mTot=Math.ceil(tot/WK),stepM=Math.max(1,Math.ceil(mTot/12)),ticks=0;
+  for(var m=0;m<=mTot&&ticks<40;m+=stepM,ticks++){var x=X(m*WK);s+='<line x1="'+x+'" x2="'+x+'" y1="'+(t-6)+'" y2="'+(H-6)+'" stroke="#E5E0D8"/><text x="'+x+'" y="'+(t-10)+'" font-size="10.5" fill="#6B6560" text-anchor="middle">M'+m+'</text>';}
+  ph.forEach(function(p,i){
+    var y=t+i*rh+4;
+    s+='<text x="'+(lab-10)+'" y="'+(y+15)+'" font-size="12" font-weight="600" fill="#1A1917" text-anchor="end">'+esc(p.n)+'</text>';
+    if(p.w>0)s+='<rect x="'+X(p.s)+'" y="'+y+'" width="'+Math.max(2,X(p.s+p.w)-X(p.s))+'" height="20" rx="3" fill="'+p.c+'"><title>'+esc(p.n+": week "+Math.round(p.s)+" to "+Math.round(p.s+p.w))+'</title></rect>';
+    var nw=Math.min(p.waves||0,60);
+    for(var k=1;k<nw;k++){var xx=X(p.s+p.w*k/nw);s+='<line x1="'+xx+'" x2="'+xx+'" y1="'+y+'" y2="'+(y+20)+'" stroke="#fff" stroke-width="1.5"/>';}
+  });
+  return s+'</svg>';
+}
+
+/* =================================================================
+   9. Results rendering
+================================================================= */
+function update(keepGroupsFocus){
+  var sz=sanitize(S),I=sz.I;lastIssues=sz.issues;
+  var r=model(I);last=r;
+  var rg=ranges(I);
+  showIssues(sz.issues);
+  if(!keepGroupsFocus)syncForm();else{var T=estateTotals(I);F_ESTATE.forEach(function(f){if(f.grp){var el=$("in-"+f.id);if(el){el.value=Math.round(T[f.id]*10)/10;var o=$("o-"+f.id);if(o)o.textContent=fmtRange(f.id,T[f.id]);}}});}
+  $("onprem-total").textContent=money(r.onpremAnnual);
+  renderMix(r,sz.issues);
+  renderQuoteCount(I);
+  var H=r.H,Y=H/12,best=r.providers[r.best],bp=rg.pess.providers[r.best],bo=rg.opti.providers[r.best];
+  var noEstate=r.T.vcpu<=0&&r.T.vms<=0, noBase=r.onpremAnnual<=0, noMig=r.m<=0;
+
+  /* Verdict */
+  var v='<div class="eyebrow">The headline</div>';
+  if(noEstate){v+='<h2>Describe your estate to begin</h2><p>Enter at least the number of VMs or vCPUs in section I — or pick a sample estate above.</p>';}
+  else if(noBase){v+='<h2>Add what your estate costs today</h2><p>Without a current cost there is nothing to compare against. Use <b>Estimate from my estate</b> in section II for benchmark figures, then replace them with your own.</p>';}
+  else if(noMig){v+='<h2>Nothing is being migrated</h2><p>The strategy mix sends no workloads to the cloud'+(r.retireShare>0?', though retiring '+pct(r.retireShare)+' still saves '+money(best.saving)+' over '+Y+' years':'')+'. Adjust the mix in section III.</p>';}
+  else if(best.saving>0){
+    v+='<h2>'+esc(PNAME[r.best])+' saves '+money(best.saving)+' over '+Y+' years</h2>';
+    v+='<p>Likely range <b>'+mrange(bp.saving,bo.saving)+'</b> depending on prices, effort and adoption. Run-rate falls from <b>'+money(r.onpremMonthly)+'</b> to <b>'+money(best.tco)+'</b> a month once migrated. The move costs <b>'+money(best.oneTime)+'</b> one-time, takes about <b>'+Math.round(r.tl.totalMonths)+' months</b>, and breaks even in <b>'+beTxt(best.breakEven,H).toLowerCase()+'</b> (cash view: '+beTxt(best.breakEvenCash,H).toLowerCase()+').';
+    var second=r.providers[r.rank[1]],gap=rel(second.cumSc[H]-best.cumSc[H],best.cumSc[H]);
+    if(gap<0.05)v+=' '+esc(PNAME[r.rank[1]])+' is within '+pct(gap)+' — close enough that skills, existing licences and services should decide, not price.';
+    v+='</p>';
+  }else{
+    v+='<h2>On these inputs, staying on-premise is cheaper over '+Y+' years</h2>';
+    v+='<p>The lowest-cost option, <b>'+esc(PNAME[r.best])+'</b>, runs at <b>'+money(best.tco)+'</b> a month against <b>'+money(r.onpremMonthly)+'</b> today, and the <b>'+money(best.oneTime)+'</b> migration is not recovered. Under optimistic assumptions the result is <b>'+(bo.saving>0?"a saving of ":"a cost of ")+money(Math.abs(bo.saving))+'</b>. A cloud case here would rest on agility, resilience or a data-centre exit — or on the levers below.</p>';
+  }
+  $("verdict").innerHTML=v;
+
+  /* KPIs */
+  var dT=rel(best.tco-r.onpremMonthly,r.onpremMonthly);
+  $("kpis").innerHTML=[
+    ["On-prem today",money(r.onpremMonthly),"per month · "+money(r.onpremAnnual)+"/yr"],
+    ["Best cloud TCO",money(best.tco),(isFinite(dT)?'<span class="'+(dT<=0?"up":"down")+'">'+(dT<=0?"▼ ":"▲ ")+pct(Math.abs(dT))+'</span> · ':"")+esc(PSHORT[r.best])+'<span class="rg" style="display:block">'+mrange(bo.tco,bp.tco)+'</span>'],
+    ["Cloud bill",money(best.bill),'provider invoice / month<span class="rg" style="display:block">'+mrange(bo.bill,bp.bill)+'</span>'],
+    ["Migration, one-time",money(best.oneTime),'incl. dual-running<span class="rg" style="display:block">'+mrange(bo.oneTime,bp.oneTime)+'</span>'],
+    ["Timeline",Math.round(r.tl.totalMonths)+" months",r.tl.squads+" squad"+(r.tl.squads>1?"s":"")+" · "+r.tl.waves+" waves"+(r.tl.capped?' · <span class="down">capped</span>':"")],
+    ["Break-even",best.breakEven?"Month "+best.breakEven:"Beyond "+Y+" yrs",'cash: '+beTxt(best.breakEvenCash,H).toLowerCase()+'<span class="rg" style="display:block">range: '+beTxt(bo.breakEven,H).toLowerCase()+' → '+beTxt(bp.breakEven,H).toLowerCase()+'</span>']
+  ].map(function(k){return '<div class="kpi"><span>'+k[0]+'</span><b>'+k[1]+'</b><em>'+k[2]+'</em></div>';}).join("");
+
+  /* Provider cards */
+  $("pc-sub").textContent="Steady-state month after migration · "+REGIONS[I.region].n+" · "+{c1:"1-year",c3:"3-year",od:"no"}[I.pricing]+" commitment";
+  $("pgrid").innerHTML=PROVIDERS.map(function(p){
+    var x=r.providers[p],xp=rg.pess.providers[p],xo=rg.opti.providers[p],isBest=p===r.best&&!noMig,d=rel(x.monthlySaving,r.onpremMonthly);
+    var cf=confidenceOf(I,x);
+    return '<div class="pcard'+(isBest?" best":"")+'" style="--c:'+PCOLOR[p]+'">'+(isBest?'<span class="badge">Lowest '+Y+'-yr cost</span>':"")+
+      '<h3>'+esc(PNAME[p])+'</h3><div class="big">'+money(x.bill)+' <small>bill / month</small></div><div class="rng-l">Range '+mrange(xo.bill,xp.bill)+'</div>'+
+      '<dl><dt>Total cost of ownership</dt><dd>'+money(x.tco)+'/mo</dd>'+
+      '<dt>vs. on-premise</dt><dd>'+(isFinite(d)?'<span class="pill '+(d>=0?"good":"bad")+'">'+(d>=0?"−":"+")+pct(Math.abs(d))+'</span>':"—")+'</dd>'+
+      '<dt>Regional index</dt><dd>×'+x.reg.toFixed(2)+'</dd>'+
+      '<dt>Migration, one-time</dt><dd>'+money(x.oneTime)+'</dd>'+
+      '<dt>'+Y+'-yr net saving</dt><dd class="'+(x.saving>=0?"pos":"neg")+'">'+money(x.saving)+'<small>'+mrange(xp.saving,xo.saving)+'</small></dd>'+
+      '<dt>Break-even</dt><dd>'+(x.breakEven?"Month "+x.breakEven:'<span class="pill warn">Beyond '+Y+' yrs</span>')+'<small>cash: '+beTxt(x.breakEvenCash,H).toLowerCase()+'</small></dd></dl>'+
+      '<div class="conf">'+'<i style="width:'+cf.v*100+'%;background:var(--good)"></i><i style="width:'+cf.q*100+'%;background:var(--gold)"></i><i style="width:'+cf.e*100+'%;background:var(--line2)"></i></div>'+
+      '<div class="conf-l">Bill priced from: '+pct(cf.v)+' verified · '+pct(cf.q)+' your quotes · '+pct(cf.e)+' estimates</div></div>';
+  }).join("");
+
+  if(noEstate||noBase){
+    ["runrate","billmix","cumchart","tornado","cftable","migtable"].forEach(function(id){$(id).innerHTML='<div class="empty">Complete sections I and II to see this view.</div>';});
+  }else{
+    $("runrate").innerHTML=runRateChart(r)+'<p class="note">Cloud totals include the operations staff you keep, application licences that move with you, and anything left on-premise — so the comparison is like for like.</p>';
+    $("billmix").innerHTML=noMig?'<div class="empty">No cloud bill — nothing is migrated.</div>':billMixChart(r);
+    $("cum-sub").textContent=(UI.view==="cash"?"Cash view — hardware refresh spend in the year it falls":"Economic view — hardware at its annualised cost")+" · shaded band = "+PSHORT[r.best]+" range";
+    $("cumchart").innerHTML=cumChart(r,rg);
+    var sv=sensitivity(I,r.best);
+    $("sens-sub").textContent=Y+"-year net saving on "+PNAME[r.best]+", moving one input at a time";
+    $("tornado").innerHTML=tornado(sv,r.best,H);
+    renderCashFlow(r);
+    renderMigTable(r);
+  }
+  document.querySelectorAll("#viewseg button").forEach(function(b){b.classList.toggle("on",b.dataset.v===UI.view);});
+
+  /* Timeline */
+  var tl=r.tl;
+  $("tl-sub").textContent={S:"Small",M:"Mid-sized",L:"Large",E:"Enterprise-scale"}[tl.tier]+" estate · "+Math.round(tl.execPD).toLocaleString()+" person-days of execution · about "+Math.round(tl.totalMonths)+" months end to end"+(tl.capped?" (capped at 10 years — add squads)":"");
+  $("gantt").innerHTML=noEstate?'<div class="empty">Describe your estate in section I.</div>':gantt(tl);
+  $("phases").innerHTML=noEstate||tl.endW<=0?"":[
+    ["Assess & plan","#6B6560",Math.round(tl.assessW)+" weeks · discovery, dependency mapping, business case"],
+    ["Foundations","#B8962E",Math.round(tl.lzW)+" weeks · landing zone, identity, network, guardrails"],
+    ["Waves","#8C1515",Math.round(tl.wavesW)+" weeks · "+tl.waves+" waves of ~"+(tl.waves?Math.ceil(tl.vmsMig/tl.waves):0)+" VMs"],
+    ["Hypercare","#2D7D6E",tl.hyperW+" weeks · stabilise, right-size, commit"],
+    ["DC exit","#2B5D9A",tl.decomW+" weeks · decommission, data wipe, contracts"]
+  ].map(function(p){return '<div class="phase" style="--c:'+p[1]+'"><b>'+p[0]+'</b><span>'+p[2]+'</span></div>';}).join("");
+
+  renderInsights(r,rg);
+  renderConfidence(I,r);
+}
+
+function showIssues(iss){
+  document.querySelectorAll(".invalid").forEach(function(el){el.classList.remove("invalid");});
+  document.querySelectorAll("small[data-help]").forEach(function(s){s.textContent=s.dataset.help;s.classList.remove("err");});
+  var keys=Object.keys(iss).filter(function(k){return k!=="mix";});
+  keys.forEach(function(k){
+    if(k.indexOf("rate:")===0){var a=k.slice(5).split("|"),el=document.querySelector('[data-rate="'+a[0]+'"][data-p="'+a[1]+'"]');if(el){el.classList.add("invalid");el.title=iss[k];}}
+    else if(k.indexOf("reg:")===0){var b=k.slice(4).split("|"),e2=document.querySelector('[data-reg="'+b[0]+'"][data-p="'+b[1]+'"]');if(e2){e2.classList.add("invalid");e2.title=iss[k];}}
+    else if(k.indexOf("fx:")===0){var e3=document.querySelector('[data-fx="'+k.slice(3)+'"]');if(e3){e3.classList.add("invalid");e3.title=iss[k];}}
+    else if(k.indexOf("grp:")===0){var c=k.slice(4).split("|"),e4=document.querySelector('[data-g="'+c[0]+'"][data-gk="'+c[1]+'"]');if(e4){e4.classList.add("invalid");e4.title=iss[k];}}
+    else{var w=$("w-"+k),h=$("h-"+k);if(w)w.classList.add("invalid");if(h){h.textContent=iss[k];h.classList.add("err");}}
+  });
+  var b=$("issues-banner");
+  if(keys.length){b.className="issues-banner show";b.textContent=keys.length+" input"+(keys.length>1?"s":"")+" out of range — highlighted and adjusted for the calculation.";}
+  else b.className="issues-banner";
+}
+
+function renderMix(r,iss){
+  var g=r.groups,shares={};STRATS.forEach(function(s){shares[s]=0;});
+  var base=r.T.vcpu>0?"vcpu":"vms",tot=r.T[base];
+  g.forEach(function(x){shares[x.strategy]+=tot>0?x[base]/tot:0;});
+  $("mixbar").innerHTML=STRATS.map(function(s){return '<i style="width:'+(shares[s]*100)+'%;background:'+SCOLOR[s]+'"></i>';}).join("");
+  var n=$("mixnote");
+  if(iss.mix){n.className="mixnote bad";n.textContent=iss.mix;return;}
+  var sm=STRATS.reduce(function(a,k){return a+fin(num(S[k]));},0);
+  if(S.mode==="simple"&&Math.round(sm)!==100){n.className="mixnote bad";n.textContent="Mix adds to "+Math.round(sm)+"% — scaled to 100% for the calculation.";return;}
+  n.className="mixnote";
+  n.textContent="By vCPU: migrating "+pct(r.m)+" · retiring "+pct(r.retireShare)+" · keeping "+pct(r.retainShare)+" on-premise"+(S.mode==="groups"?" · "+g.length+" groups":"")+".";
+}
+
+function confidenceOf(I,x){
+  var map={compute:"vcpu",database:"db",storage:"block",network:"egress",ops:"ops",support:null},o={v:0,q:0,e:0};
+  if(!(x.bill>0))return {v:0,q:0,e:1};
+  Object.keys(map).forEach(function(c){
+    var k=map[c],st=k?cellState("rate",k,x.p,I.rates[k][x.p]):"e";
+    o[st]+=x[c]/x.bill;
+  });
+  return o;
+}
+function renderQuoteCount(I){
+  var n=0;
+  Object.keys(RATES_DEFAULT).forEach(function(k){PROVIDERS.forEach(function(p){
+    var st=cellState("rate",k,p,I.rates[k][p]),el=document.querySelector('[data-rate="'+k+'"][data-p="'+p+'"]');
+    if(st==="q")n++; if(el){el.classList.toggle("st-q",st==="q");el.classList.toggle("st-v",st==="v");}
+  });});
+  Object.keys(REGIONS).forEach(function(r){PROVIDERS.forEach(function(p){
+    var st=cellState("reg",r,p,I.regions[r][p]),el=document.querySelector('[data-reg="'+r+'"][data-p="'+p+'"]');
+    if(st==="q")n++; if(el){el.classList.toggle("st-q",st==="q");el.classList.toggle("st-v",st==="v");}
+  });});
+  $("quote-count").innerHTML=n?'<span class="badge-q">'+n+' quote'+(n>1?"s":"")+'</span>':"";
+  $("rate-sub").textContent="USD list prices · compute verified "+RATE_DATE+(n?" · "+n+" overridden by your quotes":"");
+}
+
+function renderCashFlow(r){
+  if(!UI.cfTab)UI.cfTab=r.best;
+  $("cftabs").innerHTML=PROVIDERS.map(function(p){return '<button type="button" data-t="'+p+'" class="'+(p===UI.cfTab?"on":"")+'">'+PSHORT[p]+'</button>';}).join("");
+  $("cftabs").querySelectorAll("button").forEach(function(b){b.onclick=function(){UI.cfTab=b.dataset.t;renderCashFlow(last);};});
+  var x=r.providers[UI.cfTab],cash=UI.view==="cash",Y=r.H/12;
+  $("cf-sub").textContent=(cash?"Cash view":"Economic view")+" · "+PNAME[UI.cfTab]+" · switch views on the cumulative chart";
+  var sqK=cash?"sqCash":"sq",onK=cash?"onRunCash":"onRun";
+  var h='<table class="tbl"><thead><tr><th></th>';for(var y=0;y<Y;y++)h+='<th>Yr '+(y+1)+'</th>';h+='<th>Total</th></tr></thead><tbody>';
+  function row(lbl,fn,cls){var vals=x.yearly.map(fn),t=sum(vals);h+='<tr class="'+(cls||"")+'"><td>'+lbl+'</td>'+vals.map(function(v){return '<td>'+money(v)+'</td>';}).join("")+'<td>'+money(t)+'</td></tr>';return vals;}
+  row("Status quo — stay on-premise",function(o){return o[sqK];},"em");
+  row("On-premise run cost (scenario)",function(o){return o[onK];},"sub");
+  row("Cloud run cost",function(o){return o.cloud;},"sub");
+  row("Dual-running (cloud during migration)",function(o){return o.dual;},"sub");
+  row("Migration investment",function(o){return o.mig;},"sub");
+  var scen=row("Cloud scenario — total",function(o){return o[onK]+o.cloud+o.dual+o.mig;},"em");
+  var net=x.yearly.map(function(o){return o[sqK]-(o[onK]+o.cloud+o.dual+o.mig);}),c=0;
+  h+='<tr><td><b>Net cash impact vs. status quo</b><small>positive = saving</small></td>'+net.map(function(v){return '<td class="'+(v>=0?"pos":"neg")+'">'+money(v)+'</td>';}).join("")+'<td class="'+(sum(net)>=0?"pos":"neg")+'"><b>'+money(sum(net))+'</b></td></tr>';
+  h+='<tr><td>Cumulative net</td>'+net.map(function(v){c+=v;return '<td class="'+(c>=0?"pos":"neg")+'">'+money(c)+'</td>';}).join("")+'<td></td></tr>';
+  $("cftable").innerHTML=h+'</tbody></table>';
+}
+
+function renderMigTable(r){
+  if(!UI.migTab)UI.migTab=r.best;
+  $("migtabs").innerHTML=PROVIDERS.map(function(p){return '<button type="button" data-t="'+p+'" class="'+(p===UI.migTab?"on":"")+'">'+PSHORT[p]+'</button>';}).join("");
+  $("migtabs").querySelectorAll("button").forEach(function(b){b.onclick=function(){UI.migTab=b.dataset.t;renderMigTable(last);};});
+  var x=r.providers[UI.migTab].mig,tot=r.providers[UI.migTab].oneTime;
+  var rows=[
+    ["Migration execution","Applications, VMs (incl. refactored), databases and data — "+Math.round(r.tl.execPD).toLocaleString()+" person-days",x.labourExec],
+    ["Assessment & planning","Discovery tooling, dependency mapping, wave planning",x.assess],
+    ["Programme management","PMO, governance, change and communications",x.pmo],
+    ["Landing zone & foundations","Accounts / subscriptions, network, identity, security guardrails",x.lz],
+    ["Training & certification","Upskilling the infrastructure team",x.training],
+    ["Data-transfer appliances","Offline bulk transfer for large data volumes",x.appliances],
+    ["Decommissioning","Secure wipe, disposal, site exit",x.decom],
+    ["Contingency",S.contingency+"% risk allowance",x.cont],
+    ["Dual-running","Cloud spend ramping while the data centre still runs",x.dualRun]
+  ];
+  if(x.credit<0)rows.push(["Provider migration funding","Credits / co-funding",x.credit]);
+  var mx=Math.max.apply(null,rows.map(function(o){return Math.abs(o[2]);}))||1;
+  var h='<table class="tbl"><thead><tr><th>Cost line</th><th style="width:30%">Share</th><th>Amount</th></tr></thead><tbody>';
+  rows.forEach(function(o){
+    h+='<tr><td>'+esc(o[0])+'<small>'+esc(o[1])+'</small></td><td><div style="height:8px;background:var(--panel);border-radius:4px"><div style="height:8px;width:'+(Math.abs(o[2])/mx*100)+'%;background:'+(o[2]<0?"var(--good)":PCOLOR[UI.migTab])+';border-radius:4px"></div></div></td><td>'+money(o[2])+'</td></tr>';
+  });
+  $("migtable").innerHTML=h+'</tbody><tfoot><tr><td>Total one-time investment</td><td></td><td>'+money(tot)+'</td></tr></tfoot></table>';
+}
+
+function renderInsights(r,rg){
+  var I=r.I,best=r.providers[r.best],L=[],mix=PROVIDERS.map(function(p){return r.providers[p];});
+  if(r.m<=0||r.onpremAnnual<=0){$("insights").innerHTML='<li><span class="ic">i</span><p>Insights appear once the estate, costs and a migration mix are in place.</p></li>';return;}
+  var spread=Math.abs(rg.opti.providers[r.best].saving-rg.pess.providers[r.best].saving);
+  if(spread>Math.abs(best.saving))L.push(["warn","The answer is sensitive to assumptions.","The plausible range ("+mrange(rg.pess.providers[r.best].saving,rg.opti.providers[r.best].saving)+") is wider than the base saving itself. Firm up the top items on the sensitivity chart before deciding."]);
+  var effMig=sum(r.groups.filter(function(g){return MIGRATED[g.strategy];}).map(function(g){return Math.max(0,g.vcpu-g.dbs*I.dbVcpu);}));
+  var eff=sum(r.groups.map(function(g){return g["eff_"+r.best]||0;}));
+  if(r.T.vcpu>0&&eff<effMig*0.8)L.push(["good","Right-sizing is a big lever.","Migrated compute shrinks from "+Math.round(effMig).toLocaleString()+" to "+Math.round(eff).toLocaleString()+" vCPUs at your utilisation levels."]);
+  var dbShare=rel(best.database,best.bill);
+  if(dbShare>0.25)L.push(["warn","Databases are "+pct(dbShare)+" of the bill.",(I.haDb?"High availability doubles database compute. ":"")+(I.commDb>30?"Commercial engines add a licence uplift — moving some to PostgreSQL / MySQL, or bringing licences, changes this materially.":"Reserved database capacity and right-sizing the largest instances help most.")]);
+  if(I.pricing==="od")L.push(["bad","On-demand pricing leaves money on the table.","A 1-year commitment on 70% of production compute would cut compute cost by roughly "+pct(0.7*I.rates.c1[r.best]/100)+"."]);
+  else if(I.coverage<60)L.push(["warn","Commitment coverage is low.","Most organisations commit 60–80% of steady-state load after the first 3–6 months."]);
+  if(!I.sched&&I.nonProd>15)L.push(["warn","Non-production runs around the clock.","Scheduling it to office hours cuts its compute by about 64%."]);
+  var eg=Math.max.apply(null,mix.map(function(x){return rel(x.network,x.bill)||0;}));
+  if(eg>0.12)L.push(["warn","Network is a large share of the bill.","Egress and private links reach "+pct(eg)+" on at least one provider."]);
+  if(I.demand>0)L.push(["","Growth is modelled on both sides.","At "+I.demand+"% workload growth a year, the cloud bill rises from "+money(best.bill)+" to about "+money(best.bill*Math.pow(1+I.demand/100,r.H/12-1)*Math.pow(1+I.cloudPrice/100,r.H/12-1)*(1-I.optimise/100))+" a month by year "+r.H/12+"."]);
+  if(r.providers[r.best].breakEvenCash&&best.breakEven&&r.providers[r.best].breakEvenCash<best.breakEven-3)L.push(["good","Cash payback comes sooner.","Avoiding the hardware refresh brings cash break-even to month "+best.breakEvenCash+", ahead of the economic view."]);
+  if(!I.ahb&&(I.winPct>=40||I.commDb>=40))L.push(["","Existing Microsoft licences could change the ranking.","Try Azure Hybrid Benefit in section IV."]);
+  if(I.region!=="na"){var regs=PROVIDERS.map(function(p){return [p,I.regions[I.region][p]];}).sort(function(a,b){return a[1]-b[1];});
+    if(regs[2][1]-regs[0][1]>0.1)L.push(["","Regional prices differ by provider.","In "+REGIONS[I.region].n+", "+PSHORT[regs[0][0]]+" lists at ×"+regs[0][1].toFixed(2)+" of US East against ×"+regs[2][1].toFixed(2)+" for "+PSHORT[regs[2][0]]+"."]);}
+  if(r.retainShare>0.2)L.push(["warn","A large share stays on-premise.","Keeping "+pct(r.retainShare)+" on-premise means the data centre cannot close."]);
+  if(!best.breakEven)L.push(["bad","No break-even inside "+r.H/12+" years.","Test the sensitivity levers, a longer horizon, provider funding, or more Retire / Replatform."]);
+  $("insights").innerHTML=L.slice(0,8).map(function(x){var ic={good:"✓",warn:"!",bad:"✕"}[x[0]]||"i";return '<li class="'+x[0]+'"><span class="ic">'+ic+'</span><p><b>'+esc(x[1])+'</b> '+esc(x[2])+'</p></li>';}).join("");
+}
+
+/* Reference checks: rate card vs published list prices, and a configuration to reproduce in the official calculators */
+var REF_CHECKS=[
+  {p:"aws",l:"m7i.large, Linux, us-east-1, on-demand",pub:0.1008,f:function(R){return 2*R.vcpu.aws;},u:"/h"},
+  {p:"azure",l:"D2s v5, Linux, East US, pay-as-you-go",pub:0.096,f:function(R){return 2*R.vcpu.azure;},u:"/h"},
+  {p:"gcp",l:"n2-standard-2, us-east1, on-demand",pub:0.0971,f:function(R){return 2*R.vcpu.gcp;},u:"/h"},
+  {p:"aws",l:"m7i.large 1-yr RI, no upfront",pub:48.68,f:function(R){return 2*R.vcpu.aws*730*(1-R.c1.aws/100);},u:"/mo"},
+  {p:"aws",l:"m7i.large 3-yr RI, no upfront",pub:33.38,f:function(R){return 2*R.vcpu.aws*730*(1-R.c3.aws/100);},u:"/mo"},
+  {p:"gcp",l:"n2-standard-2 1-yr committed use",pub:44.66,f:function(R){return 2*R.vcpu.gcp*730*(1-R.c1.gcp/100);},u:"/mo"},
+  {p:"gcp",l:"n2-standard-2 3-yr committed use",pub:31.91,f:function(R){return 2*R.vcpu.gcp*730*(1-R.c3.gcp/100);},u:"/mo"},
+  {p:"gcp",l:"n2-standard-2 Windows licence",pub:67.16,f:function(R){return 2*R.win.gcp*730;},u:"/mo"},
+  {p:"azure",l:"D2s v5, South Africa North",pub:0.127,f:function(R,G){return 2*R.vcpu.azure*G.za.azure;},u:"/h"},
+  {p:"aws",l:"m7i.large, af-south-1 (Cape Town)",pub:0.1333,f:function(R,G){return 2*R.vcpu.aws*G.za.aws;},u:"/h"},
+  {p:"gcp",l:"n2-standard-2, africa-south1",pub:0.1068,f:function(R,G){return 2*R.vcpu.gcp*G.za.gcp;},u:"/h"}
+];
+function refScenario(I,p){
+  var reg=I.regions[I.region][p],R=I.rates;
+  return 20*2*R.vcpu[p]*730*reg+20*128*R.block[p]*reg;
+}
+function renderConfidence(I,r){
+  var h='<p class="note" style="margin-top:0">Verified compute rates are on-demand list prices on '+RATE_DATE+'; every other rate is a built-in estimate unless you entered a quote. The table checks the rate card in use against the published figures.</p>';
+  h+='<div class="tbl-wrap"><table class="tbl" style="margin-top:8px"><thead><tr><th>Reference price</th><th>Published</th><th>Rate card</th><th>Check</th></tr></thead><tbody>';
+  REF_CHECKS.forEach(function(c){
+    var v=c.f(I.rates,I.regions),d=rel(v-c.pub,c.pub),ok=Math.abs(d)<=0.02;
+    h+='<tr><td><b style="color:'+PCOLOR[c.p]+'">'+PSHORT[c.p]+'</b> · '+esc(c.l)+'</td><td>$'+c.pub.toFixed(c.pub<1?4:2)+c.u+'</td><td>$'+v.toFixed(v<1?4:2)+c.u+'</td><td>'+(ok?'<span class="pill good">✓ matches</span>':'<span class="pill warn">'+(d>0?"+":"")+pct(d,1)+'</span>')+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  h+='<h3 style="font-family:var(--serif);font-size:16px;margin:16px 0 4px">Reproduce in the official calculators</h3><p class="note" style="margin-top:0">Enter this configuration in each provider\'s calculator for the region selected ('+esc(REGIONS[I.region].n)+'): <b>20 Linux VMs, 2 vCPU / 8 GB, 730 hours, on-demand, 128 GB SSD block storage each</b>. If the official figure differs from ours by more than 10%, update the rate card or regional index above.</p>';
+  h+='<div class="pgrid" style="margin-top:10px">'+PROVIDERS.map(function(p){return '<div class="pcard" style="--c:'+PCOLOR[p]+';padding:12px 14px"><h3 style="font-size:16px">'+PNAME[p]+'</h3><div class="big" style="font-size:22px">'+full(refScenario(I,p))+' <small>/ month</small></div><a href="'+CALCS[p]+'" target="_blank" rel="noopener" style="font-size:12.5px">Open official calculator ↗</a></div>';}).join("")+'</div>';
+  h+='<p class="note">We have not run these configurations through the official calculators; they are provided so you can. Verified sources: '+PROVIDERS.map(function(p){return '<a href="'+SOURCES[p].u+'" target="_blank" rel="noopener">'+esc(SOURCES[p].l)+'</a>';}).join(" · ")+'.</p>';
+  $("confidence").innerHTML=h;
+}
+
+/* =================================================================
+   10. Scenarios, export, share
+================================================================= */
+var STORE_KEY="aiacademia.cloudcalc.scenarios.v1";
+function snapshot(){
+  var o={};Object.keys(BASE_INPUTS).forEach(function(k){o[k]=S[k];});
+  F_ESTATE.concat(F_COSTS).forEach(function(f){o[f.id]=S[f.id];});
+  o.currency=S.currency;o.fx=S.fx;o.rates=S.rates;o.regions=S.regions;
+  return clone(o);
+}
+function exportDoc(name){
+  var sz=sanitize(S),r=model(sz.I),quotes=[];
+  Object.keys(RATES_DEFAULT).forEach(function(k){PROVIDERS.forEach(function(p){if(cellState("rate",k,p,sz.I.rates[k][p])==="q")quotes.push(k+"."+p);});});
+  return {app:"AI Academia Cloud Migration Cost Calculator",version:VERSION,name:name||"",exportedAt:new Date().toISOString(),
+    rateCardDate:RATE_DATE,fxDate:FX_DATE,moneyUnit:"USD (internal); display currency stored separately",
+    userQuotes:quotes,inputs:snapshot(),
+    summary:{best:r.best,horizonYears:r.H/12,onpremMonthly:Math.round(r.onpremMonthly),
+      providers:PROVIDERS.reduce(function(a,p){var x=r.providers[p];a[p]={bill:Math.round(x.bill),tco:Math.round(x.tco),oneTime:Math.round(x.oneTime),saving:Math.round(x.saving),breakEven:x.breakEven,breakEvenCash:x.breakEvenCash};return a;},{})}};
+}
+function loadInputs(inp){
+  if(!inp||typeof inp!=="object")throw new Error("Not a scenario file");
+  var base=clone(BASE_INPUTS);
+  Object.keys(base).forEach(function(k){if(k in inp)S[k]=inp[k];});
+  F_ESTATE.concat(F_COSTS).forEach(function(f){if(f.id in inp)S[f.id]=inp[f.id];});
+  if(inp.currency&&SYM[inp.currency])S.currency=inp.currency;
+  S.fx=Object.assign(clone(FX_DEFAULT),inp.fx||{});
+  S.rates=clone(RATES_DEFAULT);if(inp.rates)Object.keys(inp.rates).forEach(function(k){if(S.rates[k])PROVIDERS.forEach(function(p){if(p in inp.rates[k])S.rates[k][p]=inp.rates[k][p];});});
+  S.regions=clone(REGIONS);if(inp.regions)Object.keys(inp.regions).forEach(function(k){if(S.regions[k])PROVIDERS.forEach(function(p){if(p in inp.regions[k])S.regions[k][p]=inp.regions[k][p];});});
+  if(!Array.isArray(S.groups))S.groups=[];
+  UI.migTab=UI.cfTab=null;clearPreset();
+}
+function readStore(){try{var v=localStorage.getItem(STORE_KEY);return v?JSON.parse(v):[];}catch(e){return null;}}
+function writeStore(a){try{localStorage.setItem(STORE_KEY,JSON.stringify(a));return true;}catch(e){return false;}}
+function renderScenarios(){
+  var a=readStore();
+  if(a===null){$("scen-store-note").textContent="This browser blocks local storage — use Export JSON to keep scenarios.";$("scen-list").innerHTML="";return;}
+  $("scen-list").innerHTML=a.length?a.map(function(d,i){var s=d.summary||{};return '<div class="scen-item"><b title="'+esc(d.name)+'">'+esc(d.name||"Untitled")+'</b><small>'+esc((d.exportedAt||"").slice(0,10))+(s.best?" · "+PSHORT[s.best]:"")+'</small><button type="button" class="btn sm" data-load="'+i+'">Load</button><button type="button" class="btn sm ghost" data-rm="'+i+'" aria-label="Delete scenario">×</button></div>';}).join(""):'<div class="note" style="margin:0">No saved scenarios yet.</div>';
+  $("scen-list").querySelectorAll("[data-load]").forEach(function(b){b.onclick=function(){var d=readStore()[+b.dataset.load];loadInputs(d.inputs);$("scen-name").value=d.name||"";syncForm();update();toast("Loaded “"+(d.name||"scenario")+"”");};});
+  $("scen-list").querySelectorAll("[data-rm]").forEach(function(b){b.onclick=function(){var x=readStore();x.splice(+b.dataset.rm,1);writeStore(x);renderScenarios();};});
+}
+function download(name,type,text){
+  var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},800);
+}
+function b64e(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
+function b64d(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return decodeURIComponent(escape(atob(s)));}
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove("show");},2600);}
+
+function csvAll(){
+  var sz=sanitize(S),I=sz.I,r=model(I),rg=ranges(I),H=r.H,fxr=I.fx[S.currency];
+  var L=[["AI Academia — Cloud Migration Cost Calculator v"+VERSION],["Exported",new Date().toISOString()],["Rate card verified",RATE_DATE],["FX (indicative)",FX_DATE],["Currency",S.currency],[]];
+  L.push(["ASSUMPTIONS"],["Input","Value"]);
+  NUM_FIELDS.forEach(function(f){L.push([f.l+(f.m?" ("+S.currency+")":f.u?" ("+f.u+")":""),f.m?Math.round(I[f.id]*fxr):I[f.id]]);});
+  ["mode","complexity","region","pricing","sched","haDb","ahb","horizon"].forEach(function(k){L.push([k,String(I[k])]);});
+  if(I.mode==="groups"){L.push([],["WORKLOAD GROUPS"],["Name","Strategy","Complexity"].concat(GROUP_FIELDS.map(function(g){return g.l;})));I.groups.forEach(function(g){L.push([g.name,g.strategy,g.complexity].concat(GROUP_FIELDS.map(function(x){return g[x.k];})));});}
+  L.push([],["RATE CARD (USD)"],["Rate","Provider","Value","Status"]);
+  Object.keys(RATES_DEFAULT).forEach(function(k){PROVIDERS.forEach(function(p){L.push([RATES_DEFAULT[k].l,PNAME[p],I.rates[k][p],{v:"verified "+RATE_DATE,e:"built-in estimate",q:"your quote"}[cellState("rate",k,p,I.rates[k][p])]]);});});
+  L.push(["Regional index — "+REGIONS[I.region].n].concat(PROVIDERS.map(function(p){return I.regions[I.region][p];})));
+  L.push([],["RESULTS ("+S.currency+")"],["Metric","On-premise"].concat(PROVIDERS.map(function(p){return PNAME[p];})));
+  var cur=function(v){return typeof v==="number"&&isFinite(v)?Math.round(v*fxr):v==null?"":v;};
+  function row(n,on,fn){L.push([n,cur(on)].concat(PROVIDERS.map(function(p){return cur(fn(r.providers[p],p));})));}
+  row("Monthly TCO",r.onpremMonthly,function(x){return x.tco;});
+  row("Monthly cloud bill","",function(x){return x.bill;});
+  ["compute","database","storage","network","ops","support"].forEach(function(k){row("  Bill: "+k,"",function(x){return x[k];});});
+  row("One-time migration (incl. dual-running)","",function(x){return x.oneTime;});
+  row(H/12+"-yr net saving (economic)","",function(x){return x.saving;});
+  row(H/12+"-yr net saving — pessimistic","",function(x,p){return rg.pess.providers[p].saving;});
+  row(H/12+"-yr net saving — optimistic","",function(x,p){return rg.opti.providers[p].saving;});
+  row(H/12+"-yr net saving (cash)","",function(x){return x.savingCash;});
+  L.push(["Break-even month (economic)",""].concat(PROVIDERS.map(function(p){return r.providers[p].breakEven||"beyond horizon";})));
+  L.push(["Break-even month (cash)",""].concat(PROVIDERS.map(function(p){return r.providers[p].breakEvenCash||"beyond horizon";})));
+  L.push(["Programme length (months)",Math.round(r.tl.totalMonths)],["Execution person-days",Math.round(r.tl.execPD)]);
+  PROVIDERS.forEach(function(p){
+    var x=r.providers[p];L.push([],["CASH FLOW — "+PNAME[p]+" (economic)"],["Year","Status quo","On-prem run","Cloud run","Dual-running","Migration","Scenario total","Net impact"]);
+    x.yearly.forEach(function(o,i){var sc=o.onRun+o.cloud+o.dual+o.mig;L.push(["Year "+(i+1),cur(o.sq),cur(o.onRun),cur(o.cloud),cur(o.dual),cur(o.mig),cur(sc),cur(o.sq-sc)]);});
+  });
+  var sv=sensitivity(I,r.best);
+  L.push([],["SENSITIVITY — "+PNAME[r.best]+" net saving"],["Input","Low case","High case"]);
+  sv.rows.forEach(function(x){L.push([x.l,cur(x.lo),cur(x.hi)]);});
+  return "﻿"+L.map(function(a){return a.map(function(v){return typeof v==="number"?v:'"'+String(v==null?"":v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
+}
+
+/* =================================================================
+   11. Automated tests (also run by the Node/jsdom test file)
+================================================================= */
+function runTests(){
+  var res=[],saved=JSON.stringify(S);
+  function T(name,fn){try{var d=fn();res.push({name:name,pass:d===true||(d&&d.pass),detail:d&&d.detail||""});}catch(e){res.push({name:name,pass:false,detail:String(e&&e.message||e)});}}
+  function base(over){var s=clone(BASE_INPUTS);s.currency="USD";s.fx=clone(FX_DEFAULT);s.rates=clone(RATES_DEFAULT);s.regions=clone(REGIONS);
+    var p=PRESETS.mid;for(var k in p)s[k]=p[k];var keep=S;S=s;estimateCosts();S=keep;for(var o in over)s[o]=over[o];return s;}
+  function M(s,ov){return model(sanitize(s).I,ov);}
+  function allFinite(o,path,depth){
+    depth=depth||0;if(depth>6)return null;
+    if(typeof o==="number")return isFinite(o)?null:path;
+    if(o&&typeof o==="object"){for(var k in o){if(k==="I")continue;var bad=allFinite(o[k],path+"."+k,depth+1);if(bad)return bad;}}
+    return null;
+  }
+  function close(a,b,tol){return Math.abs(a-b)<=(tol||1e-6)*Math.max(1,Math.abs(a),Math.abs(b));}
+
+  T("Refactored VMs are included in migration effort",function(){
+    var s=base({apps:0,dbs:0,blockTb:0,objectTb:0,rehost:0,replatform:0,refactor:100,retire:0,retain:0});
+    var r=M(s);return {pass:close(r.tl.execPD,s.vms*VM_PD.refactor),detail:"execPD="+r.tl.execPD+" expected "+s.vms*VM_PD.refactor};
+  });
+  T("Every migrating strategy carries per-VM effort",function(){
+    return STRATS.filter(function(k){return MIGRATED[k];}).every(function(k){
+      var o={apps:0,dbs:0,blockTb:0,objectTb:0,rehost:0,replatform:0,refactor:0,retire:0,retain:0};o[k]=100;return M(base(o)).tl.execPD>0;});
+  });
+  T("Zero strategy mix: finite, flagged, nothing migrates",function(){
+    var s=base({rehost:0,replatform:0,refactor:0,retire:0,retain:0}),sz=sanitize(s),r=model(sz.I),bad=allFinite(r,"r");
+    return {pass:!bad&&!!sz.issues.mix&&r.m===0&&r.providers.aws.bill===0,detail:bad||""};
+  });
+  T("Zero estate: all outputs finite",function(){
+    var s=base({vms:0,hosts:0,vcpu:0,ram:0,blockTb:0,objectTb:0,backupTb:0,egressTb:0,dbs:0,apps:0,dcs:0});
+    var r=M(s),bad=allFinite(r,"r");return {pass:!bad,detail:bad||""};
+  });
+  T("Zero on-premise baseline: all outputs finite",function(){
+    var o={};F_COSTS.forEach(function(f){o[f.id]=0;});var r=M(base(o)),bad=allFinite(r,"r");
+    return {pass:!bad&&r.onpremAnnual===0,detail:bad||""};
+  });
+  T("Empty workload-group list: finite and flagged",function(){
+    var s=base({mode:"groups",groups:[]}),sz=sanitize(s),r=model(sz.I),bad=allFinite(r,"r");return {pass:!bad&&!!sz.issues.mix,detail:bad||""};
+  });
+  T("Negative and non-numeric rates are rejected",function(){
+    var s=base({});s.rates.vcpu.aws=-1;s.rates.block.gcp="abc";var sz=sanitize(s);
+    return sz.I.rates.vcpu.aws===0&&sz.I.rates.block.gcp===RATES_DEFAULT.block.gcp&&!!sz.issues["rate:vcpu|aws"]&&!!sz.issues["rate:block|gcp"];
+  });
+  T("Discounts capped below 100%",function(){var s=base({});s.rates.c1.aws=150;var sz=sanitize(s);return sz.I.rates.c1.aws<=95&&M(s).providers.aws.compute>=0;});
+  T("Percentages clamped to their ranges",function(){
+    var sz=sanitize(base({util:500,coverage:-20,nonProd:200,staffRed:999}));
+    return sz.I.util===95&&sz.I.coverage===0&&sz.I.nonProd===80&&sz.I.staffRed===70&&Object.keys(sz.issues).length>=4;
+  });
+  T("Extreme numbers are capped and stay finite",function(){
+    var s=base({vms:1e15,vcpu:1e300,hardware:1e200,dayRate:1e50,squads:1});var sz=sanitize(s),r=model(sz.I),bad=allFinite(r,"r");
+    return {pass:!bad&&sz.I.vms===1e6&&sz.I.hardware===MONEY_MAX,detail:bad||""};
+  });
+  T("Invalid exchange rate and regional index fall back",function(){
+    var s=base({});s.fx.INR=0;s.regions.za.aws=99;var sz=sanitize(s);return sz.I.fx.INR===FX_DEFAULT.INR&&sz.I.regions.za.aws===REGIONS.za.aws;
+  });
+  T("Timeline is capped (no runaway programme)",function(){
+    var r=M(base({vms:1e6,vcpu:1e7,apps:1e5,squads:1}));return {pass:r.tl.endW<=MAX_WEEKS&&r.tl.capped,detail:"endW="+r.tl.endW};
+  });
+  T("Gantt and charts render in bounded time on extreme input",function(){
+    var r=M(base({vms:1e6,vcpu:1e7,apps:1e5,squads:1})),t0=Date.now();
+    var g=gantt(r.tl)+gantt({endW:1e300,assessW:1,lzStart:0,lzW:1,wavesStart:1,wavesW:1e300,wavesEnd:1e300,hyperW:8,decomStart:1,decomW:8,waves:1e9});
+    return {pass:Date.now()-t0<500&&g.indexOf("NaN")<0,detail:(Date.now()-t0)+"ms"};
+  });
+  T("niceMax handles 0, negative, NaN and Infinity",function(){return [0,-5,NaN,Infinity].every(function(v){return niceMax(v)===1;});});
+  T("Reconciliation: bill = sum of service lines",function(){
+    var r=M(base({}));return PROVIDERS.every(function(p){var x=r.providers[p];return close(x.bill,x.compute+x.database+x.storage+x.network+x.ops+x.support);});
+  });
+  T("Reconciliation: TCO = bill + retained costs",function(){
+    var r=M(base({ahb:true}));return PROVIDERS.every(function(p){var x=r.providers[p];return close(x.tco,x.bill+x.retainedStaff+x.appLicCarry+x.retainedOnprem+x.saCarry);});
+  });
+  T("Reconciliation: one-time = sum of cost lines",function(){
+    var r=M(base({credits:10}));return PROVIDERS.every(function(p){var m=r.providers[p].mig;return close(r.providers[p].oneTime,m.labourExec+m.assess+m.pmo+m.lz+m.training+m.appliances+m.decom+m.cont+m.credit+m.dualRun);});
+  });
+  T("Reconciliation: migration spend in horizon = one-time excl. dual-running",function(){
+    var r=M(base({}));return PROVIDERS.every(function(p){var x=r.providers[p];return close(sum(x.M.mig),x.oneTimeEx);});
+  });
+  T("Reconciliation: cumulative = sum of monthly components = sum of yearly",function(){
+    var r=M(base({demand:8,growth:5}));return PROVIDERS.every(function(p){var x=r.providers[p],H=r.H;
+      var m=sum(x.M.onRun)+sum(x.M.cloud)+sum(x.M.dual)+sum(x.M.mig),y=sum(x.yearly.map(function(o){return o.onRun+o.cloud+o.dual+o.mig;}));
+      return close(x.cumSc[H],m)&&close(m,y)&&close(x.cumSq[H],sum(x.M.sq))&&close(x.saving,x.cumSq[H]-x.cumSc[H]);});
+  });
+  T("Reconciliation: cash and economic views agree when hardware is zero",function(){
+    var r=M(base({hardware:0}));return PROVIDERS.every(function(p){var x=r.providers[p];return close(x.cumSq[r.H],x.cumSqC[r.H])&&close(x.cumSc[r.H],x.cumScC[r.H]);});
+  });
+  T("Cash view: refresh = annualised hardware × cycle over a full cycle",function(){
+    var s=base({horizon:"5",refreshYear:1,refreshCycle:5,growth:0,demand:0,refreshAmt:0}),r=M(s),x=r.providers.aws;
+    return {pass:close(x.cumSqC[60],x.cumSq[60]),detail:x.cumSqC[60]+" vs "+x.cumSq[60]};
+  });
+  T("Workload groups seeded from the mix reproduce estate-wide results",function(){
+    var s=base({}),a=M(s),g=clone(s);g.mode="groups";g.groups=groupsFromMix(sanitize(s).I);var b=M(g);
+    return PROVIDERS.every(function(p){return close(a.providers[p].bill,b.providers[p].bill)&&close(a.providers[p].saving,b.providers[p].saving);})&&close(a.tl.execPD,b.tl.execPD);
+  });
+  T("Per-group strategy changes the result",function(){
+    var s=base({mode:"groups"});s.groups=[{name:"A",strategy:"rehost",complexity:"med",vms:200,vcpu:800,ram:3200,blockTb:100,dbs:20,apps:40,winPct:40,util:30},
+      {name:"B",strategy:"refactor",complexity:"high",vms:200,vcpu:800,ram:3200,blockTb:100,dbs:20,apps:40,winPct:40,util:30}];
+    var a=M(s);s.groups[1].strategy="retain";var b=M(s);return a.tl.execPD>b.tl.execPD&&a.m>b.m;
+  });
+  T("Workload growth raises the cloud bill over time",function(){
+    var x=M(base({demand:10,optimise:0})).providers.aws;return x.yearly[4].cloud>x.yearly[3].cloud*1.05;
+  });
+  T("Workload growth raises on-premise cost too",function(){
+    var a=M(base({demand:0})).providers.aws.yearly[4].sq,b=M(base({demand:10})).providers.aws.yearly[4].sq;return b>a;
+  });
+  T("Higher cloud prices never increase savings",function(){
+    var s=base({}),a=M(s,{rateMult:1}),b=M(s,{rateMult:1.15});return PROVIDERS.every(function(p){return b.providers[p].saving<a.providers[p].saving;});
+  });
+  T("Range brackets the base case",function(){
+    var s=base({}),I=sanitize(s).I,r=model(I),rg=ranges(I);
+    return PROVIDERS.every(function(p){var b=r.providers[p].saving;return rg.pess.providers[p].saving<=b&&b<=rg.opti.providers[p].saving;});
+  });
+  T("Regional index is provider-specific",function(){
+    var r=M(base({region:"za"}));return r.providers.gcp.reg!==r.providers.aws.reg;
+  });
+  T("Verified rates match published reference prices (±2%)",function(){
+    var I=sanitize(base({})).I,bad=REF_CHECKS.filter(function(c){return Math.abs(rel(c.f(I.rates,I.regions)-c.pub,c.pub))>0.02;});
+    return {pass:!bad.length,detail:bad.map(function(c){return c.l;}).join("; ")};
+  });
+  T("User quotes are distinguished from built-in rates",function(){
+    return cellState("rate","vcpu","aws",RATES_DEFAULT.vcpu.aws)==="v"&&cellState("rate","block","aws",RATES_DEFAULT.block.aws)==="e"&&cellState("rate","block","aws",0.07)==="q";
+  });
+  T("Scenario export → import reproduces results exactly",function(){
+    var keep=S;S=base({mode:"groups"});S.groups=groupsFromMix(sanitize(S).I);S.rates.block.aws=0.07;
+    var before=model(sanitize(S).I),doc=JSON.parse(JSON.stringify(exportDoc("t")));
+    S=base({});loadInputs(doc.inputs);var after=model(sanitize(S).I);S=keep;
+    return PROVIDERS.every(function(p){return close(before.providers[p].saving,after.providers[p].saving)&&close(before.providers[p].bill,after.providers[p].bill);})&&doc.userQuotes.indexOf("block.aws")>=0;
+  });
+  T("Share link round-trips (incl. non-ASCII names)",function(){var o={a:"Kraków ₹ ✓",n:[1,2]};return JSON.stringify(JSON.parse(b64d(b64e(JSON.stringify(o)))))===JSON.stringify(o);});
+  T("Money formatting never prints NaN/Infinity",function(){return [NaN,Infinity,-Infinity,0,-0.4,1e12].every(function(v){return !/NaN|Infinity/.test(money(v));});});
+  S=JSON.parse(saved);
+  return res;
+}
+
+/* =================================================================
+   12. Wire up
+================================================================= */
+function init(){
+  $("ver").textContent=VERSION;
+  applyPreset("mid");
+  buildForm();
+  var h=location.hash||"";
+  if(h.indexOf("#s=")===0){try{loadInputs(JSON.parse(b64d(h.slice(3))));toast("Scenario loaded from link");}catch(e){toast("That share link could not be read");}}
+  syncForm();
+  $("currency").addEventListener("change",function(){S.currency=this.value;syncForm();update();});
+  document.querySelectorAll("#presets button").forEach(function(b){b.addEventListener("click",function(){
+    applyPreset(b.dataset.p);UI.migTab=UI.cfTab=null;clearPreset();b.classList.add("on");syncForm();update();});});
+  document.querySelectorAll("#modeseg button").forEach(function(b){b.addEventListener("click",function(){
+    var m=b.dataset.m;if(m===S.mode)return;
+    if(m==="groups"&&!S.groups.length)S.groups=groupsFromMix(sanitize(S).I).map(function(g){["vms","vcpu","ram","blockTb","dbs","apps"].forEach(function(k){g[k]=Math.round(g[k]*10)/10;});return g;});
+    if(m==="simple"){var T=estateTotals(sanitize(S).I);["vms","vcpu","ram","blockTb","dbs","apps"].forEach(function(k){S[k]=Math.round(T[k]);});S.util=Math.round(T.util);S.winPct=Math.round(T.winPct);}
+    S.mode=m;clearPreset();syncForm();update();});});
+  $("btn-addgroup").addEventListener("click",function(){S.groups.push({name:"New group",strategy:"rehost",complexity:"med",vms:10,vcpu:40,ram:160,blockTb:5,dbs:1,apps:2,winPct:S.winPct,util:S.util});syncForm();update();});
+  $("btn-seedgroups").addEventListener("click",function(){var keep=S.mode;S.mode="simple";S.groups=groupsFromMix(sanitize(S).I);S.mode=keep;syncForm();update();});
+  document.querySelectorAll("#viewseg button").forEach(function(b){b.addEventListener("click",function(){UI.view=b.dataset.v;update();});});
+  $("btn-estimate").addEventListener("click",function(){estimateCosts(estateTotals(sanitize(S).I));syncForm();update();toast("Cost lines estimated from your estate");});
+  $("btn-reset-rates").addEventListener("click",function(){S.rates=clone(RATES_DEFAULT);S.regions=clone(REGIONS);S.fx=clone(FX_DEFAULT);syncForm();update();toast("Rate card reset");});
+  $("btn-save").addEventListener("click",function(){
+    var a=readStore();if(a===null){toast("Local storage unavailable — use Export JSON");return;}
+    var name=($("scen-name").value||"").trim()||("Scenario "+(a.length+1));
+    var d=exportDoc(name),i=a.findIndex(function(x){return x.name===name;});
+    if(i>=0)a[i]=d;else a.unshift(d);
+    if(writeStore(a.slice(0,30))){renderScenarios();toast("Saved “"+name+"”");}else toast("Could not save — storage full or blocked");
+  });
+  $("btn-json").addEventListener("click",function(){var n=($("scen-name").value||"").trim();download("cloud-migration-"+(n||"scenario").replace(/[^\w-]+/g,"-").toLowerCase()+".json","application/json",JSON.stringify(exportDoc(n),null,2));});
+  $("file-import").addEventListener("change",function(){
+    var f=this.files&&this.files[0];if(!f)return;var rd=new FileReader();
+    rd.onload=function(){try{var d=JSON.parse(rd.result);loadInputs(d.inputs||d);$("scen-name").value=d.name||"";syncForm();update();toast("Imported "+(d.name||f.name));}catch(e){toast("Not a valid scenario file");}};
+    rd.readAsText(f);this.value="";
+  });
+  $("btn-link").addEventListener("click",function(){
+    var url=location.href.split("#")[0]+"#s="+b64e(JSON.stringify(snapshot()));
+    var done=function(){toast("Share link copied");};
+    try{navigator.clipboard.writeText(url).then(done,function(){prompt("Copy this link:",url);});}catch(e){prompt("Copy this link:",url);}
+  });
+  $("btn-csv2").addEventListener("click",function(){download("cloud-migration-estimate.csv","text/csv",csvAll());});
+  renderScenarios();
+  update();
+  if(/selftest/.test(location.hash)){
+    var res=runTests(),fails=res.filter(function(x){return !x.pass;});
+    $("selftest").className="card show";
+    $("st-sum").textContent=(res.length-fails.length)+" of "+res.length+" passed";
+    $("st-list").innerHTML=res.map(function(x){return '<li class="'+(x.pass?"":"f")+'">'+(x.pass?"✓ ":"✕ ")+esc(x.name)+(x.detail&&!x.pass?" — "+esc(x.detail):"")+'</li>';}).join("");
+  }
+}
+window.CloudCalc={model:model,sanitize:sanitize,state:function(){return S;},applyPreset:applyPreset,update:update,runTests:runTests,exportDoc:exportDoc,loadInputs:loadInputs,csv:csvAll,version:VERSION};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+<script>
+/* Four Futures bridge: receives the as-is estate, reports provider results back to the parent page */
+(function(){
+  var C=null,timer=null;
+  function costs(){return ["hardware","virtLic","dbLic","appLic","facilities","network","storageBackup","maintenance","dr","other"];}
+  function load(d){
+    C=window.CloudCalc;if(!C||!d)return;var S=C.state();
+    function cl(v,a,b,def){v=+v;return isFinite(v)?Math.min(b,Math.max(a,v)):def;}
+    d.vms=cl(d.vms,20,20000,400);d.servers=cl(d.servers,1,5000,24);d.storage=cl(d.storage,1,50000,300);d.staff=cl(d.staff,1,1000,6);d.growth=cl(d.growth,0,40,5);d.runUsd=cl(d.runUsd,1e4,1e9,1e6);
+    C.applyPreset("mid");S.mode="simple";S.groups=[];
+    var k=Math.max(.05,d.vms/400);
+    ["vcpu","ram","egressTb","dbs","apps"].forEach(function(f){S[f]=Math.round(S[f]*k*10)/10;});
+    S.vms=d.vms;S.hosts=d.servers;S.blockTb=Math.round(d.storage*.55);S.objectTb=Math.round(d.storage*.25);S.backupTb=Math.round(d.storage*.8);
+    S.staffFte=d.staff;S.demand=Math.max(0,Math.min(40,d.growth));
+    var infra=costs().reduce(function(a,c){return a+(+S[c]||0);},0),tgt=d.runUsd;
+    if(infra>0&&tgt>0)costs().forEach(function(c){S[c]=Math.round(S[c]*tgt/infra);});
+    if(d.region)S.region=d.region;
+    if(d.fx)Object.keys(d.fx).forEach(function(c){if(c in S.fx)S.fx[c]=d.fx[c];});
+    if(d.currency&&(d.currency in S.fx))S.currency=d.currency;else S.currency="USD";
+    var sel=document.getElementById("currency");if(sel)sel.value=S.currency;
+    C.update();post();
+  }
+  function post(){
+    try{C=window.CloudCalc;var S=C.state(),r=C.model(C.sanitize(S).I),P={};
+      ["aws","azure","gcp"].forEach(function(p){var x=r.providers[p];P[p]={bill:x.bill,tco:x.tco,oneTime:x.oneTime,breakEven:x.breakEven,saving:x.saving};});
+      parent.postMessage({type:"ff-result",data:{best:r.best,months:r.tl.totalMonths,capped:!!r.tl.capped,onpremMonthly:r.onpremMonthly,share:r.m,providers:P,region:S.region}},"*");
+    }catch(e){}
+    height();
+  }
+  function height(){try{parent.postMessage({type:"ff-height",h:document.documentElement.scrollHeight},"*");}catch(e){}}
+  function soon(){clearTimeout(timer);timer=setTimeout(post,250);}
+  ["input","change","click"].forEach(function(ev){document.addEventListener(ev,soon,true);});
+  window.addEventListener("message",function(e){var d=e.data||{};if(d.type==="ff-load")load(d.estate);if(d.type==="ff-height")height();if(d.type==="ff-ping")parent.postMessage({type:"ff-ready"},"*");});
+  window.addEventListener("load",function(){post();parent.postMessage({type:"ff-ready"},"*");});
+  if("ResizeObserver" in window)new ResizeObserver(height).observe(document.documentElement);
+})();
+</script>
+<script>try{if(window.self!==window.top){var a=document.querySelector(".aiu-back");if(a){a.removeAttribute("href");}}}catch(e){}</script>
+</body>
+</html>
