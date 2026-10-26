@@ -26,6 +26,9 @@ button,input,select{font:inherit;color:inherit}
 .mast{background:var(--paper);border-bottom:2px solid var(--gold)}
 .mast .wrap{display:flex;align-items:center;gap:18px;padding-top:18px;padding-bottom:16px;flex-wrap:wrap}
 .mast-t{flex:1 1 380px;min-width:0}
+.home{display:inline-flex;align-items:center;text-decoration:none;color:var(--cardinal);font-size:13px;font-weight:600;border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:6px 12px;order:-1}
+.home:hover{border-color:var(--gold)}
+html.framed .home{display:none}
 .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);font-weight:700}
 h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.15;margin:2px 0 4px}
 h1 em{color:var(--cardinal);font-style:italic}
@@ -243,6 +246,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
       <path d="M33 58c0-7 5-12 11-12 2-6 8-9 14-7 4 1 7 5 7 9 5 0 9 4 9 9 0 4-3 7-7 7H40c-4 0-7-3-7-6z" fill="none" stroke="#8C1515" stroke-width="3.2" stroke-linejoin="round"/>
       <text x="50" y="80" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="11" fill="#8C1515">AI</text>
     </svg>
+    <a class="home aiu-back" href="index.html" title="Back to AI Academia" aria-label="Back to AI Academia home">← AI Academia</a>
     <div class="mast-t">
       <div class="eyebrow"><a class="aiu-back" href="index.html" style="color:inherit;text-decoration:none">AI Academia</a> · Tools &amp; Utilities</div>
       <h1>Cloud Migration <em>Cost Calculator</em></h1>
@@ -1736,6 +1740,6 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
   if("ResizeObserver" in window)new ResizeObserver(height).observe(document.documentElement);
 })();
 </script>
-<script>try{if(window.self!==window.top){var a=document.querySelector(".aiu-back");if(a){a.removeAttribute("href");}}}catch(e){}</script>
+<script>try{if(window.self!==window.top){document.documentElement.classList.add("framed");document.querySelectorAll(".aiu-back").forEach(function(a){a.removeAttribute("href");});}}catch(e){}</script>
 </body>
 </html>

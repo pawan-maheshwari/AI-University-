@@ -230,11 +230,12 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 @media (max-width:560px){.fx{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .note{font-size:13px;color:var(--faint)}
 @media (prefers-reduced-motion:reduce){.alert .dot{animation:none}.gauge i{transition:none}}
+.brandrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--fg);font-size:13.5px;font-weight:600;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px 4px 5px}.home:hover{border-color:#B8962E}.home span::before{content:"\2190  "}
 </style>
 
 <div class="wrap">
   <div class="topbar">
-    <div class="brand">Four <span>Futures</span></div>
+    <div class="brandrow"><a class="home" href="index.html" title="Back to AI Academia" aria-label="Back to AI Academia home"><svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#B8962E"/><circle cx="50" cy="50" r="40" fill="#8C1515"/><circle cx="50" cy="50" r="32" fill="#F9F7F4"/><text x="50" y="59" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="26" fill="#8C1515">AI</text></svg><span>AI Academia</span></a><div class="brand">Four <span>Futures</span></div></div>
     <div class="nav">
       <button class="pill" data-go="sToday">1 · Today</button>
       <button class="pill" data-go="sCalc">2 · Cloud costs</button>
