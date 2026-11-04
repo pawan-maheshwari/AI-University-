@@ -1,0 +1,66 @@
+{
+  "departments": [
+    {
+      "department": "Kidswear",
+      "sizes": [
+        "2-3Y",
+        "3-4Y",
+        "5-6Y",
+        "7-8Y",
+        "9-10Y",
+        "11-12Y"
+      ],
+      "categories": {
+        "T-shirts": "summer",
+        "Dresses": "summer",
+        "Schoolwear": "school",
+        "Jackets": "winter",
+        "Sleepwear": "steady"
+      },
+      "styles": 72,
+      "model_wape": 0.3646,
+      "planner_rule_wape": 0.4676,
+      "improvement_vs_rule": 0.2203,
+      "coverage": 0.8122,
+      "unconstraining_wape_em": 0.1277,
+      "unconstraining_wape_v1": 0.238,
+      "wrong_size_chain": 0.13,
+      "wrong_size_best": 0.0329,
+      "stores_reassigned": [
+        "S104",
+        "S110",
+        "S116"
+      ]
+    },
+    {
+      "department": "Babywear",
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-12M",
+        "12-18M",
+        "18-24M"
+      ],
+      "categories": {
+        "Bodysuits": "steady",
+        "Sleepsuits": "steady",
+        "Knitwear": "winter",
+        "Outerwear": "winter",
+        "Sets": "summer"
+      },
+      "styles": 48,
+      "model_wape": 0.387,
+      "planner_rule_wape": 0.4968,
+      "improvement_vs_rule": 0.221,
+      "coverage": 0.7884,
+      "unconstraining_wape_em": 0.1351,
+      "unconstraining_wape_v1": 0.2405,
+      "wrong_size_chain": 0.1483,
+      "wrong_size_best": 0.0279,
+      "stores_reassigned": [
+        "S105",
+        "S114"
+      ]
+    }
+  ]
+}

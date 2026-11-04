@@ -1,0 +1,286 @@
+{
+  "split": {
+    "train": "week_index 1-90",
+    "validation": "91-97",
+    "test": "98-104"
+  },
+  "rows": {
+    "train": 86400,
+    "validation": 7872,
+    "test": 8064
+  },
+  "search": {
+    "trials": 8,
+    "best_trial": 5,
+    "best_val_wape": 0.435,
+    "iterations": 630
+  },
+  "test": {
+    "model_wape": 0.387,
+    "model_without_external_wape": 0.3817,
+    "planner_rule_wape": 0.4968,
+    "model_bias": -0.1148,
+    "planner_rule_bias": -0.417,
+    "style_week_model_wape": 0.2461,
+    "style_week_rule_wape": 0.4196,
+    "p10_p90_coverage": 0.7884,
+    "new_styles_model_wape": 0.492,
+    "established_model_wape": 0.3643,
+    "external_features_gain_pts": -0.53,
+    "improvement_vs_rule_rel": 0.221
+  },
+  "by_category": [
+    {
+      "category": "Bodysuits",
+      "model_wape": 0.3463,
+      "rule_wape": 0.4647,
+      "without_external_wape": 0.3351
+    },
+    {
+      "category": "Knitwear",
+      "model_wape": 0.4358,
+      "rule_wape": 0.5782,
+      "without_external_wape": 0.4249
+    },
+    {
+      "category": "Outerwear",
+      "model_wape": 0.3899,
+      "rule_wape": 0.4727,
+      "without_external_wape": 0.405
+    },
+    {
+      "category": "Sets",
+      "model_wape": 0.409,
+      "rule_wape": 0.4644,
+      "without_external_wape": 0.4167
+    },
+    {
+      "category": "Sleepsuits",
+      "model_wape": 0.385,
+      "rule_wape": 0.4758,
+      "without_external_wape": 0.3804
+    }
+  ],
+  "drift": {
+    "rule": "PSI < 0.1 stable, 0.1-0.25 watch, > 0.25 shifted. Alerts use the same weeks last year as the baseline and ignore calendar features, which move every season by design.",
+    "shifted": [
+      "cci_lag4",
+      "demand_ly_4wk_mean",
+      "temp_anomaly_forecast",
+      "demand_ly_next7_mean",
+      "cat_lag8",
+      "quality_share_lag8"
+    ],
+    "watch": [
+      "temp_x_winter",
+      "price_gap_vs_competitor"
+    ],
+    "features": [
+      {
+        "feature": "cci_lag4",
+        "calendar": false,
+        "psi_train_vs_test": 5.8032,
+        "psi_same_weeks_last_year": 4.8002
+      },
+      {
+        "feature": "weeks_since_launch",
+        "calendar": true,
+        "psi_train_vs_test": 6.4235,
+        "psi_same_weeks_last_year": 4.7381
+      },
+      {
+        "feature": "is_new",
+        "calendar": true,
+        "psi_train_vs_test": 0.4298,
+        "psi_same_weeks_last_year": 1.2661
+      },
+      {
+        "feature": "demand_ly_4wk_mean",
+        "calendar": false,
+        "psi_train_vs_test": 1.1019,
+        "psi_same_weeks_last_year": 0.9664
+      },
+      {
+        "feature": "temp_anomaly_forecast",
+        "calendar": false,
+        "psi_train_vs_test": 0.8156,
+        "psi_same_weeks_last_year": 0.6657
+      },
+      {
+        "feature": "demand_ly_next7_mean",
+        "calendar": false,
+        "psi_train_vs_test": 0.5981,
+        "psi_same_weeks_last_year": 0.5869
+      },
+      {
+        "feature": "cat_lag8",
+        "calendar": false,
+        "psi_train_vs_test": 1.8251,
+        "psi_same_weeks_last_year": 0.4112
+      },
+      {
+        "feature": "quality_share_lag8",
+        "calendar": false,
+        "psi_train_vs_test": 0.1605,
+        "psi_same_weeks_last_year": 0.3393
+      },
+      {
+        "feature": "temp_x_winter",
+        "calendar": false,
+        "psi_train_vs_test": 0.0487,
+        "psi_same_weeks_last_year": 0.1254
+      },
+      {
+        "feature": "price_gap_vs_competitor",
+        "calendar": false,
+        "psi_train_vs_test": 1.5393,
+        "psi_same_weeks_last_year": 0.1011
+      },
+      {
+        "feature": "competitor_discount",
+        "calendar": false,
+        "psi_train_vs_test": 9.4519,
+        "psi_same_weeks_last_year": 0.0975
+      },
+      {
+        "feature": "return_rate_lag8",
+        "calendar": false,
+        "psi_train_vs_test": 0.0347,
+        "psi_same_weeks_last_year": 0.0722
+      },
+      {
+        "feature": "censored_lag8_11",
+        "calendar": false,
+        "psi_train_vs_test": 0.0435,
+        "psi_same_weeks_last_year": 0.0613
+      },
+      {
+        "feature": "discount",
+        "calendar": false,
+        "psi_train_vs_test": 10.0835,
+        "psi_same_weeks_last_year": 0.0532
+      },
+      {
+        "feature": "log_price_index",
+        "calendar": false,
+        "psi_train_vs_test": 3.3579,
+        "psi_same_weeks_last_year": 0.0527
+      },
+      {
+        "feature": "chain_lag8",
+        "calendar": false,
+        "psi_train_vs_test": 0.1112,
+        "psi_same_weeks_last_year": 0.0324
+      },
+      {
+        "feature": "temp_x_summer",
+        "calendar": false,
+        "psi_train_vs_test": 0.0182,
+        "psi_same_weeks_last_year": 0.0306
+      },
+      {
+        "feature": "full_price",
+        "calendar": false,
+        "psi_train_vs_test": 0.012,
+        "psi_same_weeks_last_year": 0.017
+      },
+      {
+        "feature": "sales_lag8_11_mean",
+        "calendar": false,
+        "psi_train_vs_test": 0.0649,
+        "psi_same_weeks_last_year": 0.0141
+      },
+      {
+        "feature": "early_ros",
+        "calendar": false,
+        "psi_train_vs_test": 0.005,
+        "psi_same_weeks_last_year": 0.0122
+      },
+      {
+        "feature": "demand_lag8_11_mean",
+        "calendar": false,
+        "psi_train_vs_test": 0.1163,
+        "psi_same_weeks_last_year": 0.0077
+      },
+      {
+        "feature": "sales_lag8",
+        "calendar": false,
+        "psi_train_vs_test": 0.0185,
+        "psi_same_weeks_last_year": 0.0034
+      },
+      {
+        "feature": "fy_week",
+        "calendar": true,
+        "psi_train_vs_test": 7.9895,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "week_sin",
+        "calendar": true,
+        "psi_train_vs_test": 5.8104,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "week_cos",
+        "calendar": true,
+        "psi_train_vs_test": 6.6585,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "payday_week",
+        "calendar": true,
+        "psi_train_vs_test": 0.0011,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "school_holiday",
+        "calendar": true,
+        "psi_train_vs_test": 1.4318,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "is_clearance",
+        "calendar": true,
+        "psi_train_vs_test": 10.937,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "demand_ly",
+        "calendar": false,
+        "psi_train_vs_test": 0.9149,
+        "psi_same_weeks_last_year": NaN
+      },
+      {
+        "feature": "chain_ly",
+        "calendar": false,
+        "psi_train_vs_test": 2.1723,
+        "psi_same_weeks_last_year": NaN
+      },
+      {
+        "feature": "cat_ly",
+        "calendar": false,
+        "psi_train_vs_test": 5.3108,
+        "psi_same_weeks_last_year": NaN
+      },
+      {
+        "feature": "yoy_trend_lag8",
+        "calendar": false,
+        "psi_train_vs_test": 0.0031,
+        "psi_same_weeks_last_year": NaN
+      },
+      {
+        "feature": "local_event",
+        "calendar": false,
+        "psi_train_vs_test": 0.0115,
+        "psi_same_weeks_last_year": 0.0
+      },
+      {
+        "feature": "back_to_school",
+        "calendar": true,
+        "psi_train_vs_test": 0.5523,
+        "psi_same_weeks_last_year": 0.0
+      }
+    ]
+  },
+  "run_id": "demand_forecast-20261104T125715-0ea632"
+}

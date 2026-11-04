@@ -1,0 +1,1874 @@
+[
+ {
+  "rank":1,
+  "style_id":"KW1049",
+  "category":"Sleepwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Polyester",
+  "fit":"Regular",
+  "sales_units":6964,
+  "return_units":1023,
+  "return_rate":0.1469,
+  "quality_share":0.5056,
+  "top_issue":"fit",
+  "quality_return_value_rand":97753.6508,
+  "themes":[
+   "crotch sits",
+   "waist band",
+   "sits low"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":20,
+   "fabric":20,
+   "fit":141
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":2,
+  "style_id":"KW1021",
+  "category":"Dresses",
+  "supplier":"SUP-CN-03",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":1730,
+  "return_units":259,
+  "return_rate":0.1497,
+  "quality_share":0.4778,
+  "top_issue":"fit",
+  "quality_return_value_rand":29574.9222,
+  "themes":[
+   "did like",
+   "child did",
+   "crotch sits low"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":5,
+   "fabric":5,
+   "fit":33
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":3,
+  "style_id":"KW1065",
+  "category":"T-shirts",
+  "supplier":"SUP-BD-04",
+  "fabric":"Denim",
+  "fit":"Relaxed",
+  "sales_units":2390,
+  "return_units":376,
+  "return_rate":0.1573,
+  "quality_share":0.4351,
+  "top_issue":"fit",
+  "quality_return_value_rand":21104.7939,
+  "themes":[
+   "sleeves far short",
+   "crotch sits low",
+   "ordered smaller"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":6,
+   "fabric":7,
+   "fit":44
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":4,
+  "style_id":"KW1025",
+  "category":"T-shirts",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":10520,
+  "return_units":1327,
+  "return_rate":0.1261,
+  "quality_share":0.5151,
+  "top_issue":"fit",
+  "quality_return_value_rand":74503.6142,
+  "themes":[
+   "far short",
+   "sleeves far",
+   "way boxy"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":32,
+   "fabric":25,
+   "fit":182
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":5,
+  "style_id":"KW1026",
+  "category":"Dresses",
+  "supplier":"SUP-MU-05",
+  "fabric":"Polyester",
+  "fit":"Relaxed",
+  "sales_units":2683,
+  "return_units":307,
+  "return_rate":0.1144,
+  "quality_share":0.514,
+  "top_issue":"durability",
+  "quality_return_value_rand":36137.0561,
+  "themes":[
+   "split shoulder",
+   "seam split",
+   "hole knee week"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":44,
+   "fabric":6,
+   "fit":5
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":6,
+  "style_id":"KW1051",
+  "category":"Dresses",
+  "supplier":"SUP-MU-05",
+  "fabric":"Denim",
+  "fit":"Relaxed",
+  "sales_units":6040,
+  "return_units":781,
+  "return_rate":0.1293,
+  "quality_share":0.4249,
+  "top_issue":"fit",
+  "quality_return_value_rand":72675.9121,
+  "themes":[
+   "crotch sits low",
+   "armholes tiny",
+   "neckline narrow"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":7,
+   "fabric":16,
+   "fit":93
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":7,
+  "style_id":"KW1044",
+  "category":"Sleepwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":4445,
+  "return_units":504,
+  "return_rate":0.1134,
+  "quality_share":0.4602,
+  "top_issue":"durability",
+  "quality_return_value_rand":53117.5909,
+  "themes":[
+   "came undone",
+   "sole feet",
+   "stitching came"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":66,
+   "fabric":6,
+   "fit":9
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":8,
+  "style_id":"KW1057",
+  "category":"Schoolwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Cotton",
+  "fit":"Regular",
+  "sales_units":3759,
+  "return_units":406,
+  "return_rate":0.108,
+  "quality_share":0.4648,
+  "top_issue":"durability",
+  "quality_return_value_rand":54535.5211,
+  "themes":[
+   "seam burst",
+   "strap tore",
+   "velcro stopped sticking"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":54,
+   "fabric":10,
+   "fit":2
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":9,
+  "style_id":"KW1041",
+  "category":"Dresses",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Polyester",
+  "fit":"Relaxed",
+  "sales_units":6335,
+  "return_units":587,
+  "return_rate":0.0927,
+  "quality_share":0.4878,
+  "top_issue":"fabric",
+  "quality_return_value_rand":94206.3415,
+  "themes":[
+   "goes stiff",
+   "stiff drying",
+   "itchy refused wear"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":16,
+   "fabric":69,
+   "fit":15
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":10,
+  "style_id":"KW1010",
+  "category":"T-shirts",
+  "supplier":"SUP-CN-03",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":7603,
+  "return_units":684,
+  "return_rate":0.09,
+  "quality_share":0.4728,
+  "top_issue":"durability",
+  "quality_return_value_rand":48186.2259,
+  "themes":[
+   "knee week",
+   "velcro stopped sticking",
+   "hole knee"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":83,
+   "fabric":9,
+   "fit":21
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":11,
+  "style_id":"KW1031",
+  "category":"Dresses",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Polyester",
+  "fit":"Regular",
+  "sales_units":2732,
+  "return_units":228,
+  "return_rate":0.0835,
+  "quality_share":0.5063,
+  "top_issue":"durability",
+  "quality_return_value_rand":31054.1772,
+  "themes":[
+   "strap tore",
+   "sole feet wore",
+   "undone velcro stopped"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":33,
+   "fabric":3,
+   "fit":4
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":12,
+  "style_id":"KW1054",
+  "category":"Sleepwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Cotton-blend",
+  "fit":"Regular",
+  "sales_units":8203,
+  "return_units":654,
+  "return_rate":0.0797,
+  "quality_share":0.5044,
+  "top_issue":"durability",
+  "quality_return_value_rand":55747.7632,
+  "themes":[
+   "came loose",
+   "strap tore",
+   "snap fasteners came"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":76,
+   "fabric":22,
+   "fit":17
+  },
+  "confirmed_defect":"Yes"
+ },
+ {
+  "rank":13,
+  "style_id":"KW1068",
+  "category":"Jackets",
+  "supplier":"SUP-MU-05",
+  "fabric":"Cotton",
+  "fit":"Slim",
+  "sales_units":858,
+  "return_units":71,
+  "return_rate":0.0828,
+  "quality_share":0.375,
+  "top_issue":"fit",
+  "quality_return_value_rand":9558.375,
+  "themes":[
+   "given wrong",
+   "zip broke day",
+   "funny pulls"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":3,
+   "fabric":2,
+   "fit":4
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":14,
+  "style_id":"KW1061",
+  "category":"Dresses",
+  "supplier":"SUP-MU-05",
+  "fabric":"Fleece",
+  "fit":"Slim",
+  "sales_units":831,
+  "return_units":91,
+  "return_rate":0.1095,
+  "quality_share":0.2581,
+  "top_issue":"fabric",
+  "quality_return_value_rand":7256.5161,
+  "themes":[
+   "wash ordered",
+   "low colour bled",
+   "washing print"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":2,
+   "fabric":3,
+   "fit":3
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":15,
+  "style_id":"KW1046",
+  "category":"Dresses",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Cotton-blend",
+  "fit":"Relaxed",
+  "sales_units":4510,
+  "return_units":499,
+  "return_rate":0.1106,
+  "quality_share":0.2471,
+  "top_issue":"durability",
+  "quality_return_value_rand":27006.2241,
+  "themes":[
+   "split shoulder",
+   "seam split",
+   "fabric feels cheap"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":18,
+   "fabric":14,
+   "fit":11
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":16,
+  "style_id":"KW1052",
+  "category":"Schoolwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":3090,
+  "return_units":298,
+  "return_rate":0.0964,
+  "quality_share":0.2788,
+  "top_issue":"durability",
+  "quality_return_value_rand":22352.8654,
+  "themes":[
+   "velcro stopped sticking",
+   "wash velcro",
+   "tore hem"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":12,
+   "fabric":8,
+   "fit":9
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":17,
+  "style_id":"KW1036",
+  "category":"Dresses",
+  "supplier":"SUP-MU-05",
+  "fabric":"Cotton-blend",
+  "fit":"Relaxed",
+  "sales_units":3277,
+  "return_units":297,
+  "return_rate":0.0906,
+  "quality_share":0.2816,
+  "top_issue":"fit",
+  "quality_return_value_rand":17476.8641,
+  "themes":[
+   "way slim",
+   "cut way",
+   "bobbles week legs"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":9,
+   "fabric":6,
+   "fit":14
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":18,
+  "style_id":"KW1043",
+  "category":"Jackets",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":6486,
+  "return_units":608,
+  "return_rate":0.0937,
+  "quality_share":0.2689,
+  "top_issue":"durability",
+  "quality_return_value_rand":52147.4717,
+  "themes":[
+   "desnt look good",
+   "unhappy quality",
+   "work rides"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":24,
+   "fabric":18,
+   "fit":15
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":19,
+  "style_id":"KW1028",
+  "category":"Jackets",
+  "supplier":"SUP-BD-04",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":4854,
+  "return_units":470,
+  "return_rate":0.0968,
+  "quality_share":0.2561,
+  "top_issue":"durability",
+  "quality_return_value_rand":51636.9512,
+  "themes":[
+   "unhappy quality",
+   "sleeves far short",
+   "wrong older"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":15,
+   "fabric":14,
+   "fit":13
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":20,
+  "style_id":"KW1007",
+  "category":"Schoolwear",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":8085,
+  "return_units":775,
+  "return_rate":0.0959,
+  "quality_share":0.2509,
+  "top_issue":"fabric",
+  "quality_return_value_rand":42587.8229,
+  "themes":[
+   "waist band",
+   "band digs",
+   "lint balls"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":22,
+   "fabric":27,
+   "fit":19
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":21,
+  "style_id":"KW1020",
+  "category":"T-shirts",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Fleece",
+  "fit":"Regular",
+  "sales_units":33199,
+  "return_units":3516,
+  "return_rate":0.1059,
+  "quality_share":0.2252,
+  "top_issue":"fabric",
+  "quality_return_value_rand":94225.9415,
+  "themes":[
+   "sole feet",
+   "feet wore",
+   "reason given"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":95,
+   "fabric":97,
+   "fit":85
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":22,
+  "style_id":"KW1003",
+  "category":"Jackets",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Fleece",
+  "fit":"Regular",
+  "sales_units":4936,
+  "return_units":539,
+  "return_rate":0.1092,
+  "quality_share":0.2181,
+  "top_issue":"fabric",
+  "quality_return_value_rand":52778.9947,
+  "themes":[
+   "band digs",
+   "waist band",
+   "colour bled"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":14,
+   "fabric":18,
+   "fit":9
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":23,
+  "style_id":"KW1019",
+  "category":"Sleepwear",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Polyester",
+  "fit":"Regular",
+  "sales_units":5142,
+  "return_units":572,
+  "return_rate":0.1112,
+  "quality_share":0.21,
+  "top_issue":"durability",
+  "quality_return_value_rand":23903.88,
+  "themes":[
+   "didnt work",
+   "seam burst",
+   "washing needed bigger"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":19,
+   "fabric":14,
+   "fit":9
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":24,
+  "style_id":"KW1002",
+  "category":"Schoolwear",
+  "supplier":"SUP-MU-05",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":6130,
+  "return_units":630,
+  "return_rate":0.1028,
+  "quality_share":0.2227,
+  "top_issue":"durability",
+  "quality_return_value_rand":32132.8636,
+  "themes":[
+   "pocket ripped",
+   "print cracked wash",
+   "stitching came"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":17,
+   "fabric":15,
+   "fit":17
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":25,
+  "style_id":"KW1016",
+  "category":"Dresses",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Polyester",
+  "fit":"Relaxed",
+  "sales_units":6408,
+  "return_units":679,
+  "return_rate":0.106,
+  "quality_share":0.2152,
+  "top_issue":"fabric",
+  "quality_return_value_rand":42226.9241,
+  "themes":[
+   "did like",
+   "bobbles week",
+   "like colour home"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":17,
+   "fabric":22,
+   "fit":12
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":26,
+  "style_id":"KW1069",
+  "category":"Sleepwear",
+  "supplier":"SUP-BD-04",
+  "fabric":"Polyester",
+  "fit":"Relaxed",
+  "sales_units":1532,
+  "return_units":148,
+  "return_rate":0.0966,
+  "quality_share":0.2353,
+  "top_issue":"durability",
+  "quality_return_value_rand":7278.1176,
+  "themes":[
+   "black seam",
+   "unravelled tight",
+   "balls just"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":4,
+   "fabric":4,
+   "fit":4
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":27,
+  "style_id":"KW1035",
+  "category":"T-shirts",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":13779,
+  "return_units":1459,
+  "return_rate":0.1059,
+  "quality_share":0.2137,
+  "top_issue":"fabric",
+  "quality_return_value_rand":40225.4882,
+  "themes":[
+   "neckline narrow head",
+   "itchy refused wear",
+   "pilled badly wears"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":34,
+   "fabric":45,
+   "fit":30
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":28,
+  "style_id":"KW1055",
+  "category":"T-shirts",
+  "supplier":"SUP-CN-03",
+  "fabric":"Polyester",
+  "fit":"Relaxed",
+  "sales_units":12474,
+  "return_units":1168,
+  "return_rate":0.0936,
+  "quality_share":0.2402,
+  "top_issue":"durability",
+  "quality_return_value_rand":47412.7843,
+  "themes":[
+   "came undone",
+   "zip broke day",
+   "stitching came"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":37,
+   "fabric":29,
+   "fit":32
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":29,
+  "style_id":"KW1006",
+  "category":"Dresses",
+  "supplier":"SUP-MU-05",
+  "fabric":"Fleece",
+  "fit":"Regular",
+  "sales_units":4809,
+  "return_units":438,
+  "return_rate":0.0911,
+  "quality_share":0.2418,
+  "top_issue":"fit",
+  "quality_return_value_rand":31670.549,
+  "themes":[
+   "washing returned",
+   "sits low",
+   "seam burst"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":12,
+   "fabric":12,
+   "fit":13
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":30,
+  "style_id":"KW1000",
+  "category":"T-shirts",
+  "supplier":"SUP-CN-03",
+  "fabric":"Fleece",
+  "fit":"Slim",
+  "sales_units":18797,
+  "return_units":1724,
+  "return_rate":0.0917,
+  "quality_share":0.2388,
+  "top_issue":"durability",
+  "quality_return_value_rand":65460.5373,
+  "themes":[
+   "legs cut",
+   "way slim",
+   "cut way"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":55,
+   "fabric":47,
+   "fit":42
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":31,
+  "style_id":"KW1053",
+  "category":"Jackets",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":6488,
+  "return_units":559,
+  "return_rate":0.0862,
+  "quality_share":0.2513,
+  "top_issue":"fit",
+  "quality_return_value_rand":65878.8667,
+  "themes":[
+   "lint balls",
+   "velcro stopped sticking",
+   "navy looks black"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":13,
+   "fabric":15,
+   "fit":21
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":32,
+  "style_id":"KW1040",
+  "category":"T-shirts",
+  "supplier":"SUP-MU-05",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":12194,
+  "return_units":1075,
+  "return_rate":0.0882,
+  "quality_share":0.2447,
+  "top_issue":"fabric",
+  "quality_return_value_rand":39191.7553,
+  "themes":[
+   "lint balls",
+   "unhappy quality",
+   "band digs"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":30,
+   "fabric":35,
+   "fit":27
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":33,
+  "style_id":"KW1039",
+  "category":"Sleepwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Polyester",
+  "fit":"Regular",
+  "sales_units":8702,
+  "return_units":831,
+  "return_rate":0.0955,
+  "quality_share":0.2241,
+  "top_issue":"fit",
+  "quality_return_value_rand":40790.6379,
+  "themes":[
+   "colour bled washing",
+   "sticking velcro",
+   "colour faded wash"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":22,
+   "fabric":19,
+   "fit":24
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":34,
+  "style_id":"KW1030",
+  "category":"T-shirts",
+  "supplier":"SUP-BD-04",
+  "fabric":"Denim",
+  "fit":"Relaxed",
+  "sales_units":12821,
+  "return_units":1303,
+  "return_rate":0.1016,
+  "quality_share":0.2105,
+  "top_issue":"fabric",
+  "quality_return_value_rand":40873.0526,
+  "themes":[
+   "wash print",
+   "longer needed",
+   "itchy refused wear"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":29,
+   "fabric":35,
+   "fit":32
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":35,
+  "style_id":"KW1023",
+  "category":"Jackets",
+  "supplier":"SUP-BD-04",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":5920,
+  "return_units":558,
+  "return_rate":0.0943,
+  "quality_share":0.2205,
+  "top_issue":"fit",
+  "quality_return_value_rand":45404.0308,
+  "themes":[
+   "look good",
+   "doesnt look",
+   "seam split shoulder"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":15,
+   "fabric":12,
+   "fit":16
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":36,
+  "style_id":"KW1034",
+  "category":"Sleepwear",
+  "supplier":"SUP-MU-05",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":6789,
+  "return_units":528,
+  "return_rate":0.0778,
+  "quality_share":0.2663,
+  "top_issue":"durability",
+  "quality_return_value_rand":27981.1304,
+  "themes":[
+   "looked orange store",
+   "store light",
+   "pink looked"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":21,
+   "fabric":15,
+   "fit":13
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":37,
+  "style_id":"KW1059",
+  "category":"Sleepwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Fleece",
+  "fit":"Regular",
+  "sales_units":11994,
+  "return_units":1021,
+  "return_rate":0.0851,
+  "quality_share":0.2381,
+  "top_issue":"durability",
+  "quality_return_value_rand":36221.1905,
+  "themes":[
+   "didnt work",
+   "seam burst",
+   "armholes tiny"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":31,
+   "fabric":24,
+   "fit":30
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":38,
+  "style_id":"KW1064",
+  "category":"Sleepwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Cotton",
+  "fit":"Slim",
+  "sales_units":3712,
+  "return_units":367,
+  "return_rate":0.0989,
+  "quality_share":0.2031,
+  "top_issue":"fit",
+  "quality_return_value_rand":11852.9531,
+  "themes":[
+   "dull compared photo",
+   "changed mind",
+   "colour dull"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":6,
+   "fabric":9,
+   "fit":11
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":39,
+  "style_id":"KW1014",
+  "category":"Sleepwear",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Cotton-blend",
+  "fit":"Slim",
+  "sales_units":6021,
+  "return_units":504,
+  "return_rate":0.0837,
+  "quality_share":0.2386,
+  "top_issue":"fabric",
+  "quality_return_value_rand":25137.0,
+  "themes":[
+   "reason given",
+   "did like",
+   "refused wear unhappy"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":10,
+   "fabric":18,
+   "fit":14
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":40,
+  "style_id":"KW1056",
+  "category":"Dresses",
+  "supplier":"SUP-CN-03",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":11352,
+  "return_units":926,
+  "return_rate":0.0816,
+  "quality_share":0.2438,
+  "top_issue":"durability",
+  "quality_return_value_rand":65251.5617,
+  "themes":[
+   "washing crotch",
+   "itchy refused wear",
+   "material scratchy itchy"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":31,
+   "fabric":22,
+   "fit":26
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":41,
+  "style_id":"KW1047",
+  "category":"Schoolwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":8012,
+  "return_units":819,
+  "return_rate":0.1022,
+  "quality_share":0.1923,
+  "top_issue":"fabric",
+  "quality_return_value_rand":42367.5,
+  "themes":[
+   "fabric feels cheap",
+   "lint balls",
+   "dull compared"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":15,
+   "fabric":25,
+   "fit":15
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":42,
+  "style_id":"KW1009",
+  "category":"Sleepwear",
+  "supplier":"SUP-MU-05",
+  "fabric":"Cotton",
+  "fit":"Regular",
+  "sales_units":6871,
+  "return_units":628,
+  "return_rate":0.0914,
+  "quality_share":0.2146,
+  "top_issue":"durability",
+  "quality_return_value_rand":30863.7626,
+  "themes":[
+   "work rides",
+   "way boxy tight",
+   "wash snap"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":16,
+   "fabric":16,
+   "fit":15
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":43,
+  "style_id":"KW1004",
+  "category":"Sleepwear",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":8777,
+  "return_units":690,
+  "return_rate":0.0786,
+  "quality_share":0.2448,
+  "top_issue":"durability",
+  "quality_return_value_rand":30236.888,
+  "themes":[
+   "sole feet wore",
+   "colour dull compared",
+   "compared photo"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":21,
+   "fabric":17,
+   "fit":21
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":44,
+  "style_id":"KW1017",
+  "category":"Schoolwear",
+  "supplier":"SUP-BD-04",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":11479,
+  "return_units":785,
+  "return_rate":0.0684,
+  "quality_share":0.2628,
+  "top_issue":"fit",
+  "quality_return_value_rand":45174.7445,
+  "themes":[
+   "ordered smaller",
+   "pilled badly",
+   "sits low"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":23,
+   "fabric":24,
+   "fit":25
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":45,
+  "style_id":"KW1029",
+  "category":"Sleepwear",
+  "supplier":"SUP-MU-05",
+  "fabric":"Fleece",
+  "fit":"Relaxed",
+  "sales_units":11597,
+  "return_units":847,
+  "return_rate":0.073,
+  "quality_share":0.2432,
+  "top_issue":"durability",
+  "quality_return_value_rand":40999.3784,
+  "themes":[
+   "reason given",
+   "unhappy quality",
+   "stitching came undone"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":31,
+   "fabric":15,
+   "fit":26
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":46,
+  "style_id":"KW1063",
+  "category":"Jackets",
+  "supplier":"SUP-BD-04",
+  "fabric":"Cotton",
+  "fit":"Regular",
+  "sales_units":809,
+  "return_units":60,
+  "return_rate":0.0742,
+  "quality_share":0.2381,
+  "top_issue":"durability",
+  "quality_return_value_rand":5128.5714,
+  "themes":[
+   "unravelled print",
+   "tore hem",
+   "photo neckline"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":3,
+   "fabric":1,
+   "fit":1
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":47,
+  "style_id":"KW1042",
+  "category":"Schoolwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":5816,
+  "return_units":437,
+  "return_rate":0.0751,
+  "quality_share":0.2171,
+  "top_issue":"fabric",
+  "quality_return_value_rand":27418.875,
+  "themes":[
+   "fabric feels cheap",
+   "unhappy quality",
+   "returned waist"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":11,
+   "fabric":14,
+   "fit":8
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":48,
+  "style_id":"KW1027",
+  "category":"Schoolwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Cotton",
+  "fit":"Slim",
+  "sales_units":9291,
+  "return_units":692,
+  "return_rate":0.0745,
+  "quality_share":0.219,
+  "top_issue":"durability",
+  "quality_return_value_rand":28643.6529,
+  "themes":[
+   "buttons fell colour",
+   "washing colour",
+   "bled washing"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":22,
+   "fabric":17,
+   "fit":14
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":49,
+  "style_id":"KW1022",
+  "category":"Schoolwear",
+  "supplier":"SUP-MU-05",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":4341,
+  "return_units":360,
+  "return_rate":0.0829,
+  "quality_share":0.184,
+  "top_issue":"durability",
+  "quality_return_value_rand":18480.96,
+  "themes":[
+   "reason given",
+   "washing reason",
+   "wash seam split"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":8,
+   "fabric":8,
+   "fit":7
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":50,
+  "style_id":"KW1012",
+  "category":"Schoolwear",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Fleece",
+  "fit":"Slim",
+  "sales_units":4091,
+  "return_units":394,
+  "return_rate":0.0963,
+  "quality_share":0.1533,
+  "top_issue":"durability",
+  "quality_return_value_rand":9602.6715,
+  "themes":[
+   "week fabric feels",
+   "unhappy quality body",
+   "shows didnt"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":9,
+   "fabric":4,
+   "fit":8
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":51,
+  "style_id":"KW1048",
+  "category":"Jackets",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Cotton-blend",
+  "fit":"Regular",
+  "sales_units":3318,
+  "return_units":177,
+  "return_rate":0.0533,
+  "quality_share":0.2623,
+  "top_issue":"durability",
+  "quality_return_value_rand":19916.8525,
+  "themes":[
+   "velcro topped",
+   "topped sticking",
+   "lint balls returning"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":6,
+   "fabric":5,
+   "fit":5
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":52,
+  "style_id":"KW1011",
+  "category":"Dresses",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Fleece",
+  "fit":"Relaxed",
+  "sales_units":9301,
+  "return_units":533,
+  "return_rate":0.0573,
+  "quality_share":0.2419,
+  "top_issue":"fit",
+  "quality_return_value_rand":34687.9839,
+  "themes":[
+   "band digs",
+   "waist band",
+   "armholes tiny"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":12,
+   "fabric":16,
+   "fit":17
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":53,
+  "style_id":"KW1024",
+  "category":"Sleepwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Fleece",
+  "fit":"Regular",
+  "sales_units":5325,
+  "return_units":350,
+  "return_rate":0.0657,
+  "quality_share":0.2049,
+  "top_issue":"fabric",
+  "quality_return_value_rand":11403.6885,
+  "themes":[
+   "shape washing",
+   "lost shape",
+   "wash colour faded"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":9,
+   "fabric":10,
+   "fit":6
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":54,
+  "style_id":"KW1008",
+  "category":"Jackets",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":6303,
+  "return_units":368,
+  "return_rate":0.0584,
+  "quality_share":0.2266,
+  "top_issue":"durability",
+  "quality_return_value_rand":35767.875,
+  "themes":[
+   "needed bigger",
+   "bigger colour faded",
+   "bobbles week unhappy"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":11,
+   "fabric":9,
+   "fit":9
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":55,
+  "style_id":"KW1033",
+  "category":"Jackets",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":2662,
+  "return_units":146,
+  "return_rate":0.0548,
+  "quality_share":0.2353,
+  "top_issue":"fabric",
+  "quality_return_value_rand":10271.5294,
+  "themes":[
+   "week hapy",
+   "way boxy cut",
+   "cut strange baggy"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":2,
+   "fabric":5,
+   "fit":5
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":56,
+  "style_id":"KW1013",
+  "category":"Jackets",
+  "supplier":"SUP-CN-03",
+  "fabric":"Denim",
+  "fit":"Relaxed",
+  "sales_units":3623,
+  "return_units":206,
+  "return_rate":0.0569,
+  "quality_share":0.2222,
+  "top_issue":"fabric",
+  "quality_return_value_rand":20096.4444,
+  "themes":[
+   "shrunk wash goes",
+   "sits low hole",
+   "just doesnt"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":4,
+   "fabric":6,
+   "fit":6
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":57,
+  "style_id":"KW1001",
+  "category":"Dresses",
+  "supplier":"SUP-CN-03",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":7279,
+  "return_units":339,
+  "return_rate":0.0466,
+  "quality_share":0.2542,
+  "top_issue":"fabric",
+  "quality_return_value_rand":18874.8305,
+  "themes":[
+   "balls unhappy",
+   "tiny waist band",
+   "unhappy quality velcro"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":7,
+   "fabric":15,
+   "fit":8
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":58,
+  "style_id":"KW1038",
+  "category":"Jackets",
+  "supplier":"SUP-CN-03",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":12095,
+  "return_units":726,
+  "return_rate":0.06,
+  "quality_share":0.1929,
+  "top_issue":"fit",
+  "quality_return_value_rand":46078.1339,
+  "themes":[
+   "looked orange store",
+   "unhappy quality",
+   "store light"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":15,
+   "fabric":14,
+   "fit":20
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":59,
+  "style_id":"KW1060",
+  "category":"T-shirts",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Polyester",
+  "fit":"Slim",
+  "sales_units":2765,
+  "return_units":167,
+  "return_rate":0.0604,
+  "quality_share":0.1897,
+  "top_issue":"fabric",
+  "quality_return_value_rand":4719.1897,
+  "themes":[
+   "bobbles week unhappy",
+   "slim colour different",
+   "quality shrunk wash"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":3,
+   "fabric":5,
+   "fit":3
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":60,
+  "style_id":"KW1045",
+  "category":"T-shirts",
+  "supplier":"SUP-BD-04",
+  "fabric":"Cotton",
+  "fit":"Regular",
+  "sales_units":16157,
+  "return_units":853,
+  "return_rate":0.0528,
+  "quality_share":0.2148,
+  "top_issue":"durability",
+  "quality_return_value_rand":29127.9463,
+  "themes":[
+   "unhappy quality",
+   "strap tore",
+   "sits low"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":27,
+   "fabric":19,
+   "fit":18
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":61,
+  "style_id":"KW1015",
+  "category":"T-shirts",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":16096,
+  "return_units":671,
+  "return_rate":0.0417,
+  "quality_share":0.2564,
+  "top_issue":"fit",
+  "quality_return_value_rand":25635.641,
+  "themes":[
+   "tight arms",
+   "lint balls",
+   "crotch sits low"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":20,
+   "fabric":13,
+   "fit":27
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":62,
+  "style_id":"KW1058",
+  "category":"Jackets",
+  "supplier":"SUP-BD-04",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":3532,
+  "return_units":196,
+  "return_rate":0.0555,
+  "quality_share":0.1912,
+  "top_issue":"durability",
+  "quality_return_value_rand":14201.3529,
+  "themes":[
+   "stopped sticking colour",
+   "proportions neckline narrow",
+   "week rides"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":6,
+   "fabric":4,
+   "fit":3
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":63,
+  "style_id":"KW1018",
+  "category":"Jackets",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":3253,
+  "return_units":138,
+  "return_rate":0.0424,
+  "quality_share":0.25,
+  "top_issue":"durability",
+  "quality_return_value_rand":12040.5,
+  "themes":[
+   "unhappy quaity",
+   "like cut",
+   "came loose unhappy"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":5,
+   "fabric":2,
+   "fit":5
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":64,
+  "style_id":"KW1032",
+  "category":"Schoolwear",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Cotton",
+  "fit":"Regular",
+  "sales_units":5496,
+  "return_units":213,
+  "return_rate":0.0388,
+  "quality_share":0.2703,
+  "top_issue":"durability",
+  "quality_return_value_rand":15485.6757,
+  "themes":[
+   "band digs returned",
+   "website lost shape",
+   "unhappy quality waist"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":10,
+   "fabric":4,
+   "fit":6
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":65,
+  "style_id":"KW1050",
+  "category":"T-shirts",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Fleece",
+  "fit":"Relaxed",
+  "sales_units":13054,
+  "return_units":613,
+  "return_rate":0.047,
+  "quality_share":0.2196,
+  "top_issue":"fit",
+  "quality_return_value_rand":16021.0701,
+  "themes":[
+   "way boxy",
+   "changed mind",
+   "week body short"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":17,
+   "fabric":11,
+   "fit":19
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":66,
+  "style_id":"KW1005",
+  "category":"T-shirts",
+  "supplier":"SUP-BD-04",
+  "fabric":"Cotton",
+  "fit":"Relaxed",
+  "sales_units":16642,
+  "return_units":874,
+  "return_rate":0.0525,
+  "quality_share":0.1934,
+  "top_issue":"durability",
+  "quality_return_value_rand":21809.882,
+  "themes":[
+   "returned colour bled",
+   "sleeves far short",
+   "waist band"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":25,
+   "fabric":14,
+   "fit":20
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":67,
+  "style_id":"KW1066",
+  "category":"Dresses",
+  "supplier":"SUP-DBN-02",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":1453,
+  "return_units":52,
+  "return_rate":0.0358,
+  "quality_share":0.2778,
+  "top_issue":"durability",
+  "quality_return_value_rand":5041.1111,
+  "themes":[
+   "washing hem unravelled",
+   "looked orange store",
+   "store light"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":3,
+   "fabric":1,
+   "fit":1
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":68,
+  "style_id":"KW1070",
+  "category":"T-shirts",
+  "supplier":"SUP-BD-04",
+  "fabric":"Polyester",
+  "fit":"Relaxed",
+  "sales_units":2233,
+  "return_units":114,
+  "return_rate":0.0511,
+  "quality_share":0.1795,
+  "top_issue":"fit",
+  "quality_return_value_rand":2844.1538,
+  "themes":[
+   "tight arms rides",
+   "digs tight",
+   "rides unhappy quality"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":2,
+   "fabric":0,
+   "fit":5
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":69,
+  "style_id":"KW1037",
+  "category":"Schoolwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Denim",
+  "fit":"Relaxed",
+  "sales_units":10378,
+  "return_units":520,
+  "return_rate":0.0501,
+  "quality_share":0.1813,
+  "top_issue":"fabric",
+  "quality_return_value_rand":15934.2857,
+  "themes":[
+   "shrunk wash",
+   "velcro stopped sticking",
+   "washing returned"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":12,
+   "fabric":15,
+   "fit":6
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":70,
+  "style_id":"KW1071",
+  "category":"Dresses",
+  "supplier":"SUP-CN-03",
+  "fabric":"Denim",
+  "fit":"Slim",
+  "sales_units":1064,
+  "return_units":76,
+  "return_rate":0.0714,
+  "quality_share":0.1154,
+  "top_issue":"durability",
+  "quality_return_value_rand":2358.9231,
+  "themes":[
+   "slim colour different",
+   "different website",
+   "hole knee week"
+  ],
+  "suggested_action":"Seam, trim and fastening strength tests; supplier QA audit and a pre-shipment inspection.",
+  "issue_mix":{
+   "durability":2,
+   "fabric":0,
+   "fit":1
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":71,
+  "style_id":"KW1062",
+  "category":"Schoolwear",
+  "supplier":"SUP-CPT-01",
+  "fabric":"Denim",
+  "fit":"Regular",
+  "sales_units":1693,
+  "return_units":68,
+  "return_rate":0.0402,
+  "quality_share":0.1739,
+  "top_issue":"fabric",
+  "quality_return_value_rand":2589.913,
+  "themes":[
+   "stitching came undone",
+   "itchy refused wear",
+   "material scratchy"
+  ],
+  "suggested_action":"Wash-test the fabric for shrinkage, pilling and colour-fastness; tighten the fabric specification.",
+  "issue_mix":{
+   "durability":1,
+   "fabric":2,
+   "fit":1
+  },
+  "confirmed_defect":"No"
+ },
+ {
+  "rank":72,
+  "style_id":"KW1067",
+  "category":"Schoolwear",
+  "supplier":"SUP-CN-03",
+  "fabric":"Cotton",
+  "fit":"Slim",
+  "sales_units":860,
+  "return_units":38,
+  "return_rate":0.0442,
+  "quality_share":0.0769,
+  "top_issue":"fit",
+  "quality_return_value_rand":757.0769,
+  "themes":[
+   "tight arms",
+   "wore snap",
+   "wore velcro"
+  ],
+  "suggested_action":"Fit session on three sizes; re-check grading and the pattern block with the supplier before the next buy.",
+  "issue_mix":{
+   "durability":0,
+   "fabric":0,
+   "fit":1
+  },
+  "confirmed_defect":"No"
+ }
+]

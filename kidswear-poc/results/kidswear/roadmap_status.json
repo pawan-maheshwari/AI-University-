@@ -1,0 +1,159 @@
+{
+  "roadmap": [
+    {
+      "iteration": 0,
+      "title": "Foundation stabilisation",
+      "features": [
+        {
+          "name": "Data contracts & validation",
+          "file": "contracts.py, 02_validate_data.py, config/data_contracts.json",
+          "result": "0 errors on 949,849 rows; self-test caught 6/6 injected defects; pipeline stops on any error"
+        },
+        {
+          "name": "Enhanced demand unconstraining",
+          "file": "04_prepare_features.py",
+          "result": "EM negative-binomial: demand-estimate error 12.8% vs 23.8% (v1); bias -4.4% vs -21.7%; quality score per row"
+        },
+        {
+          "name": "Model monitoring baseline",
+          "file": "05_demand_forecast.py, governance_lib.py",
+          "result": "WAPE, bias, P10-P90 coverage (81.2%) and PSI drift vs same weeks last year; shifted: cci_lag4, temp_anomaly_forecast, demand_ly_4wk_mean"
+        },
+        {
+          "name": "Explainability pack",
+          "file": "05_demand_forecast.py -> driver_cards.json",
+          "result": "SHAP global ranking plus driver cards for 72 styles and 24 stores (top drivers up and down)"
+        },
+        {
+          "name": "Reproducible experiment tracking",
+          "file": "governance_lib.py -> governance/model_registry.jsonl",
+          "result": "data, feature and model versions plus all 8 trials recorded for every run (2 registered runs)"
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "title": "Accuracy & robustness uplift",
+      "features": [
+        {
+          "name": "Hierarchical reconciliation",
+          "file": "07_hierarchy.py",
+          "result": "bottom-up, top-down and MinT tested on 4 levels; bottom-up best; chain-total error 6.7% vs 26.8% unreconciled; coherent by construction"
+        },
+        {
+          "name": "Richer external features",
+          "file": "01_generate_data.py (feeds), 04_prepare_features.py",
+          "result": "weather, events, competitor promotions, consumer confidence, school calendar, payday + interactions: +1.5 pts accuracy"
+        },
+        {
+          "name": "Foundation-model ensemble",
+          "file": "foundation.py, 06_foundation_ensemble.py",
+          "result": "Chronos/TimesFM adapters ready; weights unavailable here so zero-shot fallbacks used; stacked forecast 36.4% vs LightGBM 36.5%"
+        },
+        {
+          "name": "Improved size-curve modelling",
+          "file": "08_size_curves.py",
+          "result": "dynamic clusters + fit-aware curves: wrong-size units 3.3% vs 13.0% chain; found all 3 stores whose mix changed; 8-weekly updates 4.4% vs 6.4% once a season"
+        },
+        {
+          "name": "Business-metric evaluation",
+          "file": "09_business_metrics.py",
+          "result": "replenishment margin +34% vs best planner rule; stock-out rate 32% vs 46%; newsvendor service level 61%"
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "title": "Planner experience & decision support",
+      "features": [
+        {
+          "name": "Interactive planning UI",
+          "file": "kidswear-planner.html (18_build_planner.py)",
+          "result": "this app: forecasts, size curves, markdown pack, quality, trial, operations; upload another run's bundle to review it"
+        },
+        {
+          "name": "Override & feedback loop",
+          "file": "12_overrides.py + Forecasts tab",
+          "result": "overrides captured with reasons and exported in the ingest format; trust learned per reason: error on overridden forecasts 37.4% vs 40.9% accepting all and 37.6% ignoring all"
+        },
+        {
+          "name": "Scenario simulation",
+          "file": "Markdown tab (markdown_scenarios.json)",
+          "result": "change weekly discounts, stock level or size mix and see cash, sell-through and leftovers instantly"
+        },
+        {
+          "name": "Markdown recommendation pack",
+          "file": "10_markdown.py -> markdown_pack.json",
+          "result": "72 styles with multi-step paths, P10-P90 cash range, current-plan comparison and constraint checks"
+        },
+        {
+          "name": "Quality-gap dashboard",
+          "file": "03_quality_nlp.py -> quality_dashboard.json",
+          "result": "ranked by quality return value with themes and actions; found 100% of defective lines vs 67% by return rate"
+        }
+      ]
+    },
+    {
+      "iteration": 3,
+      "title": "Real-world validation & operationalisation",
+      "features": [
+        {
+          "name": "Store test-vs-control trial design",
+          "file": "13_store_trial.py",
+          "result": "12 matched pairs, randomised; pre-registered and hashed; MDE 19%; 5 pairs needed for the expected effect"
+        },
+        {
+          "name": "Closed-loop outcome tracking",
+          "file": "13_store_trial.py",
+          "result": "simulated FY2027 trial: +18.3% gross profit per store (p = 0.0381); prediction calibration 0.945; outcomes saved for retraining"
+        },
+        {
+          "name": "Automated retraining cadence",
+          "file": "14_retrain_cadence.py, retrain.py, .github/workflows/kidswear-retrain.yml",
+          "result": "monthly retraining chosen: error 38.6% vs 39.8% never retrained; drift + error triggers"
+        },
+        {
+          "name": "Integration adapters",
+          "file": "adapters.py, 15_adapters.py, config/source_mappings.json",
+          "result": "POS, inventory and ERP extracts rebuilt into contract tables: exact match yes on 20,736 rows"
+        },
+        {
+          "name": "Governance & audit",
+          "file": "governance_lib.py, 16_governance_report.py",
+          "result": "hash-chained audit trail (27 entries, intact); edited entry caught by the tamper test; full model lineage"
+        }
+      ]
+    },
+    {
+      "iteration": 4,
+      "title": "Scale & differentiation",
+      "features": [
+        {
+          "name": "Multi-department support",
+          "file": "sim.py DEPARTMENTS, DEPT=babywear",
+          "result": "2 departments run through the same pipeline: Kidswear, Babywear"
+        },
+        {
+          "name": "Allocation & replenishment",
+          "file": "11_allocation.py",
+          "result": "forecast + size-curve allocation fill rate 89.5% vs 80.2%; 656 transfers worth R313k net"
+        },
+        {
+          "name": "Cold-start & new styles",
+          "file": "foundation.py (analog), 06_foundation_ensemble.py",
+          "result": "attribute-similarity analog + stacking for 12 new styles: 45.3% vs LightGBM 45.2%"
+        },
+        {
+          "name": "Advanced markdown optimiser",
+          "file": "10_markdown.py",
+          "result": "constrained multi-step optimiser with competitor prices and season length: R601k gross profit vs today at matched sell-through (two-step grid R578k)"
+        },
+        {
+          "name": "Continuous learning from returns",
+          "file": "03_quality_nlp.py, 04 + 10 links",
+          "result": "text model refreshed with new-season comments: +9.3 pts F1 (0.25 -> 0.47 on new phrasing); quality signal feeds the forecast and quality-linked markdowns"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "levels": {
+    "total": 1,
+    "category": 5,
+    "category_store": 120,
+    "style_store": 1728
+  },
+  "results": {
+    "base": {
+      "total": 0.2676,
+      "category": 0.238,
+      "category_store": 0.2765,
+      "style_store": 0.3639,
+      "max_coherence_gap_units": 7751.397
+    },
+    "bottom_up": {
+      "total": 0.0671,
+      "category": 0.1493,
+      "category_store": 0.1712,
+      "style_store": 0.3639,
+      "max_coherence_gap_units": 0.0
+    },
+    "top_down": {
+      "total": 0.2676,
+      "category": 0.2725,
+      "category_store": 0.2825,
+      "style_store": 0.4027,
+      "max_coherence_gap_units": 0.0
+    },
+    "mint_wls": {
+      "total": 0.115,
+      "category": 0.1739,
+      "category_store": 0.1897,
+      "style_store": 0.3703,
+      "max_coherence_gap_units": 0.0
+    }
+  },
+  "recommended": "bottom_up",
+  "note": "Base forecasts are not coherent (levels do not add up); every reconciled method is coherent by construction."
+}

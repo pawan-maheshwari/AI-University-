@@ -1,0 +1,119 @@
+{
+  "note": "Weekly replenishment decisions in the full-price weeks 91-97 (models trained on weeks 1-90), scored against true demand. Margin = sales - cost of stock + salvage of leftovers.",
+  "policies": [
+    {
+      "policy": "Planner rule",
+      "margin_rand": 3844386.0,
+      "stockout_rate": 0.6326,
+      "lost_sales_pct": 0.4517,
+      "leftover_units": 7237,
+      "leftover_pct_of_stock": 0.1515,
+      "sell_through": 0.8485,
+      "units_stocked": 47770,
+      "wape": 0.5515
+    },
+    {
+      "policy": "LightGBM forecast",
+      "margin_rand": 5290470.0,
+      "stockout_rate": 0.4882,
+      "lost_sales_pct": 0.2813,
+      "leftover_units": 8833,
+      "leftover_pct_of_stock": 0.1425,
+      "sell_through": 0.8575,
+      "units_stocked": 61967,
+      "wape": 0.4032
+    },
+    {
+      "policy": "LightGBM without external feeds",
+      "margin_rand": 5194393.0,
+      "stockout_rate": 0.496,
+      "lost_sales_pct": 0.297,
+      "leftover_units": 8638,
+      "leftover_pct_of_stock": 0.1425,
+      "sell_through": 0.8575,
+      "units_stocked": 60610,
+      "wape": 0.4167
+    }
+  ],
+  "buffer_sweep": [
+    {
+      "policy": "LightGBM x 0.9",
+      "margin_rand": 5021205.0,
+      "stockout_rate": 0.5501,
+      "lost_sales_pct": 0.3338,
+      "leftover_units": 6493,
+      "leftover_pct_of_stock": 0.1165,
+      "sell_through": 0.8835,
+      "units_stocked": 55748,
+      "wape": null,
+      "buffer": 0.9
+    },
+    {
+      "policy": "LightGBM x 1.0",
+      "margin_rand": 5290470.0,
+      "stockout_rate": 0.4882,
+      "lost_sales_pct": 0.2813,
+      "leftover_units": 8833,
+      "leftover_pct_of_stock": 0.1425,
+      "sell_through": 0.8575,
+      "units_stocked": 61967,
+      "wape": null,
+      "buffer": 1.0
+    },
+    {
+      "policy": "LightGBM x 1.1",
+      "margin_rand": 5465604.0,
+      "stockout_rate": 0.428,
+      "lost_sales_pct": 0.2361,
+      "leftover_units": 11678,
+      "leftover_pct_of_stock": 0.1713,
+      "sell_through": 0.8287,
+      "units_stocked": 68156,
+      "wape": null,
+      "buffer": 1.1
+    },
+    {
+      "policy": "LightGBM x 1.2",
+      "margin_rand": 5563836.0,
+      "stockout_rate": 0.3718,
+      "lost_sales_pct": 0.1971,
+      "leftover_units": 14935,
+      "leftover_pct_of_stock": 0.201,
+      "sell_through": 0.799,
+      "units_stocked": 74295,
+      "wape": null,
+      "buffer": 1.2
+    },
+    {
+      "policy": "LightGBM x 1.3",
+      "margin_rand": 5577353.0,
+      "stockout_rate": 0.3224,
+      "lost_sales_pct": 0.1643,
+      "leftover_units": 18723,
+      "leftover_pct_of_stock": 0.2326,
+      "sell_through": 0.7674,
+      "units_stocked": 80507,
+      "wape": null,
+      "buffer": 1.3
+    },
+    {
+      "policy": "LightGBM x 1.5",
+      "margin_rand": 5421487.0,
+      "stockout_rate": 0.2327,
+      "lost_sales_pct": 0.1127,
+      "leftover_units": 27343,
+      "leftover_pct_of_stock": 0.2942,
+      "sell_through": 0.7058,
+      "units_stocked": 92940,
+      "wape": null,
+      "buffer": 1.5
+    }
+  ],
+  "best_model_buffer": 1.3,
+  "best_rule_buffer": 1.5,
+  "critical_ratio_service_level": 0.612,
+  "margin_uplift_best_model_vs_best_rule_rand": 1399562.0,
+  "margin_uplift_best_model_vs_best_rule_pct": 0.335,
+  "stockout_rate_best_model": 0.3224,
+  "stockout_rate_best_rule": 0.4629
+}

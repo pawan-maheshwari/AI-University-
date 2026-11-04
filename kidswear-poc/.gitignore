@@ -1,0 +1,7 @@
+data/
+models/
+__pycache__/
+*.pyc
+results/*/feature_baseline.json
+results/*/trial_outcomes_extract.csv.gz
+results/*/planner_bundle.json

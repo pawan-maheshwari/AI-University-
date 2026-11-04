@@ -1,0 +1,9 @@
+{
+  "description": "Map each source system's column names to the pipeline's names (pipeline name: source name). Edit these for a real POS / ERP / inventory export.",
+  "pos_daily": {"system": "POS daily sales export", "columns": {"store_id": "STORE_CODE", "sku": "ARTICLE_SIZE_CODE", "date": "TRADING_DATE", "qty": "NET_QTY"}},
+  "inventory": {"system": "Inventory snapshot", "columns": {"store_id": "LOCATION", "sku": "SKU", "snapshot_date": "SNAPSHOT_DATE", "on_hand": "SOH_UNITS"}},
+  "erp_items": {"system": "ERP item master", "columns": {"sku": "SKU", "style_id": "STYLE", "size": "SIZE_DESC", "category": "SUB_DEPT",
+                "fabric": "FABRIC", "fit": "FIT", "supplier": "VENDOR", "colour": "COLOUR", "full_price": "RSP", "unit_cost": "LANDED_COST",
+                "launch_date": "FIRST_RECEIPT_DATE"}},
+  "erp_prices": {"system": "ERP price events", "columns": {"style_id": "STYLE", "effective_date": "EFFECTIVE_FROM", "price": "SELLING_PRICE"}}
+}

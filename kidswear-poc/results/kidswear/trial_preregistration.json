@@ -1,0 +1,104 @@
+{
+  "title": "Model-driven clearance vs today's rules",
+  "unit": "store",
+  "pairs": [
+    {
+      "a": "S110",
+      "b": "S124",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S104",
+      "b": "S121",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S112",
+      "b": "S118",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S113",
+      "b": "S122",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S114",
+      "b": "S117",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S102",
+      "b": "S123",
+      "a_arm": "control",
+      "b_arm": "treatment"
+    },
+    {
+      "a": "S106",
+      "b": "S115",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S105",
+      "b": "S120",
+      "a_arm": "control",
+      "b_arm": "treatment"
+    },
+    {
+      "a": "S103",
+      "b": "S116",
+      "a_arm": "control",
+      "b_arm": "treatment"
+    },
+    {
+      "a": "S108",
+      "b": "S119",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S101",
+      "b": "S107",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    },
+    {
+      "a": "S109",
+      "b": "S111",
+      "a_arm": "treatment",
+      "b_arm": "control"
+    }
+  ],
+  "treatment": "markdown path from the recommendation pack (quality-linked multi-step optimiser); transfers and size curves are left for a later trial so this one isolates pricing",
+  "control": "today's rule-based clearance path",
+  "primary_metric": "clearance gross profit per store (weeks 46-52)",
+  "secondary_metrics": [
+    "sell-through",
+    "leftover units",
+    "revenue"
+  ],
+  "hypothesis": "treatment gross profit per store > control (one-sided, alpha 0.05)",
+  "analysis": "paired difference; bootstrap 95% CI; sign-flip permutation p-value; difference-in-differences vs last season",
+  "power": {
+    "pairs": 12,
+    "sd_of_pair_differences": 21726.0,
+    "power": 0.8,
+    "alpha": 0.05,
+    "minimum_detectable_effect_rand_per_store": 15595.0,
+    "minimum_detectable_effect_pct": 0.1891,
+    "expected_effect_rand_per_store": 25042.0,
+    "pairs_needed_for_expected_effect": 5,
+    "note": "12 pairs detect effects of 19% or more; the expected effect needs 5 pairs. The trial is adequately powered."
+  },
+  "stop_rules": [
+    "stop if treatment sell-through falls 5 points below control by week 49",
+    "stop on any data-contract failure"
+  ],
+  "registration_hash": "6d53a4fba758b9cd"
+}

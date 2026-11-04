@@ -1,0 +1,18 @@
+{
+  "policy": "monthly",
+  "max_weeks_between_retrains": 12,
+  "min_weeks_between_retrains": 4,
+  "triggers": {
+    "error_worse_than_training_by": 0.15,
+    "psi_above": 0.25,
+    "monitored_features": [
+      "competitor_discount",
+      "temp_anomaly_forecast",
+      "cci_lag4",
+      "discount",
+      "demand_lag8_11_mean"
+    ]
+  },
+  "expanding_window": true,
+  "chosen_by": "lowest error with a small cost per retrain, FY2026 replay"
+}

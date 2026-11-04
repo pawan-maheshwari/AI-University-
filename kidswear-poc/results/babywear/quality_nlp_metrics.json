@@ -1,0 +1,90 @@
+{
+  "continuous_learning": {
+    "frozen": {
+      "trained_on": "FY2025 verified comments",
+      "n": 3607,
+      "C": 10,
+      "test_macro_f1": 0.6328,
+      "test_macro_f1_new_phrasing": 0.2225
+    },
+    "refreshed": {
+      "trained_on": "FY2025 + FY2026 verified comments to week 90",
+      "n": 5708,
+      "C": 10,
+      "test_macro_f1": 0.7206,
+      "test_macro_f1_new_phrasing": 0.5519
+    },
+    "test": {
+      "rows": 1585,
+      "new_phrasing_rows": 143,
+      "weeks": "91-104"
+    },
+    "confusion_matrix": {
+      "labels": [
+        "changed_mind",
+        "colour",
+        "durability",
+        "fabric",
+        "fit",
+        "sizing"
+      ],
+      "matrix": [
+        [
+          387,
+          15,
+          16,
+          28,
+          18,
+          24
+        ],
+        [
+          11,
+          125,
+          10,
+          10,
+          5,
+          13
+        ],
+        [
+          6,
+          4,
+          101,
+          14,
+          4,
+          7
+        ],
+        [
+          14,
+          9,
+          7,
+          70,
+          6,
+          6
+        ],
+        [
+          7,
+          7,
+          4,
+          6,
+          105,
+          6
+        ],
+        [
+          21,
+          15,
+          19,
+          29,
+          18,
+          438
+        ]
+      ]
+    },
+    "refresh_gain_pts": 8.8
+  },
+  "styles_with_true_defect": 7,
+  "precision_at_10": 0.7,
+  "recall_at_n": 1.0,
+  "defect_type_correct_in_top_n": 1.0,
+  "baseline_return_rate_only_recall_at_n": 0.571,
+  "fy2026_quality_return_value_rand": 931970.0
+}

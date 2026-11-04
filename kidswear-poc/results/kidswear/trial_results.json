@@ -1,0 +1,30 @@
+{
+  "preregistration_hash": "6d53a4fba758b9cd",
+  "simulated_season": "FY2027 clearance (weeks 46-52)",
+  "mean_gp_per_store": {
+    "treatment": 161921.0,
+    "control": 136897.0
+  },
+  "effect_per_store_rand": 25024.0,
+  "effect_pct_of_control": 0.1828,
+  "ci95_rand": [
+    1173.0,
+    56698.0
+  ],
+  "permutation_p_one_sided": 0.0381,
+  "did_effect_rand": 21154.0,
+  "did_ci95_rand": [
+    7932.0,
+    39539.0
+  ],
+  "pairs_treatment_won": 7,
+  "pairs": 12,
+  "exceeds_mde": true,
+  "decision": "Roll out: effect is positive and significant",
+  "closed_loop": {
+    "predicted_cash_treatment": 8237774.0,
+    "realised_cash_treatment": 7780901.0,
+    "calibration_ratio": 0.945,
+    "outcomes_extract": "trial_outcomes_extract.csv.gz (sales-extract contract) - appended at next retraining"
+  }
+}

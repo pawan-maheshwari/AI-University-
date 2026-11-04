@@ -1,0 +1,77 @@
+{
+  "reasons": {
+    "Local event not in feed": "store team knows an event the events feed does not list",
+    "Local event planned": "an event that is already in the events feed",
+    "Stock-out last year": "last year's sales were capped by stock",
+    "Competitor promotion": "a competitor is on promotion",
+    "Gut feel": "planner judgement, no specific evidence"
+  },
+  "learned_trust": {
+    "Competitor promotion": 0.45,
+    "Gut feel": 0.16,
+    "Local event not in feed": 0.96,
+    "Local event planned": 0.16,
+    "Stock-out last year": 0.0
+  },
+  "learning_overrides": 2368,
+  "evaluation_overrides": 5506,
+  "rejected_rows": 0,
+  "method": "forward chaining over weeks 79-104 in 6-week blocks; trust learned only from earlier overrides",
+  "overall": {
+    "model_only_wape": 0.3756,
+    "accept_all_wape": 0.4091,
+    "learned_wape": 0.3743
+  },
+  "by_reason": [
+    {
+      "reason": "Competitor promotion",
+      "overrides": 837,
+      "learned_trust": 0.45,
+      "model_only_wape": 0.3687,
+      "accept_all_wape": 0.395,
+      "learned_wape": 0.3695
+    },
+    {
+      "reason": "Gut feel",
+      "overrides": 1211,
+      "learned_trust": 0.16,
+      "model_only_wape": 0.3711,
+      "accept_all_wape": 0.4217,
+      "learned_wape": 0.3711
+    },
+    {
+      "reason": "Local event not in feed",
+      "overrides": 209,
+      "learned_trust": 0.96,
+      "model_only_wape": 0.4404,
+      "accept_all_wape": 0.3906,
+      "learned_wape": 0.391
+    },
+    {
+      "reason": "Local event planned",
+      "overrides": 704,
+      "learned_trust": 0.16,
+      "model_only_wape": 0.3549,
+      "accept_all_wape": 0.3974,
+      "learned_wape": 0.356
+    },
+    {
+      "reason": "Stock-out last year",
+      "overrides": 2545,
+      "learned_trust": 0.0,
+      "model_only_wape": 0.3845,
+      "accept_all_wape": 0.4171,
+      "learned_wape": 0.3854
+    }
+  ],
+  "csv_contract": [
+    "style_id",
+    "store_id",
+    "week_index",
+    "model_forecast",
+    "override_value",
+    "reason",
+    "planner",
+    "timestamp"
+  ]
+}

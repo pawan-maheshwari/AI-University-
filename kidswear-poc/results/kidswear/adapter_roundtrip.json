@@ -1,0 +1,23 @@
+{
+  "weeks": [
+    97,
+    98
+  ],
+  "source_rows": {
+    "pos_daily": 25278,
+    "inventory_snapshots": 20736,
+    "erp_items": 432,
+    "erp_prices": 144
+  },
+  "rebuilt_rows": 20736,
+  "original_rows": 20736,
+  "contract_errors": [],
+  "exact_match": {
+    "sales_units": true,
+    "return_units": true,
+    "stock_on_hand_start": true,
+    "discount": true
+  },
+  "passed": true,
+  "mappings": "config/source_mappings.json"
+}

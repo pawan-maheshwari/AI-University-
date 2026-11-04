@@ -1,0 +1,203 @@
+{
+  "scope": "72 styles x 24 stores x 6 sizes, clearance weeks 98-104, replayed on true demand",
+  "planned_sell_through_target": 0.8,
+  "headline_rule": "lowest planning target whose realised sell-through matches today's plan",
+  "max_discount": 0.6,
+  "horizon_weeks": 7,
+  "plans": {
+    "actual": {
+      "revenue": 14075319.0,
+      "units": 117150.0,
+      "leftover": 51592.0,
+      "salvage": 1277631.0,
+      "stock": 168742.0,
+      "cogs": 12017790.0,
+      "leftover_flagged": 27250.0,
+      "cash_recovered": 15352949.0,
+      "gross_profit": 2057528.0,
+      "sell_through": 0.694
+    },
+    "v1_grid": {
+      "revenue": 14712830.0,
+      "units": 118420.0,
+      "leftover": 50322.0,
+      "salvage": 1238220.0,
+      "stock": 168742.0,
+      "cogs": 12175434.0,
+      "leftover_flagged": 22972.0,
+      "cash_recovered": 15951050.0,
+      "gross_profit": 2537396.0,
+      "sell_through": 0.702
+    },
+    "v2_multistep": {
+      "revenue": 14709131.0,
+      "units": 118608.0,
+      "leftover": 50134.0,
+      "salvage": 1239015.0,
+      "stock": 168742.0,
+      "cogs": 12172252.0,
+      "leftover_flagged": 20117.0,
+      "cash_recovered": 15948146.0,
+      "gross_profit": 2536879.0,
+      "sell_through": 0.703
+    },
+    "v2_quality_linked": {
+      "revenue": 14708614.0,
+      "units": 118620.0,
+      "leftover": 50122.0,
+      "salvage": 1238766.0,
+      "stock": 168742.0,
+      "cogs": 12173248.0,
+      "leftover_flagged": 20105.0,
+      "cash_recovered": 15947380.0,
+      "gross_profit": 2535366.0,
+      "sell_through": 0.703
+    }
+  },
+  "frontier": [
+    {
+      "target": 0.75,
+      "actual": {
+        "sell_through": 0.694,
+        "gross_profit": 2057528.0,
+        "cash": 15352949.0
+      },
+      "v1_grid": {
+        "sell_through": 0.663,
+        "gross_profit": 3016186.0,
+        "cash": 16000970.0
+      },
+      "v2_multistep": {
+        "sell_through": 0.653,
+        "gross_profit": 3204295.0,
+        "cash": 15998568.0
+      },
+      "v2_quality_linked": {
+        "sell_through": 0.654,
+        "gross_profit": 3206010.0,
+        "cash": 16001813.0
+      }
+    },
+    {
+      "target": 0.8,
+      "actual": {
+        "sell_through": 0.694,
+        "gross_profit": 2057528.0,
+        "cash": 15352949.0
+      },
+      "v1_grid": {
+        "sell_through": 0.702,
+        "gross_profit": 2537396.0,
+        "cash": 15951050.0
+      },
+      "v2_multistep": {
+        "sell_through": 0.703,
+        "gross_profit": 2536879.0,
+        "cash": 15948146.0
+      },
+      "v2_quality_linked": {
+        "sell_through": 0.703,
+        "gross_profit": 2535366.0,
+        "cash": 15947380.0
+      }
+    },
+    {
+      "target": 0.85,
+      "actual": {
+        "sell_through": 0.694,
+        "gross_profit": 2057528.0,
+        "cash": 15352949.0
+      },
+      "v1_grid": {
+        "sell_through": 0.736,
+        "gross_profit": 1841182.0,
+        "cash": 15687798.0
+      },
+      "v2_multistep": {
+        "sell_through": 0.75,
+        "gross_profit": 1704336.0,
+        "cash": 15691816.0
+      },
+      "v2_quality_linked": {
+        "sell_through": 0.75,
+        "gross_profit": 1699045.0,
+        "cash": 15687275.0
+      }
+    },
+    {
+      "target": 0.9,
+      "actual": {
+        "sell_through": 0.694,
+        "gross_profit": 2057528.0,
+        "cash": 15352949.0
+      },
+      "v1_grid": {
+        "sell_through": 0.77,
+        "gross_profit": 1050151.0,
+        "cash": 15288011.0
+      },
+      "v2_multistep": {
+        "sell_through": 0.794,
+        "gross_profit": 497820.0,
+        "cash": 15012424.0
+      },
+      "v2_quality_linked": {
+        "sell_through": 0.794,
+        "gross_profit": 497820.0,
+        "cash": 15012424.0
+      }
+    }
+  ],
+  "uplift_vs_actual": {
+    "v1_grid": {
+      "gross_profit_rand": 479868.0,
+      "cash_rand": 598101.0,
+      "sell_through_pts": 0.8
+    },
+    "v2_multistep": {
+      "gross_profit_rand": 479351.0,
+      "cash_rand": 595197.0,
+      "sell_through_pts": 0.9
+    },
+    "v2_quality_linked": {
+      "gross_profit_rand": 477838.0,
+      "cash_rand": 594431.0,
+      "sell_through_pts": 0.9
+    }
+  },
+  "quality_flagged_styles": [
+    "KW1010",
+    "KW1021",
+    "KW1025",
+    "KW1026",
+    "KW1031",
+    "KW1041",
+    "KW1044",
+    "KW1049",
+    "KW1051",
+    "KW1054",
+    "KW1057",
+    "KW1065",
+    "KW1068"
+  ],
+  "flagged_leftover_units": {
+    "actual": 27250.0,
+    "v2_quality_linked": 20105.0
+  },
+  "v2_vs_v1_gross_profit_rand": -517.0,
+  "matched_sell_through": {
+    "sell_through": 0.694,
+    "note": "Each optimiser's profit / clearance frontier interpolated at today's realised sell-through.",
+    "gross_profit": {
+      "v1_grid": 2635609.0,
+      "v2_multistep": 2657014.0,
+      "v2_quality_linked": 2658546.0
+    },
+    "actual_gross_profit": 2057528.0,
+    "uplift_vs_actual": {
+      "v1_grid": 578081.0,
+      "v2_multistep": 599486.0,
+      "v2_quality_linked": 601018.0
+    }
+  }
+}
