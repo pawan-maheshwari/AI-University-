@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kidswear Margin Reset — PoC results · AI Academia</title>
+<meta name="description" content="Proof of concept: machine learning for Kidswear demand forecasting, size curves, markdown optimisation and quality-gap detection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14213D; --paper: #F4F7FB; --panel: #FFFFFF; --line: #D8DFEA; --muted: #56627A;
+    --poc: #2F54EB; --poc-soft: rgba(47, 84, 235, .14); --today: #9AA6BC; --tag: #FFD34E; --tag-edge: #E9B92A;
+    --good: #157A4C; --bad: #B4471A;
+    --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+    --body: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  main { overflow-x: clip; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--body); }
+  a { color: var(--poc); }
+  :focus-visible { outline: 3px solid var(--poc); outline-offset: 2px; }
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 56px 0 24px; }
+  .kicker { font: 600 15px/1.3 var(--display); color: var(--muted); margin: 0 0 14px; }
+  h1 { font: 800 clamp(2.3rem, 6vw, 4.4rem)/0.98 var(--display); letter-spacing: -0.02em; margin: 0; max-width: 15ch; font-variation-settings: "opsz" 96; }
+  .lede { font-size: 1.15rem; max-width: 62ch; margin: 22px 0 0; }
+  .lede b { font-weight: 700; }
+  .note { color: var(--muted); font-size: 0.9rem; max-width: 70ch; }
+
+  /* ---------- swing tags: the one bold moment ---------- */
+  .rail { position: relative; margin: 44px 0 8px; padding-top: 18px; }
+  .rail::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--ink); border-radius: 2px; }
+  .tags { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 18px; list-style: none; margin: 0; padding: 0; }
+  .tag { position: relative; background: var(--tag); color: var(--ink); padding: 34px 20px 20px;
+         clip-path: polygon(14% 0, 86% 0, 100% 9%, 100% 100%, 0 100%, 0 9%);
+         transform-origin: 50% -18px; }
+  .tag::before { content: ""; position: absolute; top: 12px; left: 50%; width: 12px; height: 12px; margin-left: -6px;
+                 border-radius: 50%; background: var(--paper); box-shadow: inset 0 0 0 2px var(--tag-edge); }
+  .tag:nth-child(odd) { transform: rotate(-1.2deg); }
+  .tag:nth-child(even) { transform: rotate(1deg); }
+  .tag h3 { font: 600 1rem/1.25 var(--display); margin: 0 0 10px; }
+  .was { font-size: 0.95rem; color: var(--muted); }
+  .was s { text-decoration-thickness: 2px; text-decoration-color: var(--bad); }
+  .now { font: 800 2.6rem/1 var(--display); margin: 4px 0 8px; font-variant-numeric: tabular-nums; }
+  .save { display: inline-block; font-weight: 700; font-size: 0.9rem; background: var(--ink); color: var(--tag); padding: 2px 9px; border-radius: 3px; }
+  .tag p { margin: 10px 0 0; font-size: 0.88rem; line-height: 1.4; }
+  @media (prefers-reduced-motion: no-preference) {
+    .tag { animation: swing 1.4s cubic-bezier(.3, 1.6, .5, 1) both; }
+    .tag:nth-child(2) { animation-delay: .08s; } .tag:nth-child(3) { animation-delay: .16s; } .tag:nth-child(4) { animation-delay: .24s; }
+    @keyframes swing { from { transform: rotate(-9deg); opacity: 0; } 30% { opacity: 1; } }
+  }
+
+  /* ---------- sections ---------- */
+  section.block { padding: 56px 0 8px; }
+  .step { display: grid; grid-template-columns: 3.2rem 1fr; gap: 0 14px; align-items: start; }
+  .step .n { font: 800 2.4rem/1 var(--display); color: var(--poc); }
+  h2 { font: 700 clamp(1.5rem, 3vw, 2rem)/1.15 var(--display); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .step p { margin: 0 0 6px; max-width: 66ch; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 22px; margin-top: 22px; }
+  .panel h3 { font: 600 1.05rem/1.3 var(--display); margin: 0 0 4px; }
+  .panel .note { margin: 0 0 14px; }
+  .two { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); }
+  .two .panel { margin-top: 22px; }
+  .chart { position: relative; width: 100%; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart text { font-family: var(--body); }
+  .multi { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.85rem; color: var(--muted); margin: 0 0 10px; padding: 0; list-style: none; }
+  .legend i { display: inline-block; width: 16px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+  .tip { position: absolute; z-index: 5; pointer-events: none; background: var(--ink); color: #fff; font-size: 0.82rem; line-height: 1.45;
+         padding: 8px 10px; border-radius: 4px; white-space: nowrap; box-shadow: 0 6px 18px rgba(20, 33, 61, .25); }
+  .tip .h { color: #C9D2E3; }
+  .tip i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+
+  /* ---------- table ---------- */
+  .tablebox { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 700; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+  th button { all: unset; cursor: pointer; }
+  th button:focus-visible { outline: 3px solid var(--poc); }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td.num, th.num { text-align: right; }
+  .bar { display: inline-block; height: 9px; border-radius: 2px; background: var(--poc); margin-right: 8px; vertical-align: middle; }
+  .chip { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; }
+  .chip.fit { background: #E4E9FF; color: #2238A8; } .chip.fabric { background: #FFF1C7; color: #7A5600; } .chip.durability { background: #FBE2D6; color: #8C3410; }
+  .yes { color: var(--good); font-weight: 700; } .no { color: var(--bad); font-weight: 700; }
+  @media (max-width: 640px) { .hide-sm { display: none; } }
+
+  /* ---------- next steps ---------- */
+  .next { counter-reset: n; list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 12px; }
+  .next li { counter-increment: n; display: grid; grid-template-columns: 2.2rem 1fr; gap: 10px; align-items: baseline; max-width: 70ch; }
+  .next li::before { content: counter(n); font: 800 1.4rem/1 var(--display); color: var(--poc); }
+  footer { padding: 48px 0 56px; color: var(--muted); font-size: 0.88rem; }
+  footer p { max-width: 75ch; }
+</style>
+</head>
+<body>
+<main>
+  <header class="wrap hero">
+    <p style="margin:0 0 18px"><a class="aiu-back" href="forecast-lab.html" style="font-weight:700;text-decoration:none">&larr; Forecast Lab</a></p>
+    <p class="kicker">Proof of concept · Kidswear · FY2026 winter clearance</p>
+    <h1>Better product, bought smarter</h1>
+    <p class="lede" id="lede"></p>
+    <div class="rail" aria-label="Headline results, today versus the proof of concept">
+      <ul class="tags" id="tags"></ul>
+    </div>
+    <p class="note">Results on held-out test weeks the models never saw. "Was" is today's rule of thumb; "now" is the proof of concept. Sample data is synthetic; see the method below.</p>
+  </header>
+
+  <section class="wrap block" id="forecast">
+    <div class="step"><span class="n" aria-hidden="true">1</span><div>
+      <h2>Forecast true demand, not last month's sales</h2>
+      <p id="fc-text"></p>
+    </div></div>
+    <div class="panel">
+      <h3>Weekly units during the clearance</h3>
+      <p class="note">As sizes sell out, sales fall away from demand. The planner rule follows sales down; the forecast stays with demand. The band is the P10–P90 range.</p>
+      <div class="chart" id="c-weekly"></div>
+    </div>
+    <div class="two">
+      <div class="panel">
+        <h3>Forecast error by category</h3>
+        <p class="note">Lower is better. Weighted absolute percentage error against true demand.</p>
+        <ul class="legend"><li><i style="background:var(--poc)"></i>Proof of concept</li><li><i style="background:var(--today)"></i>Planner rule</li></ul>
+        <div class="chart" id="c-cat"></div>
+      </div>
+      <div class="panel">
+        <h3>What moves the forecast</h3>
+        <p class="note">Average size of each input's effect (SHAP). Price and last year's sales lead.</p>
+        <div class="chart" id="c-drivers"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block" id="sizes">
+    <div class="step"><span class="n" aria-hidden="true">2</span><div>
+      <h2>Send each store the sizes its customers buy</h2>
+      <p id="sz-text"></p>
+    </div></div>
+    <div class="panel">
+      <ul class="legend"><li><i style="background:var(--poc)"></i>Share learned for this store cluster</li><li><i style="background:var(--ink)"></i>Today's single chain curve</li></ul>
+      <div class="multi" id="c-sizes"></div>
+    </div>
+  </section>
+
+  <section class="wrap block" id="markdown">
+    <div class="step"><span class="n" aria-hidden="true">3</span><div>
+      <h2>Clear the same stock for more profit</h2>
+      <p id="md-text"></p>
+    </div></div>
+    <div class="panel">
+      <h3>Clearance gross profit against sell-through</h3>
+      <p class="note">Each dot is a full clearance plan replayed against demand. Higher is better; further right clears more stock.</p>
+      <div class="chart" id="c-frontier"></div>
+    </div>
+  </section>
+
+  <section class="wrap block" id="quality">
+    <div class="step"><span class="n" aria-hidden="true">4</span><div>
+      <h2>Find the lines losing money to quality, and why</h2>
+      <p id="q-text"></p>
+    </div></div>
+    <div class="panel">
+      <h3>Highest-risk lines, FY2026</h3>
+      <p class="note">Ranked by return rate × share of returns about fit, fabric or durability. "Confirmed" checks the ranking against the hidden truth. Select a column to sort.</p>
+      <div class="tablebox"><table id="t-quality"></table></div>
+    </div>
+  </section>
+
+  <section class="wrap block" id="method">
+    <h2>How it was tested</h2>
+    <p class="note" style="max-width:66ch" id="m-text"></p>
+    <div class="panel"><div class="tablebox"><table id="t-splits"></table></div></div>
+    <h2 style="margin-top:48px">From proof of concept to pilot</h2>
+    <ol class="next">
+      <li>Swap the sample data for 2–3 seasons of real Kidswear sales, stock, prices, returns and comments. The pipeline runs unchanged.</li>
+      <li>Re-score the forecast and size curves on real history, against today's planner numbers.</li>
+      <li>Run the markdown plan in about 30 stores against 30 matched control stores for one clearance.</li>
+      <li>Hand the top quality-gap lines to Quality and Buying, and track their return rates next season.</li>
+    </ol>
+  </section>
+
+  <footer class="wrap">
+    <p>Sample data: two synthetic seasons of Kidswear sales built to behave like real retail data, including stock-outs, a flat size curve, overbuying, rule-based clearance, quality defects and messy return comments. The hidden truth is used only to score results, never to train. Numbers here show the method works; they are not any retailer's results.</p>
+    <p id="build"></p>
+  </footer>
+</main>
+
+<script id="poc-data" type="application/json">{"headline": {"wape_store": {"poc": 0.3954, "today": 0.4954}, "wape_style": {"poc": 0.2941, "today": 0.4151}, "band_coverage": {"poc": 0.7621, "today": null}, "wrong_size": {"poc": 0.0551, "today": 0.1366}, "clear_revenue": {"poc": 13457005.0, "today": 12559182.0}, "clear_gp": {"poc": 3042814.0, "today": 2061972.0}, "sell_through": {"poc": 0.667, "today": 0.673}, "reason_f1": {"poc": 0.7688, "today": 0.622}, "defect_recall": {"poc": 1.0, "today": 0.857}, "defect_styles": {"poc": 14.0, "today": null}, "quality_returns_value": {"poc": 2273147.0, "today": null}}, "weekly": [{"fy_week": 46, "true_demand": 18335, "actual_sales": 18097, "model": 16871.7, "p10": 9053.0, "p90": 26066.9, "planner_rule": 12610.4, "last_year": 32385.0}, {"fy_week": 47, "true_demand": 20759, "actual_sales": 19320, "model": 18491.5, "p10": 10371.9, "p90": 29032.0, "planner_rule": 12610.4, "last_year": 35472.4}, {"fy_week": 48, "true_demand": 17243, "actual_sales": 14183, "model": 14511.0, "p10": 9096.5, "p90": 25150.6, "planner_rule": 12610.4, "last_year": 26049.6}, {"fy_week": 49, "true_demand": 24130, "actual_sales": 15717, "model": 17732.3, "p10": 9642.9, "p90": 28262.1, "planner_rule": 14013.8, "last_year": 33001.6}, {"fy_week": 50, "true_demand": 24439, "actual_sales": 12420, "model": 15915.4, "p10": 7806.2, "p90": 26610.6, "planner_rule": 14013.8, "last_year": 24686.8}, {"fy_week": 51, "true_demand": 23341, "actual_sales": 9023, "model": 15332.9, "p10": 7556.4, "p90": 26429.3, "planner_rule": 14013.8, "last_year": 18727.8}, {"fy_week": 52, "true_demand": 23253, "actual_sales": 7240, "model": 13538.7, "p10": 6826.6, "p90": 25053.8, "planner_rule": 14013.8, "last_year": 14658.6}], "cat": [{"category": "Dresses", "model_wape": 0.3981, "rule_wape": 0.465}, {"category": "Jackets", "model_wape": 0.4176, "rule_wape": 0.5612}, {"category": "Schoolwear", "model_wape": 0.3825, "rule_wape": 0.4158}, {"category": "Sleepwear", "model_wape": 0.3973, "rule_wape": 0.5207}, {"category": "T-shirts", "model_wape": 0.3778, "rule_wape": 0.4552}], "drivers": [{"driver": "Discount depth", "mean_abs_shap": 0.4484}, {"driver": "Style", "mean_abs_shap": 0.3144}, {"driver": "Store", "mean_abs_shap": 0.2592}, {"driver": "Style sales, same week last year", "mean_abs_shap": 0.1407}, {"driver": "Price index", "mean_abs_shap": 0.1307}, {"driver": "Time of year", "mean_abs_shap": 0.0865}, {"driver": "Week number", "mean_abs_shap": 0.0784}, {"driver": "Launch rate of sale", "mean_abs_shap": 0.077}, {"driver": "Store sales, last year ±2 weeks", "mean_abs_shap": 0.0759}, {"driver": "Store sales, 8–11 weeks ago", "mean_abs_shap": 0.0543}], "sizes": [{"cluster": "Young families", "size": "2-3Y", "size_share_est": 0.194, "chain_share": 0.14}, {"cluster": "Young families", "size": "3-4Y", "size_share_est": 0.2198, "chain_share": 0.17}, {"cluster": "Young families", "size": "5-6Y", "size_share_est": 0.2056, "chain_share": 0.19}, {"cluster": "Young families", "size": "7-8Y", "size_share_est": 0.1616, "chain_share": 0.19}, {"cluster": "Young families", "size": "9-10Y", "size_share_est": 0.1222, "chain_share": 0.17}, {"cluster": "Young families", "size": "11-12Y", "size_share_est": 0.0968, "chain_share": 0.14}, {"cluster": "Balanced", "size": "2-3Y", "size_share_est": 0.1399, "chain_share": 0.14}, {"cluster": "Balanced", "size": "3-4Y", "size_share_est": 0.1695, "chain_share": 0.17}, {"cluster": "Balanced", "size": "5-6Y", "size_share_est": 0.1941, "chain_share": 0.19}, {"cluster": "Balanced", "size": "7-8Y", "size_share_est": 0.1871, "chain_share": 0.19}, {"cluster": "Balanced", "size": "9-10Y", "size_share_est": 0.1728, "chain_share": 0.17}, {"cluster": "Balanced", "size": "11-12Y", "size_share_est": 0.1366, "chain_share": 0.14}, {"cluster": "Older kids", "size": "2-3Y", "size_share_est": 0.0832, "chain_share": 0.14}, {"cluster": "Older kids", "size": "3-4Y", "size_share_est": 0.1181, "chain_share": 0.17}, {"cluster": "Older kids", "size": "5-6Y", "size_share_est": 0.169, "chain_share": 0.19}, {"cluster": "Older kids", "size": "7-8Y", "size_share_est": 0.2072, "chain_share": 0.19}, {"cluster": "Older kids", "size": "9-10Y", "size_share_est": 0.2228, "chain_share": 0.17}, {"cluster": "Older kids", "size": "11-12Y", "size_share_est": 0.1997, "chain_share": 0.14}], "frontier": [{"plan": "Actual (rule-based)", "planned_target": null, "sell_through": 0.673, "revenue": 12559182.0, "gross_profit": 2061972.0}, {"plan": "Optimised, target 55%", "planned_target": 0.55, "sell_through": 0.54, "revenue": 13077339.0, "gross_profit": 4590454.0}, {"plan": "Optimised, target 65%", "planned_target": 0.65, "sell_through": 0.581, "revenue": 13244648.0, "gross_profit": 4049878.0}, {"plan": "Optimised, target 75%", "planned_target": 0.75, "sell_through": 0.667, "revenue": 13457005.0, "gross_profit": 3042814.0}, {"plan": "Optimised, target 85%", "planned_target": 0.85, "sell_through": 0.739, "revenue": 12992114.0, "gross_profit": 1541092.0}], "quality": [{"rank": 1, "style_id": "KW1046", "category": "Dresses", "supplier": "SUP-CN-03", "return_rate": 0.1499, "quality_share": 0.521, "top_issue": "fit", "quality_return_value_rand": 77816.7731, "confirmed_defect": "Yes"}, {"rank": 2, "style_id": "KW1043", "category": "Jackets", "supplier": "SUP-CN-03", "return_rate": 0.1522, "quality_share": 0.4839, "top_issue": "fabric", "quality_return_value_rand": 36290.8065, "confirmed_defect": "Yes"}, {"rank": 3, "style_id": "KW1025", "category": "T-shirts", "supplier": "SUP-DBN-02", "return_rate": 0.1423, "quality_share": 0.4743, "top_issue": "fit", "quality_return_value_rand": 60491.0024, "confirmed_defect": "Yes"}, {"rank": 4, "style_id": "KW1002", "category": "Schoolwear", "supplier": "SUP-DBN-02", "return_rate": 0.1466, "quality_share": 0.4598, "top_issue": "fit", "quality_return_value_rand": 52433.1034, "confirmed_defect": "Yes"}, {"rank": 5, "style_id": "KW1028", "category": "Jackets", "supplier": "SUP-CPT-01", "return_rate": 0.1463, "quality_share": 0.4267, "top_issue": "fabric", "quality_return_value_rand": 203939.3213, "confirmed_defect": "Yes"}, {"rank": 6, "style_id": "KW1054", "category": "Sleepwear", "supplier": "SUP-DBN-02", "return_rate": 0.1283, "quality_share": 0.4581, "top_issue": "durability", "quality_return_value_rand": 116583.5172, "confirmed_defect": "Yes"}, {"rank": 7, "style_id": "KW1007", "category": "Schoolwear", "supplier": "SUP-CN-03", "return_rate": 0.1125, "quality_share": 0.4826, "top_issue": "fit", "quality_return_value_rand": 54368.8605, "confirmed_defect": "Yes"}, {"rank": 8, "style_id": "KW1010", "category": "T-shirts", "supplier": "SUP-CPT-01", "return_rate": 0.1112, "quality_share": 0.4844, "top_issue": "fit", "quality_return_value_rand": 56452.4531, "confirmed_defect": "Yes"}, {"rank": 9, "style_id": "KW1006", "category": "Dresses", "supplier": "SUP-CPT-01", "return_rate": 0.1158, "quality_share": 0.4613, "top_issue": "durability", "quality_return_value_rand": 89506.0065, "confirmed_defect": "Yes"}, {"rank": 10, "style_id": "KW1017", "category": "Schoolwear", "supplier": "SUP-BD-04", "return_rate": 0.1076, "quality_share": 0.4769, "top_issue": "fabric", "quality_return_value_rand": 103263.452, "confirmed_defect": "Yes"}, {"rank": 11, "style_id": "KW1033", "category": "Jackets", "supplier": "SUP-MU-05", "return_rate": 0.112, "quality_share": 0.4464, "top_issue": "durability", "quality_return_value_rand": 64071.4286, "confirmed_defect": "Yes"}, {"rank": 12, "style_id": "KW1026", "category": "Dresses", "supplier": "SUP-CPT-01", "return_rate": 0.1134, "quality_share": 0.4184, "top_issue": "fabric", "quality_return_value_rand": 33975.1939, "confirmed_defect": "Yes"}, {"rank": 13, "style_id": "KW1050", "category": "T-shirts", "supplier": "SUP-MU-05", "return_rate": 0.0832, "quality_share": 0.4788, "top_issue": "fabric", "quality_return_value_rand": 60036.1081, "confirmed_defect": "Yes"}, {"rank": 14, "style_id": "KW1051", "category": "Dresses", "supplier": "SUP-MU-05", "return_rate": 0.0839, "quality_share": 0.4123, "top_issue": "durability", "quality_return_value_rand": 32319.5088, "confirmed_defect": "Yes"}, {"rank": 15, "style_id": "KW1000", "category": "T-shirts", "supplier": "SUP-CPT-01", "return_rate": 0.0993, "quality_share": 0.2551, "top_issue": "durability", "quality_return_value_rand": 28631.587, "confirmed_defect": "No"}], "splits": [{"split": "Train", "period": "FY2025 all + FY2026 weeks 1–38", "rows": 122029, "use": "Fit the models"}, {"split": "Validation", "period": "FY2026 weeks 39–45", "rows": 10080, "use": "Choose settings (16 trials)"}, {"split": "Test", "period": "FY2026 weeks 46–52, winter clearance", "rows": 10080, "use": "Scored once, at the end"}, {"split": "Return comments", "period": "Verified comments, 70 / 15 / 15", "rows": 12607, "use": "Return-reason model"}], "meta": {"rows": 898560, "styles": 60, "stores": 24, "sizes": 6, "comments": 25272, "built": "04 November 2026"}}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('poc-data').textContent);
+  const H = D.headline;
+  const NS = 'http://www.w3.org/2000/svg';
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const C = { ink: css('--ink'), poc: css('--poc'), pocSoft: css('--poc-soft'), today: css('--today'), line: css('--line'), muted: css('--muted') };
+
+  const pct = (v, d = 1) => (v * 100).toFixed(d) + '%';
+  const rand = (v) => v >= 1e6 ? 'R' + (v / 1e6).toFixed(2) + 'm' : 'R' + Math.round(v / 1e3) + 'k';
+  const units = (v) => v >= 1000 ? (v / 1000).toFixed(1) + 'k' : String(Math.round(v));
+  const int = (v) => Math.round(v).toLocaleString('en-ZA');
+  const chg = (k) => (H[k].poc - H[k].today) / H[k].today;
+
+  function s(tag, attrs, parent, text) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function h(tag, attrs, parent, text) {
+    const e = document.createElement(tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function svg(el, W, Ht, label) {
+    el.replaceChildren();
+    return s('svg', { viewBox: `0 0 ${W} ${Ht}`, role: 'img', 'aria-label': label }, el);
+  }
+  function tip(el) {
+    const t = h('div', { class: 'tip', hidden: '' }, el);
+    return {
+      show(x, y, head, lines) {
+        t.replaceChildren();
+        h('div', { class: 'h' }, t, head);
+        lines.forEach(([c, n, v]) => {
+          const r = h('div', {}, t);
+          if (c) { const i = h('i', {}, r); i.style.background = c; }
+          r.append(n + ' ');
+          h('b', {}, r, v);
+        });
+        t.hidden = false;
+        const W = el.clientWidth;
+        t.style.left = Math.max(0, Math.min(W - t.offsetWidth, x + 14)) + 'px';
+        t.style.top = Math.max(0, y - t.offsetHeight - 8) + 'px';
+      },
+      hide() { t.hidden = true; },
+    };
+  }
+  const local = (ev, el) => { const r = el.getBoundingClientRect(); return [ev.clientX - r.left, ev.clientY - r.top]; };
+  const lin = (d0, d1, r0, r1) => (v) => r0 + (v - d0) / (d1 - d0) * (r1 - r0);
+  function niceMax(v) { const p = Math.pow(10, Math.floor(Math.log10(v))); return Math.ceil(v / p * 2) / 2 * p; }
+  function ticks(max, n) { const step = niceMax(max / n); const out = []; for (let t = 0; t <= max + 1e-9; t += step) out.push(t); return out; }
+
+  // ---------- words ----------
+  document.getElementById('lede').innerHTML = '';
+  const lede = document.getElementById('lede');
+  lede.append('On the held-out winter clearance, the models cut forecast error by ');
+  h('b', {}, lede, pct(-chg('wape_style'), 0));
+  lede.append(', put ');
+  h('b', {}, lede, pct(-chg('wrong_size'), 0));
+  lede.append(' fewer units in the wrong size, lifted clearance gross profit by ');
+  h('b', {}, lede, pct(chg('clear_gp'), 0));
+  lede.append(' at the same sell-through, and flagged ');
+  h('b', {}, lede, pct(H.defect_recall.poc, 0));
+  lede.append(' of the lines with a real quality defect.');
+
+  const TAGS = [
+    { k: 'wape_style', title: 'Forecast error, style by week', f: (v) => pct(v), save: (c) => pct(-c, 0) + ' less error', p: 'Weighted absolute % error against true demand.' },
+    { k: 'wrong_size', title: 'Units sent in the wrong size', f: (v) => pct(v), save: (c) => pct(-c, 0) + ' fewer', p: 'Same total units per store, split by size curve.' },
+    { k: 'clear_gp', title: 'Clearance gross profit', f: rand, save: (c) => '+' + pct(c, 0) + ' profit', p: 'Seven clearance weeks, at the same sell-through as today.' },
+    { k: 'defect_recall', title: 'Defective lines found', f: (v) => pct(v, 0), save: () => int(H.defect_styles.poc * H.defect_recall.poc) + ' of ' + int(H.defect_styles.poc) + ' lines', p: 'From return comments, against return rate alone.' },
+  ];
+  const tagsEl = document.getElementById('tags');
+  TAGS.forEach((t) => {
+    const li = h('li', { class: 'tag' }, tagsEl);
+    h('h3', {}, li, t.title);
+    const was = h('div', { class: 'was' }, li, 'Was ');
+    h('s', {}, was, t.f(H[t.k].today));
+    h('div', { class: 'now' }, li, t.f(H[t.k].poc));
+    h('span', { class: 'save' }, li, t.save(chg(t.k)));
+    h('p', {}, li, t.p);
+  });
+
+  document.getElementById('fc-text').textContent =
+    `A gradient-boosted model (LightGBM, Tweedie loss) learns from two seasons, with sales lifted back to demand wherever a size sold out. ` +
+    `At store level its error is ${pct(H.wape_store.poc)} against ${pct(H.wape_store.today)} for the planner rule, and the P10–P90 band holds ${pct(H.band_coverage.poc, 0)} of true weekly demand.`;
+  document.getElementById('sz-text').textContent =
+    `Size shares are learned per store cluster from sizes that did not sell out. Splitting the right total by today's chain curve puts ${pct(H.wrong_size.today)} of units in the wrong size; the cluster curves cut that to ${pct(H.wrong_size.poc)}.`;
+  document.getElementById('md-text').textContent =
+    `The optimiser chooses a two-step price path for each style from the forecast's price response, size by size against real store stock. ` +
+    `At ${pct(H.sell_through.poc, 0)} sell-through (today ${pct(H.sell_through.today, 0)}) it earns ${rand(H.clear_revenue.poc)} revenue against ${rand(H.clear_revenue.today)}.`;
+  document.getElementById('q-text').textContent =
+    `A text model reads every return comment and names the reason (accuracy, macro F1: ${H.reason_f1.poc.toFixed(2)} against ${H.reason_f1.today.toFixed(2)} for keyword rules). ` +
+    `Returns caused by fit, fabric or durability cost ${rand(H.quality_returns_value.poc)} at full price in FY2026.`;
+  document.getElementById('m-text').textContent =
+    `${int(D.meta.rows)} weekly rows: ${D.meta.styles} style-colours, ${D.meta.stores} stores in three customer clusters, ${D.meta.sizes} sizes, two seasons, plus ${int(D.meta.comments)} return comments. ` +
+    `The data is split by time so no model sees the future, and every lagged input is at least eight weeks old.`;
+  document.getElementById('build').textContent = `Built from pipeline results on ${D.meta.built}.`;
+
+  // ---------- chart 1: weekly ----------
+  function drawWeekly() {
+    const el = document.getElementById('c-weekly');
+    const rows = D.weekly, W = Math.max(320, el.clientWidth), Ht = 320, narrow = W < 560;
+    const m = { t: 14, r: narrow ? 98 : 130, b: 30, l: 44 };
+    const max = niceMax(Math.max(...rows.map((d) => Math.max(d.p90, d.true_demand))) * 1.04);
+    const x = lin(rows[0].fy_week, rows.at(-1).fy_week, m.l, W - m.r), y = lin(0, max, Ht - m.b, m.t);
+    const g = svg(el, W, Ht, 'Weekly units in the clearance: true demand, forecast, planner rule and actual sales');
+    ticks(max, 4).forEach((t) => {
+      s('line', { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: C.line }, g);
+      s('text', { x: m.l - 8, y: y(t) + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.muted }, g, units(t));
+    });
+    rows.forEach((d) => s('text', { x: x(d.fy_week), y: Ht - 8, 'text-anchor': 'middle', 'font-size': 12, fill: C.muted }, g, (narrow ? '' : 'Wk ') + d.fy_week));
+    const band = rows.map((d) => `${x(d.fy_week)},${y(d.p90)}`).concat(rows.slice().reverse().map((d) => `${x(d.fy_week)},${y(d.p10)}`));
+    s('polygon', { points: band.join(' '), fill: C.pocSoft }, g);
+    const series = [
+      { k: 'planner_rule', n: 'Planner rule', c: C.today, w: 2.5, dash: '' },
+      { k: 'actual_sales', n: 'Actual sales', c: C.today, w: 2, dash: '5 4' },
+      { k: 'model', n: 'Forecast', c: C.poc, w: 3, dash: '' },
+      { k: 'true_demand', n: 'True demand', c: C.ink, w: 2.5, dash: '' },
+    ];
+    series.forEach((se) => s('polyline', { points: rows.map((d) => `${x(d.fy_week)},${y(d[se.k])}`).join(' '), fill: 'none', stroke: se.c,
+      'stroke-width': se.w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-dasharray': se.dash }, g));
+    const last = rows.at(-1);
+    const labs = series.map((se) => ({ se, y: y(last[se.k]) })).sort((a, b) => a.y - b.y);
+    for (let i = 1; i < labs.length; i++) if (labs[i].y - labs[i - 1].y < 16) labs[i].y = labs[i - 1].y + 16;
+    labs.forEach((l) => s('text', { x: W - m.r + 10, y: l.y + 4, 'font-size': 13, 'font-weight': l.se.k === 'model' ? 700 : 400,
+      fill: l.se.c === C.today ? C.muted : l.se.c }, g, l.se.n));
+    const rule = s('line', { y1: m.t, y2: Ht - m.b, stroke: C.ink, 'stroke-opacity': 0, 'stroke-dasharray': '2 3' }, g);
+    const t = tip(el);
+    const hit = s('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: Ht - m.t - m.b, fill: 'transparent' }, g);
+    hit.addEventListener('pointermove', (ev) => {
+      const [px, py] = local(ev, el), sx = px * W / el.clientWidth;
+      const d = rows.reduce((a, b) => Math.abs(x(b.fy_week) - sx) < Math.abs(x(a.fy_week) - sx) ? b : a);
+      rule.setAttribute('x1', x(d.fy_week)); rule.setAttribute('x2', x(d.fy_week)); rule.setAttribute('stroke-opacity', 0.5);
+      t.show(x(d.fy_week) * el.clientWidth / W, py, 'Week ' + d.fy_week, [
+        [C.ink, 'True demand', int(d.true_demand)],
+        [C.poc, 'Forecast', `${int(d.model)} (${units(d.p10)}–${units(d.p90)})`],
+        [C.today, 'Planner rule', int(d.planner_rule)],
+        [C.today, 'Actual sales', int(d.actual_sales)],
+      ]);
+    });
+    hit.addEventListener('pointerleave', () => { rule.setAttribute('stroke-opacity', 0); t.hide(); });
+  }
+
+  // ---------- chart 2: category dumbbell ----------
+  function drawCat() {
+    const el = document.getElementById('c-cat');
+    const rows = D.cat.slice().sort((a, b) => a.model_wape - b.model_wape);
+    const W = Math.max(300, el.clientWidth), row = 42, m = { t: 6, r: 88, b: 26, l: 96 }, Ht = m.t + m.b + row * rows.length;
+    const max = niceMax(Math.max(...rows.map((d) => d.rule_wape)) * 1.05);
+    const x = lin(0, max, m.l, W - m.r);
+    const g = svg(el, W, Ht, 'Forecast error by category, proof of concept against planner rule');
+    ticks(max, 3).forEach((t) => {
+      s('line', { x1: x(t), x2: x(t), y1: m.t, y2: Ht - m.b, stroke: C.line }, g);
+      s('text', { x: x(t), y: Ht - 6, 'text-anchor': 'middle', 'font-size': 12, fill: C.muted }, g, pct(t, 0));
+    });
+    const t = tip(el);
+    rows.forEach((d, i) => {
+      const cy = m.t + row * i + row / 2;
+      s('text', { x: 0, y: cy + 5, 'font-size': 14, fill: C.ink }, g, d.category);
+      s('line', { x1: x(d.model_wape), x2: x(d.rule_wape), y1: cy, y2: cy, stroke: C.line, 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
+      s('circle', { cx: x(d.rule_wape), cy, r: 7, fill: C.today }, g);
+      s('circle', { cx: x(d.model_wape), cy, r: 7, fill: C.poc }, g);
+      s('text', { x: W - m.r + 10, y: cy + 5, 'font-size': 13, fill: C.muted }, g, `${pct(d.model_wape, 0)} vs ${pct(d.rule_wape, 0)}`);
+      const r = s('rect', { x: 0, y: cy - row / 2, width: W, height: row, fill: 'transparent' }, g);
+      r.addEventListener('pointermove', (ev) => { const [px, py] = local(ev, el); t.show(px, py, d.category, [[C.poc, 'Proof of concept', pct(d.model_wape)], [C.today, 'Planner rule', pct(d.rule_wape)]]); });
+      r.addEventListener('pointerleave', () => t.hide());
+    });
+  }
+
+  // ---------- chart 3: drivers ----------
+  function drawDrivers() {
+    const el = document.getElementById('c-drivers');
+    const rows = D.drivers.slice().sort((a, b) => b.mean_abs_shap - a.mean_abs_shap);
+    const W = Math.max(300, el.clientWidth), row = 36, Ht = row * rows.length + 4;
+    const max = Math.max(...rows.map((d) => d.mean_abs_shap));
+    const x = lin(0, max, 0, W - 48);
+    const g = svg(el, W, Ht, 'Forecast inputs ranked by average effect');
+    const t = tip(el);
+    rows.forEach((d, i) => {
+      const y0 = i * row;
+      s('text', { x: 0, y: y0 + 13, 'font-size': 13, fill: C.ink }, g, d.driver);
+      const b = s('rect', { x: 0, y: y0 + 19, height: 10, rx: 2, width: Math.max(2, x(d.mean_abs_shap)), fill: i < 3 ? C.poc : C.today }, g);
+      s('text', { x: x(d.mean_abs_shap) + 6, y: y0 + 28, 'font-size': 12, fill: C.muted }, g, d.mean_abs_shap.toFixed(2));
+      b.addEventListener('pointermove', (ev) => { const [px, py] = local(ev, el); t.show(px, py, d.driver, [[null, 'Average effect', d.mean_abs_shap.toFixed(3)]]); });
+      b.addEventListener('pointerleave', () => t.hide());
+    });
+  }
+
+  // ---------- chart 4: size curves ----------
+  function drawSizes() {
+    const el = document.getElementById('c-sizes');
+    el.replaceChildren();
+    const clusters = [...new Set(D.sizes.map((d) => d.cluster))];
+    const max = Math.max(...D.sizes.map((d) => Math.max(d.size_share_est, d.chain_share))) * 1.12;
+    const boxes = clusters.map(() => h('div', { class: 'chart' }, el));     // lay out all boxes before measuring
+    const W = Math.max(240, Math.min(...boxes.map((b) => b.clientWidth || 280)));
+    clusters.forEach((cl, ci) => {
+      const rows = D.sizes.filter((d) => d.cluster === cl);
+      const box = boxes[ci];
+      const Ht = 210, m = { t: 30, b: 24 };
+      const g = svg(box, W, Ht, `Size shares for ${cl} stores against the chain curve`);
+      s('text', { x: 0, y: 16, 'font-size': 15, 'font-weight': 700, fill: C.ink, 'font-family': 'var(--display)' }, g, cl);
+      const bw = W / rows.length, y = lin(0, max, Ht - m.b, m.t);
+      const t = tip(box);
+      rows.forEach((d, i) => {
+        const x0 = i * bw + bw * 0.16, w = bw * 0.68;
+        const b = s('rect', { x: x0, y: y(d.size_share_est), width: w, height: y(0) - y(d.size_share_est), rx: 2, fill: C.poc }, g);
+        s('line', { x1: x0 - 4, x2: x0 + w + 4, y1: y(d.chain_share), y2: y(d.chain_share), stroke: C.ink, 'stroke-width': 2.5 }, g);
+        s('text', { x: x0 + w / 2, y: Ht - 6, 'text-anchor': 'middle', 'font-size': 12, fill: C.muted }, g, d.size);
+        b.addEventListener('pointermove', (ev) => { const [px, py] = local(ev, box); t.show(px, py, `${cl}, ${d.size}`, [[C.poc, 'Learned', pct(d.size_share_est)], [C.ink, 'Chain curve', pct(d.chain_share)]]); });
+        b.addEventListener('pointerleave', () => t.hide());
+      });
+    });
+  }
+
+  // ---------- chart 5: markdown frontier ----------
+  function drawFrontier() {
+    const el = document.getElementById('c-frontier');
+    const HEAD = 0.75;
+    const rows = D.frontier, opt = rows.filter((d) => d.planned_target !== null).sort((a, b) => a.sell_through - b.sell_through);
+    const today = rows.find((d) => d.planned_target === null);
+    const W = Math.max(320, el.clientWidth), Ht = 330, m = { t: 20, r: 24, b: 46, l: 62 };
+    const xs = rows.map((d) => d.sell_through), x = lin(Math.min(...xs) - 0.03, Math.max(...xs) + 0.03, m.l, W - m.r);
+    const max = niceMax(Math.max(...rows.map((d) => d.gross_profit)) * 1.15), y = lin(0, max, Ht - m.b, m.t);
+    const g = svg(el, W, Ht, 'Clearance gross profit against sell-through for today and optimised plans');
+    ticks(max, 4).forEach((t) => {
+      s('line', { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: C.line }, g);
+      s('text', { x: m.l - 8, y: y(t) + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.muted }, g, rand(t));
+    });
+    for (let v = Math.ceil((Math.min(...xs) - 0.03) * 20) / 20; v <= Math.max(...xs) + 0.03; v += 0.05)
+      s('text', { x: x(v), y: Ht - m.b + 20, 'text-anchor': 'middle', 'font-size': 12, fill: C.muted }, g, pct(v, 0));
+    s('text', { x: (m.l + W - m.r) / 2, y: Ht - 6, 'text-anchor': 'middle', 'font-size': 12, fill: C.muted }, g, 'Clearance sell-through');
+    s('polyline', { points: opt.map((d) => `${x(d.sell_through)},${y(d.gross_profit)}`).join(' '), fill: 'none', stroke: C.poc, 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    if (today) {
+      const head = opt.find((d) => d.planned_target === HEAD);
+      if (head) s('line', { x1: x(today.sell_through), x2: x(head.sell_through), y1: y(today.gross_profit) - 9, y2: y(head.gross_profit) + 9,
+        stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '3 3' }, g);
+    }
+    const t = tip(el);
+    opt.concat(today ? [today] : []).forEach((d) => {
+      const isT = d.planned_target === null, isH = d.planned_target === HEAD;
+      const c = s('circle', { cx: x(d.sell_through), cy: y(d.gross_profit), r: isT || isH ? 8 : 5.5, fill: isT ? C.ink : C.poc, stroke: '#fff', 'stroke-width': 2 }, g);
+      const lastOpt = d === opt.at(-1), narrow = W < 560;
+      // the line falls to the right: labels sit above-right, the last one below-left, the recommended one centred above
+      let dx = 13, dy = -12, anchor = 'start';
+      if (lastOpt) { dx = -13; dy = 24; anchor = 'end'; }
+      if (isH) { dx = narrow ? 10 : 0; dy = narrow ? -14 : -18; anchor = narrow ? 'start' : 'middle'; }
+      if (isT) { dx = narrow ? -13 : 13; dy = 24; anchor = narrow ? 'end' : 'start'; }
+      const label = isT ? "Today's plan" : isH ? 'Recommended plan' : (narrow ? '' : 'Target ') + pct(d.planned_target, 0);
+      s('text', { x: x(d.sell_through) + dx, y: y(d.gross_profit) + dy, 'text-anchor': anchor,
+        'font-size': 13, 'font-weight': isT || isH ? 700 : 400, fill: isT ? C.ink : isH ? C.poc : C.muted }, g, label);
+      c.addEventListener('pointermove', (ev) => { const [px, py] = local(ev, el); t.show(px, py, isT ? "Today's plan" : `Optimised, target ${pct(d.planned_target, 0)}`,
+        [[null, 'Sell-through', pct(d.sell_through)], [null, 'Gross profit', rand(d.gross_profit)], [null, 'Revenue', rand(d.revenue)]]); });
+      c.addEventListener('pointerleave', () => t.hide());
+    });
+  }
+
+  // ---------- tables ----------
+  const QCOLS = [
+    { k: 'rank', n: 'Rank', num: true },
+    { k: 'style_id', n: 'Style' },
+    { k: 'category', n: 'Category' },
+    { k: 'supplier', n: 'Supplier', cls: 'hide-sm' },
+    { k: 'return_rate', n: 'Return rate', num: true, f: (v) => pct(v) },
+    { k: 'quality_share', n: 'Quality share', num: true, cls: 'hide-sm', f: (v) => pct(v, 0) },
+    { k: 'top_issue', n: 'Main issue' },
+    { k: 'quality_return_value_rand', n: 'Quality returns', num: true },
+    { k: 'confirmed_defect', n: 'Confirmed' },
+  ];
+  let qSort = { k: 'rank', dir: 1 };
+  function drawQuality() {
+    const tb = document.getElementById('t-quality');
+    tb.replaceChildren();
+    const thead = h('thead', {}, tb), tr = h('tr', {}, thead);
+    QCOLS.forEach((c) => {
+      const th = h('th', { class: (c.num ? 'num ' : '') + (c.cls || ''), 'aria-sort': qSort.k === c.k ? (qSort.dir > 0 ? 'ascending' : 'descending') : 'none' }, tr);
+      const b = h('button', { type: 'button' }, th, c.n + (qSort.k === c.k ? (qSort.dir > 0 ? ' ↑' : ' ↓') : ''));
+      b.addEventListener('click', () => { qSort = { k: c.k, dir: qSort.k === c.k ? -qSort.dir : (c.num ? -1 : 1) }; drawQuality(); });
+    });
+    const max = Math.max(...D.quality.map((r) => r.quality_return_value_rand));
+    const rows = D.quality.slice().sort((a, b) => (a[qSort.k] > b[qSort.k] ? 1 : a[qSort.k] < b[qSort.k] ? -1 : 0) * qSort.dir);
+    const body = h('tbody', {}, tb);
+    rows.forEach((r) => {
+      const row = h('tr', {}, body);
+      QCOLS.forEach((c) => {
+        const td = h('td', { class: (c.num ? 'num ' : '') + (c.cls || '') }, row);
+        if (c.k === 'top_issue') h('span', { class: 'chip ' + r.top_issue }, td, r.top_issue[0].toUpperCase() + r.top_issue.slice(1));
+        else if (c.k === 'quality_return_value_rand') { const b = h('span', { class: 'bar' }, td); b.style.width = (r[c.k] / max * 70) + 'px'; td.append(rand(r[c.k])); }
+        else if (c.k === 'confirmed_defect') h('span', { class: r[c.k] === 'Yes' ? 'yes' : 'no' }, td, r[c.k]);
+        else td.textContent = c.f ? c.f(r[c.k]) : r[c.k];
+      });
+    });
+  }
+  function drawSplits() {
+    const tb = document.getElementById('t-splits');
+    tb.replaceChildren();
+    const tr = h('tr', {}, h('thead', {}, tb));
+    [['Split'], ['Period'], ['Rows', 'num'], ['Used for']].forEach(([n, c]) => h('th', c ? { class: c } : {}, tr, n));
+    const body = h('tbody', {}, tb);
+    D.splits.forEach((r) => {
+      const row = h('tr', {}, body);
+      h('td', {}, row, r.split); h('td', {}, row, r.period); h('td', { class: 'num' }, row, int(r.rows)); h('td', {}, row, r.use);
+    });
+  }
+
+  function drawAll() { drawWeekly(); drawCat(); drawDrivers(); drawSizes(); drawFrontier(); }
+  drawAll(); drawQuality(); drawSplits();
+  let last = window.innerWidth, timer;
+  window.addEventListener('resize', () => { if (window.innerWidth === last) return; last = window.innerWidth; clearTimeout(timer); timer = setTimeout(drawAll, 150); });
+  if (document.fonts) document.fonts.ready.then(drawAll);
+})();
+</script>
+</body>
+</html>

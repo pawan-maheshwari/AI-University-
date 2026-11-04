@@ -1,0 +1,2995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forecast Lab · AI Academia</title>
+<meta name="description" content="Upload your sales history, split it into train, validation and test data, compare forecasting models, and see how far to trust the forecast. Runs entirely in your browser.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI0I4OTYyRSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSIjOEMxNTE1Ii8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzIiIGZpbGw9IiNGOUY3RjQiLz48dGV4dCB4PSI1MCIgeT0iNDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzhDMTUxNSI+QUk8L3RleHQ+PC9zdmc+">
+<style>
+:root{
+  --ivory:#F9F7F4;--paper:#FFFFFF;--panel:#F4F1EC;--ink:#1A1917;--ink2:#3A3733;--muted:#6B6560;
+  --line:#E5E0D8;--line2:#CFC9C0;--cardinal:#8C1515;--cardinal2:#A81A1A;--gold:#B8962E;--gold-d:#8A6E1E;--gold-bg:#FBF3DC;
+  --good:#2E7D32;--good-bg:#E8F5E9;--warn:#B26A00;--warn-bg:#FFF4E5;--bad:#C62828;--bad-bg:#FFEBEE;
+  --serif:'EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:14.5px;line-height:1.55}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+@media(max-width:480px){.wrap{padding:0 14px}}
+a{color:var(--cardinal)}
+
+.mast{background:var(--paper);border-bottom:2px solid var(--gold)}
+.mast .wrap{display:flex;gap:18px;align-items:flex-start;padding-top:18px;padding-bottom:0;flex-wrap:wrap}
+.home{display:inline-flex;align-items:center;text-decoration:none;color:var(--cardinal);font-size:13px;font-weight:600;border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:6px 12px}
+.home:hover{border-color:var(--gold)}
+html.framed .home{display:none}
+.mast-t{flex:1 1 520px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);font-weight:700}
+h1{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.1;margin:4px 0 6px}
+h1 em{color:var(--cardinal);font-style:italic}
+.lede{color:var(--muted);font-size:15px;max-width:760px}
+.privacy{display:inline-flex;gap:8px;align-items:center;margin-top:10px;font-size:12.5px;color:var(--good);background:var(--good-bg);border-radius:999px;padding:4px 12px}
+.tabs{display:flex;flex-wrap:wrap;gap:0 4px;margin-top:16px;width:100%}
+.tab{background:none;border:none;border-bottom:3px solid transparent;padding:10px 14px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--cardinal);border-bottom-color:var(--cardinal)}
+.tab:hover{color:var(--ink)}
+
+main{padding:24px 0 60px}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:6px;margin-bottom:18px}
+.step-h{display:flex;gap:14px;align-items:baseline;padding:16px 20px;border-bottom:1px solid var(--line)}
+.step-n{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--gold);line-height:1;min-width:22px}
+.step-h h2{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.2}
+.step-h p{color:var(--muted);font-size:13.5px}
+.step-b{padding:18px 20px}
+.step.locked{opacity:.55}
+.step.locked .step-b{display:none}
+
+.drop{border:2px dashed var(--line2);border-radius:6px;padding:26px;text-align:center;background:var(--ivory);transition:border-color .15s}
+.drop.over{border-color:var(--cardinal);background:var(--gold-bg)}
+.drop strong{display:block;font-family:var(--serif);font-size:19px;margin-bottom:4px}
+.drop p{color:var(--muted);font-size:13px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.btn{border:1px solid var(--line2);background:var(--paper);border-radius:4px;padding:9px 16px;font-weight:600;cursor:pointer;min-height:40px}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--cardinal);border-color:var(--cardinal);color:#fff}
+.btn.primary:hover{background:var(--cardinal2)}
+.btn.small{padding:6px 12px;min-height:34px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.status{margin-top:12px;font-size:13px;color:var(--muted)}
+.err{color:var(--bad);background:var(--bad-bg);border-radius:4px;padding:10px 12px;margin-top:12px;font-size:13.5px}
+.notes{margin-top:10px;font-size:13px;color:var(--warn)}
+.notes li{margin-left:18px}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+label.f{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:4px}
+label.f span{font-weight:400;color:var(--muted)}
+select,.num{width:100%;background:var(--paper);border:1px solid var(--line2);border-radius:4px;padding:8px 10px;min-height:38px}
+.chk{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px}
+.chk label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.preview{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:4px}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:700;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--line2);white-space:nowrap;background:var(--panel)}
+td{padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td.n,th.n{text-align:right}
+tr.pick td{background:var(--gold-bg);font-weight:600}
+
+.range{display:flex;align-items:center;gap:10px}
+.range input{flex:1;accent-color:var(--cardinal)}
+.range output{min-width:44px;text-align:right;font-weight:700}
+.splitbar{margin-top:16px}
+.drivers-future{margin-top:14px;padding:12px 14px;background:var(--panel);border-radius:4px}
+.drivers-future p{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));margin-bottom:18px}
+.kpi{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:var(--paper)}
+.kpi .l{font-size:12px;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12.5px;color:var(--muted)}
+.band-High{color:var(--good)} .band-Medium{color:var(--warn)} .band-Low{color:var(--bad)}
+.sub{font-family:var(--serif);font-size:19px;font-weight:600;margin:22px 0 4px}
+.subp{color:var(--muted);font-size:13px;margin-bottom:10px;max-width:760px}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--sans)}
+.ctl-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.ctl-row select{width:auto;min-width:200px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.legend i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+.tip{position:absolute;z-index:5;pointer-events:none;background:var(--ink);color:#fff;font-size:12px;line-height:1.5;padding:7px 10px;border-radius:4px;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.tip .h{color:#D9D2C5}
+.two{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.conf-row{display:grid;grid-template-columns:minmax(0,1fr) 110px 46px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.conf-row .nm{font-weight:600;font-size:13.5px}
+.conf-row .dt{font-size:12px;color:var(--muted)}
+.meter{height:8px;background:var(--panel);border-radius:4px;overflow:hidden}
+.meter b{display:block;height:100%;background:var(--gold)}
+.conf-row .pts{text-align:right;font-variant-numeric:tabular-nums;font-size:13px;font-weight:700}
+.insights{display:grid;gap:10px}
+.ins{border-left:4px solid var(--line2);background:var(--paper);border:1px solid var(--line);border-left-width:4px;border-radius:4px;padding:10px 14px}
+.ins h4{font-size:14px;margin-bottom:2px}
+.ins p{font-size:13.5px;color:var(--ink2)}
+.ins.good{border-left-color:var(--good)} .ins.warn{border-left-color:var(--warn)} .ins.info{border-left-color:var(--gold)}
+.banner{border-radius:6px;padding:14px 16px;margin-bottom:14px}
+.banner.ok{background:var(--good-bg);color:#1B5E20}
+.banner.retrain{background:var(--warn-bg);color:#7A4A00}
+.banner strong{font-size:16px;display:block;margin-bottom:4px}
+.banner li{margin-left:18px;font-size:13.5px}
+.tablebox{overflow-x:auto}
+.bar{display:inline-block;height:8px;border-radius:2px;background:var(--cardinal);vertical-align:middle;margin-right:6px;opacity:.85}
+.bar.base{background:var(--line2)}
+.muted{color:var(--muted)}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:10px;background:var(--gold-bg);color:var(--gold-d)}
+.hidden{display:none!important}
+
+/* guide + case study */
+.prose{max-width:780px}
+.prose h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:6px 0 8px}
+.prose h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:24px 0 6px}
+.prose p{margin-bottom:10px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin:14px 0}
+.metric-tbl td{white-space:normal;vertical-align:top}
+.metric-tbl td:first-child{font-weight:700;white-space:nowrap}
+.case-tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));margin:14px 0}
+.case-tiles .kpi .was{font-size:12.5px;color:var(--muted)}
+.case-tiles .kpi .was s{text-decoration-color:var(--cardinal)}
+@media(max-width:560px){h1{font-size:28px}.conf-row{grid-template-columns:1fr 70px 40px}.tab{padding:8px 10px;font-size:13.5px}.hide-sm{display:none}td,th{white-space:normal;padding:7px 6px}.chip{margin-top:2px}}
+@media(prefers-reduced-motion:no-preference){.fade{animation:fade .35s ease-out both}@keyframes fade{from{opacity:0;transform:translateY(4px)}}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-t">
+      <a class="home aiu-back" href="index.html">&larr; AI Academia</a>
+      <div class="eyebrow" style="margin-top:12px">Tools &amp; Utilities · Forecasting</div>
+      <h1>Forecast <em>Lab</em></h1>
+      <p class="lede">Upload your sales history. The lab splits it into training, validation and test periods, compares five forecasting methods, forecasts ahead with an honest range, and tells you how far to trust the result.</p>
+      <span class="privacy" title="All maths runs in JavaScript on this page">Runs in your browser. Your file never leaves your device.</span>
+      <nav class="tabs" role="tablist" aria-label="Forecast Lab sections">
+        <button class="tab" role="tab" id="tab-run" aria-selected="true" aria-controls="p-run">Forecast your data</button>
+        <button class="tab" role="tab" id="tab-guide" aria-selected="false" aria-controls="p-guide">How accuracy is checked</button>
+        <button class="tab" role="tab" id="tab-case" aria-selected="false" aria-controls="p-case">Kidswear case study</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+<!-- ======================= RUN ======================= -->
+<section id="p-run" role="tabpanel" aria-labelledby="tab-run">
+
+  <div class="step" id="s1">
+    <div class="step-h"><span class="step-n">1</span><div><h2>Add your data</h2><p>A CSV with a date column and a number to forecast. Optional: a column that names each series (product, store) and driver columns such as price or discount.</p></div></div>
+    <div class="step-b">
+      <div class="drop" id="drop">
+        <strong>Drop a CSV file here</strong>
+        <p>Daily, weekly, monthly or quarterly data. Dates like 2025-03-01, 01/03/2025 or 2025-03.</p>
+        <div class="btns">
+          <label class="btn primary" for="file">Choose a file</label>
+          <input type="file" id="file" accept=".csv,.txt,text/csv" class="hidden">
+          <button class="btn" id="use-sample" type="button">Use the Kidswear sample</button>
+          <button class="btn" id="dl-sample" type="button">Download the sample</button>
+        </div>
+      </div>
+      <div id="load-status" class="status"></div>
+      <div id="map-box" class="hidden">
+        <div class="grid" style="margin-top:16px">
+          <div><label class="f" for="m-date">Date</label><select id="m-date"></select></div>
+          <div><label class="f" for="m-target">Value to forecast</label><select id="m-target"></select></div>
+          <div><label class="f" for="m-series">Series <span>(optional)</span></label><select id="m-series"></select></div>
+          <div><span class="f" style="display:block;font-size:12px;font-weight:700;margin-bottom:4px">Drivers <span class="muted" style="font-weight:400">(optional, numeric)</span></span><div class="chk" id="m-drivers"></div></div>
+        </div>
+        <div class="preview" id="preview"></div>
+        <div class="btns" style="justify-content:flex-start"><button class="btn primary" id="apply-map" type="button">Use these columns</button></div>
+      </div>
+      <div id="prep-err"></div>
+    </div>
+  </div>
+
+  <div class="step locked" id="s2">
+    <div class="step-h"><span class="step-n">2</span><div><h2>Split the history</h2><p>Models learn on the training part, the best one is picked on validation, and the test part stays untouched until the end, so its score is a fair preview of real accuracy.</p></div></div>
+    <div class="step-b">
+      <div class="grid">
+        <div><label class="f" for="r-train">Training share</label><div class="range"><input type="range" id="r-train" min="50" max="85" step="1" value="70"><output id="o-train">70%</output></div></div>
+        <div><label class="f" for="r-val">Validation share</label><div class="range"><input type="range" id="r-val" min="5" max="25" step="1" value="15"><output id="o-val">15%</output></div></div>
+        <div><label class="f" for="horizon">Forecast ahead <span id="h-unit">(periods)</span></label><input type="number" class="num" id="horizon" min="1" max="104" value="8"></div>
+        <div><label class="f" for="coverage">Range to show</label><select id="coverage"><option value="0.8" selected>80% range</option><option value="0.9">90% range</option><option value="0.95">95% range</option></select></div>
+      </div>
+      <div class="chart splitbar" id="c-split"></div>
+      <div class="drivers-future hidden" id="drv-future"></div>
+      <div class="btns" style="justify-content:flex-start;margin-top:16px"><button class="btn primary" id="run" type="button">Run forecast</button><span class="status" id="run-status" style="margin:0;align-self:center"></span></div>
+      <div id="run-err"></div>
+    </div>
+  </div>
+
+  <div class="step locked" id="s3">
+    <div class="step-h"><span class="step-n">3</span><div><h2>Results and AI insights</h2><p id="res-sub">Model comparison, forecast, accuracy and confidence.</p></div></div>
+    <div class="step-b" id="results"></div>
+  </div>
+
+  <div class="step locked" id="s4">
+    <div class="step-h"><span class="step-n">4</span><div><h2>Monitor against new actuals</h2><p>When the forecast periods arrive, upload the actual numbers. The lab checks error, bias and range against what the test promised, and tells you when to retrain.</p></div></div>
+    <div class="step-b">
+      <div class="btns" style="justify-content:flex-start">
+        <label class="btn primary" for="file-act">Upload new actuals</label><input type="file" id="file-act" accept=".csv,.txt,text/csv" class="hidden">
+        <button class="btn" id="use-act" type="button">Use the Kidswear sample actuals</button>
+        <button class="btn" id="save-snap" type="button">Save this forecast</button>
+        <label class="btn" for="file-snap">Load a saved forecast</label><input type="file" id="file-snap" accept=".json,application/json" class="hidden">
+      </div>
+      <p class="status" id="mon-status">Actuals need the same date, value and series columns as your history.</p>
+      <div id="monitor"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GUIDE ======================= -->
+<section id="p-guide" role="tabpanel" aria-labelledby="tab-guide" class="hidden">
+  <div class="prose">
+    <h2>How accuracy is checked</h2>
+    <p>A forecast is only useful if you know how wrong it is likely to be. The lab never grades a model on data it learned from. It checks accuracy five ways, then rolls them into one confidence score with every part shown.</p>
+
+    <h3>1. Split by time, never at random</h3>
+    <p>Shuffling rows would let a model peek at the future. The lab cuts the history in order. Drag the slider to see how the parts move.</p>
+    <div class="panel">
+      <div class="range" style="max-width:420px"><label class="f" for="g-train" style="margin:0;min-width:110px">Training share</label><input type="range" id="g-train" min="50" max="85" value="70"><output id="g-train-o">70%</output></div>
+      <div class="chart" id="g-split" style="margin-top:12px"></div>
+      <p class="muted" style="font-size:13px;margin-top:8px">Training: models learn here. Validation: each model forecasts it blind, and the lowest error wins. Test: scored once with the winner, after it is chosen, so nothing was tuned to it. Forecast: the winner is refitted on everything and looks ahead.</p>
+    </div>
+
+    <h3>2. Always beat a simple baseline</h3>
+    <p>"Same period last season" (seasonal naive) is the bar every model must clear. <b>Skill</b> is how much lower the model's test error is than the baseline's. A clever model that cannot beat the baseline should not be used, and the lab says so.</p>
+
+    <h3>3. Backtest across several past periods</h3>
+    <p>One test window can be lucky. A rolling-origin backtest pretends to stand at several past dates, forecasts ahead from each, and records the error. Steady errors across folds mean the method is dependable. Step through the folds:</p>
+    <div class="panel">
+      <div class="btns" style="justify-content:flex-start;margin:0 0 10px"><button class="btn small" id="g-prev" type="button">Previous fold</button><button class="btn small" id="g-next" type="button">Next fold</button><span class="muted" id="g-fold-l" style="align-self:center;font-size:13px"></span></div>
+      <div class="chart" id="g-backtest"></div>
+    </div>
+
+    <h3>4. Ranges that are tested, not assumed</h3>
+    <p>The forecast range comes from the model's real errors on validation (split conformal prediction), so it makes no assumptions about the shape of the data. The lab then counts how many test actuals landed inside it. If an 80% range catches 80% of test actuals, the range is honest.</p>
+
+    <h3>5. Keep watching after go-live</h3>
+    <p>Upload new actuals as they arrive. The <b>tracking signal</b> (running total of errors ÷ average absolute error) flags a forecast that keeps missing in one direction; beyond ±4 is a warning. If error rises well above what the test promised, the lab recommends retraining.</p>
+
+    <h3>The measures</h3>
+    <div class="panel tablebox">
+      <table class="metric-tbl">
+        <thead><tr><th>Measure</th><th>What it means</th><th>Good looks like</th></tr></thead>
+        <tbody>
+          <tr><td>WAPE</td><td>Total absolute error ÷ total actual units. Big items count more than tiny ones, which matches the money at stake.</td><td>Lower is better. Under 20% is strong for weekly retail at product level.</td></tr>
+          <tr><td>Bias</td><td>Total forecast minus total actual, as a share of actual. Shows a habit of over- or under-forecasting.</td><td>Close to 0%. Persistent negative bias leads to stock-outs; positive to markdowns.</td></tr>
+          <tr><td>MASE</td><td>Error relative to the naive method's error on the training data.</td><td>Below 1 means better than naive.</td></tr>
+          <tr><td>Skill</td><td>1 − model WAPE ÷ baseline WAPE on test.</td><td>Above 0 means the model earns its place; 30% or more is excellent.</td></tr>
+          <tr><td>Coverage</td><td>Share of actuals inside the stated range.</td><td>Close to the range you chose (80%, 90% or 95%).</td></tr>
+          <tr><td>Tracking signal</td><td>Running sum of errors ÷ mean absolute error, for each series after go-live.</td><td>Between −4 and +4.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The confidence score</h3>
+    <p>Six checks, weighted and added to a score out of 100: beats the baseline (30), accuracy on test (20), honest ranges (15), stable backtest (15), validation and test agree (10), enough history (10). 75 or more is High, 50 to 74 Medium, below 50 Low. Each check is shown with your result, so the score is never a black box.</p>
+
+    <h3>The models</h3>
+    <div class="panel tablebox">
+      <table class="metric-tbl">
+        <thead><tr><th>Model</th><th>How it works</th></tr></thead>
+        <tbody id="g-models"></tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:13px">AI insights are written by rules from your results: trend, seasonality, driver effects learned by the ML model, outlook, bias, the hardest series and unusual periods. No language model reads your data, and nothing is sent anywhere.</p>
+  </div>
+</section>
+
+<!-- ======================= CASE STUDY ======================= -->
+<section id="p-case" role="tabpanel" aria-labelledby="tab-case" class="hidden">
+  <div class="prose">
+    <h2>Kidswear margin reset: a proof of concept</h2>
+    <p>A retail fashion business loses margin in Kidswear through overbuying, the wrong size mix, blunt clearance markdowns and quality problems. This proof of concept tested four machine-learning fixes on two seasons of realistic sample data, scoring each against today's rule of thumb on a held-out winter clearance.</p>
+  </div>
+  <div class="case-tiles" id="case-tiles"></div>
+  <div class="prose">
+    <h3>What was built</h3>
+    <div class="panel tablebox">
+      <table class="metric-tbl">
+        <thead><tr><th>Question</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td>Forecast true demand</td><td>LightGBM with a Tweedie loss, sales lifted back to demand where sizes sold out, 16-trial tuning on validation weeks, P10–P90 ranges, SHAP explanations.</td></tr>
+          <tr><td>Send the right sizes</td><td>Size curves learned for each store cluster from sizes that did not sell out.</td></tr>
+          <tr><td>Clear stock for more profit</td><td>A size-aware markdown optimiser using the forecast's price response, constrained to clear the same share of stock.</td></tr>
+          <tr><td>Find quality gaps</td><td>A text model that reads return comments, then ranks lines by quality-driven returns.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The Python pipeline behind it trains on 898,560 weekly rows. Forecast Lab brings the same discipline (time-based splits, a baseline to beat, a test scored once, tested ranges) to any file you upload. The Kidswear sample in the lab is the same data, summed to category and store cluster.</p>
+    <p><a href="kidswear-margin-poc.html">Open the full case study results</a></p>
+    <p class="muted" style="font-size:13px">Sample data is synthetic and built to behave like real retail data. Results show the method works; they are not any retailer's figures.</p>
+  </div>
+</section>
+</main>
+
+<script>try{if(window.self!==window.top){document.documentElement.classList.add("framed");document.querySelectorAll(".aiu-back").forEach(function(a){a.removeAttribute("href");});}}catch(e){}</script>
+<script type="text/plain" id="sample-csv">week_start,series,units,avg_discount
+2024-07-01,Dresses / Balanced,171,0.0
+2024-07-01,Dresses / Older kids,246,0.0
+2024-07-01,Dresses / Young families,175,0.0
+2024-07-01,Jackets / Balanced,585,0.0
+2024-07-01,Jackets / Older kids,757,0.0
+2024-07-01,Jackets / Young families,575,0.0
+2024-07-01,Schoolwear / Balanced,307,0.0
+2024-07-01,Schoolwear / Older kids,356,0.0
+2024-07-01,Schoolwear / Young families,271,0.0
+2024-07-01,Sleepwear / Balanced,520,0.0
+2024-07-01,Sleepwear / Older kids,730,0.0
+2024-07-01,Sleepwear / Young families,545,0.0
+2024-07-01,T-shirts / Balanced,438,0.0
+2024-07-01,T-shirts / Older kids,576,0.0
+2024-07-01,T-shirts / Young families,409,0.0
+2024-07-08,Dresses / Balanced,186,0.0
+2024-07-08,Dresses / Older kids,267,0.0
+2024-07-08,Dresses / Young families,149,0.0
+2024-07-08,Jackets / Balanced,598,0.0
+2024-07-08,Jackets / Older kids,840,0.0
+2024-07-08,Jackets / Young families,501,0.0
+2024-07-08,Schoolwear / Balanced,284,0.0
+2024-07-08,Schoolwear / Older kids,369,0.0
+2024-07-08,Schoolwear / Young families,235,0.0
+2024-07-08,Sleepwear / Balanced,533,0.0
+2024-07-08,Sleepwear / Older kids,716,0.0
+2024-07-08,Sleepwear / Young families,467,0.0
+2024-07-08,T-shirts / Balanced,464,0.0
+2024-07-08,T-shirts / Older kids,560,0.0
+2024-07-08,T-shirts / Young families,388,0.0
+2024-07-15,Dresses / Balanced,179,0.0
+2024-07-15,Dresses / Older kids,224,0.0
+2024-07-15,Dresses / Young families,144,0.0
+2024-07-15,Jackets / Balanced,602,0.0
+2024-07-15,Jackets / Older kids,790,0.0
+2024-07-15,Jackets / Young families,529,0.0
+2024-07-15,Schoolwear / Balanced,216,0.0
+2024-07-15,Schoolwear / Older kids,308,0.0
+2024-07-15,Schoolwear / Young families,226,0.0
+2024-07-15,Sleepwear / Balanced,473,0.0
+2024-07-15,Sleepwear / Older kids,653,0.0
+2024-07-15,Sleepwear / Young families,452,0.0
+2024-07-15,T-shirts / Balanced,385,0.0
+2024-07-15,T-shirts / Older kids,509,0.0
+2024-07-15,T-shirts / Young families,353,0.0
+2024-07-22,Dresses / Balanced,172,0.0
+2024-07-22,Dresses / Older kids,249,0.0
+2024-07-22,Dresses / Young families,170,0.0
+2024-07-22,Jackets / Balanced,632,0.0
+2024-07-22,Jackets / Older kids,793,0.0
+2024-07-22,Jackets / Young families,500,0.0
+2024-07-22,Schoolwear / Balanced,242,0.0
+2024-07-22,Schoolwear / Older kids,303,0.0
+2024-07-22,Schoolwear / Young families,257,0.0
+2024-07-22,Sleepwear / Balanced,534,0.0
+2024-07-22,Sleepwear / Older kids,651,0.0
+2024-07-22,Sleepwear / Young families,517,0.0
+2024-07-22,T-shirts / Balanced,415,0.0
+2024-07-22,T-shirts / Older kids,545,0.0
+2024-07-22,T-shirts / Young families,344,0.0
+2024-07-29,Dresses / Balanced,110,0.0
+2024-07-29,Dresses / Older kids,154,0.0
+2024-07-29,Dresses / Young families,112,0.0
+2024-07-29,Jackets / Balanced,416,0.0
+2024-07-29,Jackets / Older kids,518,0.0
+2024-07-29,Jackets / Young families,305,0.0
+2024-07-29,Schoolwear / Balanced,182,0.0
+2024-07-29,Schoolwear / Older kids,232,0.0
+2024-07-29,Schoolwear / Young families,146,0.0
+2024-07-29,Sleepwear / Balanced,391,0.0
+2024-07-29,Sleepwear / Older kids,454,0.0
+2024-07-29,Sleepwear / Young families,294,0.0
+2024-07-29,T-shirts / Balanced,348,0.0
+2024-07-29,T-shirts / Older kids,367,0.0
+2024-07-29,T-shirts / Young families,286,0.0
+2024-08-05,Dresses / Balanced,92,0.0
+2024-08-05,Dresses / Older kids,137,0.0
+2024-08-05,Dresses / Young families,95,0.0
+2024-08-05,Jackets / Balanced,337,0.021
+2024-08-05,Jackets / Older kids,382,0.021
+2024-08-05,Jackets / Young families,297,0.021
+2024-08-05,Schoolwear / Balanced,143,0.046
+2024-08-05,Schoolwear / Older kids,161,0.046
+2024-08-05,Schoolwear / Young families,112,0.046
+2024-08-05,Sleepwear / Balanced,361,0.033
+2024-08-05,Sleepwear / Older kids,412,0.033
+2024-08-05,Sleepwear / Young families,281,0.033
+2024-08-05,T-shirts / Balanced,262,0.012
+2024-08-05,T-shirts / Older kids,312,0.012
+2024-08-05,T-shirts / Young families,247,0.012
+2024-08-12,Dresses / Balanced,250,0.0
+2024-08-12,Dresses / Older kids,343,0.0
+2024-08-12,Dresses / Young families,244,0.0
+2024-08-12,Jackets / Balanced,519,0.0
+2024-08-12,Jackets / Older kids,657,0.0
+2024-08-12,Jackets / Young families,553,0.0
+2024-08-12,Schoolwear / Balanced,283,0.017
+2024-08-12,Schoolwear / Older kids,438,0.017
+2024-08-12,Schoolwear / Young families,262,0.017
+2024-08-12,Sleepwear / Balanced,567,0.021
+2024-08-12,Sleepwear / Older kids,724,0.021
+2024-08-12,Sleepwear / Young families,550,0.021
+2024-08-12,T-shirts / Balanced,536,0.0
+2024-08-12,T-shirts / Older kids,697,0.0
+2024-08-12,T-shirts / Young families,448,0.0
+2024-08-19,Dresses / Balanced,365,0.042
+2024-08-19,Dresses / Older kids,450,0.042
+2024-08-19,Dresses / Young families,320,0.042
+2024-08-19,Jackets / Balanced,643,0.033
+2024-08-19,Jackets / Older kids,852,0.033
+2024-08-19,Jackets / Young families,576,0.033
+2024-08-19,Schoolwear / Balanced,308,0.017
+2024-08-19,Schoolwear / Older kids,368,0.017
+2024-08-19,Schoolwear / Young families,256,0.017
+2024-08-19,Sleepwear / Balanced,620,0.012
+2024-08-19,Sleepwear / Older kids,723,0.012
+2024-08-19,Sleepwear / Young families,569,0.012
+2024-08-19,T-shirts / Balanced,627,0.012
+2024-08-19,T-shirts / Older kids,861,0.012
+2024-08-19,T-shirts / Young families,602,0.012
+2024-08-26,Dresses / Balanced,225,0.033
+2024-08-26,Dresses / Older kids,309,0.033
+2024-08-26,Dresses / Young families,182,0.033
+2024-08-26,Jackets / Balanced,407,0.0
+2024-08-26,Jackets / Older kids,528,0.0
+2024-08-26,Jackets / Young families,302,0.0
+2024-08-26,Schoolwear / Balanced,216,0.008
+2024-08-26,Schoolwear / Older kids,261,0.008
+2024-08-26,Schoolwear / Young families,203,0.008
+2024-08-26,Sleepwear / Balanced,436,0.029
+2024-08-26,Sleepwear / Older kids,522,0.029
+2024-08-26,Sleepwear / Young families,404,0.029
+2024-08-26,T-shirts / Balanced,474,0.029
+2024-08-26,T-shirts / Older kids,573,0.029
+2024-08-26,T-shirts / Young families,464,0.029
+2024-09-02,Dresses / Balanced,166,0.017
+2024-09-02,Dresses / Older kids,185,0.017
+2024-09-02,Dresses / Young families,148,0.017
+2024-09-02,Jackets / Balanced,337,0.0
+2024-09-02,Jackets / Older kids,411,0.0
+2024-09-02,Jackets / Young families,223,0.0
+2024-09-02,Schoolwear / Balanced,172,0.008
+2024-09-02,Schoolwear / Older kids,169,0.008
+2024-09-02,Schoolwear / Young families,154,0.008
+2024-09-02,Sleepwear / Balanced,342,0.0
+2024-09-02,Sleepwear / Older kids,366,0.0
+2024-09-02,Sleepwear / Young families,254,0.0
+2024-09-02,T-shirts / Balanced,440,0.021
+2024-09-02,T-shirts / Older kids,530,0.021
+2024-09-02,T-shirts / Young families,372,0.021
+2024-09-09,Dresses / Balanced,354,0.0
+2024-09-09,Dresses / Older kids,435,0.0
+2024-09-09,Dresses / Young families,318,0.0
+2024-09-09,Jackets / Balanced,445,0.008
+2024-09-09,Jackets / Older kids,678,0.008
+2024-09-09,Jackets / Young families,441,0.008
+2024-09-09,Schoolwear / Balanced,257,0.008
+2024-09-09,Schoolwear / Older kids,368,0.008
+2024-09-09,Schoolwear / Young families,240,0.008
+2024-09-09,Sleepwear / Balanced,486,0.0
+2024-09-09,Sleepwear / Older kids,685,0.0
+2024-09-09,Sleepwear / Young families,523,0.0
+2024-09-09,T-shirts / Balanced,663,0.0
+2024-09-09,T-shirts / Older kids,963,0.0
+2024-09-09,T-shirts / Young families,707,0.0
+2024-09-16,Dresses / Balanced,434,0.042
+2024-09-16,Dresses / Older kids,592,0.042
+2024-09-16,Dresses / Young families,421,0.042
+2024-09-16,Jackets / Balanced,507,0.025
+2024-09-16,Jackets / Older kids,660,0.025
+2024-09-16,Jackets / Young families,463,0.025
+2024-09-16,Schoolwear / Balanced,331,0.0
+2024-09-16,Schoolwear / Older kids,354,0.0
+2024-09-16,Schoolwear / Young families,265,0.0
+2024-09-16,Sleepwear / Balanced,565,0.021
+2024-09-16,Sleepwear / Older kids,745,0.021
+2024-09-16,Sleepwear / Young families,543,0.021
+2024-09-16,T-shirts / Balanced,886,0.0
+2024-09-16,T-shirts / Older kids,1165,0.0
+2024-09-16,T-shirts / Young families,802,0.0
+2024-09-23,Dresses / Balanced,393,0.021
+2024-09-23,Dresses / Older kids,476,0.021
+2024-09-23,Dresses / Young families,322,0.021
+2024-09-23,Jackets / Balanced,393,0.017
+2024-09-23,Jackets / Older kids,535,0.017
+2024-09-23,Jackets / Young families,345,0.017
+2024-09-23,Schoolwear / Balanced,270,0.012
+2024-09-23,Schoolwear / Older kids,352,0.012
+2024-09-23,Schoolwear / Young families,246,0.012
+2024-09-23,Sleepwear / Balanced,517,0.017
+2024-09-23,Sleepwear / Older kids,623,0.017
+2024-09-23,Sleepwear / Young families,412,0.017
+2024-09-23,T-shirts / Balanced,951,0.033
+2024-09-23,T-shirts / Older kids,1088,0.033
+2024-09-23,T-shirts / Young families,803,0.033
+2024-09-30,Dresses / Balanced,274,0.0
+2024-09-30,Dresses / Older kids,343,0.0
+2024-09-30,Dresses / Young families,214,0.0
+2024-09-30,Jackets / Balanced,283,0.017
+2024-09-30,Jackets / Older kids,294,0.017
+2024-09-30,Jackets / Young families,219,0.017
+2024-09-30,Schoolwear / Balanced,164,0.0
+2024-09-30,Schoolwear / Older kids,180,0.0
+2024-09-30,Schoolwear / Young families,149,0.0
+2024-09-30,Sleepwear / Balanced,321,0.0
+2024-09-30,Sleepwear / Older kids,306,0.0
+2024-09-30,Sleepwear / Young families,268,0.0
+2024-09-30,T-shirts / Balanced,625,0.017
+2024-09-30,T-shirts / Older kids,704,0.017
+2024-09-30,T-shirts / Young families,492,0.017
+2024-10-07,Dresses / Balanced,419,0.0
+2024-10-07,Dresses / Older kids,595,0.0
+2024-10-07,Dresses / Young families,408,0.0
+2024-10-07,Jackets / Balanced,348,0.021
+2024-10-07,Jackets / Older kids,488,0.021
+2024-10-07,Jackets / Young families,336,0.021
+2024-10-07,Schoolwear / Balanced,263,0.017
+2024-10-07,Schoolwear / Older kids,360,0.017
+2024-10-07,Schoolwear / Young families,257,0.017
+2024-10-07,Sleepwear / Balanced,471,0.046
+2024-10-07,Sleepwear / Older kids,565,0.046
+2024-10-07,Sleepwear / Young families,397,0.046
+2024-10-07,T-shirts / Balanced,1035,0.025
+2024-10-07,T-shirts / Older kids,1304,0.025
+2024-10-07,T-shirts / Young families,933,0.025
+2024-10-14,Dresses / Balanced,453,0.008
+2024-10-14,Dresses / Older kids,641,0.008
+2024-10-14,Dresses / Young families,434,0.008
+2024-10-14,Jackets / Balanced,302,0.008
+2024-10-14,Jackets / Older kids,394,0.008
+2024-10-14,Jackets / Young families,254,0.008
+2024-10-14,Schoolwear / Balanced,247,0.021
+2024-10-14,Schoolwear / Older kids,333,0.021
+2024-10-14,Schoolwear / Young families,235,0.021
+2024-10-14,Sleepwear / Balanced,443,0.021
+2024-10-14,Sleepwear / Older kids,609,0.021
+2024-10-14,Sleepwear / Young families,446,0.021
+2024-10-14,T-shirts / Balanced,1010,0.017
+2024-10-14,T-shirts / Older kids,1252,0.017
+2024-10-14,T-shirts / Young families,881,0.017
+2024-10-21,Dresses / Balanced,516,0.021
+2024-10-21,Dresses / Older kids,599,0.021
+2024-10-21,Dresses / Young families,425,0.021
+2024-10-21,Jackets / Balanced,287,0.0
+2024-10-21,Jackets / Older kids,339,0.0
+2024-10-21,Jackets / Young families,224,0.0
+2024-10-21,Schoolwear / Balanced,245,0.017
+2024-10-21,Schoolwear / Older kids,283,0.017
+2024-10-21,Schoolwear / Young families,213,0.017
+2024-10-21,Sleepwear / Balanced,387,0.0
+2024-10-21,Sleepwear / Older kids,501,0.0
+2024-10-21,Sleepwear / Young families,345,0.0
+2024-10-21,T-shirts / Balanced,1046,0.0
+2024-10-21,T-shirts / Older kids,1278,0.0
+2024-10-21,T-shirts / Young families,974,0.0
+2024-10-28,Dresses / Balanced,372,0.012
+2024-10-28,Dresses / Older kids,434,0.012
+2024-10-28,Dresses / Young families,277,0.012
+2024-10-28,Jackets / Balanced,166,0.017
+2024-10-28,Jackets / Older kids,223,0.017
+2024-10-28,Jackets / Young families,146,0.017
+2024-10-28,Schoolwear / Balanced,176,0.021
+2024-10-28,Schoolwear / Older kids,192,0.021
+2024-10-28,Schoolwear / Young families,144,0.021
+2024-10-28,Sleepwear / Balanced,253,0.012
+2024-10-28,Sleepwear / Older kids,324,0.012
+2024-10-28,Sleepwear / Young families,238,0.012
+2024-10-28,T-shirts / Balanced,790,0.012
+2024-10-28,T-shirts / Older kids,853,0.012
+2024-10-28,T-shirts / Young families,688,0.012
+2024-11-04,Dresses / Balanced,564,0.0
+2024-11-04,Dresses / Older kids,751,0.0
+2024-11-04,Dresses / Young families,518,0.0
+2024-11-04,Jackets / Balanced,236,0.0
+2024-11-04,Jackets / Older kids,295,0.0
+2024-11-04,Jackets / Young families,246,0.0
+2024-11-04,Schoolwear / Balanced,269,0.017
+2024-11-04,Schoolwear / Older kids,371,0.017
+2024-11-04,Schoolwear / Young families,228,0.017
+2024-11-04,Sleepwear / Balanced,413,0.012
+2024-11-04,Sleepwear / Older kids,562,0.012
+2024-11-04,Sleepwear / Young families,396,0.012
+2024-11-04,T-shirts / Balanced,1109,0.0
+2024-11-04,T-shirts / Older kids,1418,0.0
+2024-11-04,T-shirts / Young families,1018,0.0
+2024-11-11,Dresses / Balanced,653,0.021
+2024-11-11,Dresses / Older kids,730,0.021
+2024-11-11,Dresses / Young families,554,0.021
+2024-11-11,Jackets / Balanced,156,0.0
+2024-11-11,Jackets / Older kids,257,0.0
+2024-11-11,Jackets / Young families,144,0.0
+2024-11-11,Schoolwear / Balanced,236,0.008
+2024-11-11,Schoolwear / Older kids,327,0.008
+2024-11-11,Schoolwear / Young families,232,0.008
+2024-11-11,Sleepwear / Balanced,368,0.021
+2024-11-11,Sleepwear / Older kids,525,0.021
+2024-11-11,Sleepwear / Young families,323,0.021
+2024-11-11,T-shirts / Balanced,1130,0.0
+2024-11-11,T-shirts / Older kids,1411,0.0
+2024-11-11,T-shirts / Young families,1099,0.0
+2024-11-18,Dresses / Balanced,581,0.0
+2024-11-18,Dresses / Older kids,720,0.0
+2024-11-18,Dresses / Young families,503,0.0
+2024-11-18,Jackets / Balanced,175,0.017
+2024-11-18,Jackets / Older kids,233,0.017
+2024-11-18,Jackets / Young families,153,0.017
+2024-11-18,Schoolwear / Balanced,224,0.0
+2024-11-18,Schoolwear / Older kids,287,0.0
+2024-11-18,Schoolwear / Young families,242,0.0
+2024-11-18,Sleepwear / Balanced,339,0.008
+2024-11-18,Sleepwear / Older kids,435,0.008
+2024-11-18,Sleepwear / Young families,308,0.008
+2024-11-18,T-shirts / Balanced,1393,0.0
+2024-11-18,T-shirts / Older kids,1638,0.0
+2024-11-18,T-shirts / Young families,1117,0.0
+2024-11-25,Dresses / Balanced,401,0.012
+2024-11-25,Dresses / Older kids,560,0.012
+2024-11-25,Dresses / Young families,380,0.012
+2024-11-25,Jackets / Balanced,109,0.029
+2024-11-25,Jackets / Older kids,132,0.029
+2024-11-25,Jackets / Young families,84,0.029
+2024-11-25,Schoolwear / Balanced,190,0.008
+2024-11-25,Schoolwear / Older kids,212,0.008
+2024-11-25,Schoolwear / Young families,155,0.008
+2024-11-25,Sleepwear / Balanced,262,0.0
+2024-11-25,Sleepwear / Older kids,266,0.0
+2024-11-25,Sleepwear / Young families,225,0.0
+2024-11-25,T-shirts / Balanced,1018,0.021
+2024-11-25,T-shirts / Older kids,1189,0.021
+2024-11-25,T-shirts / Young families,864,0.021
+2024-12-02,Dresses / Balanced,1016,0.025
+2024-12-02,Dresses / Older kids,1121,0.025
+2024-12-02,Dresses / Young families,849,0.025
+2024-12-02,Jackets / Balanced,206,0.0
+2024-12-02,Jackets / Older kids,296,0.0
+2024-12-02,Jackets / Young families,210,0.0
+2024-12-02,Schoolwear / Balanced,371,0.021
+2024-12-02,Schoolwear / Older kids,569,0.021
+2024-12-02,Schoolwear / Young families,333,0.021
+2024-12-02,Sleepwear / Balanced,537,0.017
+2024-12-02,Sleepwear / Older kids,743,0.017
+2024-12-02,Sleepwear / Young families,515,0.017
+2024-12-02,T-shirts / Balanced,2088,0.012
+2024-12-02,T-shirts / Older kids,2690,0.012
+2024-12-02,T-shirts / Young families,1868,0.012
+2024-12-09,Dresses / Balanced,2214,0.325
+2024-12-09,Dresses / Older kids,2759,0.325
+2024-12-09,Dresses / Young families,1829,0.325
+2024-12-09,Jackets / Balanced,351,0.283
+2024-12-09,Jackets / Older kids,427,0.283
+2024-12-09,Jackets / Young families,294,0.283
+2024-12-09,Schoolwear / Balanced,817,0.308
+2024-12-09,Schoolwear / Older kids,1018,0.308
+2024-12-09,Schoolwear / Young families,734,0.308
+2024-12-09,Sleepwear / Balanced,1235,0.35
+2024-12-09,Sleepwear / Older kids,1480,0.35
+2024-12-09,Sleepwear / Young families,1081,0.35
+2024-12-09,T-shirts / Balanced,4290,0.283
+2024-12-09,T-shirts / Older kids,5372,0.283
+2024-12-09,T-shirts / Young families,3862,0.283
+2024-12-16,Dresses / Balanced,1308,0.325
+2024-12-16,Dresses / Older kids,1776,0.325
+2024-12-16,Dresses / Young families,1203,0.325
+2024-12-16,Jackets / Balanced,242,0.283
+2024-12-16,Jackets / Older kids,320,0.283
+2024-12-16,Jackets / Young families,176,0.283
+2024-12-16,Schoolwear / Balanced,1103,0.308
+2024-12-16,Schoolwear / Older kids,1133,0.308
+2024-12-16,Schoolwear / Young families,971,0.308
+2024-12-16,Sleepwear / Balanced,708,0.35
+2024-12-16,Sleepwear / Older kids,789,0.35
+2024-12-16,Sleepwear / Young families,663,0.35
+2024-12-16,T-shirts / Balanced,2917,0.283
+2024-12-16,T-shirts / Older kids,3352,0.283
+2024-12-16,T-shirts / Young families,2670,0.283
+2024-12-23,Dresses / Balanced,515,0.325
+2024-12-23,Dresses / Older kids,820,0.325
+2024-12-23,Dresses / Young families,613,0.325
+2024-12-23,Jackets / Balanced,142,0.283
+2024-12-23,Jackets / Older kids,152,0.283
+2024-12-23,Jackets / Young families,139,0.283
+2024-12-23,Schoolwear / Balanced,842,0.308
+2024-12-23,Schoolwear / Older kids,1047,0.308
+2024-12-23,Schoolwear / Young families,880,0.308
+2024-12-23,Sleepwear / Balanced,280,0.35
+2024-12-23,Sleepwear / Older kids,454,0.35
+2024-12-23,Sleepwear / Young families,302,0.35
+2024-12-23,T-shirts / Balanced,1303,0.283
+2024-12-23,T-shirts / Older kids,1704,0.283
+2024-12-23,T-shirts / Young families,1157,0.283
+2024-12-30,Dresses / Balanced,996,0.021
+2024-12-30,Dresses / Older kids,1309,0.021
+2024-12-30,Dresses / Young families,889,0.021
+2024-12-30,Jackets / Balanced,148,0.0
+2024-12-30,Jackets / Older kids,195,0.0
+2024-12-30,Jackets / Young families,137,0.0
+2024-12-30,Schoolwear / Balanced,1467,0.0
+2024-12-30,Schoolwear / Older kids,1958,0.0
+2024-12-30,Schoolwear / Young families,1423,0.0
+2024-12-30,Sleepwear / Balanced,482,0.0
+2024-12-30,Sleepwear / Older kids,673,0.0
+2024-12-30,Sleepwear / Young families,473,0.0
+2024-12-30,T-shirts / Balanced,2217,0.038
+2024-12-30,T-shirts / Older kids,2718,0.038
+2024-12-30,T-shirts / Young families,2029,0.038
+2025-01-06,Dresses / Balanced,680,0.033
+2025-01-06,Dresses / Older kids,928,0.033
+2025-01-06,Dresses / Young families,586,0.033
+2025-01-06,Jackets / Balanced,104,0.038
+2025-01-06,Jackets / Older kids,139,0.038
+2025-01-06,Jackets / Young families,105,0.038
+2025-01-06,Schoolwear / Balanced,1267,0.0
+2025-01-06,Schoolwear / Older kids,1487,0.0
+2025-01-06,Schoolwear / Young families,1093,0.0
+2025-01-06,Sleepwear / Balanced,347,0.008
+2025-01-06,Sleepwear / Older kids,424,0.008
+2025-01-06,Sleepwear / Young families,320,0.008
+2025-01-06,T-shirts / Balanced,1351,0.012
+2025-01-06,T-shirts / Older kids,1739,0.012
+2025-01-06,T-shirts / Young families,1269,0.012
+2025-01-13,Dresses / Balanced,589,0.021
+2025-01-13,Dresses / Older kids,770,0.021
+2025-01-13,Dresses / Young families,478,0.021
+2025-01-13,Jackets / Balanced,87,0.029
+2025-01-13,Jackets / Older kids,130,0.029
+2025-01-13,Jackets / Young families,59,0.029
+2025-01-13,Schoolwear / Balanced,939,0.017
+2025-01-13,Schoolwear / Older kids,1089,0.017
+2025-01-13,Schoolwear / Young families,813,0.017
+2025-01-13,Sleepwear / Balanced,294,0.029
+2025-01-13,Sleepwear / Older kids,353,0.029
+2025-01-13,Sleepwear / Young families,246,0.029
+2025-01-13,T-shirts / Balanced,1144,0.0
+2025-01-13,T-shirts / Older kids,1396,0.0
+2025-01-13,T-shirts / Young families,1079,0.0
+2025-01-20,Dresses / Balanced,541,0.038
+2025-01-20,Dresses / Older kids,652,0.038
+2025-01-20,Dresses / Young families,450,0.038
+2025-01-20,Jackets / Balanced,81,0.029
+2025-01-20,Jackets / Older kids,114,0.029
+2025-01-20,Jackets / Young families,81,0.029
+2025-01-20,Schoolwear / Balanced,653,0.021
+2025-01-20,Schoolwear / Older kids,683,0.021
+2025-01-20,Schoolwear / Young families,538,0.021
+2025-01-20,Sleepwear / Balanced,279,0.042
+2025-01-20,Sleepwear / Older kids,353,0.042
+2025-01-20,Sleepwear / Young families,261,0.042
+2025-01-20,T-shirts / Balanced,1236,0.012
+2025-01-20,T-shirts / Older kids,1421,0.012
+2025-01-20,T-shirts / Young families,1002,0.012
+2025-01-27,Dresses / Balanced,589,0.0
+2025-01-27,Dresses / Older kids,827,0.0
+2025-01-27,Dresses / Young families,609,0.0
+2025-01-27,Jackets / Balanced,127,0.021
+2025-01-27,Jackets / Older kids,179,0.021
+2025-01-27,Jackets / Young families,110,0.021
+2025-01-27,Schoolwear / Balanced,374,0.0
+2025-01-27,Schoolwear / Older kids,538,0.0
+2025-01-27,Schoolwear / Young families,398,0.0
+2025-01-27,Sleepwear / Balanced,367,0.021
+2025-01-27,Sleepwear / Older kids,475,0.021
+2025-01-27,Sleepwear / Young families,324,0.021
+2025-01-27,T-shirts / Balanced,1522,0.05
+2025-01-27,T-shirts / Older kids,2082,0.05
+2025-01-27,T-shirts / Young families,1402,0.05
+2025-02-03,Dresses / Balanced,571,0.0
+2025-02-03,Dresses / Older kids,810,0.0
+2025-02-03,Dresses / Young families,549,0.0
+2025-02-03,Jackets / Balanced,113,0.067
+2025-02-03,Jackets / Older kids,173,0.067
+2025-02-03,Jackets / Young families,114,0.067
+2025-02-03,Schoolwear / Balanced,287,0.021
+2025-02-03,Schoolwear / Older kids,339,0.021
+2025-02-03,Schoolwear / Young families,230,0.021
+2025-02-03,Sleepwear / Balanced,371,0.038
+2025-02-03,Sleepwear / Older kids,438,0.038
+2025-02-03,Sleepwear / Young families,339,0.038
+2025-02-03,T-shirts / Balanced,1251,0.012
+2025-02-03,T-shirts / Older kids,1569,0.012
+2025-02-03,T-shirts / Young families,1175,0.012
+2025-02-10,Dresses / Balanced,498,0.008
+2025-02-10,Dresses / Older kids,677,0.008
+2025-02-10,Dresses / Young families,455,0.008
+2025-02-10,Jackets / Balanced,117,0.029
+2025-02-10,Jackets / Older kids,135,0.029
+2025-02-10,Jackets / Young families,98,0.029
+2025-02-10,Schoolwear / Balanced,235,0.038
+2025-02-10,Schoolwear / Older kids,270,0.038
+2025-02-10,Schoolwear / Young families,242,0.038
+2025-02-10,Sleepwear / Balanced,308,0.021
+2025-02-10,Sleepwear / Older kids,372,0.021
+2025-02-10,Sleepwear / Young families,258,0.021
+2025-02-10,T-shirts / Balanced,1115,0.021
+2025-02-10,T-shirts / Older kids,1349,0.021
+2025-02-10,T-shirts / Young families,1034,0.021
+2025-02-17,Dresses / Balanced,547,0.042
+2025-02-17,Dresses / Older kids,692,0.042
+2025-02-17,Dresses / Young families,440,0.042
+2025-02-17,Jackets / Balanced,110,0.0
+2025-02-17,Jackets / Older kids,147,0.0
+2025-02-17,Jackets / Young families,99,0.0
+2025-02-17,Schoolwear / Balanced,240,0.0
+2025-02-17,Schoolwear / Older kids,250,0.0
+2025-02-17,Schoolwear / Young families,228,0.0
+2025-02-17,Sleepwear / Balanced,331,0.008
+2025-02-17,Sleepwear / Older kids,362,0.008
+2025-02-17,Sleepwear / Young families,304,0.008
+2025-02-17,T-shirts / Balanced,1096,0.012
+2025-02-17,T-shirts / Older kids,1150,0.012
+2025-02-17,T-shirts / Young families,889,0.012
+2025-02-24,Dresses / Balanced,522,0.012
+2025-02-24,Dresses / Older kids,702,0.012
+2025-02-24,Dresses / Young families,564,0.012
+2025-02-24,Jackets / Balanced,204,0.038
+2025-02-24,Jackets / Older kids,231,0.038
+2025-02-24,Jackets / Young families,159,0.038
+2025-02-24,Schoolwear / Balanced,220,0.0
+2025-02-24,Schoolwear / Older kids,332,0.0
+2025-02-24,Schoolwear / Young families,235,0.0
+2025-02-24,Sleepwear / Balanced,391,0.0
+2025-02-24,Sleepwear / Older kids,474,0.0
+2025-02-24,Sleepwear / Young families,320,0.0
+2025-02-24,T-shirts / Balanced,1130,0.0
+2025-02-24,T-shirts / Older kids,1594,0.0
+2025-02-24,T-shirts / Young families,1186,0.0
+2025-03-03,Dresses / Balanced,506,0.0
+2025-03-03,Dresses / Older kids,677,0.0
+2025-03-03,Dresses / Young families,433,0.0
+2025-03-03,Jackets / Balanced,189,0.0
+2025-03-03,Jackets / Older kids,269,0.0
+2025-03-03,Jackets / Young families,156,0.0
+2025-03-03,Schoolwear / Balanced,259,0.017
+2025-03-03,Schoolwear / Older kids,325,0.017
+2025-03-03,Schoolwear / Young families,216,0.017
+2025-03-03,Sleepwear / Balanced,340,0.012
+2025-03-03,Sleepwear / Older kids,489,0.012
+2025-03-03,Sleepwear / Young families,322,0.012
+2025-03-03,T-shirts / Balanced,1103,0.012
+2025-03-03,T-shirts / Older kids,1423,0.012
+2025-03-03,T-shirts / Young families,915,0.012
+2025-03-10,Dresses / Balanced,477,0.029
+2025-03-10,Dresses / Older kids,561,0.029
+2025-03-10,Dresses / Young families,383,0.029
+2025-03-10,Jackets / Balanced,153,0.0
+2025-03-10,Jackets / Older kids,202,0.0
+2025-03-10,Jackets / Young families,138,0.0
+2025-03-10,Schoolwear / Balanced,203,0.012
+2025-03-10,Schoolwear / Older kids,250,0.012
+2025-03-10,Schoolwear / Young families,186,0.012
+2025-03-10,Sleepwear / Balanced,318,0.021
+2025-03-10,Sleepwear / Older kids,421,0.021
+2025-03-10,Sleepwear / Young families,297,0.021
+2025-03-10,T-shirts / Balanced,990,0.012
+2025-03-10,T-shirts / Older kids,1170,0.012
+2025-03-10,T-shirts / Young families,800,0.012
+2025-03-17,Dresses / Balanced,348,0.017
+2025-03-17,Dresses / Older kids,460,0.017
+2025-03-17,Dresses / Young families,305,0.017
+2025-03-17,Jackets / Balanced,159,0.008
+2025-03-17,Jackets / Older kids,188,0.008
+2025-03-17,Jackets / Young families,128,0.008
+2025-03-17,Schoolwear / Balanced,179,0.0
+2025-03-17,Schoolwear / Older kids,211,0.0
+2025-03-17,Schoolwear / Young families,167,0.0
+2025-03-17,Sleepwear / Balanced,266,0.033
+2025-03-17,Sleepwear / Older kids,294,0.033
+2025-03-17,Sleepwear / Young families,223,0.033
+2025-03-17,T-shirts / Balanced,809,0.0
+2025-03-17,T-shirts / Older kids,875,0.0
+2025-03-17,T-shirts / Young families,612,0.0
+2025-03-24,Dresses / Balanced,590,0.0
+2025-03-24,Dresses / Older kids,767,0.0
+2025-03-24,Dresses / Young families,583,0.0
+2025-03-24,Jackets / Balanced,312,0.0
+2025-03-24,Jackets / Older kids,420,0.0
+2025-03-24,Jackets / Young families,341,0.0
+2025-03-24,Schoolwear / Balanced,398,0.029
+2025-03-24,Schoolwear / Older kids,531,0.029
+2025-03-24,Schoolwear / Young families,395,0.029
+2025-03-24,Sleepwear / Balanced,524,0.0
+2025-03-24,Sleepwear / Older kids,686,0.0
+2025-03-24,Sleepwear / Young families,502,0.0
+2025-03-24,T-shirts / Balanced,1233,0.008
+2025-03-24,T-shirts / Older kids,1599,0.008
+2025-03-24,T-shirts / Young families,1107,0.008
+2025-03-31,Dresses / Balanced,486,0.0
+2025-03-31,Dresses / Older kids,634,0.0
+2025-03-31,Dresses / Young families,453,0.0
+2025-03-31,Jackets / Balanced,370,0.038
+2025-03-31,Jackets / Older kids,437,0.038
+2025-03-31,Jackets / Young families,322,0.038
+2025-03-31,Schoolwear / Balanced,481,0.017
+2025-03-31,Schoolwear / Older kids,582,0.017
+2025-03-31,Schoolwear / Young families,460,0.017
+2025-03-31,Sleepwear / Balanced,518,0.025
+2025-03-31,Sleepwear / Older kids,628,0.025
+2025-03-31,Sleepwear / Young families,465,0.025
+2025-03-31,T-shirts / Balanced,1166,0.017
+2025-03-31,T-shirts / Older kids,1405,0.017
+2025-03-31,T-shirts / Young families,1063,0.017
+2025-04-07,Dresses / Balanced,331,0.021
+2025-04-07,Dresses / Older kids,406,0.021
+2025-04-07,Dresses / Young families,251,0.021
+2025-04-07,Jackets / Balanced,225,0.0
+2025-04-07,Jackets / Older kids,354,0.0
+2025-04-07,Jackets / Young families,193,0.0
+2025-04-07,Schoolwear / Balanced,432,0.008
+2025-04-07,Schoolwear / Older kids,515,0.008
+2025-04-07,Schoolwear / Young families,359,0.008
+2025-04-07,Sleepwear / Balanced,357,0.0
+2025-04-07,Sleepwear / Older kids,437,0.0
+2025-04-07,Sleepwear / Young families,284,0.0
+2025-04-07,T-shirts / Balanced,703,0.0
+2025-04-07,T-shirts / Older kids,841,0.0
+2025-04-07,T-shirts / Young families,653,0.0
+2025-04-14,Dresses / Balanced,252,0.012
+2025-04-14,Dresses / Older kids,308,0.012
+2025-04-14,Dresses / Young families,194,0.012
+2025-04-14,Jackets / Balanced,235,0.008
+2025-04-14,Jackets / Older kids,295,0.008
+2025-04-14,Jackets / Young families,186,0.008
+2025-04-14,Schoolwear / Balanced,274,0.038
+2025-04-14,Schoolwear / Older kids,369,0.038
+2025-04-14,Schoolwear / Young families,271,0.038
+2025-04-14,Sleepwear / Balanced,330,0.033
+2025-04-14,Sleepwear / Older kids,346,0.033
+2025-04-14,Sleepwear / Young families,266,0.033
+2025-04-14,T-shirts / Balanced,575,0.0
+2025-04-14,T-shirts / Older kids,634,0.0
+2025-04-14,T-shirts / Young families,432,0.0
+2025-04-21,Dresses / Balanced,448,0.033
+2025-04-21,Dresses / Older kids,564,0.033
+2025-04-21,Dresses / Young families,420,0.033
+2025-04-21,Jackets / Balanced,409,0.021
+2025-04-21,Jackets / Older kids,581,0.021
+2025-04-21,Jackets / Young families,414,0.021
+2025-04-21,Schoolwear / Balanced,366,0.054
+2025-04-21,Schoolwear / Older kids,494,0.054
+2025-04-21,Schoolwear / Young families,357,0.054
+2025-04-21,Sleepwear / Balanced,559,0.017
+2025-04-21,Sleepwear / Older kids,713,0.017
+2025-04-21,Sleepwear / Young families,524,0.017
+2025-04-21,T-shirts / Balanced,934,0.021
+2025-04-21,T-shirts / Older kids,1148,0.021
+2025-04-21,T-shirts / Young families,793,0.021
+2025-04-28,Dresses / Balanced,312,0.0
+2025-04-28,Dresses / Older kids,417,0.0
+2025-04-28,Dresses / Young families,321,0.0
+2025-04-28,Jackets / Balanced,413,0.021
+2025-04-28,Jackets / Older kids,556,0.021
+2025-04-28,Jackets / Young families,408,0.021
+2025-04-28,Schoolwear / Balanced,242,0.0
+2025-04-28,Schoolwear / Older kids,362,0.0
+2025-04-28,Schoolwear / Young families,254,0.0
+2025-04-28,Sleepwear / Balanced,439,0.0
+2025-04-28,Sleepwear / Older kids,587,0.0
+2025-04-28,Sleepwear / Young families,449,0.0
+2025-04-28,T-shirts / Balanced,768,0.042
+2025-04-28,T-shirts / Older kids,1149,0.042
+2025-04-28,T-shirts / Young families,852,0.042
+2025-05-05,Dresses / Balanced,296,0.0
+2025-05-05,Dresses / Older kids,432,0.0
+2025-05-05,Dresses / Young families,274,0.0
+2025-05-05,Jackets / Balanced,417,0.0
+2025-05-05,Jackets / Older kids,541,0.0
+2025-05-05,Jackets / Young families,401,0.0
+2025-05-05,Schoolwear / Balanced,254,0.0
+2025-05-05,Schoolwear / Older kids,315,0.0
+2025-05-05,Schoolwear / Young families,230,0.0
+2025-05-05,Sleepwear / Balanced,475,0.0
+2025-05-05,Sleepwear / Older kids,640,0.0
+2025-05-05,Sleepwear / Young families,467,0.0
+2025-05-05,T-shirts / Balanced,678,0.033
+2025-05-05,T-shirts / Older kids,906,0.033
+2025-05-05,T-shirts / Young families,688,0.033
+2025-05-12,Dresses / Balanced,788,0.417
+2025-05-12,Dresses / Older kids,1077,0.417
+2025-05-12,Dresses / Young families,845,0.417
+2025-05-12,Jackets / Balanced,1114,0.433
+2025-05-12,Jackets / Older kids,1507,0.433
+2025-05-12,Jackets / Young families,1086,0.433
+2025-05-12,Schoolwear / Balanced,504,0.383
+2025-05-12,Schoolwear / Older kids,623,0.383
+2025-05-12,Schoolwear / Young families,403,0.383
+2025-05-12,Sleepwear / Balanced,1295,0.408
+2025-05-12,Sleepwear / Older kids,1705,0.408
+2025-05-12,Sleepwear / Young families,1283,0.408
+2025-05-12,T-shirts / Balanced,1784,0.383
+2025-05-12,T-shirts / Older kids,2205,0.383
+2025-05-12,T-shirts / Young families,1585,0.383
+2025-05-19,Dresses / Balanced,953,0.417
+2025-05-19,Dresses / Older kids,1176,0.417
+2025-05-19,Dresses / Young families,801,0.417
+2025-05-19,Jackets / Balanced,1337,0.433
+2025-05-19,Jackets / Older kids,1763,0.433
+2025-05-19,Jackets / Young families,1214,0.433
+2025-05-19,Schoolwear / Balanced,538,0.383
+2025-05-19,Schoolwear / Older kids,709,0.383
+2025-05-19,Schoolwear / Young families,556,0.383
+2025-05-19,Sleepwear / Balanced,1558,0.408
+2025-05-19,Sleepwear / Older kids,1860,0.408
+2025-05-19,Sleepwear / Young families,1348,0.408
+2025-05-19,T-shirts / Balanced,1852,0.383
+2025-05-19,T-shirts / Older kids,2204,0.383
+2025-05-19,T-shirts / Young families,1624,0.383
+2025-05-26,Dresses / Balanced,645,0.417
+2025-05-26,Dresses / Older kids,885,0.417
+2025-05-26,Dresses / Young families,525,0.417
+2025-05-26,Jackets / Balanced,1093,0.433
+2025-05-26,Jackets / Older kids,1268,0.433
+2025-05-26,Jackets / Young families,833,0.433
+2025-05-26,Schoolwear / Balanced,464,0.383
+2025-05-26,Schoolwear / Older kids,490,0.383
+2025-05-26,Schoolwear / Young families,477,0.383
+2025-05-26,Sleepwear / Balanced,1248,0.408
+2025-05-26,Sleepwear / Older kids,1472,0.408
+2025-05-26,Sleepwear / Young families,1049,0.408
+2025-05-26,T-shirts / Balanced,1283,0.383
+2025-05-26,T-shirts / Older kids,1509,0.383
+2025-05-26,T-shirts / Young families,1124,0.383
+2025-06-02,Dresses / Balanced,762,0.517
+2025-06-02,Dresses / Older kids,922,0.517
+2025-06-02,Dresses / Young families,533,0.517
+2025-06-02,Jackets / Balanced,1289,0.533
+2025-06-02,Jackets / Older kids,1619,0.533
+2025-06-02,Jackets / Young families,1040,0.533
+2025-06-02,Schoolwear / Balanced,527,0.483
+2025-06-02,Schoolwear / Older kids,652,0.483
+2025-06-02,Schoolwear / Young families,505,0.483
+2025-06-02,Sleepwear / Balanced,1348,0.508
+2025-06-02,Sleepwear / Older kids,1528,0.508
+2025-06-02,Sleepwear / Young families,1245,0.508
+2025-06-02,T-shirts / Balanced,1458,0.483
+2025-06-02,T-shirts / Older kids,1705,0.483
+2025-06-02,T-shirts / Young families,1302,0.483
+2025-06-09,Dresses / Balanced,543,0.517
+2025-06-09,Dresses / Older kids,701,0.517
+2025-06-09,Dresses / Young families,401,0.517
+2025-06-09,Jackets / Balanced,1006,0.533
+2025-06-09,Jackets / Older kids,1236,0.533
+2025-06-09,Jackets / Young families,844,0.533
+2025-06-09,Schoolwear / Balanced,477,0.483
+2025-06-09,Schoolwear / Older kids,572,0.483
+2025-06-09,Schoolwear / Young families,428,0.483
+2025-06-09,Sleepwear / Balanced,990,0.508
+2025-06-09,Sleepwear / Older kids,1194,0.508
+2025-06-09,Sleepwear / Young families,823,0.508
+2025-06-09,T-shirts / Balanced,1041,0.483
+2025-06-09,T-shirts / Older kids,1189,0.483
+2025-06-09,T-shirts / Young families,915,0.483
+2025-06-16,Dresses / Balanced,358,0.517
+2025-06-16,Dresses / Older kids,535,0.517
+2025-06-16,Dresses / Young families,368,0.517
+2025-06-16,Jackets / Balanced,680,0.533
+2025-06-16,Jackets / Older kids,873,0.533
+2025-06-16,Jackets / Young families,696,0.533
+2025-06-16,Schoolwear / Balanced,450,0.483
+2025-06-16,Schoolwear / Older kids,538,0.483
+2025-06-16,Schoolwear / Young families,411,0.483
+2025-06-16,Sleepwear / Balanced,692,0.508
+2025-06-16,Sleepwear / Older kids,902,0.508
+2025-06-16,Sleepwear / Young families,702,0.508
+2025-06-16,T-shirts / Balanced,652,0.483
+2025-06-16,T-shirts / Older kids,845,0.483
+2025-06-16,T-shirts / Young families,711,0.483
+2025-06-23,Dresses / Balanced,297,0.517
+2025-06-23,Dresses / Older kids,427,0.517
+2025-06-23,Dresses / Young families,316,0.517
+2025-06-23,Jackets / Balanced,557,0.533
+2025-06-23,Jackets / Older kids,680,0.533
+2025-06-23,Jackets / Young families,517,0.533
+2025-06-23,Schoolwear / Balanced,417,0.483
+2025-06-23,Schoolwear / Older kids,421,0.483
+2025-06-23,Schoolwear / Young families,351,0.483
+2025-06-23,Sleepwear / Balanced,444,0.508
+2025-06-23,Sleepwear / Older kids,705,0.508
+2025-06-23,Sleepwear / Young families,515,0.508
+2025-06-23,T-shirts / Balanced,531,0.483
+2025-06-23,T-shirts / Older kids,682,0.483
+2025-06-23,T-shirts / Young families,537,0.483
+2025-06-30,Dresses / Balanced,177,0.0
+2025-06-30,Dresses / Older kids,283,0.0
+2025-06-30,Dresses / Young families,181,0.0
+2025-06-30,Jackets / Balanced,581,0.0
+2025-06-30,Jackets / Older kids,817,0.0
+2025-06-30,Jackets / Young families,657,0.0
+2025-06-30,Schoolwear / Balanced,348,0.0
+2025-06-30,Schoolwear / Older kids,424,0.0
+2025-06-30,Schoolwear / Young families,320,0.0
+2025-06-30,Sleepwear / Balanced,618,0.0
+2025-06-30,Sleepwear / Older kids,846,0.0
+2025-06-30,Sleepwear / Young families,570,0.0
+2025-06-30,T-shirts / Balanced,373,0.0
+2025-06-30,T-shirts / Older kids,530,0.0
+2025-06-30,T-shirts / Young families,363,0.0
+2025-07-07,Dresses / Balanced,172,0.0
+2025-07-07,Dresses / Older kids,225,0.0
+2025-07-07,Dresses / Young families,134,0.0
+2025-07-07,Jackets / Balanced,561,0.0
+2025-07-07,Jackets / Older kids,791,0.0
+2025-07-07,Jackets / Young families,580,0.0
+2025-07-07,Schoolwear / Balanced,301,0.0
+2025-07-07,Schoolwear / Older kids,408,0.0
+2025-07-07,Schoolwear / Young families,263,0.0
+2025-07-07,Sleepwear / Balanced,520,0.0
+2025-07-07,Sleepwear / Older kids,744,0.0
+2025-07-07,Sleepwear / Young families,507,0.0
+2025-07-07,T-shirts / Balanced,375,0.0
+2025-07-07,T-shirts / Older kids,526,0.0
+2025-07-07,T-shirts / Young families,353,0.0
+2025-07-14,Dresses / Balanced,143,0.0
+2025-07-14,Dresses / Older kids,199,0.0
+2025-07-14,Dresses / Young families,142,0.0
+2025-07-14,Jackets / Balanced,578,0.0
+2025-07-14,Jackets / Older kids,759,0.0
+2025-07-14,Jackets / Young families,487,0.0
+2025-07-14,Schoolwear / Balanced,328,0.0
+2025-07-14,Schoolwear / Older kids,372,0.0
+2025-07-14,Schoolwear / Young families,285,0.0
+2025-07-14,Sleepwear / Balanced,569,0.0
+2025-07-14,Sleepwear / Older kids,723,0.0
+2025-07-14,Sleepwear / Young families,538,0.0
+2025-07-14,T-shirts / Balanced,419,0.0
+2025-07-14,T-shirts / Older kids,544,0.0
+2025-07-14,T-shirts / Young families,341,0.0
+2025-07-21,Dresses / Balanced,188,0.0
+2025-07-21,Dresses / Older kids,211,0.0
+2025-07-21,Dresses / Young families,143,0.0
+2025-07-21,Jackets / Balanced,654,0.0
+2025-07-21,Jackets / Older kids,852,0.0
+2025-07-21,Jackets / Young families,492,0.0
+2025-07-21,Schoolwear / Balanced,318,0.0
+2025-07-21,Schoolwear / Older kids,373,0.0
+2025-07-21,Schoolwear / Young families,288,0.0
+2025-07-21,Sleepwear / Balanced,649,0.0
+2025-07-21,Sleepwear / Older kids,687,0.0
+2025-07-21,Sleepwear / Young families,525,0.0
+2025-07-21,T-shirts / Balanced,417,0.0
+2025-07-21,T-shirts / Older kids,537,0.0
+2025-07-21,T-shirts / Young families,379,0.0
+2025-07-28,Dresses / Balanced,117,0.0
+2025-07-28,Dresses / Older kids,141,0.0
+2025-07-28,Dresses / Young families,100,0.0
+2025-07-28,Jackets / Balanced,448,0.0
+2025-07-28,Jackets / Older kids,483,0.0
+2025-07-28,Jackets / Young families,338,0.0
+2025-07-28,Schoolwear / Balanced,197,0.0
+2025-07-28,Schoolwear / Older kids,239,0.0
+2025-07-28,Schoolwear / Young families,194,0.0
+2025-07-28,Sleepwear / Balanced,447,0.0
+2025-07-28,Sleepwear / Older kids,457,0.0
+2025-07-28,Sleepwear / Young families,365,0.0
+2025-07-28,T-shirts / Balanced,302,0.0
+2025-07-28,T-shirts / Older kids,349,0.0
+2025-07-28,T-shirts / Young families,261,0.0
+2025-08-04,Dresses / Balanced,105,0.012
+2025-08-04,Dresses / Older kids,158,0.012
+2025-08-04,Dresses / Young families,86,0.012
+2025-08-04,Jackets / Balanced,403,0.029
+2025-08-04,Jackets / Older kids,444,0.029
+2025-08-04,Jackets / Young families,305,0.029
+2025-08-04,Schoolwear / Balanced,151,0.025
+2025-08-04,Schoolwear / Older kids,225,0.025
+2025-08-04,Schoolwear / Young families,145,0.025
+2025-08-04,Sleepwear / Balanced,349,0.008
+2025-08-04,Sleepwear / Older kids,386,0.008
+2025-08-04,Sleepwear / Young families,251,0.008
+2025-08-04,T-shirts / Balanced,278,0.0
+2025-08-04,T-shirts / Older kids,285,0.0
+2025-08-04,T-shirts / Young families,226,0.0
+2025-08-11,Dresses / Balanced,215,0.008
+2025-08-11,Dresses / Older kids,304,0.008
+2025-08-11,Dresses / Young families,222,0.008
+2025-08-11,Jackets / Balanced,597,0.008
+2025-08-11,Jackets / Older kids,773,0.008
+2025-08-11,Jackets / Young families,567,0.008
+2025-08-11,Schoolwear / Balanced,353,0.017
+2025-08-11,Schoolwear / Older kids,440,0.017
+2025-08-11,Schoolwear / Young families,306,0.017
+2025-08-11,Sleepwear / Balanced,533,0.0
+2025-08-11,Sleepwear / Older kids,763,0.0
+2025-08-11,Sleepwear / Young families,541,0.0
+2025-08-11,T-shirts / Balanced,512,0.033
+2025-08-11,T-shirts / Older kids,738,0.033
+2025-08-11,T-shirts / Young families,505,0.033
+2025-08-18,Dresses / Balanced,278,0.05
+2025-08-18,Dresses / Older kids,420,0.05
+2025-08-18,Dresses / Young families,250,0.05
+2025-08-18,Jackets / Balanced,557,0.0
+2025-08-18,Jackets / Older kids,751,0.0
+2025-08-18,Jackets / Young families,558,0.0
+2025-08-18,Schoolwear / Balanced,355,0.017
+2025-08-18,Schoolwear / Older kids,444,0.017
+2025-08-18,Schoolwear / Young families,326,0.017
+2025-08-18,Sleepwear / Balanced,742,0.054
+2025-08-18,Sleepwear / Older kids,941,0.054
+2025-08-18,Sleepwear / Young families,688,0.054
+2025-08-18,T-shirts / Balanced,643,0.017
+2025-08-18,T-shirts / Older kids,837,0.017
+2025-08-18,T-shirts / Young families,496,0.017
+2025-08-25,Dresses / Balanced,203,0.0
+2025-08-25,Dresses / Older kids,217,0.0
+2025-08-25,Dresses / Young families,164,0.0
+2025-08-25,Jackets / Balanced,390,0.0
+2025-08-25,Jackets / Older kids,587,0.0
+2025-08-25,Jackets / Young families,358,0.0
+2025-08-25,Schoolwear / Balanced,243,0.038
+2025-08-25,Schoolwear / Older kids,302,0.038
+2025-08-25,Schoolwear / Young families,247,0.038
+2025-08-25,Sleepwear / Balanced,419,0.0
+2025-08-25,Sleepwear / Older kids,537,0.0
+2025-08-25,Sleepwear / Young families,406,0.0
+2025-08-25,T-shirts / Balanced,447,0.0
+2025-08-25,T-shirts / Older kids,578,0.0
+2025-08-25,T-shirts / Young families,419,0.0
+2025-09-01,Dresses / Balanced,188,0.012
+2025-09-01,Dresses / Older kids,212,0.012
+2025-09-01,Dresses / Young families,161,0.012
+2025-09-01,Jackets / Balanced,368,0.033
+2025-09-01,Jackets / Older kids,397,0.033
+2025-09-01,Jackets / Young families,234,0.033
+2025-09-01,Schoolwear / Balanced,212,0.042
+2025-09-01,Schoolwear / Older kids,192,0.042
+2025-09-01,Schoolwear / Young families,198,0.042
+2025-09-01,Sleepwear / Balanced,349,0.0
+2025-09-01,Sleepwear / Older kids,393,0.0
+2025-09-01,Sleepwear / Young families,278,0.0
+2025-09-01,T-shirts / Balanced,424,0.029
+2025-09-01,T-shirts / Older kids,440,0.029
+2025-09-01,T-shirts / Young families,376,0.029
+2025-09-08,Dresses / Balanced,355,0.021
+2025-09-08,Dresses / Older kids,455,0.021
+2025-09-08,Dresses / Young families,342,0.021
+2025-09-08,Jackets / Balanced,423,0.0
+2025-09-08,Jackets / Older kids,601,0.0
+2025-09-08,Jackets / Young families,476,0.0
+2025-09-08,Schoolwear / Balanced,303,0.012
+2025-09-08,Schoolwear / Older kids,428,0.012
+2025-09-08,Schoolwear / Young families,325,0.012
+2025-09-08,Sleepwear / Balanced,604,0.042
+2025-09-08,Sleepwear / Older kids,803,0.042
+2025-09-08,Sleepwear / Young families,544,0.042
+2025-09-08,T-shirts / Balanced,620,0.008
+2025-09-08,T-shirts / Older kids,780,0.008
+2025-09-08,T-shirts / Young families,625,0.008
+2025-09-15,Dresses / Balanced,404,0.008
+2025-09-15,Dresses / Older kids,506,0.008
+2025-09-15,Dresses / Young families,357,0.008
+2025-09-15,Jackets / Balanced,553,0.0
+2025-09-15,Jackets / Older kids,652,0.0
+2025-09-15,Jackets / Young families,435,0.0
+2025-09-15,Schoolwear / Balanced,382,0.033
+2025-09-15,Schoolwear / Older kids,466,0.033
+2025-09-15,Schoolwear / Young families,347,0.033
+2025-09-15,Sleepwear / Balanced,658,0.021
+2025-09-15,Sleepwear / Older kids,779,0.021
+2025-09-15,Sleepwear / Young families,549,0.021
+2025-09-15,T-shirts / Balanced,839,0.017
+2025-09-15,T-shirts / Older kids,1202,0.017
+2025-09-15,T-shirts / Young families,851,0.017
+2025-09-22,Dresses / Balanced,321,0.0
+2025-09-22,Dresses / Older kids,470,0.0
+2025-09-22,Dresses / Young families,333,0.0
+2025-09-22,Jackets / Balanced,458,0.021
+2025-09-22,Jackets / Older kids,574,0.021
+2025-09-22,Jackets / Young families,361,0.021
+2025-09-22,Schoolwear / Balanced,318,0.0
+2025-09-22,Schoolwear / Older kids,360,0.0
+2025-09-22,Schoolwear / Young families,285,0.0
+2025-09-22,Sleepwear / Balanced,432,0.0
+2025-09-22,Sleepwear / Older kids,623,0.0
+2025-09-22,Sleepwear / Young families,406,0.0
+2025-09-22,T-shirts / Balanced,823,0.012
+2025-09-22,T-shirts / Older kids,1014,0.012
+2025-09-22,T-shirts / Young families,696,0.012
+2025-09-29,Dresses / Balanced,241,0.038
+2025-09-29,Dresses / Older kids,383,0.038
+2025-09-29,Dresses / Young families,233,0.038
+2025-09-29,Jackets / Balanced,251,0.0
+2025-09-29,Jackets / Older kids,350,0.0
+2025-09-29,Jackets / Young families,243,0.0
+2025-09-29,Schoolwear / Balanced,217,0.021
+2025-09-29,Schoolwear / Older kids,234,0.021
+2025-09-29,Schoolwear / Young families,203,0.021
+2025-09-29,Sleepwear / Balanced,350,0.012
+2025-09-29,Sleepwear / Older kids,413,0.012
+2025-09-29,Sleepwear / Young families,303,0.012
+2025-09-29,T-shirts / Balanced,637,0.033
+2025-09-29,T-shirts / Older kids,718,0.033
+2025-09-29,T-shirts / Young families,528,0.033
+2025-10-06,Dresses / Balanced,433,0.012
+2025-10-06,Dresses / Older kids,583,0.012
+2025-10-06,Dresses / Young families,426,0.012
+2025-10-06,Jackets / Balanced,320,0.008
+2025-10-06,Jackets / Older kids,398,0.008
+2025-10-06,Jackets / Young families,310,0.008
+2025-10-06,Schoolwear / Balanced,330,0.042
+2025-10-06,Schoolwear / Older kids,433,0.042
+2025-10-06,Schoolwear / Young families,319,0.042
+2025-10-06,Sleepwear / Balanced,451,0.017
+2025-10-06,Sleepwear / Older kids,709,0.017
+2025-10-06,Sleepwear / Young families,436,0.017
+2025-10-06,T-shirts / Balanced,900,0.0
+2025-10-06,T-shirts / Older kids,1068,0.0
+2025-10-06,T-shirts / Young families,775,0.0
+2025-10-13,Dresses / Balanced,428,0.0
+2025-10-13,Dresses / Older kids,557,0.0
+2025-10-13,Dresses / Young families,407,0.0
+2025-10-13,Jackets / Balanced,310,0.017
+2025-10-13,Jackets / Older kids,425,0.017
+2025-10-13,Jackets / Young families,268,0.017
+2025-10-13,Schoolwear / Balanced,322,0.038
+2025-10-13,Schoolwear / Older kids,422,0.038
+2025-10-13,Schoolwear / Young families,299,0.038
+2025-10-13,Sleepwear / Balanced,476,0.021
+2025-10-13,Sleepwear / Older kids,559,0.021
+2025-10-13,Sleepwear / Young families,404,0.021
+2025-10-13,T-shirts / Balanced,986,0.025
+2025-10-13,T-shirts / Older kids,1345,0.025
+2025-10-13,T-shirts / Young families,946,0.025
+2025-10-20,Dresses / Balanced,491,0.042
+2025-10-20,Dresses / Older kids,664,0.042
+2025-10-20,Dresses / Young families,402,0.042
+2025-10-20,Jackets / Balanced,270,0.0
+2025-10-20,Jackets / Older kids,328,0.0
+2025-10-20,Jackets / Young families,253,0.0
+2025-10-20,Schoolwear / Balanced,285,0.021
+2025-10-20,Schoolwear / Older kids,340,0.021
+2025-10-20,Schoolwear / Young families,285,0.021
+2025-10-20,Sleepwear / Balanced,466,0.008
+2025-10-20,Sleepwear / Older kids,517,0.008
+2025-10-20,Sleepwear / Young families,441,0.008
+2025-10-20,T-shirts / Balanced,1195,0.067
+2025-10-20,T-shirts / Older kids,1424,0.067
+2025-10-20,T-shirts / Young families,1055,0.067
+2025-10-27,Dresses / Balanced,326,0.012
+2025-10-27,Dresses / Older kids,403,0.012
+2025-10-27,Dresses / Young families,291,0.012
+2025-10-27,Jackets / Balanced,163,0.0
+2025-10-27,Jackets / Older kids,228,0.0
+2025-10-27,Jackets / Young families,154,0.0
+2025-10-27,Schoolwear / Balanced,210,0.0
+2025-10-27,Schoolwear / Older kids,205,0.0
+2025-10-27,Schoolwear / Young families,164,0.0
+2025-10-27,Sleepwear / Balanced,291,0.012
+2025-10-27,Sleepwear / Older kids,337,0.012
+2025-10-27,Sleepwear / Young families,274,0.012
+2025-10-27,T-shirts / Balanced,699,0.0
+2025-10-27,T-shirts / Older kids,719,0.0
+2025-10-27,T-shirts / Young families,579,0.0
+2025-11-03,Dresses / Balanced,535,0.012
+2025-11-03,Dresses / Older kids,710,0.012
+2025-11-03,Dresses / Young families,508,0.012
+2025-11-03,Jackets / Balanced,256,0.0
+2025-11-03,Jackets / Older kids,332,0.0
+2025-11-03,Jackets / Young families,193,0.0
+2025-11-03,Schoolwear / Balanced,311,0.0
+2025-11-03,Schoolwear / Older kids,428,0.0
+2025-11-03,Schoolwear / Young families,286,0.0
+2025-11-03,Sleepwear / Balanced,468,0.017
+2025-11-03,Sleepwear / Older kids,601,0.017
+2025-11-03,Sleepwear / Young families,441,0.017
+2025-11-03,T-shirts / Balanced,1117,0.017
+2025-11-03,T-shirts / Older kids,1605,0.017
+2025-11-03,T-shirts / Young families,1007,0.017
+2025-11-10,Dresses / Balanced,501,0.0
+2025-11-10,Dresses / Older kids,679,0.0
+2025-11-10,Dresses / Young families,495,0.0
+2025-11-10,Jackets / Balanced,235,0.021
+2025-11-10,Jackets / Older kids,245,0.021
+2025-11-10,Jackets / Young families,188,0.021
+2025-11-10,Schoolwear / Balanced,273,0.033
+2025-11-10,Schoolwear / Older kids,360,0.033
+2025-11-10,Schoolwear / Young families,242,0.033
+2025-11-10,Sleepwear / Balanced,396,0.012
+2025-11-10,Sleepwear / Older kids,519,0.012
+2025-11-10,Sleepwear / Young families,358,0.012
+2025-11-10,T-shirts / Balanced,1112,0.012
+2025-11-10,T-shirts / Older kids,1459,0.012
+2025-11-10,T-shirts / Young families,1059,0.012
+2025-11-17,Dresses / Balanced,691,0.062
+2025-11-17,Dresses / Older kids,839,0.062
+2025-11-17,Dresses / Young families,499,0.062
+2025-11-17,Jackets / Balanced,183,0.0
+2025-11-17,Jackets / Older kids,232,0.0
+2025-11-17,Jackets / Young families,168,0.0
+2025-11-17,Schoolwear / Balanced,299,0.042
+2025-11-17,Schoolwear / Older kids,352,0.042
+2025-11-17,Schoolwear / Young families,281,0.042
+2025-11-17,Sleepwear / Balanced,413,0.0
+2025-11-17,Sleepwear / Older kids,498,0.0
+2025-11-17,Sleepwear / Young families,354,0.0
+2025-11-17,T-shirts / Balanced,1299,0.017
+2025-11-17,T-shirts / Older kids,1528,0.017
+2025-11-17,T-shirts / Young families,1165,0.017
+2025-11-24,Dresses / Balanced,357,0.008
+2025-11-24,Dresses / Older kids,472,0.008
+2025-11-24,Dresses / Young families,327,0.008
+2025-11-24,Jackets / Balanced,102,0.0
+2025-11-24,Jackets / Older kids,152,0.0
+2025-11-24,Jackets / Young families,91,0.0
+2025-11-24,Schoolwear / Balanced,190,0.017
+2025-11-24,Schoolwear / Older kids,215,0.017
+2025-11-24,Schoolwear / Young families,172,0.017
+2025-11-24,Sleepwear / Balanced,250,0.008
+2025-11-24,Sleepwear / Older kids,305,0.008
+2025-11-24,Sleepwear / Young families,246,0.008
+2025-11-24,T-shirts / Balanced,913,0.012
+2025-11-24,T-shirts / Older kids,994,0.012
+2025-11-24,T-shirts / Young families,759,0.012
+2025-12-01,Dresses / Balanced,861,0.021
+2025-12-01,Dresses / Older kids,1280,0.021
+2025-12-01,Dresses / Young families,894,0.021
+2025-12-01,Jackets / Balanced,216,0.017
+2025-12-01,Jackets / Older kids,328,0.017
+2025-12-01,Jackets / Young families,213,0.017
+2025-12-01,Schoolwear / Balanced,487,0.021
+2025-12-01,Schoolwear / Older kids,593,0.021
+2025-12-01,Schoolwear / Young families,476,0.021
+2025-12-01,Sleepwear / Balanced,609,0.021
+2025-12-01,Sleepwear / Older kids,720,0.021
+2025-12-01,Sleepwear / Young families,561,0.021
+2025-12-01,T-shirts / Balanced,1863,0.021
+2025-12-01,T-shirts / Older kids,2466,0.021
+2025-12-01,T-shirts / Young families,1774,0.021
+2025-12-08,Dresses / Balanced,2233,0.342
+2025-12-08,Dresses / Older kids,2468,0.342
+2025-12-08,Dresses / Young families,1738,0.342
+2025-12-08,Jackets / Balanced,342,0.3
+2025-12-08,Jackets / Older kids,442,0.3
+2025-12-08,Jackets / Young families,287,0.3
+2025-12-08,Schoolwear / Balanced,870,0.283
+2025-12-08,Schoolwear / Older kids,1118,0.283
+2025-12-08,Schoolwear / Young families,850,0.283
+2025-12-08,Sleepwear / Balanced,1215,0.35
+2025-12-08,Sleepwear / Older kids,1501,0.35
+2025-12-08,Sleepwear / Young families,1006,0.35
+2025-12-08,T-shirts / Balanced,4572,0.325
+2025-12-08,T-shirts / Older kids,5188,0.325
+2025-12-08,T-shirts / Young families,3903,0.325
+2025-12-15,Dresses / Balanced,1290,0.342
+2025-12-15,Dresses / Older kids,1634,0.342
+2025-12-15,Dresses / Young families,1139,0.342
+2025-12-15,Jackets / Balanced,249,0.3
+2025-12-15,Jackets / Older kids,294,0.3
+2025-12-15,Jackets / Young families,205,0.3
+2025-12-15,Schoolwear / Balanced,1219,0.283
+2025-12-15,Schoolwear / Older kids,1344,0.283
+2025-12-15,Schoolwear / Young families,1108,0.283
+2025-12-15,Sleepwear / Balanced,788,0.35
+2025-12-15,Sleepwear / Older kids,1000,0.35
+2025-12-15,Sleepwear / Young families,790,0.35
+2025-12-15,T-shirts / Balanced,2758,0.325
+2025-12-15,T-shirts / Older kids,3540,0.325
+2025-12-15,T-shirts / Young families,2415,0.325
+2025-12-22,Dresses / Balanced,497,0.342
+2025-12-22,Dresses / Older kids,733,0.342
+2025-12-22,Dresses / Young families,564,0.342
+2025-12-22,Jackets / Balanced,150,0.3
+2025-12-22,Jackets / Older kids,165,0.3
+2025-12-22,Jackets / Young families,133,0.3
+2025-12-22,Schoolwear / Balanced,1070,0.283
+2025-12-22,Schoolwear / Older kids,1263,0.283
+2025-12-22,Schoolwear / Young families,971,0.283
+2025-12-22,Sleepwear / Balanced,357,0.35
+2025-12-22,Sleepwear / Older kids,489,0.35
+2025-12-22,Sleepwear / Young families,340,0.35
+2025-12-22,T-shirts / Balanced,1086,0.325
+2025-12-22,T-shirts / Older kids,1605,0.325
+2025-12-22,T-shirts / Young families,1236,0.325
+2025-12-29,Dresses / Balanced,814,0.0
+2025-12-29,Dresses / Older kids,1079,0.0
+2025-12-29,Dresses / Young families,787,0.0
+2025-12-29,Jackets / Balanced,170,0.0
+2025-12-29,Jackets / Older kids,225,0.0
+2025-12-29,Jackets / Young families,149,0.0
+2025-12-29,Schoolwear / Balanced,1791,0.042
+2025-12-29,Schoolwear / Older kids,2329,0.042
+2025-12-29,Schoolwear / Young families,1687,0.042
+2025-12-29,Sleepwear / Balanced,522,0.0
+2025-12-29,Sleepwear / Older kids,725,0.0
+2025-12-29,Sleepwear / Young families,504,0.0
+2025-12-29,T-shirts / Balanced,1875,0.017
+2025-12-29,T-shirts / Older kids,2603,0.017
+2025-12-29,T-shirts / Young families,1879,0.017
+2026-01-05,Dresses / Balanced,621,0.008
+2026-01-05,Dresses / Older kids,779,0.008
+2026-01-05,Dresses / Young families,578,0.008
+2026-01-05,Jackets / Balanced,99,0.017
+2026-01-05,Jackets / Older kids,149,0.017
+2026-01-05,Jackets / Young families,93,0.017
+2026-01-05,Schoolwear / Balanced,1577,0.029
+2026-01-05,Schoolwear / Older kids,1853,0.029
+2026-01-05,Schoolwear / Young families,1303,0.029
+2026-01-05,Sleepwear / Balanced,353,0.0
+2026-01-05,Sleepwear / Older kids,469,0.0
+2026-01-05,Sleepwear / Young families,328,0.0
+2026-01-05,T-shirts / Balanced,1292,0.0
+2026-01-05,T-shirts / Older kids,1766,0.0
+2026-01-05,T-shirts / Young families,1087,0.0
+2026-01-12,Dresses / Balanced,521,0.021
+2026-01-12,Dresses / Older kids,791,0.021
+2026-01-12,Dresses / Young families,453,0.021
+2026-01-12,Jackets / Balanced,90,0.012
+2026-01-12,Jackets / Older kids,109,0.012
+2026-01-12,Jackets / Young families,83,0.012
+2026-01-12,Schoolwear / Balanced,1128,0.025
+2026-01-12,Schoolwear / Older kids,1270,0.025
+2026-01-12,Schoolwear / Young families,939,0.025
+2026-01-12,Sleepwear / Balanced,335,0.029
+2026-01-12,Sleepwear / Older kids,392,0.029
+2026-01-12,Sleepwear / Young families,304,0.029
+2026-01-12,T-shirts / Balanced,1322,0.042
+2026-01-12,T-shirts / Older kids,1511,0.042
+2026-01-12,T-shirts / Young families,1039,0.042
+2026-01-19,Dresses / Balanced,512,0.021
+2026-01-19,Dresses / Older kids,731,0.021
+2026-01-19,Dresses / Young families,464,0.021
+2026-01-19,Jackets / Balanced,80,0.0
+2026-01-19,Jackets / Older kids,103,0.0
+2026-01-19,Jackets / Young families,64,0.0
+2026-01-19,Schoolwear / Balanced,661,0.012
+2026-01-19,Schoolwear / Older kids,715,0.012
+2026-01-19,Schoolwear / Young families,693,0.012
+2026-01-19,Sleepwear / Balanced,289,0.0
+2026-01-19,Sleepwear / Older kids,320,0.0
+2026-01-19,Sleepwear / Young families,249,0.0
+2026-01-19,T-shirts / Balanced,1141,0.0
+2026-01-19,T-shirts / Older kids,1277,0.0
+2026-01-19,T-shirts / Young families,944,0.0
+2026-01-26,Dresses / Balanced,581,0.017
+2026-01-26,Dresses / Older kids,826,0.017
+2026-01-26,Dresses / Young families,565,0.017
+2026-01-26,Jackets / Balanced,159,0.038
+2026-01-26,Jackets / Older kids,208,0.038
+2026-01-26,Jackets / Young families,116,0.038
+2026-01-26,Schoolwear / Balanced,542,0.038
+2026-01-26,Schoolwear / Older kids,660,0.038
+2026-01-26,Schoolwear / Young families,501,0.038
+2026-01-26,Sleepwear / Balanced,423,0.038
+2026-01-26,Sleepwear / Older kids,630,0.038
+2026-01-26,Sleepwear / Young families,423,0.038
+2026-01-26,T-shirts / Balanced,1345,0.008
+2026-01-26,T-shirts / Older kids,1657,0.008
+2026-01-26,T-shirts / Young families,1162,0.008
+2026-02-02,Dresses / Balanced,582,0.0
+2026-02-02,Dresses / Older kids,742,0.0
+2026-02-02,Dresses / Young families,543,0.0
+2026-02-02,Jackets / Balanced,125,0.0
+2026-02-02,Jackets / Older kids,179,0.0
+2026-02-02,Jackets / Young families,111,0.0
+2026-02-02,Schoolwear / Balanced,305,0.012
+2026-02-02,Schoolwear / Older kids,415,0.012
+2026-02-02,Schoolwear / Young families,278,0.012
+2026-02-02,Sleepwear / Balanced,384,0.021
+2026-02-02,Sleepwear / Older kids,469,0.021
+2026-02-02,Sleepwear / Young families,350,0.021
+2026-02-02,T-shirts / Balanced,1196,0.021
+2026-02-02,T-shirts / Older kids,1588,0.021
+2026-02-02,T-shirts / Young families,1196,0.021
+2026-02-09,Dresses / Balanced,534,0.038
+2026-02-09,Dresses / Older kids,651,0.038
+2026-02-09,Dresses / Young families,492,0.038
+2026-02-09,Jackets / Balanced,114,0.008
+2026-02-09,Jackets / Older kids,141,0.008
+2026-02-09,Jackets / Young families,105,0.008
+2026-02-09,Schoolwear / Balanced,246,0.0
+2026-02-09,Schoolwear / Older kids,275,0.0
+2026-02-09,Schoolwear / Young families,248,0.0
+2026-02-09,Sleepwear / Balanced,305,0.012
+2026-02-09,Sleepwear / Older kids,406,0.012
+2026-02-09,Sleepwear / Young families,286,0.012
+2026-02-09,T-shirts / Balanced,1169,0.033
+2026-02-09,T-shirts / Older kids,1431,0.033
+2026-02-09,T-shirts / Young families,1127,0.033
+2026-02-16,Dresses / Balanced,457,0.0
+2026-02-16,Dresses / Older kids,614,0.0
+2026-02-16,Dresses / Young families,351,0.0
+2026-02-16,Jackets / Balanced,111,0.017
+2026-02-16,Jackets / Older kids,148,0.017
+2026-02-16,Jackets / Young families,128,0.017
+2026-02-16,Schoolwear / Balanced,268,0.021
+2026-02-16,Schoolwear / Older kids,280,0.021
+2026-02-16,Schoolwear / Young families,239,0.021
+2026-02-16,Sleepwear / Balanced,306,0.021
+2026-02-16,Sleepwear / Older kids,348,0.021
+2026-02-16,Sleepwear / Young families,254,0.021
+2026-02-16,T-shirts / Balanced,1146,0.029
+2026-02-16,T-shirts / Older kids,1227,0.029
+2026-02-16,T-shirts / Young families,825,0.029
+2026-02-23,Dresses / Balanced,536,0.017
+2026-02-23,Dresses / Older kids,709,0.017
+2026-02-23,Dresses / Young families,510,0.017
+2026-02-23,Jackets / Balanced,178,0.0
+2026-02-23,Jackets / Older kids,267,0.0
+2026-02-23,Jackets / Young families,176,0.0
+2026-02-23,Schoolwear / Balanced,297,0.017
+2026-02-23,Schoolwear / Older kids,399,0.017
+2026-02-23,Schoolwear / Young families,266,0.017
+2026-02-23,Sleepwear / Balanced,422,0.0
+2026-02-23,Sleepwear / Older kids,568,0.0
+2026-02-23,Sleepwear / Young families,370,0.0
+2026-02-23,T-shirts / Balanced,1083,0.0
+2026-02-23,T-shirts / Older kids,1448,0.0
+2026-02-23,T-shirts / Young families,1062,0.0
+2026-03-02,Dresses / Balanced,429,0.0
+2026-03-02,Dresses / Older kids,609,0.0
+2026-03-02,Dresses / Young families,420,0.0
+2026-03-02,Jackets / Balanced,176,0.021
+2026-03-02,Jackets / Older kids,269,0.021
+2026-03-02,Jackets / Young families,167,0.021
+2026-03-02,Schoolwear / Balanced,262,0.008
+2026-03-02,Schoolwear / Older kids,366,0.008
+2026-03-02,Schoolwear / Young families,248,0.008
+2026-03-02,Sleepwear / Balanced,375,0.0
+2026-03-02,Sleepwear / Older kids,467,0.0
+2026-03-02,Sleepwear / Young families,376,0.0
+2026-03-02,T-shirts / Balanced,995,0.0
+2026-03-02,T-shirts / Older kids,1297,0.0
+2026-03-02,T-shirts / Young families,987,0.0
+2026-03-09,Dresses / Balanced,394,0.008
+2026-03-09,Dresses / Older kids,549,0.008
+2026-03-09,Dresses / Young families,323,0.008
+2026-03-09,Jackets / Balanced,189,0.008
+2026-03-09,Jackets / Older kids,221,0.008
+2026-03-09,Jackets / Young families,162,0.008
+2026-03-09,Schoolwear / Balanced,264,0.0
+2026-03-09,Schoolwear / Older kids,281,0.0
+2026-03-09,Schoolwear / Young families,219,0.0
+2026-03-09,Sleepwear / Balanced,320,0.0
+2026-03-09,Sleepwear / Older kids,403,0.0
+2026-03-09,Sleepwear / Young families,309,0.0
+2026-03-09,T-shirts / Balanced,1073,0.054
+2026-03-09,T-shirts / Older kids,1247,0.054
+2026-03-09,T-shirts / Young families,910,0.054
+2026-03-16,Dresses / Balanced,329,0.0
+2026-03-16,Dresses / Older kids,407,0.0
+2026-03-16,Dresses / Young families,297,0.0
+2026-03-16,Jackets / Balanced,140,0.0
+2026-03-16,Jackets / Older kids,200,0.0
+2026-03-16,Jackets / Young families,146,0.0
+2026-03-16,Schoolwear / Balanced,251,0.021
+2026-03-16,Schoolwear / Older kids,252,0.021
+2026-03-16,Schoolwear / Young families,210,0.021
+2026-03-16,Sleepwear / Balanced,307,0.0
+2026-03-16,Sleepwear / Older kids,316,0.0
+2026-03-16,Sleepwear / Young families,245,0.0
+2026-03-16,T-shirts / Balanced,765,0.012
+2026-03-16,T-shirts / Older kids,839,0.012
+2026-03-16,T-shirts / Young families,584,0.012
+2026-03-23,Dresses / Balanced,524,0.021
+2026-03-23,Dresses / Older kids,688,0.021
+2026-03-23,Dresses / Young families,533,0.021
+2026-03-23,Jackets / Balanced,373,0.033
+2026-03-23,Jackets / Older kids,485,0.033
+2026-03-23,Jackets / Young families,359,0.033
+2026-03-23,Schoolwear / Balanced,476,0.029
+2026-03-23,Schoolwear / Older kids,623,0.029
+2026-03-23,Schoolwear / Young families,455,0.029
+2026-03-23,Sleepwear / Balanced,526,0.0
+2026-03-23,Sleepwear / Older kids,726,0.0
+2026-03-23,Sleepwear / Young families,509,0.0
+2026-03-23,T-shirts / Balanced,1213,0.017
+2026-03-23,T-shirts / Older kids,1576,0.017
+2026-03-23,T-shirts / Young families,1141,0.017
+2026-03-30,Dresses / Balanced,504,0.029
+2026-03-30,Dresses / Older kids,674,0.029
+2026-03-30,Dresses / Young families,392,0.029
+2026-03-30,Jackets / Balanced,315,0.012
+2026-03-30,Jackets / Older kids,475,0.012
+2026-03-30,Jackets / Young families,322,0.012
+2026-03-30,Schoolwear / Balanced,609,0.0
+2026-03-30,Schoolwear / Older kids,766,0.0
+2026-03-30,Schoolwear / Young families,566,0.0
+2026-03-30,Sleepwear / Balanced,517,0.008
+2026-03-30,Sleepwear / Older kids,645,0.008
+2026-03-30,Sleepwear / Young families,439,0.008
+2026-03-30,T-shirts / Balanced,993,0.012
+2026-03-30,T-shirts / Older kids,1366,0.012
+2026-03-30,T-shirts / Young families,976,0.012
+2026-04-06,Dresses / Balanced,284,0.021
+2026-04-06,Dresses / Older kids,341,0.021
+2026-04-06,Dresses / Young families,264,0.021
+2026-04-06,Jackets / Balanced,291,0.0
+2026-04-06,Jackets / Older kids,320,0.0
+2026-04-06,Jackets / Young families,211,0.0
+2026-04-06,Schoolwear / Balanced,492,0.017
+2026-04-06,Schoolwear / Older kids,624,0.017
+2026-04-06,Schoolwear / Young families,451,0.017
+2026-04-06,Sleepwear / Balanced,348,0.0
+2026-04-06,Sleepwear / Older kids,457,0.0
+2026-04-06,Sleepwear / Young families,336,0.0
+2026-04-06,T-shirts / Balanced,868,0.058
+2026-04-06,T-shirts / Older kids,937,0.058
+2026-04-06,T-shirts / Young families,722,0.058
+2026-04-13,Dresses / Balanced,269,0.0
+2026-04-13,Dresses / Older kids,348,0.0
+2026-04-13,Dresses / Young families,179,0.0
+2026-04-13,Jackets / Balanced,250,0.021
+2026-04-13,Jackets / Older kids,313,0.021
+2026-04-13,Jackets / Young families,190,0.021
+2026-04-13,Schoolwear / Balanced,380,0.017
+2026-04-13,Schoolwear / Older kids,393,0.017
+2026-04-13,Schoolwear / Young families,327,0.017
+2026-04-13,Sleepwear / Balanced,350,0.021
+2026-04-13,Sleepwear / Older kids,392,0.021
+2026-04-13,Sleepwear / Young families,288,0.021
+2026-04-13,T-shirts / Balanced,509,0.025
+2026-04-13,T-shirts / Older kids,646,0.025
+2026-04-13,T-shirts / Young families,408,0.025
+2026-04-20,Dresses / Balanced,391,0.0
+2026-04-20,Dresses / Older kids,520,0.0
+2026-04-20,Dresses / Young families,399,0.0
+2026-04-20,Jackets / Balanced,503,0.0
+2026-04-20,Jackets / Older kids,614,0.0
+2026-04-20,Jackets / Young families,426,0.0
+2026-04-20,Schoolwear / Balanced,477,0.017
+2026-04-20,Schoolwear / Older kids,578,0.017
+2026-04-20,Schoolwear / Young families,380,0.017
+2026-04-20,Sleepwear / Balanced,583,0.017
+2026-04-20,Sleepwear / Older kids,776,0.017
+2026-04-20,Sleepwear / Young families,586,0.017
+2026-04-20,T-shirts / Balanced,803,0.012
+2026-04-20,T-shirts / Older kids,1147,0.012
+2026-04-20,T-shirts / Young families,799,0.012
+2026-04-27,Dresses / Balanced,367,0.038
+2026-04-27,Dresses / Older kids,478,0.038
+2026-04-27,Dresses / Young families,334,0.038
+2026-04-27,Jackets / Balanced,419,0.0
+2026-04-27,Jackets / Older kids,494,0.0
+2026-04-27,Jackets / Young families,410,0.0
+2026-04-27,Schoolwear / Balanced,322,0.008
+2026-04-27,Schoolwear / Older kids,437,0.008
+2026-04-27,Schoolwear / Young families,314,0.008
+2026-04-27,Sleepwear / Balanced,535,0.017
+2026-04-27,Sleepwear / Older kids,731,0.017
+2026-04-27,Sleepwear / Young families,487,0.017
+2026-04-27,T-shirts / Balanced,647,0.017
+2026-04-27,T-shirts / Older kids,920,0.017
+2026-04-27,T-shirts / Young families,598,0.017</script>
+<script type="text/plain" id="sample-actuals">week_start,series,units,avg_discount
+2026-05-04,Dresses / Balanced,287,0.054
+2026-05-04,Dresses / Older kids,425,0.054
+2026-05-04,Dresses / Young families,280,0.054
+2026-05-04,Jackets / Balanced,431,0.008
+2026-05-04,Jackets / Older kids,546,0.008
+2026-05-04,Jackets / Young families,384,0.008
+2026-05-04,Schoolwear / Balanced,315,0.029
+2026-05-04,Schoolwear / Older kids,425,0.029
+2026-05-04,Schoolwear / Young families,303,0.029
+2026-05-04,Sleepwear / Balanced,541,0.0
+2026-05-04,Sleepwear / Older kids,698,0.0
+2026-05-04,Sleepwear / Young families,492,0.0
+2026-05-04,T-shirts / Balanced,538,0.0
+2026-05-04,T-shirts / Older kids,800,0.0
+2026-05-04,T-shirts / Young families,588,0.0
+2026-05-11,Dresses / Balanced,719,0.383
+2026-05-11,Dresses / Older kids,1040,0.383
+2026-05-11,Dresses / Young families,710,0.383
+2026-05-11,Jackets / Balanced,1207,0.417
+2026-05-11,Jackets / Older kids,1418,0.417
+2026-05-11,Jackets / Young families,1009,0.417
+2026-05-11,Schoolwear / Balanced,575,0.417
+2026-05-11,Schoolwear / Older kids,801,0.417
+2026-05-11,Schoolwear / Young families,518,0.417
+2026-05-11,Sleepwear / Balanced,1379,0.425
+2026-05-11,Sleepwear / Older kids,1839,0.425
+2026-05-11,Sleepwear / Young families,1363,0.425
+2026-05-11,T-shirts / Balanced,1773,0.383
+2026-05-11,T-shirts / Older kids,2157,0.383
+2026-05-11,T-shirts / Young families,1589,0.383
+2026-05-18,Dresses / Balanced,822,0.383
+2026-05-18,Dresses / Older kids,979,0.383
+2026-05-18,Dresses / Young families,676,0.383
+2026-05-18,Jackets / Balanced,1414,0.417
+2026-05-18,Jackets / Older kids,1759,0.417
+2026-05-18,Jackets / Young families,1206,0.417
+2026-05-18,Schoolwear / Balanced,680,0.417
+2026-05-18,Schoolwear / Older kids,877,0.417
+2026-05-18,Schoolwear / Young families,619,0.417
+2026-05-18,Sleepwear / Balanced,1611,0.425
+2026-05-18,Sleepwear / Older kids,2018,0.425
+2026-05-18,Sleepwear / Young families,1317,0.425
+2026-05-18,T-shirts / Balanced,1700,0.383
+2026-05-18,T-shirts / Older kids,2124,0.383
+2026-05-18,T-shirts / Young families,1518,0.383
+2026-05-25,Dresses / Balanced,565,0.383
+2026-05-25,Dresses / Older kids,658,0.383
+2026-05-25,Dresses / Young families,458,0.383
+2026-05-25,Jackets / Balanced,1091,0.417
+2026-05-25,Jackets / Older kids,1374,0.417
+2026-05-25,Jackets / Young families,892,0.417
+2026-05-25,Schoolwear / Balanced,566,0.417
+2026-05-25,Schoolwear / Older kids,700,0.417
+2026-05-25,Schoolwear / Young families,481,0.417
+2026-05-25,Sleepwear / Balanced,1234,0.425
+2026-05-25,Sleepwear / Older kids,1534,0.425
+2026-05-25,Sleepwear / Young families,1000,0.425
+2026-05-25,T-shirts / Balanced,1196,0.383
+2026-05-25,T-shirts / Older kids,1413,0.383
+2026-05-25,T-shirts / Young families,1021,0.383
+2026-06-01,Dresses / Balanced,594,0.483
+2026-06-01,Dresses / Older kids,735,0.483
+2026-06-01,Dresses / Young families,511,0.483
+2026-06-01,Jackets / Balanced,1196,0.517
+2026-06-01,Jackets / Older kids,1504,0.517
+2026-06-01,Jackets / Young families,1022,0.517
+2026-06-01,Schoolwear / Balanced,678,0.517
+2026-06-01,Schoolwear / Older kids,786,0.517
+2026-06-01,Schoolwear / Young families,663,0.517
+2026-06-01,Sleepwear / Balanced,1379,0.525
+2026-06-01,Sleepwear / Older kids,1500,0.525
+2026-06-01,Sleepwear / Young families,1195,0.525
+2026-06-01,T-shirts / Balanced,1302,0.483
+2026-06-01,T-shirts / Older kids,1446,0.483
+2026-06-01,T-shirts / Young families,1206,0.483
+2026-06-08,Dresses / Balanced,535,0.483
+2026-06-08,Dresses / Older kids,645,0.483
+2026-06-08,Dresses / Young families,414,0.483
+2026-06-08,Jackets / Balanced,976,0.517
+2026-06-08,Jackets / Older kids,1157,0.517
+2026-06-08,Jackets / Young families,845,0.517
+2026-06-08,Schoolwear / Balanced,643,0.517
+2026-06-08,Schoolwear / Older kids,649,0.517
+2026-06-08,Schoolwear / Young families,594,0.517
+2026-06-08,Sleepwear / Balanced,1023,0.525
+2026-06-08,Sleepwear / Older kids,1139,0.525
+2026-06-08,Sleepwear / Young families,889,0.525
+2026-06-08,T-shirts / Balanced,850,0.483
+2026-06-08,T-shirts / Older kids,1131,0.483
+2026-06-08,T-shirts / Young families,930,0.483
+2026-06-15,Dresses / Balanced,341,0.483
+2026-06-15,Dresses / Older kids,481,0.483
+2026-06-15,Dresses / Young families,308,0.483
+2026-06-15,Jackets / Balanced,635,0.517
+2026-06-15,Jackets / Older kids,801,0.517
+2026-06-15,Jackets / Young families,628,0.517
+2026-06-15,Schoolwear / Balanced,553,0.517
+2026-06-15,Schoolwear / Older kids,554,0.517
+2026-06-15,Schoolwear / Young families,521,0.517
+2026-06-15,Sleepwear / Balanced,638,0.525
+2026-06-15,Sleepwear / Older kids,899,0.525
+2026-06-15,Sleepwear / Young families,610,0.525
+2026-06-15,T-shirts / Balanced,632,0.483
+2026-06-15,T-shirts / Older kids,777,0.483
+2026-06-15,T-shirts / Young families,645,0.483
+2026-06-22,Dresses / Balanced,312,0.483
+2026-06-22,Dresses / Older kids,377,0.483
+2026-06-22,Dresses / Young families,254,0.483
+2026-06-22,Jackets / Balanced,457,0.517
+2026-06-22,Jackets / Older kids,714,0.517
+2026-06-22,Jackets / Young families,452,0.517
+2026-06-22,Schoolwear / Balanced,525,0.517
+2026-06-22,Schoolwear / Older kids,497,0.517
+2026-06-22,Schoolwear / Young families,417,0.517
+2026-06-22,Sleepwear / Balanced,433,0.525
+2026-06-22,Sleepwear / Older kids,685,0.525
+2026-06-22,Sleepwear / Young families,488,0.525
+2026-06-22,T-shirts / Balanced,521,0.483
+2026-06-22,T-shirts / Older kids,681,0.483
+2026-06-22,T-shirts / Young families,427,0.483</script>
+<script id="poc-data" type="application/json">{"wape_style": {"poc": 0.2941, "today": 0.4151}, "wrong_size": {"poc": 0.0551, "today": 0.1366}, "clear_gp": {"poc": 3042814.0, "today": 2061972.0}, "defect_recall": {"poc": 1.0, "today": 0.857}}</script>
+<script>
+/* Forecast Lab engine — runs entirely in the browser, no dependencies.
+   Exposed as window.FL (or module.exports in Node for tests). */
+(function (root) {
+  'use strict';
+  const FL = {};
+
+  /* ---------------- CSV ---------------- */
+  FL.parseCSV = function (text) {
+    text = String(text || '').replace(/^﻿/, '');
+    const firstLine = text.split(/\r?\n/, 1)[0] || '';
+    const delim = [',', ';', '\t'].map((d) => [d, firstLine.split(d).length]).sort((a, b) => b[1] - a[1])[0][0];
+    const rows = []; let row = []; let cell = ''; let q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; }
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === delim) { row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(cell); cell = '';
+        if (row.length > 1 || row[0] !== '') rows.push(row);
+        row = [];
+      } else cell += c;
+    }
+    if (cell !== '' || row.length) { row.push(cell); if (row.length > 1 || row[0] !== '') rows.push(row); }
+    if (!rows.length) return { headers: [], rows: [] };
+    const headers = rows[0].map((h, i) => (h || '').trim() || 'column_' + (i + 1));
+    return { headers, rows: rows.slice(1).filter((r) => r.some((v) => String(v).trim() !== '')) };
+  };
+
+  FL.toNumber = function (v) {
+    if (v === null || v === undefined) return NaN;
+    let s = String(v).trim().replace(/[\s ]/g, '').replace(/^[R$€£₹]/, '').replace(/%$/, '');
+    if (s === '') return NaN;
+    if (/^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, '');
+    else if (/^-?\d+,\d+$/.test(s)) s = s.replace(',', '.');
+    const n = Number(s);
+    return Number.isFinite(n) ? n : NaN;
+  };
+
+  /* Dates: ISO (2025-03-01, 2025-03-01T..), YYYY-MM, DD/MM/YYYY, YYYY/MM/DD. Returns UTC ms or NaN. */
+  FL.parseDate = function (v) {
+    const s = String(v || '').trim();
+    let m;
+    if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+    if ((m = s.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/))) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+    if ((m = s.match(/^(\d{4})-(\d{1,2})$/))) return Date.UTC(+m[1], +m[2] - 1, 1);
+    if ((m = s.match(/^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})$/))) {
+      let d = +m[1], mo = +m[2];
+      if (mo > 12 && d <= 12) { const t = d; d = mo; mo = t; }
+      return Date.UTC(+m[3], mo - 1, d);
+    }
+    return NaN;
+  };
+
+  FL.guessColumns = function (headers, rows) {
+    const sample = rows.slice(0, 200);
+    const info = headers.map((h, i) => {
+      const vals = sample.map((r) => r[i]);
+      const dateOk = vals.filter((v) => Number.isFinite(FL.parseDate(v))).length;
+      const numOk = vals.filter((v) => Number.isFinite(FL.toNumber(v))).length;
+      const distinct = new Set(vals).size;
+      return { h, i, dateShare: dateOk / Math.max(1, vals.length), numShare: numOk / Math.max(1, vals.length), distinct };
+    });
+    const date = info.find((c) => c.dateShare > 0.9 && /date|week|month|period|day|time/i.test(c.h)) || info.find((c) => c.dateShare > 0.9);
+    const nums = info.filter((c) => c !== date && c.numShare > 0.9);
+    const target = nums.find((c) => /unit|sales|qty|quantity|demand|volume|revenue|value|amount|orders/i.test(c.h)) || nums[0];
+    const series = info.find((c) => c !== date && c !== target && c.numShare < 0.5 && c.distinct > 1 && c.distinct <= Math.max(2, sample.length / 2));
+    const drivers = nums.filter((c) => c !== target && /disc|price|promo|markdown|temp|spend|ad|holiday|event/i.test(c.h));
+    return { date: date ? date.h : '', target: target ? target.h : '', series: series ? series.h : '', drivers: drivers.map((c) => c.h) };
+  };
+
+  /* ---------------- calendar ---------------- */
+  const DAY = 86400000;
+  FL.detectFrequency = function (times) {
+    const t = Array.from(new Set(times)).sort((a, b) => a - b);
+    const gaps = [];
+    for (let i = 1; i < t.length; i++) gaps.push((t[i] - t[i - 1]) / DAY);
+    gaps.sort((a, b) => a - b);
+    const g = gaps.length ? gaps[Math.floor(gaps.length / 2)] : 7;
+    if (g <= 1.5) return { name: 'daily', unit: 'day', m: 7 };
+    if (g <= 8) return { name: 'weekly', unit: 'week', m: 52 };
+    if (g <= 32) return { name: 'monthly', unit: 'month', m: 12 };
+    return { name: 'quarterly', unit: 'quarter', m: 4 };
+  };
+  function periodKey(ms, freq) {
+    const d = new Date(ms);
+    if (freq.name === 'daily') return Math.floor(ms / DAY) * DAY;
+    if (freq.name === 'weekly') { const dow = (d.getUTCDay() + 6) % 7; return Math.floor(ms / DAY) * DAY - dow * DAY; }
+    if (freq.name === 'monthly') return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1);
+    return Date.UTC(d.getUTCFullYear(), Math.floor(d.getUTCMonth() / 3) * 3, 1);
+  }
+  function nextPeriod(ms, freq, k) {
+    k = k || 1;
+    const d = new Date(ms);
+    if (freq.name === 'daily') return ms + k * DAY;
+    if (freq.name === 'weekly') return ms + 7 * k * DAY;
+    if (freq.name === 'monthly') return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + k, 1);
+    return Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 3 * k, 1);
+  }
+  FL.nextPeriod = nextPeriod;
+  FL.periodKey = periodKey;
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  FL.label = function (ms, freq, short) {
+    const d = new Date(ms);
+    if (freq.name === 'monthly') return MON[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+    if (freq.name === 'quarterly') return 'Q' + (Math.floor(d.getUTCMonth() / 3) + 1) + ' ' + d.getUTCFullYear();
+    return d.getUTCDate() + ' ' + MON[d.getUTCMonth()] + (short ? '' : ' ' + d.getUTCFullYear());
+  };
+  function seasonPos(ms, freq) {
+    const d = new Date(ms);
+    if (freq.name === 'monthly') return d.getUTCMonth();
+    if (freq.name === 'quarterly') return Math.floor(d.getUTCMonth() / 3);
+    if (freq.name === 'daily') return (d.getUTCDay() + 6) % 7;
+    const start = Date.UTC(d.getUTCFullYear(), 0, 1);
+    return Math.min(51, Math.floor((ms - start) / (7 * DAY)));
+  }
+  FL.seasonPos = seasonPos;
+
+  /* ---------------- prepare ---------------- */
+  FL.MAX_SERIES = 30;
+  FL.prepare = function (parsed, map) {
+    const H = parsed.headers, idx = (n) => H.indexOf(n);
+    const iD = idx(map.date), iY = idx(map.target), iS = map.series ? idx(map.series) : -1;
+    const iX = (map.drivers || []).map(idx).filter((i) => i >= 0);
+    const notes = [];
+    if (iD < 0 || iY < 0) throw new Error('Choose a date column and a column to forecast.');
+    let bad = 0;
+    const recs = [];
+    parsed.rows.forEach((r) => {
+      const t = FL.parseDate(r[iD]), y = FL.toNumber(r[iY]);
+      if (!Number.isFinite(t) || !Number.isFinite(y)) { bad++; return; }
+      recs.push({ t, y, s: iS >= 0 ? String(r[iS]).trim() || '(blank)' : 'All', x: iX.map((i) => FL.toNumber(r[i])) });
+    });
+    if (bad) notes.push(bad + ' row' + (bad > 1 ? 's' : '') + ' skipped because the date or value could not be read.');
+    if (recs.length < 8) throw new Error('Not enough readable rows. Check the date and value columns.');
+    const freq = FL.detectFrequency(recs.map((r) => r.t));
+    const byS = new Map();
+    recs.forEach((r) => {
+      const k = periodKey(r.t, freq);
+      if (!byS.has(r.s)) byS.set(r.s, new Map());
+      const m = byS.get(r.s);
+      if (!m.has(k)) m.set(k, { y: 0, x: r.x.map(() => 0), n: 0 });
+      const c = m.get(k); c.y += r.y; c.n++; r.x.forEach((v, j) => { c.x[j] += Number.isFinite(v) ? v : 0; });
+    });
+    let keys = [];
+    byS.forEach((m) => m.forEach((_, k) => keys.push(k)));
+    const t0 = Math.min.apply(null, keys), t1 = Math.max.apply(null, keys);
+    const periods = [];
+    for (let k = t0; k <= t1 && periods.length < 5000; k = nextPeriod(k, freq)) periods.push(k);
+    let ids = Array.from(byS.keys());
+    const vol = new Map(ids.map((id) => { let v = 0; byS.get(id).forEach((c) => { v += c.y; }); return [id, v]; }));
+    ids.sort((a, b) => vol.get(b) - vol.get(a));
+    if (ids.length > FL.MAX_SERIES) {
+      notes.push('Kept the ' + FL.MAX_SERIES + ' largest of ' + ids.length + ' series; the rest are combined into "All other".');
+      const keep = ids.slice(0, FL.MAX_SERIES - 1), rest = ids.slice(FL.MAX_SERIES - 1);
+      const other = new Map();
+      rest.forEach((id) => byS.get(id).forEach((c, k) => {
+        if (!other.has(k)) other.set(k, { y: 0, x: c.x.map(() => 0), n: 0 });
+        const o = other.get(k); o.y += c.y; o.n += c.n; c.x.forEach((v, j) => { o.x[j] += v; });
+      }));
+      byS.set('All other', other); ids = keep.concat(['All other']);
+    }
+    let filled = 0;
+    const series = ids.map((id) => {
+      const m = byS.get(id);
+      const y = [], x = iX.map(() => []);
+      let lastX = iX.map(() => 0);
+      periods.forEach((k) => {
+        const c = m.get(k);
+        if (c) { y.push(c.y); lastX = c.x.map((v) => v / c.n); } else { y.push(0); filled++; }
+        lastX.forEach((v, j) => x[j].push(v));
+      });
+      return { id, y, x };
+    });
+    if (filled) notes.push(filled + ' missing period' + (filled > 1 ? 's were' : ' was') + ' filled with zero.');
+    return { periods, freq, series, drivers: (map.drivers || []).filter((d) => idx(d) >= 0), notes, target: map.target };
+  };
+
+  /* ---------------- maths ---------------- */
+  const sum = (a) => a.reduce((s, v) => s + v, 0);
+  const mean = (a) => (a.length ? sum(a) / a.length : 0);
+  const sd = (a) => { const m = mean(a); return Math.sqrt(mean(a.map((v) => (v - m) * (v - m)))); };
+  function quantile(a, q) { if (!a.length) return 0; const s = a.slice().sort((x, y) => x - y); const p = Math.min(s.length - 1, Math.max(0, Math.ceil(q * s.length) - 1)); return s[p]; }
+  FL.util = { sum, mean, sd, quantile };
+
+  /* ---------------- models ----------------
+     Each model: fit(data, end) -> predict(steps, xFuture?) returning preds[s][k] for periods end..end+steps-1.
+     Driver values for periods >= end come from data (val/test) or from xFuture (future). */
+  function driverAt(data, s, j, t, xFuture) {
+    const xs = data.series[s].x[j];
+    if (t < xs.length) return xs[t];
+    if (xFuture && xFuture[j] !== null && xFuture[j] !== undefined && Number.isFinite(xFuture[j])) return xFuture[j];
+    const m = data.freq.m;
+    let k = t;
+    while (k >= xs.length) k -= m;
+    return k >= 0 ? xs[k] : xs[xs.length - 1];
+  }
+
+  const Models = {};
+  Models.snaive = {
+    name: 'Seasonal naive', short: 'Same period last season', baseline: true,
+    fit(data, end) {
+      const m = data.freq.m;
+      return (steps) => data.series.map((s) => {
+        const out = [];
+        for (let k = 0; k < steps; k++) {
+          const t = end + k;
+          let v;
+          if (end >= m) { let j = t - m; while (j >= end) j -= m; v = s.y[j]; }
+          else v = s.y[end - 1];
+          out.push(Math.max(0, v));
+        }
+        return out;
+      });
+    },
+  };
+  Models.ma = {
+    name: 'Moving average', short: 'Average of recent periods',
+    fit(data, end) {
+      const k = { daily: 14, weekly: 8, monthly: 3, quarterly: 2 }[data.freq.name];
+      return (steps) => data.series.map((s) => { const v = mean(s.y.slice(Math.max(0, end - k), end)); return new Array(steps).fill(v); });
+    },
+  };
+  function hwFit(y, m, seasonal) {
+    const n = y.length;
+    let best = null;
+    const A = [0.1, 0.25, 0.45], B = [0, 0.05, 0.15], G = seasonal ? [0.05, 0.2, 0.4] : [0], phi = 0.95;
+    let l0, b0, s0;
+    if (seasonal) {
+      const m1 = mean(y.slice(0, m)), m2 = mean(y.slice(m, 2 * m));
+      l0 = m1; b0 = (m2 - m1) / m; s0 = y.slice(0, m).map((v) => v - m1);
+    } else { l0 = y[0]; b0 = n > 1 ? (y[Math.min(n - 1, 3)] - y[0]) / Math.min(n - 1, 3) : 0; s0 = [0]; }
+    for (const a of A) for (const b of B) for (const g of G) {
+      let l = l0, tr = b0; const s = s0.slice(); let sse = 0;
+      const start = seasonal ? m : 1;
+      for (let t = start; t < n; t++) {
+        const si = seasonal ? s[t % m] : 0;
+        const f = l + phi * tr + si;
+        const e = y[t] - f; sse += e * e;
+        const lPrev = l;
+        l = a * (y[t] - si) + (1 - a) * (l + phi * tr);
+        tr = b * (l - lPrev) + (1 - b) * phi * tr;
+        if (seasonal) s[t % m] = g * (y[t] - l) + (1 - g) * si;
+      }
+      if (!best || sse < best.sse) best = { sse, l, tr, s, a, b, g, phi };
+    }
+    return best;
+  }
+  Models.hw = {
+    name: 'Holt-Winters', short: 'Level, trend and seasonality (exponential smoothing)',
+    fit(data, end) {
+      const m = data.freq.m;
+      const fits = data.series.map((s) => { const y = s.y.slice(0, end); const seasonal = end >= 2 * m; return { f: hwFit(y, m, seasonal), seasonal }; });
+      return (steps) => fits.map(({ f, seasonal }) => {
+        const out = []; let damp = 0;
+        for (let k = 1; k <= steps; k++) {
+          damp += Math.pow(f.phi, k);
+          const si = seasonal ? f.s[(end + k - 1) % m] : 0;
+          out.push(Math.max(0, f.l + damp * f.tr + si));
+        }
+        return out;
+      });
+    },
+  };
+
+  /* Gradient-boosted regression trees, pooled across all series (each scaled by its own mean). */
+  function features(data, s, t, scale, yFn, xFuture) {
+    const m = data.freq.m, n = data.periods.length;
+    const ms = t < n ? data.periods[t] : FL.nextPeriod(data.periods[n - 1], data.freq, t - n + 1);
+    const pos = seasonPos(ms, data.freq), ang = 2 * Math.PI * pos / m;
+    const lagM = t >= m ? yFn(t - m) / scale : -1;
+    const lag2M = t >= 2 * m ? yFn(t - 2 * m) / scale : -1;
+    const f = [pos / m, Math.sin(ang), Math.cos(ang), Math.sin(2 * ang), Math.cos(2 * ang), t / Math.max(1, n), lagM, lag2M];
+    for (let j = 0; j < data.drivers.length; j++) f.push(driverAt(data, s, j, t, xFuture));
+    for (let j = 0; j < data.drivers.length; j++) f.push(t >= m ? driverAt(data, s, j, t, xFuture) - driverAt(data, s, j, t - m, xFuture) : 0);
+    return f;
+  }
+  /* Histogram-based trees: each feature is cut into quantile bins once, so a split search costs rows x features. */
+  function gbmTrain(X, y, opt) {
+    const nf = X[0].length, N = X.length;
+    const edges = [];
+    for (let f = 0; f < nf; f++) {
+      const col = X.map((r) => r[f]).sort((a, b) => a - b);
+      const e = [];
+      for (let q = 1; q < opt.bins; q++) { const v = col[Math.floor(q * N / opt.bins)]; if (!e.length || v > e[e.length - 1]) e.push(v); }
+      if (e.length && e[e.length - 1] >= col[N - 1]) e.pop();
+      edges.push(e);
+    }
+    const B = X.map((r) => r.map((v, f) => { const e = edges[f]; let b = 0; while (b < e.length && v > e[b]) b++; return b; }));
+    function build(idx, r, depth) {
+      let tot = 0; for (const i of idx) tot += r[i];
+      const node = { v: tot / idx.length };
+      if (depth >= opt.depth || idx.length < 2 * opt.minLeaf) return node;
+      let best = null;
+      for (let f = 0; f < nf; f++) {
+        const nb = edges[f].length + 1; if (nb < 2) continue;
+        const hs = new Float64Array(nb), hc = new Int32Array(nb);
+        for (const i of idx) { const b = B[i][f]; hs[b] += r[i]; hc[b]++; }
+        let ls = 0, lc = 0;
+        for (let b = 0; b < nb - 1; b++) {
+          ls += hs[b]; lc += hc[b];
+          const rc = idx.length - lc;
+          if (lc < opt.minLeaf || rc < opt.minLeaf) continue;
+          const rs = tot - ls, gain = ls * ls / lc + rs * rs / rc;
+          if (!best || gain > best.gain) best = { gain, f, b };
+        }
+      }
+      if (!best) return node;
+      const L = [], R = [];
+      for (const i of idx) (B[i][best.f] <= best.b ? L : R).push(i);
+      node.f = best.f; node.b = best.b; node.th = edges[best.f][best.b];
+      node.l = build(L, r, depth + 1); node.r = build(R, r, depth + 1);
+      return node;
+    }
+    const predBin = (node, i) => { while (node.f !== undefined) node = B[i][node.f] <= node.b ? node.l : node.r; return node.v; };
+    const base = mean(y), pred = new Float64Array(N).fill(base), trees = [];
+    const all = X.map((_, i) => i);
+    for (let it = 0; it < opt.rounds; it++) {
+      const r = y.map((v, i) => v - pred[i]);
+      const tree = build(all, r, 0);
+      trees.push(tree);
+      for (let i = 0; i < N; i++) pred[i] += opt.lr * predBin(tree, i);
+    }
+    return (x) => { let v = base; for (const t of trees) v += opt.lr * treePred(t, x); return v; };
+  }
+  function treePred(node, x) { while (node.f !== undefined) node = x[node.f] <= node.th ? node.l : node.r; return node.v; }
+  FL.gbmTrain = gbmTrain;
+  Models.gbm = {
+    name: 'Gradient boosting (ML)', short: 'Machine learning on season, history and drivers, pooled across series',
+    fit(data, end) {
+      const m = data.freq.m;
+      const scales = data.series.map((s) => Math.max(1e-9, mean(s.y.slice(0, end)) || 1));
+      const X = [], Y = [];
+      const first = Math.min(m, Math.floor(end / 2));
+      // The trees learn a correction to an anchor: the same period last season where it exists, else the series level.
+      const anchor = (t, scale, yFn) => (t >= m ? yFn(t - m) / scale : 1);
+      data.series.forEach((s, si) => {
+        const yFn = (k) => s.y[k];
+        for (let t = first; t < end; t++) { X.push(features(data, si, t, scales[si], yFn)); Y.push(s.y[t] / scales[si] - anchor(t, scales[si], yFn)); }
+      });
+      const opt = { rounds: 120, lr: 0.08, depth: 4, minLeaf: Math.max(5, Math.floor(X.length / 200)), bins: 24 };
+      const trees = gbmTrain(X, Y, opt);
+      const fit = (steps, xFuture) => data.series.map((s, si) => {
+        const out = [];
+        const yFn = (k) => (k < end ? s.y[k] : out[k - end]);
+        for (let k = 0; k < steps; k++) {
+          const t = end + k;
+          out.push(Math.max(0, (trees(features(data, si, t, scales[si], yFn, xFuture)) + anchor(t, scales[si], yFn)) * scales[si]));
+        }
+        return out;
+      });
+      const model = (f) => trees(f) + (f[6] >= 0 ? f[6] : 1);   // full prediction from a feature row (feature 6 is the season-ago value)
+      fit.raw = model; fit.scales = scales;
+      return fit;
+    },
+  };
+  Models.ens = {
+    name: 'Ensemble', short: 'Average of Holt-Winters and gradient boosting',
+    fit(data, end) {
+      const a = Models.hw.fit(data, end), b = Models.gbm.fit(data, end);
+      const fit = (steps, xFuture) => { const pa = a(steps, xFuture), pb = b(steps, xFuture); return pa.map((row, s) => row.map((v, k) => (v + pb[s][k]) / 2)); };
+      fit.raw = b.raw; fit.scales = b.scales;
+      return fit;
+    },
+  };
+  FL.Models = Models;
+  FL.MODEL_ORDER = ['snaive', 'ma', 'hw', 'gbm', 'ens'];
+
+  /* ---------------- metrics ---------------- */
+  FL.metrics = function (data, start, preds, trainEnd) {
+    const m = data.freq.m;
+    let absE = 0, e = 0, act = 0, sq = 0, nObs = 0, apeSum = 0, apeN = 0;
+    const steps = preds[0].length, totA = new Array(steps).fill(0), totP = new Array(steps).fill(0);
+    const mase = [];
+    data.series.forEach((s, si) => {
+      let sAbs = 0;
+      for (let k = 0; k < steps; k++) {
+        const a = s.y[start + k], p = preds[si][k];
+        absE += Math.abs(a - p); e += p - a; act += a; sq += (a - p) * (a - p); nObs++; sAbs += Math.abs(a - p);
+        if (a > 0) { apeSum += Math.abs(a - p) / a; apeN++; }
+        totA[k] += a; totP[k] += p;
+      }
+      const lag = trainEnd > m ? m : 1, ins = [];
+      for (let t = lag; t < trainEnd; t++) ins.push(Math.abs(s.y[t] - s.y[t - lag]));
+      const sc = mean(ins);
+      if (sc > 0) mase.push(sAbs / steps / sc);
+    });
+    const totAbs = sum(totA.map((a, k) => Math.abs(a - totP[k])));
+    return {
+      wape: act > 0 ? absE / act : NaN, bias: act > 0 ? e / act : NaN, rmse: Math.sqrt(sq / Math.max(1, nObs)),
+      mape: apeN ? apeSum / apeN : NaN, mase: mase.length ? mean(mase) : NaN,
+      totalWape: sum(totA) > 0 ? totAbs / sum(totA) : NaN, actual: act,
+    };
+  };
+  function seriesWape(data, start, preds) {
+    return data.series.map((s, si) => {
+      let a = 0, d = 0, e = 0;
+      preds[si].forEach((p, k) => { const y = s.y[start + k]; a += y; d += Math.abs(y - p); e += p - y; });
+      return { id: s.id, wape: a > 0 ? d / a : NaN, bias: a > 0 ? e / a : NaN, volume: a };
+    });
+  }
+  function normResiduals(data, start, preds, end) {
+    const out = [];
+    data.series.forEach((s, si) => {
+      const scale = Math.max(1e-9, mean(s.y.slice(0, end)) || 1);
+      preds[si].forEach((p, k) => out.push(Math.abs(s.y[start + k] - p) / scale));
+    });
+    return out;
+  }
+  function conformalQ(res, coverage) {
+    const n = res.length;
+    return quantile(res, Math.min(1, coverage * (1 + 1 / Math.max(1, n))));
+  }
+
+  /* ---------------- run ---------------- */
+  FL.run = function (data, opt) {
+    opt = Object.assign({ trainPct: 0.7, valPct: 0.15, horizon: null, coverage: 0.8, folds: 4, models: FL.MODEL_ORDER, xFuture: null }, opt || {});
+    const n = data.periods.length, m = data.freq.m;
+    const trainEnd = Math.max(4, Math.round(n * opt.trainPct));
+    const valEnd = Math.min(n - 1, Math.max(trainEnd + 1, Math.round(n * (opt.trainPct + opt.valPct))));
+    const valLen = valEnd - trainEnd, testLen = n - valEnd;
+    if (testLen < 1 || valLen < 1) throw new Error('The split leaves no validation or test periods. Lower the train share.');
+    if (trainEnd < 8) throw new Error('Too little history in the training part. Use more data or a larger train share.');
+    const H = opt.horizon || testLen;
+    const t0 = Date.now();
+    const models = opt.models.filter((k) => Models[k]);
+
+    // A. train -> validation (model selection)
+    const val = {}, valPreds = {};
+    models.forEach((k) => { const p = Models[k].fit(data, trainEnd)(valLen); valPreds[k] = p; val[k] = FL.metrics(data, trainEnd, p, trainEnd); });
+    const best = models.slice().sort((a, b) => val[a].wape - val[b].wape)[0];
+
+    // B. train + validation -> test (scored once)
+    const test = {}, testPreds = {};
+    models.forEach((k) => { const p = Models[k].fit(data, valEnd)(testLen); testPreds[k] = p; test[k] = FL.metrics(data, valEnd, p, valEnd); });
+
+    // conformal interval from validation residuals of the chosen model, checked on test
+    const qVal = conformalQ(normResiduals(data, trainEnd, valPreds[best], trainEnd), opt.coverage);
+    let inside = 0, cnt = 0;
+    data.series.forEach((s, si) => {
+      const scale = Math.max(1e-9, mean(s.y.slice(0, valEnd)) || 1);
+      testPreds[best][si].forEach((p, k) => { const y = s.y[valEnd + k]; if (y >= Math.max(0, p - qVal * scale) && y <= p + qVal * scale) inside++; cnt++; });
+    });
+    const coverage = cnt ? inside / cnt : NaN;
+
+    // C. rolling-origin backtest (data before the test window only)
+    const folds = [];
+    const fh = Math.max(1, Math.min(testLen, valLen));
+    for (let j = opt.folds; j >= 1; j--) {
+      const origin = valEnd - j * fh;
+      if (origin < Math.max(8, Math.min(m, Math.floor(valEnd / 2)))) continue;
+      const pb = Models[best].fit(data, origin)(fh), pn = Models.snaive.fit(data, origin)(fh);
+      folds.push({ origin, label: FL.label(data.periods[origin], data.freq), wape: FL.metrics(data, origin, pb, origin).wape, base: FL.metrics(data, origin, pn, origin).wape });
+    }
+
+    // D. refit on everything, forecast the future with intervals from validation + test residuals
+    const finalFit = Models[best].fit(data, n);
+    const future = finalFit(H, opt.xFuture);
+    const qAll = conformalQ(normResiduals(data, trainEnd, valPreds[best], trainEnd).concat(normResiduals(data, valEnd, testPreds[best], valEnd)), opt.coverage);
+    const futurePeriods = []; let p = data.periods[n - 1];
+    for (let k = 0; k < H; k++) { p = nextPeriod(p, data.freq); futurePeriods.push(p); }
+    const scalesAll = data.series.map((s) => Math.max(1e-9, mean(s.y) || 1));
+    const fc = data.series.map((s, si) => future[si].map((v, k) => ({ t: futurePeriods[k], f: v, lo: Math.max(0, v - qAll * scalesAll[si]), hi: v + qAll * scalesAll[si] })));
+
+    const res = {
+      n, m, trainEnd, valEnd, valLen, testLen, H, best, models, val, test, valPreds, testPreds,
+      coverageTarget: opt.coverage, coverage, qVal, qAll, folds, fc, futurePeriods, scalesAll,
+      perSeries: seriesWape(data, valEnd, testPreds[best]),
+      ms: 0,
+    };
+    res.confidence = FL.confidence(res, data);
+    res.drivers = data.drivers.length ? FL.driverEffects(data, best === 'gbm' || best === 'ens' ? finalFit : Models.gbm.fit(data, n)) : [];
+    res.insights = FL.insights(res, data);
+    res.ms = Date.now() - t0;
+    return res;
+  };
+
+  /* ---------------- confidence ---------------- */
+  const clamp = (v) => Math.max(0, Math.min(1, v));
+  FL.confidence = function (r, data) {
+    const tb = r.test[r.best], tbase = r.test.snaive, vb = r.val[r.best];
+    const skill = 1 - tb.wape / tbase.wape;
+    const bt = r.folds.map((f) => f.wape).filter(Number.isFinite);
+    const cv = bt.length > 1 ? sd(bt) / mean(bt) : NaN;
+    const gap = Math.abs(tb.wape - vb.wape) / Math.max(1e-9, vb.wape);
+    const seasons = data.periods.length / data.freq.m;
+    const parts = [
+      { k: 'skill', name: 'Beats the simple baseline', weight: 30, score: clamp(skill / 0.3), value: skill, fmt: 'pct', detail: 'Test error versus "same period last season". 30% better or more earns full marks.' },
+      { k: 'level', name: 'Accuracy on unseen test data', weight: 20, score: clamp((0.6 - tb.wape) / 0.5), value: tb.wape, fmt: 'pct', detail: 'Weighted error (WAPE) on the test periods. 10% or less earns full marks; 60% or more earns none.' },
+      { k: 'calib', name: 'Ranges are honest', weight: 15, score: Number.isFinite(r.coverage) ? clamp(1 - Math.abs(r.coverage - r.coverageTarget) / 0.2) : 0, value: r.coverage, fmt: 'pct', detail: 'Share of test actuals inside the ' + Math.round(r.coverageTarget * 100) + '% range. Close to ' + Math.round(r.coverageTarget * 100) + '% is best.' },
+      { k: 'stable', name: 'Stable across past periods', weight: 15, score: Number.isFinite(cv) ? clamp(1 - cv / 0.5) : 0.5, value: cv, fmt: 'pct', detail: 'How much error varies across backtest folds (coefficient of variation). Lower is steadier.' },
+      { k: 'consistent', name: 'Validation and test agree', weight: 10, score: clamp(1 - gap / 0.5), value: gap, fmt: 'pct', detail: 'Gap between validation and test error. A big gap suggests the model was tuned to one period.' },
+      { k: 'data', name: 'Enough history', weight: 10, score: clamp(seasons / 2), value: seasons, fmt: 'x', detail: 'Seasons of history. Two or more full seasons earns full marks.' },
+    ];
+    const score = Math.round(sum(parts.map((p) => p.weight * p.score)));
+    const band = score >= 75 ? 'High' : score >= 50 ? 'Medium' : 'Low';
+    const advice = band === 'High' ? 'Reliable enough to plan with. Keep monitoring against new actuals.' :
+      band === 'Medium' ? 'Use with judgement: check the weaker items below before acting on single series.' :
+        'Do not rely on this forecast yet. Add history or drivers, or check the data.';
+    return { score, band, advice, parts, skill, cv, gap, seasons };
+  };
+
+  /* ---------------- driver effects (partial dependence on the ML model) ---------------- */
+  FL.driverEffects = function (data, fit) {
+    if (!fit.raw || !data.drivers.length) return [];
+    const n = data.periods.length;
+    return data.drivers.map((name, j) => {
+      const all = [];
+      data.series.forEach((s) => s.x[j].forEach((v) => all.push(v)));
+      const lo = quantile(all, 0.1), hi = quantile(all, 0.9);
+      if (!(hi > lo)) return null;
+      let a = 0, b = 0;
+      data.series.forEach((s, si) => {
+        for (let t = Math.max(0, n - data.freq.m); t < n; t++) {
+          const f = features(data, si, t, fit.scales[si], (k) => s.y[k]);
+          const base = 8 + j, chg = 8 + data.drivers.length + j, orig = f[base];
+          f[base] = lo; f[chg] += lo - orig; a += fit.raw(f);
+          f[base] = hi; f[chg] += hi - lo; b += fit.raw(f);
+        }
+      });
+      return { name, lo, hi, effect: a > 0 ? b / a - 1 : NaN };
+    }).filter(Boolean);
+  };
+
+  /* ---------------- insights ---------------- */
+  const P = (v, d) => (Number.isFinite(v) ? (v * 100).toFixed(d === undefined ? 0 : d) + '%' : 'n/a');
+  const S = (v) => (v > 0 ? '+' : '') + P(v);
+  FL.insights = function (r, data) {
+    const out = [], m = data.freq.m, n = data.periods.length, unit = data.freq.unit;
+    const tot = data.periods.map((_, t) => sum(data.series.map((s) => s.y[t])));
+    const name = data.target || 'demand';
+    // trend
+    if (n >= 2 * m) {
+      const last = sum(tot.slice(n - m)), prev = sum(tot.slice(n - 2 * m, n - m));
+      if (prev > 0) out.push({ tone: last >= prev ? 'good' : 'warn', title: 'Year-on-year trend', text: `Total ${name} over the last ${m} ${unit}s is ${S(last / prev - 1)} against the ${m} before.` });
+    } else if (n >= 8) {
+      const h = Math.floor(n / 2), a = mean(tot.slice(0, h)), b = mean(tot.slice(h));
+      if (a > 0) out.push({ tone: b >= a ? 'good' : 'warn', title: 'Trend', text: `The second half of the history averages ${S(b / a - 1)} against the first half.` });
+    }
+    // seasonality
+    if (n >= m + 2 && m > 1) {
+      const bucket = new Array(m).fill(0).map(() => []);
+      data.periods.forEach((ms, t) => bucket[seasonPos(ms, data.freq) % m].push(tot[t]));
+      const prof = bucket.map((b) => (b.length ? mean(b) : NaN));
+      const valid = prof.map((v, i) => [v, i]).filter((x) => Number.isFinite(x[0]));
+      const avg = mean(valid.map((x) => x[0]));
+      const peak = valid.slice().sort((a, b) => b[0] - a[0])[0], low = valid.slice().sort((a, b) => a[0] - b[0])[0];
+      const strength = avg > 0 ? (peak[0] - low[0]) / avg : 0;
+      const nameOf = (i) => data.freq.name === 'monthly' ? MON[i] : data.freq.name === 'weekly' ? 'week ' + (i + 1) + ' of the year' : data.freq.name === 'daily' ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][i] : 'Q' + (i + 1);
+      out.push({ tone: 'info', title: 'Seasonality', text: `Demand peaks around ${nameOf(peak[1])} and is lowest around ${nameOf(low[1])}. The peak runs ${P(peak[0] / avg - 1)} above an average ${unit}${strength > 0.5 ? ', so season shapes the plan more than trend does' : ''}.` });
+    }
+    // drivers
+    r.drivers.forEach((d) => {
+      out.push({ tone: 'info', title: `Effect of ${d.name}`, text: `Moving ${d.name} from ${+d.lo.toFixed(3)} to ${+d.hi.toFixed(3)} changes forecast ${name} by ${S(d.effect)}, all else equal (learned by the ML model).` });
+    });
+    // outlook
+    const fTot = r.fc[0].map((_, k) => sum(r.fc.map((s) => s[k].f)));
+    if (n >= m && r.H <= m) {
+      const ly = sum(tot.slice(n - m, n - m + r.H));
+      if (ly > 0) out.push({ tone: sum(fTot) >= ly ? 'good' : 'warn', title: 'Outlook', text: `The next ${r.H} ${unit}s forecast ${Math.round(sum(fTot)).toLocaleString('en')} ${name}, ${S(sum(fTot) / ly - 1)} against the same ${unit}s last season.` });
+    } else out.push({ tone: 'info', title: 'Outlook', text: `The next ${r.H} ${unit}s forecast ${Math.round(sum(fTot)).toLocaleString('en')} ${name} in total.` });
+    // model choice
+    const b = r.test[r.best], base = r.test.snaive;
+    out.push({ tone: b.wape < base.wape ? 'good' : 'warn', title: 'Model chosen', text: `${Models[r.best].name} had the lowest validation error, then scored ${P(b.wape, 1)} error on the untouched test periods against ${P(base.wape, 1)} for the seasonal-naive baseline.` });
+    if (Math.abs(b.bias) > 0.08) out.push({ tone: 'warn', title: 'Bias', text: `On test periods the forecast runs ${b.bias > 0 ? 'high' : 'low'} by ${P(Math.abs(b.bias))} overall. ${b.bias < 0 ? 'Stock-outs in the history can hide demand and pull forecasts down.' : 'Check for one-off spikes in the history.'}` });
+    // hardest series
+    const ps = r.perSeries.filter((p) => Number.isFinite(p.wape) && p.volume > 0).sort((a, b2) => b2.wape - a.wape);
+    if (ps.length > 2) out.push({ tone: 'warn', title: 'Hardest to forecast', text: `${ps[0].id} (${P(ps[0].wape)} error) and ${ps[1].id} (${P(ps[1].wape)}) are least predictable. Plan them with wider buffers.` });
+    // anomalies on the chosen model's test residuals
+    const res = [];
+    data.series.forEach((s, si) => r.testPreds[r.best][si].forEach((p, k) => res.push({ id: s.id, t: data.periods[r.valEnd + k], e: s.y[r.valEnd + k] - p, sc: r.scalesAll[si] })));
+    const z = res.map((x) => Math.abs(x.e) / x.sc), madz = quantile(z, 0.5) || 1e-9;
+    const odd = res.filter((x, i) => z[i] > 4 * madz && z[i] > 0.5).sort((a, b2) => Math.abs(b2.e) / b2.sc - Math.abs(a.e) / a.sc).slice(0, 3);
+    if (odd.length) out.push({ tone: 'warn', title: 'Unusual periods', text: 'Large surprises on test data: ' + odd.map((o) => `${o.id}, ${FL.label(o.t, data.freq)} (${o.e > 0 ? 'above' : 'below'} forecast)`).join('; ') + '. Check for promotions, stock-outs or data errors.' });
+    out.push({ tone: r.confidence.band === 'High' ? 'good' : r.confidence.band === 'Medium' ? 'info' : 'warn', title: `Confidence: ${r.confidence.band} (${r.confidence.score}/100)`, text: r.confidence.advice });
+    return out;
+  };
+
+  /* ---------------- monitoring ---------------- */
+  FL.snapshot = function (r, data) {
+    return {
+      v: 1, created: new Date().toISOString(), freq: data.freq, target: data.target, model: r.best,
+      testWape: r.test[r.best].wape, coverageTarget: r.coverageTarget,
+      series: data.series.map((s, si) => ({ id: s.id, fc: r.fc[si].map((p) => [p.t, p.f, p.lo, p.hi]) })),
+    };
+  };
+  FL.monitor = function (snap, parsed, map) {
+    const iD = parsed.headers.indexOf(map.date), iY = parsed.headers.indexOf(map.target), iS = map.series ? parsed.headers.indexOf(map.series) : -1;
+    if (iD < 0 || iY < 0) throw new Error('The actuals file needs the same date and value columns as the forecast.');
+    const act = new Map();
+    parsed.rows.forEach((r) => {
+      const t = FL.parseDate(r[iD]), y = FL.toNumber(r[iY]);
+      if (!Number.isFinite(t) || !Number.isFinite(y)) return;
+      const k = (iS >= 0 ? String(r[iS]).trim() : 'All') + '|' + periodKey(t, snap.freq);
+      act.set(k, (act.get(k) || 0) + y);
+    });
+    const rows = [], per = [];
+    let A = 0, E = 0, AE = 0, inside = 0, cnt = 0;
+    snap.series.forEach((s) => {
+      const errs = [];
+      s.fc.forEach(([t, f, lo, hi]) => {
+        const k = s.id + '|' + t;
+        if (!act.has(k)) return;
+        const y = act.get(k);
+        rows.push({ id: s.id, t, y, f, lo, hi });
+        errs.push(y - f); A += y; E += f - y; AE += Math.abs(y - f); cnt++;
+        if (y >= lo && y <= hi) inside++;
+      });
+      if (errs.length) {
+        const mad = mean(errs.map(Math.abs)) || 1e-9;
+        per.push({ id: s.id, n: errs.length, ts: sum(errs) / mad, wape: sum(errs.map(Math.abs)) / Math.max(1e-9, sum(rows.filter((x) => x.id === s.id).map((x) => x.y))) });
+      }
+    });
+    if (!cnt) throw new Error('No actuals matched the forecast periods. Check the dates fall inside the forecast window and series names match.');
+    const wape = A > 0 ? AE / A : NaN, coverage = inside / cnt;
+    const alerts = per.filter((p) => p.n >= 3 && Math.abs(p.ts) > 4 && p.wape > snap.testWape);   // persistent one-way error that is also material
+    const reasons = [];
+    if (wape > Math.max(0.1, snap.testWape * 1.3)) reasons.push(`Error on new actuals (${P(wape, 1)}) is well above the test error the model was trusted on (${P(snap.testWape, 1)}).`);
+    if (coverage < snap.coverageTarget - 0.25) reasons.push(`Only ${P(coverage)} of new actuals fell inside the ${P(snap.coverageTarget)} range.`);
+    if (alerts.length > Math.max(1, per.length / 4)) reasons.push(`${alerts.length} of ${per.length} series keep missing in one direction (tracking signal beyond ±4) with error above the test level.`);
+    return { rows, per, wape, bias: A > 0 ? E / A : NaN, coverage, alerts, matched: cnt, status: reasons.length ? 'retrain' : 'ok', reasons, testWape: snap.testWape };
+  };
+
+  root.FL = FL;
+  if (typeof module !== 'undefined' && module.exports) module.exports = FL;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const C = { ink: '#1A1917', muted: '#6B6560', line: '#E5E0D8', line2: '#CFC9C0', cardinal: '#8C1515', gold: '#B8962E', goldBg: '#FBF3DC', panel: '#F4F1EC', good: '#2E7D32', warn: '#B26A00', bad: '#C62828' };
+  const st = { parsed: null, map: null, data: null, res: null, snap: null, view: -1, sourceName: '' };
+
+  /* ---------- helpers ---------- */
+  function h(tag, attrs, parent, text) {
+    const e = document.createElement(tag);
+    if (attrs) for (const k in attrs) { if (k === 'class') e.className = attrs[k]; else e.setAttribute(k, attrs[k]); }
+    if (text !== undefined && text !== null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function s(tag, attrs, parent, text) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  const pct = (v, d) => (Number.isFinite(v) ? (v * 100).toFixed(d === undefined ? 1 : d) + '%' : '–');
+  const spct = (v, d) => (Number.isFinite(v) ? (v > 0 ? '+' : '') + pct(v, d) : '–');
+  const int = (v) => (Number.isFinite(v) ? Math.round(v).toLocaleString('en') : '–');
+  const compact = (v) => { const a = Math.abs(v); return a >= 1e6 ? (v / 1e6).toFixed(1) + 'm' : a >= 1e4 ? (v / 1e3).toFixed(0) + 'k' : a >= 1e3 ? (v / 1e3).toFixed(1) + 'k' : String(Math.round(v)); };
+  const sum = (a) => a.reduce((x, y) => x + y, 0);
+  function niceStep(max, n) { const raw = max / n, p = Math.pow(10, Math.floor(Math.log10(raw || 1))); const m = raw / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p; }
+  function svgIn(el, W, H, label) { el.replaceChildren(); return s('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': label }, el); }
+  function tip(el) {
+    const t = h('div', { class: 'tip hidden' }, el);
+    return {
+      show(x, y, head, lines) {
+        t.replaceChildren(); h('div', { class: 'h' }, t, head);
+        lines.forEach(([n, v]) => { const r = h('div', null, t, n + ' '); h('b', null, r, v); });
+        t.classList.remove('hidden');
+        t.style.left = Math.max(0, Math.min(el.clientWidth - t.offsetWidth, x + 14)) + 'px';
+        t.style.top = Math.max(0, y - t.offsetHeight - 10) + 'px';
+      },
+      hide() { t.classList.add('hidden'); },
+    };
+  }
+  function errBox(id, msg) { const b = $(id); b.replaceChildren(); if (msg) h('div', { class: 'err', role: 'alert' }, b, msg); }
+  function unlock(id) { $(id).classList.remove('locked'); }
+  function download(name, text, type) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([text], { type: type || 'text/csv' }));
+    a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+  const csvCell = (v) => (/[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v));
+
+  /* ---------- tabs ---------- */
+  const tabs = [['tab-run', 'p-run'], ['tab-guide', 'p-guide'], ['tab-case', 'p-case']];
+  tabs.forEach(([t, p]) => $(t).addEventListener('click', () => {
+    tabs.forEach(([t2, p2]) => { $(t2).setAttribute('aria-selected', t2 === t ? 'true' : 'false'); $(p2).classList.toggle('hidden', p2 !== p); });
+    if (p === 'p-guide') drawGuide();
+    if (p === 'p-run' && st.res) drawMain();
+  }));
+
+  /* ---------- step 1: load ---------- */
+  function loadText(text, name) {
+    errBox('prep-err', '');
+    const parsed = FL.parseCSV(text);
+    if (parsed.headers.length < 2 || parsed.rows.length < 2) { $('load-status').textContent = ''; errBox('prep-err', 'That file has no usable table. It needs a header row and at least two columns.'); return; }
+    st.parsed = parsed; st.sourceName = name;
+    $('load-status').textContent = `${name}: ${parsed.rows.length.toLocaleString('en')} rows, ${parsed.headers.length} columns. Check the columns below.`;
+    const g = FL.guessColumns(parsed.headers, parsed.rows);
+    const fill = (sel, val, blank) => {
+      const e = $(sel); e.replaceChildren();
+      if (blank) h('option', { value: '' }, e, blank);
+      parsed.headers.forEach((c) => { const o = h('option', { value: c }, e, c); if (c === val) o.selected = true; });
+    };
+    fill('m-date', g.date); fill('m-target', g.target); fill('m-series', g.series, 'None (one series)');
+    const dv = $('m-drivers'); dv.replaceChildren();
+    const numeric = parsed.headers.filter((c, i) => { const v = parsed.rows.slice(0, 200).map((r) => r[i]); return v.filter((x) => Number.isFinite(FL.toNumber(x))).length > 0.9 * v.length; });
+    numeric.filter((c) => c !== g.target).forEach((c) => {
+      const l = h('label', null, dv); const cb = h('input', { type: 'checkbox', value: c }, l);
+      if (g.drivers.includes(c)) cb.checked = true; l.append(c);
+    });
+    const pv = $('preview'); pv.replaceChildren();
+    const t = h('table', null, pv), tr = h('tr', null, h('thead', null, t));
+    parsed.headers.forEach((c) => h('th', null, tr, c));
+    const tb = h('tbody', null, t);
+    parsed.rows.slice(0, 5).forEach((r) => { const row = h('tr', null, tb); parsed.headers.forEach((_, i) => h('td', null, row, r[i])); });
+    $('map-box').classList.remove('hidden');
+  }
+  function readFile(f, cb) {
+    if (!f) return;
+    if (f.size > 25e6) { errBox('prep-err', 'That file is over 25 MB. Summarise it to daily or weekly totals first.'); return; }
+    const rd = new FileReader();
+    rd.onload = () => cb(String(rd.result), f.name);
+    rd.onerror = () => errBox('prep-err', 'The file could not be read. Try saving it again as CSV.');
+    rd.readAsText(f);
+  }
+  $('file').addEventListener('change', (e) => readFile(e.target.files[0], loadText));
+  $('use-sample').addEventListener('click', () => loadText($('sample-csv').textContent.trim(), 'Kidswear sample (weekly units by category and store cluster)'));
+  $('dl-sample').addEventListener('click', () => download('kidswear_weekly_sample.csv', $('sample-csv').textContent.trim()));
+  const drop = $('drop');
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', (e) => readFile(e.dataTransfer.files[0], loadText));
+
+  $('apply-map').addEventListener('click', () => {
+    errBox('prep-err', '');
+    const map = { date: $('m-date').value, target: $('m-target').value, series: $('m-series').value,
+      drivers: Array.from($('m-drivers').querySelectorAll('input:checked')).map((i) => i.value) };
+    map.drivers = map.drivers.filter((d) => d !== map.date && d !== map.target && d !== map.series);
+    if (!map.date || !map.target || map.date === map.target) { errBox('prep-err', 'Choose different columns for the date and the value to forecast.'); return; }
+    try { st.data = FL.prepare(st.parsed, map); } catch (e) { errBox('prep-err', e.message); return; }
+    st.map = map;
+    const d = st.data, n = d.periods.length;
+    const msg = $('load-status');
+    msg.textContent = `Ready: ${d.series.length} series × ${n} ${d.freq.name} periods, ${FL.label(d.periods[0], d.freq)} to ${FL.label(d.periods[n - 1], d.freq)}.`;
+    if (d.notes.length) { const ul = h('ul', { class: 'notes' }, msg); d.notes.forEach((x) => h('li', null, ul, x)); }
+    if (n < 16) { errBox('prep-err', `Only ${n} periods after grouping by ${d.freq.unit}. Forecasting needs at least 16; two full seasons is better.`); return; }
+    $('h-unit').textContent = `(${d.freq.unit}s)`;
+    $('horizon').max = String(Math.max(4, d.freq.m * 2));
+    $('horizon').value = String(Math.min(d.freq.m, Math.max(4, Math.round(n * 0.15))));
+    const df = $('drv-future'); df.replaceChildren();
+    if (map.drivers.length) {
+      df.classList.remove('hidden');
+      h('p', null, df, 'Future driver values. Leave blank to assume the same as the same period last season, or enter a planned value to test a scenario.');
+      const g = h('div', { class: 'grid' }, df);
+      map.drivers.forEach((dr, j) => { const w = h('div', null, g); h('label', { class: 'f', for: 'xf-' + j }, w, dr); h('input', { type: 'number', step: 'any', class: 'num', id: 'xf-' + j, placeholder: 'Same as last season' }, w); });
+    } else df.classList.add('hidden');
+    unlock('s2'); drawSplitControls();
+    $('s2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* ---------- step 2: split ---------- */
+  function drawSplit(el, n, trainPct, valPct, H, labelFn) {
+    const W = Math.max(300, el.clientWidth || 600), Ht = 92, narrow = W < 520;
+    const tr = Math.max(4, Math.round(n * trainPct)), ve = Math.min(n - 1, Math.max(tr + 1, Math.round(n * (trainPct + valPct))));
+    const parts = [
+      { n: 'Training', c: tr, fill: C.ink, text: '#fff' },
+      { n: 'Validation', c: ve - tr, fill: C.gold, text: '#1A1917' },
+      { n: 'Test', c: n - ve, fill: C.cardinal, text: '#fff' },
+      { n: 'Forecast', c: H, fill: '#fff', text: C.cardinal, dashed: true },
+    ];
+    const total = sum(parts.map((p) => p.c)), g = svgIn(el, W, Ht, 'How the history is split into training, validation, test and forecast periods');
+    let x = 0, i0 = 0;
+    parts.forEach((p) => {
+      const w = p.c / total * W;
+      s('rect', { x: x + 1, y: 6, width: Math.max(0, w - 2), height: 34, rx: 3, fill: p.fill, stroke: p.dashed ? C.cardinal : 'none', 'stroke-dasharray': p.dashed ? '4 3' : '' }, g);
+      if (w > (narrow ? 44 : 70)) s('text', { x: x + w / 2, y: 28, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 700, fill: p.text }, g, narrow ? p.n.slice(0, 5) : p.n);
+      s('text', { x: x + w / 2, y: 58, 'text-anchor': 'middle', 'font-size': 12, fill: C.muted }, g, p.c + (narrow ? '' : ' periods'));
+      if (labelFn && p.n !== 'Forecast' && !narrow) s('text', { x: x + 2, y: 80, 'font-size': 11, fill: C.muted }, g, labelFn(i0));
+      x += w; i0 += p.c;
+    });
+    return { tr, ve };
+  }
+  function drawSplitControls() {
+    if (!st.data) return;
+    const n = st.data.periods.length, tp = +$('r-train').value / 100;
+    let vp = +$('r-val').value / 100;
+    if (tp + vp > 0.95) { vp = Math.max(0.05, 0.95 - tp); $('r-val').value = Math.round(vp * 100); }
+    $('o-train').textContent = Math.round(tp * 100) + '%'; $('o-val').textContent = Math.round(vp * 100) + '%';
+    drawSplit($('c-split'), n, tp, vp, Math.max(1, +$('horizon').value || 1), (i) => FL.label(st.data.periods[Math.min(n - 1, i)], st.data.freq));
+  }
+  ['r-train', 'r-val', 'horizon'].forEach((id) => $(id).addEventListener('input', drawSplitControls));
+
+  $('run').addEventListener('click', () => {
+    errBox('run-err', '');
+    const btn = $('run'); btn.disabled = true; $('run-status').textContent = 'Training and testing models…';
+    setTimeout(() => {
+      try {
+        const xf = st.map.drivers.map((_, j) => { const v = $('xf-' + j) && $('xf-' + j).value; return v === '' || v === undefined ? null : +v; });
+        st.res = FL.run(st.data, { trainPct: +$('r-train').value / 100, valPct: +$('r-val').value / 100, horizon: Math.max(1, Math.min(+$('horizon').max, +$('horizon').value || 1)), coverage: +$('coverage').value, xFuture: xf });
+        st.snap = FL.snapshot(st.res, st.data); st.snap.map = st.map;
+        st.view = -1;
+        $('run-status').textContent = `Done in ${(st.res.ms / 1000).toFixed(1)} s.`;
+        unlock('s3'); unlock('s4'); renderResults();   // unlock first so charts measure their real width
+        $('monitor').replaceChildren();
+        $('s3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) { errBox('run-err', e.message); $('run-status').textContent = ''; }
+      btn.disabled = false;
+    }, 30);
+  });
+
+  /* ---------- step 3: results ---------- */
+  function seriesArrays(idx) {
+    const d = st.data, r = st.res, pick = (rows) => (idx < 0 ? rows[0].map((_, k) => sum(rows.map((x) => x[k]))) : rows[idx]);
+    const y = idx < 0 ? d.periods.map((_, t) => sum(d.series.map((x) => x.y[t]))) : d.series[idx].y;
+    const fcRows = idx < 0 ? r.fc : [r.fc[idx]];
+    return {
+      y, val: pick(r.valPreds[r.best]), test: pick(r.testPreds[r.best]), base: pick(r.testPreds.snaive),
+      f: fcRows[0].map((_, k) => sum(fcRows.map((x) => x[k].f))), lo: fcRows[0].map((_, k) => sum(fcRows.map((x) => x[k].lo))), hi: fcRows[0].map((_, k) => sum(fcRows.map((x) => x[k].hi))),
+    };
+  }
+  function renderResults() {
+    const r = st.res, d = st.data, box = $('results');
+    box.replaceChildren(); box.classList.add('fade');
+    const best = FL.Models[r.best], tb = r.test[r.best], tbase = r.test.snaive, cf = r.confidence;
+    $('res-sub').textContent = `${d.series.length} series, ${r.trainEnd} training, ${r.valLen} validation and ${r.testLen} test ${d.freq.unit}s; forecasting ${r.H} ${d.freq.unit}s ahead.`;
+
+    const k = h('div', { class: 'kpis' }, box);
+    const kpi = (l, v, sub, cls) => { const e = h('div', { class: 'kpi' }, k); h('div', { class: 'l' }, e, l); h('div', { class: 'v ' + (cls || '') }, e, v); h('div', { class: 's' }, e, sub); };
+    kpi('Chosen model', best.name, 'Lowest validation error');
+    kpi('Test error (WAPE)', pct(tb.wape), 'Baseline ' + pct(tbase.wape) + ' · bias ' + spct(tb.bias));
+    kpi('Skill vs baseline', r.best === 'snaive' ? 'Baseline' : spct(cf.skill, 0), r.best === 'snaive' ? 'No model beat "same period last season"' : 'Lower error than "same period last season"');
+    kpi('Confidence', cf.score + '/100', cf.band + ': ' + cf.advice.split('.')[0] + '.', 'band-' + cf.band);
+
+    // main chart
+    h('div', { class: 'sub' }, box, 'Forecast');
+    h('p', { class: 'subp' }, box, 'History in black. The chosen model forecast the validation and test periods blind (red), next to the baseline (grey dashes). The shaded band is the tested range for the future.');
+    const row = h('div', { class: 'ctl-row' }, box);
+    h('label', { class: 'f', for: 'view', style: 'margin:0' }, row, 'Show');
+    const sel = h('select', { id: 'view' }, row);
+    h('option', { value: '-1' }, sel, d.series.length > 1 ? 'All series combined' : d.series[0].id);
+    if (d.series.length > 1) d.series.forEach((x, i) => h('option', { value: String(i) }, sel, x.id));
+    sel.addEventListener('change', () => { st.view = +sel.value; drawMain(); drawFcTable(); });
+    const lg = h('div', { class: 'legend' }, box);
+    [['History', C.ink], ['Chosen model', C.cardinal], ['Baseline', C.line2], ['Forecast range', C.gold]].forEach(([n, c]) => { const sp = h('span', null, lg); const i = h('i', null, sp); i.style.background = c; sp.append(n); });
+    h('div', { class: 'chart', id: 'c-main' }, box);
+
+    // leaderboard
+    h('div', { class: 'sub' }, box, 'Model comparison');
+    h('p', { class: 'subp' }, box, 'Every model forecast the same validation periods; the lowest error was chosen before the test was opened. Test scores are shown for all models for transparency.');
+    const tbx = h('div', { class: 'tablebox' }, box), t = h('table', null, tbx);
+    const hr = h('tr', null, h('thead', null, t));
+    ['Model', 'How it works', 'Validation WAPE', 'Test WAPE', 'Test bias', 'MASE'].forEach((c, i) => h('th', { class: (i > 1 ? 'n' : '') + (i === 1 || i >= 4 ? ' hide-sm' : '') }, hr, c));
+    const maxW = Math.max(...r.models.map((m) => Math.max(r.val[m].wape, r.test[m].wape)).filter(Number.isFinite));
+    const tbody = h('tbody', null, t);
+    r.models.slice().sort((a, b) => r.val[a].wape - r.val[b].wape).forEach((m) => {
+      const tr = h('tr', { class: m === r.best ? 'pick' : '' }, tbody);
+      const c0 = h('td', null, tr, FL.Models[m].name + (m === r.best ? ' ' : '')); if (m === r.best) h('span', { class: 'chip' }, c0, 'chosen'); if (FL.Models[m].baseline) h('span', { class: 'chip', style: 'background:#F4F1EC;color:#6B6560;margin-left:4px' }, c0, 'baseline');
+      h('td', { class: 'muted hide-sm', style: 'white-space:normal;min-width:180px' }, tr, FL.Models[m].short);
+      [r.val[m].wape, r.test[m].wape].forEach((v, i) => { const td = h('td', { class: 'n' }, tr); const b = h('span', { class: 'hide-sm bar' + (i ? '' : ' base') }, td); b.style.width = Math.max(2, v / maxW * 70) + 'px'; td.append(pct(v)); });
+      h('td', { class: 'n hide-sm' }, tr, spct(r.test[m].bias)); h('td', { class: 'n hide-sm' }, tr, Number.isFinite(r.test[m].mase) ? r.test[m].mase.toFixed(2) : '–');
+    });
+
+    // confidence + backtest
+    const two = h('div', { class: 'two' }, box);
+    const cbox = h('div', null, two);
+    h('div', { class: 'sub' }, cbox, 'Why ' + cf.score + '/100 confidence');
+    h('p', { class: 'subp' }, cbox, 'Six checks on unseen data. Each shows your result and the points it earned.');
+    cf.parts.forEach((p) => {
+      const rw = h('div', { class: 'conf-row' }, cbox);
+      const a = h('div', null, rw); h('div', { class: 'nm' }, a, p.name + ': ' + (p.fmt === 'x' ? p.value.toFixed(1) + ' seasons' : pct(p.value, 0)));
+      h('div', { class: 'dt' }, a, p.detail);
+      const mtr = h('div', { class: 'meter', role: 'img', 'aria-label': Math.round(p.score * 100) + '% of points' }, rw); h('b', null, mtr).style.width = Math.round(p.score * 100) + '%';
+      h('div', { class: 'pts' }, rw, Math.round(p.weight * p.score) + '/' + p.weight);
+    });
+    const bbox = h('div', null, two);
+    h('div', { class: 'sub' }, bbox, 'Backtest across past periods');
+    h('p', { class: 'subp' }, bbox, r.folds.length ? `The chosen model was re-run from ${r.folds.length} earlier dates. Steady bars mean dependable accuracy. Its ${Math.round(r.coverageTarget * 100)}% range caught ${pct(r.coverage, 0)} of test actuals.` : 'Not enough history before the test window for a backtest. Add more history to unlock it.');
+    h('div', { class: 'chart', id: 'c-bt' }, bbox);
+
+    // insights
+    h('div', { class: 'sub' }, box, 'AI insights');
+    h('p', { class: 'subp' }, box, 'Written by rules from your results and the ML model. Nothing is sent to a language model.');
+    const ins = h('div', { class: 'insights' }, box);
+    r.insights.forEach((x) => { const c = h('div', { class: 'ins ' + x.tone }, ins); h('h4', null, c, x.title); h('p', null, c, x.text); });
+
+    // per series
+    if (d.series.length > 1) {
+      h('div', { class: 'sub' }, box, 'Accuracy by series (test periods)');
+      const sbx = h('div', { class: 'tablebox' }, box), st2 = h('table', null, sbx);
+      const sh = h('tr', null, h('thead', null, st2));
+      ['Series', 'Test units', 'WAPE', 'Bias'].forEach((c, i) => h('th', { class: i ? 'n' : '' }, sh, c));
+      const sb = h('tbody', null, st2), mx = Math.max(...r.perSeries.map((p) => p.wape).filter(Number.isFinite));
+      r.perSeries.slice().sort((a, b) => b.volume - a.volume).forEach((p) => {
+        const tr = h('tr', null, sb); h('td', null, tr, p.id); h('td', { class: 'n' }, tr, int(p.volume));
+        const td = h('td', { class: 'n' }, tr); h('span', { class: 'bar' }, td).style.width = Math.max(2, p.wape / mx * 60) + 'px'; td.append(pct(p.wape));
+        h('td', { class: 'n' }, tr, spct(p.bias));
+      });
+    }
+
+    // forecast table
+    h('div', { class: 'sub' }, box, 'Forecast values');
+    const dl = h('div', { class: 'ctl-row' }, box);
+    const b1 = h('button', { class: 'btn small', type: 'button' }, dl, 'Download forecast (CSV)');
+    b1.addEventListener('click', downloadForecast);
+    const b2 = h('button', { class: 'btn small', type: 'button' }, dl, 'Download accuracy report (CSV)');
+    b2.addEventListener('click', downloadReport);
+    h('div', { class: 'tablebox', id: 'fc-table' }, box);
+    drawMain(); drawBacktest(); drawFcTable();
+  }
+
+  function drawMain() {
+    const el = $('c-main'); if (!el || !st.res) return;
+    const r = st.res, d = st.data, a = seriesArrays(st.view), n = d.periods.length, H = r.H;
+    const W = Math.max(320, el.clientWidth || 800), Ht = W < 560 ? 280 : 340, m = { t: 24, r: 14, b: 30, l: 50 };
+    const tot = n + H, x = (i) => m.l + i / (tot - 1) * (W - m.l - m.r);
+    const maxV = Math.max(...a.y, ...a.hi, ...a.test, ...a.val) * 1.05 || 1, step = niceStep(maxV, 4), yMax = Math.ceil(maxV / step) * step;
+    const y = (v) => Ht - m.b - v / yMax * (Ht - m.t - m.b);
+    const g = svgIn(el, W, Ht, 'History, validation and test forecasts, and the future forecast with its range');
+    const zone = (i0, i1, fill, label) => {
+      s('rect', { x: x(i0) - (i0 ? 0.5 * (x(1) - x(0)) : 0), y: m.t, width: x(i1) - x(i0) + (x(1) - x(0)) * (i0 ? 1 : 0.5), height: Ht - m.t - m.b, fill }, g);
+      const room = x(i1) - x(i0) + (x(1) - x(0)), short = label.slice(0, 3) + '.';
+      const txt = room >= label.length * 7.2 ? label : room >= 30 ? short : '';
+      if (txt) s('text', { x: (x(i0) + x(i1)) / 2, y: m.t - 8, 'text-anchor': 'middle', 'font-size': 11.5, 'font-weight': 700, fill: C.muted }, g, txt);
+    };
+    zone(0, r.trainEnd - 1, 'transparent', 'Training');
+    zone(r.trainEnd, r.valEnd - 1, 'rgba(184,150,46,.10)', 'Validation');
+    zone(r.valEnd, n - 1, 'rgba(140,21,21,.06)', 'Test');
+    zone(n, n + H - 1, 'rgba(184,150,46,.06)', 'Forecast');
+    for (let v = 0; v <= yMax + 1e-9; v += step) {
+      s('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: C.line }, g);
+      s('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: C.muted }, g, compact(v));
+    }
+    const labEvery = Math.max(1, Math.ceil(tot / (W < 560 ? 4 : 8)));
+    for (let i = 0; i < tot; i += labEvery) {
+      const ms = i < n ? d.periods[i] : r.futurePeriods[i - n];
+      s('text', { x: x(i), y: Ht - 8, 'text-anchor': 'middle', 'font-size': 11, fill: C.muted }, g, FL.label(ms, d.freq, d.freq.name !== 'monthly' && d.freq.name !== 'quarterly' ? false : false));
+    }
+    const line = (pts, color, w, dash) => s('polyline', { points: pts.map(([i, v]) => `${x(i)},${y(v)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': w, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', 'stroke-dasharray': dash || '' }, g);
+    const band = a.f.map((_, k) => [n + k, a.hi[k]]).concat(a.f.map((_, k) => [n + k, a.lo[k]]).reverse());
+    band.unshift([n - 1, a.y[n - 1]]); band.push([n - 1, a.y[n - 1]]);
+    s('polygon', { points: band.map(([i, v]) => `${x(i)},${y(v)}`).join(' '), fill: 'rgba(184,150,46,.28)' }, g);
+    line(a.y.map((v, i) => [i, v]), C.ink, 1.8);
+    line(a.base.map((v, k) => [r.valEnd + k, v]), C.line2, 2, '5 4');
+    line(a.val.map((v, k) => [r.trainEnd + k, v]), C.cardinal, 2.4);
+    line(a.test.map((v, k) => [r.valEnd + k, v]), C.cardinal, 2.4);
+    line([[n - 1, a.y[n - 1]]].concat(a.f.map((v, k) => [n + k, v])), C.cardinal, 2.4, '6 3');
+    const rule = s('line', { y1: m.t, y2: Ht - m.b, stroke: C.ink, 'stroke-opacity': 0, 'stroke-dasharray': '2 3' }, g);
+    const t = tip(el);
+    const hit = s('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: Ht - m.t - m.b, fill: 'transparent' }, g);
+    hit.addEventListener('pointermove', (ev) => {
+      const b = el.getBoundingClientRect(), px = (ev.clientX - b.left) * W / el.clientWidth;
+      const i = Math.max(0, Math.min(tot - 1, Math.round((px - m.l) / (W - m.l - m.r) * (tot - 1))));
+      rule.setAttribute('x1', x(i)); rule.setAttribute('x2', x(i)); rule.setAttribute('stroke-opacity', 0.5);
+      const ms = i < n ? d.periods[i] : r.futurePeriods[i - n], lines = [];
+      if (i < n) lines.push(['Actual', int(a.y[i])]);
+      if (i >= r.trainEnd && i < r.valEnd) lines.push(['Model (validation)', int(a.val[i - r.trainEnd])]);
+      if (i >= r.valEnd && i < n) { lines.push(['Model (test)', int(a.test[i - r.valEnd])]); lines.push(['Baseline', int(a.base[i - r.valEnd])]); }
+      if (i >= n) { lines.push(['Forecast', int(a.f[i - n])]); lines.push(['Range', int(a.lo[i - n]) + ' – ' + int(a.hi[i - n])]); }
+      t.show(x(i) * el.clientWidth / W, ev.clientY - b.top, FL.label(ms, d.freq), lines);
+    });
+    hit.addEventListener('pointerleave', () => { rule.setAttribute('stroke-opacity', 0); t.hide(); });
+  }
+
+  function drawBacktest() {
+    const el = $('c-bt'); if (!el) return;
+    const f = st.res.folds; if (!f.length) { el.replaceChildren(); return; }
+    const W = Math.max(300, el.clientWidth || 420), Ht = 220, m = { t: 14, r: 10, b: 44, l: 44 };
+    const mx = Math.max(...f.map((x) => Math.max(x.wape, x.base))) * 1.15, step = niceStep(mx, 4), top = Math.ceil(mx / step) * step;
+    const y = (v) => Ht - m.b - v / top * (Ht - m.t - m.b), g = svgIn(el, W, Ht, 'Backtest error per fold, chosen model against baseline');
+    for (let v = 0; v <= top + 1e-9; v += step) { s('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: C.line }, g); s('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: C.muted }, g, pct(v, 0)); }
+    const bw = (W - m.l - m.r) / f.length, t = tip(el);
+    f.forEach((fo, i) => {
+      const x0 = m.l + i * bw, w = Math.min(28, bw * 0.3);
+      [[fo.wape, C.cardinal, 'Chosen model'], [fo.base, C.line2, 'Baseline']].forEach(([v, c, nm], j) => {
+        const rc = s('rect', { x: x0 + bw / 2 - w - 2 + j * (w + 4), y: y(v), width: w, height: y(0) - y(v), rx: 2, fill: c }, g);
+        rc.addEventListener('pointermove', (ev) => { const b = el.getBoundingClientRect(); t.show(ev.clientX - b.left, ev.clientY - b.top, 'From ' + fo.label, [[nm, pct(v)]]); });
+        rc.addEventListener('pointerleave', () => t.hide());
+      });
+      s('text', { x: x0 + bw / 2, y: Ht - m.b + 16, 'text-anchor': 'middle', 'font-size': 11, fill: C.muted }, g, 'Fold ' + (i + 1));
+      s('text', { x: x0 + bw / 2, y: Ht - m.b + 30, 'text-anchor': 'middle', 'font-size': 10.5, fill: C.muted }, g, fo.label);
+    });
+  }
+
+  function drawFcTable() {
+    const box = $('fc-table'); if (!box) return;
+    const a = seriesArrays(st.view), r = st.res; box.replaceChildren();
+    const t = h('table', null, box), hr = h('tr', null, h('thead', null, t));
+    ['Period', 'Forecast', 'Low', 'High'].forEach((c, i) => h('th', { class: i ? 'n' : '' }, hr, c));
+    const tb = h('tbody', null, t);
+    r.futurePeriods.forEach((ms, k) => { const tr = h('tr', null, tb); h('td', null, tr, FL.label(ms, st.data.freq)); [a.f[k], a.lo[k], a.hi[k]].forEach((v) => h('td', { class: 'n' }, tr, int(v))); });
+  }
+  function downloadForecast() {
+    const r = st.res, d = st.data, rows = [['series', 'period_start', 'forecast', 'low', 'high', 'model', 'range']];
+    d.series.forEach((x, si) => r.fc[si].forEach((p) => rows.push([x.id, new Date(p.t).toISOString().slice(0, 10), p.f.toFixed(2), p.lo.toFixed(2), p.hi.toFixed(2), FL.Models[r.best].name, Math.round(r.coverageTarget * 100) + '%'])));
+    download('forecast.csv', rows.map((rw) => rw.map(csvCell).join(',')).join('\n'));
+  }
+  function downloadReport() {
+    const r = st.res, rows = [['section', 'item', 'measure', 'value']];
+    r.models.forEach((m) => ['wape', 'bias', 'mase', 'rmse'].forEach((k) => { rows.push(['validation', FL.Models[m].name, k, r.val[m][k]]); rows.push(['test', FL.Models[m].name, k, r.test[m][k]]); }));
+    r.folds.forEach((f, i) => rows.push(['backtest', 'fold ' + (i + 1) + ' from ' + f.label, 'wape model / baseline', f.wape + ' / ' + f.base]));
+    rows.push(['range', Math.round(r.coverageTarget * 100) + '% range', 'test coverage', r.coverage]);
+    r.confidence.parts.forEach((p) => rows.push(['confidence', p.name, 'points', (p.weight * p.score).toFixed(1) + ' of ' + p.weight]));
+    rows.push(['confidence', 'total', 'score', r.confidence.score + ' (' + r.confidence.band + ')']);
+    r.perSeries.forEach((p) => rows.push(['series', p.id, 'test wape', p.wape]));
+    download('accuracy_report.csv', rows.map((rw) => rw.map(csvCell).join(',')).join('\n'));
+  }
+
+  /* ---------- step 4: monitor ---------- */
+  function runMonitor(text, name) {
+    const out = $('monitor'); out.replaceChildren();
+    if (!st.snap) { h('div', { class: 'err' }, out, 'Run a forecast or load a saved one first.'); return; }
+    let mon;
+    try { mon = FL.monitor(st.snap, FL.parseCSV(text), st.snap.map); } catch (e) { h('div', { class: 'err', role: 'alert' }, out, e.message); return; }
+    $('mon-status').textContent = `${name}: ${mon.matched} forecast points matched.`;
+    const b = h('div', { class: 'banner ' + mon.status }, out);
+    h('strong', null, b, mon.status === 'ok' ? 'On track: the forecast is performing as tested.' : 'Retraining recommended.');
+    if (mon.reasons.length) { const ul = h('ul', null, b); mon.reasons.forEach((x) => h('li', null, ul, x)); }
+    else h('div', null, b, `Error ${pct(mon.wape)} against ${pct(mon.testWape)} promised by the test, and no series is drifting one way.`);
+    const k = h('div', { class: 'kpis' }, out);
+    [['Error on new actuals', pct(mon.wape), 'Test promised ' + pct(mon.testWape)], ['Bias', spct(mon.bias), mon.bias < 0 ? 'Forecast below actuals' : 'Forecast above actuals'],
+      ['Inside the range', pct(mon.coverage, 0), 'Target ' + pct(st.snap.coverageTarget, 0)], ['Series drifting', String(mon.alerts.length), 'One-way and above test error']]
+      .forEach(([l, v, sb]) => { const e = h('div', { class: 'kpi' }, k); h('div', { class: 'l' }, e, l); h('div', { class: 'v' }, e, v); h('div', { class: 's' }, e, sb); });
+    // total chart
+    const byT = new Map();
+    mon.rows.forEach((x) => { const c = byT.get(x.t) || { y: 0, f: 0, lo: 0, hi: 0 }; c.y += x.y; c.f += x.f; c.lo += x.lo; c.hi += x.hi; byT.set(x.t, c); });
+    const pts = Array.from(byT.entries()).sort((a, b2) => a[0] - b2[0]);
+    const el = h('div', { class: 'chart' }, out);
+    const W = Math.max(300, el.clientWidth || 700), Ht = 240, m = { t: 14, r: 12, b: 30, l: 50 };
+    const mx = Math.max(...pts.map(([, c]) => Math.max(c.y, c.hi))) * 1.08, step = niceStep(mx, 4), top = Math.ceil(mx / step) * step;
+    const x = (i) => m.l + (pts.length > 1 ? i / (pts.length - 1) : 0.5) * (W - m.l - m.r), y = (v) => Ht - m.b - v / top * (Ht - m.t - m.b);
+    const g = svgIn(el, W, Ht, 'New actuals against the saved forecast and its range');
+    for (let v = 0; v <= top + 1e-9; v += step) { s('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: C.line }, g); s('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: C.muted }, g, compact(v)); }
+    s('polygon', { points: pts.map(([, c], i) => `${x(i)},${y(c.hi)}`).concat(pts.slice().reverse().map(([, c], i) => `${x(pts.length - 1 - i)},${y(c.lo)}`)).join(' '), fill: 'rgba(184,150,46,.28)' }, g);
+    s('polyline', { points: pts.map(([, c], i) => `${x(i)},${y(c.f)}`).join(' '), fill: 'none', stroke: C.cardinal, 'stroke-width': 2.4, 'stroke-dasharray': '6 3' }, g);
+    pts.forEach(([t, c], i) => { s('circle', { cx: x(i), cy: y(c.y), r: 4.5, fill: C.ink }, g); if (pts.length <= 12 || i % 2 === 0) s('text', { x: x(i), y: Ht - 8, 'text-anchor': 'middle', 'font-size': 11, fill: C.muted }, g, FL.label(t, st.snap.freq, true)); });
+    const lg = h('div', { class: 'legend' }, out); [['Actual', C.ink], ['Saved forecast', C.cardinal], ['Range', C.gold]].forEach(([n, c]) => { const sp = h('span', null, lg); h('i', null, sp).style.background = c; sp.append(n); });
+    // per series
+    const tbx = h('div', { class: 'tablebox' }, out), t = h('table', null, tbx), hr = h('tr', null, h('thead', null, t));
+    ['Series', 'Periods', 'WAPE', 'Tracking signal', ''].forEach((c, i) => h('th', { class: i && i < 4 ? 'n' : '' }, hr, c));
+    const tb = h('tbody', null, t);
+    mon.per.slice().sort((a, b2) => Math.abs(b2.ts) - Math.abs(a.ts)).forEach((p) => {
+      const tr = h('tr', null, tb); h('td', null, tr, p.id); h('td', { class: 'n' }, tr, p.n); h('td', { class: 'n' }, tr, pct(p.wape)); h('td', { class: 'n' }, tr, p.ts.toFixed(1));
+      const flag = mon.alerts.includes(p), lean = Math.abs(p.ts) > 4 && p.n >= 3;
+      h('td', { style: 'color:' + (flag ? C.warn : C.good) + ';font-weight:700' }, tr, flag ? (p.ts > 0 ? 'Forecast too low' : 'Forecast too high') : lean ? 'OK (small, one-way)' : 'OK');
+    });
+  }
+  $('file-act').addEventListener('change', (e) => readFile(e.target.files[0], runMonitor));
+  $('use-act').addEventListener('click', () => {
+    if (st.sourceName.indexOf('Kidswear sample') !== 0) { $('monitor').replaceChildren(); h('div', { class: 'err' }, $('monitor'), 'The sample actuals match the Kidswear sample. Load the sample in step 1 and run it first.'); return; }
+    runMonitor($('sample-actuals').textContent.trim(), 'Kidswear sample actuals (the 8 weeks after the history)');
+  });
+  $('save-snap').addEventListener('click', () => {
+    if (!st.snap) return;
+    const txt = JSON.stringify(st.snap);
+    try { localStorage.setItem('forecastLab.lastForecast', txt); } catch (e) { /* storage unavailable */ }
+    download('forecast_snapshot.json', txt, 'application/json');
+    $('mon-status').textContent = 'Forecast saved. Load this file later with "Load a saved forecast" to check it against actuals.';
+  });
+  $('file-snap').addEventListener('change', (e) => readFile(e.target.files[0], (text, name) => {
+    try {
+      const sn = JSON.parse(text);
+      if (!sn || sn.v !== 1 || !sn.series || !sn.map) throw new Error('bad');
+      st.snap = sn; unlock('s4');
+      $('mon-status').textContent = `Loaded ${name}: ${sn.series.length} series, made ${sn.created.slice(0, 10)}. Now upload the actuals.`;
+    } catch (err) { $('monitor').replaceChildren(); h('div', { class: 'err' }, $('monitor'), 'That is not a Forecast Lab snapshot file.'); }
+  }));
+  try { const saved = localStorage.getItem('forecastLab.lastForecast'); if (saved) { const sn = JSON.parse(saved); if (sn && sn.v === 1 && sn.map) { st.snap = sn; unlock('s4'); $('mon-status').textContent = `Your last saved forecast (${sn.created.slice(0, 10)}, ${sn.series.length} series) is ready to check against new actuals.`; } } } catch (e) { /* ignore */ }
+
+  /* ---------- guide ---------- */
+  let gFold = 0;
+  function drawGuide() {
+    const tp = +$('g-train').value / 100; $('g-train-o').textContent = Math.round(tp * 100) + '%';
+    const base = Date.UTC(2024, 6, 1);
+    drawSplit($('g-split'), 104, tp, 0.15, 8, (i) => FL.label(base + i * 7 * 86400000, { name: 'weekly' }));
+    const el = $('g-backtest'), W = Math.max(300, el.clientWidth || 600), folds = 4, rowH = 26, Ht = 30 + rowH * (folds + 1), n = 52, x = (i) => 90 + i / n * (W - 100);
+    const g = svgIn(el, W, Ht, 'Rolling-origin backtest: each fold trains on earlier data and forecasts the next window');
+    for (let j = 0; j < folds; j++) {
+      const origin = 24 + j * 6, yy = 16 + j * rowH, on = j === gFold;
+      s('text', { x: 0, y: yy + 13, 'font-size': 12, 'font-weight': on ? 700 : 400, fill: on ? C.cardinal : C.muted }, g, 'Fold ' + (j + 1));
+      s('rect', { x: x(0), y: yy, width: x(origin) - x(0) - 2, height: 18, rx: 3, fill: C.ink, opacity: on ? 1 : 0.25 }, g);
+      s('rect', { x: x(origin), y: yy, width: x(origin + 6) - x(origin) - 2, height: 18, rx: 3, fill: C.cardinal, opacity: on ? 1 : 0.25 }, g);
+      if (on) s('text', { x: x(origin + 6) + 6, y: yy + 13, 'font-size': 11.5, fill: C.ink }, g, 'forecast, then score');
+    }
+    const yy = 16 + folds * rowH;
+    s('text', { x: 0, y: yy + 13, 'font-size': 12, fill: C.muted }, g, 'Test');
+    s('rect', { x: x(48), y: yy, width: x(52) - x(48), height: 18, rx: 3, fill: 'none', stroke: C.cardinal, 'stroke-dasharray': '4 3' }, g);
+    s('text', { x: x(48) - 6, y: yy + 13, 'text-anchor': 'end', 'font-size': 11.5, fill: C.muted }, g, 'kept out of the backtest');
+    $('g-fold-l').textContent = `Fold ${gFold + 1} of ${folds}: train on the dark bar, forecast the red one, compare with what happened.`;
+    const gm = $('g-models'); if (!gm.childNodes.length) FL.MODEL_ORDER.forEach((k) => { const tr = h('tr', null, gm); h('td', null, tr, FL.Models[k].name); h('td', null, tr, FL.Models[k].short + ({ snaive: '. The baseline every model must beat.', ma: '. Flat, ignores season; a sanity check.', hw: '. Classic statistical method; needs two seasons for seasonality.', gbm: '. Learns corrections to last season from season, trend and drivers such as discount.', ens: '. Blends a statistical and an ML view.' })[k]); });
+  }
+  $('g-train').addEventListener('input', drawGuide);
+  $('g-prev').addEventListener('click', () => { gFold = (gFold + 3) % 4; drawGuide(); });
+  $('g-next').addEventListener('click', () => { gFold = (gFold + 1) % 4; drawGuide(); });
+
+  /* ---------- case study tiles ---------- */
+  try {
+    const P = JSON.parse($('poc-data').textContent), box = $('case-tiles');
+    [['Forecast error, style by week', P.wape_style, (v) => pct(v), 'lower'], ['Units sent in the wrong size', P.wrong_size, (v) => pct(v), 'lower'],
+      ['Clearance gross profit', P.clear_gp, (v) => 'R' + (v / 1e6).toFixed(2) + 'm', 'higher'], ['Defective lines found', P.defect_recall, (v) => pct(v, 0), 'higher']]
+      .forEach(([l, o, f]) => { const e = h('div', { class: 'kpi' }, box); h('div', { class: 'l' }, e, l); const w = h('div', { class: 'was' }, e, 'Today '); h('s', null, w, f(o.today)); h('div', { class: 'v' }, e, f(o.poc)); h('div', { class: 's' }, e, spct(o.poc / o.today - 1, 0) + ' with the proof of concept'); });
+  } catch (e) { /* case data missing */ }
+
+  /* ---------- resize ---------- */
+  let lastW = window.innerWidth, timer;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(timer);
+    timer = setTimeout(() => { drawSplitControls(); if (st.res) { drawMain(); drawBacktest(); } if (!$('p-guide').classList.contains('hidden')) drawGuide(); }, 150);
+  });
+})();
+
+</script>
+</body>
+</html>
