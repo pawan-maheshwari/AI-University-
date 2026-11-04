@@ -1,0 +1,2621 @@
+{
+  "target": 0.8,
+  "levels": [
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6
+  ],
+  "weeks": [
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104
+  ],
+  "styles": [
+    {
+      "style_id": "KW1000",
+      "category": "T-shirts",
+      "stock_units": 3551,
+      "recommended_path": [
+        0.3,
+        0.3,
+        0.35,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 302869.0,
+      "cash_p10": 211842.0,
+      "cash_p90": 354702.0,
+      "current_plan_cash": 271831.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.844,
+      "expected_leftover": 707,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1001",
+      "category": "Dresses",
+      "stock_units": 1653,
+      "recommended_path": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 239908.0,
+      "cash_p10": 162365.0,
+      "cash_p90": 278198.0,
+      "current_plan_cash": 187983.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.92,
+      "expected_leftover": 330,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1002",
+      "category": "Schoolwear",
+      "stock_units": 2259,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 134068.0,
+      "cash_p10": 99595.0,
+      "cash_p90": 180284.0,
+      "current_plan_cash": 160432.0,
+      "expected_sell_through": 0.51,
+      "current_sell_through": 0.373,
+      "expected_leftover": 1107,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1003",
+      "category": "Jackets",
+      "stock_units": 2256,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 345480.0,
+      "cash_p10": 233582.0,
+      "cash_p90": 393068.0,
+      "current_plan_cash": 422752.0,
+      "expected_sell_through": 0.795,
+      "current_sell_through": 0.712,
+      "expected_leftover": 462,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1004",
+      "category": "Sleepwear",
+      "stock_units": 3036,
+      "recommended_path": [
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 235600.0,
+      "cash_p10": 164984.0,
+      "cash_p90": 272149.0,
+      "current_plan_cash": 240033.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.77,
+      "expected_leftover": 601,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1005",
+      "category": "T-shirts",
+      "stock_units": 3690,
+      "recommended_path": [
+        0.25,
+        0.25,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.45
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 261584.0,
+      "cash_p10": 182464.0,
+      "cash_p90": 307854.0,
+      "current_plan_cash": 228192.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.839,
+      "expected_leftover": 738,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1006",
+      "category": "Dresses",
+      "stock_units": 1479,
+      "recommended_path": [
+        0.1,
+        0.1,
+        0.15,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 232007.0,
+      "cash_p10": 148869.0,
+      "cash_p90": 287702.0,
+      "current_plan_cash": 221496.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.732,
+      "expected_leftover": 295,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1007",
+      "category": "Schoolwear",
+      "stock_units": 2485,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 183382.0,
+      "cash_p10": 134244.0,
+      "cash_p90": 207200.0,
+      "current_plan_cash": 197844.0,
+      "expected_sell_through": 0.781,
+      "current_sell_through": 0.751,
+      "expected_leftover": 545,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1008",
+      "category": "Jackets",
+      "stock_units": 2452,
+      "recommended_path": [
+        0.05,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 478142.0,
+      "cash_p10": 297858.0,
+      "cash_p90": 554499.0,
+      "current_plan_cash": 421724.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.854,
+      "expected_leftover": 486,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1009",
+      "category": "Sleepwear",
+      "stock_units": 2546,
+      "recommended_path": [
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 298876.0,
+      "cash_p10": 219832.0,
+      "cash_p90": 354867.0,
+      "current_plan_cash": 300000.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.762,
+      "expected_leftover": 508,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1010",
+      "category": "T-shirts",
+      "stock_units": 4251,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 132337.0,
+      "cash_p10": 103607.0,
+      "cash_p90": 180042.0,
+      "current_plan_cash": 132758.0,
+      "expected_sell_through": 0.335,
+      "current_sell_through": 0.298,
+      "expected_leftover": 2825,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1011",
+      "category": "Dresses",
+      "stock_units": 1959,
+      "recommended_path": [
+        0.15,
+        0.2,
+        0.2,
+        0.2,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 321145.0,
+      "cash_p10": 207154.0,
+      "cash_p90": 369301.0,
+      "current_plan_cash": 260046.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.87,
+      "expected_leftover": 388,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1012",
+      "category": "Schoolwear",
+      "stock_units": 1507,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 80736.0,
+      "cash_p10": 51493.0,
+      "cash_p90": 93173.0,
+      "current_plan_cash": 94965.0,
+      "expected_sell_through": 0.781,
+      "current_sell_through": 0.537,
+      "expected_leftover": 331,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1013",
+      "category": "Jackets",
+      "stock_units": 1548,
+      "recommended_path": [
+        0.1,
+        0.1,
+        0.2,
+        0.4,
+        0.4,
+        0.4,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 391164.0,
+      "cash_p10": 228003.0,
+      "cash_p90": 468461.0,
+      "current_plan_cash": 297460.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.944,
+      "expected_leftover": 309,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1014",
+      "category": "Sleepwear",
+      "stock_units": 2181,
+      "recommended_path": [
+        0.15,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.5
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 239913.0,
+      "cash_p10": 145304.0,
+      "cash_p90": 283562.0,
+      "current_plan_cash": 237188.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.772,
+      "expected_leftover": 435,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1015",
+      "category": "T-shirts",
+      "stock_units": 3173,
+      "recommended_path": [
+        0.05,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 264333.0,
+      "cash_p10": 201552.0,
+      "cash_p90": 320954.0,
+      "current_plan_cash": 235629.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.883,
+      "expected_leftover": 631,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1016",
+      "category": "Dresses",
+      "stock_units": 1654,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 160866.0,
+      "cash_p10": 103709.0,
+      "cash_p90": 187726.0,
+      "current_plan_cash": 168534.0,
+      "expected_sell_through": 0.779,
+      "current_sell_through": 0.721,
+      "expected_leftover": 365,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1017",
+      "category": "Schoolwear",
+      "stock_units": 3121,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 227333.0,
+      "cash_p10": 173291.0,
+      "cash_p90": 259361.0,
+      "current_plan_cash": 246659.0,
+      "expected_sell_through": 0.766,
+      "current_sell_through": 0.745,
+      "expected_leftover": 732,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1018",
+      "category": "Jackets",
+      "stock_units": 1443,
+      "recommended_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 215234.0,
+      "cash_p10": 153461.0,
+      "cash_p90": 243875.0,
+      "current_plan_cash": 200535.0,
+      "expected_sell_through": 0.813,
+      "current_sell_through": 0.854,
+      "expected_leftover": 270,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1019",
+      "category": "Sleepwear",
+      "stock_units": 2043,
+      "recommended_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 186455.0,
+      "cash_p10": 116557.0,
+      "cash_p90": 218573.0,
+      "current_plan_cash": 197636.0,
+      "expected_sell_through": 0.807,
+      "current_sell_through": 0.711,
+      "expected_leftover": 395,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1020",
+      "category": "T-shirts",
+      "stock_units": 5921,
+      "recommended_path": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 498987.0,
+      "cash_p10": 324540.0,
+      "cash_p90": 549721.0,
+      "current_plan_cash": 418322.0,
+      "expected_sell_through": 0.866,
+      "current_sell_through": 0.887,
+      "expected_leftover": 791,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1021",
+      "category": "Dresses",
+      "stock_units": 1534,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 68001.0,
+      "cash_p10": 56617.0,
+      "cash_p90": 111897.0,
+      "current_plan_cash": 73827.0,
+      "expected_sell_through": 0.254,
+      "current_sell_through": 0.208,
+      "expected_leftover": 1145,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1022",
+      "category": "Schoolwear",
+      "stock_units": 1546,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 123303.0,
+      "cash_p10": 81258.0,
+      "cash_p90": 162050.0,
+      "current_plan_cash": 142879.0,
+      "expected_sell_through": 0.603,
+      "current_sell_through": 0.512,
+      "expected_leftover": 614,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1023",
+      "category": "Jackets",
+      "stock_units": 2425,
+      "recommended_path": [
+        0.05,
+        0.3,
+        0.3,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 447234.0,
+      "cash_p10": 296199.0,
+      "cash_p90": 560734.0,
+      "current_plan_cash": 451178.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.74,
+      "expected_leftover": 483,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1024",
+      "category": "Sleepwear",
+      "stock_units": 1824,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 98551.0,
+      "cash_p10": 66994.0,
+      "cash_p90": 112402.0,
+      "current_plan_cash": 106801.0,
+      "expected_sell_through": 0.791,
+      "current_sell_through": 0.77,
+      "expected_leftover": 382,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1025",
+      "category": "T-shirts",
+      "stock_units": 5155,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 140926.0,
+      "cash_p10": 104702.0,
+      "cash_p90": 179243.0,
+      "current_plan_cash": 145712.0,
+      "expected_sell_through": 0.481,
+      "current_sell_through": 0.448,
+      "expected_leftover": 2675,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1026",
+      "category": "Dresses",
+      "stock_units": 1771,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 78096.0,
+      "cash_p10": 59811.0,
+      "cash_p90": 115132.0,
+      "current_plan_cash": 85846.0,
+      "expected_sell_through": 0.278,
+      "current_sell_through": 0.231,
+      "expected_leftover": 1278,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1027",
+      "category": "Schoolwear",
+      "stock_units": 2744,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 163465.0,
+      "cash_p10": 119560.0,
+      "cash_p90": 193536.0,
+      "current_plan_cash": 216083.0,
+      "expected_sell_through": 0.705,
+      "current_sell_through": 0.573,
+      "expected_leftover": 809,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1028",
+      "category": "Jackets",
+      "stock_units": 1933,
+      "recommended_path": [
+        0.1,
+        0.1,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 454824.0,
+      "cash_p10": 312020.0,
+      "cash_p90": 562269.0,
+      "current_plan_cash": 409323.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.883,
+      "expected_leftover": 386,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1029",
+      "category": "Sleepwear",
+      "stock_units": 3829,
+      "recommended_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 323218.0,
+      "cash_p10": 215684.0,
+      "cash_p90": 367555.0,
+      "current_plan_cash": 298056.0,
+      "expected_sell_through": 0.804,
+      "current_sell_through": 0.834,
+      "expected_leftover": 749,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1030",
+      "category": "T-shirts",
+      "stock_units": 2460,
+      "recommended_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 198683.0,
+      "cash_p10": 156735.0,
+      "cash_p90": 236248.0,
+      "current_plan_cash": 157382.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.911,
+      "expected_leftover": 490,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1031",
+      "category": "Dresses",
+      "stock_units": 1754,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 108083.0,
+      "cash_p10": 75733.0,
+      "cash_p90": 150354.0,
+      "current_plan_cash": 121273.0,
+      "expected_sell_through": 0.405,
+      "current_sell_through": 0.273,
+      "expected_leftover": 1043,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1032",
+      "category": "Schoolwear",
+      "stock_units": 1780,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 137940.0,
+      "cash_p10": 100800.0,
+      "cash_p90": 179756.0,
+      "current_plan_cash": 147285.0,
+      "expected_sell_through": 0.611,
+      "current_sell_through": 0.586,
+      "expected_leftover": 693,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1033",
+      "category": "Jackets",
+      "stock_units": 1219,
+      "recommended_path": [
+        0.0,
+        0.1,
+        0.1,
+        0.1,
+        0.15,
+        0.3,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 244479.0,
+      "cash_p10": 185841.0,
+      "cash_p90": 321944.0,
+      "current_plan_cash": 191322.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.941,
+      "expected_leftover": 242,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1034",
+      "category": "Sleepwear",
+      "stock_units": 2605,
+      "recommended_path": [
+        0.15,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 209717.0,
+      "cash_p10": 139257.0,
+      "cash_p90": 245026.0,
+      "current_plan_cash": 223798.0,
+      "expected_sell_through": 0.807,
+      "current_sell_through": 0.744,
+      "expected_leftover": 503,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1035",
+      "category": "T-shirts",
+      "stock_units": 2789,
+      "recommended_path": [
+        0.05,
+        0.2,
+        0.3,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 186980.0,
+      "cash_p10": 140321.0,
+      "cash_p90": 233376.0,
+      "current_plan_cash": 149857.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.893,
+      "expected_leftover": 557,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1036",
+      "category": "Dresses",
+      "stock_units": 1131,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 76675.0,
+      "cash_p10": 50554.0,
+      "cash_p90": 92780.0,
+      "current_plan_cash": 100692.0,
+      "expected_sell_through": 0.737,
+      "current_sell_through": 0.59,
+      "expected_leftover": 298,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1037",
+      "category": "Schoolwear",
+      "stock_units": 3394,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 170741.0,
+      "cash_p10": 117398.0,
+      "cash_p90": 205036.0,
+      "current_plan_cash": 208553.0,
+      "expected_sell_through": 0.644,
+      "current_sell_through": 0.473,
+      "expected_leftover": 1208,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1038",
+      "category": "Jackets",
+      "stock_units": 4623,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 522338.0,
+      "cash_p10": 351208.0,
+      "cash_p90": 589129.0,
+      "current_plan_cash": 569209.0,
+      "expected_sell_through": 0.803,
+      "current_sell_through": 0.783,
+      "expected_leftover": 910,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1039",
+      "category": "Sleepwear",
+      "stock_units": 2965,
+      "recommended_path": [
+        0.2,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 307864.0,
+      "cash_p10": 201079.0,
+      "cash_p90": 358176.0,
+      "current_plan_cash": 322739.0,
+      "expected_sell_through": 0.803,
+      "current_sell_through": 0.728,
+      "expected_leftover": 585,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1040",
+      "category": "T-shirts",
+      "stock_units": 2696,
+      "recommended_path": [
+        0.05,
+        0.2,
+        0.2,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 211285.0,
+      "cash_p10": 159831.0,
+      "cash_p90": 264591.0,
+      "current_plan_cash": 194112.0,
+      "expected_sell_through": 0.803,
+      "current_sell_through": 0.855,
+      "expected_leftover": 531,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1041",
+      "category": "Dresses",
+      "stock_units": 3573,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 245770.0,
+      "cash_p10": 182858.0,
+      "cash_p90": 354268.0,
+      "current_plan_cash": 248570.0,
+      "expected_sell_through": 0.336,
+      "current_sell_through": 0.186,
+      "expected_leftover": 2373,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1042",
+      "category": "Schoolwear",
+      "stock_units": 1936,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 189641.0,
+      "cash_p10": 126392.0,
+      "cash_p90": 212140.0,
+      "current_plan_cash": 228062.0,
+      "expected_sell_through": 0.788,
+      "current_sell_through": 0.558,
+      "expected_leftover": 411,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1043",
+      "category": "Jackets",
+      "stock_units": 2608,
+      "recommended_path": [
+        0.2,
+        0.3,
+        0.3,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 407489.0,
+      "cash_p10": 260346.0,
+      "cash_p90": 503942.0,
+      "current_plan_cash": 396505.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.842,
+      "expected_leftover": 520,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1044",
+      "category": "Sleepwear",
+      "stock_units": 2846,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 135141.0,
+      "cash_p10": 111977.0,
+      "cash_p90": 192788.0,
+      "current_plan_cash": 139251.0,
+      "expected_sell_through": 0.33,
+      "current_sell_through": 0.312,
+      "expected_leftover": 1907,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1045",
+      "category": "T-shirts",
+      "stock_units": 3062,
+      "recommended_path": [
+        0.15,
+        0.15,
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.25
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 327078.0,
+      "cash_p10": 247640.0,
+      "cash_p90": 395039.0,
+      "current_plan_cash": 218638.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.96,
+      "expected_leftover": 606,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1046",
+      "category": "Dresses",
+      "stock_units": 1106,
+      "recommended_path": [
+        0.2,
+        0.2,
+        0.3,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 123171.0,
+      "cash_p10": 72492.0,
+      "cash_p90": 152149.0,
+      "current_plan_cash": 102990.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.909,
+      "expected_leftover": 219,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1047",
+      "category": "Schoolwear",
+      "stock_units": 2573,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 228646.0,
+      "cash_p10": 156338.0,
+      "cash_p90": 263276.0,
+      "current_plan_cash": 262032.0,
+      "expected_sell_through": 0.758,
+      "current_sell_through": 0.622,
+      "expected_leftover": 623,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1048",
+      "category": "Jackets",
+      "stock_units": 1379,
+      "recommended_path": [
+        0.0,
+        0.05,
+        0.05,
+        0.4,
+        0.4,
+        0.4,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 355394.0,
+      "cash_p10": 234348.0,
+      "cash_p90": 433655.0,
+      "current_plan_cash": 260256.0,
+      "expected_sell_through": 0.806,
+      "current_sell_through": 0.941,
+      "expected_leftover": 267,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1049",
+      "category": "Sleepwear",
+      "stock_units": 4326,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 218191.0,
+      "cash_p10": 150169.0,
+      "cash_p90": 263305.0,
+      "current_plan_cash": 226276.0,
+      "expected_sell_through": 0.537,
+      "current_sell_through": 0.387,
+      "expected_leftover": 2003,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1050",
+      "category": "T-shirts",
+      "stock_units": 2849,
+      "recommended_path": [
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 120922.0,
+      "cash_p10": 86633.0,
+      "cash_p90": 135770.0,
+      "current_plan_cash": 127307.0,
+      "expected_sell_through": 0.805,
+      "current_sell_through": 0.783,
+      "expected_leftover": 555,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1051",
+      "category": "Dresses",
+      "stock_units": 3433,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 155849.0,
+      "cash_p10": 120755.0,
+      "cash_p90": 223383.0,
+      "current_plan_cash": 155149.0,
+      "expected_sell_through": 0.33,
+      "current_sell_through": 0.221,
+      "expected_leftover": 2301,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1052",
+      "category": "Schoolwear",
+      "stock_units": 1206,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 95564.0,
+      "cash_p10": 62044.0,
+      "cash_p90": 122152.0,
+      "current_plan_cash": 118789.0,
+      "expected_sell_through": 0.633,
+      "current_sell_through": 0.479,
+      "expected_leftover": 442,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1053",
+      "category": "Jackets",
+      "stock_units": 2609,
+      "recommended_path": [
+        0.15,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 629596.0,
+      "cash_p10": 426997.0,
+      "cash_p90": 744720.0,
+      "current_plan_cash": 602536.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.875,
+      "expected_leftover": 516,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1054",
+      "category": "Sleepwear",
+      "stock_units": 5856,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 247368.0,
+      "cash_p10": 173148.0,
+      "cash_p90": 299700.0,
+      "current_plan_cash": 253081.0,
+      "expected_sell_through": 0.478,
+      "current_sell_through": 0.273,
+      "expected_leftover": 3056,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1055",
+      "category": "T-shirts",
+      "stock_units": 2857,
+      "recommended_path": [
+        0.45,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 187425.0,
+      "cash_p10": 133600.0,
+      "cash_p90": 220520.0,
+      "current_plan_cash": 186879.0,
+      "expected_sell_through": 0.804,
+      "current_sell_through": 0.813,
+      "expected_leftover": 561,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1056",
+      "category": "Dresses",
+      "stock_units": 2560,
+      "recommended_path": [
+        0.15,
+        0.2,
+        0.2,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 389968.0,
+      "cash_p10": 279058.0,
+      "cash_p90": 474099.0,
+      "current_plan_cash": 348756.0,
+      "expected_sell_through": 0.802,
+      "current_sell_through": 0.828,
+      "expected_leftover": 506,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1057",
+      "category": "Schoolwear",
+      "stock_units": 3024,
+      "recommended_path": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 151111.0,
+      "cash_p10": 131896.0,
+      "cash_p90": 207227.0,
+      "current_plan_cash": 169886.0,
+      "expected_sell_through": 0.21,
+      "current_sell_through": 0.155,
+      "expected_leftover": 2389,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1058",
+      "category": "Jackets",
+      "stock_units": 1455,
+      "recommended_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 296389.0,
+      "cash_p10": 193344.0,
+      "cash_p90": 352570.0,
+      "current_plan_cash": 233101.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.914,
+      "expected_leftover": 291,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1059",
+      "category": "Sleepwear",
+      "stock_units": 3924,
+      "recommended_path": [
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 207730.0,
+      "cash_p10": 139349.0,
+      "cash_p90": 232775.0,
+      "current_plan_cash": 220403.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.791,
+      "expected_leftover": 783,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1060",
+      "category": "T-shirts",
+      "stock_units": 1209,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.05,
+        0.05
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 160485.0,
+      "cash_p10": 125625.0,
+      "cash_p90": 177936.0,
+      "current_plan_cash": 101775.0,
+      "expected_sell_through": 0.884,
+      "current_sell_through": 0.983,
+      "expected_leftover": 140,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1061",
+      "category": "Dresses",
+      "stock_units": 290,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.15
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 83228.0,
+      "cash_p10": 62717.0,
+      "cash_p90": 88950.0,
+      "current_plan_cash": 43812.0,
+      "expected_sell_through": 0.926,
+      "current_sell_through": 1.0,
+      "expected_leftover": 21,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1062",
+      "category": "Schoolwear",
+      "stock_units": 892,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.05,
+        0.05,
+        0.05,
+        0.15
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 156352.0,
+      "cash_p10": 114738.0,
+      "cash_p90": 182473.0,
+      "current_plan_cash": 90391.0,
+      "expected_sell_through": 0.805,
+      "current_sell_through": 0.973,
+      "expected_leftover": 174,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1063",
+      "category": "Jackets",
+      "stock_units": 567,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.15,
+        0.15,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 147506.0,
+      "cash_p10": 91894.0,
+      "cash_p90": 181220.0,
+      "current_plan_cash": 123280.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.912,
+      "expected_leftover": 113,
+      "constraints": {
+        "sell_through_target_met": false,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1064",
+      "category": "Sleepwear",
+      "stock_units": 2301,
+      "recommended_path": [
+        0.05,
+        0.15,
+        0.3,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 198833.0,
+      "cash_p10": 137583.0,
+      "cash_p90": 239775.0,
+      "current_plan_cash": 149148.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.868,
+      "expected_leftover": 460,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1065",
+      "category": "T-shirts",
+      "stock_units": 1929,
+      "recommended_path": [
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 87920.0,
+      "cash_p10": 66167.0,
+      "cash_p90": 98214.0,
+      "current_plan_cash": 91721.0,
+      "expected_sell_through": 0.801,
+      "current_sell_through": 0.777,
+      "expected_leftover": 385,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1066",
+      "category": "Dresses",
+      "stock_units": 587,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.05,
+        0.05,
+        0.2
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 186591.0,
+      "cash_p10": 142924.0,
+      "cash_p90": 201682.0,
+      "current_plan_cash": 138119.0,
+      "expected_sell_through": 0.924,
+      "current_sell_through": 0.993,
+      "expected_leftover": 44,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1067",
+      "category": "Schoolwear",
+      "stock_units": 405,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.05,
+        0.2
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 91482.0,
+      "cash_p10": 60040.0,
+      "cash_p90": 101930.0,
+      "current_plan_cash": 59482.0,
+      "expected_sell_through": 0.877,
+      "current_sell_through": 0.987,
+      "expected_leftover": 50,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": true
+      }
+    },
+    {
+      "style_id": "KW1068",
+      "category": "Jackets",
+      "stock_units": 569,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.15,
+        0.2,
+        0.2
+      ],
+      "current_path": [
+        0.5,
+        0.5,
+        0.5,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "expected_cash": 157091.0,
+      "cash_p10": 90319.0,
+      "cash_p90": 191900.0,
+      "current_plan_cash": 95848.0,
+      "expected_sell_through": 0.805,
+      "current_sell_through": 0.989,
+      "expected_leftover": 111,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1069",
+      "category": "Sleepwear",
+      "stock_units": 1008,
+      "recommended_path": [
+        0.0,
+        0.1,
+        0.15,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "current_path": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.4,
+        0.4,
+        0.4
+      ],
+      "expected_cash": 148745.0,
+      "cash_p10": 95730.0,
+      "cash_p90": 176221.0,
+      "current_plan_cash": 127085.0,
+      "expected_sell_through": 0.8,
+      "current_sell_through": 0.911,
+      "expected_leftover": 201,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1070",
+      "category": "T-shirts",
+      "stock_units": 931,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.05,
+        0.05
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 112984.0,
+      "cash_p10": 91431.0,
+      "cash_p90": 124865.0,
+      "current_plan_cash": 72252.0,
+      "expected_sell_through": 0.864,
+      "current_sell_through": 0.966,
+      "expected_leftover": 126,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    },
+    {
+      "style_id": "KW1071",
+      "category": "Dresses",
+      "stock_units": 487,
+      "recommended_path": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.05
+      ],
+      "current_path": [
+        0.4,
+        0.4,
+        0.4,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "expected_cash": 117740.0,
+      "cash_p10": 78415.0,
+      "cash_p90": 128431.0,
+      "current_plan_cash": 75473.0,
+      "expected_sell_through": 0.889,
+      "current_sell_through": 0.994,
+      "expected_leftover": 54,
+      "constraints": {
+        "sell_through_target_met": true,
+        "never_decreases": true,
+        "max_depth_ok": true,
+        "quality_exit_early": false
+      }
+    }
+  ]
+}

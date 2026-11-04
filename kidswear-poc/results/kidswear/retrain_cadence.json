@@ -1,0 +1,147 @@
+{
+  "replay_weeks": "67-97",
+  "horizon_weeks": 4,
+  "policies": [
+    {
+      "policy": "never",
+      "wape": 0.4152,
+      "retrains": 1,
+      "retrain_weeks": [
+        66
+      ],
+      "trigger_log": []
+    },
+    {
+      "policy": "quarterly",
+      "wape": 0.4098,
+      "retrains": 3,
+      "retrain_weeks": [
+        66,
+        78,
+        90
+      ],
+      "trigger_log": []
+    },
+    {
+      "policy": "monthly",
+      "wape": 0.3931,
+      "retrains": 7,
+      "retrain_weeks": [
+        66,
+        70,
+        74,
+        78,
+        82,
+        86,
+        90
+      ],
+      "trigger_log": []
+    },
+    {
+      "policy": "triggered",
+      "wape": 0.3931,
+      "retrains": 7,
+      "retrain_weeks": [
+        66,
+        70,
+        74,
+        78,
+        82,
+        86,
+        90
+      ],
+      "trigger_log": [
+        {
+          "week": 70,
+          "recent_error": 0.4305,
+          "error_at_training": 0.3687,
+          "max_psi": 8.387
+        },
+        {
+          "week": 74,
+          "recent_error": 0.4128,
+          "error_at_training": 0.3724,
+          "max_psi": 8.39
+        },
+        {
+          "week": 78,
+          "recent_error": 0.387,
+          "error_at_training": 0.3602,
+          "max_psi": 8.532
+        },
+        {
+          "week": 82,
+          "recent_error": 0.3775,
+          "error_at_training": 0.2884,
+          "max_psi": 7.127
+        },
+        {
+          "week": 86,
+          "recent_error": 0.3971,
+          "error_at_training": 0.3048,
+          "max_psi": 6.747
+        },
+        {
+          "week": 90,
+          "recent_error": 0.4199,
+          "error_at_training": 0.3499,
+          "max_psi": 6.88
+        }
+      ]
+    },
+    {
+      "policy": "weekly",
+      "wape": 0.383,
+      "retrains": 28,
+      "retrain_weeks": [
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ],
+      "trigger_log": []
+    }
+  ],
+  "chosen": {
+    "policy": "monthly",
+    "max_weeks_between_retrains": 12,
+    "min_weeks_between_retrains": 4,
+    "triggers": {
+      "error_worse_than_training_by": 0.15,
+      "psi_above": 0.25,
+      "monitored_features": [
+        "competitor_discount",
+        "temp_anomaly_forecast",
+        "cci_lag4",
+        "discount",
+        "demand_lag8_11_mean"
+      ]
+    },
+    "expanding_window": true,
+    "chosen_by": "lowest error with a small cost per retrain, FY2026 replay"
+  }
+}

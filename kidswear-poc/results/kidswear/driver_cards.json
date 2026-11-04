@@ -1,0 +1,3053 @@
+{
+  "note": "SHAP values in the model's log scale: +0.1 lifts the forecast by about 10%.",
+  "global_importance": [
+    {
+      "driver": "Style identity",
+      "mean_abs_shap": 0.302
+    },
+    {
+      "driver": "Discount depth",
+      "mean_abs_shap": 0.2416
+    },
+    {
+      "driver": "Store",
+      "mean_abs_shap": 0.2105
+    },
+    {
+      "driver": "Price gap to competitor",
+      "mean_abs_shap": 0.1646
+    },
+    {
+      "driver": "Category demand last year",
+      "mean_abs_shap": 0.0953
+    },
+    {
+      "driver": "Price index",
+      "mean_abs_shap": 0.0748
+    },
+    {
+      "driver": "Season (week of year)",
+      "mean_abs_shap": 0.0516
+    },
+    {
+      "driver": "Sales 8-11 weeks ago",
+      "mean_abs_shap": 0.0513
+    },
+    {
+      "driver": "Last year, nearby weeks",
+      "mean_abs_shap": 0.0456
+    },
+    {
+      "driver": "Last year, coming weeks",
+      "mean_abs_shap": 0.0375
+    },
+    {
+      "driver": "Chain demand last year",
+      "mean_abs_shap": 0.0357
+    },
+    {
+      "driver": "Category",
+      "mean_abs_shap": 0.0274
+    },
+    {
+      "driver": "Chain demand 8 weeks ago",
+      "mean_abs_shap": 0.0271
+    },
+    {
+      "driver": "School holiday",
+      "mean_abs_shap": 0.0251
+    },
+    {
+      "driver": "Launch rate of sale",
+      "mean_abs_shap": 0.0248
+    },
+    {
+      "driver": "Weeks since launch",
+      "mean_abs_shap": 0.0232
+    },
+    {
+      "driver": "Week of year",
+      "mean_abs_shap": 0.023
+    },
+    {
+      "driver": "Weather x summer lines",
+      "mean_abs_shap": 0.0226
+    },
+    {
+      "driver": "Payday week",
+      "mean_abs_shap": 0.0224
+    },
+    {
+      "driver": "Quality complaints to date",
+      "mean_abs_shap": 0.016
+    },
+    {
+      "driver": "Demand 8-11 weeks ago",
+      "mean_abs_shap": 0.0138
+    },
+    {
+      "driver": "Weather x winter lines",
+      "mean_abs_shap": 0.0136
+    },
+    {
+      "driver": "Local event",
+      "mean_abs_shap": 0.0119
+    },
+    {
+      "driver": "Category demand 8 weeks ago",
+      "mean_abs_shap": 0.0093
+    },
+    {
+      "driver": "Weather (temperature)",
+      "mean_abs_shap": 0.0088
+    },
+    {
+      "driver": "Clearance period",
+      "mean_abs_shap": 0.0079
+    },
+    {
+      "driver": "Demand same week last year",
+      "mean_abs_shap": 0.0077
+    },
+    {
+      "driver": "Competitor promotion",
+      "mean_abs_shap": 0.0073
+    },
+    {
+      "driver": "Consumer confidence",
+      "mean_abs_shap": 0.006
+    },
+    {
+      "driver": "Sales 8 weeks ago",
+      "mean_abs_shap": 0.0057
+    },
+    {
+      "driver": "Region",
+      "mean_abs_shap": 0.005
+    },
+    {
+      "driver": "Year-on-year trend",
+      "mean_abs_shap": 0.0044
+    },
+    {
+      "driver": "Stock-outs 8-11 weeks ago",
+      "mean_abs_shap": 0.0036
+    },
+    {
+      "driver": "Return rate to date",
+      "mean_abs_shap": 0.0036
+    },
+    {
+      "driver": "Full price",
+      "mean_abs_shap": 0.0032
+    },
+    {
+      "driver": "Back to school",
+      "mean_abs_shap": 0.0024
+    },
+    {
+      "driver": "Supplier",
+      "mean_abs_shap": 0.0013
+    },
+    {
+      "driver": "Fabric",
+      "mean_abs_shap": 0.0007
+    },
+    {
+      "driver": "Store cluster",
+      "mean_abs_shap": 0.0004
+    },
+    {
+      "driver": "Fit",
+      "mean_abs_shap": 0.0002
+    },
+    {
+      "driver": "New style",
+      "mean_abs_shap": 0.0
+    }
+  ],
+  "styles": {
+    "KW1000": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2545
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1146
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1069
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0719
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0389
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0309
+        }
+      ]
+    },
+    "KW1001": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2624
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1637
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0876
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0708
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0403
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0288
+        }
+      ]
+    },
+    "KW1002": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1054
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0942
+        },
+        {
+          "driver": "Weeks since launch",
+          "effect": 0.0327
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0382
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0363
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0259
+        }
+      ]
+    },
+    "KW1003": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2456
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.131
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1121
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0372
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0284
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.012
+        }
+      ]
+    },
+    "KW1004": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2644
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1514
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1077
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0189
+        },
+        {
+          "driver": "Year-on-year trend",
+          "effect": -0.0031
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0029
+        }
+      ]
+    },
+    "KW1005": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2773
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.124
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.1165
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0693
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0387
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0199
+        }
+      ]
+    },
+    "KW1006": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1999
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0579
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.056
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0719
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0355
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.035
+        }
+      ]
+    },
+    "KW1007": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2827
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.267
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0712
+        }
+      ],
+      "down": [
+        {
+          "driver": "Category",
+          "effect": -0.0422
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0302
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0262
+        }
+      ]
+    },
+    "KW1008": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3026
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2499
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1222
+        }
+      ],
+      "down": [
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0273
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0188
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0121
+        }
+      ]
+    },
+    "KW1009": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2161
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0953
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0713
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0202
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.02
+        },
+        {
+          "driver": "Payday week",
+          "effect": -0.0018
+        }
+      ]
+    },
+    "KW1010": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3291
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2609
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1257
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0837
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0678
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0525
+        }
+      ]
+    },
+    "KW1011": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2403
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.161
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0679
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0755
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0394
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0314
+        }
+      ]
+    },
+    "KW1012": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1589
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0752
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.034
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0387
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0372
+        },
+        {
+          "driver": "Category",
+          "effect": -0.027
+        }
+      ]
+    },
+    "KW1013": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3365
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2987
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1219
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0486
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0294
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.026
+        }
+      ]
+    },
+    "KW1014": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2019
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0954
+        },
+        {
+          "driver": "Last year, coming weeks",
+          "effect": 0.0767
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.019
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0173
+        },
+        {
+          "driver": "Sales 8 weeks ago",
+          "effect": -0.0025
+        }
+      ]
+    },
+    "KW1015": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2871
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1331
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1216
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0762
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0404
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0198
+        }
+      ]
+    },
+    "KW1016": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3193
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2358
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0684
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0608
+        },
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0372
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0352
+        }
+      ]
+    },
+    "KW1017": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2742
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2399
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0832
+        }
+      ],
+      "down": [
+        {
+          "driver": "Category",
+          "effect": -0.0471
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0326
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0287
+        }
+      ]
+    },
+    "KW1018": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3191
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2913
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1181
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0519
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0433
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0242
+        }
+      ]
+    },
+    "KW1019": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2062
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0962
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0618
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0359
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0187
+        },
+        {
+          "driver": "Payday week",
+          "effect": -0.0017
+        }
+      ]
+    },
+    "KW1020": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.215
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": 0.1741
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1169
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0731
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0379
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0337
+        }
+      ]
+    },
+    "KW1021": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1739
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1354
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0475
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.1141
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.1117
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0692
+        }
+      ]
+    },
+    "KW1022": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1788
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1351
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0884
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0451
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0389
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0375
+        }
+      ]
+    },
+    "KW1023": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1872
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1225
+        },
+        {
+          "driver": "Last year, coming weeks",
+          "effect": 0.0922
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0393
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0296
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0088
+        }
+      ]
+    },
+    "KW1024": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3046
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2812
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1214
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0349
+        },
+        {
+          "driver": "Chain demand last year",
+          "effect": -0.0178
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0169
+        }
+      ]
+    },
+    "KW1025": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.34
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3147
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1305
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0863
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0405
+        },
+        {
+          "driver": "Quality complaints to date",
+          "effect": -0.0398
+        }
+      ]
+    },
+    "KW1026": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1714
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1368
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0555
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.089
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0843
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.079
+        }
+      ]
+    },
+    "KW1027": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1361
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0838
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0538
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0473
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0362
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0304
+        }
+      ]
+    },
+    "KW1028": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2791
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1258
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1163
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0452
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0288
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0151
+        }
+      ]
+    },
+    "KW1029": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3082
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2991
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.1009
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0244
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0058
+        },
+        {
+          "driver": "Year-on-year trend",
+          "effect": -0.0048
+        }
+      ]
+    },
+    "KW1030": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3395
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2767
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.1198
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0727
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0395
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0161
+        }
+      ]
+    },
+    "KW1031": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1363
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0492
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0413
+        }
+      ],
+      "down": [
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0941
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0894
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0635
+        }
+      ]
+    },
+    "KW1032": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.251
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2111
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0809
+        }
+      ],
+      "down": [
+        {
+          "driver": "Category",
+          "effect": -0.0322
+        },
+        {
+          "driver": "Chain demand last year",
+          "effect": -0.0285
+        },
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0284
+        }
+      ]
+    },
+    "KW1033": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2824
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1431
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1229
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0672
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0626
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.026
+        }
+      ]
+    },
+    "KW1034": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2446
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1499
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0977
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0216
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0057
+        },
+        {
+          "driver": "Year-on-year trend",
+          "effect": -0.0021
+        }
+      ]
+    },
+    "KW1035": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3166
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2741
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1254
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0816
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0386
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0263
+        }
+      ]
+    },
+    "KW1036": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1427
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0658
+        },
+        {
+          "driver": "Weeks since launch",
+          "effect": 0.0386
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0626
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0514
+        },
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0409
+        }
+      ]
+    },
+    "KW1037": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1386
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0892
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0494
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0471
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0366
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0269
+        }
+      ]
+    },
+    "KW1038": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3101
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2332
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.1127
+        }
+      ],
+      "down": [
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0275
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0114
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0075
+        }
+      ]
+    },
+    "KW1039": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2077
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0979
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0715
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0197
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0056
+        },
+        {
+          "driver": "Payday week",
+          "effect": -0.0019
+        }
+      ]
+    },
+    "KW1040": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2742
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1537
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1128
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0849
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0386
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0256
+        }
+      ]
+    },
+    "KW1041": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1232
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0732
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0412
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0787
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0684
+        },
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0622
+        }
+      ]
+    },
+    "KW1042": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1586
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0648
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.041
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0323
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0291
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0286
+        }
+      ]
+    },
+    "KW1043": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2576
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1216
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.117
+        }
+      ],
+      "down": [
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0287
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0252
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0076
+        }
+      ]
+    },
+    "KW1044": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2969
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2371
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1363
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0593
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0557
+        },
+        {
+          "driver": "Chain demand last year",
+          "effect": -0.048
+        }
+      ]
+    },
+    "KW1045": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.348
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2646
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.1408
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0603
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0375
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0185
+        }
+      ]
+    },
+    "KW1046": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3267
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2893
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0745
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0605
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0369
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0319
+        }
+      ]
+    },
+    "KW1047": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2162
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1503
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0684
+        }
+      ],
+      "down": [
+        {
+          "driver": "Category",
+          "effect": -0.0373
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0305
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0266
+        }
+      ]
+    },
+    "KW1048": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3246
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2759
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1136
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0509
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0263
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0238
+        }
+      ]
+    },
+    "KW1049": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2452
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.155
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1119
+        }
+      ],
+      "down": [
+        {
+          "driver": "Week of year",
+          "effect": -0.0425
+        },
+        {
+          "driver": "Quality complaints to date",
+          "effect": -0.0353
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0304
+        }
+      ]
+    },
+    "KW1050": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2916
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.2731
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1223
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0785
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0388
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0285
+        }
+      ]
+    },
+    "KW1051": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2019
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1614
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0736
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0794
+        },
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0707
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0608
+        }
+      ]
+    },
+    "KW1052": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1338
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0704
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.032
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0514
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0484
+        },
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0429
+        }
+      ]
+    },
+    "KW1053": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3067
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1322
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1144
+        }
+      ],
+      "down": [
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0283
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0274
+        },
+        {
+          "driver": "Full price",
+          "effect": -0.0085
+        }
+      ]
+    },
+    "KW1054": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1693
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1045
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0475
+        }
+      ],
+      "down": [
+        {
+          "driver": "Week of year",
+          "effect": -0.0456
+        },
+        {
+          "driver": "Quality complaints to date",
+          "effect": -0.0397
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0178
+        }
+      ]
+    },
+    "KW1055": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2861
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2717
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1375
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0807
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0389
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0172
+        }
+      ]
+    },
+    "KW1056": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2362
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1393
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0868
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0746
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0412
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0327
+        }
+      ]
+    },
+    "KW1057": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1039
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0847
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0256
+        }
+      ],
+      "down": [
+        {
+          "driver": "Last year, nearby weeks",
+          "effect": -0.0676
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0653
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0569
+        }
+      ]
+    },
+    "KW1058": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3444
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.256
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1173
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0498
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0374
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0265
+        }
+      ]
+    },
+    "KW1059": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.3156
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2529
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.1207
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0206
+        },
+        {
+          "driver": "Demand 8-11 weeks ago",
+          "effect": -0.0113
+        },
+        {
+          "driver": "Return rate to date",
+          "effect": -0.0035
+        }
+      ]
+    },
+    "KW1060": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2322
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1292
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1223
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0652
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.064
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0417
+        }
+      ]
+    },
+    "KW1061": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.315
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.3085
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0881
+        }
+      ],
+      "down": [
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0454
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0438
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0404
+        }
+      ]
+    },
+    "KW1062": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2961
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2605
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0769
+        }
+      ],
+      "down": [
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0477
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0392
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0372
+        }
+      ]
+    },
+    "KW1063": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1701
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1185
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0339
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0655
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0431
+        },
+        {
+          "driver": "Weather x winter lines",
+          "effect": -0.0279
+        }
+      ]
+    },
+    "KW1064": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2766
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.2274
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0888
+        }
+      ],
+      "down": [
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0486
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0315
+        },
+        {
+          "driver": "Quality complaints to date",
+          "effect": -0.0246
+        }
+      ]
+    },
+    "KW1065": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3331
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.3079
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1279
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0507
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0465
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.032
+        }
+      ]
+    },
+    "KW1066": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.196
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0657
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0544
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.056
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0428
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0376
+        }
+      ]
+    },
+    "KW1067": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2496
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1683
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0729
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0394
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0348
+        },
+        {
+          "driver": "Category",
+          "effect": -0.0293
+        }
+      ]
+    },
+    "KW1068": {
+      "up": [
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.3226
+        },
+        {
+          "driver": "Discount depth",
+          "effect": 0.3035
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1105
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.06
+        },
+        {
+          "driver": "Chain demand 8 weeks ago",
+          "effect": -0.0395
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0341
+        }
+      ]
+    },
+    "KW1069": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.1837
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1012
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0496
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0261
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0225
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0148
+        }
+      ]
+    },
+    "KW1070": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2537
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1383
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.1259
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0631
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0444
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0324
+        }
+      ]
+    },
+    "KW1071": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.255
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1573
+        },
+        {
+          "driver": "Price index",
+          "effect": 0.0784
+        }
+      ],
+      "down": [
+        {
+          "driver": "Category",
+          "effect": -0.0446
+        },
+        {
+          "driver": "Launch rate of sale",
+          "effect": -0.0427
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0373
+        }
+      ]
+    }
+  },
+  "stores": {
+    "S101": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2395
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1641
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0973
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0278
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0203
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0174
+        }
+      ]
+    },
+    "S102": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.248
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1575
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0956
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0248
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0235
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0191
+        }
+      ]
+    },
+    "S103": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2482
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1651
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.096
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0263
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0206
+        },
+        {
+          "driver": "Weather x summer lines",
+          "effect": -0.0162
+        }
+      ]
+    },
+    "S104": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2415
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1568
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0934
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0387
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0224
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0201
+        }
+      ]
+    },
+    "S105": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2465
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1623
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0977
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.026
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0212
+        },
+        {
+          "driver": "Weather x summer lines",
+          "effect": -0.0153
+        }
+      ]
+    },
+    "S106": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2519
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1554
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0999
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0254
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0247
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0224
+        }
+      ]
+    },
+    "S107": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.246
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1705
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0968
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0271
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0224
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0121
+        }
+      ]
+    },
+    "S108": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2273
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1623
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0926
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0278
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0192
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0154
+        }
+      ]
+    },
+    "S109": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.228
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1637
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0943
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0274
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0178
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0133
+        }
+      ]
+    },
+    "S110": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2465
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1594
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0952
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.027
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.021
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.009
+        }
+      ]
+    },
+    "S111": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2338
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1567
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0948
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0502
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0213
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.021
+        }
+      ]
+    },
+    "S112": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.255
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1551
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0969
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.025
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0233
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0157
+        }
+      ]
+    },
+    "S113": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2441
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1601
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0919
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0322
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0254
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0217
+        }
+      ]
+    },
+    "S114": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2245
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1646
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0927
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0269
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.021
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0207
+        }
+      ]
+    },
+    "S115": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2426
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1643
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0942
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0346
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0254
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0225
+        }
+      ]
+    },
+    "S116": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2445
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1696
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0971
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0269
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0208
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0092
+        }
+      ]
+    },
+    "S117": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.225
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1645
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0931
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0273
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0193
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0177
+        }
+      ]
+    },
+    "S118": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2509
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1608
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0965
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0254
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0181
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0079
+        }
+      ]
+    },
+    "S119": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2257
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1592
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0933
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0269
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0196
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.019
+        }
+      ]
+    },
+    "S120": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2469
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.165
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0975
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0241
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0235
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0143
+        }
+      ]
+    },
+    "S121": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2448
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1569
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0941
+        }
+      ],
+      "down": [
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0387
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0223
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0198
+        }
+      ]
+    },
+    "S122": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.247
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1564
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.096
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0251
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0236
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0181
+        }
+      ]
+    },
+    "S123": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.246
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1497
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0957
+        }
+      ],
+      "down": [
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0242
+        },
+        {
+          "driver": "School holiday",
+          "effect": -0.0237
+        },
+        {
+          "driver": "Sales 8-11 weeks ago",
+          "effect": -0.0168
+        }
+      ]
+    },
+    "S124": {
+      "up": [
+        {
+          "driver": "Discount depth",
+          "effect": 0.2442
+        },
+        {
+          "driver": "Price gap to competitor",
+          "effect": 0.1605
+        },
+        {
+          "driver": "Category demand last year",
+          "effect": 0.0948
+        }
+      ],
+      "down": [
+        {
+          "driver": "School holiday",
+          "effect": -0.0256
+        },
+        {
+          "driver": "Season (week of year)",
+          "effect": -0.0206
+        },
+        {
+          "driver": "Week of year",
+          "effect": -0.0145
+        }
+      ]
+    }
+  }
+}

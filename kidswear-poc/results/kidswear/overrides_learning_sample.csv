@@ -1,0 +1,1473 @@
+style_id,store_id,week_index,model_forecast,override_value,reason,planner,timestamp
+KW1000,S101,91,21.6,26.21,Stock-out last year,planner.c,2026-W39
+KW1000,S101,94,13.94,17.38,Stock-out last year,planner.a,2026-W42
+KW1000,S101,95,14.76,18.12,Stock-out last year,planner.b,2026-W43
+KW1000,S106,91,12.98,16.74,Stock-out last year,planner.b,2026-W39
+KW1000,S106,96,8.22,6.06,Gut feel,planner.b,2026-W44
+KW1000,S107,95,10.84,8.49,Gut feel,planner.c,2026-W43
+KW1000,S108,94,16.74,12.32,Gut feel,planner.b,2026-W42
+KW1000,S109,93,16.02,20.42,Gut feel,planner.c,2026-W41
+KW1000,S110,95,12.17,7.76,Gut feel,planner.b,2026-W43
+KW1000,S111,91,9.39,12.51,Gut feel,planner.c,2026-W39
+KW1000,S114,95,28.82,45.02,Local event planned,planner.c,2026-W43
+KW1000,S115,95,7.62,9.05,Stock-out last year,planner.c,2026-W43
+KW1000,S116,92,16.02,19.82,Stock-out last year,planner.b,2026-W40
+KW1000,S116,94,17.12,19.44,Local event planned,planner.c,2026-W42
+KW1000,S116,95,13.73,15.74,Stock-out last year,planner.c,2026-W43
+KW1000,S117,93,16.29,14.28,Competitor promotion,planner.b,2026-W41
+KW1000,S117,96,23.18,32.61,Local event planned,planner.a,2026-W44
+KW1000,S118,95,17.27,17.94,Local event planned,planner.a,2026-W43
+KW1000,S118,96,10.93,12.71,Stock-out last year,planner.b,2026-W44
+KW1000,S120,92,9.97,7.25,Competitor promotion,planner.b,2026-W40
+KW1000,S124,91,25.27,37.42,Local event planned,planner.b,2026-W39
+KW1001,S101,91,7.53,6.26,Gut feel,planner.c,2026-W39
+KW1001,S107,92,9.08,6.26,Gut feel,planner.a,2026-W40
+KW1001,S110,91,7.34,9.41,Stock-out last year,planner.a,2026-W39
+KW1001,S110,95,4.55,5.36,Stock-out last year,planner.c,2026-W43
+KW1001,S110,96,3.62,4.08,Stock-out last year,planner.b,2026-W44
+KW1001,S111,94,1.96,2.71,Stock-out last year,planner.c,2026-W42
+KW1001,S111,95,2.33,3.12,Stock-out last year,planner.c,2026-W43
+KW1001,S113,93,2.86,2.99,Stock-out last year,planner.a,2026-W41
+KW1001,S114,95,10.07,14.05,Local event planned,planner.c,2026-W43
+KW1001,S116,94,4.83,6.46,Local event planned,planner.b,2026-W42
+KW1001,S117,95,7.67,5.29,Gut feel,planner.c,2026-W43
+KW1001,S117,96,8.81,10.54,Local event planned,planner.a,2026-W44
+KW1001,S118,95,5.96,7.31,Local event planned,planner.a,2026-W43
+KW1001,S119,95,7.63,5.66,Gut feel,planner.a,2026-W43
+KW1001,S120,95,3.47,5.1,Gut feel,planner.a,2026-W43
+KW1001,S121,91,4.63,5.67,Local event planned,planner.c,2026-W39
+KW1001,S121,93,3.08,3.82,Stock-out last year,planner.a,2026-W41
+KW1001,S121,94,2.51,3.42,Stock-out last year,planner.a,2026-W42
+KW1001,S123,92,6.63,7.59,Gut feel,planner.a,2026-W40
+KW1001,S124,91,8.85,10.63,Local event planned,planner.c,2026-W39
+KW1002,S101,97,3.79,5.02,Gut feel,planner.a,2026-W45
+KW1002,S103,91,6.18,7.34,Stock-out last year,planner.c,2026-W39
+KW1002,S104,92,3.12,2.81,Gut feel,planner.c,2026-W40
+KW1002,S104,94,3.15,2.4,Gut feel,planner.a,2026-W42
+KW1002,S105,95,5.22,5.96,Stock-out last year,planner.a,2026-W43
+KW1002,S105,97,3.26,4.11,Gut feel,planner.c,2026-W45
+KW1002,S108,95,7.17,8.67,Stock-out last year,planner.a,2026-W43
+KW1002,S111,91,2.4,2.74,Stock-out last year,planner.b,2026-W39
+KW1002,S114,95,10.76,13.98,Local event planned,planner.a,2026-W43
+KW1002,S116,94,6.24,8.79,Local event planned,planner.a,2026-W42
+KW1002,S116,96,3.25,4.12,Stock-out last year,planner.c,2026-W44
+KW1002,S118,91,4.34,3.79,Competitor promotion,planner.a,2026-W39
+KW1002,S118,95,6.71,7.3,Local event planned,planner.a,2026-W43
+KW1002,S118,97,3.45,2.88,Gut feel,planner.a,2026-W45
+KW1002,S121,91,3.99,4.85,Local event planned,planner.b,2026-W39
+KW1002,S121,93,3.12,3.89,Stock-out last year,planner.a,2026-W41
+KW1002,S121,94,2.95,3.59,Stock-out last year,planner.a,2026-W42
+KW1002,S121,95,3.01,3.3,Stock-out last year,planner.b,2026-W43
+KW1002,S123,94,3.89,4.15,Stock-out last year,planner.a,2026-W42
+KW1002,S124,91,6.59,8.91,Local event planned,planner.a,2026-W39
+KW1003,S102,95,2.94,3.53,Stock-out last year,planner.b,2026-W43
+KW1003,S104,97,2.34,2.57,Stock-out last year,planner.b,2026-W45
+KW1003,S106,91,1.76,2.13,Stock-out last year,planner.b,2026-W39
+KW1003,S108,96,5.43,6.14,Stock-out last year,planner.a,2026-W44
+KW1003,S109,94,3.33,3.85,Stock-out last year,planner.a,2026-W42
+KW1003,S109,95,4.8,6.83,Stock-out last year,planner.b,2026-W43
+KW1003,S111,91,1.26,1.66,Stock-out last year,planner.a,2026-W39
+KW1003,S111,92,1.42,2.11,Stock-out last year,planner.a,2026-W40
+KW1003,S111,97,1.78,2.1,Stock-out last year,planner.c,2026-W45
+KW1003,S112,93,2.24,2.22,Stock-out last year,planner.b,2026-W41
+KW1003,S113,91,1.94,1.57,Competitor promotion,planner.a,2026-W39
+KW1003,S113,95,2.39,2.89,Stock-out last year,planner.a,2026-W43
+KW1003,S113,96,2.53,3.07,Stock-out last year,planner.c,2026-W44
+KW1003,S114,92,3.53,2.9,Competitor promotion,planner.c,2026-W40
+KW1003,S114,95,6.98,8.75,Local event planned,planner.a,2026-W43
+KW1003,S115,93,2.21,2.52,Stock-out last year,planner.c,2026-W41
+KW1003,S116,93,2.92,4.04,Gut feel,planner.a,2026-W41
+KW1003,S116,94,3.42,4.98,Local event planned,planner.b,2026-W42
+KW1003,S117,91,3.15,3.94,Stock-out last year,planner.b,2026-W39
+KW1003,S117,97,5.58,6.17,Stock-out last year,planner.a,2026-W45
+KW1003,S119,92,4.12,4.58,Stock-out last year,planner.b,2026-W40
+KW1003,S119,97,6.39,8.26,Gut feel,planner.b,2026-W45
+KW1003,S121,91,1.79,2.36,Local event planned,planner.a,2026-W39
+KW1003,S121,97,2.32,2.97,Stock-out last year,planner.a,2026-W45
+KW1003,S123,91,2.09,2.64,Stock-out last year,planner.a,2026-W39
+KW1003,S124,91,3.36,4.45,Local event planned,planner.b,2026-W39
+KW1004,S101,95,7.98,9.38,Stock-out last year,planner.b,2026-W43
+KW1004,S101,96,6.29,6.63,Stock-out last year,planner.a,2026-W44
+KW1004,S102,96,4.19,5.32,Gut feel,planner.c,2026-W44
+KW1004,S107,92,6.92,4.65,Gut feel,planner.a,2026-W40
+KW1004,S109,91,8.74,9.85,Stock-out last year,planner.c,2026-W39
+KW1004,S109,92,8.6,9.27,Stock-out last year,planner.b,2026-W40
+KW1004,S109,93,6.83,8.18,Stock-out last year,planner.b,2026-W41
+KW1004,S109,94,6.54,5.52,Competitor promotion,planner.b,2026-W42
+KW1004,S110,93,4.65,5.61,Stock-out last year,planner.a,2026-W41
+KW1004,S110,95,5.11,5.87,Stock-out last year,planner.a,2026-W43
+KW1004,S110,97,4.08,4.96,Stock-out last year,planner.a,2026-W45
+KW1004,S111,91,2.5,3.1,Stock-out last year,planner.a,2026-W39
+KW1004,S111,92,2.9,3.67,Stock-out last year,planner.b,2026-W40
+KW1004,S112,93,3.92,4.94,Stock-out last year,planner.c,2026-W41
+KW1004,S112,97,3.43,4.18,Stock-out last year,planner.c,2026-W45
+KW1004,S113,94,3.46,3.96,Stock-out last year,planner.c,2026-W42
+KW1004,S114,95,13.79,18.79,Local event planned,planner.c,2026-W43
+KW1004,S115,96,2.87,3.29,Stock-out last year,planner.a,2026-W44
+KW1004,S116,94,7.04,9.58,Local event planned,planner.b,2026-W42
+KW1004,S116,95,5.58,6.56,Stock-out last year,planner.c,2026-W43
+KW1004,S116,97,4.19,3.07,Competitor promotion,planner.b,2026-W45
+KW1004,S117,96,10.02,13.62,Local event planned,planner.b,2026-W44
+KW1004,S118,95,6.75,9.08,Local event planned,planner.b,2026-W43
+KW1004,S119,95,8.46,9.55,Stock-out last year,planner.b,2026-W43
+KW1004,S120,96,3.98,2.64,Competitor promotion,planner.a,2026-W44
+KW1004,S121,91,3.68,4.74,Local event planned,planner.a,2026-W39
+KW1004,S121,96,3.1,3.91,Stock-out last year,planner.c,2026-W44
+KW1004,S122,94,4.29,5.58,Stock-out last year,planner.c,2026-W42
+KW1004,S122,96,4.62,2.89,Gut feel,planner.c,2026-W44
+KW1004,S123,96,3.63,2.81,Competitor promotion,planner.b,2026-W44
+KW1004,S124,91,7.47,10.99,Local event planned,planner.c,2026-W39
+KW1004,S124,95,5.19,6.02,Stock-out last year,planner.a,2026-W43
+KW1005,S105,91,15.32,19.95,Stock-out last year,planner.b,2026-W39
+KW1005,S105,97,12.77,15.73,Gut feel,planner.b,2026-W45
+KW1005,S107,93,7.54,5.34,Competitor promotion,planner.b,2026-W41
+KW1005,S107,94,7.78,6.41,Competitor promotion,planner.b,2026-W42
+KW1005,S107,96,7.96,5.94,Gut feel,planner.a,2026-W44
+KW1005,S111,93,5.87,6.95,Stock-out last year,planner.a,2026-W41
+KW1005,S112,94,9.87,11.33,Stock-out last year,planner.c,2026-W42
+KW1005,S113,95,8.69,7.18,Competitor promotion,planner.c,2026-W43
+KW1005,S114,93,19.25,14.32,Competitor promotion,planner.c,2026-W41
+KW1005,S114,95,32.82,40.76,Local event planned,planner.b,2026-W43
+KW1005,S116,94,12.49,17.41,Local event planned,planner.c,2026-W42
+KW1005,S118,91,16.1,20.27,Stock-out last year,planner.c,2026-W39
+KW1005,S118,95,17.09,24.04,Local event planned,planner.a,2026-W43
+KW1005,S121,91,14.21,17.91,Local event planned,planner.c,2026-W39
+KW1005,S121,94,7.03,5.34,Gut feel,planner.a,2026-W42
+KW1005,S122,92,11.09,15.08,Gut feel,planner.b,2026-W40
+KW1005,S122,93,7.62,5.99,Competitor promotion,planner.c,2026-W41
+KW1005,S124,91,25.34,30.23,Local event planned,planner.a,2026-W39
+KW1006,S103,93,3.35,4.1,Stock-out last year,planner.b,2026-W41
+KW1006,S105,97,2.55,3.08,Stock-out last year,planner.b,2026-W45
+KW1006,S107,94,2.4,2.53,Stock-out last year,planner.c,2026-W42
+KW1006,S107,97,2.41,2.73,Stock-out last year,planner.c,2026-W45
+KW1006,S108,93,4.27,4.58,Stock-out last year,planner.b,2026-W41
+KW1006,S108,94,3.96,5.76,Stock-out last year,planner.c,2026-W42
+KW1006,S108,95,4.86,5.8,Stock-out last year,planner.c,2026-W43
+KW1006,S109,92,5.46,6.39,Stock-out last year,planner.b,2026-W40
+KW1006,S109,95,4.51,5.78,Stock-out last year,planner.c,2026-W43
+KW1006,S110,91,4.5,6.37,Gut feel,planner.b,2026-W39
+KW1006,S110,97,2.55,1.75,Gut feel,planner.a,2026-W45
+KW1006,S113,96,2.08,2.67,Stock-out last year,planner.c,2026-W44
+KW1006,S114,95,7.97,10.47,Local event planned,planner.c,2026-W43
+KW1006,S115,94,1.8,2.16,Stock-out last year,planner.a,2026-W42
+KW1006,S115,96,1.82,2.37,Stock-out last year,planner.c,2026-W44
+KW1006,S116,94,3.21,4.73,Local event planned,planner.b,2026-W42
+KW1006,S117,96,6.23,7.98,Local event planned,planner.b,2026-W44
+KW1006,S118,95,4.7,6.61,Local event planned,planner.a,2026-W43
+KW1006,S121,91,3.58,4.79,Local event planned,planner.b,2026-W39
+KW1006,S121,94,1.73,1.31,Gut feel,planner.c,2026-W42
+KW1006,S121,97,1.78,2.11,Stock-out last year,planner.a,2026-W45
+KW1006,S122,92,3.12,4.11,Gut feel,planner.c,2026-W40
+KW1006,S123,96,2.22,1.71,Gut feel,planner.c,2026-W44
+KW1006,S124,91,6.0,7.4,Local event planned,planner.a,2026-W39
+KW1006,S124,97,2.74,2.7,Stock-out last year,planner.b,2026-W45
+KW1007,S101,95,7.48,8.38,Stock-out last year,planner.c,2026-W43
+KW1007,S101,97,5.0,6.22,Stock-out last year,planner.c,2026-W45
+KW1007,S103,95,7.61,9.17,Stock-out last year,planner.c,2026-W43
+KW1007,S104,93,3.93,4.52,Stock-out last year,planner.a,2026-W41
+KW1007,S110,91,5.82,4.97,Competitor promotion,planner.b,2026-W39
+KW1007,S110,94,7.01,8.87,Stock-out last year,planner.c,2026-W42
+KW1007,S111,94,3.05,3.55,Stock-out last year,planner.a,2026-W42
+KW1007,S114,91,12.02,14.8,Stock-out last year,planner.c,2026-W39
+KW1007,S114,95,12.71,15.38,Local event planned,planner.b,2026-W43
+KW1007,S116,91,6.93,8.58,Stock-out last year,planner.c,2026-W39
+KW1007,S116,93,7.5,9.69,Stock-out last year,planner.c,2026-W41
+KW1007,S116,94,8.17,10.33,Local event planned,planner.b,2026-W42
+KW1007,S117,92,12.48,15.59,Stock-out last year,planner.c,2026-W40
+KW1007,S117,96,7.28,11.03,Local event planned,planner.a,2026-W44
+KW1007,S118,91,6.24,7.44,Stock-out last year,planner.a,2026-W39
+KW1007,S118,95,8.4,10.05,Local event planned,planner.b,2026-W43
+KW1007,S118,96,4.23,5.37,Stock-out last year,planner.b,2026-W44
+KW1007,S119,95,9.12,12.53,Stock-out last year,planner.a,2026-W43
+KW1007,S119,96,6.34,8.15,Stock-out last year,planner.b,2026-W44
+KW1007,S121,96,2.77,3.39,Stock-out last year,planner.c,2026-W44
+KW1007,S124,94,6.72,8.12,Stock-out last year,planner.a,2026-W42
+KW1007,S124,95,7.18,8.51,Stock-out last year,planner.b,2026-W43
+KW1008,S102,96,3.42,4.08,Stock-out last year,planner.c,2026-W44
+KW1008,S104,93,1.92,2.19,Stock-out last year,planner.c,2026-W41
+KW1008,S104,95,2.57,3.21,Stock-out last year,planner.b,2026-W43
+KW1008,S107,95,5.75,8.32,Gut feel,planner.b,2026-W43
+KW1008,S108,91,4.76,6.23,Stock-out last year,planner.b,2026-W39
+KW1008,S109,91,4.39,5.13,Stock-out last year,planner.c,2026-W39
+KW1008,S109,94,5.17,4.18,Gut feel,planner.a,2026-W42
+KW1008,S110,95,4.93,5.75,Stock-out last year,planner.a,2026-W43
+KW1008,S111,93,1.63,1.92,Stock-out last year,planner.a,2026-W41
+KW1008,S111,94,1.9,2.3,Stock-out last year,planner.a,2026-W42
+KW1008,S111,95,1.95,2.01,Stock-out last year,planner.c,2026-W43
+KW1008,S114,92,4.85,4.39,Competitor promotion,planner.c,2026-W40
+KW1008,S116,94,5.22,6.67,Local event planned,planner.a,2026-W42
+KW1008,S117,96,9.05,10.82,Local event planned,planner.a,2026-W44
+KW1008,S117,97,6.57,8.17,Stock-out last year,planner.a,2026-W45
+KW1008,S118,94,3.24,4.04,Stock-out last year,planner.c,2026-W42
+KW1008,S118,95,5.59,6.4,Local event planned,planner.a,2026-W43
+KW1008,S121,91,2.34,2.94,Local event planned,planner.a,2026-W39
+KW1008,S121,92,2.15,2.54,Stock-out last year,planner.c,2026-W40
+KW1008,S121,96,2.53,2.88,Stock-out last year,planner.a,2026-W44
+KW1008,S123,96,4.21,5.58,Stock-out last year,planner.b,2026-W44
+KW1008,S124,91,4.91,5.76,Local event planned,planner.b,2026-W39
+KW1009,S102,95,4.56,5.06,Stock-out last year,planner.c,2026-W43
+KW1009,S107,95,5.46,4.05,Competitor promotion,planner.c,2026-W43
+KW1009,S108,94,8.82,7.53,Competitor promotion,planner.b,2026-W42
+KW1009,S108,95,7.12,5.93,Competitor promotion,planner.c,2026-W43
+KW1009,S108,97,5.83,4.38,Competitor promotion,planner.c,2026-W45
+KW1009,S109,96,5.26,5.74,Stock-out last year,planner.a,2026-W44
+KW1009,S110,95,4.81,6.04,Stock-out last year,planner.c,2026-W43
+KW1009,S111,92,2.72,1.67,Gut feel,planner.b,2026-W40
+KW1009,S111,96,2.11,2.55,Stock-out last year,planner.b,2026-W44
+KW1009,S111,97,2.52,3.42,Stock-out last year,planner.c,2026-W45
+KW1009,S112,91,4.53,4.99,Stock-out last year,planner.b,2026-W39
+KW1009,S112,94,5.04,4.27,Competitor promotion,planner.a,2026-W42
+KW1009,S114,95,12.79,16.25,Local event planned,planner.a,2026-W43
+KW1009,S114,97,8.97,10.42,Stock-out last year,planner.a,2026-W45
+KW1009,S115,96,3.27,2.44,Competitor promotion,planner.b,2026-W44
+KW1009,S116,94,8.49,10.74,Local event planned,planner.c,2026-W42
+KW1009,S117,96,10.74,12.48,Local event planned,planner.b,2026-W44
+KW1009,S118,91,5.28,7.13,Stock-out last year,planner.a,2026-W39
+KW1009,S118,94,5.88,5.02,Competitor promotion,planner.c,2026-W42
+KW1009,S119,96,6.44,4.76,Competitor promotion,planner.b,2026-W44
+KW1009,S121,91,4.0,5.7,Local event planned,planner.c,2026-W39
+KW1009,S121,93,2.66,3.34,Stock-out last year,planner.c,2026-W41
+KW1009,S121,94,3.94,4.92,Stock-out last year,planner.a,2026-W42
+KW1009,S123,94,4.52,3.17,Competitor promotion,planner.a,2026-W42
+KW1009,S123,96,3.55,3.03,Competitor promotion,planner.a,2026-W44
+KW1009,S124,91,7.07,9.2,Local event planned,planner.b,2026-W39
+KW1010,S101,91,7.18,5.31,Gut feel,planner.c,2026-W39
+KW1010,S103,93,4.18,3.12,Gut feel,planner.c,2026-W41
+KW1010,S106,92,3.95,3.07,Gut feel,planner.a,2026-W40
+KW1010,S107,93,2.84,2.16,Competitor promotion,planner.c,2026-W41
+KW1010,S109,93,5.31,7.09,Gut feel,planner.b,2026-W41
+KW1010,S110,93,3.88,3.37,Gut feel,planner.b,2026-W41
+KW1010,S114,94,5.99,4.73,Competitor promotion,planner.a,2026-W42
+KW1010,S114,95,11.31,13.85,Local event planned,planner.b,2026-W43
+KW1010,S115,93,2.11,1.89,Competitor promotion,planner.a,2026-W41
+KW1010,S116,94,4.1,5.67,Local event planned,planner.a,2026-W42
+KW1010,S117,96,8.26,10.96,Local event planned,planner.a,2026-W44
+KW1010,S118,95,8.79,12.93,Local event planned,planner.a,2026-W43
+KW1010,S121,91,4.7,6.19,Local event planned,planner.b,2026-W39
+KW1010,S122,93,2.97,2.27,Competitor promotion,planner.c,2026-W41
+KW1010,S123,97,2.88,2.32,Gut feel,planner.c,2026-W45
+KW1010,S124,91,7.5,10.29,Local event planned,planner.c,2026-W39
+KW1011,S101,94,5.41,7.21,Stock-out last year,planner.b,2026-W42
+KW1011,S101,95,6.52,7.79,Stock-out last year,planner.b,2026-W43
+KW1011,S103,93,6.15,7.67,Stock-out last year,planner.b,2026-W41
+KW1011,S103,95,6.15,6.7,Stock-out last year,planner.b,2026-W43
+KW1011,S105,97,3.98,4.65,Stock-out last year,planner.b,2026-W45
+KW1011,S107,96,4.17,4.76,Stock-out last year,planner.c,2026-W44
+KW1011,S108,91,9.99,7.57,Gut feel,planner.b,2026-W39
+KW1011,S111,91,2.95,2.35,Gut feel,planner.c,2026-W39
+KW1011,S111,97,1.88,1.92,Stock-out last year,planner.a,2026-W45
+KW1011,S112,93,4.38,4.59,Stock-out last year,planner.c,2026-W41
+KW1011,S112,95,4.27,5.04,Stock-out last year,planner.c,2026-W43
+KW1011,S113,93,3.28,3.94,Stock-out last year,planner.a,2026-W41
+KW1011,S114,91,11.78,16.72,Stock-out last year,planner.b,2026-W39
+KW1011,S114,95,10.75,12.91,Local event planned,planner.b,2026-W43
+KW1011,S116,91,7.39,8.76,Stock-out last year,planner.c,2026-W39
+KW1011,S116,94,5.52,7.3,Local event planned,planner.c,2026-W42
+KW1011,S116,97,4.17,5.47,Stock-out last year,planner.a,2026-W45
+KW1011,S117,96,8.67,12.11,Local event planned,planner.c,2026-W44
+KW1011,S120,94,3.88,5.54,Stock-out last year,planner.a,2026-W42
+KW1011,S121,91,5.37,6.3,Local event planned,planner.a,2026-W39
+KW1011,S121,93,3.5,4.55,Stock-out last year,planner.a,2026-W41
+KW1011,S122,92,5.16,6.77,Stock-out last year,planner.b,2026-W40
+KW1011,S122,94,3.86,4.41,Stock-out last year,planner.a,2026-W42
+KW1011,S123,92,4.99,7.72,Gut feel,planner.b,2026-W40
+KW1011,S123,94,3.7,4.84,Stock-out last year,planner.c,2026-W42
+KW1011,S123,95,4.14,4.84,Stock-out last year,planner.c,2026-W43
+KW1011,S124,91,9.38,13.21,Local event planned,planner.a,2026-W39
+KW1012,S101,96,2.59,2.93,Stock-out last year,planner.b,2026-W44
+KW1012,S102,91,3.29,4.01,Stock-out last year,planner.b,2026-W39
+KW1012,S102,92,3.35,3.72,Stock-out last year,planner.a,2026-W40
+KW1012,S103,94,4.33,5.34,Stock-out last year,planner.b,2026-W42
+KW1012,S106,91,3.15,4.02,Stock-out last year,planner.a,2026-W39
+KW1012,S106,95,2.82,3.05,Stock-out last year,planner.c,2026-W43
+KW1012,S108,91,5.35,4.05,Competitor promotion,planner.c,2026-W39
+KW1012,S108,95,5.28,5.68,Stock-out last year,planner.b,2026-W43
+KW1012,S109,92,6.15,8.7,Stock-out last year,planner.b,2026-W40
+KW1012,S109,93,5.37,6.33,Stock-out last year,planner.a,2026-W41
+KW1012,S109,96,3.03,3.53,Stock-out last year,planner.b,2026-W44
+KW1012,S110,94,3.73,4.85,Stock-out last year,planner.c,2026-W42
+KW1012,S112,94,3.25,3.96,Stock-out last year,planner.b,2026-W42
+KW1012,S114,95,7.62,9.7,Local event planned,planner.a,2026-W43
+KW1012,S116,94,4.6,6.21,Local event planned,planner.c,2026-W42
+KW1012,S117,96,4.44,6.22,Local event planned,planner.a,2026-W44
+KW1012,S118,91,3.6,3.21,Competitor promotion,planner.c,2026-W39
+KW1012,S118,95,4.75,5.72,Local event planned,planner.c,2026-W43
+KW1012,S119,97,3.95,4.58,Stock-out last year,planner.b,2026-W45
+KW1012,S121,91,3.11,3.87,Local event planned,planner.b,2026-W39
+KW1012,S121,97,1.61,1.99,Stock-out last year,planner.c,2026-W45
+KW1012,S123,95,2.83,3.68,Gut feel,planner.b,2026-W43
+KW1012,S124,91,4.97,6.66,Local event planned,planner.a,2026-W39
+KW1012,S124,96,2.35,3.01,Stock-out last year,planner.a,2026-W44
+KW1013,S102,91,1.61,1.47,Competitor promotion,planner.c,2026-W39
+KW1013,S107,97,2.73,3.08,Stock-out last year,planner.c,2026-W45
+KW1013,S110,91,2.05,2.43,Stock-out last year,planner.c,2026-W39
+KW1013,S110,92,2.2,2.44,Stock-out last year,planner.c,2026-W40
+KW1013,S111,91,1.09,1.33,Stock-out last year,planner.b,2026-W39
+KW1013,S112,94,1.83,2.25,Stock-out last year,planner.a,2026-W42
+KW1013,S112,97,2.58,2.97,Stock-out last year,planner.b,2026-W45
+KW1013,S113,92,1.55,1.9,Stock-out last year,planner.b,2026-W40
+KW1013,S113,93,1.58,1.97,Stock-out last year,planner.c,2026-W41
+KW1013,S113,96,1.86,2.24,Stock-out last year,planner.b,2026-W44
+KW1013,S114,92,2.88,1.94,Competitor promotion,planner.c,2026-W40
+KW1013,S115,95,1.94,2.27,Stock-out last year,planner.b,2026-W43
+KW1013,S115,96,2.07,2.52,Stock-out last year,planner.c,2026-W44
+KW1013,S116,94,3.15,3.89,Local event planned,planner.c,2026-W42
+KW1013,S116,96,2.98,3.78,Stock-out last year,planner.a,2026-W44
+KW1013,S117,96,4.95,6.71,Local event planned,planner.c,2026-W44
+KW1013,S118,91,2.09,2.68,Stock-out last year,planner.b,2026-W39
+KW1013,S118,93,1.99,2.2,Stock-out last year,planner.a,2026-W41
+KW1013,S118,95,3.51,4.75,Local event planned,planner.a,2026-W43
+KW1013,S118,97,3.08,4.03,Stock-out last year,planner.b,2026-W45
+KW1013,S119,97,4.89,5.72,Stock-out last year,planner.b,2026-W45
+KW1013,S120,95,2.56,2.83,Stock-out last year,planner.c,2026-W43
+KW1013,S121,91,1.51,2.0,Local event planned,planner.b,2026-W39
+KW1013,S122,91,1.74,2.32,Stock-out last year,planner.a,2026-W39
+KW1013,S124,91,2.61,3.27,Local event planned,planner.b,2026-W39
+KW1014,S102,94,3.43,4.01,Stock-out last year,planner.b,2026-W42
+KW1014,S105,93,4.31,5.85,Stock-out last year,planner.a,2026-W41
+KW1014,S107,91,7.34,9.3,Stock-out last year,planner.c,2026-W39
+KW1014,S107,94,4.78,5.92,Stock-out last year,planner.b,2026-W42
+KW1014,S107,95,4.94,6.33,Stock-out last year,planner.a,2026-W43
+KW1014,S107,97,3.93,4.31,Stock-out last year,planner.a,2026-W45
+KW1014,S108,92,8.26,5.53,Competitor promotion,planner.c,2026-W40
+KW1014,S108,94,5.43,4.21,Competitor promotion,planner.a,2026-W42
+KW1014,S108,95,5.76,4.64,Competitor promotion,planner.a,2026-W43
+KW1014,S111,97,2.02,2.33,Stock-out last year,planner.a,2026-W45
+KW1014,S112,94,3.05,3.24,Stock-out last year,planner.c,2026-W42
+KW1014,S113,92,4.41,3.64,Gut feel,planner.b,2026-W40
+KW1014,S115,95,3.09,2.71,Competitor promotion,planner.c,2026-W43
+KW1014,S115,97,2.53,3.21,Stock-out last year,planner.b,2026-W45
+KW1014,S116,94,5.32,6.13,Local event planned,planner.a,2026-W42
+KW1014,S116,95,4.17,3.05,Competitor promotion,planner.a,2026-W43
+KW1014,S117,92,9.22,6.88,Gut feel,planner.b,2026-W40
+KW1014,S117,96,9.23,11.62,Local event planned,planner.b,2026-W44
+KW1014,S118,93,4.44,5.17,Stock-out last year,planner.b,2026-W41
+KW1014,S118,95,6.34,9.36,Local event planned,planner.b,2026-W43
+KW1014,S119,93,5.48,5.4,Stock-out last year,planner.c,2026-W41
+KW1014,S119,96,5.33,4.1,Competitor promotion,planner.a,2026-W44
+KW1014,S121,91,4.24,4.86,Local event planned,planner.c,2026-W39
+KW1014,S121,92,3.62,4.68,Stock-out last year,planner.c,2026-W40
+KW1014,S121,97,2.76,2.83,Stock-out last year,planner.b,2026-W45
+KW1014,S122,93,3.9,4.5,Stock-out last year,planner.b,2026-W41
+KW1014,S123,95,3.22,2.57,Competitor promotion,planner.c,2026-W43
+KW1014,S124,91,8.05,12.14,Local event planned,planner.a,2026-W39
+KW1014,S124,92,5.81,5.38,Competitor promotion,planner.c,2026-W40
+KW1014,S124,96,3.86,3.25,Competitor promotion,planner.a,2026-W44
+KW1015,S102,91,10.75,10.92,Gut feel,planner.b,2026-W39
+KW1015,S102,94,7.52,5.34,Competitor promotion,planner.b,2026-W42
+KW1015,S107,92,11.33,13.18,Stock-out last year,planner.a,2026-W40
+KW1015,S109,92,20.81,26.81,Stock-out last year,planner.c,2026-W40
+KW1015,S109,94,13.27,16.61,Stock-out last year,planner.a,2026-W42
+KW1015,S110,97,16.07,16.34,Stock-out last year,planner.a,2026-W45
+KW1015,S111,95,5.19,6.58,Gut feel,planner.c,2026-W43
+KW1015,S114,94,16.4,13.55,Competitor promotion,planner.b,2026-W42
+KW1015,S114,97,29.49,32.56,Stock-out last year,planner.b,2026-W45
+KW1015,S115,93,5.6,5.91,Stock-out last year,planner.a,2026-W41
+KW1015,S115,95,6.15,6.74,Stock-out last year,planner.a,2026-W43
+KW1015,S116,92,10.81,12.68,Stock-out last year,planner.a,2026-W40
+KW1015,S116,94,9.77,13.06,Local event planned,planner.c,2026-W42
+KW1015,S117,96,20.5,24.82,Local event planned,planner.c,2026-W44
+KW1015,S118,95,13.67,17.33,Local event planned,planner.c,2026-W43
+KW1015,S121,91,11.47,13.76,Local event planned,planner.c,2026-W39
+KW1015,S122,92,9.85,6.47,Gut feel,planner.a,2026-W40
+KW1015,S124,91,20.33,25.34,Local event planned,planner.b,2026-W39
+KW1015,S124,96,9.47,8.4,Gut feel,planner.b,2026-W44
+KW1016,S104,93,2.61,2.67,Stock-out last year,planner.c,2026-W41
+KW1016,S107,95,3.38,3.92,Stock-out last year,planner.c,2026-W43
+KW1016,S108,95,4.97,5.65,Stock-out last year,planner.c,2026-W43
+KW1016,S110,91,5.43,5.97,Stock-out last year,planner.a,2026-W39
+KW1016,S112,92,4.17,5.3,Gut feel,planner.a,2026-W40
+KW1016,S113,93,2.63,3.49,Stock-out last year,planner.b,2026-W41
+KW1016,S113,95,2.75,3.81,Stock-out last year,planner.a,2026-W43
+KW1016,S114,92,9.0,11.85,Gut feel,planner.c,2026-W40
+KW1016,S114,95,8.98,13.0,Local event planned,planner.a,2026-W43
+KW1016,S115,94,2.18,2.67,Stock-out last year,planner.c,2026-W42
+KW1016,S116,94,4.02,5.28,Local event planned,planner.a,2026-W42
+KW1016,S117,96,7.36,9.19,Local event planned,planner.c,2026-W44
+KW1016,S118,96,2.62,2.02,Gut feel,planner.c,2026-W44
+KW1016,S120,93,2.85,3.65,Stock-out last year,planner.a,2026-W41
+KW1016,S120,94,2.91,3.67,Stock-out last year,planner.c,2026-W42
+KW1016,S120,95,3.0,3.24,Stock-out last year,planner.b,2026-W43
+KW1016,S121,93,2.32,2.76,Stock-out last year,planner.b,2026-W41
+KW1016,S122,95,3.53,4.05,Stock-out last year,planner.a,2026-W43
+KW1016,S124,93,3.55,4.37,Stock-out last year,planner.b,2026-W41
+KW1016,S124,94,3.58,3.93,Stock-out last year,planner.b,2026-W42
+KW1017,S105,91,9.34,12.09,Gut feel,planner.b,2026-W39
+KW1017,S109,92,15.86,20.33,Stock-out last year,planner.a,2026-W40
+KW1017,S112,97,5.24,3.74,Gut feel,planner.c,2026-W45
+KW1017,S114,94,16.7,9.96,Gut feel,planner.a,2026-W42
+KW1017,S114,95,20.18,23.14,Local event planned,planner.a,2026-W43
+KW1017,S115,95,6.52,8.68,Stock-out last year,planner.b,2026-W43
+KW1017,S116,94,11.57,17.3,Local event planned,planner.a,2026-W42
+KW1017,S116,95,10.43,11.12,Stock-out last year,planner.b,2026-W43
+KW1017,S117,93,15.01,15.91,Stock-out last year,planner.c,2026-W41
+KW1017,S117,96,12.01,16.12,Local event planned,planner.c,2026-W44
+KW1017,S118,95,12.57,15.76,Local event planned,planner.b,2026-W43
+KW1017,S118,97,7.09,8.92,Stock-out last year,planner.b,2026-W45
+KW1017,S119,94,15.98,20.33,Gut feel,planner.c,2026-W42
+KW1017,S121,91,6.95,10.16,Local event planned,planner.c,2026-W39
+KW1017,S121,94,4.99,5.63,Stock-out last year,planner.b,2026-W42
+KW1017,S122,92,8.42,9.45,Stock-out last year,planner.a,2026-W40
+KW1017,S123,93,8.76,6.95,Gut feel,planner.a,2026-W41
+KW1017,S123,97,5.3,6.36,Gut feel,planner.c,2026-W45
+KW1017,S124,91,12.45,17.02,Local event planned,planner.a,2026-W39
+KW1018,S102,91,1.66,1.53,Competitor promotion,planner.c,2026-W39
+KW1018,S102,92,1.65,2.08,Stock-out last year,planner.b,2026-W40
+KW1018,S102,93,1.77,2.06,Stock-out last year,planner.b,2026-W41
+KW1018,S102,96,2.15,2.68,Stock-out last year,planner.a,2026-W44
+KW1018,S104,94,1.55,1.71,Stock-out last year,planner.c,2026-W42
+KW1018,S109,91,2.46,2.98,Stock-out last year,planner.a,2026-W39
+KW1018,S109,92,2.74,3.14,Stock-out last year,planner.c,2026-W40
+KW1018,S110,91,2.07,2.47,Stock-out last year,planner.a,2026-W39
+KW1018,S110,92,2.13,2.48,Stock-out last year,planner.c,2026-W40
+KW1018,S113,95,1.65,1.95,Stock-out last year,planner.b,2026-W43
+KW1018,S114,95,4.21,5.31,Local event planned,planner.a,2026-W43
+KW1018,S114,96,4.07,3.46,Gut feel,planner.a,2026-W44
+KW1018,S116,91,2.13,2.37,Stock-out last year,planner.a,2026-W39
+KW1018,S116,94,3.55,3.85,Local event planned,planner.a,2026-W42
+KW1018,S117,92,2.5,2.33,Competitor promotion,planner.c,2026-W40
+KW1018,S117,95,3.45,4.06,Stock-out last year,planner.b,2026-W43
+KW1018,S117,96,4.93,6.41,Local event planned,planner.b,2026-W44
+KW1018,S118,93,1.87,2.3,Stock-out last year,planner.c,2026-W41
+KW1018,S118,95,3.48,4.51,Local event planned,planner.a,2026-W43
+KW1018,S119,92,2.92,3.44,Stock-out last year,planner.a,2026-W40
+KW1018,S119,94,2.89,3.52,Stock-out last year,planner.b,2026-W42
+KW1018,S121,93,1.22,1.3,Stock-out last year,planner.b,2026-W41
+KW1018,S122,97,2.25,2.73,Stock-out last year,planner.c,2026-W45
+KW1018,S123,95,2.08,2.54,Stock-out last year,planner.b,2026-W43
+KW1018,S124,91,2.67,2.95,Local event planned,planner.c,2026-W39
+KW1019,S103,91,4.11,5.29,Gut feel,planner.b,2026-W39
+KW1019,S103,94,4.23,4.5,Gut feel,planner.b,2026-W42
+KW1019,S106,95,3.37,4.45,Stock-out last year,planner.b,2026-W43
+KW1019,S107,92,4.32,5.06,Stock-out last year,planner.b,2026-W40
+KW1019,S107,93,4.04,5.04,Stock-out last year,planner.c,2026-W41
+KW1019,S107,94,4.08,5.15,Stock-out last year,planner.c,2026-W42
+KW1019,S108,92,5.05,4.79,Stock-out last year,planner.a,2026-W40
+KW1019,S108,94,4.41,3.03,Competitor promotion,planner.b,2026-W42
+KW1019,S109,92,4.45,5.13,Stock-out last year,planner.c,2026-W40
+KW1019,S109,93,4.55,5.1,Stock-out last year,planner.c,2026-W41
+KW1019,S110,97,2.75,1.94,Competitor promotion,planner.a,2026-W45
+KW1019,S111,92,2.02,2.36,Stock-out last year,planner.a,2026-W40
+KW1019,S111,93,1.69,1.7,Stock-out last year,planner.c,2026-W41
+KW1019,S111,94,1.8,2.14,Stock-out last year,planner.b,2026-W42
+KW1019,S112,95,2.92,3.44,Stock-out last year,planner.c,2026-W43
+KW1019,S112,96,2.61,2.19,Competitor promotion,planner.b,2026-W44
+KW1019,S112,97,2.49,2.0,Competitor promotion,planner.b,2026-W45
+KW1019,S114,95,9.05,11.51,Local event planned,planner.b,2026-W43
+KW1019,S116,94,4.41,5.42,Local event planned,planner.a,2026-W42
+KW1019,S116,95,3.62,2.95,Competitor promotion,planner.a,2026-W43
+KW1019,S116,96,3.05,2.57,Competitor promotion,planner.a,2026-W44
+KW1019,S117,95,6.51,8.08,Stock-out last year,planner.a,2026-W43
+KW1019,S117,96,6.4,8.67,Local event planned,planner.c,2026-W44
+KW1019,S118,95,4.55,6.15,Local event planned,planner.b,2026-W43
+KW1019,S119,91,6.09,7.26,Stock-out last year,planner.c,2026-W39
+KW1019,S121,91,2.89,4.29,Local event planned,planner.a,2026-W39
+KW1019,S122,91,3.54,4.34,Stock-out last year,planner.b,2026-W39
+KW1019,S124,91,4.67,6.02,Local event planned,planner.c,2026-W39
+KW1020,S101,96,22.9,25.44,Stock-out last year,planner.b,2026-W44
+KW1020,S104,95,25.61,36.68,Gut feel,planner.c,2026-W43
+KW1020,S104,96,12.21,16.53,Gut feel,planner.c,2026-W44
+KW1020,S105,97,17.26,20.46,Gut feel,planner.b,2026-W45
+KW1020,S106,96,15.49,11.75,Gut feel,planner.b,2026-W44
+KW1020,S107,92,24.29,20.27,Competitor promotion,planner.a,2026-W40
+KW1020,S111,93,10.41,13.71,Gut feel,planner.a,2026-W41
+KW1020,S112,96,14.61,19.48,Stock-out last year,planner.c,2026-W44
+KW1020,S114,93,34.56,29.53,Competitor promotion,planner.c,2026-W41
+KW1020,S114,95,83.89,91.69,Local event planned,planner.b,2026-W43
+KW1020,S115,92,19.15,16.16,Competitor promotion,planner.a,2026-W40
+KW1020,S116,94,19.61,25.34,Local event planned,planner.c,2026-W42
+KW1020,S118,95,44.26,62.93,Local event planned,planner.a,2026-W43
+KW1020,S119,91,46.34,56.87,Stock-out last year,planner.c,2026-W39
+KW1020,S121,91,21.75,28.51,Local event planned,planner.a,2026-W39
+KW1020,S124,91,36.89,47.04,Local event planned,planner.b,2026-W39
+KW1021,S103,94,1.39,1.05,Gut feel,planner.a,2026-W42
+KW1021,S111,91,1.2,1.49,Stock-out last year,planner.c,2026-W39
+KW1021,S112,96,1.12,0.84,Gut feel,planner.b,2026-W44
+KW1021,S118,95,2.07,2.26,Local event planned,planner.a,2026-W43
+KW1021,S121,91,1.68,2.11,Local event planned,planner.c,2026-W39
+KW1021,S121,97,0.84,1.05,Stock-out last year,planner.c,2026-W45
+KW1021,S122,96,1.07,1.48,Stock-out last year,planner.a,2026-W44
+KW1021,S123,92,1.39,1.81,Stock-out last year,planner.a,2026-W40
+KW1022,S102,95,2.73,3.49,Stock-out last year,planner.b,2026-W43
+KW1022,S106,96,2.02,2.21,Stock-out last year,planner.a,2026-W44
+KW1022,S108,91,4.91,4.08,Competitor promotion,planner.a,2026-W39
+KW1022,S108,95,5.14,5.92,Stock-out last year,planner.a,2026-W43
+KW1022,S110,92,4.33,5.5,Stock-out last year,planner.a,2026-W40
+KW1022,S110,93,4.26,5.06,Stock-out last year,planner.b,2026-W41
+KW1022,S110,96,2.66,3.49,Stock-out last year,planner.a,2026-W44
+KW1022,S110,97,2.52,2.99,Stock-out last year,planner.c,2026-W45
+KW1022,S112,92,3.64,4.37,Stock-out last year,planner.a,2026-W40
+KW1022,S113,96,1.93,2.54,Stock-out last year,planner.b,2026-W44
+KW1022,S115,95,2.49,3.25,Stock-out last year,planner.a,2026-W43
+KW1022,S116,94,4.03,5.15,Local event planned,planner.b,2026-W42
+KW1022,S117,91,6.42,7.41,Stock-out last year,planner.c,2026-W39
+KW1022,S117,94,6.02,7.42,Stock-out last year,planner.b,2026-W42
+KW1022,S118,91,3.09,2.57,Competitor promotion,planner.a,2026-W39
+KW1022,S118,92,4.26,5.23,Stock-out last year,planner.a,2026-W40
+KW1022,S118,95,4.46,5.52,Local event planned,planner.c,2026-W43
+KW1022,S119,93,7.93,9.54,Stock-out last year,planner.b,2026-W41
+KW1022,S120,91,3.03,3.54,Stock-out last year,planner.b,2026-W39
+KW1022,S121,93,2.53,3.15,Stock-out last year,planner.b,2026-W41
+KW1022,S123,91,2.5,1.99,Competitor promotion,planner.c,2026-W39
+KW1022,S124,91,4.02,5.35,Local event planned,planner.c,2026-W39
+KW1023,S101,92,4.21,3.14,Gut feel,planner.b,2026-W40
+KW1023,S101,97,5.33,6.92,Stock-out last year,planner.b,2026-W45
+KW1023,S102,91,2.4,2.07,Competitor promotion,planner.a,2026-W39
+KW1023,S103,91,3.98,4.42,Stock-out last year,planner.c,2026-W39
+KW1023,S103,92,4.29,5.15,Gut feel,planner.a,2026-W40
+KW1023,S106,94,3.21,4.12,Stock-out last year,planner.a,2026-W42
+KW1023,S109,92,4.17,5.02,Stock-out last year,planner.b,2026-W40
+KW1023,S109,93,4.34,4.81,Stock-out last year,planner.c,2026-W41
+KW1023,S111,97,2.13,2.68,Stock-out last year,planner.b,2026-W45
+KW1023,S114,95,8.35,10.18,Local event planned,planner.c,2026-W43
+KW1023,S114,97,7.8,8.6,Stock-out last year,planner.c,2026-W45
+KW1023,S115,97,2.71,3.1,Stock-out last year,planner.c,2026-W45
+KW1023,S116,92,4.24,5.09,Stock-out last year,planner.a,2026-W40
+KW1023,S116,93,4.64,5.3,Stock-out last year,planner.c,2026-W41
+KW1023,S117,96,8.19,11.46,Local event planned,planner.b,2026-W44
+KW1023,S118,95,5.66,8.16,Local event planned,planner.b,2026-W43
+KW1024,S105,96,3.2,3.55,Stock-out last year,planner.a,2026-W44
+KW1024,S106,93,2.16,2.67,Stock-out last year,planner.b,2026-W41
+KW1024,S106,95,2.86,3.83,Stock-out last year,planner.a,2026-W43
+KW1024,S108,97,4.48,3.88,Competitor promotion,planner.a,2026-W45
+KW1024,S109,94,3.58,4.72,Stock-out last year,planner.c,2026-W42
+KW1024,S110,94,2.93,2.1,Competitor promotion,planner.a,2026-W42
+KW1024,S112,93,2.64,1.95,Competitor promotion,planner.c,2026-W41
+KW1024,S112,95,2.81,1.88,Competitor promotion,planner.c,2026-W43
+KW1024,S112,97,3.19,2.79,Competitor promotion,planner.c,2026-W45
+KW1024,S114,91,4.79,5.17,Stock-out last year,planner.a,2026-W39
+KW1024,S116,94,3.86,4.58,Local event planned,planner.b,2026-W42
+KW1024,S117,96,5.13,6.3,Local event planned,planner.c,2026-W44
+KW1024,S118,95,4.05,5.56,Local event planned,planner.b,2026-W43
+KW1024,S119,94,5.04,3.87,Competitor promotion,planner.a,2026-W42
+KW1024,S120,92,3.26,3.87,Stock-out last year,planner.c,2026-W40
+KW1024,S122,92,3.21,4.05,Stock-out last year,planner.c,2026-W40
+KW1024,S122,94,2.56,3.06,Stock-out last year,planner.c,2026-W42
+KW1024,S123,96,2.12,1.92,Competitor promotion,planner.a,2026-W44
+KW1024,S124,91,3.81,5.28,Local event planned,planner.a,2026-W39
+KW1025,S102,94,4.02,3.05,Competitor promotion,planner.b,2026-W42
+KW1025,S103,91,9.26,11.84,Gut feel,planner.a,2026-W39
+KW1025,S106,96,3.81,5.51,Gut feel,planner.b,2026-W44
+KW1025,S107,97,8.02,5.73,Gut feel,planner.c,2026-W45
+KW1025,S108,95,8.58,10.13,Gut feel,planner.b,2026-W43
+KW1025,S112,92,5.83,7.77,Gut feel,planner.c,2026-W40
+KW1025,S114,95,12.82,16.32,Local event planned,planner.a,2026-W43
+KW1025,S115,92,3.78,3.34,Competitor promotion,planner.c,2026-W40
+KW1025,S115,95,3.01,2.27,Gut feel,planner.c,2026-W43
+KW1025,S116,93,4.03,3.7,Competitor promotion,planner.b,2026-W41
+KW1025,S116,94,6.68,7.78,Local event planned,planner.a,2026-W42
+KW1025,S117,96,11.3,13.48,Local event planned,planner.b,2026-W44
+KW1025,S118,95,8.19,10.86,Local event planned,planner.a,2026-W43
+KW1025,S120,94,3.92,3.2,Competitor promotion,planner.c,2026-W42
+KW1025,S121,91,6.59,7.82,Local event planned,planner.b,2026-W39
+KW1025,S124,91,13.82,16.2,Local event planned,planner.a,2026-W39
+KW1025,S124,94,5.5,4.26,Gut feel,planner.c,2026-W42
+KW1026,S101,95,2.12,2.5,Stock-out last year,planner.a,2026-W43
+KW1026,S103,91,3.13,3.7,Stock-out last year,planner.c,2026-W39
+KW1026,S103,93,2.01,2.43,Stock-out last year,planner.c,2026-W41
+KW1026,S106,94,1.52,1.22,Gut feel,planner.c,2026-W42
+KW1026,S107,94,1.93,2.21,Stock-out last year,planner.b,2026-W42
+KW1026,S107,95,1.43,1.88,Stock-out last year,planner.c,2026-W43
+KW1026,S114,95,3.61,4.68,Local event planned,planner.b,2026-W43
+KW1026,S114,96,2.16,2.69,Stock-out last year,planner.c,2026-W44
+KW1026,S115,91,1.78,1.93,Stock-out last year,planner.c,2026-W39
+KW1026,S115,95,1.22,1.41,Stock-out last year,planner.a,2026-W43
+KW1026,S116,92,1.87,2.5,Gut feel,planner.a,2026-W40
+KW1026,S116,94,2.41,3.21,Local event planned,planner.c,2026-W42
+KW1026,S118,95,2.37,2.84,Local event planned,planner.c,2026-W43
+KW1026,S118,96,1.31,1.6,Stock-out last year,planner.a,2026-W44
+KW1026,S119,96,1.9,2.24,Stock-out last year,planner.b,2026-W44
+KW1026,S124,91,3.38,4.21,Local event planned,planner.c,2026-W39
+KW1026,S124,97,1.48,1.78,Stock-out last year,planner.c,2026-W45
+KW1027,S101,91,9.39,11.12,Stock-out last year,planner.a,2026-W39
+KW1027,S101,94,8.23,10.26,Stock-out last year,planner.b,2026-W42
+KW1027,S102,93,6.94,9.26,Stock-out last year,planner.a,2026-W41
+KW1027,S103,95,8.14,9.1,Stock-out last year,planner.a,2026-W43
+KW1027,S105,97,4.73,6.19,Stock-out last year,planner.a,2026-W45
+KW1027,S107,94,6.86,7.95,Stock-out last year,planner.a,2026-W42
+KW1027,S107,95,6.88,7.65,Stock-out last year,planner.a,2026-W43
+KW1027,S108,97,7.05,5.47,Gut feel,planner.b,2026-W45
+KW1027,S109,92,11.42,13.17,Stock-out last year,planner.a,2026-W40
+KW1027,S112,96,4.26,4.42,Stock-out last year,planner.c,2026-W44
+KW1027,S114,95,15.14,19.03,Local event planned,planner.c,2026-W43
+KW1027,S117,96,10.42,12.07,Local event planned,planner.a,2026-W44
+KW1027,S118,95,9.66,13.68,Local event planned,planner.c,2026-W43
+KW1027,S121,91,6.09,7.98,Local event planned,planner.c,2026-W39
+KW1027,S122,92,7.18,4.97,Gut feel,planner.b,2026-W40
+KW1027,S122,96,4.1,3.22,Gut feel,planner.a,2026-W44
+KW1027,S124,91,8.76,12.08,Local event planned,planner.a,2026-W39
+KW1027,S124,92,9.31,10.19,Stock-out last year,planner.a,2026-W40
+KW1027,S124,93,8.03,10.39,Stock-out last year,planner.c,2026-W41
+KW1028,S102,91,2.26,2.75,Stock-out last year,planner.a,2026-W39
+KW1028,S104,93,2.76,3.23,Stock-out last year,planner.b,2026-W41
+KW1028,S104,95,2.46,2.43,Stock-out last year,planner.b,2026-W43
+KW1028,S104,97,2.75,3.1,Stock-out last year,planner.a,2026-W45
+KW1028,S108,93,5.08,6.55,Stock-out last year,planner.a,2026-W41
+KW1028,S108,94,4.49,4.95,Stock-out last year,planner.b,2026-W42
+KW1028,S108,95,5.42,7.0,Stock-out last year,planner.b,2026-W43
+KW1028,S109,94,4.17,4.39,Stock-out last year,planner.a,2026-W42
+KW1028,S109,95,4.97,6.62,Stock-out last year,planner.a,2026-W43
+KW1028,S110,93,3.75,3.52,Gut feel,planner.c,2026-W41
+KW1028,S114,95,6.58,9.3,Local event planned,planner.a,2026-W43
+KW1028,S116,94,4.44,6.33,Local event planned,planner.b,2026-W42
+KW1028,S116,95,4.55,5.55,Stock-out last year,planner.b,2026-W43
+KW1028,S117,96,7.31,9.74,Local event planned,planner.b,2026-W44
+KW1028,S118,91,2.85,3.59,Stock-out last year,planner.b,2026-W39
+KW1028,S118,95,4.11,4.95,Local event planned,planner.c,2026-W43
+KW1028,S119,96,7.53,9.5,Stock-out last year,planner.c,2026-W44
+KW1028,S121,91,1.98,2.33,Local event planned,planner.c,2026-W39
+KW1028,S121,96,2.26,3.01,Stock-out last year,planner.c,2026-W44
+KW1028,S123,94,2.57,3.59,Stock-out last year,planner.a,2026-W42
+KW1028,S123,96,3.74,5.05,Stock-out last year,planner.a,2026-W44
+KW1028,S124,91,3.62,5.01,Local event planned,planner.b,2026-W39
+KW1028,S124,94,3.29,3.63,Stock-out last year,planner.b,2026-W42
+KW1029,S103,92,9.71,10.82,Gut feel,planner.b,2026-W40
+KW1029,S105,97,5.9,4.04,Gut feel,planner.a,2026-W45
+KW1029,S109,92,10.05,8.44,Competitor promotion,planner.a,2026-W40
+KW1029,S110,95,6.01,5.15,Competitor promotion,planner.b,2026-W43
+KW1029,S110,96,5.41,4.69,Competitor promotion,planner.b,2026-W44
+KW1029,S112,93,5.0,3.85,Competitor promotion,planner.a,2026-W41
+KW1029,S114,95,15.78,19.2,Local event planned,planner.a,2026-W43
+KW1029,S116,94,7.31,9.01,Local event planned,planner.a,2026-W42
+KW1029,S117,92,11.81,7.65,Gut feel,planner.c,2026-W40
+KW1029,S117,96,13.41,16.29,Local event planned,planner.b,2026-W44
+KW1029,S118,93,5.56,4.5,Competitor promotion,planner.b,2026-W41
+KW1029,S118,95,7.83,9.61,Local event planned,planner.a,2026-W43
+KW1029,S123,97,4.14,3.38,Competitor promotion,planner.b,2026-W45
+KW1029,S124,91,7.92,10.23,Local event planned,planner.b,2026-W39
+KW1029,S124,96,5.24,3.85,Competitor promotion,planner.a,2026-W44
+KW1030,S101,97,6.67,7.97,Stock-out last year,planner.a,2026-W45
+KW1030,S102,94,6.1,4.88,Competitor promotion,planner.a,2026-W42
+KW1030,S103,96,8.56,11.57,Stock-out last year,planner.b,2026-W44
+KW1030,S103,97,7.5,9.23,Stock-out last year,planner.c,2026-W45
+KW1030,S106,97,4.94,6.56,Stock-out last year,planner.b,2026-W45
+KW1030,S107,93,5.87,4.53,Competitor promotion,planner.b,2026-W41
+KW1030,S107,94,6.23,5.33,Competitor promotion,planner.c,2026-W42
+KW1030,S110,92,13.5,16.08,Stock-out last year,planner.c,2026-W40
+KW1030,S110,94,8.21,9.04,Stock-out last year,planner.c,2026-W42
+KW1030,S111,94,3.32,4.66,Gut feel,planner.a,2026-W42
+KW1030,S113,91,6.6,5.64,Gut feel,planner.c,2026-W39
+KW1030,S114,95,26.49,28.44,Local event planned,planner.c,2026-W43
+KW1030,S115,92,7.93,9.13,Stock-out last year,planner.a,2026-W40
+KW1030,S115,96,5.24,6.03,Stock-out last year,planner.b,2026-W44
+KW1030,S115,97,5.18,7.08,Stock-out last year,planner.b,2026-W45
+KW1030,S117,91,17.68,14.0,Gut feel,planner.a,2026-W39
+KW1030,S117,96,13.93,18.18,Local event planned,planner.b,2026-W44
+KW1030,S117,97,9.52,7.03,Gut feel,planner.a,2026-W45
+KW1030,S118,91,11.02,11.86,Stock-out last year,planner.a,2026-W39
+KW1030,S118,94,8.06,5.7,Gut feel,planner.a,2026-W42
+KW1030,S121,91,8.11,9.29,Local event planned,planner.c,2026-W39
+KW1030,S121,96,4.75,5.42,Stock-out last year,planner.a,2026-W44
+KW1030,S121,97,4.05,4.74,Stock-out last year,planner.c,2026-W45
+KW1030,S122,92,11.29,12.84,Stock-out last year,planner.c,2026-W40
+KW1030,S122,95,10.57,7.95,Competitor promotion,planner.c,2026-W43
+KW1030,S124,91,15.06,20.85,Local event planned,planner.b,2026-W39
+KW1030,S124,92,13.96,9.42,Gut feel,planner.c,2026-W40
+KW1031,S112,95,1.75,2.52,Gut feel,planner.a,2026-W43
+KW1031,S113,91,1.67,2.28,Stock-out last year,planner.c,2026-W39
+KW1031,S113,95,1.51,0.98,Gut feel,planner.c,2026-W43
+KW1031,S114,95,3.89,4.98,Local event planned,planner.b,2026-W43
+KW1031,S115,94,1.16,1.51,Stock-out last year,planner.a,2026-W42
+KW1031,S116,94,1.93,2.69,Local event planned,planner.c,2026-W42
+KW1031,S117,96,2.82,3.41,Local event planned,planner.c,2026-W44
+KW1031,S118,95,2.42,3.22,Local event planned,planner.a,2026-W43
+KW1031,S119,97,2.09,1.45,Gut feel,planner.b,2026-W45
+KW1031,S121,93,1.3,1.68,Gut feel,planner.c,2026-W41
+KW1031,S122,96,1.36,1.17,Gut feel,planner.b,2026-W44
+KW1031,S124,91,3.19,4.66,Local event planned,planner.b,2026-W39
+KW1032,S101,92,6.17,7.73,Stock-out last year,planner.b,2026-W40
+KW1032,S103,95,4.65,3.05,Gut feel,planner.b,2026-W43
+KW1032,S105,91,4.53,5.52,Gut feel,planner.a,2026-W39
+KW1032,S105,97,3.04,3.78,Stock-out last year,planner.a,2026-W45
+KW1032,S107,91,4.36,3.46,Gut feel,planner.a,2026-W39
+KW1032,S108,91,5.49,4.15,Competitor promotion,planner.c,2026-W39
+KW1032,S108,92,7.32,9.28,Stock-out last year,planner.c,2026-W40
+KW1032,S112,95,3.9,5.61,Gut feel,planner.c,2026-W43
+KW1032,S115,91,2.83,3.16,Stock-out last year,planner.b,2026-W39
+KW1032,S115,93,2.83,3.35,Stock-out last year,planner.c,2026-W41
+KW1032,S116,92,3.75,4.86,Stock-out last year,planner.b,2026-W40
+KW1032,S116,93,3.76,4.91,Stock-out last year,planner.c,2026-W41
+KW1032,S116,94,4.52,5.58,Local event planned,planner.a,2026-W42
+KW1032,S117,93,7.0,7.81,Stock-out last year,planner.c,2026-W41
+KW1032,S117,96,4.88,6.39,Local event planned,planner.a,2026-W44
+KW1032,S118,95,5.15,7.16,Local event planned,planner.a,2026-W43
+KW1032,S120,94,3.89,4.54,Stock-out last year,planner.a,2026-W42
+KW1032,S121,91,3.29,4.48,Local event planned,planner.a,2026-W39
+KW1032,S121,96,1.88,2.23,Stock-out last year,planner.b,2026-W44
+KW1032,S121,97,1.88,2.08,Stock-out last year,planner.a,2026-W45
+KW1032,S122,93,3.51,4.56,Stock-out last year,planner.a,2026-W41
+KW1032,S124,91,4.95,6.81,Local event planned,planner.b,2026-W39
+KW1033,S101,94,2.74,3.69,Gut feel,planner.c,2026-W42
+KW1033,S101,97,3.93,4.76,Stock-out last year,planner.c,2026-W45
+KW1033,S103,95,3.14,3.73,Stock-out last year,planner.b,2026-W43
+KW1033,S104,91,1.32,1.52,Stock-out last year,planner.b,2026-W39
+KW1033,S104,96,1.68,2.07,Stock-out last year,planner.a,2026-W44
+KW1033,S105,91,1.92,2.31,Stock-out last year,planner.c,2026-W39
+KW1033,S105,95,2.73,2.99,Stock-out last year,planner.a,2026-W43
+KW1033,S105,97,2.74,3.36,Stock-out last year,planner.b,2026-W45
+KW1033,S106,91,1.43,1.57,Stock-out last year,planner.c,2026-W39
+KW1033,S107,92,2.52,3.06,Stock-out last year,planner.b,2026-W40
+KW1033,S108,91,2.52,3.1,Stock-out last year,planner.c,2026-W39
+KW1033,S108,95,3.6,4.59,Stock-out last year,planner.b,2026-W43
+KW1033,S109,93,2.2,2.84,Stock-out last year,planner.c,2026-W41
+KW1033,S109,95,3.68,4.67,Stock-out last year,planner.c,2026-W43
+KW1033,S110,93,1.96,2.48,Stock-out last year,planner.c,2026-W41
+KW1033,S112,92,1.81,2.4,Stock-out last year,planner.a,2026-W40
+KW1033,S113,95,1.98,2.35,Stock-out last year,planner.c,2026-W43
+KW1033,S114,93,2.97,3.83,Stock-out last year,planner.b,2026-W41
+KW1033,S114,94,3.3,3.74,Stock-out last year,planner.b,2026-W42
+KW1033,S114,95,5.66,8.97,Local event planned,planner.a,2026-W43
+KW1033,S115,93,1.74,2.24,Stock-out last year,planner.a,2026-W41
+KW1033,S115,94,1.81,2.15,Stock-out last year,planner.a,2026-W42
+KW1033,S116,91,2.19,2.56,Stock-out last year,planner.c,2026-W39
+KW1033,S116,94,3.21,4.92,Local event planned,planner.b,2026-W42
+KW1033,S117,94,3.02,3.68,Stock-out last year,planner.b,2026-W42
+KW1033,S117,96,5.25,7.39,Local event planned,planner.b,2026-W44
+KW1033,S117,97,5.05,6.58,Stock-out last year,planner.b,2026-W45
+KW1033,S118,94,2.32,2.87,Stock-out last year,planner.c,2026-W42
+KW1033,S118,95,3.88,4.84,Local event planned,planner.b,2026-W43
+KW1033,S119,92,3.23,3.92,Stock-out last year,planner.b,2026-W40
+KW1033,S120,93,1.99,2.6,Stock-out last year,planner.c,2026-W41
+KW1033,S121,91,1.7,2.34,Local event planned,planner.b,2026-W39
+KW1033,S121,96,1.63,2.0,Stock-out last year,planner.a,2026-W44
+KW1033,S122,94,1.85,2.05,Stock-out last year,planner.a,2026-W42
+KW1033,S122,95,2.32,2.6,Stock-out last year,planner.b,2026-W43
+KW1033,S122,96,2.43,2.8,Stock-out last year,planner.b,2026-W44
+KW1033,S123,94,1.73,2.03,Stock-out last year,planner.c,2026-W42
+KW1033,S123,95,2.11,2.76,Stock-out last year,planner.c,2026-W43
+KW1033,S124,93,1.92,2.15,Stock-out last year,planner.c,2026-W41
+KW1034,S101,91,5.47,6.65,Gut feel,planner.b,2026-W39
+KW1034,S101,92,6.23,7.35,Stock-out last year,planner.c,2026-W40
+KW1034,S101,95,11.44,14.76,Stock-out last year,planner.c,2026-W43
+KW1034,S101,96,5.9,8.34,Gut feel,planner.b,2026-W44
+KW1034,S105,94,4.0,4.42,Stock-out last year,planner.a,2026-W42
+KW1034,S106,91,3.22,4.4,Stock-out last year,planner.a,2026-W39
+KW1034,S106,95,6.19,6.67,Stock-out last year,planner.b,2026-W43
+KW1034,S107,91,5.33,6.13,Stock-out last year,planner.a,2026-W39
+KW1034,S108,94,5.72,4.46,Competitor promotion,planner.a,2026-W42
+KW1034,S109,93,5.79,4.39,Competitor promotion,planner.b,2026-W41
+KW1034,S110,94,3.6,2.68,Competitor promotion,planner.a,2026-W42
+KW1034,S110,96,3.38,2.5,Competitor promotion,planner.a,2026-W44
+KW1034,S110,97,3.39,5.07,Stock-out last year,planner.c,2026-W45
+KW1034,S113,93,2.91,3.52,Stock-out last year,planner.c,2026-W41
+KW1034,S114,95,20.02,28.66,Local event planned,planner.b,2026-W43
+KW1034,S116,95,7.3,7.71,Stock-out last year,planner.a,2026-W43
+KW1034,S116,97,3.87,4.64,Stock-out last year,planner.b,2026-W45
+KW1034,S117,96,9.34,11.48,Local event planned,planner.c,2026-W44
+KW1034,S118,94,3.91,2.75,Competitor promotion,planner.c,2026-W42
+KW1034,S118,95,9.72,10.67,Local event planned,planner.c,2026-W43
+KW1034,S118,96,3.68,3.07,Competitor promotion,planner.b,2026-W44
+KW1034,S119,97,6.38,5.18,Competitor promotion,planner.b,2026-W45
+KW1034,S122,91,3.87,4.24,Stock-out last year,planner.c,2026-W39
+KW1034,S122,95,8.41,11.3,Stock-out last year,planner.c,2026-W43
+KW1034,S123,92,3.27,4.33,Stock-out last year,planner.b,2026-W40
+KW1035,S104,92,5.74,7.2,Stock-out last year,planner.b,2026-W40
+KW1035,S107,92,8.98,6.82,Competitor promotion,planner.a,2026-W40
+KW1035,S108,93,13.07,16.46,Gut feel,planner.b,2026-W41
+KW1035,S109,91,14.57,17.24,Gut feel,planner.b,2026-W39
+KW1035,S110,93,8.11,11.07,Gut feel,planner.b,2026-W41
+KW1035,S114,95,20.16,26.09,Local event planned,planner.c,2026-W43
+KW1035,S115,97,4.84,5.39,Stock-out last year,planner.a,2026-W45
+KW1035,S116,94,8.06,10.58,Local event planned,planner.c,2026-W42
+KW1035,S118,94,8.38,6.34,Gut feel,planner.a,2026-W42
+KW1035,S118,95,13.03,16.77,Local event planned,planner.a,2026-W43
+KW1035,S119,94,13.29,14.95,Stock-out last year,planner.b,2026-W42
+KW1035,S120,91,9.84,13.71,Stock-out last year,planner.b,2026-W39
+KW1035,S120,92,7.83,6.39,Competitor promotion,planner.a,2026-W40
+KW1035,S120,96,5.83,4.81,Gut feel,planner.b,2026-W44
+KW1035,S121,91,8.52,9.69,Local event planned,planner.b,2026-W39
+KW1035,S124,91,16.26,22.46,Local event planned,planner.b,2026-W39
+KW1036,S103,96,2.28,2.98,Stock-out last year,planner.c,2026-W44
+KW1036,S106,96,1.5,1.74,Stock-out last year,planner.b,2026-W44
+KW1036,S113,93,1.68,1.92,Stock-out last year,planner.c,2026-W41
+KW1036,S113,97,1.31,1.41,Stock-out last year,planner.c,2026-W45
+KW1036,S114,93,3.41,4.4,Stock-out last year,planner.a,2026-W41
+KW1036,S114,95,4.6,5.83,Local event planned,planner.c,2026-W43
+KW1036,S116,94,2.3,3.2,Local event planned,planner.c,2026-W42
+KW1036,S117,92,3.86,4.39,Stock-out last year,planner.c,2026-W40
+KW1036,S117,96,4.37,5.77,Local event planned,planner.c,2026-W44
+KW1036,S118,91,3.35,3.77,Stock-out last year,planner.a,2026-W39
+KW1036,S118,95,3.23,4.42,Local event planned,planner.b,2026-W43
+KW1036,S119,92,3.92,4.72,Stock-out last year,planner.c,2026-W40
+KW1036,S119,94,2.89,3.55,Stock-out last year,planner.c,2026-W42
+KW1036,S120,92,2.06,1.52,Gut feel,planner.b,2026-W40
+KW1036,S121,91,2.47,2.92,Local event planned,planner.b,2026-W39
+KW1036,S121,92,1.69,2.04,Stock-out last year,planner.a,2026-W40
+KW1036,S121,96,1.26,1.56,Gut feel,planner.b,2026-W44
+KW1036,S122,96,1.65,1.86,Stock-out last year,planner.c,2026-W44
+KW1036,S124,91,4.37,4.87,Local event planned,planner.a,2026-W39
+KW1036,S124,93,2.38,2.92,Stock-out last year,planner.a,2026-W41
+KW1036,S124,94,2.08,2.71,Stock-out last year,planner.a,2026-W42
+KW1036,S124,96,1.92,1.98,Stock-out last year,planner.b,2026-W44
+KW1037,S101,93,10.37,7.96,Gut feel,planner.c,2026-W41
+KW1037,S104,93,4.16,3.18,Gut feel,planner.b,2026-W41
+KW1037,S106,91,6.71,8.68,Stock-out last year,planner.c,2026-W39
+KW1037,S108,91,9.85,7.58,Competitor promotion,planner.c,2026-W39
+KW1037,S108,94,10.29,12.29,Stock-out last year,planner.a,2026-W42
+KW1037,S109,93,12.55,14.74,Stock-out last year,planner.b,2026-W41
+KW1037,S112,92,8.8,9.98,Stock-out last year,planner.c,2026-W40
+KW1037,S113,91,5.99,6.87,Stock-out last year,planner.b,2026-W39
+KW1037,S114,92,17.38,19.86,Stock-out last year,planner.a,2026-W40
+KW1037,S114,95,17.03,20.34,Local event planned,planner.c,2026-W43
+KW1037,S115,92,6.53,7.91,Stock-out last year,planner.b,2026-W40
+KW1037,S115,93,5.5,6.88,Stock-out last year,planner.a,2026-W41
+KW1037,S115,94,5.06,6.92,Stock-out last year,planner.b,2026-W42
+KW1037,S116,94,8.3,11.42,Local event planned,planner.b,2026-W42
+KW1037,S117,96,9.93,13.4,Local event planned,planner.b,2026-W44
+KW1037,S118,91,7.58,9.83,Stock-out last year,planner.c,2026-W39
+KW1037,S118,95,9.79,13.46,Local event planned,planner.a,2026-W43
+KW1037,S121,91,6.63,8.48,Local event planned,planner.b,2026-W39
+KW1037,S122,97,4.43,5.24,Stock-out last year,planner.a,2026-W45
+KW1038,S101,96,6.42,5.95,Stock-out last year,planner.b,2026-W44
+KW1038,S102,91,3.67,2.86,Competitor promotion,planner.b,2026-W39
+KW1038,S103,94,6.56,7.76,Stock-out last year,planner.a,2026-W42
+KW1038,S104,95,3.7,3.56,Stock-out last year,planner.a,2026-W43
+KW1038,S106,92,3.77,4.25,Gut feel,planner.c,2026-W40
+KW1038,S109,91,7.08,7.63,Stock-out last year,planner.b,2026-W39
+KW1038,S109,94,7.27,9.15,Stock-out last year,planner.b,2026-W42
+KW1038,S111,94,2.89,3.34,Stock-out last year,planner.b,2026-W42
+KW1038,S112,97,5.54,7.09,Stock-out last year,planner.b,2026-W45
+KW1038,S113,91,3.28,3.9,Stock-out last year,planner.c,2026-W39
+KW1038,S113,93,3.71,4.78,Stock-out last year,planner.c,2026-W41
+KW1038,S114,95,12.99,17.65,Local event planned,planner.a,2026-W43
+KW1038,S115,92,4.22,5.7,Stock-out last year,planner.b,2026-W40
+KW1038,S115,95,5.74,6.82,Stock-out last year,planner.c,2026-W43
+KW1038,S117,96,12.93,17.25,Local event planned,planner.b,2026-W44
+KW1038,S118,95,8.07,12.49,Local event planned,planner.b,2026-W43
+KW1038,S118,96,8.09,10.02,Stock-out last year,planner.c,2026-W44
+KW1038,S120,96,5.77,7.23,Stock-out last year,planner.a,2026-W44
+KW1038,S121,91,3.72,4.31,Local event planned,planner.b,2026-W39
+KW1038,S123,93,4.08,4.96,Stock-out last year,planner.a,2026-W41
+KW1038,S123,94,4.22,4.77,Stock-out last year,planner.a,2026-W42
+KW1038,S124,91,7.2,8.5,Local event planned,planner.c,2026-W39
+KW1038,S124,92,4.85,3.61,Gut feel,planner.a,2026-W40
+KW1039,S101,95,8.27,10.8,Gut feel,planner.c,2026-W43
+KW1039,S102,97,4.69,3.75,Gut feel,planner.b,2026-W45
+KW1039,S104,93,3.01,3.38,Stock-out last year,planner.a,2026-W41
+KW1039,S104,94,3.05,3.69,Stock-out last year,planner.a,2026-W42
+KW1039,S104,97,3.16,3.57,Stock-out last year,planner.c,2026-W45
+KW1039,S107,96,4.95,3.85,Competitor promotion,planner.b,2026-W44
+KW1039,S108,97,6.43,5.29,Competitor promotion,planner.c,2026-W45
+KW1039,S109,94,6.87,7.74,Stock-out last year,planner.b,2026-W42
+KW1039,S109,97,6.38,8.16,Stock-out last year,planner.b,2026-W45
+KW1039,S110,95,5.31,6.42,Stock-out last year,planner.c,2026-W43
+KW1039,S111,91,3.4,2.33,Gut feel,planner.b,2026-W39
+KW1039,S114,95,16.37,22.31,Local event planned,planner.a,2026-W43
+KW1039,S115,97,3.0,4.45,Stock-out last year,planner.a,2026-W45
+KW1039,S116,93,5.7,7.31,Stock-out last year,planner.b,2026-W41
+KW1039,S116,94,7.04,8.5,Local event planned,planner.a,2026-W42
+KW1039,S116,97,4.66,5.55,Stock-out last year,planner.a,2026-W45
+KW1039,S118,91,8.99,8.9,Stock-out last year,planner.b,2026-W39
+KW1039,S118,92,6.82,5.55,Competitor promotion,planner.c,2026-W40
+KW1039,S118,95,6.82,8.64,Local event planned,planner.a,2026-W43
+KW1039,S120,97,4.25,5.24,Stock-out last year,planner.b,2026-W45
+KW1039,S121,91,5.9,8.01,Local event planned,planner.b,2026-W39
+KW1039,S121,92,4.03,5.54,Stock-out last year,planner.b,2026-W40
+KW1039,S124,91,11.5,15.92,Local event planned,planner.c,2026-W39
+KW1039,S124,93,4.89,3.67,Competitor promotion,planner.b,2026-W41
+KW1040,S101,91,13.2,17.23,Stock-out last year,planner.c,2026-W39
+KW1040,S103,94,8.02,10.0,Stock-out last year,planner.c,2026-W42
+KW1040,S106,92,7.53,9.18,Stock-out last year,planner.a,2026-W40
+KW1040,S107,97,6.11,7.71,Stock-out last year,planner.c,2026-W45
+KW1040,S112,96,6.43,8.09,Stock-out last year,planner.c,2026-W44
+KW1040,S114,93,18.59,14.36,Competitor promotion,planner.c,2026-W41
+KW1040,S114,94,11.25,8.97,Competitor promotion,planner.c,2026-W42
+KW1040,S114,95,18.28,24.26,Local event planned,planner.c,2026-W43
+KW1040,S115,91,6.99,9.03,Stock-out last year,planner.b,2026-W39
+KW1040,S116,92,8.49,6.91,Competitor promotion,planner.c,2026-W40
+KW1040,S116,94,8.98,10.44,Local event planned,planner.c,2026-W42
+KW1040,S117,93,16.19,11.67,Competitor promotion,planner.c,2026-W41
+KW1040,S117,96,15.07,18.61,Local event planned,planner.a,2026-W44
+KW1040,S120,92,7.57,6.49,Competitor promotion,planner.a,2026-W40
+KW1040,S120,93,7.94,6.49,Competitor promotion,planner.b,2026-W41
+KW1040,S121,94,3.94,4.71,Stock-out last year,planner.c,2026-W42
+KW1040,S122,94,5.83,5.04,Competitor promotion,planner.c,2026-W42
+KW1040,S123,92,9.06,12.27,Gut feel,planner.b,2026-W40
+KW1040,S124,91,15.74,16.94,Local event planned,planner.c,2026-W39
+KW1041,S103,93,3.37,4.09,Gut feel,planner.c,2026-W41
+KW1041,S111,91,2.42,3.48,Gut feel,planner.c,2026-W39
+KW1041,S114,95,6.51,7.96,Local event planned,planner.c,2026-W43
+KW1041,S115,91,2.83,3.31,Gut feel,planner.c,2026-W39
+KW1041,S116,94,3.37,4.55,Local event planned,planner.a,2026-W42
+KW1041,S117,96,5.14,7.27,Local event planned,planner.a,2026-W44
+KW1041,S118,95,3.66,4.67,Local event planned,planner.c,2026-W43
+KW1041,S120,91,3.58,4.84,Gut feel,planner.a,2026-W39
+KW1041,S121,91,3.61,4.64,Local event planned,planner.b,2026-W39
+KW1041,S121,94,1.81,2.06,Stock-out last year,planner.a,2026-W42
+KW1041,S121,95,2.1,2.48,Stock-out last year,planner.b,2026-W43
+KW1041,S122,92,3.01,3.9,Stock-out last year,planner.a,2026-W40
+KW1041,S122,94,2.32,2.79,Stock-out last year,planner.a,2026-W42
+KW1041,S122,95,2.64,2.9,Stock-out last year,planner.b,2026-W43
+KW1041,S123,93,2.62,1.85,Gut feel,planner.c,2026-W41
+KW1041,S124,91,6.04,7.89,Local event planned,planner.b,2026-W39
+KW1041,S124,96,2.2,1.83,Gut feel,planner.a,2026-W44
+KW1042,S101,93,5.7,6.6,Stock-out last year,planner.c,2026-W41
+KW1042,S102,94,3.51,4.7,Stock-out last year,planner.a,2026-W42
+KW1042,S102,95,3.55,4.68,Stock-out last year,planner.b,2026-W43
+KW1042,S104,92,3.52,3.82,Stock-out last year,planner.b,2026-W40
+KW1042,S108,92,8.47,10.33,Stock-out last year,planner.c,2026-W40
+KW1042,S110,92,5.69,7.51,Gut feel,planner.c,2026-W40
+KW1042,S110,93,4.7,6.12,Gut feel,planner.a,2026-W41
+KW1042,S111,91,2.54,3.03,Stock-out last year,planner.a,2026-W39
+KW1042,S112,92,4.93,5.8,Stock-out last year,planner.b,2026-W40
+KW1042,S114,91,10.92,13.15,Stock-out last year,planner.c,2026-W39
+KW1042,S114,95,9.87,11.74,Local event planned,planner.a,2026-W43
+KW1042,S116,94,5.34,7.29,Local event planned,planner.b,2026-W42
+KW1042,S117,96,10.23,12.3,Local event planned,planner.b,2026-W44
+KW1042,S117,97,4.72,6.92,Gut feel,planner.b,2026-W45
+KW1042,S118,92,6.48,6.96,Stock-out last year,planner.b,2026-W40
+KW1042,S118,95,5.97,6.99,Local event planned,planner.b,2026-W43
+KW1042,S121,91,3.47,4.17,Local event planned,planner.a,2026-W39
+KW1042,S122,93,4.05,4.59,Stock-out last year,planner.b,2026-W41
+KW1042,S122,94,3.85,4.49,Stock-out last year,planner.a,2026-W42
+KW1042,S122,96,4.51,5.6,Stock-out last year,planner.c,2026-W44
+KW1042,S123,91,3.99,4.7,Stock-out last year,planner.c,2026-W39
+KW1042,S123,95,3.73,2.58,Gut feel,planner.a,2026-W43
+KW1042,S124,91,5.54,7.55,Local event planned,planner.a,2026-W39
+KW1042,S124,95,4.82,5.42,Stock-out last year,planner.b,2026-W43
+KW1042,S124,97,3.35,3.68,Stock-out last year,planner.a,2026-W45
+KW1043,S101,93,3.79,4.29,Stock-out last year,planner.c,2026-W41
+KW1043,S104,91,1.92,2.25,Stock-out last year,planner.b,2026-W39
+KW1043,S105,92,3.5,4.58,Stock-out last year,planner.c,2026-W40
+KW1043,S105,94,3.73,4.55,Stock-out last year,planner.c,2026-W42
+KW1043,S106,97,3.71,4.85,Stock-out last year,planner.b,2026-W45
+KW1043,S107,92,3.56,4.86,Gut feel,planner.b,2026-W40
+KW1043,S108,93,4.38,5.75,Stock-out last year,planner.a,2026-W41
+KW1043,S109,94,5.09,6.64,Stock-out last year,planner.a,2026-W42
+KW1043,S110,97,4.57,5.0,Stock-out last year,planner.b,2026-W45
+KW1043,S111,92,1.8,1.93,Stock-out last year,planner.a,2026-W40
+KW1043,S111,97,2.15,2.92,Stock-out last year,planner.b,2026-W45
+KW1043,S112,95,4.19,5.22,Stock-out last year,planner.b,2026-W43
+KW1043,S112,96,4.97,5.2,Stock-out last year,planner.c,2026-W44
+KW1043,S114,91,5.23,5.61,Stock-out last year,planner.c,2026-W39
+KW1043,S114,95,7.46,9.11,Local event planned,planner.a,2026-W43
+KW1043,S115,91,2.52,2.88,Stock-out last year,planner.b,2026-W39
+KW1043,S115,96,3.4,3.66,Stock-out last year,planner.c,2026-W44
+KW1043,S117,91,4.2,2.99,Competitor promotion,planner.b,2026-W39
+KW1043,S117,96,8.49,12.47,Local event planned,planner.b,2026-W44
+KW1043,S118,93,3.48,4.09,Stock-out last year,planner.c,2026-W41
+KW1043,S118,95,5.95,6.9,Local event planned,planner.a,2026-W43
+KW1043,S120,96,4.59,5.59,Stock-out last year,planner.a,2026-W44
+KW1043,S121,91,2.34,2.57,Local event planned,planner.a,2026-W39
+KW1043,S122,95,3.47,4.2,Stock-out last year,planner.b,2026-W43
+KW1043,S124,91,4.47,5.99,Local event planned,planner.c,2026-W39
+KW1044,S103,92,2.67,3.17,Stock-out last year,planner.b,2026-W40
+KW1044,S103,94,2.21,2.66,Stock-out last year,planner.a,2026-W42
+KW1044,S103,95,2.78,3.4,Stock-out last year,planner.c,2026-W43
+KW1044,S105,94,2.01,2.84,Gut feel,planner.c,2026-W42
+KW1044,S105,95,2.44,2.96,Gut feel,planner.a,2026-W43
+KW1044,S106,92,1.79,2.68,Stock-out last year,planner.c,2026-W40
+KW1044,S108,95,3.43,2.79,Competitor promotion,planner.c,2026-W43
+KW1044,S110,97,1.65,1.28,Competitor promotion,planner.c,2026-W45
+KW1044,S111,96,1.25,1.5,Stock-out last year,planner.c,2026-W44
+KW1044,S111,97,1.24,1.56,Stock-out last year,planner.c,2026-W45
+KW1044,S114,95,5.5,7.05,Local event planned,planner.c,2026-W43
+KW1044,S115,95,1.62,1.13,Competitor promotion,planner.a,2026-W43
+KW1044,S116,94,2.78,4.16,Local event planned,planner.b,2026-W42
+KW1044,S117,96,3.98,5.26,Local event planned,planner.a,2026-W44
+KW1044,S118,97,1.92,1.42,Competitor promotion,planner.a,2026-W45
+KW1044,S119,96,2.83,2.1,Competitor promotion,planner.b,2026-W44
+KW1044,S120,95,2.02,1.59,Competitor promotion,planner.c,2026-W43
+KW1044,S121,92,1.62,2.19,Stock-out last year,planner.a,2026-W40
+KW1044,S121,94,1.47,1.46,Stock-out last year,planner.a,2026-W42
+KW1044,S121,96,1.46,1.8,Stock-out last year,planner.b,2026-W44
+KW1044,S122,95,2.19,2.29,Stock-out last year,planner.c,2026-W43
+KW1044,S123,91,1.85,2.18,Stock-out last year,planner.a,2026-W39
+KW1044,S123,97,1.44,0.96,Competitor promotion,planner.a,2026-W45
+KW1044,S124,91,3.39,4.47,Local event planned,planner.b,2026-W39
+KW1044,S124,93,2.06,1.65,Competitor promotion,planner.a,2026-W41
+KW1045,S101,94,10.85,12.06,Stock-out last year,planner.b,2026-W42
+KW1045,S102,94,7.31,6.42,Competitor promotion,planner.c,2026-W42
+KW1045,S102,95,8.28,5.79,Competitor promotion,planner.b,2026-W43
+KW1045,S103,92,29.41,38.02,Gut feel,planner.b,2026-W40
+KW1045,S105,92,27.64,21.53,Gut feel,planner.a,2026-W40
+KW1045,S106,95,8.46,11.18,Stock-out last year,planner.b,2026-W43
+KW1045,S107,94,6.8,5.87,Competitor promotion,planner.a,2026-W42
+KW1045,S108,96,14.25,16.18,Gut feel,planner.b,2026-W44
+KW1045,S108,97,14.73,15.66,Gut feel,planner.a,2026-W45
+KW1045,S111,94,4.77,5.97,Stock-out last year,planner.a,2026-W42
+KW1045,S111,95,5.79,7.5,Stock-out last year,planner.b,2026-W43
+KW1045,S113,91,8.31,8.82,Stock-out last year,planner.a,2026-W39
+KW1045,S113,95,7.45,5.48,Competitor promotion,planner.c,2026-W43
+KW1045,S116,93,7.09,5.16,Competitor promotion,planner.c,2026-W41
+KW1045,S116,94,10.04,13.36,Local event planned,planner.a,2026-W42
+KW1045,S117,94,14.32,13.81,Competitor promotion,planner.c,2026-W42
+KW1045,S117,96,19.19,25.52,Local event planned,planner.a,2026-W44
+KW1045,S118,95,14.81,17.39,Local event planned,planner.b,2026-W43
+KW1045,S119,94,17.62,23.69,Gut feel,planner.b,2026-W42
+KW1045,S119,97,16.35,17.86,Stock-out last year,planner.a,2026-W45
+KW1045,S121,91,12.36,14.55,Local event planned,planner.c,2026-W39
+KW1045,S123,97,7.9,10.3,Stock-out last year,planner.a,2026-W45
+KW1045,S124,91,19.74,31.87,Local event planned,planner.b,2026-W39
+KW1046,S101,93,3.26,3.29,Stock-out last year,planner.b,2026-W41
+KW1046,S103,93,3.3,5.06,Gut feel,planner.c,2026-W41
+KW1046,S104,92,1.91,2.63,Stock-out last year,planner.c,2026-W40
+KW1046,S108,93,3.75,4.24,Stock-out last year,planner.c,2026-W41
+KW1046,S108,94,3.75,5.09,Stock-out last year,planner.c,2026-W42
+KW1046,S109,92,4.85,5.89,Gut feel,planner.c,2026-W40
+KW1046,S110,92,3.6,4.67,Gut feel,planner.b,2026-W40
+KW1046,S110,93,2.89,2.33,Gut feel,planner.a,2026-W41
+KW1046,S111,93,1.45,1.63,Stock-out last year,planner.a,2026-W41
+KW1046,S112,96,2.14,2.78,Stock-out last year,planner.a,2026-W44
+KW1046,S113,91,2.44,2.9,Stock-out last year,planner.b,2026-W39
+KW1046,S114,93,4.08,4.96,Stock-out last year,planner.b,2026-W41
+KW1046,S114,94,4.49,5.35,Stock-out last year,planner.a,2026-W42
+KW1046,S114,95,5.28,7.14,Local event planned,planner.c,2026-W43
+KW1046,S117,95,3.98,4.25,Stock-out last year,planner.b,2026-W43
+KW1046,S118,95,3.29,3.91,Local event planned,planner.a,2026-W43
+KW1046,S118,96,2.31,2.8,Stock-out last year,planner.c,2026-W44
+KW1046,S120,93,2.19,1.67,Gut feel,planner.b,2026-W41
+KW1046,S121,91,2.95,3.6,Local event planned,planner.b,2026-W39
+KW1046,S124,91,5.1,6.66,Local event planned,planner.a,2026-W39
+KW1047,S101,93,7.59,5.95,Gut feel,planner.a,2026-W41
+KW1047,S105,91,7.15,8.36,Stock-out last year,planner.c,2026-W39
+KW1047,S105,94,6.55,7.52,Gut feel,planner.c,2026-W42
+KW1047,S106,91,4.2,4.83,Stock-out last year,planner.c,2026-W39
+KW1047,S109,95,8.61,10.15,Stock-out last year,planner.b,2026-W43
+KW1047,S112,93,5.79,6.65,Stock-out last year,planner.c,2026-W41
+KW1047,S112,95,5.44,8.19,Stock-out last year,planner.b,2026-W43
+KW1047,S112,96,3.56,4.11,Stock-out last year,planner.c,2026-W44
+KW1047,S113,93,4.28,4.46,Stock-out last year,planner.a,2026-W41
+KW1047,S114,95,12.73,14.0,Local event planned,planner.b,2026-W43
+KW1047,S116,92,6.03,7.43,Stock-out last year,planner.a,2026-W40
+KW1047,S116,94,7.93,9.79,Local event planned,planner.b,2026-W42
+KW1047,S118,95,7.63,10.4,Local event planned,planner.b,2026-W43
+KW1047,S119,91,8.7,6.53,Competitor promotion,planner.c,2026-W39
+KW1047,S120,96,3.79,5.28,Gut feel,planner.a,2026-W44
+KW1047,S121,91,4.57,5.26,Local event planned,planner.a,2026-W39
+KW1047,S122,91,5.98,7.22,Stock-out last year,planner.b,2026-W39
+KW1047,S122,95,4.93,5.09,Stock-out last year,planner.c,2026-W43
+KW1047,S123,91,4.75,4.15,Competitor promotion,planner.a,2026-W39
+KW1047,S124,91,7.4,11.25,Local event planned,planner.b,2026-W39
+KW1048,S103,91,2.27,2.71,Stock-out last year,planner.a,2026-W39
+KW1048,S104,93,1.23,1.63,Stock-out last year,planner.a,2026-W41
+KW1048,S105,93,1.97,2.81,Stock-out last year,planner.c,2026-W41
+KW1048,S106,92,2.68,2.94,Stock-out last year,planner.a,2026-W40
+KW1048,S108,95,3.77,4.39,Stock-out last year,planner.a,2026-W43
+KW1048,S108,96,4.0,4.18,Stock-out last year,planner.a,2026-W44
+KW1048,S108,97,3.96,4.75,Stock-out last year,planner.a,2026-W45
+KW1048,S109,91,2.96,3.25,Stock-out last year,planner.b,2026-W39
+KW1048,S110,95,3.02,3.93,Stock-out last year,planner.b,2026-W43
+KW1048,S111,95,1.56,2.01,Stock-out last year,planner.a,2026-W43
+KW1048,S111,97,1.56,1.24,Gut feel,planner.b,2026-W45
+KW1048,S112,93,1.75,2.34,Stock-out last year,planner.b,2026-W41
+KW1048,S112,94,1.8,2.04,Stock-out last year,planner.a,2026-W42
+KW1048,S112,97,2.6,3.15,Stock-out last year,planner.a,2026-W45
+KW1048,S113,93,1.69,1.92,Stock-out last year,planner.a,2026-W41
+KW1048,S114,93,3.55,4.35,Stock-out last year,planner.b,2026-W41
+KW1048,S116,94,3.5,4.98,Local event planned,planner.b,2026-W42
+KW1048,S117,95,4.06,4.52,Stock-out last year,planner.a,2026-W43
+KW1048,S117,96,5.01,6.41,Local event planned,planner.c,2026-W44
+KW1048,S120,95,3.09,3.31,Stock-out last year,planner.c,2026-W43
+KW1048,S120,96,2.72,3.41,Stock-out last year,planner.a,2026-W44
+KW1048,S120,97,2.43,2.95,Stock-out last year,planner.b,2026-W45
+KW1048,S121,91,1.62,2.26,Local event planned,planner.b,2026-W39
+KW1048,S121,92,1.9,2.09,Stock-out last year,planner.b,2026-W40
+KW1048,S121,96,1.69,2.01,Stock-out last year,planner.c,2026-W44
+KW1048,S122,92,2.21,2.87,Stock-out last year,planner.a,2026-W40
+KW1048,S122,95,2.22,2.7,Stock-out last year,planner.c,2026-W43
+KW1048,S123,92,2.12,2.37,Stock-out last year,planner.b,2026-W40
+KW1048,S123,93,1.71,1.99,Stock-out last year,planner.a,2026-W41
+KW1048,S124,91,3.07,4.2,Local event planned,planner.c,2026-W39
+KW1048,S124,95,2.91,3.56,Stock-out last year,planner.a,2026-W43
+KW1049,S106,91,2.75,3.03,Stock-out last year,planner.b,2026-W39
+KW1049,S108,95,5.03,3.71,Competitor promotion,planner.c,2026-W43
+KW1049,S108,97,4.2,3.09,Competitor promotion,planner.a,2026-W45
+KW1049,S110,97,3.16,2.83,Competitor promotion,planner.b,2026-W45
+KW1049,S111,93,1.65,1.98,Stock-out last year,planner.c,2026-W41
+KW1049,S112,94,3.23,4.08,Stock-out last year,planner.c,2026-W42
+KW1049,S112,95,3.2,3.58,Stock-out last year,planner.a,2026-W43
+KW1049,S113,93,2.32,3.01,Stock-out last year,planner.c,2026-W41
+KW1049,S114,95,7.54,10.83,Local event planned,planner.b,2026-W43
+KW1049,S114,96,6.76,8.53,Gut feel,planner.b,2026-W44
+KW1049,S115,95,2.27,1.74,Competitor promotion,planner.a,2026-W43
+KW1049,S115,97,1.89,1.51,Competitor promotion,planner.c,2026-W45
+KW1049,S116,94,4.47,5.96,Local event planned,planner.c,2026-W42
+KW1049,S116,97,3.52,2.84,Competitor promotion,planner.a,2026-W45
+KW1049,S118,95,4.53,5.35,Local event planned,planner.a,2026-W43
+KW1049,S119,94,5.04,4.41,Competitor promotion,planner.c,2026-W42
+KW1049,S119,96,5.08,4.48,Competitor promotion,planner.c,2026-W44
+KW1049,S120,96,3.14,2.44,Competitor promotion,planner.a,2026-W44
+KW1049,S121,91,2.58,3.08,Local event planned,planner.b,2026-W39
+KW1049,S121,96,2.44,1.79,Gut feel,planner.b,2026-W44
+KW1049,S123,92,2.74,2.21,Competitor promotion,planner.b,2026-W40
+KW1049,S123,94,2.64,1.82,Competitor promotion,planner.a,2026-W42
+KW1049,S123,96,2.72,1.89,Competitor promotion,planner.c,2026-W44
+KW1049,S124,91,4.36,5.35,Local event planned,planner.a,2026-W39
+KW1049,S124,93,2.74,2.17,Competitor promotion,planner.b,2026-W41
+KW1049,S124,97,3.12,2.33,Competitor promotion,planner.c,2026-W45
+KW1050,S102,93,6.0,5.28,Competitor promotion,planner.a,2026-W41
+KW1050,S103,92,12.14,15.48,Stock-out last year,planner.b,2026-W40
+KW1050,S104,94,4.43,6.08,Stock-out last year,planner.c,2026-W42
+KW1050,S106,91,8.47,9.91,Stock-out last year,planner.b,2026-W39
+KW1050,S114,94,10.97,8.72,Competitor promotion,planner.b,2026-W42
+KW1050,S114,95,19.41,27.02,Local event planned,planner.a,2026-W43
+KW1050,S115,93,4.67,3.39,Competitor promotion,planner.a,2026-W41
+KW1050,S116,91,9.91,11.33,Stock-out last year,planner.c,2026-W39
+KW1050,S116,94,8.3,11.79,Local event planned,planner.a,2026-W42
+KW1050,S116,97,5.32,6.33,Stock-out last year,planner.b,2026-W45
+KW1050,S117,95,12.88,9.16,Competitor promotion,planner.c,2026-W43
+KW1050,S117,96,14.09,18.86,Local event planned,planner.b,2026-W44
+KW1050,S118,95,11.86,14.11,Local event planned,planner.b,2026-W43
+KW1050,S120,92,8.14,6.07,Competitor promotion,planner.c,2026-W40
+KW1050,S120,96,5.43,6.6,Stock-out last year,planner.a,2026-W44
+KW1050,S121,91,9.14,12.44,Local event planned,planner.b,2026-W39
+KW1050,S124,91,17.74,23.02,Local event planned,planner.c,2026-W39
+KW1050,S124,94,8.47,10.1,Stock-out last year,planner.b,2026-W42
+KW1051,S101,91,5.6,7.54,Gut feel,planner.c,2026-W39
+KW1051,S102,94,2.26,3.19,Gut feel,planner.b,2026-W42
+KW1051,S102,95,3.64,5.23,Gut feel,planner.c,2026-W43
+KW1051,S103,94,2.61,3.21,Stock-out last year,planner.b,2026-W42
+KW1051,S104,91,2.44,3.17,Stock-out last year,planner.b,2026-W39
+KW1051,S105,92,3.21,3.74,Stock-out last year,planner.a,2026-W40
+KW1051,S105,94,2.46,3.13,Stock-out last year,planner.c,2026-W42
+KW1051,S106,97,1.81,2.06,Gut feel,planner.b,2026-W45
+KW1051,S107,94,2.3,2.92,Stock-out last year,planner.a,2026-W42
+KW1051,S111,95,2.58,3.02,Stock-out last year,planner.b,2026-W43
+KW1051,S114,95,8.75,11.19,Local event planned,planner.c,2026-W43
+KW1051,S116,94,2.93,3.96,Local event planned,planner.a,2026-W42
+KW1051,S117,96,4.81,6.07,Local event planned,planner.a,2026-W44
+KW1051,S118,92,3.8,4.99,Gut feel,planner.b,2026-W40
+KW1051,S118,95,5.68,6.72,Local event planned,planner.b,2026-W43
+KW1051,S122,94,2.2,2.48,Stock-out last year,planner.a,2026-W42
+KW1051,S124,91,5.21,7.52,Local event planned,planner.b,2026-W39
+KW1052,S101,91,4.02,4.81,Stock-out last year,planner.a,2026-W39
+KW1052,S102,96,1.68,1.42,Gut feel,planner.a,2026-W44
+KW1052,S105,91,3.07,3.53,Stock-out last year,planner.c,2026-W39
+KW1052,S106,91,2.19,2.3,Stock-out last year,planner.a,2026-W39
+KW1052,S106,92,2.41,3.0,Stock-out last year,planner.c,2026-W40
+KW1052,S107,91,3.41,4.07,Stock-out last year,planner.a,2026-W39
+KW1052,S107,94,4.78,6.11,Stock-out last year,planner.a,2026-W42
+KW1052,S108,92,5.72,4.51,Gut feel,planner.a,2026-W40
+KW1052,S108,95,4.26,5.54,Stock-out last year,planner.b,2026-W43
+KW1052,S110,91,2.87,2.37,Competitor promotion,planner.a,2026-W39
+KW1052,S110,92,3.63,3.99,Stock-out last year,planner.b,2026-W40
+KW1052,S110,93,3.33,3.9,Stock-out last year,planner.b,2026-W41
+KW1052,S111,93,1.52,2.12,Gut feel,planner.c,2026-W41
+KW1052,S112,91,2.33,2.69,Stock-out last year,planner.b,2026-W39
+KW1052,S113,93,2.33,3.03,Stock-out last year,planner.b,2026-W41
+KW1052,S113,94,2.96,4.1,Stock-out last year,planner.b,2026-W42
+KW1052,S114,94,7.34,9.77,Stock-out last year,planner.a,2026-W42
+KW1052,S114,95,5.87,7.61,Local event planned,planner.c,2026-W43
+KW1052,S115,93,2.13,2.73,Stock-out last year,planner.b,2026-W41
+KW1052,S118,93,3.57,4.15,Stock-out last year,planner.a,2026-W41
+KW1052,S119,95,5.12,7.14,Stock-out last year,planner.c,2026-W43
+KW1052,S120,92,2.8,3.12,Stock-out last year,planner.a,2026-W40
+KW1052,S120,95,2.78,3.74,Stock-out last year,planner.a,2026-W43
+KW1052,S120,96,1.94,2.65,Stock-out last year,planner.a,2026-W44
+KW1052,S120,97,1.91,2.12,Stock-out last year,planner.b,2026-W45
+KW1052,S121,91,2.31,3.3,Local event planned,planner.a,2026-W39
+KW1052,S122,94,3.55,4.28,Stock-out last year,planner.b,2026-W42
+KW1052,S122,95,2.42,2.75,Stock-out last year,planner.a,2026-W43
+KW1052,S124,91,3.8,4.71,Local event planned,planner.c,2026-W39
+KW1053,S101,97,5.51,6.48,Stock-out last year,planner.c,2026-W45
+KW1053,S102,91,2.93,2.64,Competitor promotion,planner.a,2026-W39
+KW1053,S102,92,3.0,2.35,Competitor promotion,planner.b,2026-W40
+KW1053,S106,95,3.54,4.68,Stock-out last year,planner.a,2026-W43
+KW1053,S107,97,4.86,6.04,Gut feel,planner.a,2026-W45
+KW1053,S108,97,6.28,7.27,Stock-out last year,planner.c,2026-W45
+KW1053,S109,95,5.97,7.16,Stock-out last year,planner.c,2026-W43
+KW1053,S109,96,7.31,9.07,Stock-out last year,planner.b,2026-W44
+KW1053,S110,97,4.43,5.52,Stock-out last year,planner.a,2026-W45
+KW1053,S111,91,1.95,2.22,Stock-out last year,planner.c,2026-W39
+KW1053,S111,94,2.27,2.4,Stock-out last year,planner.b,2026-W42
+KW1053,S111,97,2.25,2.66,Stock-out last year,planner.a,2026-W45
+KW1053,S112,93,2.83,3.59,Stock-out last year,planner.c,2026-W41
+KW1053,S113,91,2.66,2.17,Competitor promotion,planner.c,2026-W39
+KW1053,S113,93,2.77,3.07,Stock-out last year,planner.c,2026-W41
+KW1053,S113,94,2.52,2.96,Stock-out last year,planner.b,2026-W42
+KW1053,S113,96,3.14,3.9,Stock-out last year,planner.c,2026-W44
+KW1053,S113,97,3.46,4.44,Stock-out last year,planner.b,2026-W45
+KW1053,S114,94,5.4,6.43,Stock-out last year,planner.b,2026-W42
+KW1053,S114,95,7.47,9.76,Local event planned,planner.b,2026-W43
+KW1053,S114,96,8.06,10.47,Gut feel,planner.a,2026-W44
+KW1053,S115,94,3.11,3.75,Stock-out last year,planner.b,2026-W42
+KW1053,S116,91,4.06,5.28,Gut feel,planner.b,2026-W39
+KW1053,S116,95,5.48,4.46,Gut feel,planner.b,2026-W43
+KW1053,S117,91,4.89,4.52,Competitor promotion,planner.b,2026-W39
+KW1053,S117,96,7.8,10.54,Local event planned,planner.a,2026-W44
+KW1053,S118,91,4.15,6.06,Stock-out last year,planner.a,2026-W39
+KW1053,S118,95,5.64,7.47,Local event planned,planner.c,2026-W43
+KW1053,S120,94,3.78,4.73,Stock-out last year,planner.b,2026-W42
+KW1053,S121,91,2.73,3.38,Local event planned,planner.a,2026-W39
+KW1053,S122,96,3.6,4.2,Stock-out last year,planner.b,2026-W44
+KW1053,S123,91,3.32,3.82,Stock-out last year,planner.a,2026-W39
+KW1053,S124,91,5.48,6.12,Local event planned,planner.c,2026-W39
+KW1053,S124,96,5.14,6.09,Stock-out last year,planner.a,2026-W44
+KW1054,S103,91,5.36,3.7,Gut feel,planner.c,2026-W39
+KW1054,S104,95,3.28,3.94,Stock-out last year,planner.b,2026-W43
+KW1054,S104,96,2.85,3.43,Gut feel,planner.c,2026-W44
+KW1054,S108,93,5.15,3.96,Competitor promotion,planner.a,2026-W41
+KW1054,S109,93,5.17,3.54,Competitor promotion,planner.b,2026-W41
+KW1054,S110,92,5.2,4.71,Competitor promotion,planner.b,2026-W40
+KW1054,S110,93,3.82,2.66,Competitor promotion,planner.a,2026-W41
+KW1054,S110,94,3.83,3.25,Competitor promotion,planner.c,2026-W42
+KW1054,S112,95,3.85,3.16,Competitor promotion,planner.a,2026-W43
+KW1054,S114,95,11.54,14.71,Local event planned,planner.b,2026-W43
+KW1054,S115,95,2.88,2.57,Competitor promotion,planner.b,2026-W43
+KW1054,S116,94,5.61,7.25,Local event planned,planner.b,2026-W42
+KW1054,S117,96,9.2,12.37,Local event planned,planner.c,2026-W44
+KW1054,S118,94,4.12,3.22,Competitor promotion,planner.b,2026-W42
+KW1054,S118,95,6.36,7.96,Local event planned,planner.c,2026-W43
+KW1054,S119,91,8.72,10.69,Gut feel,planner.b,2026-W39
+KW1054,S120,92,4.29,5.01,Gut feel,planner.c,2026-W40
+KW1054,S121,91,3.25,4.34,Local event planned,planner.c,2026-W39
+KW1054,S121,97,2.51,1.6,Gut feel,planner.a,2026-W45
+KW1054,S123,93,2.53,2.03,Competitor promotion,planner.a,2026-W41
+KW1054,S124,91,6.56,7.86,Local event planned,planner.c,2026-W39
+KW1054,S124,92,5.15,3.93,Competitor promotion,planner.a,2026-W40
+KW1054,S124,95,4.4,3.53,Competitor promotion,planner.a,2026-W43
+KW1055,S101,95,9.59,11.68,Stock-out last year,planner.c,2026-W43
+KW1055,S101,96,8.13,10.69,Gut feel,planner.c,2026-W44
+KW1055,S102,93,5.01,4.55,Competitor promotion,planner.c,2026-W41
+KW1055,S107,92,8.01,6.49,Competitor promotion,planner.b,2026-W40
+KW1055,S107,97,8.85,6.67,Gut feel,planner.c,2026-W45
+KW1055,S110,93,6.99,9.28,Gut feel,planner.c,2026-W41
+KW1055,S110,94,6.92,5.17,Gut feel,planner.c,2026-W42
+KW1055,S111,92,4.51,5.69,Stock-out last year,planner.b,2026-W40
+KW1055,S111,94,3.17,3.45,Stock-out last year,planner.b,2026-W42
+KW1055,S112,94,6.85,4.54,Gut feel,planner.c,2026-W42
+KW1055,S114,95,16.26,24.08,Local event planned,planner.c,2026-W43
+KW1055,S115,92,5.83,4.94,Competitor promotion,planner.a,2026-W40
+KW1055,S115,93,3.78,4.42,Stock-out last year,planner.b,2026-W41
+KW1055,S116,92,7.48,5.63,Competitor promotion,planner.b,2026-W40
+KW1055,S116,94,6.83,9.14,Local event planned,planner.b,2026-W42
+KW1055,S117,96,14.44,16.71,Local event planned,planner.c,2026-W44
+KW1055,S118,95,10.23,14.6,Local event planned,planner.b,2026-W43
+KW1055,S120,92,6.97,6.28,Competitor promotion,planner.b,2026-W40
+KW1055,S121,91,7.22,10.06,Local event planned,planner.a,2026-W39
+KW1055,S121,96,4.22,5.12,Stock-out last year,planner.b,2026-W44
+KW1055,S122,93,4.85,3.49,Competitor promotion,planner.a,2026-W41
+KW1055,S122,95,5.69,4.65,Competitor promotion,planner.b,2026-W43
+KW1055,S124,91,16.07,21.56,Local event planned,planner.b,2026-W39
+KW1055,S124,92,11.93,15.99,Gut feel,planner.b,2026-W40
+KW1056,S102,93,8.52,11.57,Gut feel,planner.a,2026-W41
+KW1056,S104,91,5.4,6.1,Stock-out last year,planner.c,2026-W39
+KW1056,S106,93,6.78,7.57,Stock-out last year,planner.b,2026-W41
+KW1056,S106,94,4.22,5.11,Stock-out last year,planner.b,2026-W42
+KW1056,S107,92,9.2,10.43,Stock-out last year,planner.b,2026-W40
+KW1056,S109,97,8.25,9.44,Stock-out last year,planner.c,2026-W45
+KW1056,S110,95,11.09,14.19,Stock-out last year,planner.b,2026-W43
+KW1056,S114,95,24.97,30.65,Local event planned,planner.b,2026-W43
+KW1056,S115,94,4.85,6.07,Stock-out last year,planner.a,2026-W42
+KW1056,S115,97,4.01,5.74,Stock-out last year,planner.b,2026-W45
+KW1056,S116,94,7.66,9.24,Local event planned,planner.a,2026-W42
+KW1056,S117,96,13.78,16.29,Local event planned,planner.c,2026-W44
+KW1056,S118,91,9.99,12.47,Stock-out last year,planner.c,2026-W39
+KW1056,S120,91,7.71,9.52,Gut feel,planner.b,2026-W39
+KW1056,S120,93,8.63,8.89,Stock-out last year,planner.b,2026-W41
+KW1056,S120,95,8.06,8.21,Stock-out last year,planner.c,2026-W43
+KW1056,S121,91,6.72,9.18,Local event planned,planner.c,2026-W39
+KW1056,S124,91,13.25,18.55,Local event planned,planner.c,2026-W39
+KW1056,S124,96,7.11,10.41,Gut feel,planner.a,2026-W44
+KW1056,S124,97,5.89,7.97,Gut feel,planner.c,2026-W45
+KW1057,S101,94,2.99,4.06,Stock-out last year,planner.a,2026-W42
+KW1057,S102,96,1.58,1.22,Gut feel,planner.b,2026-W44
+KW1057,S106,93,1.93,1.49,Gut feel,planner.b,2026-W41
+KW1057,S108,91,3.77,2.77,Competitor promotion,planner.c,2026-W39
+KW1057,S108,96,2.27,2.9,Gut feel,planner.c,2026-W44
+KW1057,S108,97,3.04,3.44,Gut feel,planner.a,2026-W45
+KW1057,S110,91,2.22,1.83,Competitor promotion,planner.a,2026-W39
+KW1057,S111,91,1.6,2.0,Gut feel,planner.b,2026-W39
+KW1057,S112,91,1.97,1.67,Competitor promotion,planner.a,2026-W39
+KW1057,S114,95,4.69,6.1,Local event planned,planner.b,2026-W43
+KW1057,S116,94,2.96,4.21,Local event planned,planner.a,2026-W42
+KW1057,S116,95,2.2,2.56,Stock-out last year,planner.b,2026-W43
+KW1057,S117,96,3.05,4.08,Local event planned,planner.b,2026-W44
+KW1057,S118,93,2.57,3.88,Gut feel,planner.c,2026-W41
+KW1057,S121,91,2.28,2.82,Local event planned,planner.a,2026-W39
+KW1057,S122,92,2.21,2.9,Gut feel,planner.c,2026-W40
+KW1057,S123,91,1.89,2.13,Stock-out last year,planner.b,2026-W39
+KW1057,S124,91,3.75,4.8,Local event planned,planner.c,2026-W39
+KW1058,S101,94,3.12,4.32,Stock-out last year,planner.b,2026-W42
+KW1058,S103,91,2.39,3.17,Stock-out last year,planner.b,2026-W39
+KW1058,S104,93,1.35,1.78,Stock-out last year,planner.b,2026-W41
+KW1058,S105,91,2.15,2.32,Stock-out last year,planner.c,2026-W39
+KW1058,S105,92,2.43,2.99,Stock-out last year,planner.b,2026-W40
+KW1058,S108,91,3.37,4.5,Stock-out last year,planner.c,2026-W39
+KW1058,S108,92,3.31,4.09,Stock-out last year,planner.a,2026-W40
+KW1058,S108,95,4.18,4.91,Stock-out last year,planner.b,2026-W43
+KW1058,S111,91,1.23,1.5,Stock-out last year,planner.b,2026-W39
+KW1058,S111,94,1.51,1.66,Stock-out last year,planner.c,2026-W42
+KW1058,S111,96,2.15,2.47,Stock-out last year,planner.b,2026-W44
+KW1058,S112,97,2.69,3.33,Stock-out last year,planner.b,2026-W45
+KW1058,S113,92,1.71,1.94,Stock-out last year,planner.a,2026-W40
+KW1058,S113,97,2.27,2.37,Stock-out last year,planner.a,2026-W45
+KW1058,S114,92,3.4,3.37,Competitor promotion,planner.a,2026-W40
+KW1058,S114,93,3.49,4.57,Gut feel,planner.a,2026-W41
+KW1058,S114,95,5.76,8.84,Local event planned,planner.c,2026-W43
+KW1058,S114,97,5.89,6.73,Stock-out last year,planner.b,2026-W45
+KW1058,S115,92,2.03,2.31,Stock-out last year,planner.b,2026-W40
+KW1058,S116,94,3.7,5.17,Local event planned,planner.b,2026-W42
+KW1058,S116,95,3.58,4.71,Stock-out last year,planner.c,2026-W43
+KW1058,S117,96,7.69,10.9,Local event planned,planner.c,2026-W44
+KW1058,S118,91,2.43,2.79,Stock-out last year,planner.c,2026-W39
+KW1058,S118,95,3.88,5.15,Local event planned,planner.b,2026-W43
+KW1058,S118,96,4.55,5.45,Stock-out last year,planner.a,2026-W44
+KW1058,S120,91,2.19,2.77,Stock-out last year,planner.a,2026-W39
+KW1058,S120,93,2.33,2.72,Stock-out last year,planner.c,2026-W41
+KW1058,S121,91,1.75,2.3,Local event planned,planner.b,2026-W39
+KW1058,S122,93,2.01,2.2,Stock-out last year,planner.c,2026-W41
+KW1058,S122,96,3.87,5.08,Stock-out last year,planner.b,2026-W44
+KW1058,S123,91,2.12,2.52,Stock-out last year,planner.b,2026-W39
+KW1058,S123,94,2.05,2.84,Stock-out last year,planner.c,2026-W42
+KW1058,S124,91,3.56,4.44,Local event planned,planner.c,2026-W39
+KW1059,S101,91,8.23,9.67,Stock-out last year,planner.c,2026-W39
+KW1059,S101,95,10.39,8.47,Gut feel,planner.b,2026-W43
+KW1059,S102,95,6.96,10.14,Gut feel,planner.c,2026-W43
+KW1059,S103,97,8.35,8.92,Stock-out last year,planner.a,2026-W45
+KW1059,S104,94,4.16,5.05,Stock-out last year,planner.c,2026-W42
+KW1059,S104,97,4.01,5.0,Stock-out last year,planner.c,2026-W45
+KW1059,S106,91,5.04,6.09,Stock-out last year,planner.a,2026-W39
+KW1059,S107,96,9.59,12.17,Stock-out last year,planner.b,2026-W44
+KW1059,S107,97,5.48,6.45,Stock-out last year,planner.b,2026-W45
+KW1059,S109,92,17.38,21.19,Stock-out last year,planner.b,2026-W40
+KW1059,S109,93,9.05,7.02,Competitor promotion,planner.c,2026-W41
+KW1059,S110,95,6.5,7.92,Stock-out last year,planner.c,2026-W43
+KW1059,S112,91,6.63,8.36,Stock-out last year,planner.c,2026-W39
+KW1059,S113,92,7.29,8.6,Stock-out last year,planner.b,2026-W40
+KW1059,S114,95,18.83,22.64,Local event planned,planner.a,2026-W43
+KW1059,S115,95,4.74,4.15,Competitor promotion,planner.a,2026-W43
+KW1059,S116,91,7.2,8.18,Stock-out last year,planner.c,2026-W39
+KW1059,S116,94,7.95,10.45,Local event planned,planner.b,2026-W42
+KW1059,S116,95,7.63,6.9,Competitor promotion,planner.a,2026-W43
+KW1059,S116,97,5.66,5.12,Competitor promotion,planner.b,2026-W45
+KW1059,S117,96,20.86,27.82,Local event planned,planner.c,2026-W44
+KW1059,S118,91,7.83,9.61,Stock-out last year,planner.b,2026-W39
+KW1059,S118,92,11.84,8.32,Competitor promotion,planner.c,2026-W40
+KW1059,S118,95,8.81,12.09,Local event planned,planner.b,2026-W43
+KW1059,S120,96,8.23,6.21,Competitor promotion,planner.c,2026-W44
+KW1059,S121,91,4.49,5.31,Local event planned,planner.c,2026-W39
+KW1059,S121,94,3.88,4.69,Stock-out last year,planner.a,2026-W42
+KW1059,S122,92,10.64,7.8,Gut feel,planner.a,2026-W40
+KW1059,S123,96,7.16,6.12,Competitor promotion,planner.b,2026-W44
+KW1059,S124,91,9.5,13.36,Local event planned,planner.c,2026-W39
+KW1060,S104,93,2.91,2.27,Gut feel,planner.a,2026-W41
+KW1060,S108,96,5.98,7.37,Gut feel,planner.a,2026-W44
+KW1060,S114,94,5.82,4.66,Competitor promotion,planner.a,2026-W42
+KW1060,S114,95,8.39,10.34,Local event planned,planner.c,2026-W43
+KW1060,S116,94,4.6,5.78,Local event planned,planner.a,2026-W42
+KW1060,S117,96,8.32,12.32,Local event planned,planner.c,2026-W44
+KW1060,S118,95,6.52,7.65,Local event planned,planner.b,2026-W43
+KW1060,S120,92,3.53,2.36,Competitor promotion,planner.a,2026-W40
+KW1060,S122,94,3.22,2.19,Competitor promotion,planner.c,2026-W42
+KW1061,S101,97,3.25,4.69,Gut feel,planner.b,2026-W45
+KW1061,S102,95,3.77,2.89,Gut feel,planner.a,2026-W43
+KW1061,S107,95,4.2,3.18,Gut feel,planner.a,2026-W43
+KW1061,S111,93,1.76,1.93,Gut feel,planner.c,2026-W41
+KW1061,S112,93,2.78,3.5,Gut feel,planner.a,2026-W41
+KW1061,S114,93,4.85,5.34,Gut feel,planner.a,2026-W41
+KW1061,S115,96,1.83,1.46,Gut feel,planner.b,2026-W44
+KW1061,S116,94,3.47,5.05,Local event planned,planner.a,2026-W42
+KW1061,S119,96,4.21,3.11,Gut feel,planner.c,2026-W44
+KW1062,S106,96,2.71,2.16,Gut feel,planner.c,2026-W44
+KW1062,S114,95,9.87,13.06,Local event planned,planner.b,2026-W43
+KW1062,S116,94,5.79,8.79,Local event planned,planner.c,2026-W42
+KW1062,S118,95,6.44,6.89,Local event planned,planner.b,2026-W43
+KW1062,S122,94,3.85,4.85,Gut feel,planner.a,2026-W42
+KW1063,S111,95,2.01,2.42,Gut feel,planner.a,2026-W43
+KW1063,S114,95,6.92,10.15,Local event planned,planner.b,2026-W43
+KW1063,S115,92,2.75,1.95,Gut feel,planner.c,2026-W40
+KW1063,S116,94,4.59,5.91,Local event planned,planner.c,2026-W42
+KW1063,S117,96,6.7,8.89,Local event planned,planner.a,2026-W44
+KW1063,S118,95,5.14,7.71,Local event planned,planner.c,2026-W43
+KW1063,S119,92,5.08,3.91,Gut feel,planner.b,2026-W40
+KW1064,S107,96,3.68,2.99,Competitor promotion,planner.a,2026-W44
+KW1064,S108,94,4.8,3.96,Competitor promotion,planner.b,2026-W42
+KW1064,S108,95,5.31,4.51,Competitor promotion,planner.a,2026-W43
+KW1064,S108,96,4.12,2.82,Competitor promotion,planner.b,2026-W44
+KW1064,S108,97,4.03,3.27,Competitor promotion,planner.a,2026-W45
+KW1064,S109,95,5.25,4.65,Competitor promotion,planner.c,2026-W43
+KW1064,S110,93,3.92,3.25,Competitor promotion,planner.c,2026-W41
+KW1064,S110,94,3.82,2.91,Competitor promotion,planner.b,2026-W42
+KW1064,S114,95,9.61,14.11,Local event planned,planner.c,2026-W43
+KW1064,S115,97,2.26,2.05,Competitor promotion,planner.a,2026-W45
+KW1064,S118,92,4.79,3.89,Competitor promotion,planner.c,2026-W40
+KW1064,S118,95,5.13,6.29,Local event planned,planner.a,2026-W43
+KW1064,S120,95,3.63,2.63,Competitor promotion,planner.b,2026-W43
+KW1064,S123,96,2.64,2.1,Competitor promotion,planner.c,2026-W44
+KW1065,S101,97,4.92,4.12,Gut feel,planner.c,2026-W45
+KW1065,S103,95,5.76,6.77,Gut feel,planner.c,2026-W43
+KW1065,S104,94,2.67,3.79,Gut feel,planner.a,2026-W42
+KW1065,S109,93,6.34,4.37,Gut feel,planner.c,2026-W41
+KW1065,S115,92,2.74,1.86,Competitor promotion,planner.b,2026-W40
+KW1065,S116,95,4.55,3.72,Gut feel,planner.b,2026-W43
+KW1065,S117,96,8.38,11.43,Local event planned,planner.b,2026-W44
+KW1065,S118,95,6.56,7.33,Local event planned,planner.b,2026-W43
+KW1065,S119,97,6.61,5.09,Gut feel,planner.c,2026-W45
+KW1065,S120,93,3.06,2.62,Competitor promotion,planner.a,2026-W41
+KW1065,S121,94,2.61,3.14,Gut feel,planner.a,2026-W42
+KW1065,S122,94,3.21,2.69,Competitor promotion,planner.b,2026-W42
+KW1066,S102,94,2.42,3.09,Gut feel,planner.c,2026-W42
+KW1066,S105,96,2.82,2.22,Gut feel,planner.a,2026-W44
+KW1066,S108,95,5.28,7.19,Gut feel,planner.c,2026-W43
+KW1066,S114,95,7.34,10.21,Local event planned,planner.a,2026-W43
+KW1066,S114,96,4.42,3.18,Gut feel,planner.a,2026-W44
+KW1066,S117,96,5.39,6.53,Local event planned,planner.b,2026-W44
+KW1066,S118,95,4.76,6.19,Local event planned,planner.c,2026-W43
+KW1066,S121,94,1.85,2.44,Gut feel,planner.c,2026-W42
+KW1067,S107,92,4.78,3.54,Gut feel,planner.c,2026-W40
+KW1067,S114,95,9.87,11.87,Local event planned,planner.b,2026-W43
+KW1067,S115,92,3.09,4.42,Gut feel,planner.a,2026-W40
+KW1067,S115,97,2.38,3.72,Gut feel,planner.c,2026-W45
+KW1067,S116,94,5.84,7.22,Local event planned,planner.b,2026-W42
+KW1067,S117,96,6.49,8.07,Local event planned,planner.b,2026-W44
+KW1067,S119,93,7.77,9.81,Gut feel,planner.b,2026-W41
+KW1067,S121,92,2.97,4.16,Gut feel,planner.a,2026-W40
+KW1068,S101,94,4.23,3.57,Gut feel,planner.b,2026-W42
+KW1068,S101,95,4.75,3.38,Gut feel,planner.c,2026-W43
+KW1068,S107,95,5.19,6.83,Gut feel,planner.a,2026-W43
+KW1068,S113,92,2.36,1.98,Competitor promotion,planner.a,2026-W40
+KW1068,S114,92,4.94,4.18,Competitor promotion,planner.a,2026-W40
+KW1068,S114,95,6.92,9.05,Local event planned,planner.c,2026-W43
+KW1068,S116,94,4.59,6.28,Local event planned,planner.c,2026-W42
+KW1068,S117,96,6.7,9.14,Local event planned,planner.b,2026-W44
+KW1068,S118,95,5.12,6.36,Local event planned,planner.a,2026-W43
+KW1068,S123,97,3.11,2.3,Gut feel,planner.a,2026-W45
+KW1069,S101,95,5.98,8.01,Gut feel,planner.b,2026-W43
+KW1069,S102,96,3.13,2.09,Gut feel,planner.b,2026-W44
+KW1069,S108,94,4.53,3.43,Competitor promotion,planner.b,2026-W42
+KW1069,S108,96,4.05,2.99,Competitor promotion,planner.c,2026-W44
+KW1069,S108,97,3.94,2.69,Competitor promotion,planner.c,2026-W45
+KW1069,S109,93,5.09,3.66,Competitor promotion,planner.c,2026-W41
+KW1069,S112,94,3.0,2.62,Competitor promotion,planner.c,2026-W42
+KW1069,S114,95,9.51,14.08,Local event planned,planner.b,2026-W43
+KW1069,S116,94,4.79,6.26,Local event planned,planner.a,2026-W42
+KW1069,S116,96,3.47,2.88,Competitor promotion,planner.a,2026-W44
+KW1069,S116,97,3.39,2.75,Competitor promotion,planner.c,2026-W45
+KW1069,S117,92,6.94,10.57,Gut feel,planner.a,2026-W40
+KW1069,S118,93,3.87,2.82,Competitor promotion,planner.a,2026-W41
+KW1069,S118,94,3.62,3.05,Competitor promotion,planner.b,2026-W42
+KW1069,S118,95,5.12,6.3,Local event planned,planner.c,2026-W43
+KW1069,S120,95,3.61,2.69,Competitor promotion,planner.b,2026-W43
+KW1069,S120,97,2.87,2.62,Competitor promotion,planner.b,2026-W45
+KW1069,S123,92,3.3,2.36,Competitor promotion,planner.c,2026-W40
+KW1069,S123,93,2.87,2.15,Competitor promotion,planner.a,2026-W41
+KW1069,S124,95,3.77,2.8,Competitor promotion,planner.b,2026-W43
+KW1070,S101,97,4.91,6.97,Gut feel,planner.c,2026-W45
+KW1070,S110,95,5.47,4.03,Gut feel,planner.b,2026-W43
+KW1070,S113,93,2.61,1.83,Competitor promotion,planner.c,2026-W41
+KW1070,S114,95,8.43,10.98,Local event planned,planner.b,2026-W43
+KW1070,S116,94,4.6,5.13,Local event planned,planner.c,2026-W42
+KW1070,S117,93,5.63,4.34,Competitor promotion,planner.a,2026-W41
+KW1070,S118,95,6.59,9.32,Local event planned,planner.b,2026-W43
+KW1070,S120,93,3.05,2.57,Competitor promotion,planner.c,2026-W41
+KW1070,S121,93,2.87,2.23,Gut feel,planner.c,2026-W41
+KW1070,S122,97,3.6,4.46,Gut feel,planner.a,2026-W45
+KW1071,S103,92,3.99,5.05,Gut feel,planner.a,2026-W40
+KW1071,S105,94,2.7,3.74,Gut feel,planner.b,2026-W42
+KW1071,S108,93,4.06,5.2,Gut feel,planner.a,2026-W41
+KW1071,S108,96,3.66,4.61,Gut feel,planner.b,2026-W44
+KW1071,S109,93,4.06,2.78,Gut feel,planner.c,2026-W41
+KW1071,S110,94,3.02,3.74,Gut feel,planner.b,2026-W42
+KW1071,S112,93,2.75,4.02,Gut feel,planner.b,2026-W41
+KW1071,S114,94,4.42,3.44,Gut feel,planner.b,2026-W42
+KW1071,S114,95,7.25,9.39,Local event planned,planner.c,2026-W43
+KW1071,S115,97,1.94,1.32,Gut feel,planner.c,2026-W45
+KW1071,S116,94,3.46,5.5,Local event planned,planner.a,2026-W42
+KW1071,S117,96,5.31,6.67,Local event planned,planner.b,2026-W44
+KW1071,S118,95,4.74,6.47,Local event planned,planner.c,2026-W43
+KW1071,S118,97,2.98,2.47,Gut feel,planner.c,2026-W45
+KW1071,S122,93,2.87,2.15,Gut feel,planner.c,2026-W41
+KW1071,S123,94,2.48,1.73,Gut feel,planner.a,2026-W42
+KW1071,S123,95,3.17,4.11,Gut feel,planner.b,2026-W43

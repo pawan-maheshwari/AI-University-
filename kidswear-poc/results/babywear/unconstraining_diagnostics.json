@@ -1,0 +1,199 @@
+{
+  "method": "EM with negative-binomial demand; E-step = expected demand given demand >= stock",
+  "iterations": 25,
+  "converged": true,
+  "dispersion_r": 18.916,
+  "rows": 102336,
+  "rows_with_any_censored_size": 57920,
+  "rows_fully_censored": 899,
+  "uplift_total_demand_vs_sales": 1.3101,
+  "true_demand_vs_sales": 1.3223,
+  "wape_vs_true_raw_sales": 0.2438,
+  "wape_vs_true_v1_share_scaling": 0.2405,
+  "wape_vs_true_em_same_rows": 0.1351,
+  "wape_vs_true_em_all_rows": 0.1867,
+  "v1_rows_usable": 0.9233,
+  "bias_v1": -0.2103,
+  "bias_em": -0.0206,
+  "observation_quality": {
+    "mean": 0.576,
+    "share_below_0_5": 0.443
+  },
+  "history": [
+    {
+      "iteration": 1,
+      "max_share_change": 0.032342,
+      "max_level_change": 24.0,
+      "mean_level_change": 0.3481843,
+      "dispersion_r": 18.137
+    },
+    {
+      "iteration": 2,
+      "max_share_change": 0.017056,
+      "max_level_change": 0.860851,
+      "mean_level_change": 0.0563084,
+      "dispersion_r": 23.127
+    },
+    {
+      "iteration": 3,
+      "max_share_change": 0.009716,
+      "max_level_change": 0.408611,
+      "mean_level_change": 0.0206536,
+      "dispersion_r": 21.254
+    },
+    {
+      "iteration": 4,
+      "max_share_change": 0.006115,
+      "max_level_change": 0.258471,
+      "mean_level_change": 0.010515,
+      "dispersion_r": 20.347
+    },
+    {
+      "iteration": 5,
+      "max_share_change": 0.004089,
+      "max_level_change": 0.183855,
+      "mean_level_change": 0.0061989,
+      "dispersion_r": 19.853
+    },
+    {
+      "iteration": 6,
+      "max_share_change": 0.002844,
+      "max_level_change": 0.139444,
+      "mean_level_change": 0.0039738,
+      "dispersion_r": 19.559
+    },
+    {
+      "iteration": 7,
+      "max_share_change": 0.002035,
+      "max_level_change": 0.11012,
+      "mean_level_change": 0.0026933,
+      "dispersion_r": 19.371
+    },
+    {
+      "iteration": 8,
+      "max_share_change": 0.001488,
+      "max_level_change": 0.089407,
+      "mean_level_change": 0.0018996,
+      "dispersion_r": 19.247
+    },
+    {
+      "iteration": 9,
+      "max_share_change": 0.001108,
+      "max_level_change": 0.074065,
+      "mean_level_change": 0.0013812,
+      "dispersion_r": 19.161
+    },
+    {
+      "iteration": 10,
+      "max_share_change": 0.000838,
+      "max_level_change": 0.062296,
+      "mean_level_change": 0.0010285,
+      "dispersion_r": 19.1
+    },
+    {
+      "iteration": 11,
+      "max_share_change": 0.000643,
+      "max_level_change": 0.053022,
+      "mean_level_change": 0.000781,
+      "dispersion_r": 19.056
+    },
+    {
+      "iteration": 12,
+      "max_share_change": 0.000499,
+      "max_level_change": 0.045559,
+      "mean_level_change": 0.0006029,
+      "dispersion_r": 19.024
+    },
+    {
+      "iteration": 13,
+      "max_share_change": 0.000392,
+      "max_level_change": 0.039449,
+      "mean_level_change": 0.0004722,
+      "dispersion_r": 18.999
+    },
+    {
+      "iteration": 14,
+      "max_share_change": 0.000311,
+      "max_level_change": 0.034376,
+      "mean_level_change": 0.0003745,
+      "dispersion_r": 18.981
+    },
+    {
+      "iteration": 15,
+      "max_share_change": 0.000249,
+      "max_level_change": 0.030116,
+      "mean_level_change": 0.0003003,
+      "dispersion_r": 18.966
+    },
+    {
+      "iteration": 16,
+      "max_share_change": 0.000202,
+      "max_level_change": 0.026504,
+      "mean_level_change": 0.0002432,
+      "dispersion_r": 18.955
+    },
+    {
+      "iteration": 17,
+      "max_share_change": 0.000164,
+      "max_level_change": 0.023414,
+      "mean_level_change": 0.0001987,
+      "dispersion_r": 18.946
+    },
+    {
+      "iteration": 18,
+      "max_share_change": 0.000135,
+      "max_level_change": 0.020753,
+      "mean_level_change": 0.0001637,
+      "dispersion_r": 18.939
+    },
+    {
+      "iteration": 19,
+      "max_share_change": 0.000112,
+      "max_level_change": 0.018448,
+      "mean_level_change": 0.0001358,
+      "dispersion_r": 18.934
+    },
+    {
+      "iteration": 20,
+      "max_share_change": 9.4e-05,
+      "max_level_change": 0.016439,
+      "mean_level_change": 0.0001135,
+      "dispersion_r": 18.929
+    },
+    {
+      "iteration": 21,
+      "max_share_change": 7.9e-05,
+      "max_level_change": 0.014682,
+      "mean_level_change": 9.54e-05,
+      "dispersion_r": 18.926
+    },
+    {
+      "iteration": 22,
+      "max_share_change": 6.7e-05,
+      "max_level_change": 0.013137,
+      "mean_level_change": 8.06e-05,
+      "dispersion_r": 18.923
+    },
+    {
+      "iteration": 23,
+      "max_share_change": 5.7e-05,
+      "max_level_change": 0.011775,
+      "mean_level_change": 6.84e-05,
+      "dispersion_r": 18.92
+    },
+    {
+      "iteration": 24,
+      "max_share_change": 4.8e-05,
+      "max_level_change": 0.01057,
+      "mean_level_change": 5.84e-05,
+      "dispersion_r": 18.918
+    },
+    {
+      "iteration": 25,
+      "max_share_change": 4.2e-05,
+      "max_level_change": 0.009501,
+      "mean_level_change": 5e-05,
+      "dispersion_r": 18.916
+    }
+  ]
+}

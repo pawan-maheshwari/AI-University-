@@ -1,0 +1,44 @@
+{
+  "contract_version": "1.0",
+  "tables": {
+    "style_master": {
+      "rows": 48,
+      "findings": []
+    },
+    "store_master": {
+      "rows": 24,
+      "findings": []
+    },
+    "sales_weekly": {
+      "rows": 511680,
+      "findings": []
+    },
+    "returns_comments": {
+      "rows": 14683,
+      "findings": []
+    }
+  },
+  "errors": 0,
+  "warnings": 0,
+  "passed": true,
+  "self_test": {
+    "defects_injected": [
+      "allowed:size",
+      "nulls:sales_units",
+      "range:discount",
+      "reference:store_id",
+      "rule:sales_not_above_stock",
+      "unique_key"
+    ],
+    "defects_caught": [
+      "allowed:size",
+      "nulls:sales_units",
+      "range:discount",
+      "reference:store_id",
+      "rule:sales_not_above_stock",
+      "unique_key"
+    ],
+    "passed": true
+  },
+  "data_version": "085df8b1745c4524"
+}

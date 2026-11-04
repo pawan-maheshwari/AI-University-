@@ -1,0 +1,52 @@
+{
+  "status": {
+    "chronos": "unavailable here (ModuleNotFoundError: No module named 'torch'); zero-shot fallbacks used",
+    "timesfm": "unavailable here (ModuleNotFoundError: No module named 'timesfm')"
+  },
+  "stacking_weights": {
+    "new_styles": {
+      "lightgbm": 0.75,
+      "zero_shot": 0.25,
+      "level_correction": 1.199,
+      "fitted_on_rows": 1728,
+      "unconstrained_nnls_for_reference": [
+        1.657,
+        0.0
+      ]
+    },
+    "established": {
+      "lightgbm": 0.95,
+      "zero_shot": 0.05,
+      "level_correction": 1.069,
+      "fitted_on_rows": 10080,
+      "unconstrained_nnls_for_reference": [
+        1.103,
+        0.015
+      ]
+    }
+  },
+  "segments": {
+    "all": {
+      "rows": 12096,
+      "lightgbm": 0.3646,
+      "zero_shot": 0.6232,
+      "stacked": 0.3639,
+      "planner_rule": 0.4676
+    },
+    "new_styles": {
+      "rows": 2016,
+      "lightgbm": 0.4517,
+      "zero_shot": 0.5898,
+      "stacked": 0.4531,
+      "planner_rule": 0.4699
+    },
+    "established": {
+      "rows": 10080,
+      "lightgbm": 0.3462,
+      "zero_shot": 0.6302,
+      "stacked": 0.3451,
+      "planner_rule": 0.4672
+    }
+  },
+  "final_forecast": "pred_final = level_correction x (w x LightGBM + (1 - w) x zero-shot), by segment"
+}

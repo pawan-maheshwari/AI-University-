@@ -1,0 +1,2604 @@
+style_id,store_id,week_index,model_forecast,override_value,reason,planner,timestamp
+KW1000,S101,103,22.36,28.86,Stock-out last year,planner.c,2026-W51
+KW1000,S102,99,20.94,17.72,Competitor promotion,planner.a,2026-W47
+KW1000,S102,104,16.55,14.11,Competitor promotion,planner.c,2026-W52
+KW1000,S103,98,32.06,44.8,Local event planned,planner.a,2026-W46
+KW1000,S103,103,24.46,18.15,Competitor promotion,planner.b,2026-W51
+KW1000,S103,104,29.97,22.06,Competitor promotion,planner.b,2026-W52
+KW1000,S104,99,12.69,14.51,Stock-out last year,planner.b,2026-W47
+KW1000,S104,100,11.62,15.16,Stock-out last year,planner.a,2026-W48
+KW1000,S104,101,12.69,13.76,Stock-out last year,planner.c,2026-W49
+KW1000,S105,101,22.85,17.25,Competitor promotion,planner.b,2026-W49
+KW1000,S105,103,20.98,16.35,Competitor promotion,planner.a,2026-W51
+KW1000,S106,98,16.79,10.98,Competitor promotion,planner.a,2026-W46
+KW1000,S106,99,17.87,14.98,Competitor promotion,planner.c,2026-W47
+KW1000,S106,103,14.99,18.86,Stock-out last year,planner.c,2026-W51
+KW1000,S107,101,25.66,27.15,Stock-out last year,planner.c,2026-W49
+KW1000,S108,104,33.79,31.75,Competitor promotion,planner.c,2026-W52
+KW1000,S110,102,22.52,28.62,Stock-out last year,planner.c,2026-W50
+KW1000,S110,103,22.31,24.47,Stock-out last year,planner.a,2026-W51
+KW1000,S111,103,10.07,8.92,Competitor promotion,planner.b,2026-W51
+KW1000,S114,100,39.26,32.54,Competitor promotion,planner.b,2026-W48
+KW1000,S115,99,18.17,24.82,Stock-out last year,planner.b,2026-W47
+KW1000,S116,98,27.39,31.17,Stock-out last year,planner.c,2026-W46
+KW1000,S118,104,25.55,20.79,Competitor promotion,planner.a,2026-W52
+KW1000,S119,102,35.96,31.62,Competitor promotion,planner.b,2026-W50
+KW1000,S119,103,37.15,31.25,Competitor promotion,planner.b,2026-W51
+KW1000,S120,101,19.24,13.38,Competitor promotion,planner.a,2026-W49
+KW1000,S120,104,15.44,12.8,Competitor promotion,planner.a,2026-W52
+KW1000,S122,98,15.13,12.42,Competitor promotion,planner.a,2026-W46
+KW1000,S122,101,17.8,19.46,Stock-out last year,planner.a,2026-W49
+KW1000,S122,102,18.06,22.57,Stock-out last year,planner.c,2026-W50
+KW1000,S122,103,22.42,30.22,Local event planned,planner.b,2026-W51
+KW1000,S124,100,27.8,33.54,Local event planned,planner.a,2026-W48
+KW1000,S124,102,25.84,33.37,Stock-out last year,planner.a,2026-W50
+KW1001,S101,99,16.02,13.05,Competitor promotion,planner.b,2026-W47
+KW1001,S101,101,14.96,12.09,Competitor promotion,planner.b,2026-W49
+KW1001,S102,102,10.97,14.27,Stock-out last year,planner.c,2026-W50
+KW1001,S102,104,9.94,11.46,Stock-out last year,planner.a,2026-W52
+KW1001,S103,98,17.48,26.15,Local event planned,planner.c,2026-W46
+KW1001,S103,104,16.41,14.51,Competitor promotion,planner.a,2026-W52
+KW1001,S105,101,11.75,11.02,Competitor promotion,planner.b,2026-W49
+KW1001,S107,99,13.21,10.45,Competitor promotion,planner.c,2026-W47
+KW1001,S107,100,11.6,12.82,Stock-out last year,planner.a,2026-W48
+KW1001,S107,102,12.61,14.74,Stock-out last year,planner.b,2026-W50
+KW1001,S108,101,22.27,15.48,Competitor promotion,planner.b,2026-W49
+KW1001,S110,102,15.14,16.85,Stock-out last year,planner.b,2026-W50
+KW1001,S111,102,6.24,8.22,Stock-out last year,planner.a,2026-W50
+KW1001,S112,98,10.47,8.82,Competitor promotion,planner.c,2026-W46
+KW1001,S112,104,13.39,10.37,Competitor promotion,planner.b,2026-W52
+KW1001,S113,98,7.75,5.51,Competitor promotion,planner.b,2026-W46
+KW1001,S113,99,9.36,10.4,Stock-out last year,planner.a,2026-W47
+KW1001,S113,100,8.0,10.37,Stock-out last year,planner.b,2026-W48
+KW1001,S114,98,20.49,13.69,Competitor promotion,planner.a,2026-W46
+KW1001,S114,101,23.57,20.06,Competitor promotion,planner.b,2026-W49
+KW1001,S114,102,23.45,23.0,Stock-out last year,planner.c,2026-W50
+KW1001,S115,100,8.11,9.83,Stock-out last year,planner.a,2026-W48
+KW1001,S115,103,9.31,6.81,Competitor promotion,planner.b,2026-W51
+KW1001,S117,100,17.75,14.05,Competitor promotion,planner.b,2026-W48
+KW1001,S118,104,14.13,12.19,Competitor promotion,planner.c,2026-W52
+KW1001,S119,100,18.46,16.01,Competitor promotion,planner.a,2026-W48
+KW1001,S121,102,7.9,6.07,Competitor promotion,planner.b,2026-W50
+KW1001,S121,104,7.61,5.88,Competitor promotion,planner.b,2026-W52
+KW1001,S122,99,13.31,18.95,Local event planned,planner.c,2026-W47
+KW1001,S122,101,10.95,12.65,Stock-out last year,planner.c,2026-W49
+KW1001,S122,103,13.84,15.35,Local event planned,planner.b,2026-W51
+KW1001,S123,100,10.5,8.17,Competitor promotion,planner.a,2026-W48
+KW1001,S123,101,12.75,10.09,Competitor promotion,planner.c,2026-W49
+KW1001,S123,102,13.06,15.89,Stock-out last year,planner.b,2026-W50
+KW1001,S124,100,14.21,19.33,Local event planned,planner.a,2026-W48
+KW1002,S101,100,6.54,7.67,Stock-out last year,planner.b,2026-W48
+KW1002,S101,104,6.21,5.09,Competitor promotion,planner.c,2026-W52
+KW1002,S102,99,4.84,3.59,Competitor promotion,planner.c,2026-W47
+KW1002,S102,102,5.1,4.12,Competitor promotion,planner.a,2026-W50
+KW1002,S103,100,6.01,4.72,Competitor promotion,planner.b,2026-W48
+KW1002,S103,101,6.15,5.2,Competitor promotion,planner.b,2026-W49
+KW1002,S103,102,5.97,4.61,Competitor promotion,planner.b,2026-W50
+KW1002,S104,100,3.22,3.78,Stock-out last year,planner.c,2026-W48
+KW1002,S106,100,3.91,5.03,Stock-out last year,planner.a,2026-W48
+KW1002,S107,101,5.19,4.71,Competitor promotion,planner.a,2026-W49
+KW1002,S107,104,5.75,4.31,Competitor promotion,planner.a,2026-W52
+KW1002,S108,103,7.74,6.17,Competitor promotion,planner.b,2026-W51
+KW1002,S108,104,7.92,6.24,Competitor promotion,planner.b,2026-W52
+KW1002,S109,98,6.69,6.02,Competitor promotion,planner.c,2026-W46
+KW1002,S109,102,7.59,6.15,Competitor promotion,planner.a,2026-W50
+KW1002,S110,101,5.64,5.0,Competitor promotion,planner.b,2026-W49
+KW1002,S110,104,4.44,3.23,Competitor promotion,planner.c,2026-W52
+KW1002,S111,99,2.46,1.89,Competitor promotion,planner.a,2026-W47
+KW1002,S111,104,2.46,1.96,Competitor promotion,planner.c,2026-W52
+KW1002,S113,101,4.24,3.99,Competitor promotion,planner.b,2026-W49
+KW1002,S115,100,3.38,2.55,Competitor promotion,planner.c,2026-W48
+KW1002,S115,104,3.45,2.11,Competitor promotion,planner.b,2026-W52
+KW1002,S116,99,5.31,5.87,Stock-out last year,planner.a,2026-W47
+KW1002,S116,100,5.46,3.89,Competitor promotion,planner.c,2026-W48
+KW1002,S116,103,5.89,4.79,Competitor promotion,planner.c,2026-W51
+KW1002,S117,98,7.17,7.78,Stock-out last year,planner.a,2026-W46
+KW1002,S117,99,8.57,10.31,Stock-out last year,planner.b,2026-W47
+KW1002,S117,104,7.88,7.15,Competitor promotion,planner.c,2026-W52
+KW1002,S118,100,5.39,5.73,Stock-out last year,planner.b,2026-W48
+KW1002,S118,103,4.94,5.74,Stock-out last year,planner.a,2026-W51
+KW1002,S120,102,5.01,5.61,Stock-out last year,planner.b,2026-W50
+KW1002,S120,104,4.43,5.65,Stock-out last year,planner.a,2026-W52
+KW1002,S121,99,3.24,2.62,Competitor promotion,planner.a,2026-W47
+KW1002,S121,101,3.4,2.91,Competitor promotion,planner.a,2026-W49
+KW1002,S121,102,3.39,2.51,Competitor promotion,planner.b,2026-W50
+KW1002,S121,103,3.22,2.33,Competitor promotion,planner.b,2026-W51
+KW1002,S122,99,5.34,7.01,Local event planned,planner.a,2026-W47
+KW1002,S122,103,5.35,6.43,Local event planned,planner.b,2026-W51
+KW1002,S123,101,4.14,3.22,Competitor promotion,planner.c,2026-W49
+KW1002,S124,101,4.95,3.96,Competitor promotion,planner.c,2026-W49
+KW1003,S101,100,11.88,10.71,Competitor promotion,planner.a,2026-W48
+KW1003,S103,98,12.15,13.87,Local event planned,planner.a,2026-W46
+KW1003,S103,99,12.2,14.03,Stock-out last year,planner.c,2026-W47
+KW1003,S103,101,15.09,13.08,Competitor promotion,planner.c,2026-W49
+KW1003,S103,104,12.23,10.96,Competitor promotion,planner.a,2026-W52
+KW1003,S104,100,6.06,5.14,Competitor promotion,planner.b,2026-W48
+KW1003,S104,101,8.6,7.54,Competitor promotion,planner.a,2026-W49
+KW1003,S105,99,9.94,11.99,Stock-out last year,planner.a,2026-W47
+KW1003,S105,102,12.51,10.36,Competitor promotion,planner.c,2026-W50
+KW1003,S105,104,10.11,8.35,Competitor promotion,planner.c,2026-W52
+KW1003,S106,98,6.25,4.76,Competitor promotion,planner.c,2026-W46
+KW1003,S106,101,9.97,8.52,Competitor promotion,planner.a,2026-W49
+KW1003,S106,103,12.03,8.67,Competitor promotion,planner.a,2026-W51
+KW1003,S107,99,10.21,12.92,Stock-out last year,planner.c,2026-W47
+KW1003,S107,100,8.91,11.24,Stock-out last year,planner.c,2026-W48
+KW1003,S107,103,12.88,15.59,Stock-out last year,planner.c,2026-W51
+KW1003,S108,104,13.73,11.18,Competitor promotion,planner.a,2026-W52
+KW1003,S109,98,11.18,8.43,Competitor promotion,planner.b,2026-W46
+KW1003,S109,100,13.49,16.06,Stock-out last year,planner.a,2026-W48
+KW1003,S111,100,4.58,6.12,Stock-out last year,planner.c,2026-W48
+KW1003,S111,102,6.17,4.84,Competitor promotion,planner.c,2026-W50
+KW1003,S111,104,5.6,4.0,Competitor promotion,planner.b,2026-W52
+KW1003,S112,100,8.55,7.1,Competitor promotion,planner.c,2026-W48
+KW1003,S112,101,10.79,14.41,Stock-out last year,planner.b,2026-W49
+KW1003,S112,103,10.48,7.31,Competitor promotion,planner.c,2026-W51
+KW1003,S112,104,9.61,12.96,Stock-out last year,planner.b,2026-W52
+KW1003,S113,98,6.08,7.2,Stock-out last year,planner.a,2026-W46
+KW1003,S113,102,9.79,7.79,Competitor promotion,planner.b,2026-W50
+KW1003,S114,98,12.96,9.84,Competitor promotion,planner.b,2026-W46
+KW1003,S114,104,16.3,14.31,Competitor promotion,planner.a,2026-W52
+KW1003,S117,102,16.4,12.7,Competitor promotion,planner.c,2026-W50
+KW1003,S118,102,12.98,14.69,Stock-out last year,planner.b,2026-W50
+KW1003,S119,103,18.37,14.09,Competitor promotion,planner.a,2026-W51
+KW1003,S120,99,9.38,10.49,Stock-out last year,planner.a,2026-W47
+KW1003,S121,98,5.91,7.34,Stock-out last year,planner.c,2026-W46
+KW1003,S122,99,9.15,12.28,Local event planned,planner.a,2026-W47
+KW1003,S122,100,7.9,5.72,Competitor promotion,planner.b,2026-W48
+KW1003,S122,101,9.0,7.31,Competitor promotion,planner.b,2026-W49
+KW1003,S122,103,11.27,13.96,Local event planned,planner.a,2026-W51
+KW1003,S124,100,12.16,16.01,Local event planned,planner.a,2026-W48
+KW1003,S124,102,11.05,13.87,Stock-out last year,planner.b,2026-W50
+KW1004,S101,104,19.27,14.98,Competitor promotion,planner.c,2026-W52
+KW1004,S102,104,13.97,10.23,Competitor promotion,planner.c,2026-W52
+KW1004,S103,100,16.03,11.82,Competitor promotion,planner.b,2026-W48
+KW1004,S103,103,21.03,25.23,Stock-out last year,planner.a,2026-W51
+KW1004,S103,104,20.34,15.95,Competitor promotion,planner.a,2026-W52
+KW1004,S105,100,11.91,9.54,Competitor promotion,planner.b,2026-W48
+KW1004,S106,104,12.08,8.15,Competitor promotion,planner.b,2026-W52
+KW1004,S107,98,13.0,10.12,Competitor promotion,planner.b,2026-W46
+KW1004,S109,98,21.42,15.38,Competitor promotion,planner.a,2026-W46
+KW1004,S109,99,21.54,17.19,Competitor promotion,planner.c,2026-W47
+KW1004,S109,100,19.9,18.36,Competitor promotion,planner.a,2026-W48
+KW1004,S109,103,24.2,18.41,Competitor promotion,planner.a,2026-W51
+KW1004,S110,103,18.49,19.94,Stock-out last year,planner.a,2026-W51
+KW1004,S113,98,7.93,9.57,Stock-out last year,planner.c,2026-W46
+KW1004,S113,101,12.08,10.04,Competitor promotion,planner.b,2026-W49
+KW1004,S113,102,11.87,10.59,Competitor promotion,planner.a,2026-W50
+KW1004,S114,103,26.08,22.83,Competitor promotion,planner.c,2026-W51
+KW1004,S115,99,8.55,10.06,Stock-out last year,planner.c,2026-W47
+KW1004,S115,103,12.05,15.72,Stock-out last year,planner.a,2026-W51
+KW1004,S115,104,11.29,9.07,Competitor promotion,planner.b,2026-W52
+KW1004,S117,98,22.85,16.47,Competitor promotion,planner.c,2026-W46
+KW1004,S118,98,15.29,10.12,Competitor promotion,planner.c,2026-W46
+KW1004,S118,101,20.87,16.18,Competitor promotion,planner.b,2026-W49
+KW1004,S119,100,21.44,30.45,Stock-out last year,planner.c,2026-W48
+KW1004,S120,100,10.89,9.69,Competitor promotion,planner.b,2026-W48
+KW1004,S120,101,16.0,11.42,Competitor promotion,planner.b,2026-W49
+KW1004,S120,103,15.01,12.53,Competitor promotion,planner.c,2026-W51
+KW1004,S120,104,14.0,10.78,Competitor promotion,planner.c,2026-W52
+KW1004,S121,100,7.97,9.21,Stock-out last year,planner.a,2026-W48
+KW1004,S121,104,10.76,8.64,Competitor promotion,planner.c,2026-W52
+KW1004,S122,99,14.73,18.13,Local event planned,planner.b,2026-W47
+KW1004,S122,102,15.71,20.39,Stock-out last year,planner.b,2026-W50
+KW1004,S123,104,13.9,12.29,Competitor promotion,planner.c,2026-W52
+KW1004,S124,100,15.88,24.34,Local event planned,planner.b,2026-W48
+KW1004,S124,101,19.89,22.34,Stock-out last year,planner.b,2026-W49
+KW1004,S124,103,18.66,24.73,Stock-out last year,planner.b,2026-W51
+KW1005,S101,100,25.23,21.6,Competitor promotion,planner.a,2026-W48
+KW1005,S102,99,17.01,14.37,Competitor promotion,planner.b,2026-W47
+KW1005,S103,98,37.34,51.35,Local event planned,planner.b,2026-W46
+KW1005,S104,98,11.19,9.19,Competitor promotion,planner.c,2026-W46
+KW1005,S104,99,11.56,8.94,Competitor promotion,planner.c,2026-W47
+KW1005,S104,102,12.45,11.27,Competitor promotion,planner.a,2026-W50
+KW1005,S105,98,19.57,15.28,Competitor promotion,planner.c,2026-W46
+KW1005,S105,99,20.65,16.47,Competitor promotion,planner.c,2026-W47
+KW1005,S105,100,18.71,14.5,Competitor promotion,planner.c,2026-W48
+KW1005,S105,102,18.91,13.35,Competitor promotion,planner.c,2026-W50
+KW1005,S105,104,19.77,15.55,Competitor promotion,planner.c,2026-W52
+KW1005,S106,101,15.33,18.31,Stock-out last year,planner.b,2026-W49
+KW1005,S108,98,34.93,25.71,Competitor promotion,planner.c,2026-W46
+KW1005,S108,99,37.46,27.52,Competitor promotion,planner.b,2026-W47
+KW1005,S108,102,38.52,30.75,Competitor promotion,planner.c,2026-W50
+KW1005,S108,103,38.7,34.76,Competitor promotion,planner.b,2026-W51
+KW1005,S109,101,34.58,42.97,Stock-out last year,planner.c,2026-W49
+KW1005,S109,104,36.51,42.02,Stock-out last year,planner.a,2026-W52
+KW1005,S110,99,22.89,21.6,Competitor promotion,planner.a,2026-W47
+KW1005,S110,101,23.15,25.22,Stock-out last year,planner.a,2026-W49
+KW1005,S110,104,20.84,18.23,Competitor promotion,planner.a,2026-W52
+KW1005,S111,104,8.82,6.84,Competitor promotion,planner.b,2026-W52
+KW1005,S112,101,21.73,20.2,Competitor promotion,planner.b,2026-W49
+KW1005,S113,98,16.2,13.02,Competitor promotion,planner.b,2026-W46
+KW1005,S113,102,20.4,16.49,Competitor promotion,planner.a,2026-W50
+KW1005,S113,103,17.39,18.84,Stock-out last year,planner.c,2026-W51
+KW1005,S114,103,45.32,37.74,Competitor promotion,planner.a,2026-W51
+KW1005,S115,100,12.85,10.02,Competitor promotion,planner.b,2026-W48
+KW1005,S116,103,19.33,16.84,Competitor promotion,planner.c,2026-W51
+KW1005,S116,104,20.53,18.35,Competitor promotion,planner.a,2026-W52
+KW1005,S117,102,39.31,28.94,Competitor promotion,planner.b,2026-W50
+KW1005,S118,102,29.23,27.38,Stock-out last year,planner.b,2026-W50
+KW1005,S118,103,27.88,21.88,Competitor promotion,planner.c,2026-W51
+KW1005,S119,99,40.09,51.63,Stock-out last year,planner.b,2026-W47
+KW1005,S119,101,41.66,28.69,Competitor promotion,planner.c,2026-W49
+KW1005,S121,99,13.43,11.14,Competitor promotion,planner.a,2026-W47
+KW1005,S122,99,28.44,43.24,Local event planned,planner.c,2026-W47
+KW1005,S122,100,18.71,14.44,Competitor promotion,planner.a,2026-W48
+KW1005,S122,101,20.48,17.3,Competitor promotion,planner.b,2026-W49
+KW1005,S123,98,17.77,16.3,Competitor promotion,planner.b,2026-W46
+KW1005,S123,99,17.98,13.44,Competitor promotion,planner.b,2026-W47
+KW1005,S123,103,18.7,13.44,Competitor promotion,planner.a,2026-W51
+KW1005,S124,99,22.98,28.13,Stock-out last year,planner.a,2026-W47
+KW1005,S124,100,30.41,40.94,Local event planned,planner.b,2026-W48
+KW1005,S124,103,25.0,20.99,Competitor promotion,planner.b,2026-W51
+KW1006,S101,98,8.31,6.33,Competitor promotion,planner.b,2026-W46
+KW1006,S101,101,8.54,9.8,Stock-out last year,planner.a,2026-W49
+KW1006,S101,104,8.88,10.36,Stock-out last year,planner.b,2026-W52
+KW1006,S102,102,5.13,6.13,Stock-out last year,planner.a,2026-W50
+KW1006,S102,104,5.79,5.06,Competitor promotion,planner.b,2026-W52
+KW1006,S103,98,10.29,12.93,Local event planned,planner.b,2026-W46
+KW1006,S103,99,7.8,9.9,Stock-out last year,planner.a,2026-W47
+KW1006,S103,103,7.4,6.16,Competitor promotion,planner.c,2026-W51
+KW1006,S103,104,7.95,7.14,Competitor promotion,planner.c,2026-W52
+KW1006,S104,100,4.02,3.32,Competitor promotion,planner.c,2026-W48
+KW1006,S104,102,5.08,4.27,Competitor promotion,planner.b,2026-W50
+KW1006,S105,102,6.56,7.51,Stock-out last year,planner.a,2026-W50
+KW1006,S105,104,7.17,6.2,Competitor promotion,planner.c,2026-W52
+KW1006,S106,103,5.17,6.16,Stock-out last year,planner.c,2026-W51
+KW1006,S107,98,6.3,3.82,Competitor promotion,planner.a,2026-W46
+KW1006,S107,100,6.13,7.19,Stock-out last year,planner.a,2026-W48
+KW1006,S108,98,9.15,6.77,Competitor promotion,planner.a,2026-W46
+KW1006,S110,100,5.98,6.86,Stock-out last year,planner.b,2026-W48
+KW1006,S110,101,8.69,7.51,Competitor promotion,planner.c,2026-W49
+KW1006,S110,103,8.17,10.4,Stock-out last year,planner.a,2026-W51
+KW1006,S111,102,3.89,3.08,Competitor promotion,planner.b,2026-W50
+KW1006,S112,102,6.83,8.4,Stock-out last year,planner.b,2026-W50
+KW1006,S112,104,6.46,4.93,Competitor promotion,planner.b,2026-W52
+KW1006,S113,103,4.96,4.3,Competitor promotion,planner.c,2026-W51
+KW1006,S114,104,10.84,12.75,Stock-out last year,planner.a,2026-W52
+KW1006,S116,98,6.9,6.81,Stock-out last year,planner.c,2026-W46
+KW1006,S116,100,6.23,5.79,Competitor promotion,planner.b,2026-W48
+KW1006,S116,103,6.08,4.63,Competitor promotion,planner.b,2026-W51
+KW1006,S117,98,10.65,13.61,Stock-out last year,planner.b,2026-W46
+KW1006,S118,98,6.55,8.87,Stock-out last year,planner.c,2026-W46
+KW1006,S118,99,6.8,7.79,Stock-out last year,planner.a,2026-W47
+KW1006,S119,101,13.69,11.59,Competitor promotion,planner.c,2026-W49
+KW1006,S119,103,12.08,10.21,Competitor promotion,planner.c,2026-W51
+KW1006,S120,99,6.28,5.58,Competitor promotion,planner.b,2026-W47
+KW1006,S120,104,5.8,5.0,Competitor promotion,planner.b,2026-W52
+KW1006,S121,102,5.06,8.02,Stock-out last year,planner.b,2026-W50
+KW1006,S122,99,9.17,11.31,Local event planned,planner.b,2026-W47
+KW1006,S122,104,6.72,8.02,Stock-out last year,planner.c,2026-W52
+KW1006,S123,98,5.58,4.36,Competitor promotion,planner.b,2026-W46
+KW1006,S123,100,5.24,3.63,Competitor promotion,planner.a,2026-W48
+KW1006,S124,100,8.54,13.2,Local event planned,planner.a,2026-W48
+KW1007,S102,98,9.61,12.31,Stock-out last year,planner.b,2026-W46
+KW1007,S102,101,11.5,13.48,Stock-out last year,planner.c,2026-W49
+KW1007,S103,99,16.0,14.18,Competitor promotion,planner.a,2026-W47
+KW1007,S104,104,7.49,5.99,Competitor promotion,planner.c,2026-W52
+KW1007,S105,103,12.1,14.57,Stock-out last year,planner.a,2026-W51
+KW1007,S105,104,13.52,9.81,Competitor promotion,planner.a,2026-W52
+KW1007,S106,101,9.42,7.53,Competitor promotion,planner.c,2026-W49
+KW1007,S106,103,9.32,10.24,Stock-out last year,planner.a,2026-W51
+KW1007,S107,98,11.6,15.9,Stock-out last year,planner.b,2026-W46
+KW1007,S107,100,12.24,9.61,Competitor promotion,planner.a,2026-W48
+KW1007,S108,99,21.58,15.91,Competitor promotion,planner.c,2026-W47
+KW1007,S108,100,16.04,11.94,Competitor promotion,planner.c,2026-W48
+KW1007,S108,101,19.01,13.93,Competitor promotion,planner.b,2026-W49
+KW1007,S108,103,18.4,14.4,Competitor promotion,planner.a,2026-W51
+KW1007,S109,98,17.65,22.94,Stock-out last year,planner.a,2026-W46
+KW1007,S109,104,19.9,24.86,Stock-out last year,planner.a,2026-W52
+KW1007,S111,100,5.92,6.61,Stock-out last year,planner.c,2026-W48
+KW1007,S111,101,5.85,7.94,Stock-out last year,planner.b,2026-W49
+KW1007,S111,102,5.68,6.45,Stock-out last year,planner.b,2026-W50
+KW1007,S111,104,5.97,8.67,Stock-out last year,planner.b,2026-W52
+KW1007,S113,98,7.62,9.23,Stock-out last year,planner.b,2026-W46
+KW1007,S113,100,7.91,6.45,Competitor promotion,planner.a,2026-W48
+KW1007,S113,104,8.18,6.27,Competitor promotion,planner.b,2026-W52
+KW1007,S114,102,22.93,17.69,Competitor promotion,planner.a,2026-W50
+KW1007,S114,103,22.49,18.1,Competitor promotion,planner.b,2026-W51
+KW1007,S114,104,21.46,18.67,Competitor promotion,planner.c,2026-W52
+KW1007,S116,100,12.56,10.9,Competitor promotion,planner.b,2026-W48
+KW1007,S117,104,19.48,17.47,Competitor promotion,planner.c,2026-W52
+KW1007,S118,98,12.96,10.55,Competitor promotion,planner.b,2026-W46
+KW1007,S118,99,14.01,16.97,Stock-out last year,planner.b,2026-W47
+KW1007,S119,98,20.78,27.9,Stock-out last year,planner.c,2026-W46
+KW1007,S119,103,21.15,26.4,Stock-out last year,planner.b,2026-W51
+KW1007,S121,103,7.28,8.07,Stock-out last year,planner.a,2026-W51
+KW1007,S122,99,13.54,15.54,Local event planned,planner.b,2026-W47
+KW1007,S123,102,11.49,8.45,Competitor promotion,planner.b,2026-W50
+KW1007,S124,100,15.31,20.75,Local event planned,planner.b,2026-W48
+KW1007,S124,101,14.55,11.74,Competitor promotion,planner.b,2026-W49
+KW1008,S101,100,18.92,14.58,Competitor promotion,planner.b,2026-W48
+KW1008,S102,102,12.84,9.55,Competitor promotion,planner.b,2026-W50
+KW1008,S102,103,12.03,9.58,Competitor promotion,planner.b,2026-W51
+KW1008,S103,98,22.24,29.45,Local event planned,planner.c,2026-W46
+KW1008,S104,99,10.52,7.75,Competitor promotion,planner.c,2026-W47
+KW1008,S104,100,9.78,8.02,Competitor promotion,planner.c,2026-W48
+KW1008,S104,103,11.71,12.92,Stock-out last year,planner.b,2026-W51
+KW1008,S105,98,14.18,10.71,Competitor promotion,planner.a,2026-W46
+KW1008,S108,101,21.0,18.37,Competitor promotion,planner.b,2026-W49
+KW1008,S108,102,20.24,15.76,Competitor promotion,planner.c,2026-W50
+KW1008,S108,103,18.7,15.92,Competitor promotion,planner.c,2026-W51
+KW1008,S110,104,13.07,11.77,Competitor promotion,planner.b,2026-W52
+KW1008,S111,100,8.05,7.18,Competitor promotion,planner.a,2026-W48
+KW1008,S111,102,8.05,6.39,Competitor promotion,planner.c,2026-W50
+KW1008,S112,101,16.33,18.5,Stock-out last year,planner.c,2026-W49
+KW1008,S112,103,14.18,11.34,Competitor promotion,planner.c,2026-W51
+KW1008,S113,98,12.13,8.81,Competitor promotion,planner.c,2026-W46
+KW1008,S113,100,11.56,8.94,Competitor promotion,planner.c,2026-W48
+KW1008,S115,100,9.96,7.81,Competitor promotion,planner.b,2026-W48
+KW1008,S116,100,13.92,14.61,Stock-out last year,planner.c,2026-W48
+KW1008,S116,101,17.95,21.27,Stock-out last year,planner.b,2026-W49
+KW1008,S116,102,18.36,13.38,Competitor promotion,planner.c,2026-W50
+KW1008,S118,101,18.24,20.8,Stock-out last year,planner.a,2026-W49
+KW1008,S119,98,20.18,23.21,Stock-out last year,planner.a,2026-W46
+KW1008,S119,99,23.27,25.78,Stock-out last year,planner.b,2026-W47
+KW1008,S119,103,19.93,17.02,Competitor promotion,planner.b,2026-W51
+KW1008,S121,103,11.38,14.18,Stock-out last year,planner.c,2026-W51
+KW1008,S122,99,16.92,22.35,Local event planned,planner.b,2026-W47
+KW1008,S122,102,13.02,15.69,Stock-out last year,planner.a,2026-W50
+KW1008,S122,103,16.88,20.84,Local event planned,planner.b,2026-W51
+KW1008,S122,104,12.19,9.72,Competitor promotion,planner.c,2026-W52
+KW1008,S123,101,14.7,11.7,Competitor promotion,planner.b,2026-W49
+KW1008,S123,102,12.81,11.37,Competitor promotion,planner.a,2026-W50
+KW1008,S124,99,18.49,22.8,Stock-out last year,planner.a,2026-W47
+KW1008,S124,100,19.74,23.82,Local event planned,planner.b,2026-W48
+KW1008,S124,103,16.39,19.71,Stock-out last year,planner.b,2026-W51
+KW1009,S101,99,14.92,11.49,Competitor promotion,planner.c,2026-W47
+KW1009,S102,99,9.04,10.94,Stock-out last year,planner.a,2026-W47
+KW1009,S103,98,17.5,24.5,Local event planned,planner.b,2026-W46
+KW1009,S103,101,17.1,14.22,Competitor promotion,planner.c,2026-W49
+KW1009,S103,104,15.74,11.84,Competitor promotion,planner.a,2026-W52
+KW1009,S104,99,6.71,5.83,Competitor promotion,planner.a,2026-W47
+KW1009,S104,102,8.91,11.38,Stock-out last year,planner.b,2026-W50
+KW1009,S104,104,7.2,6.38,Competitor promotion,planner.a,2026-W52
+KW1009,S106,99,9.18,12.19,Stock-out last year,planner.a,2026-W47
+KW1009,S107,101,15.16,13.08,Competitor promotion,planner.b,2026-W49
+KW1009,S108,101,23.25,18.44,Competitor promotion,planner.c,2026-W49
+KW1009,S109,100,15.44,12.78,Competitor promotion,planner.b,2026-W48
+KW1009,S109,103,20.91,14.41,Competitor promotion,planner.b,2026-W51
+KW1009,S110,103,13.85,10.17,Competitor promotion,planner.a,2026-W51
+KW1009,S111,98,4.6,5.27,Stock-out last year,planner.a,2026-W46
+KW1009,S111,99,5.36,7.22,Stock-out last year,planner.b,2026-W47
+KW1009,S111,100,5.35,6.33,Stock-out last year,planner.a,2026-W48
+KW1009,S112,103,12.4,13.08,Stock-out last year,planner.a,2026-W51
+KW1009,S112,104,11.9,10.09,Competitor promotion,planner.b,2026-W52
+KW1009,S113,100,7.23,5.85,Competitor promotion,planner.a,2026-W48
+KW1009,S113,103,9.36,7.19,Competitor promotion,planner.a,2026-W51
+KW1009,S114,98,19.82,23.36,Stock-out last year,planner.a,2026-W46
+KW1009,S114,103,23.58,30.25,Stock-out last year,planner.c,2026-W51
+KW1009,S115,102,11.19,9.27,Competitor promotion,planner.c,2026-W50
+KW1009,S116,98,10.35,11.63,Stock-out last year,planner.b,2026-W46
+KW1009,S118,100,10.13,8.49,Competitor promotion,planner.c,2026-W48
+KW1009,S118,102,16.89,17.03,Competitor promotion,planner.b,2026-W50
+KW1009,S118,103,15.37,13.48,Competitor promotion,planner.a,2026-W51
+KW1009,S119,98,17.74,14.52,Competitor promotion,planner.b,2026-W46
+KW1009,S119,100,17.19,13.83,Competitor promotion,planner.b,2026-W48
+KW1009,S120,100,8.76,6.56,Competitor promotion,planner.a,2026-W48
+KW1009,S121,101,8.59,9.63,Stock-out last year,planner.c,2026-W49
+KW1009,S121,102,8.71,5.99,Competitor promotion,planner.a,2026-W50
+KW1009,S122,100,8.94,7.0,Competitor promotion,planner.b,2026-W48
+KW1009,S122,103,14.66,16.76,Local event planned,planner.a,2026-W51
+KW1009,S123,99,10.0,8.12,Competitor promotion,planner.a,2026-W47
+KW1009,S123,100,9.02,6.55,Competitor promotion,planner.c,2026-W48
+KW1009,S123,104,10.33,14.18,Stock-out last year,planner.a,2026-W52
+KW1009,S124,100,13.91,18.84,Local event planned,planner.b,2026-W48
+KW1009,S124,101,15.77,15.0,Competitor promotion,planner.b,2026-W49
+KW1010,S102,99,6.2,4.53,Competitor promotion,planner.b,2026-W47
+KW1010,S102,102,6.27,4.87,Competitor promotion,planner.a,2026-W50
+KW1010,S102,104,6.04,5.41,Competitor promotion,planner.a,2026-W52
+KW1010,S103,98,12.3,17.94,Local event planned,planner.b,2026-W46
+KW1010,S103,99,10.28,7.27,Competitor promotion,planner.c,2026-W47
+KW1010,S103,101,11.06,8.24,Competitor promotion,planner.b,2026-W49
+KW1010,S103,103,10.26,6.74,Competitor promotion,planner.c,2026-W51
+KW1010,S103,104,10.96,9.04,Competitor promotion,planner.c,2026-W52
+KW1010,S104,100,3.95,3.43,Competitor promotion,planner.c,2026-W48
+KW1010,S104,104,5.0,4.05,Competitor promotion,planner.b,2026-W52
+KW1010,S105,104,7.21,5.46,Competitor promotion,planner.b,2026-W52
+KW1010,S106,98,5.45,5.12,Competitor promotion,planner.a,2026-W46
+KW1010,S107,100,5.63,4.51,Competitor promotion,planner.a,2026-W48
+KW1010,S108,99,13.01,10.55,Competitor promotion,planner.a,2026-W47
+KW1010,S108,104,11.82,8.09,Competitor promotion,planner.a,2026-W52
+KW1010,S110,99,6.47,5.04,Competitor promotion,planner.a,2026-W47
+KW1010,S110,103,8.19,6.65,Competitor promotion,planner.c,2026-W51
+KW1010,S111,99,4.34,3.06,Competitor promotion,planner.a,2026-W47
+KW1010,S112,102,7.04,5.4,Competitor promotion,planner.c,2026-W50
+KW1010,S113,104,5.34,4.48,Competitor promotion,planner.c,2026-W52
+KW1010,S115,99,5.4,4.67,Competitor promotion,planner.a,2026-W47
+KW1010,S115,102,5.11,3.93,Competitor promotion,planner.c,2026-W50
+KW1010,S117,102,15.48,12.31,Competitor promotion,planner.c,2026-W50
+KW1010,S117,103,15.49,11.78,Competitor promotion,planner.a,2026-W51
+KW1010,S118,102,7.81,6.01,Competitor promotion,planner.c,2026-W50
+KW1010,S118,103,8.6,6.8,Competitor promotion,planner.c,2026-W51
+KW1010,S118,104,8.1,6.82,Competitor promotion,planner.a,2026-W52
+KW1010,S120,98,6.61,4.75,Competitor promotion,planner.a,2026-W46
+KW1010,S120,100,5.76,4.9,Competitor promotion,planner.a,2026-W48
+KW1010,S120,103,6.86,5.46,Competitor promotion,planner.c,2026-W51
+KW1010,S122,99,9.79,12.01,Local event planned,planner.b,2026-W47
+KW1010,S122,102,7.44,6.42,Competitor promotion,planner.c,2026-W50
+KW1010,S122,103,9.21,11.62,Local event planned,planner.a,2026-W51
+KW1010,S122,104,6.61,5.31,Competitor promotion,planner.c,2026-W52
+KW1010,S123,99,6.24,5.25,Competitor promotion,planner.c,2026-W47
+KW1010,S123,104,6.16,4.68,Competitor promotion,planner.b,2026-W52
+KW1010,S124,100,7.76,10.0,Local event planned,planner.a,2026-W48
+KW1010,S124,101,8.32,7.57,Competitor promotion,planner.c,2026-W49
+KW1011,S101,98,16.29,20.29,Stock-out last year,planner.c,2026-W46
+KW1011,S101,101,15.19,16.92,Stock-out last year,planner.b,2026-W49
+KW1011,S101,102,15.94,19.18,Stock-out last year,planner.b,2026-W50
+KW1011,S102,102,12.26,14.77,Stock-out last year,planner.b,2026-W50
+KW1011,S102,103,11.02,14.15,Stock-out last year,planner.c,2026-W51
+KW1011,S103,98,17.48,19.6,Local event planned,planner.c,2026-W46
+KW1011,S103,101,14.07,14.84,Stock-out last year,planner.b,2026-W49
+KW1011,S103,104,15.75,11.48,Competitor promotion,planner.b,2026-W52
+KW1011,S104,104,8.45,7.36,Competitor promotion,planner.a,2026-W52
+KW1011,S105,101,11.2,13.05,Stock-out last year,planner.c,2026-W49
+KW1011,S105,104,11.33,9.52,Competitor promotion,planner.b,2026-W52
+KW1011,S106,101,9.21,7.04,Competitor promotion,planner.b,2026-W49
+KW1011,S107,99,12.51,16.63,Stock-out last year,planner.a,2026-W47
+KW1011,S108,98,18.28,24.37,Stock-out last year,planner.c,2026-W46
+KW1011,S109,100,18.4,23.15,Stock-out last year,planner.c,2026-W48
+KW1011,S110,100,12.53,14.34,Stock-out last year,planner.a,2026-W48
+KW1011,S110,102,14.46,16.4,Stock-out last year,planner.b,2026-W50
+KW1011,S112,99,10.24,9.67,Competitor promotion,planner.b,2026-W47
+KW1011,S113,99,9.8,12.03,Stock-out last year,planner.b,2026-W47
+KW1011,S114,100,22.75,18.95,Competitor promotion,planner.a,2026-W48
+KW1011,S114,102,23.49,20.49,Competitor promotion,planner.a,2026-W50
+KW1011,S115,99,9.29,7.02,Competitor promotion,planner.b,2026-W47
+KW1011,S115,103,7.89,9.65,Stock-out last year,planner.a,2026-W51
+KW1011,S116,101,12.64,13.87,Stock-out last year,planner.b,2026-W49
+KW1011,S116,102,12.41,14.74,Stock-out last year,planner.a,2026-W50
+KW1011,S116,104,12.54,10.24,Competitor promotion,planner.b,2026-W52
+KW1011,S117,100,18.88,15.5,Competitor promotion,planner.a,2026-W48
+KW1011,S118,100,14.37,13.48,Competitor promotion,planner.a,2026-W48
+KW1011,S119,100,18.8,12.25,Competitor promotion,planner.b,2026-W48
+KW1011,S119,103,24.75,18.78,Competitor promotion,planner.c,2026-W51
+KW1011,S120,100,11.11,8.87,Competitor promotion,planner.c,2026-W48
+KW1011,S121,99,7.28,7.73,Stock-out last year,planner.c,2026-W47
+KW1011,S122,99,14.41,17.74,Local event planned,planner.a,2026-W47
+KW1011,S122,103,13.79,16.85,Local event planned,planner.b,2026-W51
+KW1012,S101,99,6.26,7.7,Stock-out last year,planner.a,2026-W47
+KW1012,S102,99,4.24,3.48,Competitor promotion,planner.c,2026-W47
+KW1012,S102,100,4.16,2.79,Competitor promotion,planner.b,2026-W48
+KW1012,S102,102,4.86,5.92,Stock-out last year,planner.a,2026-W50
+KW1012,S103,98,6.79,9.53,Local event planned,planner.c,2026-W46
+KW1012,S103,100,5.5,4.11,Competitor promotion,planner.c,2026-W48
+KW1012,S105,99,5.16,6.61,Stock-out last year,planner.b,2026-W47
+KW1012,S105,101,4.5,3.55,Competitor promotion,planner.b,2026-W49
+KW1012,S105,102,4.29,3.42,Competitor promotion,planner.b,2026-W50
+KW1012,S105,104,4.4,5.81,Stock-out last year,planner.c,2026-W52
+KW1012,S107,104,5.89,6.44,Stock-out last year,planner.a,2026-W52
+KW1012,S108,100,6.46,5.43,Competitor promotion,planner.b,2026-W48
+KW1012,S110,98,4.53,5.24,Stock-out last year,planner.a,2026-W46
+KW1012,S110,99,5.71,7.37,Stock-out last year,planner.c,2026-W47
+KW1012,S111,98,2.38,3.14,Stock-out last year,planner.a,2026-W46
+KW1012,S111,100,2.38,2.84,Stock-out last year,planner.c,2026-W48
+KW1012,S112,102,4.16,4.55,Stock-out last year,planner.a,2026-W50
+KW1012,S113,101,3.49,4.46,Stock-out last year,planner.c,2026-W49
+KW1012,S113,102,3.67,4.92,Stock-out last year,planner.c,2026-W50
+KW1012,S114,98,8.34,7.03,Competitor promotion,planner.c,2026-W46
+KW1012,S114,101,9.83,8.59,Competitor promotion,planner.b,2026-W49
+KW1012,S115,99,3.78,4.75,Stock-out last year,planner.c,2026-W47
+KW1012,S115,103,3.75,2.96,Competitor promotion,planner.b,2026-W51
+KW1012,S117,99,8.46,9.58,Stock-out last year,planner.c,2026-W47
+KW1012,S119,103,9.6,12.58,Stock-out last year,planner.b,2026-W51
+KW1012,S120,99,4.4,3.9,Competitor promotion,planner.c,2026-W47
+KW1012,S120,100,3.61,2.4,Competitor promotion,planner.c,2026-W48
+KW1012,S121,101,3.36,4.51,Stock-out last year,planner.c,2026-W49
+KW1012,S122,103,5.26,7.38,Local event planned,planner.b,2026-W51
+KW1012,S124,99,5.71,6.63,Stock-out last year,planner.c,2026-W47
+KW1012,S124,104,5.38,4.23,Competitor promotion,planner.b,2026-W52
+KW1013,S101,103,24.67,20.78,Competitor promotion,planner.b,2026-W51
+KW1013,S101,104,17.26,12.66,Competitor promotion,planner.a,2026-W52
+KW1013,S102,99,9.35,11.16,Stock-out last year,planner.b,2026-W47
+KW1013,S102,104,9.14,12.58,Stock-out last year,planner.b,2026-W52
+KW1013,S103,98,19.27,24.4,Local event planned,planner.a,2026-W46
+KW1013,S103,103,21.13,16.92,Competitor promotion,planner.b,2026-W51
+KW1013,S104,98,7.89,7.51,Competitor promotion,planner.c,2026-W46
+KW1013,S104,99,8.08,6.86,Competitor promotion,planner.c,2026-W47
+KW1013,S107,102,15.67,18.08,Stock-out last year,planner.c,2026-W50
+KW1013,S108,99,19.47,14.6,Competitor promotion,planner.c,2026-W47
+KW1013,S109,102,18.18,15.13,Competitor promotion,planner.b,2026-W50
+KW1013,S110,104,11.89,10.19,Competitor promotion,planner.b,2026-W52
+KW1013,S111,104,5.49,4.46,Competitor promotion,planner.c,2026-W52
+KW1013,S112,99,11.86,13.1,Stock-out last year,planner.c,2026-W47
+KW1013,S113,99,8.54,10.93,Stock-out last year,planner.a,2026-W47
+KW1013,S113,103,9.04,6.81,Competitor promotion,planner.a,2026-W51
+KW1013,S117,101,24.38,23.31,Competitor promotion,planner.b,2026-W49
+KW1013,S119,100,19.55,17.61,Competitor promotion,planner.c,2026-W48
+KW1013,S120,99,10.81,11.63,Stock-out last year,planner.b,2026-W47
+KW1013,S122,99,13.04,16.77,Local event planned,planner.b,2026-W47
+KW1013,S122,101,11.51,9.39,Competitor promotion,planner.a,2026-W49
+KW1013,S122,103,12.9,16.6,Local event planned,planner.c,2026-W51
+KW1013,S122,104,9.3,8.35,Competitor promotion,planner.a,2026-W52
+KW1013,S123,100,9.03,7.21,Competitor promotion,planner.c,2026-W48
+KW1013,S123,101,11.56,9.22,Competitor promotion,planner.b,2026-W49
+KW1013,S124,100,15.39,18.46,Local event planned,planner.a,2026-W48
+KW1013,S124,101,15.89,11.44,Competitor promotion,planner.b,2026-W49
+KW1013,S124,102,14.42,12.79,Competitor promotion,planner.c,2026-W50
+KW1013,S124,103,13.94,11.03,Competitor promotion,planner.b,2026-W51
+KW1014,S102,101,12.82,16.13,Stock-out last year,planner.a,2026-W49
+KW1014,S103,99,12.42,9.59,Competitor promotion,planner.b,2026-W47
+KW1014,S105,102,13.9,11.35,Competitor promotion,planner.b,2026-W50
+KW1014,S105,104,11.06,8.94,Competitor promotion,planner.b,2026-W52
+KW1014,S106,99,8.44,9.81,Stock-out last year,planner.b,2026-W47
+KW1014,S106,101,12.06,10.31,Competitor promotion,planner.c,2026-W49
+KW1014,S106,104,8.99,6.49,Competitor promotion,planner.b,2026-W52
+KW1014,S107,100,8.62,7.2,Competitor promotion,planner.b,2026-W48
+KW1014,S107,104,11.34,9.18,Competitor promotion,planner.b,2026-W52
+KW1014,S108,98,13.85,11.2,Competitor promotion,planner.b,2026-W46
+KW1014,S108,103,16.26,18.69,Stock-out last year,planner.a,2026-W51
+KW1014,S109,99,14.55,13.19,Competitor promotion,planner.a,2026-W47
+KW1014,S110,99,10.16,12.97,Stock-out last year,planner.a,2026-W47
+KW1014,S111,98,4.76,5.57,Stock-out last year,planner.c,2026-W46
+KW1014,S111,101,5.73,6.66,Stock-out last year,planner.b,2026-W49
+KW1014,S113,99,7.67,9.07,Stock-out last year,planner.b,2026-W47
+KW1014,S113,101,10.06,13.82,Stock-out last year,planner.c,2026-W49
+KW1014,S114,103,17.34,22.22,Stock-out last year,planner.c,2026-W51
+KW1014,S115,99,6.98,7.95,Stock-out last year,planner.a,2026-W47
+KW1014,S116,100,8.5,9.84,Stock-out last year,planner.c,2026-W48
+KW1014,S116,102,13.94,18.07,Stock-out last year,planner.b,2026-W50
+KW1014,S116,104,11.6,10.22,Competitor promotion,planner.b,2026-W52
+KW1014,S117,101,20.54,24.68,Stock-out last year,planner.b,2026-W49
+KW1014,S118,98,11.17,9.89,Competitor promotion,planner.a,2026-W46
+KW1014,S118,99,11.37,7.99,Competitor promotion,planner.c,2026-W47
+KW1014,S119,102,18.61,16.23,Competitor promotion,planner.a,2026-W50
+KW1014,S120,101,13.41,16.97,Stock-out last year,planner.b,2026-W49
+KW1014,S120,103,11.08,13.43,Stock-out last year,planner.a,2026-W51
+KW1014,S121,101,8.3,9.59,Stock-out last year,planner.c,2026-W49
+KW1014,S121,102,8.1,6.39,Competitor promotion,planner.c,2026-W50
+KW1014,S121,104,6.83,6.18,Competitor promotion,planner.a,2026-W52
+KW1014,S122,99,11.84,15.24,Local event planned,planner.a,2026-W47
+KW1014,S122,103,13.54,17.13,Local event planned,planner.a,2026-W51
+KW1014,S124,98,11.2,8.34,Competitor promotion,planner.c,2026-W46
+KW1014,S124,100,11.47,14.87,Local event planned,planner.a,2026-W48
+KW1014,S124,104,11.3,7.63,Competitor promotion,planner.a,2026-W52
+KW1015,S101,104,27.3,32.68,Stock-out last year,planner.b,2026-W52
+KW1015,S102,99,17.52,13.43,Competitor promotion,planner.c,2026-W47
+KW1015,S102,100,16.03,12.24,Competitor promotion,planner.c,2026-W48
+KW1015,S102,101,19.93,17.8,Competitor promotion,planner.a,2026-W49
+KW1015,S102,102,20.71,24.05,Stock-out last year,planner.b,2026-W50
+KW1015,S103,98,30.62,38.96,Local event planned,planner.a,2026-W46
+KW1015,S103,99,25.47,16.17,Competitor promotion,planner.a,2026-W47
+KW1015,S106,101,16.82,16.61,Competitor promotion,planner.c,2026-W49
+KW1015,S106,104,15.89,12.58,Competitor promotion,planner.c,2026-W52
+KW1015,S107,103,21.17,25.75,Stock-out last year,planner.b,2026-W51
+KW1015,S109,102,36.39,29.67,Competitor promotion,planner.a,2026-W50
+KW1015,S109,104,33.92,25.95,Competitor promotion,planner.c,2026-W52
+KW1015,S113,104,16.32,12.84,Competitor promotion,planner.a,2026-W52
+KW1015,S114,99,41.19,36.2,Competitor promotion,planner.b,2026-W47
+KW1015,S114,100,38.78,30.85,Competitor promotion,planner.c,2026-W48
+KW1015,S115,103,15.96,12.59,Competitor promotion,planner.a,2026-W51
+KW1015,S116,99,21.14,16.97,Competitor promotion,planner.a,2026-W47
+KW1015,S116,101,22.07,25.75,Stock-out last year,planner.a,2026-W49
+KW1015,S117,98,30.1,24.7,Competitor promotion,planner.a,2026-W46
+KW1015,S118,100,21.37,18.9,Competitor promotion,planner.c,2026-W48
+KW1015,S118,103,27.32,22.75,Competitor promotion,planner.b,2026-W51
+KW1015,S119,104,33.47,23.76,Competitor promotion,planner.b,2026-W52
+KW1015,S120,102,21.01,18.97,Competitor promotion,planner.c,2026-W50
+KW1015,S121,99,13.59,9.23,Competitor promotion,planner.a,2026-W47
+KW1015,S121,103,13.25,10.59,Competitor promotion,planner.a,2026-W51
+KW1015,S122,99,21.97,23.52,Local event planned,planner.b,2026-W47
+KW1015,S122,100,16.41,12.76,Competitor promotion,planner.a,2026-W48
+KW1015,S122,103,26.15,41.22,Local event planned,planner.a,2026-W51
+KW1015,S124,100,24.54,35.72,Local event planned,planner.b,2026-W48
+KW1015,S124,103,23.38,18.47,Competitor promotion,planner.b,2026-W51
+KW1016,S101,98,9.76,7.99,Competitor promotion,planner.a,2026-W46
+KW1016,S102,101,6.4,7.13,Stock-out last year,planner.b,2026-W49
+KW1016,S103,98,14.34,16.27,Local event planned,planner.a,2026-W46
+KW1016,S103,103,12.4,13.17,Stock-out last year,planner.a,2026-W51
+KW1016,S103,104,10.03,7.25,Competitor promotion,planner.c,2026-W52
+KW1016,S104,100,4.46,5.88,Stock-out last year,planner.c,2026-W48
+KW1016,S104,103,5.58,7.02,Stock-out last year,planner.c,2026-W51
+KW1016,S104,104,5.66,3.94,Competitor promotion,planner.c,2026-W52
+KW1016,S105,101,8.41,6.64,Competitor promotion,planner.b,2026-W49
+KW1016,S105,104,7.72,5.88,Competitor promotion,planner.a,2026-W52
+KW1016,S106,98,5.34,4.69,Competitor promotion,planner.b,2026-W46
+KW1016,S106,99,5.88,4.62,Competitor promotion,planner.a,2026-W47
+KW1016,S106,102,5.54,6.09,Stock-out last year,planner.c,2026-W50
+KW1016,S107,100,7.57,10.03,Stock-out last year,planner.b,2026-W48
+KW1016,S107,102,8.74,11.53,Stock-out last year,planner.c,2026-W50
+KW1016,S108,98,10.68,7.57,Competitor promotion,planner.c,2026-W46
+KW1016,S109,99,12.26,10.77,Competitor promotion,planner.a,2026-W47
+KW1016,S109,100,9.59,7.67,Competitor promotion,planner.a,2026-W48
+KW1016,S109,104,10.63,12.94,Stock-out last year,planner.c,2026-W52
+KW1016,S110,103,7.74,6.83,Competitor promotion,planner.b,2026-W51
+KW1016,S110,104,7.73,6.24,Competitor promotion,planner.a,2026-W52
+KW1016,S111,98,3.27,3.86,Stock-out last year,planner.b,2026-W46
+KW1016,S112,98,6.59,4.69,Competitor promotion,planner.b,2026-W46
+KW1016,S112,100,5.9,4.83,Competitor promotion,planner.b,2026-W48
+KW1016,S112,101,7.88,10.79,Stock-out last year,planner.b,2026-W49
+KW1016,S113,102,5.54,4.54,Competitor promotion,planner.c,2026-W50
+KW1016,S114,100,13.91,12.26,Competitor promotion,planner.a,2026-W48
+KW1016,S117,99,15.83,13.03,Competitor promotion,planner.a,2026-W47
+KW1016,S117,101,12.2,15.98,Stock-out last year,planner.b,2026-W49
+KW1016,S117,104,11.86,9.44,Competitor promotion,planner.b,2026-W52
+KW1016,S118,101,10.16,12.54,Stock-out last year,planner.b,2026-W49
+KW1016,S119,104,11.54,8.34,Competitor promotion,planner.a,2026-W52
+KW1016,S120,98,6.36,8.42,Stock-out last year,planner.b,2026-W46
+KW1016,S120,99,7.66,8.05,Stock-out last year,planner.c,2026-W47
+KW1016,S120,101,8.26,7.4,Competitor promotion,planner.a,2026-W49
+KW1016,S120,103,6.48,4.91,Competitor promotion,planner.a,2026-W51
+KW1016,S121,98,4.75,4.09,Competitor promotion,planner.a,2026-W46
+KW1016,S122,99,8.86,11.0,Local event planned,planner.b,2026-W47
+KW1016,S122,102,6.26,7.29,Stock-out last year,planner.a,2026-W50
+KW1016,S122,103,7.27,8.37,Local event planned,planner.a,2026-W51
+KW1016,S124,98,6.39,4.98,Competitor promotion,planner.b,2026-W46
+KW1016,S124,100,7.26,9.97,Local event planned,planner.a,2026-W48
+KW1016,S124,104,7.58,9.68,Stock-out last year,planner.a,2026-W52
+KW1017,S102,98,13.43,10.86,Competitor promotion,planner.c,2026-W46
+KW1017,S102,104,14.5,11.41,Competitor promotion,planner.c,2026-W52
+KW1017,S103,98,22.71,28.59,Local event planned,planner.a,2026-W46
+KW1017,S103,103,17.7,14.33,Competitor promotion,planner.a,2026-W51
+KW1017,S104,99,9.79,12.84,Stock-out last year,planner.b,2026-W47
+KW1017,S104,100,8.38,9.3,Stock-out last year,planner.a,2026-W48
+KW1017,S104,102,8.87,11.09,Stock-out last year,planner.c,2026-W50
+KW1017,S105,103,14.36,18.09,Stock-out last year,planner.c,2026-W51
+KW1017,S106,99,12.79,9.91,Competitor promotion,planner.b,2026-W47
+KW1017,S106,100,11.03,7.81,Competitor promotion,planner.b,2026-W48
+KW1017,S107,98,14.72,17.03,Stock-out last year,planner.a,2026-W46
+KW1017,S107,99,17.71,14.69,Competitor promotion,planner.a,2026-W47
+KW1017,S107,101,15.25,13.01,Competitor promotion,planner.b,2026-W49
+KW1017,S108,101,23.06,20.54,Competitor promotion,planner.c,2026-W49
+KW1017,S109,98,22.98,20.2,Competitor promotion,planner.c,2026-W46
+KW1017,S110,103,17.74,15.4,Competitor promotion,planner.a,2026-W51
+KW1017,S112,101,14.97,12.21,Competitor promotion,planner.b,2026-W49
+KW1017,S113,102,10.03,8.05,Competitor promotion,planner.c,2026-W50
+KW1017,S114,98,26.29,20.35,Competitor promotion,planner.c,2026-W46
+KW1017,S115,103,11.69,17.13,Stock-out last year,planner.c,2026-W51
+KW1017,S116,98,14.72,16.85,Stock-out last year,planner.a,2026-W46
+KW1017,S116,100,15.71,12.39,Competitor promotion,planner.b,2026-W48
+KW1017,S117,99,26.14,20.67,Competitor promotion,planner.b,2026-W47
+KW1017,S117,101,27.18,21.28,Competitor promotion,planner.a,2026-W49
+KW1017,S117,104,26.12,19.03,Competitor promotion,planner.b,2026-W52
+KW1017,S118,103,20.55,19.68,Competitor promotion,planner.a,2026-W51
+KW1017,S119,100,23.65,17.98,Competitor promotion,planner.a,2026-W48
+KW1017,S119,101,26.66,22.18,Competitor promotion,planner.b,2026-W49
+KW1017,S120,98,12.51,7.94,Competitor promotion,planner.a,2026-W46
+KW1017,S120,101,12.52,14.8,Stock-out last year,planner.a,2026-W49
+KW1017,S121,98,8.08,9.73,Stock-out last year,planner.c,2026-W46
+KW1017,S121,99,8.99,6.67,Competitor promotion,planner.c,2026-W47
+KW1017,S121,102,9.17,6.77,Competitor promotion,planner.a,2026-W50
+KW1017,S122,98,12.68,9.28,Competitor promotion,planner.c,2026-W46
+KW1017,S122,99,18.18,24.87,Local event planned,planner.b,2026-W47
+KW1017,S122,103,17.7,21.11,Local event planned,planner.b,2026-W51
+KW1017,S123,98,12.5,9.27,Competitor promotion,planner.b,2026-W46
+KW1017,S123,100,11.98,9.88,Competitor promotion,planner.a,2026-W48
+KW1017,S123,102,14.44,11.07,Competitor promotion,planner.c,2026-W50
+KW1017,S124,100,20.33,25.58,Local event planned,planner.c,2026-W48
+KW1017,S124,102,17.95,21.61,Stock-out last year,planner.a,2026-W50
+KW1018,S102,102,8.59,11.97,Stock-out last year,planner.a,2026-W50
+KW1018,S103,101,14.55,13.88,Competitor promotion,planner.b,2026-W49
+KW1018,S104,101,6.93,9.38,Stock-out last year,planner.c,2026-W49
+KW1018,S105,98,8.65,9.29,Stock-out last year,planner.c,2026-W46
+KW1018,S105,103,14.06,15.99,Stock-out last year,planner.c,2026-W51
+KW1018,S106,104,5.98,5.74,Competitor promotion,planner.b,2026-W52
+KW1018,S108,98,10.9,14.12,Stock-out last year,planner.a,2026-W46
+KW1018,S108,103,10.97,14.86,Stock-out last year,planner.c,2026-W51
+KW1018,S109,102,12.44,16.05,Stock-out last year,planner.b,2026-W50
+KW1018,S110,101,11.83,10.04,Competitor promotion,planner.b,2026-W49
+KW1018,S111,98,4.57,4.03,Competitor promotion,planner.a,2026-W46
+KW1018,S111,102,5.13,4.22,Competitor promotion,planner.c,2026-W50
+KW1018,S112,98,7.54,8.86,Stock-out last year,planner.b,2026-W46
+KW1018,S112,99,7.93,5.52,Competitor promotion,planner.c,2026-W47
+KW1018,S113,98,6.23,5.83,Stock-out last year,planner.c,2026-W46
+KW1018,S113,101,7.08,8.2,Stock-out last year,planner.c,2026-W49
+KW1018,S113,102,6.8,6.54,Stock-out last year,planner.c,2026-W50
+KW1018,S113,103,6.87,7.52,Stock-out last year,planner.a,2026-W51
+KW1018,S113,104,6.16,5.18,Competitor promotion,planner.a,2026-W52
+KW1018,S114,99,12.49,10.71,Competitor promotion,planner.b,2026-W47
+KW1018,S114,103,15.0,11.57,Competitor promotion,planner.c,2026-W51
+KW1018,S115,101,6.46,5.77,Competitor promotion,planner.a,2026-W49
+KW1018,S115,103,6.39,5.26,Competitor promotion,planner.b,2026-W51
+KW1018,S116,98,7.47,9.14,Stock-out last year,planner.b,2026-W46
+KW1018,S116,102,12.09,8.96,Competitor promotion,planner.a,2026-W50
+KW1018,S117,100,11.67,14.65,Stock-out last year,planner.a,2026-W48
+KW1018,S117,101,15.36,20.35,Stock-out last year,planner.b,2026-W49
+KW1018,S117,102,14.52,13.23,Competitor promotion,planner.c,2026-W50
+KW1018,S118,99,10.46,14.06,Stock-out last year,planner.b,2026-W47
+KW1018,S118,104,9.56,7.12,Competitor promotion,planner.c,2026-W52
+KW1018,S120,101,9.09,11.38,Stock-out last year,planner.b,2026-W49
+KW1018,S121,99,6.25,7.56,Stock-out last year,planner.a,2026-W47
+KW1018,S121,100,6.31,6.82,Stock-out last year,planner.a,2026-W48
+KW1018,S121,101,7.8,6.58,Competitor promotion,planner.b,2026-W49
+KW1018,S121,102,7.47,5.9,Competitor promotion,planner.a,2026-W50
+KW1018,S122,103,10.65,13.27,Local event planned,planner.b,2026-W51
+KW1018,S122,104,7.01,8.7,Stock-out last year,planner.b,2026-W52
+KW1018,S123,98,6.76,8.86,Stock-out last year,planner.b,2026-W46
+KW1018,S124,99,9.67,11.8,Stock-out last year,planner.c,2026-W47
+KW1018,S124,100,10.55,12.84,Local event planned,planner.b,2026-W48
+KW1019,S102,102,10.28,7.85,Competitor promotion,planner.b,2026-W50
+KW1019,S103,98,10.52,15.37,Local event planned,planner.c,2026-W46
+KW1019,S103,100,8.38,6.35,Competitor promotion,planner.a,2026-W48
+KW1019,S103,102,12.66,11.12,Competitor promotion,planner.b,2026-W50
+KW1019,S104,98,5.65,6.58,Stock-out last year,planner.a,2026-W46
+KW1019,S105,98,7.72,5.65,Competitor promotion,planner.a,2026-W46
+KW1019,S105,99,7.4,8.1,Stock-out last year,planner.c,2026-W47
+KW1019,S105,100,6.87,9.18,Stock-out last year,planner.a,2026-W48
+KW1019,S110,99,8.35,7.32,Competitor promotion,planner.b,2026-W47
+KW1019,S111,100,3.98,3.05,Competitor promotion,planner.a,2026-W48
+KW1019,S111,102,5.06,5.47,Stock-out last year,planner.b,2026-W50
+KW1019,S111,103,4.35,4.98,Stock-out last year,planner.b,2026-W51
+KW1019,S113,102,8.46,6.48,Competitor promotion,planner.a,2026-W50
+KW1019,S113,103,6.97,5.79,Competitor promotion,planner.b,2026-W51
+KW1019,S114,98,13.73,17.54,Stock-out last year,planner.b,2026-W46
+KW1019,S115,98,5.47,5.84,Stock-out last year,planner.a,2026-W46
+KW1019,S115,101,7.52,5.72,Competitor promotion,planner.c,2026-W49
+KW1019,S116,99,7.6,6.44,Competitor promotion,planner.b,2026-W47
+KW1019,S116,102,11.08,9.29,Competitor promotion,planner.c,2026-W50
+KW1019,S116,103,8.99,11.47,Stock-out last year,planner.c,2026-W51
+KW1019,S117,98,12.17,9.19,Competitor promotion,planner.c,2026-W46
+KW1019,S117,99,12.99,16.33,Stock-out last year,planner.a,2026-W47
+KW1019,S118,99,7.88,6.15,Competitor promotion,planner.c,2026-W47
+KW1019,S118,100,7.7,5.95,Competitor promotion,planner.a,2026-W48
+KW1019,S119,98,12.99,10.73,Competitor promotion,planner.a,2026-W46
+KW1019,S119,99,13.94,15.56,Stock-out last year,planner.a,2026-W47
+KW1019,S120,99,6.79,6.03,Competitor promotion,planner.c,2026-W47
+KW1019,S120,101,11.14,13.26,Stock-out last year,planner.a,2026-W49
+KW1019,S120,103,9.1,6.48,Competitor promotion,planner.c,2026-W51
+KW1019,S120,104,8.94,11.95,Stock-out last year,planner.c,2026-W52
+KW1019,S121,98,5.11,4.0,Competitor promotion,planner.c,2026-W46
+KW1019,S121,101,7.68,9.35,Stock-out last year,planner.a,2026-W49
+KW1019,S122,99,8.92,12.3,Local event planned,planner.a,2026-W47
+KW1019,S122,103,10.72,13.1,Local event planned,planner.b,2026-W51
+KW1019,S123,100,6.42,7.56,Stock-out last year,planner.c,2026-W48
+KW1019,S123,101,9.09,8.81,Stock-out last year,planner.a,2026-W49
+KW1019,S123,104,7.51,5.86,Competitor promotion,planner.a,2026-W52
+KW1019,S124,99,8.25,10.25,Stock-out last year,planner.c,2026-W47
+KW1019,S124,100,9.4,12.65,Local event planned,planner.b,2026-W48
+KW1020,S101,99,49.19,51.51,Stock-out last year,planner.c,2026-W47
+KW1020,S101,103,44.59,35.09,Competitor promotion,planner.b,2026-W51
+KW1020,S102,104,37.58,48.73,Stock-out last year,planner.a,2026-W52
+KW1020,S103,98,63.69,70.46,Local event planned,planner.a,2026-W46
+KW1020,S103,104,38.43,35.72,Competitor promotion,planner.b,2026-W52
+KW1020,S104,100,22.16,16.65,Competitor promotion,planner.b,2026-W48
+KW1020,S104,101,23.57,19.48,Competitor promotion,planner.a,2026-W49
+KW1020,S104,104,28.85,32.53,Stock-out last year,planner.c,2026-W52
+KW1020,S105,99,42.45,33.15,Competitor promotion,planner.a,2026-W47
+KW1020,S106,104,32.58,21.06,Competitor promotion,planner.c,2026-W52
+KW1020,S107,101,45.49,35.42,Competitor promotion,planner.a,2026-W49
+KW1020,S107,102,42.8,36.09,Competitor promotion,planner.b,2026-W50
+KW1020,S107,104,39.99,31.83,Competitor promotion,planner.c,2026-W52
+KW1020,S108,98,56.56,44.6,Competitor promotion,planner.c,2026-W46
+KW1020,S108,104,62.19,47.87,Competitor promotion,planner.c,2026-W52
+KW1020,S109,100,60.06,47.73,Competitor promotion,planner.a,2026-W48
+KW1020,S110,103,38.45,33.26,Competitor promotion,planner.b,2026-W51
+KW1020,S110,104,40.0,35.13,Competitor promotion,planner.a,2026-W52
+KW1020,S111,100,16.43,14.88,Competitor promotion,planner.b,2026-W48
+KW1020,S112,103,45.55,50.92,Stock-out last year,planner.b,2026-W51
+KW1020,S113,98,28.34,23.87,Competitor promotion,planner.a,2026-W46
+KW1020,S114,101,74.56,65.72,Competitor promotion,planner.a,2026-W49
+KW1020,S114,102,74.76,58.49,Competitor promotion,planner.b,2026-W50
+KW1020,S114,103,81.29,61.51,Competitor promotion,planner.a,2026-W51
+KW1020,S115,98,36.68,45.04,Stock-out last year,planner.a,2026-W46
+KW1020,S115,99,35.12,41.86,Stock-out last year,planner.c,2026-W47
+KW1020,S115,103,34.92,36.89,Stock-out last year,planner.c,2026-W51
+KW1020,S116,98,50.18,42.48,Competitor promotion,planner.c,2026-W46
+KW1020,S116,100,45.32,55.24,Stock-out last year,planner.c,2026-W48
+KW1020,S116,104,39.77,55.08,Stock-out last year,planner.c,2026-W52
+KW1020,S118,102,45.98,36.35,Competitor promotion,planner.b,2026-W50
+KW1020,S118,104,49.19,36.61,Competitor promotion,planner.c,2026-W52
+KW1020,S119,99,69.54,54.16,Competitor promotion,planner.c,2026-W47
+KW1020,S121,99,21.82,28.98,Stock-out last year,planner.a,2026-W47
+KW1020,S122,99,46.87,58.38,Local event planned,planner.b,2026-W47
+KW1020,S122,103,48.14,65.54,Local event planned,planner.b,2026-W51
+KW1020,S124,98,38.09,27.7,Competitor promotion,planner.b,2026-W46
+KW1020,S124,100,52.45,67.29,Local event planned,planner.a,2026-W48
+KW1020,S124,102,44.3,53.62,Stock-out last year,planner.a,2026-W50
+KW1021,S101,100,1.64,1.23,Competitor promotion,planner.c,2026-W48
+KW1021,S101,102,2.36,1.86,Competitor promotion,planner.a,2026-W50
+KW1021,S101,103,2.14,1.63,Competitor promotion,planner.c,2026-W51
+KW1021,S102,98,1.63,1.88,Stock-out last year,planner.b,2026-W46
+KW1021,S102,103,1.94,1.61,Competitor promotion,planner.a,2026-W51
+KW1021,S104,101,1.62,1.33,Competitor promotion,planner.b,2026-W49
+KW1021,S104,102,1.66,1.38,Competitor promotion,planner.c,2026-W50
+KW1021,S104,104,1.78,1.56,Competitor promotion,planner.b,2026-W52
+KW1021,S107,100,1.82,2.38,Stock-out last year,planner.c,2026-W48
+KW1021,S107,102,2.21,1.87,Competitor promotion,planner.b,2026-W50
+KW1021,S108,99,2.48,1.65,Competitor promotion,planner.b,2026-W47
+KW1021,S108,101,2.88,3.73,Stock-out last year,planner.c,2026-W49
+KW1021,S109,99,2.38,1.84,Competitor promotion,planner.a,2026-W47
+KW1021,S109,100,1.88,1.5,Competitor promotion,planner.a,2026-W48
+KW1021,S110,99,1.97,1.39,Competitor promotion,planner.c,2026-W47
+KW1021,S111,98,1.27,1.03,Competitor promotion,planner.a,2026-W46
+KW1021,S112,99,1.87,1.45,Competitor promotion,planner.b,2026-W47
+KW1021,S112,100,1.56,1.28,Competitor promotion,planner.c,2026-W48
+KW1021,S113,99,1.74,1.28,Competitor promotion,planner.a,2026-W47
+KW1021,S113,101,1.77,1.41,Competitor promotion,planner.a,2026-W49
+KW1021,S114,99,2.92,2.35,Competitor promotion,planner.b,2026-W47
+KW1021,S114,104,2.99,2.65,Competitor promotion,planner.c,2026-W52
+KW1021,S116,102,1.99,1.58,Competitor promotion,planner.c,2026-W50
+KW1021,S121,99,1.5,1.27,Competitor promotion,planner.c,2026-W47
+KW1021,S122,99,2.54,3.64,Local event planned,planner.c,2026-W47
+KW1021,S122,103,2.61,3.52,Local event planned,planner.b,2026-W51
+KW1021,S123,99,1.73,1.99,Stock-out last year,planner.a,2026-W47
+KW1021,S123,102,2.07,1.75,Competitor promotion,planner.b,2026-W50
+KW1021,S124,100,2.16,2.72,Local event planned,planner.a,2026-W48
+KW1022,S101,101,6.49,5.28,Competitor promotion,planner.a,2026-W49
+KW1022,S102,103,4.8,6.34,Stock-out last year,planner.c,2026-W51
+KW1022,S103,98,6.81,8.92,Local event planned,planner.a,2026-W46
+KW1022,S104,100,2.83,2.06,Competitor promotion,planner.a,2026-W48
+KW1022,S105,98,4.31,3.7,Competitor promotion,planner.a,2026-W46
+KW1022,S105,101,4.17,4.71,Stock-out last year,planner.c,2026-W49
+KW1022,S105,104,4.98,3.88,Competitor promotion,planner.b,2026-W52
+KW1022,S106,98,3.21,3.49,Stock-out last year,planner.c,2026-W46
+KW1022,S106,103,3.77,4.57,Stock-out last year,planner.b,2026-W51
+KW1022,S107,98,4.98,6.26,Stock-out last year,planner.b,2026-W46
+KW1022,S107,101,6.03,8.07,Stock-out last year,planner.b,2026-W49
+KW1022,S107,104,6.64,7.09,Stock-out last year,planner.a,2026-W52
+KW1022,S111,98,2.24,1.73,Competitor promotion,planner.c,2026-W46
+KW1022,S111,101,2.55,2.98,Stock-out last year,planner.c,2026-W49
+KW1022,S111,104,2.68,2.23,Competitor promotion,planner.b,2026-W52
+KW1022,S113,100,3.12,2.58,Competitor promotion,planner.a,2026-W48
+KW1022,S116,101,4.33,3.09,Competitor promotion,planner.b,2026-W49
+KW1022,S116,102,4.62,3.41,Competitor promotion,planner.b,2026-W50
+KW1022,S116,103,5.01,4.26,Competitor promotion,planner.a,2026-W51
+KW1022,S118,104,6.84,4.92,Competitor promotion,planner.a,2026-W52
+KW1022,S119,101,9.54,6.9,Competitor promotion,planner.b,2026-W49
+KW1022,S120,99,3.98,3.01,Competitor promotion,planner.c,2026-W47
+KW1022,S120,102,4.38,3.23,Competitor promotion,planner.b,2026-W50
+KW1022,S122,99,4.74,5.54,Local event planned,planner.c,2026-W47
+KW1022,S122,103,5.87,6.87,Local event planned,planner.b,2026-W51
+KW1022,S124,103,5.22,6.62,Stock-out last year,planner.a,2026-W51
+KW1023,S101,100,13.26,10.29,Competitor promotion,planner.a,2026-W48
+KW1023,S102,98,8.58,6.92,Competitor promotion,planner.c,2026-W46
+KW1023,S103,98,15.56,18.82,Local event planned,planner.c,2026-W46
+KW1023,S103,103,19.95,21.16,Stock-out last year,planner.a,2026-W51
+KW1023,S103,104,14.88,10.69,Competitor promotion,planner.c,2026-W52
+KW1023,S104,98,5.87,7.77,Stock-out last year,planner.b,2026-W46
+KW1023,S106,102,12.7,16.4,Stock-out last year,planner.a,2026-W50
+KW1023,S108,98,15.07,12.76,Competitor promotion,planner.b,2026-W46
+KW1023,S108,99,18.3,13.49,Competitor promotion,planner.a,2026-W47
+KW1023,S109,99,17.9,23.37,Stock-out last year,planner.c,2026-W47
+KW1023,S110,101,15.62,21.16,Stock-out last year,planner.c,2026-W49
+KW1023,S110,102,14.11,16.31,Stock-out last year,planner.b,2026-W50
+KW1023,S110,103,14.03,15.25,Stock-out last year,planner.a,2026-W51
+KW1023,S111,98,4.37,4.55,Stock-out last year,planner.c,2026-W46
+KW1023,S111,102,5.96,7.53,Stock-out last year,planner.c,2026-W50
+KW1023,S111,104,5.11,4.44,Competitor promotion,planner.a,2026-W52
+KW1023,S112,104,9.06,7.08,Competitor promotion,planner.a,2026-W52
+KW1023,S114,98,17.69,23.52,Stock-out last year,planner.c,2026-W46
+KW1023,S114,102,20.09,21.86,Stock-out last year,planner.a,2026-W50
+KW1023,S115,103,11.09,9.4,Competitor promotion,planner.a,2026-W51
+KW1023,S115,104,8.12,6.23,Competitor promotion,planner.c,2026-W52
+KW1023,S116,98,9.49,10.08,Stock-out last year,planner.b,2026-W46
+KW1023,S116,100,10.29,12.12,Stock-out last year,planner.a,2026-W48
+KW1023,S116,104,12.99,9.74,Competitor promotion,planner.a,2026-W52
+KW1023,S117,100,15.75,12.74,Competitor promotion,planner.c,2026-W48
+KW1023,S117,101,22.01,20.19,Competitor promotion,planner.a,2026-W49
+KW1023,S117,103,18.71,13.48,Competitor promotion,planner.b,2026-W51
+KW1023,S118,100,10.71,8.3,Competitor promotion,planner.b,2026-W48
+KW1023,S119,101,22.04,20.66,Competitor promotion,planner.a,2026-W49
+KW1023,S119,104,14.27,12.58,Competitor promotion,planner.c,2026-W52
+KW1023,S120,104,10.94,8.27,Competitor promotion,planner.b,2026-W52
+KW1023,S121,102,9.27,6.59,Competitor promotion,planner.a,2026-W50
+KW1023,S122,102,11.83,12.33,Stock-out last year,planner.b,2026-W50
+KW1023,S122,103,15.75,22.05,Local event planned,planner.b,2026-W51
+KW1023,S123,98,8.52,6.32,Competitor promotion,planner.a,2026-W46
+KW1023,S124,98,10.92,9.98,Competitor promotion,planner.a,2026-W46
+KW1023,S124,104,11.96,9.15,Competitor promotion,planner.a,2026-W52
+KW1024,S101,99,11.45,9.51,Competitor promotion,planner.a,2026-W47
+KW1024,S102,98,7.02,8.3,Stock-out last year,planner.a,2026-W46
+KW1024,S102,101,8.1,7.42,Competitor promotion,planner.a,2026-W49
+KW1024,S102,102,7.38,5.66,Competitor promotion,planner.a,2026-W50
+KW1024,S103,98,12.94,17.22,Local event planned,planner.a,2026-W46
+KW1024,S103,100,10.8,13.33,Stock-out last year,planner.b,2026-W48
+KW1024,S106,102,9.16,6.66,Competitor promotion,planner.a,2026-W50
+KW1024,S106,103,8.38,6.6,Competitor promotion,planner.b,2026-W51
+KW1024,S107,101,12.97,10.29,Competitor promotion,planner.c,2026-W49
+KW1024,S107,103,12.32,10.35,Competitor promotion,planner.c,2026-W51
+KW1024,S109,101,13.57,12.48,Competitor promotion,planner.a,2026-W49
+KW1024,S109,104,13.55,11.39,Competitor promotion,planner.a,2026-W52
+KW1024,S110,100,10.12,8.51,Competitor promotion,planner.a,2026-W48
+KW1024,S110,102,12.06,9.06,Competitor promotion,planner.b,2026-W50
+KW1024,S111,98,4.09,4.73,Stock-out last year,planner.a,2026-W46
+KW1024,S111,104,4.61,3.97,Competitor promotion,planner.c,2026-W52
+KW1024,S112,98,8.0,6.48,Competitor promotion,planner.b,2026-W46
+KW1024,S112,100,9.22,11.53,Stock-out last year,planner.a,2026-W48
+KW1024,S113,103,6.5,7.58,Stock-out last year,planner.b,2026-W51
+KW1024,S115,99,6.16,8.07,Stock-out last year,planner.c,2026-W47
+KW1024,S115,102,6.55,4.93,Competitor promotion,planner.c,2026-W50
+KW1024,S116,99,9.12,12.4,Stock-out last year,planner.c,2026-W47
+KW1024,S116,100,8.97,10.67,Stock-out last year,planner.c,2026-W48
+KW1024,S117,98,13.12,10.48,Competitor promotion,planner.a,2026-W46
+KW1024,S118,98,10.28,8.71,Competitor promotion,planner.c,2026-W46
+KW1024,S119,99,14.42,11.64,Competitor promotion,planner.b,2026-W47
+KW1024,S119,104,13.97,10.19,Competitor promotion,planner.c,2026-W52
+KW1024,S120,99,8.26,9.88,Stock-out last year,planner.c,2026-W47
+KW1024,S120,100,8.08,9.92,Stock-out last year,planner.b,2026-W48
+KW1024,S120,102,8.71,10.05,Stock-out last year,planner.c,2026-W50
+KW1024,S120,104,9.08,7.01,Competitor promotion,planner.b,2026-W52
+KW1024,S121,99,6.44,8.25,Stock-out last year,planner.c,2026-W47
+KW1024,S121,101,6.89,4.94,Competitor promotion,planner.a,2026-W49
+KW1024,S122,103,9.82,12.74,Local event planned,planner.b,2026-W51
+KW1024,S124,99,9.8,13.91,Stock-out last year,planner.c,2026-W47
+KW1024,S124,100,10.51,11.61,Local event planned,planner.b,2026-W48
+KW1024,S124,102,10.6,11.51,Stock-out last year,planner.a,2026-W50
+KW1024,S124,104,10.86,7.09,Competitor promotion,planner.b,2026-W52
+KW1025,S101,98,15.72,15.19,Competitor promotion,planner.a,2026-W46
+KW1025,S101,104,18.47,15.11,Competitor promotion,planner.c,2026-W52
+KW1025,S102,101,13.21,10.2,Competitor promotion,planner.a,2026-W49
+KW1025,S102,103,12.28,10.92,Competitor promotion,planner.a,2026-W51
+KW1025,S103,98,21.84,30.66,Local event planned,planner.a,2026-W46
+KW1025,S105,102,15.01,11.57,Competitor promotion,planner.b,2026-W50
+KW1025,S105,103,13.47,10.51,Competitor promotion,planner.b,2026-W51
+KW1025,S107,98,13.66,19.13,Stock-out last year,planner.b,2026-W46
+KW1025,S107,100,13.77,10.89,Competitor promotion,planner.a,2026-W48
+KW1025,S108,101,23.29,20.37,Competitor promotion,planner.c,2026-W49
+KW1025,S109,103,20.66,14.35,Competitor promotion,planner.c,2026-W51
+KW1025,S109,104,21.05,19.01,Competitor promotion,planner.b,2026-W52
+KW1025,S110,101,15.3,12.4,Competitor promotion,planner.c,2026-W49
+KW1025,S110,102,15.36,13.09,Competitor promotion,planner.a,2026-W50
+KW1025,S111,98,6.18,4.95,Competitor promotion,planner.a,2026-W46
+KW1025,S111,99,6.38,4.31,Competitor promotion,planner.a,2026-W47
+KW1025,S111,101,7.34,5.59,Competitor promotion,planner.b,2026-W49
+KW1025,S112,102,13.69,11.22,Competitor promotion,planner.b,2026-W50
+KW1025,S113,98,8.72,6.36,Competitor promotion,planner.c,2026-W46
+KW1025,S113,103,9.9,9.06,Competitor promotion,planner.b,2026-W51
+KW1025,S113,104,9.38,7.66,Competitor promotion,planner.a,2026-W52
+KW1025,S114,99,25.99,21.19,Competitor promotion,planner.c,2026-W47
+KW1025,S114,100,23.05,17.11,Competitor promotion,planner.a,2026-W48
+KW1025,S114,101,26.93,22.32,Competitor promotion,planner.b,2026-W49
+KW1025,S114,104,23.61,20.79,Competitor promotion,planner.c,2026-W52
+KW1025,S116,100,13.35,9.97,Competitor promotion,planner.b,2026-W48
+KW1025,S117,102,25.98,19.14,Competitor promotion,planner.a,2026-W50
+KW1025,S117,104,22.23,19.02,Competitor promotion,planner.c,2026-W52
+KW1025,S118,98,15.54,12.97,Competitor promotion,planner.c,2026-W46
+KW1025,S118,101,17.48,14.98,Competitor promotion,planner.a,2026-W49
+KW1025,S119,101,27.26,20.35,Competitor promotion,planner.a,2026-W49
+KW1025,S119,102,26.81,19.88,Competitor promotion,planner.b,2026-W50
+KW1025,S120,102,13.85,10.39,Competitor promotion,planner.c,2026-W50
+KW1025,S120,104,12.72,11.36,Competitor promotion,planner.a,2026-W52
+KW1025,S121,101,9.37,7.83,Competitor promotion,planner.c,2026-W49
+KW1025,S121,102,8.77,6.91,Competitor promotion,planner.c,2026-W50
+KW1025,S121,104,8.39,6.95,Competitor promotion,planner.b,2026-W52
+KW1025,S122,98,11.27,8.47,Competitor promotion,planner.c,2026-W46
+KW1025,S122,101,13.57,10.46,Competitor promotion,planner.a,2026-W49
+KW1025,S122,103,17.21,21.15,Local event planned,planner.c,2026-W51
+KW1025,S123,100,10.9,9.02,Competitor promotion,planner.a,2026-W48
+KW1025,S124,99,12.83,11.06,Competitor promotion,planner.a,2026-W47
+KW1025,S124,100,16.18,21.35,Local event planned,planner.a,2026-W48
+KW1025,S124,104,14.36,11.08,Competitor promotion,planner.b,2026-W52
+KW1026,S101,98,2.64,2.39,Competitor promotion,planner.b,2026-W46
+KW1026,S101,100,2.29,1.7,Competitor promotion,planner.c,2026-W48
+KW1026,S103,98,3.02,4.22,Local event planned,planner.b,2026-W46
+KW1026,S103,101,2.94,2.49,Competitor promotion,planner.b,2026-W49
+KW1026,S104,99,1.82,2.22,Stock-out last year,planner.a,2026-W47
+KW1026,S105,99,2.38,1.69,Competitor promotion,planner.a,2026-W47
+KW1026,S107,98,2.51,2.96,Stock-out last year,planner.c,2026-W46
+KW1026,S108,98,3.3,2.82,Competitor promotion,planner.a,2026-W46
+KW1026,S108,102,3.6,3.72,Stock-out last year,planner.b,2026-W50
+KW1026,S108,103,3.99,3.32,Competitor promotion,planner.a,2026-W51
+KW1026,S110,102,2.91,2.37,Competitor promotion,planner.b,2026-W50
+KW1026,S111,102,1.67,1.27,Competitor promotion,planner.b,2026-W50
+KW1026,S112,99,2.6,3.02,Stock-out last year,planner.b,2026-W47
+KW1026,S113,101,2.18,2.75,Stock-out last year,planner.c,2026-W49
+KW1026,S115,98,1.82,1.58,Competitor promotion,planner.a,2026-W46
+KW1026,S115,101,2.03,2.08,Stock-out last year,planner.a,2026-W49
+KW1026,S115,102,2.0,2.18,Stock-out last year,planner.c,2026-W50
+KW1026,S116,102,2.44,3.35,Stock-out last year,planner.b,2026-W50
+KW1026,S116,104,2.48,1.94,Competitor promotion,planner.a,2026-W52
+KW1026,S117,101,3.75,3.12,Competitor promotion,planner.b,2026-W49
+KW1026,S117,103,3.44,2.76,Competitor promotion,planner.c,2026-W51
+KW1026,S118,99,2.83,2.53,Competitor promotion,planner.b,2026-W47
+KW1026,S118,100,2.13,1.66,Competitor promotion,planner.a,2026-W48
+KW1026,S119,99,4.06,4.94,Stock-out last year,planner.c,2026-W47
+KW1026,S120,104,2.3,2.57,Stock-out last year,planner.b,2026-W52
+KW1026,S122,99,2.98,4.69,Local event planned,planner.a,2026-W47
+KW1026,S122,102,2.25,1.78,Competitor promotion,planner.a,2026-W50
+KW1026,S122,103,2.96,3.95,Local event planned,planner.a,2026-W51
+KW1026,S123,102,2.37,2.66,Stock-out last year,planner.b,2026-W50
+KW1026,S123,104,2.27,2.04,Competitor promotion,planner.b,2026-W52
+KW1026,S124,101,2.73,2.16,Competitor promotion,planner.b,2026-W49
+KW1027,S101,98,11.3,8.87,Competitor promotion,planner.c,2026-W46
+KW1027,S101,103,12.99,10.16,Competitor promotion,planner.b,2026-W51
+KW1027,S102,98,7.78,6.96,Competitor promotion,planner.a,2026-W46
+KW1027,S103,98,14.94,18.98,Local event planned,planner.c,2026-W46
+KW1027,S103,99,13.47,10.7,Competitor promotion,planner.c,2026-W47
+KW1027,S103,100,11.47,8.32,Competitor promotion,planner.b,2026-W48
+KW1027,S104,98,5.25,6.01,Stock-out last year,planner.a,2026-W46
+KW1027,S104,103,5.89,4.95,Competitor promotion,planner.a,2026-W51
+KW1027,S105,100,8.51,8.06,Competitor promotion,planner.a,2026-W48
+KW1027,S107,98,8.97,7.39,Competitor promotion,planner.a,2026-W46
+KW1027,S107,101,8.71,7.31,Competitor promotion,planner.b,2026-W49
+KW1027,S107,104,9.76,8.19,Competitor promotion,planner.b,2026-W52
+KW1027,S108,101,15.67,12.94,Competitor promotion,planner.a,2026-W49
+KW1027,S108,103,16.06,13.97,Competitor promotion,planner.b,2026-W51
+KW1027,S108,104,16.55,12.29,Competitor promotion,planner.c,2026-W52
+KW1027,S109,98,13.31,9.25,Competitor promotion,planner.c,2026-W46
+KW1027,S109,102,14.8,11.09,Competitor promotion,planner.b,2026-W50
+KW1027,S110,100,9.5,7.26,Competitor promotion,planner.c,2026-W48
+KW1027,S110,104,10.76,8.37,Competitor promotion,planner.b,2026-W52
+KW1027,S112,102,9.91,8.0,Competitor promotion,planner.b,2026-W50
+KW1027,S113,99,7.26,5.79,Competitor promotion,planner.c,2026-W47
+KW1027,S113,103,6.89,4.75,Competitor promotion,planner.c,2026-W51
+KW1027,S113,104,7.46,6.04,Competitor promotion,planner.c,2026-W52
+KW1027,S114,99,19.44,15.39,Competitor promotion,planner.a,2026-W47
+KW1027,S115,98,5.86,4.03,Competitor promotion,planner.b,2026-W46
+KW1027,S117,103,16.87,22.59,Stock-out last year,planner.b,2026-W51
+KW1027,S118,98,9.77,7.75,Competitor promotion,planner.b,2026-W46
+KW1027,S118,101,10.66,8.41,Competitor promotion,planner.b,2026-W49
+KW1027,S120,99,8.41,10.15,Stock-out last year,planner.c,2026-W47
+KW1027,S120,101,7.86,6.77,Competitor promotion,planner.c,2026-W49
+KW1027,S120,102,8.84,6.85,Competitor promotion,planner.c,2026-W50
+KW1027,S122,98,7.14,7.76,Stock-out last year,planner.c,2026-W46
+KW1027,S122,99,11.04,14.45,Local event planned,planner.c,2026-W47
+KW1027,S122,103,10.8,12.99,Local event planned,planner.c,2026-W51
+KW1027,S123,102,8.27,6.71,Competitor promotion,planner.c,2026-W50
+KW1027,S124,100,12.08,15.8,Local event planned,planner.b,2026-W48
+KW1027,S124,103,10.39,8.6,Competitor promotion,planner.c,2026-W51
+KW1028,S101,98,13.35,10.98,Competitor promotion,planner.c,2026-W46
+KW1028,S101,99,15.74,16.31,Stock-out last year,planner.c,2026-W47
+KW1028,S103,98,14.51,17.64,Local event planned,planner.b,2026-W46
+KW1028,S104,98,6.93,7.12,Stock-out last year,planner.b,2026-W46
+KW1028,S104,99,7.9,9.25,Stock-out last year,planner.c,2026-W47
+KW1028,S104,100,7.34,8.85,Stock-out last year,planner.b,2026-W48
+KW1028,S104,103,10.6,12.48,Stock-out last year,planner.b,2026-W51
+KW1028,S105,104,13.41,9.86,Competitor promotion,planner.b,2026-W52
+KW1028,S106,102,14.56,17.27,Stock-out last year,planner.c,2026-W50
+KW1028,S106,104,9.76,7.36,Competitor promotion,planner.b,2026-W52
+KW1028,S107,98,8.08,10.26,Stock-out last year,planner.a,2026-W46
+KW1028,S107,99,11.01,8.38,Competitor promotion,planner.b,2026-W47
+KW1028,S107,100,9.42,10.87,Stock-out last year,planner.a,2026-W48
+KW1028,S107,102,16.84,20.65,Stock-out last year,planner.a,2026-W50
+KW1028,S108,104,15.11,12.78,Competitor promotion,planner.a,2026-W52
+KW1028,S109,100,14.04,19.79,Stock-out last year,planner.c,2026-W48
+KW1028,S109,101,19.45,25.78,Stock-out last year,planner.a,2026-W49
+KW1028,S109,103,18.97,14.3,Competitor promotion,planner.a,2026-W51
+KW1028,S110,100,11.25,9.89,Competitor promotion,planner.b,2026-W48
+KW1028,S110,104,12.33,10.22,Competitor promotion,planner.c,2026-W52
+KW1028,S111,99,5.18,5.84,Stock-out last year,planner.a,2026-W47
+KW1028,S111,103,8.66,8.04,Competitor promotion,planner.c,2026-W51
+KW1028,S111,104,6.32,4.82,Competitor promotion,planner.c,2026-W52
+KW1028,S112,99,10.27,12.52,Stock-out last year,planner.c,2026-W47
+KW1028,S113,100,7.67,6.23,Competitor promotion,planner.a,2026-W48
+KW1028,S114,101,26.37,21.74,Competitor promotion,planner.a,2026-W49
+KW1028,S114,103,21.57,19.34,Competitor promotion,planner.c,2026-W51
+KW1028,S115,98,6.47,7.86,Stock-out last year,planner.b,2026-W46
+KW1028,S116,100,10.57,7.76,Competitor promotion,planner.a,2026-W48
+KW1028,S116,101,17.62,13.76,Competitor promotion,planner.a,2026-W49
+KW1028,S116,102,17.19,13.74,Competitor promotion,planner.a,2026-W50
+KW1028,S116,104,15.11,11.68,Competitor promotion,planner.b,2026-W52
+KW1028,S117,98,15.85,12.68,Competitor promotion,planner.a,2026-W46
+KW1028,S117,99,17.52,20.51,Stock-out last year,planner.b,2026-W47
+KW1028,S118,101,17.21,14.48,Competitor promotion,planner.b,2026-W49
+KW1028,S119,102,21.71,21.56,Competitor promotion,planner.b,2026-W50
+KW1028,S120,102,14.94,12.8,Competitor promotion,planner.c,2026-W50
+KW1028,S120,104,13.0,10.69,Competitor promotion,planner.a,2026-W52
+KW1028,S121,101,12.12,8.28,Competitor promotion,planner.a,2026-W49
+KW1028,S121,103,10.05,6.81,Competitor promotion,planner.c,2026-W51
+KW1028,S121,104,8.95,8.27,Competitor promotion,planner.b,2026-W52
+KW1028,S122,99,10.98,15.04,Local event planned,planner.b,2026-W47
+KW1028,S122,103,16.42,21.46,Local event planned,planner.b,2026-W51
+KW1028,S124,100,12.89,17.46,Local event planned,planner.a,2026-W48
+KW1029,S101,101,30.08,38.52,Stock-out last year,planner.b,2026-W49
+KW1029,S102,99,18.06,13.31,Competitor promotion,planner.b,2026-W47
+KW1029,S102,102,19.78,15.99,Competitor promotion,planner.a,2026-W50
+KW1029,S103,98,30.9,38.49,Local event planned,planner.a,2026-W46
+KW1029,S104,102,14.89,18.25,Stock-out last year,planner.a,2026-W50
+KW1029,S105,100,20.18,15.49,Competitor promotion,planner.b,2026-W48
+KW1029,S105,102,26.37,22.45,Competitor promotion,planner.a,2026-W50
+KW1029,S105,103,24.55,18.37,Competitor promotion,planner.a,2026-W51
+KW1029,S106,101,22.41,18.18,Competitor promotion,planner.c,2026-W49
+KW1029,S106,102,21.91,15.66,Competitor promotion,planner.a,2026-W50
+KW1029,S106,104,18.11,22.91,Stock-out last year,planner.b,2026-W52
+KW1029,S107,99,22.26,24.35,Stock-out last year,planner.a,2026-W47
+KW1029,S109,98,32.5,27.51,Competitor promotion,planner.b,2026-W46
+KW1029,S110,100,21.21,17.31,Competitor promotion,planner.c,2026-W48
+KW1029,S110,102,24.36,21.53,Competitor promotion,planner.b,2026-W50
+KW1029,S112,102,24.76,19.2,Competitor promotion,planner.c,2026-W50
+KW1029,S112,104,22.65,18.09,Competitor promotion,planner.b,2026-W52
+KW1029,S113,100,14.87,10.84,Competitor promotion,planner.a,2026-W48
+KW1029,S113,102,17.66,12.29,Competitor promotion,planner.a,2026-W50
+KW1029,S114,101,36.92,28.61,Competitor promotion,planner.b,2026-W49
+KW1029,S114,104,31.28,23.88,Competitor promotion,planner.b,2026-W52
+KW1029,S117,98,32.3,28.4,Competitor promotion,planner.a,2026-W46
+KW1029,S117,100,29.01,22.91,Competitor promotion,planner.a,2026-W48
+KW1029,S117,102,31.82,26.97,Competitor promotion,planner.b,2026-W50
+KW1029,S118,103,26.24,23.4,Competitor promotion,planner.a,2026-W51
+KW1029,S119,102,31.96,24.07,Competitor promotion,planner.b,2026-W50
+KW1029,S119,103,30.81,22.45,Competitor promotion,planner.c,2026-W51
+KW1029,S119,104,28.46,22.08,Competitor promotion,planner.b,2026-W52
+KW1029,S120,101,22.5,17.28,Competitor promotion,planner.a,2026-W49
+KW1029,S120,104,19.0,14.2,Competitor promotion,planner.b,2026-W52
+KW1029,S121,98,13.57,11.27,Competitor promotion,planner.b,2026-W46
+KW1029,S121,99,14.72,10.2,Competitor promotion,planner.c,2026-W47
+KW1029,S122,99,22.52,31.51,Local event planned,planner.a,2026-W47
+KW1029,S122,101,22.67,27.44,Stock-out last year,planner.b,2026-W49
+KW1029,S122,103,22.52,32.54,Local event planned,planner.a,2026-W51
+KW1029,S122,104,18.72,16.45,Competitor promotion,planner.a,2026-W52
+KW1029,S123,104,18.32,14.4,Competitor promotion,planner.c,2026-W52
+KW1029,S124,100,25.19,32.01,Local event planned,planner.c,2026-W48
+KW1029,S124,104,22.25,18.66,Competitor promotion,planner.b,2026-W52
+KW1030,S101,100,21.97,26.95,Stock-out last year,planner.a,2026-W48
+KW1030,S101,102,24.06,18.28,Competitor promotion,planner.c,2026-W50
+KW1030,S102,100,17.05,11.08,Competitor promotion,planner.c,2026-W48
+KW1030,S103,98,29.69,37.94,Local event planned,planner.b,2026-W46
+KW1030,S104,101,14.12,12.27,Competitor promotion,planner.c,2026-W49
+KW1030,S105,98,18.45,16.22,Competitor promotion,planner.c,2026-W46
+KW1030,S105,100,18.45,13.86,Competitor promotion,planner.a,2026-W48
+KW1030,S106,101,17.93,22.03,Stock-out last year,planner.a,2026-W49
+KW1030,S106,103,18.54,15.55,Competitor promotion,planner.c,2026-W51
+KW1030,S106,104,16.93,21.3,Stock-out last year,planner.c,2026-W52
+KW1030,S109,98,31.63,25.84,Competitor promotion,planner.c,2026-W46
+KW1030,S109,100,29.02,23.2,Competitor promotion,planner.a,2026-W48
+KW1030,S109,103,34.52,41.77,Stock-out last year,planner.a,2026-W51
+KW1030,S110,98,19.51,21.7,Stock-out last year,planner.b,2026-W46
+KW1030,S110,100,17.64,18.72,Stock-out last year,planner.a,2026-W48
+KW1030,S110,102,22.03,28.07,Stock-out last year,planner.b,2026-W50
+KW1030,S110,104,21.64,16.95,Competitor promotion,planner.b,2026-W52
+KW1030,S111,102,9.46,11.28,Stock-out last year,planner.b,2026-W50
+KW1030,S112,99,18.36,14.84,Competitor promotion,planner.b,2026-W47
+KW1030,S112,100,16.26,20.88,Stock-out last year,planner.b,2026-W48
+KW1030,S112,103,20.67,24.53,Stock-out last year,planner.a,2026-W51
+KW1030,S113,98,13.29,10.24,Competitor promotion,planner.c,2026-W46
+KW1030,S113,101,16.08,22.1,Stock-out last year,planner.c,2026-W49
+KW1030,S113,103,16.53,19.96,Stock-out last year,planner.b,2026-W51
+KW1030,S114,98,34.05,25.8,Competitor promotion,planner.a,2026-W46
+KW1030,S114,101,39.71,35.52,Competitor promotion,planner.b,2026-W49
+KW1030,S114,103,38.27,30.69,Competitor promotion,planner.a,2026-W51
+KW1030,S114,104,31.91,26.92,Competitor promotion,planner.c,2026-W52
+KW1030,S115,100,14.56,10.96,Competitor promotion,planner.b,2026-W48
+KW1030,S116,98,21.12,15.85,Competitor promotion,planner.b,2026-W46
+KW1030,S120,101,19.45,16.09,Competitor promotion,planner.b,2026-W49
+KW1030,S121,104,12.8,10.36,Competitor promotion,planner.c,2026-W52
+KW1030,S122,99,24.45,30.45,Local event planned,planner.a,2026-W47
+KW1030,S122,103,24.39,33.13,Local event planned,planner.a,2026-W51
+KW1030,S123,102,19.35,23.21,Stock-out last year,planner.c,2026-W50
+KW1030,S123,104,16.56,15.05,Competitor promotion,planner.c,2026-W52
+KW1030,S124,98,20.54,15.46,Competitor promotion,planner.c,2026-W46
+KW1030,S124,99,20.48,23.77,Stock-out last year,planner.a,2026-W47
+KW1030,S124,100,24.34,34.66,Local event planned,planner.c,2026-W48
+KW1030,S124,102,23.0,19.61,Competitor promotion,planner.c,2026-W50
+KW1031,S102,98,2.55,1.91,Competitor promotion,planner.c,2026-W46
+KW1031,S102,102,2.75,2.64,Competitor promotion,planner.a,2026-W50
+KW1031,S103,98,3.68,4.33,Local event planned,planner.c,2026-W46
+KW1031,S103,104,3.13,2.45,Competitor promotion,planner.c,2026-W52
+KW1031,S104,99,2.14,1.69,Competitor promotion,planner.a,2026-W47
+KW1031,S105,98,2.61,2.13,Competitor promotion,planner.c,2026-W46
+KW1031,S105,101,2.45,2.05,Competitor promotion,planner.a,2026-W49
+KW1031,S106,100,1.92,2.29,Stock-out last year,planner.b,2026-W48
+KW1031,S106,104,2.39,2.36,Competitor promotion,planner.a,2026-W52
+KW1031,S108,104,4.02,2.9,Competitor promotion,planner.c,2026-W52
+KW1031,S110,98,3.08,2.54,Competitor promotion,planner.a,2026-W46
+KW1031,S111,98,1.77,1.29,Competitor promotion,planner.a,2026-W46
+KW1031,S112,98,2.44,1.92,Competitor promotion,planner.b,2026-W46
+KW1031,S113,102,2.51,2.12,Competitor promotion,planner.c,2026-W50
+KW1031,S113,104,2.53,2.1,Competitor promotion,planner.b,2026-W52
+KW1031,S114,100,4.95,3.88,Competitor promotion,planner.c,2026-W48
+KW1031,S114,101,5.62,4.31,Competitor promotion,planner.c,2026-W49
+KW1031,S115,99,2.24,1.94,Competitor promotion,planner.a,2026-W47
+KW1031,S115,100,1.94,1.56,Competitor promotion,planner.a,2026-W48
+KW1031,S115,101,2.13,1.71,Competitor promotion,planner.a,2026-W49
+KW1031,S115,104,2.36,1.87,Competitor promotion,planner.a,2026-W52
+KW1031,S117,101,4.67,3.93,Competitor promotion,planner.a,2026-W49
+KW1031,S119,98,4.63,3.5,Competitor promotion,planner.a,2026-W46
+KW1031,S120,102,2.85,2.27,Competitor promotion,planner.a,2026-W50
+KW1031,S121,103,2.07,1.65,Competitor promotion,planner.a,2026-W51
+KW1031,S122,99,3.08,3.84,Local event planned,planner.c,2026-W47
+KW1031,S122,101,2.54,1.99,Competitor promotion,planner.b,2026-W49
+KW1031,S122,103,3.24,4.38,Local event planned,planner.a,2026-W51
+KW1031,S122,104,2.66,2.06,Competitor promotion,planner.b,2026-W52
+KW1031,S123,103,2.67,2.17,Competitor promotion,planner.a,2026-W51
+KW1031,S124,100,3.0,3.37,Local event planned,planner.a,2026-W48
+KW1031,S124,102,2.87,2.24,Competitor promotion,planner.a,2026-W50
+KW1032,S101,99,9.74,7.82,Competitor promotion,planner.a,2026-W47
+KW1032,S102,101,4.91,4.17,Competitor promotion,planner.c,2026-W49
+KW1032,S102,104,5.51,6.48,Stock-out last year,planner.a,2026-W52
+KW1032,S103,98,9.39,12.67,Local event planned,planner.c,2026-W46
+KW1032,S103,104,7.41,5.87,Competitor promotion,planner.a,2026-W52
+KW1032,S105,98,6.22,4.7,Competitor promotion,planner.c,2026-W46
+KW1032,S106,103,4.56,5.72,Stock-out last year,planner.b,2026-W51
+KW1032,S106,104,5.04,3.77,Competitor promotion,planner.b,2026-W52
+KW1032,S107,99,8.71,6.99,Competitor promotion,planner.b,2026-W47
+KW1032,S107,101,8.33,6.74,Competitor promotion,planner.b,2026-W49
+KW1032,S108,101,9.98,9.33,Competitor promotion,planner.b,2026-W49
+KW1032,S110,99,7.84,7.16,Competitor promotion,planner.c,2026-W47
+KW1032,S111,100,3.27,2.85,Competitor promotion,planner.c,2026-W48
+KW1032,S111,104,3.5,3.21,Competitor promotion,planner.b,2026-W52
+KW1032,S115,98,4.43,3.65,Competitor promotion,planner.c,2026-W46
+KW1032,S115,99,4.77,5.39,Stock-out last year,planner.c,2026-W47
+KW1032,S116,102,6.15,5.24,Competitor promotion,planner.c,2026-W50
+KW1032,S117,99,11.89,9.22,Competitor promotion,planner.a,2026-W47
+KW1032,S118,101,8.52,6.23,Competitor promotion,planner.b,2026-W49
+KW1032,S119,103,9.87,8.39,Competitor promotion,planner.c,2026-W51
+KW1032,S120,99,6.23,8.17,Stock-out last year,planner.b,2026-W47
+KW1032,S120,102,5.24,4.24,Competitor promotion,planner.a,2026-W50
+KW1032,S120,103,5.35,3.83,Competitor promotion,planner.a,2026-W51
+KW1032,S121,100,4.16,3.66,Competitor promotion,planner.c,2026-W48
+KW1032,S122,103,6.25,8.48,Local event planned,planner.b,2026-W51
+KW1032,S123,100,5.3,4.14,Competitor promotion,planner.a,2026-W48
+KW1032,S123,102,6.23,6.75,Stock-out last year,planner.b,2026-W50
+KW1032,S123,104,5.07,5.79,Stock-out last year,planner.b,2026-W52
+KW1032,S124,100,8.02,9.9,Local event planned,planner.a,2026-W48
+KW1033,S101,99,12.45,13.29,Stock-out last year,planner.a,2026-W47
+KW1033,S101,100,10.85,9.0,Competitor promotion,planner.a,2026-W48
+KW1033,S102,99,6.92,7.39,Stock-out last year,planner.a,2026-W47
+KW1033,S102,104,8.0,8.55,Stock-out last year,planner.b,2026-W52
+KW1033,S103,98,12.06,15.67,Local event planned,planner.a,2026-W46
+KW1033,S103,100,10.83,13.9,Stock-out last year,planner.b,2026-W48
+KW1033,S103,102,15.97,13.04,Competitor promotion,planner.c,2026-W50
+KW1033,S105,98,6.96,5.93,Competitor promotion,planner.b,2026-W46
+KW1033,S105,99,10.16,12.82,Stock-out last year,planner.b,2026-W47
+KW1033,S106,100,6.91,8.31,Stock-out last year,planner.a,2026-W48
+KW1033,S106,101,10.07,7.95,Competitor promotion,planner.b,2026-W49
+KW1033,S106,103,10.85,11.97,Stock-out last year,planner.c,2026-W51
+KW1033,S106,104,7.57,5.89,Competitor promotion,planner.c,2026-W52
+KW1033,S107,99,9.71,6.76,Competitor promotion,planner.a,2026-W47
+KW1033,S107,101,13.59,16.05,Stock-out last year,planner.c,2026-W49
+KW1033,S108,98,10.43,10.54,Stock-out last year,planner.c,2026-W46
+KW1033,S109,99,13.43,10.51,Competitor promotion,planner.a,2026-W47
+KW1033,S109,100,11.57,13.61,Stock-out last year,planner.c,2026-W48
+KW1033,S110,98,7.38,5.66,Competitor promotion,planner.b,2026-W46
+KW1033,S110,101,12.91,14.73,Stock-out last year,planner.c,2026-W49
+KW1033,S110,103,12.88,10.3,Competitor promotion,planner.c,2026-W51
+KW1033,S112,99,8.07,6.57,Competitor promotion,planner.a,2026-W47
+KW1033,S112,102,8.6,11.82,Stock-out last year,planner.b,2026-W50
+KW1033,S113,98,5.43,7.1,Stock-out last year,planner.a,2026-W46
+KW1033,S114,101,19.95,24.48,Stock-out last year,planner.b,2026-W49
+KW1033,S114,104,19.08,11.49,Competitor promotion,planner.c,2026-W52
+KW1033,S115,103,7.97,9.58,Stock-out last year,planner.a,2026-W51
+KW1033,S116,98,7.03,4.98,Competitor promotion,planner.b,2026-W46
+KW1033,S116,101,12.55,16.41,Stock-out last year,planner.a,2026-W49
+KW1033,S118,98,7.72,8.47,Stock-out last year,planner.b,2026-W46
+KW1033,S118,104,10.16,11.97,Stock-out last year,planner.b,2026-W52
+KW1033,S119,103,18.35,20.75,Stock-out last year,planner.c,2026-W51
+KW1033,S120,102,10.18,7.66,Competitor promotion,planner.b,2026-W50
+KW1033,S120,103,11.56,13.24,Stock-out last year,planner.c,2026-W51
+KW1033,S120,104,8.23,9.58,Stock-out last year,planner.c,2026-W52
+KW1033,S121,99,6.07,8.01,Stock-out last year,planner.c,2026-W47
+KW1033,S121,101,8.4,10.97,Stock-out last year,planner.c,2026-W49
+KW1033,S121,104,6.32,4.94,Competitor promotion,planner.c,2026-W52
+KW1033,S122,98,5.96,4.69,Competitor promotion,planner.b,2026-W46
+KW1033,S122,103,13.68,17.59,Local event planned,planner.a,2026-W51
+KW1033,S123,98,6.16,4.74,Competitor promotion,planner.c,2026-W46
+KW1033,S124,99,9.31,12.48,Stock-out last year,planner.b,2026-W47
+KW1033,S124,100,11.14,11.97,Local event planned,planner.b,2026-W48
+KW1033,S124,101,11.76,8.88,Competitor promotion,planner.b,2026-W49
+KW1034,S102,100,9.47,8.23,Competitor promotion,planner.b,2026-W48
+KW1034,S103,98,17.23,24.18,Local event planned,planner.a,2026-W46
+KW1034,S103,104,15.36,11.92,Competitor promotion,planner.c,2026-W52
+KW1034,S104,100,7.24,6.33,Competitor promotion,planner.c,2026-W48
+KW1034,S105,100,10.93,10.32,Competitor promotion,planner.b,2026-W48
+KW1034,S105,101,16.07,20.12,Stock-out last year,planner.c,2026-W49
+KW1034,S107,104,15.11,16.23,Stock-out last year,planner.c,2026-W52
+KW1034,S108,100,15.79,13.11,Competitor promotion,planner.c,2026-W48
+KW1034,S109,101,20.49,25.47,Stock-out last year,planner.b,2026-W49
+KW1034,S111,103,7.34,8.75,Stock-out last year,planner.b,2026-W51
+KW1034,S111,104,6.51,7.49,Stock-out last year,planner.c,2026-W52
+KW1034,S112,102,13.77,10.1,Competitor promotion,planner.c,2026-W50
+KW1034,S113,98,7.99,6.39,Competitor promotion,planner.c,2026-W46
+KW1034,S113,99,8.81,6.83,Competitor promotion,planner.b,2026-W47
+KW1034,S114,100,18.37,15.91,Competitor promotion,planner.a,2026-W48
+KW1034,S115,98,7.64,9.39,Stock-out last year,planner.a,2026-W46
+KW1034,S115,101,10.78,13.7,Stock-out last year,planner.c,2026-W49
+KW1034,S115,102,10.94,13.53,Stock-out last year,planner.b,2026-W50
+KW1034,S116,100,11.22,8.96,Competitor promotion,planner.b,2026-W48
+KW1034,S116,101,15.85,12.86,Competitor promotion,planner.a,2026-W49
+KW1034,S116,103,14.01,10.97,Competitor promotion,planner.a,2026-W51
+KW1034,S118,98,12.19,11.11,Competitor promotion,planner.b,2026-W46
+KW1034,S119,98,19.17,16.97,Competitor promotion,planner.b,2026-W46
+KW1034,S119,100,17.55,14.16,Competitor promotion,planner.a,2026-W48
+KW1034,S119,104,20.42,26.03,Stock-out last year,planner.c,2026-W52
+KW1034,S120,100,9.6,11.94,Stock-out last year,planner.c,2026-W48
+KW1034,S120,103,12.61,9.75,Competitor promotion,planner.b,2026-W51
+KW1034,S121,98,6.93,8.01,Stock-out last year,planner.a,2026-W46
+KW1034,S121,99,7.9,10.28,Stock-out last year,planner.a,2026-W47
+KW1034,S122,99,12.88,14.44,Local event planned,planner.b,2026-W47
+KW1034,S122,100,9.83,8.22,Competitor promotion,planner.b,2026-W48
+KW1034,S122,101,13.15,10.4,Competitor promotion,planner.a,2026-W49
+KW1034,S122,102,12.37,10.12,Competitor promotion,planner.a,2026-W50
+KW1034,S122,103,15.28,17.49,Local event planned,planner.a,2026-W51
+KW1034,S123,100,9.67,7.68,Competitor promotion,planner.c,2026-W48
+KW1034,S123,103,12.04,9.27,Competitor promotion,planner.a,2026-W51
+KW1034,S124,100,13.98,22.41,Local event planned,planner.c,2026-W48
+KW1035,S101,98,21.96,27.3,Stock-out last year,planner.c,2026-W46
+KW1035,S101,100,20.69,16.83,Competitor promotion,planner.a,2026-W48
+KW1035,S102,100,16.42,12.94,Competitor promotion,planner.c,2026-W48
+KW1035,S103,98,26.95,33.34,Local event planned,planner.a,2026-W46
+KW1035,S103,99,24.09,18.37,Competitor promotion,planner.c,2026-W47
+KW1035,S103,100,19.9,25.71,Stock-out last year,planner.a,2026-W48
+KW1035,S105,99,17.33,12.66,Competitor promotion,planner.c,2026-W47
+KW1035,S105,103,17.03,19.24,Stock-out last year,planner.a,2026-W51
+KW1035,S105,104,17.99,13.77,Competitor promotion,planner.c,2026-W52
+KW1035,S106,99,14.29,17.4,Stock-out last year,planner.c,2026-W47
+KW1035,S107,99,22.55,28.61,Stock-out last year,planner.c,2026-W47
+KW1035,S107,101,21.25,20.03,Competitor promotion,planner.c,2026-W49
+KW1035,S108,99,29.66,26.58,Competitor promotion,planner.a,2026-W47
+KW1035,S108,100,25.85,36.49,Stock-out last year,planner.a,2026-W48
+KW1035,S109,98,26.98,31.79,Stock-out last year,planner.c,2026-W46
+KW1035,S110,100,17.55,13.14,Competitor promotion,planner.b,2026-W48
+KW1035,S113,103,14.87,19.49,Stock-out last year,planner.a,2026-W51
+KW1035,S114,98,30.39,19.96,Competitor promotion,planner.b,2026-W46
+KW1035,S114,99,36.09,31.99,Competitor promotion,planner.a,2026-W47
+KW1035,S114,101,34.1,41.67,Stock-out last year,planner.c,2026-W49
+KW1035,S116,99,21.88,18.52,Competitor promotion,planner.c,2026-W47
+KW1035,S116,100,20.36,16.33,Competitor promotion,planner.c,2026-W48
+KW1035,S117,102,33.34,30.15,Competitor promotion,planner.a,2026-W50
+KW1035,S118,98,19.64,20.29,Stock-out last year,planner.b,2026-W46
+KW1035,S118,101,22.89,19.93,Competitor promotion,planner.b,2026-W49
+KW1035,S118,103,22.81,18.56,Competitor promotion,planner.c,2026-W51
+KW1035,S118,104,22.9,19.34,Competitor promotion,planner.c,2026-W52
+KW1035,S120,101,18.05,14.48,Competitor promotion,planner.c,2026-W49
+KW1035,S122,98,15.78,12.1,Competitor promotion,planner.a,2026-W46
+KW1035,S122,103,23.72,29.43,Local event planned,planner.b,2026-W51
+KW1035,S122,104,18.85,13.94,Competitor promotion,planner.c,2026-W52
+KW1035,S123,99,15.25,14.14,Competitor promotion,planner.a,2026-W47
+KW1035,S123,100,14.68,13.09,Competitor promotion,planner.a,2026-W48
+KW1035,S124,100,24.0,33.39,Local event planned,planner.b,2026-W48
+KW1036,S102,101,3.5,4.33,Stock-out last year,planner.b,2026-W49
+KW1036,S102,102,3.58,4.29,Stock-out last year,planner.c,2026-W50
+KW1036,S103,98,6.22,7.86,Local event planned,planner.a,2026-W46
+KW1036,S103,99,5.85,7.59,Stock-out last year,planner.c,2026-W47
+KW1036,S104,103,2.28,1.8,Competitor promotion,planner.b,2026-W51
+KW1036,S105,103,3.46,4.57,Stock-out last year,planner.c,2026-W51
+KW1036,S106,103,2.56,2.13,Competitor promotion,planner.c,2026-W51
+KW1036,S107,99,4.69,6.3,Stock-out last year,planner.c,2026-W47
+KW1036,S112,98,3.61,4.59,Stock-out last year,planner.c,2026-W46
+KW1036,S112,100,3.5,4.16,Stock-out last year,planner.a,2026-W48
+KW1036,S113,98,2.8,3.88,Stock-out last year,planner.a,2026-W46
+KW1036,S114,102,7.5,8.18,Stock-out last year,planner.c,2026-W50
+KW1036,S114,103,7.33,8.43,Stock-out last year,planner.c,2026-W51
+KW1036,S114,104,6.36,7.22,Stock-out last year,planner.b,2026-W52
+KW1036,S115,101,2.58,3.07,Stock-out last year,planner.c,2026-W49
+KW1036,S117,99,9.39,10.42,Stock-out last year,planner.a,2026-W47
+KW1036,S119,104,6.59,5.5,Competitor promotion,planner.b,2026-W52
+KW1036,S120,101,3.45,3.99,Stock-out last year,planner.b,2026-W49
+KW1036,S120,103,2.99,2.42,Competitor promotion,planner.c,2026-W51
+KW1036,S121,102,2.56,2.09,Competitor promotion,planner.c,2026-W50
+KW1036,S122,99,5.04,6.85,Local event planned,planner.a,2026-W47
+KW1036,S122,103,4.56,5.17,Local event planned,planner.b,2026-W51
+KW1036,S123,104,2.99,3.85,Stock-out last year,planner.c,2026-W52
+KW1036,S124,100,5.33,7.48,Local event planned,planner.a,2026-W48
+KW1037,S101,100,11.03,8.54,Competitor promotion,planner.b,2026-W48
+KW1037,S101,102,11.72,10.53,Competitor promotion,planner.a,2026-W50
+KW1037,S101,104,13.42,10.22,Competitor promotion,planner.a,2026-W52
+KW1037,S102,98,7.69,9.73,Stock-out last year,planner.b,2026-W46
+KW1037,S102,100,8.04,6.55,Competitor promotion,planner.c,2026-W48
+KW1037,S102,102,8.76,7.16,Competitor promotion,planner.b,2026-W50
+KW1037,S103,98,14.75,18.42,Local event planned,planner.b,2026-W46
+KW1037,S103,104,12.96,10.78,Competitor promotion,planner.a,2026-W52
+KW1037,S104,98,5.63,4.21,Competitor promotion,planner.a,2026-W46
+KW1037,S104,100,5.98,4.51,Competitor promotion,planner.c,2026-W48
+KW1037,S104,103,6.25,8.32,Stock-out last year,planner.b,2026-W51
+KW1037,S105,98,9.41,12.24,Stock-out last year,planner.c,2026-W46
+KW1037,S106,99,7.56,8.51,Stock-out last year,planner.a,2026-W47
+KW1037,S107,101,9.95,7.62,Competitor promotion,planner.b,2026-W49
+KW1037,S108,99,17.64,13.02,Competitor promotion,planner.b,2026-W47
+KW1037,S109,101,13.75,11.19,Competitor promotion,planner.c,2026-W49
+KW1037,S109,103,14.18,14.49,Stock-out last year,planner.c,2026-W51
+KW1037,S111,98,4.4,5.05,Stock-out last year,planner.b,2026-W46
+KW1037,S112,100,8.12,6.72,Competitor promotion,planner.a,2026-W48
+KW1037,S112,103,9.12,11.62,Stock-out last year,planner.a,2026-W51
+KW1037,S113,102,8.47,6.54,Competitor promotion,planner.a,2026-W50
+KW1037,S114,102,17.7,12.4,Competitor promotion,planner.a,2026-W50
+KW1037,S115,100,6.07,5.34,Competitor promotion,planner.c,2026-W48
+KW1037,S116,104,10.94,9.43,Competitor promotion,planner.a,2026-W52
+KW1037,S117,100,14.03,10.76,Competitor promotion,planner.a,2026-W48
+KW1037,S117,101,15.03,11.18,Competitor promotion,planner.c,2026-W49
+KW1037,S118,99,12.07,14.78,Stock-out last year,planner.c,2026-W47
+KW1037,S119,100,14.64,12.97,Competitor promotion,planner.b,2026-W48
+KW1037,S119,102,15.47,12.61,Competitor promotion,planner.c,2026-W50
+KW1037,S119,103,15.49,15.26,Competitor promotion,planner.b,2026-W51
+KW1037,S120,98,8.71,8.0,Competitor promotion,planner.c,2026-W46
+KW1037,S120,101,8.01,6.58,Competitor promotion,planner.a,2026-W49
+KW1037,S120,104,9.49,6.71,Competitor promotion,planner.c,2026-W52
+KW1037,S121,99,6.79,5.77,Competitor promotion,planner.a,2026-W47
+KW1037,S121,102,6.86,9.16,Stock-out last year,planner.a,2026-W50
+KW1037,S122,99,10.81,12.37,Local event planned,planner.a,2026-W47
+KW1037,S122,100,7.6,9.01,Stock-out last year,planner.a,2026-W48
+KW1037,S122,103,11.1,13.48,Local event planned,planner.a,2026-W51
+KW1037,S123,100,7.38,5.86,Competitor promotion,planner.c,2026-W48
+KW1037,S124,98,10.05,7.43,Competitor promotion,planner.b,2026-W46
+KW1037,S124,100,11.54,16.46,Local event planned,planner.c,2026-W48
+KW1037,S124,101,9.84,7.05,Competitor promotion,planner.a,2026-W49
+KW1038,S101,100,26.15,29.8,Stock-out last year,planner.c,2026-W48
+KW1038,S102,98,19.86,25.02,Stock-out last year,planner.a,2026-W46
+KW1038,S102,99,21.56,17.51,Competitor promotion,planner.c,2026-W47
+KW1038,S102,103,20.32,17.19,Competitor promotion,planner.c,2026-W51
+KW1038,S103,98,32.84,40.58,Local event planned,planner.b,2026-W46
+KW1038,S104,98,14.74,12.59,Competitor promotion,planner.a,2026-W46
+KW1038,S104,100,14.94,11.24,Competitor promotion,planner.c,2026-W48
+KW1038,S105,100,23.6,20.86,Competitor promotion,planner.a,2026-W48
+KW1038,S105,103,29.55,21.25,Competitor promotion,planner.c,2026-W51
+KW1038,S107,102,28.51,25.3,Competitor promotion,planner.c,2026-W50
+KW1038,S108,100,32.19,29.14,Competitor promotion,planner.b,2026-W48
+KW1038,S109,99,40.57,31.96,Competitor promotion,planner.b,2026-W47
+KW1038,S109,101,40.14,34.08,Competitor promotion,planner.b,2026-W49
+KW1038,S110,98,25.35,19.13,Competitor promotion,planner.b,2026-W46
+KW1038,S110,99,29.71,27.26,Competitor promotion,planner.b,2026-W47
+KW1038,S111,100,11.39,15.38,Stock-out last year,planner.c,2026-W48
+KW1038,S112,98,21.43,28.2,Stock-out last year,planner.b,2026-W46
+KW1038,S113,99,17.96,24.5,Stock-out last year,planner.c,2026-W47
+KW1038,S113,101,18.36,21.83,Stock-out last year,planner.a,2026-W49
+KW1038,S114,101,42.95,52.44,Stock-out last year,planner.b,2026-W49
+KW1038,S114,102,40.22,39.69,Stock-out last year,planner.a,2026-W50
+KW1038,S115,99,18.43,14.46,Competitor promotion,planner.c,2026-W47
+KW1038,S115,100,15.26,12.46,Competitor promotion,planner.b,2026-W48
+KW1038,S115,101,19.36,14.49,Competitor promotion,planner.c,2026-W49
+KW1038,S118,99,28.51,33.65,Stock-out last year,planner.a,2026-W47
+KW1038,S118,102,25.22,21.0,Competitor promotion,planner.a,2026-W50
+KW1038,S119,103,33.28,26.08,Competitor promotion,planner.c,2026-W51
+KW1038,S119,104,29.8,23.78,Competitor promotion,planner.c,2026-W52
+KW1038,S120,98,17.7,20.37,Stock-out last year,planner.a,2026-W46
+KW1038,S122,99,26.93,38.16,Local event planned,planner.b,2026-W47
+KW1038,S122,100,20.64,16.62,Competitor promotion,planner.c,2026-W48
+KW1038,S122,103,25.38,43.27,Local event planned,planner.b,2026-W51
+KW1038,S123,98,18.87,23.44,Stock-out last year,planner.a,2026-W46
+KW1038,S123,104,17.49,13.78,Competitor promotion,planner.b,2026-W52
+KW1038,S124,100,28.64,42.21,Local event planned,planner.a,2026-W48
+KW1039,S101,100,14.85,13.02,Competitor promotion,planner.c,2026-W48
+KW1039,S101,104,18.45,14.39,Competitor promotion,planner.c,2026-W52
+KW1039,S102,101,13.53,15.91,Stock-out last year,planner.c,2026-W49
+KW1039,S103,98,20.55,26.74,Local event planned,planner.a,2026-W46
+KW1039,S103,102,20.5,24.87,Stock-out last year,planner.b,2026-W50
+KW1039,S103,104,18.37,15.58,Competitor promotion,planner.b,2026-W52
+KW1039,S104,103,8.09,10.27,Stock-out last year,planner.c,2026-W51
+KW1039,S105,98,11.83,9.94,Competitor promotion,planner.a,2026-W46
+KW1039,S105,101,16.93,15.0,Competitor promotion,planner.b,2026-W49
+KW1039,S106,98,8.41,9.72,Stock-out last year,planner.b,2026-W46
+KW1039,S106,99,9.43,11.39,Stock-out last year,planner.a,2026-W47
+KW1039,S106,100,8.63,10.0,Stock-out last year,planner.c,2026-W48
+KW1039,S106,102,11.75,13.59,Stock-out last year,planner.a,2026-W50
+KW1039,S107,98,13.4,10.23,Competitor promotion,planner.b,2026-W46
+KW1039,S108,99,20.77,17.52,Competitor promotion,planner.c,2026-W47
+KW1039,S109,100,18.07,22.02,Stock-out last year,planner.b,2026-W48
+KW1039,S109,103,23.36,26.8,Stock-out last year,planner.b,2026-W51
+KW1039,S110,102,18.0,21.48,Stock-out last year,planner.c,2026-W50
+KW1039,S112,99,11.41,9.24,Competitor promotion,planner.c,2026-W47
+KW1039,S112,100,11.12,12.2,Stock-out last year,planner.b,2026-W48
+KW1039,S113,103,10.2,13.31,Stock-out last year,planner.a,2026-W51
+KW1039,S114,98,22.31,16.01,Competitor promotion,planner.b,2026-W46
+KW1039,S115,99,7.97,9.37,Stock-out last year,planner.c,2026-W47
+KW1039,S115,100,7.67,9.08,Stock-out last year,planner.c,2026-W48
+KW1039,S115,103,10.37,9.11,Competitor promotion,planner.a,2026-W51
+KW1039,S115,104,10.01,12.27,Stock-out last year,planner.c,2026-W52
+KW1039,S117,100,19.34,12.72,Competitor promotion,planner.b,2026-W48
+KW1039,S117,102,24.44,32.26,Stock-out last year,planner.b,2026-W50
+KW1039,S119,101,25.63,22.12,Competitor promotion,planner.b,2026-W49
+KW1039,S120,99,9.92,12.73,Stock-out last year,planner.b,2026-W47
+KW1039,S121,103,8.12,6.66,Competitor promotion,planner.b,2026-W51
+KW1039,S122,99,13.7,17.58,Local event planned,planner.a,2026-W47
+KW1039,S122,103,19.01,27.91,Local event planned,planner.a,2026-W51
+KW1039,S123,98,9.49,7.49,Competitor promotion,planner.c,2026-W46
+KW1039,S123,102,12.84,10.89,Competitor promotion,planner.b,2026-W50
+KW1039,S124,100,16.9,20.41,Local event planned,planner.b,2026-W48
+KW1039,S124,103,16.66,12.71,Competitor promotion,planner.c,2026-W51
+KW1040,S101,98,20.06,16.38,Competitor promotion,planner.c,2026-W46
+KW1040,S101,101,19.67,22.16,Stock-out last year,planner.b,2026-W49
+KW1040,S102,104,14.8,13.8,Competitor promotion,planner.b,2026-W52
+KW1040,S103,98,23.34,28.36,Local event planned,planner.c,2026-W46
+KW1040,S103,101,18.87,13.82,Competitor promotion,planner.b,2026-W49
+KW1040,S103,102,20.3,15.76,Competitor promotion,planner.a,2026-W50
+KW1040,S105,101,16.34,12.05,Competitor promotion,planner.a,2026-W49
+KW1040,S108,102,27.99,22.1,Competitor promotion,planner.c,2026-W50
+KW1040,S110,100,14.27,12.9,Competitor promotion,planner.b,2026-W48
+KW1040,S110,102,19.46,17.25,Competitor promotion,planner.a,2026-W50
+KW1040,S111,101,6.78,9.16,Stock-out last year,planner.a,2026-W49
+KW1040,S112,98,13.67,17.74,Stock-out last year,planner.b,2026-W46
+KW1040,S113,104,10.67,13.93,Stock-out last year,planner.c,2026-W52
+KW1040,S115,101,13.14,10.53,Competitor promotion,planner.b,2026-W49
+KW1040,S115,102,12.25,8.07,Competitor promotion,planner.c,2026-W50
+KW1040,S117,98,24.25,20.63,Competitor promotion,planner.c,2026-W46
+KW1040,S117,103,28.32,24.73,Competitor promotion,planner.b,2026-W51
+KW1040,S118,98,15.29,12.8,Competitor promotion,planner.c,2026-W46
+KW1040,S118,100,14.69,10.77,Competitor promotion,planner.a,2026-W48
+KW1040,S118,102,21.17,17.54,Competitor promotion,planner.a,2026-W50
+KW1040,S118,103,20.65,18.37,Competitor promotion,planner.a,2026-W51
+KW1040,S118,104,21.85,17.92,Competitor promotion,planner.a,2026-W52
+KW1040,S119,99,25.06,18.11,Competitor promotion,planner.b,2026-W47
+KW1040,S119,100,23.96,20.97,Competitor promotion,planner.b,2026-W48
+KW1040,S119,101,29.31,33.66,Stock-out last year,planner.b,2026-W49
+KW1040,S120,100,13.12,9.53,Competitor promotion,planner.c,2026-W48
+KW1040,S120,104,15.36,17.62,Stock-out last year,planner.b,2026-W52
+KW1040,S121,101,10.12,8.03,Competitor promotion,planner.b,2026-W49
+KW1040,S122,98,12.11,12.45,Stock-out last year,planner.c,2026-W46
+KW1040,S122,99,16.98,18.92,Local event planned,planner.c,2026-W47
+KW1040,S122,100,12.39,10.42,Competitor promotion,planner.c,2026-W48
+KW1040,S122,102,17.11,11.96,Competitor promotion,planner.b,2026-W50
+KW1040,S122,103,22.34,31.58,Local event planned,planner.b,2026-W51
+KW1040,S124,98,16.01,10.93,Competitor promotion,planner.a,2026-W46
+KW1040,S124,99,15.53,11.81,Competitor promotion,planner.b,2026-W47
+KW1040,S124,100,18.65,27.25,Local event planned,planner.a,2026-W48
+KW1040,S124,102,20.76,20.96,Stock-out last year,planner.c,2026-W50
+KW1040,S124,104,20.19,17.74,Competitor promotion,planner.b,2026-W52
+KW1041,S103,98,6.32,8.79,Local event planned,planner.a,2026-W46
+KW1041,S103,99,5.21,4.11,Competitor promotion,planner.c,2026-W47
+KW1041,S104,99,2.82,2.41,Competitor promotion,planner.a,2026-W47
+KW1041,S104,101,2.63,1.93,Competitor promotion,planner.c,2026-W49
+KW1041,S105,104,3.92,3.2,Competitor promotion,planner.b,2026-W52
+KW1041,S107,98,4.09,3.26,Competitor promotion,planner.b,2026-W46
+KW1041,S110,103,3.75,3.1,Competitor promotion,planner.a,2026-W51
+KW1041,S110,104,4.15,3.21,Competitor promotion,planner.a,2026-W52
+KW1041,S111,98,2.24,1.8,Competitor promotion,planner.b,2026-W46
+KW1041,S113,100,3.27,2.88,Competitor promotion,planner.c,2026-W48
+KW1041,S113,104,3.39,2.6,Competitor promotion,planner.b,2026-W52
+KW1041,S114,103,7.02,5.77,Competitor promotion,planner.a,2026-W51
+KW1041,S114,104,8.68,7.59,Competitor promotion,planner.c,2026-W52
+KW1041,S115,103,2.63,2.2,Competitor promotion,planner.b,2026-W51
+KW1041,S116,98,4.25,3.76,Competitor promotion,planner.b,2026-W46
+KW1041,S117,99,6.64,4.59,Competitor promotion,planner.b,2026-W47
+KW1041,S117,103,6.63,4.99,Competitor promotion,planner.b,2026-W51
+KW1041,S118,104,4.41,3.4,Competitor promotion,planner.a,2026-W52
+KW1041,S121,101,2.75,2.41,Competitor promotion,planner.b,2026-W49
+KW1041,S122,102,3.69,2.8,Competitor promotion,planner.c,2026-W50
+KW1041,S122,103,4.89,6.58,Local event planned,planner.c,2026-W51
+KW1041,S123,98,3.85,2.82,Competitor promotion,planner.a,2026-W46
+KW1041,S124,99,3.74,3.16,Competitor promotion,planner.a,2026-W47
+KW1041,S124,100,4.65,5.36,Local event planned,planner.b,2026-W48
+KW1041,S124,103,3.56,2.6,Competitor promotion,planner.c,2026-W51
+KW1042,S101,98,7.97,6.29,Competitor promotion,planner.b,2026-W46
+KW1042,S101,99,9.64,7.87,Competitor promotion,planner.b,2026-W47
+KW1042,S101,100,8.03,6.23,Competitor promotion,planner.b,2026-W48
+KW1042,S101,104,9.6,11.12,Stock-out last year,planner.c,2026-W52
+KW1042,S102,98,5.01,6.65,Stock-out last year,planner.c,2026-W46
+KW1042,S103,98,9.4,10.28,Local event planned,planner.b,2026-W46
+KW1042,S103,100,6.96,5.48,Competitor promotion,planner.a,2026-W48
+KW1042,S106,100,4.6,5.6,Stock-out last year,planner.a,2026-W48
+KW1042,S107,101,6.68,5.33,Competitor promotion,planner.b,2026-W49
+KW1042,S108,98,9.06,7.43,Competitor promotion,planner.b,2026-W46
+KW1042,S109,98,7.98,6.69,Competitor promotion,planner.a,2026-W46
+KW1042,S109,101,10.24,8.37,Competitor promotion,planner.b,2026-W49
+KW1042,S110,100,5.68,5.02,Competitor promotion,planner.c,2026-W48
+KW1042,S110,101,6.56,5.42,Competitor promotion,planner.b,2026-W49
+KW1042,S111,99,3.03,2.21,Competitor promotion,planner.b,2026-W47
+KW1042,S111,102,3.11,2.68,Competitor promotion,planner.c,2026-W50
+KW1042,S111,104,3.2,3.57,Stock-out last year,planner.c,2026-W52
+KW1042,S112,100,5.15,7.16,Stock-out last year,planner.c,2026-W48
+KW1042,S112,101,6.25,5.46,Competitor promotion,planner.b,2026-W49
+KW1042,S112,104,6.59,5.24,Competitor promotion,planner.c,2026-W52
+KW1042,S113,98,4.33,5.19,Stock-out last year,planner.c,2026-W46
+KW1042,S113,101,5.23,5.89,Stock-out last year,planner.c,2026-W49
+KW1042,S113,103,4.68,5.54,Stock-out last year,planner.b,2026-W51
+KW1042,S113,104,4.85,3.64,Competitor promotion,planner.a,2026-W52
+KW1042,S114,100,11.6,9.3,Competitor promotion,planner.b,2026-W48
+KW1042,S115,100,4.03,3.28,Competitor promotion,planner.a,2026-W48
+KW1042,S116,99,7.45,9.97,Stock-out last year,planner.a,2026-W47
+KW1042,S116,104,6.84,5.17,Competitor promotion,planner.c,2026-W52
+KW1042,S118,102,7.66,5.99,Competitor promotion,planner.a,2026-W50
+KW1042,S119,98,10.05,8.52,Competitor promotion,planner.a,2026-W46
+KW1042,S119,101,12.44,9.64,Competitor promotion,planner.a,2026-W49
+KW1042,S119,104,13.71,8.92,Competitor promotion,planner.c,2026-W52
+KW1042,S120,102,5.09,3.95,Competitor promotion,planner.a,2026-W50
+KW1042,S121,98,3.56,4.31,Stock-out last year,planner.a,2026-W46
+KW1042,S121,101,4.14,5.0,Stock-out last year,planner.a,2026-W49
+KW1042,S122,101,5.87,4.08,Competitor promotion,planner.a,2026-W49
+KW1042,S122,103,8.36,11.56,Local event planned,planner.b,2026-W51
+KW1042,S123,99,5.45,4.3,Competitor promotion,planner.b,2026-W47
+KW1042,S123,101,5.43,6.67,Stock-out last year,planner.a,2026-W49
+KW1042,S123,104,6.13,4.64,Competitor promotion,planner.a,2026-W52
+KW1042,S124,100,7.61,9.42,Local event planned,planner.b,2026-W48
+KW1042,S124,103,6.95,7.23,Stock-out last year,planner.a,2026-W51
+KW1043,S101,98,17.83,21.6,Stock-out last year,planner.b,2026-W46
+KW1043,S101,100,16.86,20.65,Stock-out last year,planner.b,2026-W48
+KW1043,S102,101,14.86,12.65,Competitor promotion,planner.c,2026-W49
+KW1043,S103,98,19.15,23.39,Local event planned,planner.c,2026-W46
+KW1043,S103,102,21.34,25.18,Stock-out last year,planner.c,2026-W50
+KW1043,S104,100,7.87,5.51,Competitor promotion,planner.c,2026-W48
+KW1043,S104,103,12.39,13.13,Stock-out last year,planner.a,2026-W51
+KW1043,S105,103,20.81,17.15,Competitor promotion,planner.a,2026-W51
+KW1043,S106,98,10.62,13.11,Stock-out last year,planner.b,2026-W46
+KW1043,S106,99,13.83,11.77,Competitor promotion,planner.b,2026-W47
+KW1043,S107,98,12.08,7.9,Competitor promotion,planner.c,2026-W46
+KW1043,S107,103,18.77,21.64,Stock-out last year,planner.c,2026-W51
+KW1043,S108,99,24.7,16.15,Competitor promotion,planner.b,2026-W47
+KW1043,S108,100,19.92,15.05,Competitor promotion,planner.a,2026-W48
+KW1043,S109,99,23.71,17.96,Competitor promotion,planner.a,2026-W47
+KW1043,S109,103,22.73,17.95,Competitor promotion,planner.b,2026-W51
+KW1043,S110,99,18.32,26.22,Stock-out last year,planner.c,2026-W47
+KW1043,S111,100,5.85,6.72,Stock-out last year,planner.c,2026-W48
+KW1043,S111,104,7.68,9.4,Stock-out last year,planner.c,2026-W52
+KW1043,S112,102,16.0,12.56,Competitor promotion,planner.c,2026-W50
+KW1043,S113,100,8.41,7.23,Competitor promotion,planner.b,2026-W48
+KW1043,S113,104,10.03,7.4,Competitor promotion,planner.c,2026-W52
+KW1043,S114,100,23.35,20.15,Competitor promotion,planner.a,2026-W48
+KW1043,S114,104,24.84,21.48,Competitor promotion,planner.a,2026-W52
+KW1043,S115,99,9.67,7.91,Competitor promotion,planner.a,2026-W47
+KW1043,S115,101,12.8,16.64,Stock-out last year,planner.b,2026-W49
+KW1043,S115,102,13.99,15.67,Stock-out last year,planner.b,2026-W50
+KW1043,S115,104,12.79,10.71,Competitor promotion,planner.c,2026-W52
+KW1043,S116,100,13.15,9.58,Competitor promotion,planner.b,2026-W48
+KW1043,S116,101,18.81,15.02,Competitor promotion,planner.a,2026-W49
+KW1043,S116,102,19.22,16.82,Competitor promotion,planner.a,2026-W50
+KW1043,S116,103,17.7,14.95,Competitor promotion,planner.a,2026-W51
+KW1043,S116,104,15.98,13.93,Competitor promotion,planner.a,2026-W52
+KW1043,S117,101,26.83,19.49,Competitor promotion,planner.b,2026-W49
+KW1043,S118,102,18.19,20.76,Stock-out last year,planner.b,2026-W50
+KW1043,S119,99,26.11,33.54,Stock-out last year,planner.b,2026-W47
+KW1043,S119,100,21.6,26.1,Stock-out last year,planner.c,2026-W48
+KW1043,S119,103,23.48,29.98,Stock-out last year,planner.b,2026-W51
+KW1043,S119,104,20.1,16.71,Competitor promotion,planner.c,2026-W52
+KW1043,S120,100,10.98,9.78,Competitor promotion,planner.a,2026-W48
+KW1043,S121,101,12.06,9.66,Competitor promotion,planner.b,2026-W49
+KW1043,S121,102,12.06,11.09,Competitor promotion,planner.b,2026-W50
+KW1043,S122,99,14.61,17.9,Local event planned,planner.a,2026-W47
+KW1043,S122,101,14.19,18.15,Stock-out last year,planner.b,2026-W49
+KW1043,S122,103,18.38,24.53,Local event planned,planner.b,2026-W51
+KW1043,S122,104,14.44,11.67,Competitor promotion,planner.a,2026-W52
+KW1043,S123,100,11.62,12.45,Stock-out last year,planner.b,2026-W48
+KW1043,S123,103,14.22,16.94,Stock-out last year,planner.b,2026-W51
+KW1043,S124,98,14.08,11.35,Competitor promotion,planner.a,2026-W46
+KW1043,S124,99,16.95,13.08,Competitor promotion,planner.a,2026-W47
+KW1043,S124,100,17.11,22.94,Local event planned,planner.a,2026-W48
+KW1043,S124,104,15.03,11.74,Competitor promotion,planner.c,2026-W52
+KW1044,S101,103,7.66,6.33,Competitor promotion,planner.a,2026-W51
+KW1044,S101,104,7.06,5.41,Competitor promotion,planner.a,2026-W52
+KW1044,S102,98,3.44,2.99,Competitor promotion,planner.c,2026-W46
+KW1044,S102,103,4.55,3.9,Competitor promotion,planner.a,2026-W51
+KW1044,S103,98,6.17,6.54,Local event planned,planner.a,2026-W46
+KW1044,S103,101,7.6,6.49,Competitor promotion,planner.a,2026-W49
+KW1044,S103,102,7.04,5.87,Competitor promotion,planner.a,2026-W50
+KW1044,S104,99,3.02,2.32,Competitor promotion,planner.a,2026-W47
+KW1044,S105,100,4.72,4.05,Competitor promotion,planner.b,2026-W48
+KW1044,S105,101,6.37,5.19,Competitor promotion,planner.c,2026-W49
+KW1044,S105,104,4.82,3.53,Competitor promotion,planner.b,2026-W52
+KW1044,S108,99,8.21,6.61,Competitor promotion,planner.b,2026-W47
+KW1044,S108,103,9.94,7.38,Competitor promotion,planner.a,2026-W51
+KW1044,S109,103,8.05,7.04,Competitor promotion,planner.b,2026-W51
+KW1044,S109,104,8.08,6.46,Competitor promotion,planner.a,2026-W52
+KW1044,S110,98,4.08,3.53,Competitor promotion,planner.b,2026-W46
+KW1044,S110,101,6.63,7.44,Stock-out last year,planner.b,2026-W49
+KW1044,S110,102,6.39,7.48,Stock-out last year,planner.a,2026-W50
+KW1044,S110,104,5.63,4.83,Competitor promotion,planner.b,2026-W52
+KW1044,S112,103,5.47,3.92,Competitor promotion,planner.c,2026-W51
+KW1044,S113,99,3.86,3.45,Competitor promotion,planner.b,2026-W47
+KW1044,S113,102,4.14,5.74,Stock-out last year,planner.c,2026-W50
+KW1044,S114,103,11.75,9.43,Competitor promotion,planner.a,2026-W51
+KW1044,S115,102,3.61,2.52,Competitor promotion,planner.b,2026-W50
+KW1044,S116,98,4.05,2.73,Competitor promotion,planner.c,2026-W46
+KW1044,S116,99,5.09,3.74,Competitor promotion,planner.c,2026-W47
+KW1044,S117,99,7.63,5.83,Competitor promotion,planner.b,2026-W47
+KW1044,S118,99,5.26,4.2,Competitor promotion,planner.a,2026-W47
+KW1044,S118,103,7.0,5.5,Competitor promotion,planner.b,2026-W51
+KW1044,S119,103,11.21,9.08,Competitor promotion,planner.c,2026-W51
+KW1044,S120,99,4.16,4.93,Stock-out last year,planner.b,2026-W47
+KW1044,S120,100,4.13,2.88,Competitor promotion,planner.b,2026-W48
+KW1044,S120,101,5.27,4.32,Competitor promotion,planner.b,2026-W49
+KW1044,S120,104,4.58,3.31,Competitor promotion,planner.a,2026-W52
+KW1044,S122,99,5.19,6.8,Local event planned,planner.c,2026-W47
+KW1044,S124,100,5.85,7.58,Local event planned,planner.c,2026-W48
+KW1045,S103,98,36.11,53.62,Local event planned,planner.a,2026-W46
+KW1045,S103,100,32.31,27.62,Competitor promotion,planner.b,2026-W48
+KW1045,S104,99,12.83,11.47,Competitor promotion,planner.a,2026-W47
+KW1045,S109,101,44.45,35.68,Competitor promotion,planner.b,2026-W49
+KW1045,S110,100,25.19,35.66,Stock-out last year,planner.c,2026-W48
+KW1045,S113,104,15.05,11.0,Competitor promotion,planner.b,2026-W52
+KW1045,S114,100,53.72,46.14,Competitor promotion,planner.b,2026-W48
+KW1045,S117,103,42.0,30.98,Competitor promotion,planner.c,2026-W51
+KW1045,S117,104,35.14,27.1,Competitor promotion,planner.b,2026-W52
+KW1045,S118,98,30.31,35.64,Stock-out last year,planner.a,2026-W46
+KW1045,S118,100,30.86,42.34,Stock-out last year,planner.c,2026-W48
+KW1045,S120,101,23.08,18.01,Competitor promotion,planner.c,2026-W49
+KW1045,S120,103,20.05,16.02,Competitor promotion,planner.a,2026-W51
+KW1045,S120,104,16.53,14.12,Competitor promotion,planner.b,2026-W52
+KW1045,S121,99,17.76,21.87,Stock-out last year,planner.b,2026-W47
+KW1045,S121,102,17.42,20.82,Stock-out last year,planner.c,2026-W50
+KW1045,S122,99,32.98,43.3,Local event planned,planner.c,2026-W47
+KW1045,S122,101,27.82,35.4,Stock-out last year,planner.b,2026-W49
+KW1045,S122,103,33.15,38.82,Local event planned,planner.c,2026-W51
+KW1045,S122,104,25.06,18.1,Competitor promotion,planner.b,2026-W52
+KW1045,S123,98,22.11,28.43,Stock-out last year,planner.c,2026-W46
+KW1045,S123,99,20.16,24.08,Stock-out last year,planner.b,2026-W47
+KW1045,S124,100,33.88,44.97,Local event planned,planner.a,2026-W48
+KW1046,S101,99,10.81,12.97,Stock-out last year,planner.a,2026-W47
+KW1046,S101,102,9.73,12.78,Stock-out last year,planner.c,2026-W50
+KW1046,S101,104,10.11,7.8,Competitor promotion,planner.c,2026-W52
+KW1046,S102,100,7.89,6.37,Competitor promotion,planner.a,2026-W48
+KW1046,S102,103,7.08,6.01,Competitor promotion,planner.c,2026-W51
+KW1046,S102,104,6.18,4.96,Competitor promotion,planner.c,2026-W52
+KW1046,S103,98,11.81,15.51,Local event planned,planner.c,2026-W46
+KW1046,S104,104,5.12,6.09,Stock-out last year,planner.c,2026-W52
+KW1046,S105,98,7.42,5.99,Competitor promotion,planner.b,2026-W46
+KW1046,S106,100,5.54,4.31,Competitor promotion,planner.c,2026-W48
+KW1046,S107,99,9.99,8.39,Competitor promotion,planner.a,2026-W47
+KW1046,S108,101,14.31,11.88,Competitor promotion,planner.c,2026-W49
+KW1046,S109,101,16.39,20.67,Stock-out last year,planner.b,2026-W49
+KW1046,S109,104,14.66,11.3,Competitor promotion,planner.c,2026-W52
+KW1046,S110,104,9.32,7.14,Competitor promotion,planner.b,2026-W52
+KW1046,S112,104,7.26,5.14,Competitor promotion,planner.b,2026-W52
+KW1046,S114,99,16.84,14.07,Competitor promotion,planner.a,2026-W47
+KW1046,S115,98,5.47,4.35,Competitor promotion,planner.b,2026-W46
+KW1046,S115,103,5.68,7.03,Stock-out last year,planner.b,2026-W51
+KW1046,S116,102,9.06,6.52,Competitor promotion,planner.c,2026-W50
+KW1046,S117,101,13.56,17.55,Stock-out last year,planner.b,2026-W49
+KW1046,S117,102,12.0,14.17,Stock-out last year,planner.a,2026-W50
+KW1046,S117,103,13.34,14.34,Stock-out last year,planner.c,2026-W51
+KW1046,S118,100,7.76,6.81,Competitor promotion,planner.a,2026-W48
+KW1046,S118,103,9.38,7.55,Competitor promotion,planner.c,2026-W51
+KW1046,S119,98,13.42,15.52,Stock-out last year,planner.b,2026-W46
+KW1046,S119,99,15.15,18.25,Stock-out last year,planner.b,2026-W47
+KW1046,S119,101,16.45,13.44,Competitor promotion,planner.a,2026-W49
+KW1046,S120,100,7.26,9.48,Stock-out last year,planner.b,2026-W48
+KW1046,S120,104,6.71,6.05,Competitor promotion,planner.b,2026-W52
+KW1046,S122,99,9.87,13.38,Local event planned,planner.c,2026-W47
+KW1046,S122,103,8.05,9.23,Local event planned,planner.c,2026-W51
+KW1046,S123,98,6.2,7.29,Stock-out last year,planner.c,2026-W46
+KW1046,S123,102,6.95,5.57,Competitor promotion,planner.a,2026-W50
+KW1046,S123,104,6.04,6.25,Stock-out last year,planner.c,2026-W52
+KW1046,S124,98,7.69,6.96,Competitor promotion,planner.c,2026-W46
+KW1046,S124,100,9.97,13.83,Local event planned,planner.b,2026-W48
+KW1046,S124,103,9.62,12.13,Stock-out last year,planner.b,2026-W51
+KW1047,S101,98,11.38,9.62,Competitor promotion,planner.a,2026-W46
+KW1047,S101,104,11.68,9.95,Competitor promotion,planner.a,2026-W52
+KW1047,S102,98,7.35,7.85,Stock-out last year,planner.a,2026-W46
+KW1047,S103,98,13.12,18.27,Local event planned,planner.c,2026-W46
+KW1047,S103,104,12.07,8.78,Competitor promotion,planner.a,2026-W52
+KW1047,S105,103,9.89,8.35,Competitor promotion,planner.c,2026-W51
+KW1047,S106,102,8.65,5.64,Competitor promotion,planner.c,2026-W50
+KW1047,S107,100,8.36,5.99,Competitor promotion,planner.b,2026-W48
+KW1047,S107,101,10.89,7.77,Competitor promotion,planner.b,2026-W49
+KW1047,S107,103,11.18,8.36,Competitor promotion,planner.c,2026-W51
+KW1047,S108,98,13.35,15.33,Stock-out last year,planner.c,2026-W46
+KW1047,S108,104,15.39,11.67,Competitor promotion,planner.b,2026-W52
+KW1047,S109,101,14.9,10.79,Competitor promotion,planner.b,2026-W49
+KW1047,S110,99,10.29,7.48,Competitor promotion,planner.a,2026-W47
+KW1047,S110,102,10.53,8.74,Competitor promotion,planner.a,2026-W50
+KW1047,S111,104,6.25,7.94,Stock-out last year,planner.a,2026-W52
+KW1047,S113,99,7.56,10.19,Stock-out last year,planner.c,2026-W47
+KW1047,S113,100,6.78,5.25,Competitor promotion,planner.b,2026-W48
+KW1047,S114,103,18.95,14.72,Competitor promotion,planner.c,2026-W51
+KW1047,S115,100,6.49,7.38,Stock-out last year,planner.b,2026-W48
+KW1047,S115,103,8.53,6.43,Competitor promotion,planner.b,2026-W51
+KW1047,S116,98,8.64,10.87,Stock-out last year,planner.a,2026-W46
+KW1047,S116,99,9.78,11.96,Stock-out last year,planner.c,2026-W47
+KW1047,S118,103,11.03,13.14,Stock-out last year,planner.a,2026-W51
+KW1047,S119,98,14.26,11.7,Competitor promotion,planner.c,2026-W46
+KW1047,S121,99,6.37,6.54,Stock-out last year,planner.b,2026-W47
+KW1047,S121,104,7.43,6.4,Competitor promotion,planner.b,2026-W52
+KW1047,S122,99,10.38,14.55,Local event planned,planner.b,2026-W47
+KW1047,S122,100,7.19,6.73,Competitor promotion,planner.c,2026-W48
+KW1047,S122,103,11.95,15.86,Local event planned,planner.a,2026-W51
+KW1047,S123,99,7.98,8.58,Stock-out last year,planner.b,2026-W47
+KW1047,S124,99,9.7,7.94,Competitor promotion,planner.b,2026-W47
+KW1047,S124,104,12.47,8.66,Competitor promotion,planner.a,2026-W52
+KW1048,S101,103,20.14,26.56,Stock-out last year,planner.c,2026-W51
+KW1048,S103,98,17.56,22.26,Local event planned,planner.a,2026-W46
+KW1048,S103,103,21.02,14.28,Competitor promotion,planner.a,2026-W51
+KW1048,S104,98,7.31,8.55,Stock-out last year,planner.a,2026-W46
+KW1048,S105,100,12.16,13.86,Stock-out last year,planner.b,2026-W48
+KW1048,S105,104,11.93,9.46,Competitor promotion,planner.a,2026-W52
+KW1048,S107,101,13.69,16.09,Stock-out last year,planner.a,2026-W49
+KW1048,S108,99,20.35,27.05,Stock-out last year,planner.b,2026-W47
+KW1048,S108,104,14.8,9.85,Competitor promotion,planner.b,2026-W52
+KW1048,S109,98,15.82,19.41,Stock-out last year,planner.c,2026-W46
+KW1048,S109,104,14.9,12.44,Competitor promotion,planner.c,2026-W52
+KW1048,S110,99,13.89,16.68,Stock-out last year,planner.a,2026-W47
+KW1048,S110,103,12.59,9.92,Competitor promotion,planner.a,2026-W51
+KW1048,S111,101,7.57,5.66,Competitor promotion,planner.b,2026-W49
+KW1048,S111,102,6.62,7.35,Stock-out last year,planner.a,2026-W50
+KW1048,S112,100,10.46,7.63,Competitor promotion,planner.c,2026-W48
+KW1048,S113,99,8.71,10.1,Stock-out last year,planner.c,2026-W47
+KW1048,S114,100,18.29,21.06,Stock-out last year,planner.a,2026-W48
+KW1048,S116,99,11.77,14.4,Stock-out last year,planner.b,2026-W47
+KW1048,S116,104,14.47,18.54,Stock-out last year,planner.c,2026-W52
+KW1048,S118,102,13.4,11.32,Competitor promotion,planner.b,2026-W50
+KW1048,S119,98,17.23,12.44,Competitor promotion,planner.a,2026-W46
+KW1048,S119,104,15.76,12.77,Competitor promotion,planner.c,2026-W52
+KW1048,S120,104,9.47,7.64,Competitor promotion,planner.b,2026-W52
+KW1048,S122,99,11.65,14.42,Local event planned,planner.b,2026-W47
+KW1048,S122,104,9.45,7.74,Competitor promotion,planner.c,2026-W52
+KW1048,S123,103,9.05,11.19,Stock-out last year,planner.c,2026-W51
+KW1048,S123,104,7.96,10.75,Stock-out last year,planner.b,2026-W52
+KW1048,S124,99,13.94,15.5,Stock-out last year,planner.b,2026-W47
+KW1048,S124,100,16.24,22.39,Local event planned,planner.c,2026-W48
+KW1049,S101,98,9.61,11.42,Stock-out last year,planner.a,2026-W46
+KW1049,S101,103,13.51,10.32,Competitor promotion,planner.b,2026-W51
+KW1049,S103,98,11.14,14.98,Local event planned,planner.a,2026-W46
+KW1049,S103,104,13.12,10.33,Competitor promotion,planner.b,2026-W52
+KW1049,S105,102,12.17,10.25,Competitor promotion,planner.b,2026-W50
+KW1049,S106,99,8.43,7.32,Competitor promotion,planner.a,2026-W47
+KW1049,S106,102,10.05,7.35,Competitor promotion,planner.b,2026-W50
+KW1049,S107,98,8.27,6.76,Competitor promotion,planner.b,2026-W46
+KW1049,S107,99,9.94,8.43,Competitor promotion,planner.a,2026-W47
+KW1049,S107,102,12.23,8.97,Competitor promotion,planner.c,2026-W50
+KW1049,S107,103,11.86,9.23,Competitor promotion,planner.c,2026-W51
+KW1049,S110,98,9.37,10.7,Stock-out last year,planner.a,2026-W46
+KW1049,S110,99,10.43,11.8,Stock-out last year,planner.b,2026-W47
+KW1049,S110,104,12.09,9.46,Competitor promotion,planner.a,2026-W52
+KW1049,S111,98,3.9,3.02,Competitor promotion,planner.c,2026-W46
+KW1049,S111,99,4.18,5.1,Stock-out last year,planner.a,2026-W47
+KW1049,S111,102,5.18,3.52,Competitor promotion,planner.c,2026-W50
+KW1049,S112,99,9.66,8.11,Competitor promotion,planner.b,2026-W47
+KW1049,S112,104,10.3,7.4,Competitor promotion,planner.a,2026-W52
+KW1049,S113,98,6.51,5.32,Competitor promotion,planner.a,2026-W46
+KW1049,S113,103,8.87,7.55,Competitor promotion,planner.b,2026-W51
+KW1049,S114,98,12.27,9.91,Competitor promotion,planner.b,2026-W46
+KW1049,S114,99,16.17,12.36,Competitor promotion,planner.b,2026-W47
+KW1049,S114,103,17.38,14.86,Competitor promotion,planner.b,2026-W51
+KW1049,S115,99,6.44,8.21,Stock-out last year,planner.b,2026-W47
+KW1049,S115,101,8.39,6.11,Competitor promotion,planner.c,2026-W49
+KW1049,S115,102,9.06,7.54,Competitor promotion,planner.c,2026-W50
+KW1049,S115,104,8.2,5.87,Competitor promotion,planner.c,2026-W52
+KW1049,S116,103,12.11,10.13,Competitor promotion,planner.c,2026-W51
+KW1049,S117,100,11.74,8.88,Competitor promotion,planner.c,2026-W48
+KW1049,S117,104,16.09,11.8,Competitor promotion,planner.a,2026-W52
+KW1049,S120,104,9.92,7.28,Competitor promotion,planner.a,2026-W52
+KW1049,S121,99,7.05,9.1,Stock-out last year,planner.a,2026-W47
+KW1049,S122,99,10.84,15.32,Local event planned,planner.a,2026-W47
+KW1049,S122,101,10.66,11.59,Stock-out last year,planner.b,2026-W49
+KW1049,S122,103,12.75,17.51,Local event planned,planner.b,2026-W51
+KW1049,S123,99,8.75,6.56,Competitor promotion,planner.b,2026-W47
+KW1049,S123,101,10.62,7.72,Competitor promotion,planner.a,2026-W49
+KW1049,S123,104,9.66,8.61,Competitor promotion,planner.a,2026-W52
+KW1049,S124,100,10.24,14.17,Local event planned,planner.c,2026-W48
+KW1049,S124,101,12.71,9.29,Competitor promotion,planner.c,2026-W49
+KW1049,S124,103,11.45,9.1,Competitor promotion,planner.c,2026-W51
+KW1050,S101,102,19.98,15.73,Competitor promotion,planner.b,2026-W50
+KW1050,S101,104,15.83,13.73,Competitor promotion,planner.c,2026-W52
+KW1050,S102,101,13.88,10.54,Competitor promotion,planner.b,2026-W49
+KW1050,S102,102,13.17,10.42,Competitor promotion,planner.c,2026-W50
+KW1050,S103,98,24.26,28.09,Local event planned,planner.b,2026-W46
+KW1050,S103,104,16.43,12.47,Competitor promotion,planner.a,2026-W52
+KW1050,S104,102,8.92,10.03,Stock-out last year,planner.a,2026-W50
+KW1050,S104,103,8.51,9.07,Stock-out last year,planner.a,2026-W51
+KW1050,S105,99,13.73,11.72,Competitor promotion,planner.b,2026-W47
+KW1050,S105,100,12.15,10.5,Competitor promotion,planner.a,2026-W48
+KW1050,S107,98,17.59,22.44,Stock-out last year,planner.a,2026-W46
+KW1050,S107,101,19.1,15.49,Competitor promotion,planner.c,2026-W49
+KW1050,S107,104,15.87,12.17,Competitor promotion,planner.c,2026-W52
+KW1050,S108,99,23.58,18.16,Competitor promotion,planner.a,2026-W47
+KW1050,S109,100,20.16,16.24,Competitor promotion,planner.c,2026-W48
+KW1050,S109,104,20.73,24.9,Stock-out last year,planner.b,2026-W52
+KW1050,S111,99,7.84,6.8,Competitor promotion,planner.a,2026-W47
+KW1050,S112,99,14.78,11.25,Competitor promotion,planner.a,2026-W47
+KW1050,S113,100,10.69,8.94,Competitor promotion,planner.a,2026-W48
+KW1050,S113,103,10.72,8.57,Competitor promotion,planner.c,2026-W51
+KW1050,S113,104,10.03,8.55,Competitor promotion,planner.c,2026-W52
+KW1050,S115,99,10.68,12.99,Stock-out last year,planner.a,2026-W47
+KW1050,S115,100,9.68,7.92,Competitor promotion,planner.a,2026-W48
+KW1050,S116,104,13.07,10.59,Competitor promotion,planner.c,2026-W52
+KW1050,S117,99,28.55,22.64,Competitor promotion,planner.b,2026-W47
+KW1050,S118,99,16.78,11.46,Competitor promotion,planner.a,2026-W47
+KW1050,S119,99,26.45,24.03,Competitor promotion,planner.b,2026-W47
+KW1050,S119,101,27.94,19.76,Competitor promotion,planner.b,2026-W49
+KW1050,S120,100,15.32,13.88,Competitor promotion,planner.a,2026-W48
+KW1050,S121,98,9.72,13.98,Stock-out last year,planner.b,2026-W46
+KW1050,S121,101,11.12,12.81,Stock-out last year,planner.c,2026-W49
+KW1050,S122,99,20.45,25.93,Local event planned,planner.b,2026-W47
+KW1050,S122,101,14.92,16.52,Stock-out last year,planner.c,2026-W49
+KW1050,S122,103,17.68,20.48,Local event planned,planner.b,2026-W51
+KW1050,S122,104,12.24,14.2,Stock-out last year,planner.c,2026-W52
+KW1050,S123,98,13.89,14.7,Stock-out last year,planner.b,2026-W46
+KW1050,S123,102,15.41,11.83,Competitor promotion,planner.c,2026-W50
+KW1050,S124,100,19.74,27.64,Local event planned,planner.b,2026-W48
+KW1050,S124,102,18.22,21.31,Stock-out last year,planner.b,2026-W50
+KW1050,S124,103,18.14,21.82,Stock-out last year,planner.c,2026-W51
+KW1051,S104,98,2.78,1.85,Competitor promotion,planner.a,2026-W46
+KW1051,S104,102,3.42,2.78,Competitor promotion,planner.b,2026-W50
+KW1051,S104,104,3.41,2.99,Competitor promotion,planner.c,2026-W52
+KW1051,S105,104,4.47,3.61,Competitor promotion,planner.c,2026-W52
+KW1051,S106,102,3.61,3.44,Competitor promotion,planner.c,2026-W50
+KW1051,S106,103,3.66,2.6,Competitor promotion,planner.c,2026-W51
+KW1051,S109,98,6.57,8.59,Stock-out last year,planner.c,2026-W46
+KW1051,S109,101,9.16,6.76,Competitor promotion,planner.a,2026-W49
+KW1051,S110,99,4.04,3.0,Competitor promotion,planner.c,2026-W47
+KW1051,S111,101,2.91,3.38,Stock-out last year,planner.c,2026-W49
+KW1051,S111,102,2.86,3.5,Stock-out last year,planner.b,2026-W50
+KW1051,S115,102,3.55,3.06,Competitor promotion,planner.c,2026-W50
+KW1051,S116,104,4.38,3.41,Competitor promotion,planner.b,2026-W52
+KW1051,S118,101,6.12,5.73,Competitor promotion,planner.a,2026-W49
+KW1051,S118,104,5.61,4.3,Competitor promotion,planner.a,2026-W52
+KW1051,S121,98,2.65,1.98,Competitor promotion,planner.b,2026-W46
+KW1051,S121,103,3.4,2.66,Competitor promotion,planner.c,2026-W51
+KW1051,S122,98,3.62,2.57,Competitor promotion,planner.b,2026-W46
+KW1051,S122,99,5.34,6.98,Local event planned,planner.b,2026-W47
+KW1051,S122,101,4.21,3.54,Competitor promotion,planner.c,2026-W49
+KW1051,S122,103,5.65,7.3,Local event planned,planner.b,2026-W51
+KW1051,S122,104,4.05,3.21,Competitor promotion,planner.b,2026-W52
+KW1051,S123,98,3.38,2.94,Competitor promotion,planner.b,2026-W46
+KW1051,S123,99,3.42,2.74,Competitor promotion,planner.a,2026-W47
+KW1051,S123,104,3.97,3.28,Competitor promotion,planner.c,2026-W52
+KW1051,S124,98,3.5,5.01,Stock-out last year,planner.b,2026-W46
+KW1051,S124,100,4.54,6.04,Local event planned,planner.c,2026-W48
+KW1052,S101,101,4.42,3.47,Competitor promotion,planner.c,2026-W49
+KW1052,S101,102,4.49,3.61,Competitor promotion,planner.b,2026-W50
+KW1052,S101,103,4.63,5.38,Stock-out last year,planner.b,2026-W51
+KW1052,S103,98,4.28,5.19,Local event planned,planner.c,2026-W46
+KW1052,S103,101,3.69,4.54,Stock-out last year,planner.b,2026-W49
+KW1052,S104,102,2.41,3.21,Stock-out last year,planner.b,2026-W50
+KW1052,S105,101,3.67,2.91,Competitor promotion,planner.b,2026-W49
+KW1052,S105,103,3.85,2.94,Competitor promotion,planner.c,2026-W51
+KW1052,S106,104,2.53,2.91,Stock-out last year,planner.b,2026-W52
+KW1052,S107,99,5.13,3.87,Competitor promotion,planner.a,2026-W47
+KW1052,S107,102,4.92,4.13,Competitor promotion,planner.b,2026-W50
+KW1052,S108,99,6.2,7.69,Stock-out last year,planner.b,2026-W47
+KW1052,S110,98,3.31,3.95,Stock-out last year,planner.b,2026-W46
+KW1052,S110,103,3.99,3.23,Competitor promotion,planner.b,2026-W51
+KW1052,S110,104,3.54,2.89,Competitor promotion,planner.b,2026-W52
+KW1052,S111,100,1.79,1.5,Competitor promotion,planner.a,2026-W48
+KW1052,S111,103,2.1,2.21,Stock-out last year,planner.c,2026-W51
+KW1052,S112,99,3.5,4.0,Stock-out last year,planner.b,2026-W47
+KW1052,S112,102,3.14,2.78,Competitor promotion,planner.b,2026-W50
+KW1052,S113,103,2.79,2.35,Competitor promotion,planner.b,2026-W51
+KW1052,S113,104,2.6,2.38,Competitor promotion,planner.a,2026-W52
+KW1052,S114,100,5.98,5.02,Competitor promotion,planner.a,2026-W48
+KW1052,S115,98,2.26,1.93,Competitor promotion,planner.b,2026-W46
+KW1052,S115,103,2.59,2.87,Stock-out last year,planner.c,2026-W51
+KW1052,S116,103,3.84,4.74,Stock-out last year,planner.b,2026-W51
+KW1052,S118,99,4.16,5.02,Stock-out last year,planner.a,2026-W47
+KW1052,S118,103,4.04,3.13,Competitor promotion,planner.c,2026-W51
+KW1052,S120,98,2.83,3.35,Stock-out last year,planner.a,2026-W46
+KW1052,S120,100,2.88,3.46,Stock-out last year,planner.a,2026-W48
+KW1052,S120,104,2.98,2.24,Competitor promotion,planner.c,2026-W52
+KW1052,S121,101,2.45,2.1,Competitor promotion,planner.b,2026-W49
+KW1052,S122,99,3.98,4.68,Local event planned,planner.b,2026-W47
+KW1052,S122,103,3.73,5.32,Local event planned,planner.b,2026-W51
+KW1052,S124,98,3.62,4.35,Stock-out last year,planner.c,2026-W46
+KW1052,S124,100,4.48,6.52,Local event planned,planner.c,2026-W48
+KW1052,S124,101,3.97,5.34,Stock-out last year,planner.a,2026-W49
+KW1052,S124,102,3.81,4.81,Stock-out last year,planner.c,2026-W50
+KW1052,S124,103,3.96,5.07,Stock-out last year,planner.b,2026-W51
+KW1053,S103,98,23.34,33.25,Local event planned,planner.c,2026-W46
+KW1053,S103,100,19.59,13.74,Competitor promotion,planner.c,2026-W48
+KW1053,S103,103,27.01,18.25,Competitor promotion,planner.a,2026-W51
+KW1053,S104,100,9.71,12.4,Stock-out last year,planner.b,2026-W48
+KW1053,S104,103,13.69,17.13,Stock-out last year,planner.c,2026-W51
+KW1053,S104,104,11.11,8.92,Competitor promotion,planner.c,2026-W52
+KW1053,S105,99,15.99,18.93,Stock-out last year,planner.c,2026-W47
+KW1053,S105,102,18.46,23.19,Stock-out last year,planner.b,2026-W50
+KW1053,S105,104,16.19,15.64,Competitor promotion,planner.a,2026-W52
+KW1053,S106,100,12.3,10.14,Competitor promotion,planner.c,2026-W48
+KW1053,S106,102,17.04,14.01,Competitor promotion,planner.c,2026-W50
+KW1053,S107,99,15.14,11.99,Competitor promotion,planner.a,2026-W47
+KW1053,S107,103,18.88,14.8,Competitor promotion,planner.c,2026-W51
+KW1053,S107,104,17.81,15.37,Competitor promotion,planner.a,2026-W52
+KW1053,S108,100,21.32,15.22,Competitor promotion,planner.c,2026-W48
+KW1053,S108,104,19.98,16.37,Competitor promotion,planner.b,2026-W52
+KW1053,S109,98,21.93,26.96,Stock-out last year,planner.b,2026-W46
+KW1053,S109,99,25.81,19.17,Competitor promotion,planner.b,2026-W47
+KW1053,S109,102,25.85,23.25,Competitor promotion,planner.b,2026-W50
+KW1053,S109,103,23.44,19.85,Competitor promotion,planner.c,2026-W51
+KW1053,S110,98,15.99,17.1,Stock-out last year,planner.c,2026-W46
+KW1053,S111,100,7.23,8.35,Stock-out last year,planner.a,2026-W48
+KW1053,S111,104,8.08,11.21,Stock-out last year,planner.b,2026-W52
+KW1053,S112,100,12.9,11.09,Competitor promotion,planner.c,2026-W48
+KW1053,S112,104,13.54,11.36,Competitor promotion,planner.b,2026-W52
+KW1053,S113,102,12.26,8.11,Competitor promotion,planner.b,2026-W50
+KW1053,S114,101,31.1,26.76,Competitor promotion,planner.b,2026-W49
+KW1053,S114,103,26.27,19.91,Competitor promotion,planner.b,2026-W51
+KW1053,S115,98,8.24,8.97,Stock-out last year,planner.a,2026-W46
+KW1053,S115,103,13.46,9.11,Competitor promotion,planner.a,2026-W51
+KW1053,S117,99,25.97,18.96,Competitor promotion,planner.c,2026-W47
+KW1053,S118,101,21.94,18.83,Competitor promotion,planner.a,2026-W49
+KW1053,S118,103,20.31,16.64,Competitor promotion,planner.a,2026-W51
+KW1053,S120,101,16.17,20.56,Stock-out last year,planner.b,2026-W49
+KW1053,S120,104,16.21,12.22,Competitor promotion,planner.a,2026-W52
+KW1053,S121,99,11.4,9.82,Competitor promotion,planner.a,2026-W47
+KW1053,S122,98,11.75,16.17,Stock-out last year,planner.c,2026-W46
+KW1053,S122,99,15.67,22.13,Local event planned,planner.a,2026-W47
+KW1053,S122,103,19.65,28.37,Local event planned,planner.c,2026-W51
+KW1053,S123,99,14.24,17.41,Stock-out last year,planner.a,2026-W47
+KW1053,S123,100,12.66,9.48,Competitor promotion,planner.c,2026-W48
+KW1053,S124,100,18.18,24.05,Local event planned,planner.c,2026-W48
+KW1053,S124,101,22.29,16.11,Competitor promotion,planner.a,2026-W49
+KW1053,S124,102,20.43,18.01,Competitor promotion,planner.a,2026-W50
+KW1054,S101,102,13.38,11.25,Competitor promotion,planner.b,2026-W50
+KW1054,S102,102,9.37,8.29,Competitor promotion,planner.b,2026-W50
+KW1054,S102,103,8.74,6.59,Competitor promotion,planner.a,2026-W51
+KW1054,S103,98,14.31,21.19,Local event planned,planner.b,2026-W46
+KW1054,S103,99,9.92,9.58,Competitor promotion,planner.c,2026-W47
+KW1054,S103,100,9.89,7.41,Competitor promotion,planner.a,2026-W48
+KW1054,S104,98,5.62,4.62,Competitor promotion,planner.b,2026-W46
+KW1054,S104,103,7.65,6.47,Competitor promotion,planner.b,2026-W51
+KW1054,S104,104,7.11,5.08,Competitor promotion,planner.b,2026-W52
+KW1054,S106,103,9.43,7.75,Competitor promotion,planner.b,2026-W51
+KW1054,S106,104,8.87,7.53,Competitor promotion,planner.b,2026-W52
+KW1054,S108,101,14.89,10.89,Competitor promotion,planner.b,2026-W49
+KW1054,S109,101,14.66,12.36,Competitor promotion,planner.c,2026-W49
+KW1054,S110,98,9.41,7.89,Competitor promotion,planner.b,2026-W46
+KW1054,S110,101,11.85,9.25,Competitor promotion,planner.a,2026-W49
+KW1054,S110,104,10.82,8.66,Competitor promotion,planner.b,2026-W52
+KW1054,S111,98,4.38,3.44,Competitor promotion,planner.c,2026-W46
+KW1054,S111,99,4.04,3.08,Competitor promotion,planner.b,2026-W47
+KW1054,S112,99,7.76,6.54,Competitor promotion,planner.b,2026-W47
+KW1054,S112,101,9.95,7.62,Competitor promotion,planner.c,2026-W49
+KW1054,S112,102,10.43,7.88,Competitor promotion,planner.a,2026-W50
+KW1054,S113,98,6.23,4.3,Competitor promotion,planner.a,2026-W46
+KW1054,S113,102,7.94,8.99,Stock-out last year,planner.b,2026-W50
+KW1054,S116,98,8.9,7.21,Competitor promotion,planner.c,2026-W46
+KW1054,S116,100,7.84,6.03,Competitor promotion,planner.a,2026-W48
+KW1054,S117,98,13.3,11.35,Competitor promotion,planner.c,2026-W46
+KW1054,S117,103,14.92,13.14,Competitor promotion,planner.c,2026-W51
+KW1054,S117,104,15.07,12.59,Competitor promotion,planner.a,2026-W52
+KW1054,S118,101,11.73,9.74,Competitor promotion,planner.a,2026-W49
+KW1054,S119,98,14.34,10.78,Competitor promotion,planner.b,2026-W46
+KW1054,S119,99,14.73,12.31,Competitor promotion,planner.a,2026-W47
+KW1054,S119,101,16.66,12.7,Competitor promotion,planner.a,2026-W49
+KW1054,S119,103,15.37,13.03,Competitor promotion,planner.b,2026-W51
+KW1054,S120,98,6.93,6.16,Competitor promotion,planner.a,2026-W46
+KW1054,S121,98,5.5,4.35,Competitor promotion,planner.a,2026-W46
+KW1054,S121,102,7.48,6.62,Competitor promotion,planner.b,2026-W50
+KW1054,S121,104,6.74,5.21,Competitor promotion,planner.a,2026-W52
+KW1054,S122,98,7.66,6.7,Competitor promotion,planner.b,2026-W46
+KW1054,S122,99,9.93,13.71,Local event planned,planner.a,2026-W47
+KW1054,S122,100,7.34,5.87,Competitor promotion,planner.c,2026-W48
+KW1054,S122,103,12.45,17.52,Local event planned,planner.b,2026-W51
+KW1054,S124,98,9.7,7.94,Competitor promotion,planner.c,2026-W46
+KW1054,S124,104,10.22,8.0,Competitor promotion,planner.b,2026-W52
+KW1055,S101,98,18.96,14.23,Competitor promotion,planner.b,2026-W46
+KW1055,S101,99,20.27,15.36,Competitor promotion,planner.b,2026-W47
+KW1055,S103,98,23.91,29.63,Local event planned,planner.b,2026-W46
+KW1055,S103,100,17.7,14.36,Competitor promotion,planner.c,2026-W48
+KW1055,S103,101,19.98,14.88,Competitor promotion,planner.c,2026-W49
+KW1055,S104,99,9.87,8.65,Competitor promotion,planner.a,2026-W47
+KW1055,S105,100,15.52,12.51,Competitor promotion,planner.b,2026-W48
+KW1055,S106,98,14.02,11.25,Competitor promotion,planner.a,2026-W46
+KW1055,S106,100,13.76,17.54,Stock-out last year,planner.c,2026-W48
+KW1055,S106,101,15.02,11.98,Competitor promotion,planner.a,2026-W49
+KW1055,S107,103,16.92,12.55,Competitor promotion,planner.b,2026-W51
+KW1055,S108,101,25.63,28.57,Stock-out last year,planner.b,2026-W49
+KW1055,S108,102,24.18,29.82,Stock-out last year,planner.b,2026-W50
+KW1055,S109,102,25.37,33.49,Stock-out last year,planner.b,2026-W50
+KW1055,S109,103,23.99,25.92,Stock-out last year,planner.a,2026-W51
+KW1055,S110,103,17.04,14.78,Competitor promotion,planner.a,2026-W51
+KW1055,S111,98,6.69,9.2,Stock-out last year,planner.a,2026-W46
+KW1055,S112,98,16.79,20.85,Stock-out last year,planner.b,2026-W46
+KW1055,S113,100,11.98,11.35,Competitor promotion,planner.c,2026-W48
+KW1055,S114,99,28.67,26.7,Competitor promotion,planner.b,2026-W47
+KW1055,S114,100,27.23,19.31,Competitor promotion,planner.c,2026-W48
+KW1055,S114,103,25.84,20.31,Competitor promotion,planner.b,2026-W51
+KW1055,S116,104,14.19,13.81,Competitor promotion,planner.b,2026-W52
+KW1055,S117,102,24.93,18.99,Competitor promotion,planner.a,2026-W50
+KW1055,S117,103,24.77,18.66,Competitor promotion,planner.a,2026-W51
+KW1055,S118,101,20.52,23.62,Stock-out last year,planner.a,2026-W49
+KW1055,S119,98,26.0,21.47,Competitor promotion,planner.c,2026-W46
+KW1055,S119,99,26.24,22.08,Competitor promotion,planner.b,2026-W47
+KW1055,S119,100,23.89,28.04,Stock-out last year,planner.b,2026-W48
+KW1055,S120,100,15.68,17.38,Stock-out last year,planner.c,2026-W48
+KW1055,S120,104,12.88,8.2,Competitor promotion,planner.c,2026-W52
+KW1055,S121,98,9.36,10.79,Stock-out last year,planner.c,2026-W46
+KW1055,S122,99,21.37,23.26,Local event planned,planner.c,2026-W47
+KW1055,S122,103,19.6,26.6,Local event planned,planner.a,2026-W51
+KW1055,S123,103,15.18,10.68,Competitor promotion,planner.b,2026-W51
+KW1055,S124,99,18.86,22.83,Stock-out last year,planner.c,2026-W47
+KW1055,S124,100,21.6,31.2,Local event planned,planner.a,2026-W48
+KW1055,S124,104,17.98,14.83,Competitor promotion,planner.b,2026-W52
+KW1056,S101,101,17.14,12.76,Competitor promotion,planner.c,2026-W49
+KW1056,S102,99,11.94,14.82,Stock-out last year,planner.a,2026-W47
+KW1056,S102,102,13.47,17.2,Stock-out last year,planner.c,2026-W50
+KW1056,S103,98,24.45,35.07,Local event planned,planner.b,2026-W46
+KW1056,S104,100,6.55,7.69,Stock-out last year,planner.c,2026-W48
+KW1056,S104,102,8.52,9.65,Stock-out last year,planner.b,2026-W50
+KW1056,S104,103,8.28,11.44,Stock-out last year,planner.b,2026-W51
+KW1056,S105,104,15.56,10.83,Competitor promotion,planner.c,2026-W52
+KW1056,S107,99,15.52,20.24,Stock-out last year,planner.a,2026-W47
+KW1056,S107,101,17.2,20.85,Stock-out last year,planner.a,2026-W49
+KW1056,S107,103,15.1,12.65,Competitor promotion,planner.b,2026-W51
+KW1056,S107,104,15.88,13.15,Competitor promotion,planner.c,2026-W52
+KW1056,S108,99,22.4,18.22,Competitor promotion,planner.a,2026-W47
+KW1056,S108,101,25.27,19.38,Competitor promotion,planner.a,2026-W49
+KW1056,S108,102,24.38,20.02,Competitor promotion,planner.a,2026-W50
+KW1056,S109,102,24.55,16.07,Competitor promotion,planner.b,2026-W50
+KW1056,S111,99,6.17,5.08,Competitor promotion,planner.c,2026-W47
+KW1056,S111,100,5.13,4.48,Competitor promotion,planner.a,2026-W48
+KW1056,S112,99,13.11,11.4,Competitor promotion,planner.a,2026-W47
+KW1056,S112,100,11.85,8.78,Competitor promotion,planner.c,2026-W48
+KW1056,S112,102,15.65,12.55,Competitor promotion,planner.a,2026-W50
+KW1056,S112,103,15.16,17.89,Stock-out last year,planner.a,2026-W51
+KW1056,S113,104,10.17,8.68,Competitor promotion,planner.a,2026-W52
+KW1056,S115,99,10.71,11.83,Stock-out last year,planner.c,2026-W47
+KW1056,S115,100,8.96,10.41,Stock-out last year,planner.c,2026-W48
+KW1056,S115,101,11.6,13.59,Stock-out last year,planner.b,2026-W49
+KW1056,S116,101,14.44,16.2,Stock-out last year,planner.a,2026-W49
+KW1056,S116,103,13.71,16.02,Stock-out last year,planner.b,2026-W51
+KW1056,S117,102,26.65,36.89,Stock-out last year,planner.a,2026-W50
+KW1056,S117,103,25.36,27.11,Stock-out last year,planner.a,2026-W51
+KW1056,S117,104,24.86,28.33,Stock-out last year,planner.b,2026-W52
+KW1056,S118,98,14.79,13.09,Competitor promotion,planner.c,2026-W46
+KW1056,S119,98,23.81,21.36,Competitor promotion,planner.c,2026-W46
+KW1056,S121,99,8.87,10.89,Stock-out last year,planner.a,2026-W47
+KW1056,S121,100,7.02,8.71,Stock-out last year,planner.c,2026-W48
+KW1056,S121,104,9.55,11.78,Stock-out last year,planner.c,2026-W52
+KW1056,S122,99,17.66,22.83,Local event planned,planner.b,2026-W47
+KW1056,S122,103,19.65,25.11,Local event planned,planner.b,2026-W51
+KW1056,S122,104,13.94,14.37,Stock-out last year,planner.b,2026-W52
+KW1056,S123,101,15.13,11.81,Competitor promotion,planner.a,2026-W49
+KW1056,S123,102,14.52,11.87,Competitor promotion,planner.a,2026-W50
+KW1056,S124,100,18.11,23.68,Local event planned,planner.a,2026-W48
+KW1057,S101,98,3.21,2.83,Competitor promotion,planner.c,2026-W46
+KW1057,S101,104,3.1,2.71,Competitor promotion,planner.a,2026-W52
+KW1057,S102,100,2.44,1.99,Competitor promotion,planner.b,2026-W48
+KW1057,S102,101,2.54,1.93,Competitor promotion,planner.a,2026-W49
+KW1057,S103,98,3.88,6.03,Local event planned,planner.c,2026-W46
+KW1057,S103,99,3.54,2.65,Competitor promotion,planner.c,2026-W47
+KW1057,S103,101,3.54,2.76,Competitor promotion,planner.c,2026-W49
+KW1057,S104,99,2.12,1.87,Competitor promotion,planner.b,2026-W47
+KW1057,S105,98,2.68,2.32,Competitor promotion,planner.b,2026-W46
+KW1057,S105,102,3.04,2.6,Competitor promotion,planner.a,2026-W50
+KW1057,S106,98,2.08,1.49,Competitor promotion,planner.a,2026-W46
+KW1057,S106,99,2.31,1.85,Competitor promotion,planner.a,2026-W47
+KW1057,S106,100,2.21,1.84,Competitor promotion,planner.c,2026-W48
+KW1057,S107,101,3.41,2.74,Competitor promotion,planner.a,2026-W49
+KW1057,S108,98,3.69,3.14,Competitor promotion,planner.c,2026-W46
+KW1057,S109,102,3.48,2.54,Competitor promotion,planner.c,2026-W50
+KW1057,S111,103,1.89,1.66,Competitor promotion,planner.b,2026-W51
+KW1057,S113,100,2.47,1.94,Competitor promotion,planner.c,2026-W48
+KW1057,S113,104,2.59,2.14,Competitor promotion,planner.b,2026-W52
+KW1057,S115,102,2.19,1.66,Competitor promotion,planner.c,2026-W50
+KW1057,S119,100,4.31,3.31,Competitor promotion,planner.a,2026-W48
+KW1057,S119,101,4.34,3.32,Competitor promotion,planner.c,2026-W49
+KW1057,S119,103,4.36,4.15,Competitor promotion,planner.a,2026-W51
+KW1057,S120,98,2.35,1.96,Competitor promotion,planner.a,2026-W46
+KW1057,S120,100,2.4,1.86,Competitor promotion,planner.c,2026-W48
+KW1057,S120,101,2.55,2.02,Competitor promotion,planner.a,2026-W49
+KW1057,S121,104,2.17,1.7,Competitor promotion,planner.b,2026-W52
+KW1057,S122,98,2.23,1.64,Competitor promotion,planner.a,2026-W46
+KW1057,S122,99,3.24,4.34,Local event planned,planner.a,2026-W47
+KW1057,S122,103,3.2,4.23,Local event planned,planner.b,2026-W51
+KW1057,S123,101,2.49,1.94,Competitor promotion,planner.a,2026-W49
+KW1058,S101,98,10.83,13.77,Stock-out last year,planner.a,2026-W46
+KW1058,S101,100,13.58,15.99,Stock-out last year,planner.c,2026-W48
+KW1058,S101,103,16.73,14.38,Competitor promotion,planner.b,2026-W51
+KW1058,S102,100,8.19,8.23,Competitor promotion,planner.b,2026-W48
+KW1058,S102,102,8.17,6.68,Competitor promotion,planner.b,2026-W50
+KW1058,S103,98,12.74,17.4,Local event planned,planner.a,2026-W46
+KW1058,S103,100,13.39,13.9,Stock-out last year,planner.c,2026-W48
+KW1058,S105,100,10.38,11.58,Stock-out last year,planner.a,2026-W48
+KW1058,S105,103,14.69,17.16,Stock-out last year,planner.a,2026-W51
+KW1058,S105,104,10.61,7.28,Competitor promotion,planner.a,2026-W52
+KW1058,S106,98,6.55,7.75,Stock-out last year,planner.b,2026-W46
+KW1058,S106,103,10.15,11.56,Stock-out last year,planner.b,2026-W51
+KW1058,S108,98,11.7,8.7,Competitor promotion,planner.c,2026-W46
+KW1058,S108,100,16.16,14.13,Competitor promotion,planner.c,2026-W48
+KW1058,S108,102,13.97,11.07,Competitor promotion,planner.c,2026-W50
+KW1058,S109,99,16.87,21.17,Stock-out last year,planner.c,2026-W47
+KW1058,S111,102,5.82,4.2,Competitor promotion,planner.a,2026-W50
+KW1058,S114,100,18.12,15.18,Competitor promotion,planner.a,2026-W48
+KW1058,S115,100,7.16,8.97,Stock-out last year,planner.a,2026-W48
+KW1058,S116,102,13.87,18.5,Stock-out last year,planner.c,2026-W50
+KW1058,S118,99,12.37,17.04,Stock-out last year,planner.b,2026-W47
+KW1058,S118,101,12.34,9.07,Competitor promotion,planner.a,2026-W49
+KW1058,S119,99,19.14,15.17,Competitor promotion,planner.b,2026-W47
+KW1058,S119,103,17.36,12.69,Competitor promotion,planner.b,2026-W51
+KW1058,S119,104,14.1,10.15,Competitor promotion,planner.b,2026-W52
+KW1058,S121,101,8.48,8.67,Stock-out last year,planner.c,2026-W49
+KW1058,S122,99,10.79,14.27,Local event planned,planner.b,2026-W47
+KW1058,S122,103,10.81,14.51,Local event planned,planner.a,2026-W51
+KW1058,S123,100,9.06,6.95,Competitor promotion,planner.a,2026-W48
+KW1058,S123,101,10.04,7.65,Competitor promotion,planner.a,2026-W49
+KW1058,S124,100,14.91,18.56,Local event planned,planner.c,2026-W48
+KW1059,S101,104,24.03,27.3,Stock-out last year,planner.c,2026-W52
+KW1059,S102,99,18.53,13.2,Competitor promotion,planner.c,2026-W47
+KW1059,S102,102,18.81,20.19,Stock-out last year,planner.b,2026-W50
+KW1059,S103,98,29.82,39.3,Local event planned,planner.b,2026-W46
+KW1059,S103,103,26.85,26.29,Stock-out last year,planner.c,2026-W51
+KW1059,S104,102,13.56,17.17,Stock-out last year,planner.c,2026-W50
+KW1059,S105,100,20.84,15.32,Competitor promotion,planner.b,2026-W48
+KW1059,S105,102,25.84,20.27,Competitor promotion,planner.c,2026-W50
+KW1059,S107,102,23.64,26.74,Stock-out last year,planner.c,2026-W50
+KW1059,S108,98,29.75,24.56,Competitor promotion,planner.a,2026-W46
+KW1059,S108,104,27.3,23.43,Competitor promotion,planner.a,2026-W52
+KW1059,S109,103,31.4,36.29,Stock-out last year,planner.a,2026-W51
+KW1059,S111,99,10.35,11.96,Stock-out last year,planner.c,2026-W47
+KW1059,S111,104,10.49,8.02,Competitor promotion,planner.a,2026-W52
+KW1059,S112,101,21.42,16.69,Competitor promotion,planner.a,2026-W49
+KW1059,S112,102,22.73,19.15,Competitor promotion,planner.c,2026-W50
+KW1059,S113,98,15.5,12.02,Competitor promotion,planner.b,2026-W46
+KW1059,S113,100,15.03,11.27,Competitor promotion,planner.c,2026-W48
+KW1059,S114,99,34.0,26.55,Competitor promotion,planner.b,2026-W47
+KW1059,S115,101,16.61,14.16,Competitor promotion,planner.a,2026-W49
+KW1059,S118,98,24.96,19.92,Competitor promotion,planner.c,2026-W46
+KW1059,S118,99,24.08,20.59,Competitor promotion,planner.a,2026-W47
+KW1059,S119,98,32.92,28.35,Competitor promotion,planner.a,2026-W46
+KW1059,S119,101,35.38,41.17,Stock-out last year,planner.b,2026-W49
+KW1059,S121,102,15.28,18.1,Stock-out last year,planner.c,2026-W50
+KW1059,S122,99,23.16,27.77,Local event planned,planner.a,2026-W47
+KW1059,S122,103,23.59,29.9,Local event planned,planner.c,2026-W51
+KW1059,S123,101,19.76,21.79,Stock-out last year,planner.a,2026-W49
+KW1059,S124,100,25.97,32.77,Local event planned,planner.c,2026-W48
+KW1060,S101,104,24.93,20.48,Competitor promotion,planner.c,2026-W52
+KW1060,S103,98,25.14,29.06,Local event planned,planner.c,2026-W46
+KW1060,S103,99,22.96,17.51,Competitor promotion,planner.c,2026-W47
+KW1060,S103,103,24.32,19.76,Competitor promotion,planner.c,2026-W51
+KW1060,S103,104,23.7,20.2,Competitor promotion,planner.c,2026-W52
+KW1060,S104,100,12.22,11.03,Competitor promotion,planner.c,2026-W48
+KW1060,S104,104,10.77,8.92,Competitor promotion,planner.a,2026-W52
+KW1060,S106,98,14.24,11.17,Competitor promotion,planner.a,2026-W46
+KW1060,S106,101,17.79,15.52,Competitor promotion,planner.b,2026-W49
+KW1060,S107,100,21.61,16.25,Competitor promotion,planner.b,2026-W48
+KW1060,S107,102,20.6,17.71,Competitor promotion,planner.b,2026-W50
+KW1060,S108,102,30.36,22.29,Competitor promotion,planner.b,2026-W50
+KW1060,S108,104,27.5,24.19,Competitor promotion,planner.b,2026-W52
+KW1060,S109,103,30.77,41.4,Stock-out last year,planner.c,2026-W51
+KW1060,S110,98,16.85,14.08,Competitor promotion,planner.b,2026-W46
+KW1060,S110,103,24.19,18.51,Competitor promotion,planner.a,2026-W51
+KW1060,S111,101,9.9,8.6,Competitor promotion,planner.c,2026-W49
+KW1060,S112,100,18.81,17.47,Competitor promotion,planner.c,2026-W48
+KW1060,S112,102,22.81,17.62,Competitor promotion,planner.c,2026-W50
+KW1060,S112,103,25.27,28.98,Stock-out last year,planner.c,2026-W51
+KW1060,S113,102,15.11,12.76,Competitor promotion,planner.b,2026-W50
+KW1060,S113,103,18.77,16.68,Competitor promotion,planner.c,2026-W51
+KW1060,S114,98,29.0,26.72,Competitor promotion,planner.a,2026-W46
+KW1060,S114,103,36.21,25.08,Competitor promotion,planner.a,2026-W51
+KW1060,S117,104,26.56,23.52,Competitor promotion,planner.a,2026-W52
+KW1060,S119,98,27.44,21.85,Competitor promotion,planner.c,2026-W46
+KW1060,S120,98,13.82,11.09,Competitor promotion,planner.b,2026-W46
+KW1060,S120,104,15.39,12.11,Competitor promotion,planner.c,2026-W52
+KW1060,S121,99,11.68,8.37,Competitor promotion,planner.c,2026-W47
+KW1060,S121,102,12.61,10.62,Competitor promotion,planner.b,2026-W50
+KW1060,S122,99,18.13,21.28,Local event planned,planner.a,2026-W47
+KW1060,S122,100,15.54,13.41,Competitor promotion,planner.b,2026-W48
+KW1060,S122,102,20.54,18.02,Competitor promotion,planner.b,2026-W50
+KW1060,S122,103,27.97,35.3,Local event planned,planner.a,2026-W51
+KW1060,S122,104,18.35,15.63,Competitor promotion,planner.a,2026-W52
+KW1060,S123,99,15.04,14.61,Competitor promotion,planner.b,2026-W47
+KW1060,S123,102,17.73,21.28,Stock-out last year,planner.c,2026-W50
+KW1060,S124,100,24.67,35.11,Local event planned,planner.b,2026-W48
+KW1060,S124,101,21.82,18.71,Competitor promotion,planner.c,2026-W49
+KW1061,S101,103,10.93,8.15,Competitor promotion,planner.c,2026-W51
+KW1061,S102,98,6.62,4.9,Competitor promotion,planner.c,2026-W46
+KW1061,S103,98,11.89,16.4,Local event planned,planner.a,2026-W46
+KW1061,S103,101,17.35,13.96,Competitor promotion,planner.c,2026-W49
+KW1061,S103,104,13.2,9.3,Competitor promotion,planner.c,2026-W52
+KW1061,S105,98,7.97,6.41,Competitor promotion,planner.b,2026-W46
+KW1061,S107,99,10.87,8.05,Competitor promotion,planner.a,2026-W47
+KW1061,S107,104,9.7,11.71,Stock-out last year,planner.c,2026-W52
+KW1061,S108,98,12.11,9.83,Competitor promotion,planner.c,2026-W46
+KW1061,S108,100,13.88,9.65,Competitor promotion,planner.b,2026-W48
+KW1061,S108,104,16.4,13.02,Competitor promotion,planner.c,2026-W52
+KW1061,S109,102,21.95,27.33,Stock-out last year,planner.a,2026-W50
+KW1061,S109,104,17.62,20.16,Stock-out last year,planner.b,2026-W52
+KW1061,S110,98,8.17,6.56,Competitor promotion,planner.c,2026-W46
+KW1061,S110,102,12.61,15.75,Stock-out last year,planner.a,2026-W50
+KW1061,S111,100,4.22,3.43,Competitor promotion,planner.c,2026-W48
+KW1061,S111,101,6.05,4.27,Competitor promotion,planner.c,2026-W49
+KW1061,S112,100,7.68,8.66,Stock-out last year,planner.a,2026-W48
+KW1061,S113,98,5.75,5.07,Competitor promotion,planner.b,2026-W46
+KW1061,S113,100,6.44,4.73,Competitor promotion,planner.b,2026-W48
+KW1061,S113,102,9.49,10.95,Stock-out last year,planner.b,2026-W50
+KW1061,S113,103,7.72,8.37,Stock-out last year,planner.c,2026-W51
+KW1061,S113,104,7.38,9.05,Stock-out last year,planner.a,2026-W52
+KW1061,S114,102,24.06,21.38,Competitor promotion,planner.b,2026-W50
+KW1061,S115,102,8.24,6.16,Competitor promotion,planner.a,2026-W50
+KW1061,S116,101,12.4,9.85,Competitor promotion,planner.c,2026-W49
+KW1061,S116,102,11.32,8.58,Competitor promotion,planner.a,2026-W50
+KW1061,S116,104,12.14,10.4,Competitor promotion,planner.a,2026-W52
+KW1061,S117,104,17.64,13.46,Competitor promotion,planner.a,2026-W52
+KW1061,S118,98,8.43,8.57,Competitor promotion,planner.c,2026-W46
+KW1061,S119,102,21.57,26.77,Stock-out last year,planner.b,2026-W50
+KW1061,S119,104,19.97,26.48,Stock-out last year,planner.a,2026-W52
+KW1061,S120,103,9.22,10.76,Stock-out last year,planner.a,2026-W51
+KW1061,S121,101,8.34,9.6,Stock-out last year,planner.c,2026-W49
+KW1061,S121,103,6.73,7.27,Stock-out last year,planner.b,2026-W51
+KW1061,S121,104,7.79,8.57,Stock-out last year,planner.c,2026-W52
+KW1061,S122,99,10.13,13.44,Local event planned,planner.a,2026-W47
+KW1061,S122,104,8.65,10.38,Stock-out last year,planner.b,2026-W52
+KW1061,S123,98,6.38,5.26,Competitor promotion,planner.c,2026-W46
+KW1061,S123,104,8.88,11.74,Stock-out last year,planner.b,2026-W52
+KW1061,S124,100,11.84,16.14,Local event planned,planner.b,2026-W48
+KW1061,S124,101,13.62,12.25,Competitor promotion,planner.a,2026-W49
+KW1061,S124,102,13.06,15.07,Stock-out last year,planner.b,2026-W50
+KW1062,S101,101,16.88,14.22,Competitor promotion,planner.a,2026-W49
+KW1062,S102,98,9.15,7.96,Competitor promotion,planner.c,2026-W46
+KW1062,S103,98,17.26,22.19,Local event planned,planner.c,2026-W46
+KW1062,S103,102,13.85,15.68,Stock-out last year,planner.a,2026-W50
+KW1062,S104,100,8.34,7.7,Competitor promotion,planner.b,2026-W48
+KW1062,S104,101,10.12,8.3,Competitor promotion,planner.a,2026-W49
+KW1062,S104,103,8.89,7.04,Competitor promotion,planner.b,2026-W51
+KW1062,S105,103,12.66,10.02,Competitor promotion,planner.c,2026-W51
+KW1062,S106,99,10.4,7.19,Competitor promotion,planner.a,2026-W47
+KW1062,S107,101,14.63,13.81,Competitor promotion,planner.c,2026-W49
+KW1062,S109,100,17.93,14.56,Competitor promotion,planner.c,2026-W48
+KW1062,S111,101,7.06,9.21,Stock-out last year,planner.a,2026-W49
+KW1062,S112,100,10.45,7.64,Competitor promotion,planner.b,2026-W48
+KW1062,S112,102,14.05,11.37,Competitor promotion,planner.b,2026-W50
+KW1062,S112,103,13.92,10.37,Competitor promotion,planner.b,2026-W51
+KW1062,S114,98,18.85,14.09,Competitor promotion,planner.c,2026-W46
+KW1062,S114,104,19.98,16.18,Competitor promotion,planner.b,2026-W52
+KW1062,S115,101,11.29,8.18,Competitor promotion,planner.b,2026-W49
+KW1062,S116,101,14.73,12.13,Competitor promotion,planner.a,2026-W49
+KW1062,S120,102,12.56,9.95,Competitor promotion,planner.a,2026-W50
+KW1062,S121,102,9.15,9.66,Stock-out last year,planner.c,2026-W50
+KW1062,S122,98,8.91,7.99,Competitor promotion,planner.b,2026-W46
+KW1062,S122,99,11.9,14.97,Local event planned,planner.b,2026-W47
+KW1062,S122,103,14.71,21.56,Local event planned,planner.c,2026-W51
+KW1062,S123,98,9.4,7.36,Competitor promotion,planner.b,2026-W46
+KW1062,S123,102,12.21,9.61,Competitor promotion,planner.c,2026-W50
+KW1062,S123,103,13.03,12.07,Competitor promotion,planner.b,2026-W51
+KW1062,S124,98,11.3,8.4,Competitor promotion,planner.c,2026-W46
+KW1062,S124,100,16.6,23.35,Local event planned,planner.a,2026-W48
+KW1062,S124,101,16.13,13.26,Competitor promotion,planner.a,2026-W49
+KW1063,S101,102,15.18,20.79,Stock-out last year,planner.c,2026-W50
+KW1063,S101,103,12.68,13.75,Stock-out last year,planner.c,2026-W51
+KW1063,S101,104,8.22,6.85,Competitor promotion,planner.c,2026-W52
+KW1063,S102,98,4.03,3.19,Competitor promotion,planner.c,2026-W46
+KW1063,S102,102,6.73,5.24,Competitor promotion,planner.b,2026-W50
+KW1063,S102,103,5.6,4.64,Competitor promotion,planner.b,2026-W51
+KW1063,S103,98,8.81,12.43,Local event planned,planner.b,2026-W46
+KW1063,S105,100,6.39,5.51,Competitor promotion,planner.a,2026-W48
+KW1063,S106,102,8.79,9.77,Stock-out last year,planner.a,2026-W50
+KW1063,S106,103,7.51,9.4,Stock-out last year,planner.c,2026-W51
+KW1063,S107,101,7.97,7.86,Competitor promotion,planner.c,2026-W49
+KW1063,S107,104,8.38,5.81,Competitor promotion,planner.c,2026-W52
+KW1063,S109,98,9.11,8.05,Competitor promotion,planner.a,2026-W46
+KW1063,S110,99,7.29,5.57,Competitor promotion,planner.a,2026-W47
+KW1063,S110,100,6.24,4.63,Competitor promotion,planner.c,2026-W48
+KW1063,S110,101,7.18,5.8,Competitor promotion,planner.a,2026-W49
+KW1063,S111,101,3.38,2.72,Competitor promotion,planner.a,2026-W49
+KW1063,S112,104,6.09,4.0,Competitor promotion,planner.b,2026-W52
+KW1063,S113,103,5.66,5.03,Competitor promotion,planner.b,2026-W51
+KW1063,S114,100,9.46,7.32,Competitor promotion,planner.a,2026-W48
+KW1063,S114,104,11.22,9.31,Competitor promotion,planner.c,2026-W52
+KW1063,S115,99,4.34,3.4,Competitor promotion,planner.c,2026-W47
+KW1063,S115,102,7.34,6.24,Competitor promotion,planner.b,2026-W50
+KW1063,S115,104,5.93,4.91,Competitor promotion,planner.a,2026-W52
+KW1063,S116,98,5.13,4.16,Competitor promotion,planner.b,2026-W46
+KW1063,S116,99,6.56,5.97,Competitor promotion,planner.a,2026-W47
+KW1063,S116,100,5.62,3.78,Competitor promotion,planner.c,2026-W48
+KW1063,S117,104,11.14,9.73,Competitor promotion,planner.c,2026-W52
+KW1063,S119,99,10.8,7.64,Competitor promotion,planner.a,2026-W47
+KW1063,S120,99,4.86,3.95,Competitor promotion,planner.a,2026-W47
+KW1063,S120,101,5.59,4.26,Competitor promotion,planner.a,2026-W49
+KW1063,S120,104,6.22,4.97,Competitor promotion,planner.c,2026-W52
+KW1063,S122,100,4.35,3.93,Competitor promotion,planner.a,2026-W48
+KW1063,S122,102,8.08,9.08,Stock-out last year,planner.c,2026-W50
+KW1063,S122,103,7.48,9.28,Local event planned,planner.c,2026-W51
+KW1063,S123,99,4.84,3.82,Competitor promotion,planner.b,2026-W47
+KW1063,S123,101,4.97,3.62,Competitor promotion,planner.a,2026-W49
+KW1063,S123,102,6.92,5.05,Competitor promotion,planner.a,2026-W50
+KW1063,S124,99,6.13,4.97,Competitor promotion,planner.c,2026-W47
+KW1063,S124,100,7.28,8.81,Local event planned,planner.c,2026-W48
+KW1063,S124,101,6.87,5.75,Competitor promotion,planner.a,2026-W49
+KW1064,S101,100,21.67,17.37,Competitor promotion,planner.c,2026-W48
+KW1064,S101,104,19.66,13.42,Competitor promotion,planner.a,2026-W52
+KW1064,S103,98,26.16,29.25,Local event planned,planner.a,2026-W46
+KW1064,S103,101,24.35,19.07,Competitor promotion,planner.c,2026-W49
+KW1064,S103,102,26.3,22.5,Competitor promotion,planner.b,2026-W50
+KW1064,S104,100,10.79,9.05,Competitor promotion,planner.b,2026-W48
+KW1064,S105,102,19.24,15.19,Competitor promotion,planner.c,2026-W50
+KW1064,S105,103,17.95,12.82,Competitor promotion,planner.b,2026-W51
+KW1064,S105,104,17.77,15.76,Competitor promotion,planner.a,2026-W52
+KW1064,S107,101,19.02,16.93,Competitor promotion,planner.c,2026-W49
+KW1064,S108,98,26.91,22.5,Competitor promotion,planner.b,2026-W46
+KW1064,S108,99,24.7,23.01,Competitor promotion,planner.b,2026-W47
+KW1064,S110,98,18.67,14.28,Competitor promotion,planner.c,2026-W46
+KW1064,S110,102,18.99,14.83,Competitor promotion,planner.c,2026-W50
+KW1064,S110,103,19.44,16.14,Competitor promotion,planner.c,2026-W51
+KW1064,S112,103,16.91,12.85,Competitor promotion,planner.b,2026-W51
+KW1064,S113,101,13.86,17.55,Stock-out last year,planner.c,2026-W49
+KW1064,S113,103,12.09,16.95,Stock-out last year,planner.a,2026-W51
+KW1064,S113,104,12.01,10.92,Competitor promotion,planner.b,2026-W52
+KW1064,S115,100,12.04,9.92,Competitor promotion,planner.a,2026-W48
+KW1064,S115,104,13.85,10.79,Competitor promotion,planner.b,2026-W52
+KW1064,S117,103,28.61,23.91,Competitor promotion,planner.a,2026-W51
+KW1064,S118,100,20.34,14.89,Competitor promotion,planner.b,2026-W48
+KW1064,S118,102,20.84,16.14,Competitor promotion,planner.c,2026-W50
+KW1064,S119,103,32.23,29.73,Competitor promotion,planner.b,2026-W51
+KW1064,S121,99,9.14,8.94,Competitor promotion,planner.b,2026-W47
+KW1064,S121,102,10.97,9.35,Competitor promotion,planner.b,2026-W50
+KW1064,S121,104,11.15,12.26,Stock-out last year,planner.c,2026-W52
+KW1064,S122,98,14.67,12.05,Competitor promotion,planner.a,2026-W46
+KW1064,S122,99,17.25,23.94,Local event planned,planner.a,2026-W47
+KW1064,S122,102,16.05,12.9,Competitor promotion,planner.a,2026-W50
+KW1064,S122,103,17.44,20.42,Local event planned,planner.c,2026-W51
+KW1064,S124,98,18.02,12.7,Competitor promotion,planner.a,2026-W46
+KW1064,S124,100,21.51,32.42,Local event planned,planner.b,2026-W48
+KW1065,S101,100,13.73,11.45,Competitor promotion,planner.a,2026-W48
+KW1065,S101,102,16.18,11.98,Competitor promotion,planner.c,2026-W50
+KW1065,S101,104,17.19,13.32,Competitor promotion,planner.a,2026-W52
+KW1065,S102,100,12.66,11.03,Competitor promotion,planner.b,2026-W48
+KW1065,S103,98,16.23,20.91,Local event planned,planner.b,2026-W46
+KW1065,S103,100,14.77,10.83,Competitor promotion,planner.a,2026-W48
+KW1065,S103,102,14.38,11.55,Competitor promotion,planner.b,2026-W50
+KW1065,S103,104,15.88,13.92,Competitor promotion,planner.a,2026-W52
+KW1065,S104,102,9.39,6.41,Competitor promotion,planner.c,2026-W50
+KW1065,S105,100,11.11,8.98,Competitor promotion,planner.a,2026-W48
+KW1065,S107,98,12.42,9.75,Competitor promotion,planner.a,2026-W46
+KW1065,S108,101,18.7,14.6,Competitor promotion,planner.b,2026-W49
+KW1065,S111,100,7.63,6.85,Competitor promotion,planner.b,2026-W48
+KW1065,S111,101,7.82,5.86,Competitor promotion,planner.a,2026-W49
+KW1065,S111,104,6.14,5.88,Competitor promotion,planner.b,2026-W52
+KW1065,S113,99,10.43,7.97,Competitor promotion,planner.c,2026-W47
+KW1065,S113,101,12.89,10.47,Competitor promotion,planner.c,2026-W49
+KW1065,S114,100,25.14,18.44,Competitor promotion,planner.a,2026-W48
+KW1065,S115,100,10.11,8.39,Competitor promotion,planner.b,2026-W48
+KW1065,S117,100,23.67,17.78,Competitor promotion,planner.b,2026-W48
+KW1065,S117,102,23.01,18.66,Competitor promotion,planner.c,2026-W50
+KW1065,S118,100,14.02,10.47,Competitor promotion,planner.a,2026-W48
+KW1065,S120,99,11.82,8.72,Competitor promotion,planner.c,2026-W47
+KW1065,S121,100,7.61,5.51,Competitor promotion,planner.b,2026-W48
+KW1065,S121,101,10.58,8.3,Competitor promotion,planner.a,2026-W49
+KW1065,S121,104,8.29,7.29,Competitor promotion,planner.c,2026-W52
+KW1065,S122,99,13.75,18.99,Local event planned,planner.a,2026-W47
+KW1065,S122,102,13.74,10.35,Competitor promotion,planner.b,2026-W50
+KW1065,S122,103,20.06,30.8,Local event planned,planner.c,2026-W51
+KW1066,S101,100,12.18,9.57,Competitor promotion,planner.c,2026-W48
+KW1066,S101,103,11.17,7.67,Competitor promotion,planner.c,2026-W51
+KW1066,S102,99,8.31,6.02,Competitor promotion,planner.b,2026-W47
+KW1066,S103,98,14.96,20.07,Local event planned,planner.a,2026-W46
+KW1066,S103,99,12.75,10.27,Competitor promotion,planner.c,2026-W47
+KW1066,S104,103,6.57,5.58,Competitor promotion,planner.c,2026-W51
+KW1066,S105,98,8.46,6.3,Competitor promotion,planner.a,2026-W46
+KW1066,S105,101,11.54,9.03,Competitor promotion,planner.c,2026-W49
+KW1066,S105,103,9.43,7.45,Competitor promotion,planner.c,2026-W51
+KW1066,S107,103,10.45,8.87,Competitor promotion,planner.b,2026-W51
+KW1066,S108,103,17.69,13.8,Competitor promotion,planner.a,2026-W51
+KW1066,S109,98,13.73,12.4,Competitor promotion,planner.a,2026-W46
+KW1066,S109,103,20.0,15.43,Competitor promotion,planner.c,2026-W51
+KW1066,S109,104,18.33,21.66,Stock-out last year,planner.b,2026-W52
+KW1066,S110,100,11.43,8.95,Competitor promotion,planner.c,2026-W48
+KW1066,S111,99,5.03,4.82,Competitor promotion,planner.c,2026-W47
+KW1066,S111,101,5.9,4.98,Competitor promotion,planner.b,2026-W49
+KW1066,S112,101,11.43,9.03,Competitor promotion,planner.c,2026-W49
+KW1066,S113,100,7.03,6.26,Competitor promotion,planner.c,2026-W48
+KW1066,S113,101,8.91,7.64,Competitor promotion,planner.a,2026-W49
+KW1066,S114,104,18.76,12.88,Competitor promotion,planner.b,2026-W52
+KW1066,S115,99,6.53,4.6,Competitor promotion,planner.a,2026-W47
+KW1066,S116,100,11.12,9.18,Competitor promotion,planner.c,2026-W48
+KW1066,S116,103,12.87,9.96,Competitor promotion,planner.b,2026-W51
+KW1066,S117,98,14.16,9.23,Competitor promotion,planner.a,2026-W46
+KW1066,S117,104,17.91,13.43,Competitor promotion,planner.b,2026-W52
+KW1066,S119,100,17.14,14.45,Competitor promotion,planner.b,2026-W48
+KW1066,S119,104,20.12,13.26,Competitor promotion,planner.b,2026-W52
+KW1066,S120,104,9.49,7.32,Competitor promotion,planner.c,2026-W52
+KW1066,S121,100,5.64,5.62,Competitor promotion,planner.b,2026-W48
+KW1066,S122,98,7.27,5.8,Competitor promotion,planner.a,2026-W46
+KW1066,S122,99,11.18,14.24,Local event planned,planner.b,2026-W47
+KW1066,S122,100,7.91,7.56,Competitor promotion,planner.a,2026-W48
+KW1066,S122,102,9.81,7.99,Competitor promotion,planner.c,2026-W50
+KW1066,S123,102,11.58,9.47,Competitor promotion,planner.a,2026-W50
+KW1066,S124,100,14.34,19.97,Local event planned,planner.a,2026-W48
+KW1067,S101,98,9.11,7.22,Competitor promotion,planner.b,2026-W46
+KW1067,S101,102,13.27,18.14,Stock-out last year,planner.b,2026-W50
+KW1067,S102,101,7.84,6.53,Competitor promotion,planner.c,2026-W49
+KW1067,S103,104,11.19,12.68,Stock-out last year,planner.a,2026-W52
+KW1067,S104,100,4.78,3.64,Competitor promotion,planner.a,2026-W48
+KW1067,S104,101,6.82,5.51,Competitor promotion,planner.c,2026-W49
+KW1067,S104,103,6.44,4.99,Competitor promotion,planner.a,2026-W51
+KW1067,S105,102,8.57,11.01,Stock-out last year,planner.b,2026-W50
+KW1067,S106,98,4.37,3.49,Competitor promotion,planner.b,2026-W46
+KW1067,S106,101,6.85,5.22,Competitor promotion,planner.a,2026-W49
+KW1067,S107,100,7.82,9.09,Stock-out last year,planner.c,2026-W48
+KW1067,S108,104,14.22,13.24,Competitor promotion,planner.c,2026-W52
+KW1067,S109,103,17.21,13.1,Competitor promotion,planner.c,2026-W51
+KW1067,S110,102,11.73,13.04,Stock-out last year,planner.a,2026-W50
+KW1067,S111,100,4.15,3.51,Competitor promotion,planner.c,2026-W48
+KW1067,S111,101,5.11,5.94,Stock-out last year,planner.c,2026-W49
+KW1067,S112,98,5.41,4.48,Competitor promotion,planner.b,2026-W46
+KW1067,S112,99,6.19,4.89,Competitor promotion,planner.a,2026-W47
+KW1067,S113,104,5.44,7.47,Stock-out last year,planner.c,2026-W52
+KW1067,S114,98,11.6,9.08,Competitor promotion,planner.c,2026-W46
+KW1067,S115,98,4.49,3.82,Competitor promotion,planner.a,2026-W46
+KW1067,S117,100,13.05,9.56,Competitor promotion,planner.b,2026-W48
+KW1067,S117,101,19.47,16.98,Competitor promotion,planner.b,2026-W49
+KW1067,S117,102,17.78,14.57,Competitor promotion,planner.c,2026-W50
+KW1067,S118,98,7.31,5.86,Competitor promotion,planner.c,2026-W46
+KW1067,S118,99,8.11,5.61,Competitor promotion,planner.a,2026-W47
+KW1067,S118,103,12.45,9.48,Competitor promotion,planner.a,2026-W51
+KW1067,S119,99,12.85,9.83,Competitor promotion,planner.a,2026-W47
+KW1067,S122,99,6.5,9.1,Local event planned,planner.a,2026-W47
+KW1067,S122,103,9.65,12.9,Local event planned,planner.b,2026-W51
+KW1067,S123,99,5.6,4.7,Competitor promotion,planner.a,2026-W47
+KW1067,S123,101,8.33,6.38,Competitor promotion,planner.b,2026-W49
+KW1067,S123,104,6.86,5.7,Competitor promotion,planner.c,2026-W52
+KW1067,S124,98,6.54,5.26,Competitor promotion,planner.a,2026-W46
+KW1067,S124,99,8.57,7.26,Competitor promotion,planner.c,2026-W47
+KW1067,S124,100,11.28,17.99,Local event planned,planner.b,2026-W48
+KW1067,S124,104,8.99,6.98,Competitor promotion,planner.b,2026-W52
+KW1068,S101,101,11.43,8.01,Competitor promotion,planner.c,2026-W49
+KW1068,S101,103,15.75,12.7,Competitor promotion,planner.b,2026-W51
+KW1068,S102,104,8.15,6.67,Competitor promotion,planner.b,2026-W52
+KW1068,S103,98,11.99,15.51,Local event planned,planner.c,2026-W46
+KW1068,S103,100,10.87,9.25,Competitor promotion,planner.b,2026-W48
+KW1068,S104,100,6.39,4.55,Competitor promotion,planner.c,2026-W48
+KW1068,S104,104,5.53,6.38,Stock-out last year,planner.a,2026-W52
+KW1068,S106,100,7.1,9.33,Stock-out last year,planner.c,2026-W48
+KW1068,S107,99,8.38,7.72,Competitor promotion,planner.b,2026-W47
+KW1068,S107,101,9.14,7.54,Competitor promotion,planner.b,2026-W49
+KW1068,S110,102,13.37,10.68,Competitor promotion,planner.a,2026-W50
+KW1068,S112,99,8.26,6.65,Competitor promotion,planner.b,2026-W47
+KW1068,S112,104,7.54,6.72,Competitor promotion,planner.c,2026-W52
+KW1068,S113,102,8.29,6.16,Competitor promotion,planner.c,2026-W50
+KW1068,S114,99,13.59,12.12,Competitor promotion,planner.c,2026-W47
+KW1068,S114,100,15.5,13.21,Competitor promotion,planner.b,2026-W48
+KW1068,S115,100,5.88,6.37,Stock-out last year,planner.b,2026-W48
+KW1068,S115,102,9.12,6.44,Competitor promotion,planner.c,2026-W50
+KW1068,S115,104,8.46,9.28,Stock-out last year,planner.a,2026-W52
+KW1068,S117,101,14.39,12.53,Competitor promotion,planner.a,2026-W49
+KW1068,S117,102,20.52,15.51,Competitor promotion,planner.b,2026-W50
+KW1068,S118,98,9.08,6.39,Competitor promotion,planner.b,2026-W46
+KW1068,S119,100,16.39,13.96,Competitor promotion,planner.b,2026-W48
+KW1068,S119,101,17.48,22.17,Stock-out last year,planner.c,2026-W49
+KW1068,S120,98,6.38,5.28,Competitor promotion,planner.b,2026-W46
+KW1068,S122,99,7.99,10.19,Local event planned,planner.a,2026-W47
+KW1068,S122,101,7.46,8.47,Stock-out last year,planner.a,2026-W49
+KW1068,S124,98,9.03,7.02,Competitor promotion,planner.b,2026-W46
+KW1068,S124,100,11.85,19.47,Local event planned,planner.b,2026-W48
+KW1068,S124,104,10.44,8.44,Competitor promotion,planner.b,2026-W52
+KW1069,S101,99,10.79,8.82,Competitor promotion,planner.c,2026-W47
+KW1069,S101,104,12.5,8.61,Competitor promotion,planner.c,2026-W52
+KW1069,S103,98,15.67,20.96,Local event planned,planner.b,2026-W46
+KW1069,S104,102,7.59,9.9,Stock-out last year,planner.c,2026-W50
+KW1069,S106,104,7.75,6.47,Competitor promotion,planner.b,2026-W52
+KW1069,S107,100,11.19,8.75,Competitor promotion,planner.a,2026-W48
+KW1069,S107,103,11.48,10.35,Competitor promotion,planner.b,2026-W51
+KW1069,S109,100,15.22,12.72,Competitor promotion,planner.a,2026-W48
+KW1069,S110,99,9.14,7.64,Competitor promotion,planner.c,2026-W47
+KW1069,S110,100,10.3,9.1,Competitor promotion,planner.a,2026-W48
+KW1069,S110,104,12.24,8.31,Competitor promotion,planner.a,2026-W52
+KW1069,S111,98,4.57,3.76,Competitor promotion,planner.a,2026-W46
+KW1069,S112,100,7.97,7.37,Competitor promotion,planner.c,2026-W48
+KW1069,S113,98,5.9,5.18,Competitor promotion,planner.b,2026-W46
+KW1069,S113,104,7.48,6.86,Competitor promotion,planner.c,2026-W52
+KW1069,S114,99,14.03,12.44,Competitor promotion,planner.c,2026-W47
+KW1069,S114,101,20.51,15.76,Competitor promotion,planner.b,2026-W49
+KW1069,S114,104,15.69,12.16,Competitor promotion,planner.b,2026-W52
+KW1069,S115,99,6.11,5.12,Competitor promotion,planner.a,2026-W47
+KW1069,S116,100,9.89,7.16,Competitor promotion,planner.c,2026-W48
+KW1069,S116,104,13.27,10.47,Competitor promotion,planner.b,2026-W52
+KW1069,S117,101,19.56,15.4,Competitor promotion,planner.b,2026-W49
+KW1069,S118,99,8.78,6.66,Competitor promotion,planner.b,2026-W47
+KW1069,S118,100,11.27,8.23,Competitor promotion,planner.b,2026-W48
+KW1069,S119,99,14.25,11.9,Competitor promotion,planner.b,2026-W47
+KW1069,S119,103,21.25,16.54,Competitor promotion,planner.b,2026-W51
+KW1069,S119,104,19.1,17.77,Competitor promotion,planner.c,2026-W52
+KW1069,S120,104,8.84,7.26,Competitor promotion,planner.b,2026-W52
+KW1069,S122,98,7.71,6.15,Competitor promotion,planner.c,2026-W46
+KW1069,S122,99,8.07,9.17,Local event planned,planner.a,2026-W47
+KW1069,S122,100,8.8,7.67,Competitor promotion,planner.b,2026-W48
+KW1069,S122,103,11.34,12.04,Local event planned,planner.b,2026-W51
+KW1069,S123,99,6.63,5.28,Competitor promotion,planner.a,2026-W47
+KW1069,S124,98,10.03,8.17,Competitor promotion,planner.b,2026-W46
+KW1069,S124,100,11.62,14.29,Local event planned,planner.c,2026-W48
+KW1069,S124,101,13.03,9.55,Competitor promotion,planner.c,2026-W49
+KW1069,S124,104,11.61,9.35,Competitor promotion,planner.c,2026-W52
+KW1070,S101,101,18.48,15.76,Competitor promotion,planner.a,2026-W49
+KW1070,S102,100,16.07,12.51,Competitor promotion,planner.b,2026-W48
+KW1070,S103,98,20.72,24.26,Local event planned,planner.a,2026-W46
+KW1070,S103,101,18.54,13.42,Competitor promotion,planner.a,2026-W49
+KW1070,S104,98,7.95,6.59,Competitor promotion,planner.c,2026-W46
+KW1070,S104,102,8.18,6.56,Competitor promotion,planner.a,2026-W50
+KW1070,S106,101,12.82,8.67,Competitor promotion,planner.a,2026-W49
+KW1070,S107,100,17.95,13.72,Competitor promotion,planner.b,2026-W48
+KW1070,S108,103,28.01,23.9,Competitor promotion,planner.c,2026-W51
+KW1070,S110,98,15.01,12.37,Competitor promotion,planner.c,2026-W46
+KW1070,S110,100,17.26,14.23,Competitor promotion,planner.c,2026-W48
+KW1070,S110,104,19.11,15.57,Competitor promotion,planner.b,2026-W52
+KW1070,S112,98,11.27,8.85,Competitor promotion,planner.b,2026-W46
+KW1070,S112,99,11.84,8.43,Competitor promotion,planner.c,2026-W47
+KW1070,S113,100,11.94,9.0,Competitor promotion,planner.c,2026-W48
+KW1070,S113,102,11.62,8.93,Competitor promotion,planner.b,2026-W50
+KW1070,S114,99,27.45,21.33,Competitor promotion,planner.b,2026-W47
+KW1070,S114,100,31.46,24.62,Competitor promotion,planner.b,2026-W48
+KW1070,S114,103,32.87,22.69,Competitor promotion,planner.c,2026-W51
+KW1070,S115,103,14.2,13.78,Competitor promotion,planner.c,2026-W51
+KW1070,S116,100,16.25,11.65,Competitor promotion,planner.a,2026-W48
+KW1070,S116,101,18.06,13.29,Competitor promotion,planner.b,2026-W49
+KW1070,S117,102,26.43,21.34,Competitor promotion,planner.a,2026-W50
+KW1070,S118,103,20.98,17.57,Competitor promotion,planner.a,2026-W51
+KW1070,S119,101,28.75,24.89,Competitor promotion,planner.c,2026-W49
+KW1070,S120,103,16.04,14.78,Competitor promotion,planner.c,2026-W51
+KW1070,S121,100,8.46,6.5,Competitor promotion,planner.a,2026-W48
+KW1070,S121,102,9.14,8.19,Competitor promotion,planner.a,2026-W50
+KW1070,S122,98,12.14,8.64,Competitor promotion,planner.a,2026-W46
+KW1070,S122,103,22.54,26.67,Local event planned,planner.a,2026-W51
+KW1071,S102,100,7.87,6.49,Competitor promotion,planner.b,2026-W48
+KW1071,S103,102,12.48,8.74,Competitor promotion,planner.c,2026-W50
+KW1071,S104,98,5.54,4.52,Competitor promotion,planner.c,2026-W46
+KW1071,S104,103,6.7,6.01,Competitor promotion,planner.a,2026-W51
+KW1071,S105,98,7.97,5.59,Competitor promotion,planner.a,2026-W46
+KW1071,S106,98,6.54,5.04,Competitor promotion,planner.b,2026-W46
+KW1071,S106,104,8.48,10.04,Stock-out last year,planner.a,2026-W52
+KW1071,S107,98,8.24,6.09,Competitor promotion,planner.c,2026-W46
+KW1071,S109,99,12.79,10.2,Competitor promotion,planner.c,2026-W47
+KW1071,S110,98,8.37,6.38,Competitor promotion,planner.b,2026-W46
+KW1071,S110,101,13.24,9.93,Competitor promotion,planner.a,2026-W49
+KW1071,S110,104,13.58,12.12,Competitor promotion,planner.a,2026-W52
+KW1071,S111,98,3.83,3.11,Competitor promotion,planner.c,2026-W46
+KW1071,S113,99,6.18,4.85,Competitor promotion,planner.b,2026-W47
+KW1071,S114,101,18.78,14.72,Competitor promotion,planner.c,2026-W49
+KW1071,S114,102,20.03,15.35,Competitor promotion,planner.b,2026-W50
+KW1071,S115,98,6.13,4.4,Competitor promotion,planner.b,2026-W46
+KW1071,S116,101,12.04,10.36,Competitor promotion,planner.c,2026-W49
+KW1071,S116,102,10.91,8.98,Competitor promotion,planner.b,2026-W50
+KW1071,S116,103,11.41,8.8,Competitor promotion,planner.b,2026-W51
+KW1071,S117,103,13.98,11.7,Competitor promotion,planner.b,2026-W51
+KW1071,S117,104,17.06,12.89,Competitor promotion,planner.b,2026-W52
+KW1071,S119,101,17.81,21.53,Stock-out last year,planner.a,2026-W49
+KW1071,S120,101,11.35,9.68,Competitor promotion,planner.b,2026-W49
+KW1071,S122,99,10.25,10.61,Local event planned,planner.b,2026-W47
+KW1071,S122,100,7.4,8.86,Stock-out last year,planner.b,2026-W48
+KW1071,S122,103,10.63,13.91,Local event planned,planner.c,2026-W51
+KW1071,S123,103,10.03,8.49,Competitor promotion,planner.a,2026-W51
+KW1071,S124,99,8.88,7.75,Competitor promotion,planner.b,2026-W47
+KW1071,S124,100,10.72,16.77,Local event planned,planner.c,2026-W48
+KW1071,S124,101,13.58,11.98,Competitor promotion,planner.a,2026-W49
+KW1071,S124,102,12.08,11.71,Competitor promotion,planner.c,2026-W50

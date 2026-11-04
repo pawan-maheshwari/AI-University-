@@ -1,0 +1,43 @@
+# Kidswear proof of concept: scheduled retraining check.
+# Runs retrain.py check; when it says a retrain is due (drift, new data, or the monthly cadence),
+# reruns the pipeline and uploads results as a build artifact. It never commits to the repository.
+#
+# The schedule is switched off while the pipeline runs on synthetic sample data (there is no new data
+# to learn from). To switch it on for real data, remove the "#" in front of the two schedule lines.
+name: kidswear-retrain
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "17 3 * * 1"      # Mondays 03:17 UTC
+permissions:
+  contents: read
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: kidswear-poc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Decide whether to retrain
+        id: check
+        run: |
+          set +e
+          python retrain.py check
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: Retrain and rebuild
+        if: steps.check.outputs.code == '10' || github.event_name == 'workflow_dispatch'
+        run: bash run_all.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kidswear-results
+          path: |
+            kidswear-poc/results/
+            kidswear-poc/governance/
+            kidswear-planner.html

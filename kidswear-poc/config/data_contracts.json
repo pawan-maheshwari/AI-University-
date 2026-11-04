@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "description": "Schema contracts for every extract the pipeline accepts. A failed 'error' check stops the pipeline; 'warn' checks are reported.",
+  "tables": {
+    "sales_weekly": {
+      "file": "sales_weekly.csv.gz",
+      "key": ["week_index", "store_id", "style_id", "size"],
+      "columns": {
+        "season": {"type": "str", "required": true},
+        "week_index": {"type": "int", "required": true, "min": 1},
+        "week_start": {"type": "date", "required": true},
+        "fy_week": {"type": "int", "required": true, "min": 1, "max": 53},
+        "store_id": {"type": "str", "required": true, "references": "store_master.store_id"},
+        "style_id": {"type": "str", "required": true, "references": "style_master.style_id"},
+        "size": {"type": "str", "required": true, "allowed_from_config": "sizes"},
+        "full_price": {"type": "float", "required": true, "min": 0.01},
+        "selling_price": {"type": "float", "required": true, "min": 0},
+        "discount": {"type": "float", "required": true, "min": 0, "max": 0.9},
+        "stock_on_hand_start": {"type": "int", "required": true, "min": 0},
+        "sales_units": {"type": "int", "required": true, "min": 0},
+        "return_units": {"type": "int", "required": true, "min": 0}
+      },
+      "row_rules": [
+        {"name": "sales_not_above_stock", "expr": "sales_units <= stock_on_hand_start", "severity": "error"},
+        {"name": "returns_not_above_sales", "expr": "return_units <= sales_units", "severity": "warn"},
+        {"name": "price_matches_discount", "expr": "abs(selling_price - full_price * (1 - discount)) <= 0.02 * full_price", "severity": "warn"}
+      ],
+      "freshness": {"max_missing_weeks": 0}
+    },
+    "style_master": {
+      "file": "style_master.csv",
+      "key": ["style_id"],
+      "columns": {
+        "style_id": {"type": "str", "required": true},
+        "category": {"type": "str", "required": true, "allowed_from_config": "categories"},
+        "fabric": {"type": "str", "required": false},
+        "fit": {"type": "str", "required": false},
+        "supplier": {"type": "str", "required": true},
+        "full_price": {"type": "float", "required": true, "min": 0.01},
+        "unit_cost": {"type": "float", "required": true, "min": 0.01},
+        "launch_week_start": {"type": "date", "required": true}
+      },
+      "row_rules": [
+        {"name": "cost_below_price", "expr": "unit_cost < full_price", "severity": "error"}
+      ]
+    },
+    "store_master": {
+      "file": "store_master.csv",
+      "key": ["store_id"],
+      "columns": {
+        "store_id": {"type": "str", "required": true},
+        "cluster": {"type": "str", "required": true},
+        "region": {"type": "str", "required": true}
+      }
+    },
+    "returns_comments": {
+      "file": "returns_comments.csv",
+      "key": ["comment_id"],
+      "columns": {
+        "comment_id": {"type": "str", "required": true},
+        "style_id": {"type": "str", "required": true, "references": "style_master.style_id"},
+        "store_id": {"type": "str", "required": true, "references": "store_master.store_id"},
+        "week_index": {"type": "int", "required": true, "min": 1},
+        "comment": {"type": "str", "required": false},
+        "verified_reason": {"type": "str", "required": false, "allowed": ["", "fit", "fabric", "durability", "sizing", "colour", "changed_mind"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "allocation_split": {
+    "weeks": "98-101",
+    "metric": "fill rate (share of true demand met) with the same total units",
+    "current_practice": 0.7801,
+    "forecast_and_size_curves": 0.8673,
+    "gain_pts": 8.7
+  },
+  "transfers": {
+    "moves": 649,
+    "units_moved": 3914,
+    "cost_rand": 23484.0,
+    "extra_units_sold": 3050.0,
+    "extra_revenue_rand": 325728.0,
+    "net_benefit_rand": 302244.0,
+    "rule": "same region only, lots of 3+ units, R6 per unit; keep 110% of forecast at the sender"
+  }
+}

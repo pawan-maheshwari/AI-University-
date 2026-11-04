@@ -1,0 +1,694 @@
+{
+  "audit_chain": {
+    "ok": true,
+    "entries": 33,
+    "head": "019b6bf53278c2f4a03e7c847fa43392de2851d7c8856af828200d897437ab87"
+  },
+  "tamper_test": {
+    "edited_line": 17,
+    "detected": true,
+    "broken_at_line": 17
+  },
+  "events_total": 33,
+  "events_this_department": 33,
+  "event_counts": {
+    "adapters_verified": 1,
+    "allocation_published": 1,
+    "data_validated": 1,
+    "ensemble_published": 2,
+    "features_built": 3,
+    "forecast_published": 3,
+    "hierarchy_reconciled": 2,
+    "markdown_recommended": 3,
+    "model_registered": 6,
+    "overrides_ingested": 1,
+    "quality_ranking_published": 3,
+    "retrain_check": 1,
+    "retrain_policy_set": 1,
+    "size_curves_published": 1,
+    "trial_outcome_recorded": 2,
+    "trial_registered": 2
+  },
+  "registry": [
+    {
+      "run_id": "quality_nlp-20261104T122129-650bb6",
+      "kind": "quality_nlp",
+      "ts": "2026-11-04T12:21:29Z",
+      "model_version": "155d6a8f74d54b2f",
+      "data_version": null,
+      "metrics": {
+        "C": 3,
+        "n": 11800,
+        "test_macro_f1": 0.7432,
+        "test_macro_f1_new_phrasing": 0.4746
+      }
+    },
+    {
+      "run_id": "quality_nlp-20261104T122149-650bb6",
+      "kind": "quality_nlp",
+      "ts": "2026-11-04T12:21:49Z",
+      "model_version": "155d6a8f74d54b2f",
+      "data_version": null,
+      "metrics": {
+        "C": 3,
+        "n": 11800,
+        "test_macro_f1": 0.7432,
+        "test_macro_f1_new_phrasing": 0.4746
+      }
+    },
+    {
+      "run_id": "quality_nlp-20261104T122209-650bb6",
+      "kind": "quality_nlp",
+      "ts": "2026-11-04T12:22:09Z",
+      "model_version": "155d6a8f74d54b2f",
+      "data_version": null,
+      "metrics": {
+        "C": 3,
+        "n": 11800,
+        "test_macro_f1": 0.7432,
+        "test_macro_f1_new_phrasing": 0.4746
+      }
+    },
+    {
+      "run_id": "demand_forecast-20261104T122735-c66bf7",
+      "kind": "demand_forecast",
+      "ts": "2026-11-04T12:27:35Z",
+      "model_version": "08a66e74d4a7e4f2",
+      "data_version": "20307eaad97cb54d",
+      "metrics": {
+        "established_model_wape": 0.3534,
+        "external_features_gain_pts": 1.28,
+        "improvement_vs_rule_rel": 0.2109,
+        "model_bias": -0.1304,
+        "model_wape": 0.369,
+        "model_without_external_wape": 0.3818,
+        "new_styles_model_wape": 0.4431,
+        "p10_p90_coverage": 0.7982,
+        "planner_rule_bias": -0.2976,
+        "planner_rule_wape": 0.4676,
+        "style_week_model_wape": 0.2334,
+        "style_week_rule_wape": 0.358
+      }
+    },
+    {
+      "run_id": "demand_forecast-20261104T122935-857c7f",
+      "kind": "demand_forecast",
+      "ts": "2026-11-04T12:29:35Z",
+      "model_version": "1d0591ddd1e5c18e",
+      "data_version": "20307eaad97cb54d",
+      "metrics": {
+        "established_model_wape": 0.3534,
+        "external_features_gain_pts": 1.28,
+        "improvement_vs_rule_rel": 0.2109,
+        "model_bias": -0.1304,
+        "model_wape": 0.369,
+        "model_without_external_wape": 0.3818,
+        "new_styles_model_wape": 0.4431,
+        "p10_p90_coverage": 0.7982,
+        "planner_rule_bias": -0.2976,
+        "planner_rule_wape": 0.4676,
+        "style_week_model_wape": 0.2334,
+        "style_week_rule_wape": 0.358
+      }
+    },
+    {
+      "run_id": "demand_forecast-20261104T123214-57d153",
+      "kind": "demand_forecast",
+      "ts": "2026-11-04T12:32:14Z",
+      "model_version": "97c99d19d5dd50f9",
+      "data_version": "20307eaad97cb54d",
+      "metrics": {
+        "established_model_wape": 0.3613,
+        "external_features_gain_pts": 0.76,
+        "improvement_vs_rule_rel": 0.1814,
+        "model_bias": -0.1621,
+        "model_wape": 0.3828,
+        "model_without_external_wape": 0.3904,
+        "new_styles_model_wape": 0.4846,
+        "p10_p90_coverage": 0.797,
+        "planner_rule_bias": -0.2976,
+        "planner_rule_wape": 0.4676,
+        "style_week_model_wape": 0.2531,
+        "style_week_rule_wape": 0.358
+      }
+    }
+  ],
+  "lineage": {
+    "data_version": "20307eaad97cb54d",
+    "feature_version": "dbfd75a600bdc34d",
+    "model_run": "demand_forecast-20261104T123214-57d153",
+    "model_version": "97c99d19d5dd50f9",
+    "training_window": "week_index 1-97 (train + validation)",
+    "markdown_pack_version": "c31123b286e27fd7",
+    "decisions": [
+      {
+        "ts": "2026-11-04T12:35:30Z",
+        "event": "markdown_recommended",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:36:15Z",
+        "event": "markdown_recommended",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:36:52Z",
+        "event": "markdown_recommended",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:37:33Z",
+        "event": "allocation_published",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:38:02Z",
+        "event": "overrides_ingested",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:39:17Z",
+        "event": "trial_registered",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:39:20Z",
+        "event": "trial_outcome_recorded",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:39:33Z",
+        "event": "trial_registered",
+        "actor": "pipeline"
+      },
+      {
+        "ts": "2026-11-04T12:39:37Z",
+        "event": "trial_outcome_recorded",
+        "actor": "pipeline"
+      }
+    ]
+  },
+  "monitoring": {
+    "test_wape": 0.3828,
+    "p10_p90_coverage": 0.797,
+    "bias": -0.1621,
+    "drift_shifted": [
+      "cci_lag4",
+      "temp_anomaly_forecast",
+      "demand_ly_4wk_mean",
+      "demand_ly_next7_mean",
+      "quality_share_lag8"
+    ],
+    "drift_watch": [
+      "cat_lag8"
+    ]
+  },
+  "recent_events": [
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": "20307eaad97cb54d",
+        "errors": 0,
+        "passed": true,
+        "warnings": 0
+      },
+      "event": "data_validated",
+      "hash": "4ff8e415bc1b9759477720da2dd32d238f63fb28184c910e72801f3d02b9f7a3",
+      "prev": "GENESIS",
+      "ts": "2026-11-04T12:20:37Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": null,
+        "kind": "quality_nlp",
+        "model_version": "155d6a8f74d54b2f",
+        "run_id": "quality_nlp-20261104T122129-650bb6"
+      },
+      "event": "model_registered",
+      "hash": "d85e2e83f930cc79b1c0dbf6adce44688a7f2a0cf69ddde20abc5ee9c803b745",
+      "prev": "4ff8e415bc1b9759477720da2dd32d238f63fb28184c910e72801f3d02b9f7a3",
+      "ts": "2026-11-04T12:21:29Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "top_styles": [
+          "KW1021",
+          "KW1049",
+          "KW1065",
+          "KW1026",
+          "KW1025"
+        ]
+      },
+      "event": "quality_ranking_published",
+      "hash": "a72ae6aea8a240eea775dad30f9f5802da48d0ac7f041365f3d34e0f4edb69c7",
+      "prev": "d85e2e83f930cc79b1c0dbf6adce44688a7f2a0cf69ddde20abc5ee9c803b745",
+      "ts": "2026-11-04T12:21:29Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": null,
+        "kind": "quality_nlp",
+        "model_version": "155d6a8f74d54b2f",
+        "run_id": "quality_nlp-20261104T122149-650bb6"
+      },
+      "event": "model_registered",
+      "hash": "2a66272d32b7b5dc6cc8130f3504b63a6ab5945b502c28dbd93d0ba2eaf625de",
+      "prev": "a72ae6aea8a240eea775dad30f9f5802da48d0ac7f041365f3d34e0f4edb69c7",
+      "ts": "2026-11-04T12:21:49Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "top_styles": [
+          "KW1021",
+          "KW1049",
+          "KW1065",
+          "KW1026",
+          "KW1025"
+        ]
+      },
+      "event": "quality_ranking_published",
+      "hash": "8bac445e893ef551ce6386c32534cdf9f6050679ab4924b70f697ccd85881999",
+      "prev": "2a66272d32b7b5dc6cc8130f3504b63a6ab5945b502c28dbd93d0ba2eaf625de",
+      "ts": "2026-11-04T12:21:49Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": null,
+        "kind": "quality_nlp",
+        "model_version": "155d6a8f74d54b2f",
+        "run_id": "quality_nlp-20261104T122209-650bb6"
+      },
+      "event": "model_registered",
+      "hash": "90fa0774ee316e1984e76b08284d0ff75717f800967b763aa2f56258aed1930f",
+      "prev": "8bac445e893ef551ce6386c32534cdf9f6050679ab4924b70f697ccd85881999",
+      "ts": "2026-11-04T12:22:09Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "top_styles": [
+          "KW1021",
+          "KW1049",
+          "KW1065",
+          "KW1026",
+          "KW1025"
+        ]
+      },
+      "event": "quality_ranking_published",
+      "hash": "4146aeb18414334fe3a0d22c78477c4ae928f78bc2667160535136d3f71debab",
+      "prev": "90fa0774ee316e1984e76b08284d0ff75717f800967b763aa2f56258aed1930f",
+      "ts": "2026-11-04T12:22:09Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "feature_version": "449ff12bb2dc9cb6",
+        "rows": 153504,
+        "unconstraining": "EM-NB"
+      },
+      "event": "features_built",
+      "hash": "7e0149fc53f004c4960e4779709c69fda85056783a8e02e9e2129ad003b69acd",
+      "prev": "4146aeb18414334fe3a0d22c78477c4ae928f78bc2667160535136d3f71debab",
+      "ts": "2026-11-04T12:23:58Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "feature_version": "9c5d2bed785f61c3",
+        "rows": 153504,
+        "unconstraining": "EM-NB"
+      },
+      "event": "features_built",
+      "hash": "95c11722c9030b81cfdc5a62e6bb043d9e0be69e4547fd92538ba212a047c84d",
+      "prev": "7e0149fc53f004c4960e4779709c69fda85056783a8e02e9e2129ad003b69acd",
+      "ts": "2026-11-04T12:24:39Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": "20307eaad97cb54d",
+        "kind": "demand_forecast",
+        "model_version": "08a66e74d4a7e4f2",
+        "run_id": "demand_forecast-20261104T122735-c66bf7"
+      },
+      "event": "model_registered",
+      "hash": "8743470c95bef7f5f881cebe2aa487687018e99e0627190e160be14e75a60339",
+      "prev": "95c11722c9030b81cfdc5a62e6bb043d9e0be69e4547fd92538ba212a047c84d",
+      "ts": "2026-11-04T12:27:35Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "run_id": "demand_forecast-20261104T122735-c66bf7",
+        "test_wape": 0.369
+      },
+      "event": "forecast_published",
+      "hash": "0c69eca15d38527191ffab52ee9aca537f0de27942e17a22c6d22ab4acae8637",
+      "prev": "8743470c95bef7f5f881cebe2aa487687018e99e0627190e160be14e75a60339",
+      "ts": "2026-11-04T12:27:35Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": "20307eaad97cb54d",
+        "kind": "demand_forecast",
+        "model_version": "1d0591ddd1e5c18e",
+        "run_id": "demand_forecast-20261104T122935-857c7f"
+      },
+      "event": "model_registered",
+      "hash": "270e1eaab9b8263227916cfc1348a2ed631afbcb58d2f3c12601a919cee4d4e9",
+      "prev": "0c69eca15d38527191ffab52ee9aca537f0de27942e17a22c6d22ab4acae8637",
+      "ts": "2026-11-04T12:29:35Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "run_id": "demand_forecast-20261104T122935-857c7f",
+        "test_wape": 0.369
+      },
+      "event": "forecast_published",
+      "hash": "7645ab9627721b3633fc340e2c80171fc8885cd3e2812d78ea53cd94c3b322d7",
+      "prev": "270e1eaab9b8263227916cfc1348a2ed631afbcb58d2f3c12601a919cee4d4e9",
+      "ts": "2026-11-04T12:29:35Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "feature_version": "dbfd75a600bdc34d",
+        "rows": 153504,
+        "unconstraining": "EM-NB"
+      },
+      "event": "features_built",
+      "hash": "0a932551baffdbe284a9dccd0beb9ae948c8a63b83e6f5b41d8f9b9e07ecab48",
+      "prev": "7645ab9627721b3633fc340e2c80171fc8885cd3e2812d78ea53cd94c3b322d7",
+      "ts": "2026-11-04T12:30:31Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "data_version": "20307eaad97cb54d",
+        "kind": "demand_forecast",
+        "model_version": "97c99d19d5dd50f9",
+        "run_id": "demand_forecast-20261104T123214-57d153"
+      },
+      "event": "model_registered",
+      "hash": "b96c8783c841f88a3a4d8aacd2d4c5313a17da23e0b5a79d9e54a0cfc39bfa70",
+      "prev": "0a932551baffdbe284a9dccd0beb9ae948c8a63b83e6f5b41d8f9b9e07ecab48",
+      "ts": "2026-11-04T12:32:14Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "run_id": "demand_forecast-20261104T123214-57d153",
+        "test_wape": 0.3828
+      },
+      "event": "forecast_published",
+      "hash": "f5c17936ec76a7fe557138a8274ef0a710e83c9e855a867a8e267b6637644ca4",
+      "prev": "b96c8783c841f88a3a4d8aacd2d4c5313a17da23e0b5a79d9e54a0cfc39bfa70",
+      "ts": "2026-11-04T12:32:14Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "best": "E_dynamic_plus_fit",
+        "stores_reassigned": [
+          "S104",
+          "S110",
+          "S116"
+        ]
+      },
+      "event": "size_curves_published",
+      "hash": "9a456cd7a0efd642c9708678caf023f7a162fd23937f0e2504a4270b11c45c3b",
+      "prev": "f5c17936ec76a7fe557138a8274ef0a710e83c9e855a867a8e267b6637644ca4",
+      "ts": "2026-11-04T12:32:30Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "chronos": "unavailable here (ModuleNotFoundError: N",
+        "weights": {
+          "established": {
+            "fitted_on_rows": 10080,
+            "lightgbm": 1.09,
+            "zero_shot": 0.009
+          },
+          "new_styles": {
+            "fitted_on_rows": 1728,
+            "lightgbm": 1.573,
+            "zero_shot": 0.0
+          }
+        }
+      },
+      "event": "ensemble_published",
+      "hash": "88dae314a07e137f0ca801c6de2f7672abdaf8390b5cabbe85d5f2b578769c8e",
+      "prev": "9a456cd7a0efd642c9708678caf023f7a162fd23937f0e2504a4270b11c45c3b",
+      "ts": "2026-11-04T12:32:45Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "method": "bottom_up"
+      },
+      "event": "hierarchy_reconciled",
+      "hash": "44e2a9af4c03fcc0f72b9374c3c16154e41cdb4b2acf425c43ed926b6d6f4d34",
+      "prev": "88dae314a07e137f0ca801c6de2f7672abdaf8390b5cabbe85d5f2b578769c8e",
+      "ts": "2026-11-04T12:32:50Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "chronos": "unavailable here (ModuleNotFoundError: N",
+        "weights": {
+          "established": {
+            "fitted_on_rows": 10080,
+            "level_correction": 1.061,
+            "lightgbm": 1.0,
+            "unconstrained_nnls_for_reference": [
+              1.09,
+              0.009
+            ],
+            "zero_shot": 0.0
+          },
+          "new_styles": {
+            "fitted_on_rows": 1728,
+            "level_correction": 1.196,
+            "lightgbm": 0.8,
+            "unconstrained_nnls_for_reference": [
+              1.573,
+              0.0
+            ],
+            "zero_shot": 0.2
+          }
+        }
+      },
+      "event": "ensemble_published",
+      "hash": "801693ef42af5f39a1ecadaa8ea8d9267eb99c8fd7f0419cf6f80126b1a40b1e",
+      "prev": "44e2a9af4c03fcc0f72b9374c3c16154e41cdb4b2acf425c43ed926b6d6f4d34",
+      "ts": "2026-11-04T12:33:17Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "method": "bottom_up"
+      },
+      "event": "hierarchy_reconciled",
+      "hash": "5cdb3e345a122f9c056ce4563562fa2e52c17d140eda082fd4213cfc7cbbf842",
+      "prev": "801693ef42af5f39a1ecadaa8ea8d9267eb99c8fd7f0419cf6f80126b1a40b1e",
+      "ts": "2026-11-04T12:33:39Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "expected_cash": 16827128.0,
+        "pack_version": "b3d38485d03c6b03",
+        "styles": 72
+      },
+      "event": "markdown_recommended",
+      "hash": "99e229e35f01f706582590851edd3c3448e127e1384df1f216c7dced01c2a5ef",
+      "prev": "5cdb3e345a122f9c056ce4563562fa2e52c17d140eda082fd4213cfc7cbbf842",
+      "ts": "2026-11-04T12:35:30Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "expected_cash": 16064222.0,
+        "pack_version": "c31123b286e27fd7",
+        "styles": 72
+      },
+      "event": "markdown_recommended",
+      "hash": "51467cc7655e304e8fc9684826e356730687f814c3d6508b45f530fb917a3571",
+      "prev": "99e229e35f01f706582590851edd3c3448e127e1384df1f216c7dced01c2a5ef",
+      "ts": "2026-11-04T12:36:15Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "expected_cash": 16064222.0,
+        "pack_version": "c31123b286e27fd7",
+        "styles": 72
+      },
+      "event": "markdown_recommended",
+      "hash": "a1c8ff189bfd65bda208d1bc504a0099faea252aca24f2758d054ecbb33eccbd",
+      "prev": "51467cc7655e304e8fc9684826e356730687f814c3d6508b45f530fb917a3571",
+      "ts": "2026-11-04T12:36:52Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "net_benefit": 302244.0,
+        "transfers": 649
+      },
+      "event": "allocation_published",
+      "hash": "38d614a08cca2d9bb708567a4a97646cac11d57eefedc433655b3a280ef81eb5",
+      "prev": "a1c8ff189bfd65bda208d1bc504a0099faea252aca24f2758d054ecbb33eccbd",
+      "ts": "2026-11-04T12:37:33Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "learned_trust": {
+          "Competitor promotion": 0.06,
+          "Gut feel": 0.14,
+          "Local event planned": 0.45,
+          "Stock-out last year": 0.36
+        },
+        "planners": [
+          "planner.a",
+          "planner.b",
+          "planner.c"
+        ],
+        "rows": 4075
+      },
+      "event": "overrides_ingested",
+      "hash": "efb8d3969f8d8948ce623c1dc6c6730e5ed9bab69e8b1b0d01f285ffb5f8cb05",
+      "prev": "38d614a08cca2d9bb708567a4a97646cac11d57eefedc433655b3a280ef81eb5",
+      "ts": "2026-11-04T12:38:02Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "mde": 15595.0,
+        "pairs": 12,
+        "registration_hash": "81331327d530df2f"
+      },
+      "event": "trial_registered",
+      "hash": "1bc19b3e0c227fcb21d0eb9004bda3e618a0043a876dc53378abfbece451909d",
+      "prev": "efb8d3969f8d8948ce623c1dc6c6730e5ed9bab69e8b1b0d01f285ffb5f8cb05",
+      "ts": "2026-11-04T12:39:17Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "decision": "Do not roll out yet: effect not significant",
+        "effect": 6028.0,
+        "p": 0.3951,
+        "registration_hash": "81331327d530df2f"
+      },
+      "event": "trial_outcome_recorded",
+      "hash": "3430275eeea88a02d351d9fb38cca083f838df59b20100039a6c91d8422937e0",
+      "prev": "1bc19b3e0c227fcb21d0eb9004bda3e618a0043a876dc53378abfbece451909d",
+      "ts": "2026-11-04T12:39:20Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "mde": 15595.0,
+        "pairs": 12,
+        "registration_hash": "1249ea32b5b89853"
+      },
+      "event": "trial_registered",
+      "hash": "e65f116fa3ca66efcbca5606e97940cc093ac87da1dd2807700a1e1f84c51799",
+      "prev": "3430275eeea88a02d351d9fb38cca083f838df59b20100039a6c91d8422937e0",
+      "ts": "2026-11-04T12:39:33Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "decision": "Do not roll out yet: effect not significant",
+        "effect": 6028.0,
+        "p": 0.3951,
+        "registration_hash": "1249ea32b5b89853"
+      },
+      "event": "trial_outcome_recorded",
+      "hash": "ec34bf16eabd87a4bb96990393fe6cf4a22d835b80180d5ddfb1ee2ad89dca14",
+      "prev": "e65f116fa3ca66efcbca5606e97940cc093ac87da1dd2807700a1e1f84c51799",
+      "ts": "2026-11-04T12:39:37Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "policy": "monthly",
+        "wape": 0.3931
+      },
+      "event": "retrain_policy_set",
+      "hash": "24c8927546cd103000d2f357c2fab6a94c7a595d2d2c166529bcbf78118a3c05",
+      "prev": "ec34bf16eabd87a4bb96990393fe6cf4a22d835b80180d5ddfb1ee2ad89dca14",
+      "ts": "2026-11-04T12:41:52Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "passed": true,
+        "source_rows": {
+          "erp_items": 432,
+          "erp_prices": 144,
+          "inventory_snapshots": 20736,
+          "pos_daily": 25278
+        }
+      },
+      "event": "adapters_verified",
+      "hash": "d0d5f25be058c9a84f6d2d8deb662af90d1fe29df6e6778a313fd3c9508f63cf",
+      "prev": "24c8927546cd103000d2f357c2fab6a94c7a595d2d2c166529bcbf78118a3c05",
+      "ts": "2026-11-04T12:42:46Z"
+    },
+    {
+      "actor": "pipeline",
+      "dept": "kidswear",
+      "detail": {
+        "needed": false,
+        "reason": "model is current"
+      },
+      "event": "retrain_check",
+      "hash": "019b6bf53278c2f4a03e7c847fa43392de2851d7c8856af828200d897437ab87",
+      "prev": "d0d5f25be058c9a84f6d2d8deb662af90d1fe29df6e6778a313fd3c9508f63cf",
+      "ts": "2026-11-04T12:42:46Z"
+    }
+  ]
+}

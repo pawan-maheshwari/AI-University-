@@ -1,0 +1,58 @@
+{
+  "reasons": {
+    "Local event planned": "store has an event the model may underweight",
+    "Stock-out last year": "last year's sales were capped by stock",
+    "Competitor promotion": "a competitor is on promotion",
+    "Gut feel": "planner judgement, no specific evidence"
+  },
+  "learned_trust": {
+    "Competitor promotion": 0.06,
+    "Gut feel": 0.14,
+    "Local event planned": 0.45,
+    "Stock-out last year": 0.36
+  },
+  "learning_overrides": 1472,
+  "evaluation_overrides": 2603,
+  "rejected_rows": 0,
+  "overall": {
+    "model_only_wape": 0.3744,
+    "accept_all_wape": 0.4144,
+    "learned_wape": 0.3789
+  },
+  "by_reason": [
+    {
+      "reason": "Competitor promotion",
+      "overrides": 1657,
+      "learned_trust": 0.06,
+      "model_only_wape": 0.38,
+      "accept_all_wape": 0.4062,
+      "learned_wape": 0.3798
+    },
+    {
+      "reason": "Local event planned",
+      "overrides": 245,
+      "learned_trust": 0.45,
+      "model_only_wape": 0.3686,
+      "accept_all_wape": 0.4539,
+      "learned_wape": 0.3873
+    },
+    {
+      "reason": "Stock-out last year",
+      "overrides": 701,
+      "learned_trust": 0.36,
+      "model_only_wape": 0.3617,
+      "accept_all_wape": 0.4178,
+      "learned_wape": 0.3724
+    }
+  ],
+  "csv_contract": [
+    "style_id",
+    "store_id",
+    "week_index",
+    "model_forecast",
+    "override_value",
+    "reason",
+    "planner",
+    "timestamp"
+  ]
+}
