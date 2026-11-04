@@ -7,31 +7,31 @@
   },
   "results": {
     "base": {
-      "total": 0.2621,
-      "category": 0.2352,
-      "category_store": 0.2729,
-      "style_store": 0.3782,
-      "max_coherence_gap_units": 6177.394
+      "total": 0.2676,
+      "category": 0.238,
+      "category_store": 0.2765,
+      "style_store": 0.3639,
+      "max_coherence_gap_units": 7751.397
     },
     "bottom_up": {
-      "total": 0.1001,
-      "category": 0.1785,
-      "category_store": 0.1925,
-      "style_store": 0.3782,
+      "total": 0.0671,
+      "category": 0.1493,
+      "category_store": 0.1712,
+      "style_store": 0.3639,
       "max_coherence_gap_units": 0.0
     },
     "top_down": {
-      "total": 0.2621,
-      "category": 0.2724,
-      "category_store": 0.2831,
-      "style_store": 0.4105,
+      "total": 0.2676,
+      "category": 0.2725,
+      "category_store": 0.2825,
+      "style_store": 0.4027,
       "max_coherence_gap_units": 0.0
     },
     "mint_wls": {
-      "total": 0.1379,
-      "category": 0.1956,
-      "category_store": 0.2092,
-      "style_store": 0.3837,
+      "total": 0.115,
+      "category": 0.1739,
+      "category_store": 0.1897,
+      "style_store": 0.3703,
       "max_coherence_gap_units": 0.0
     }
   },
