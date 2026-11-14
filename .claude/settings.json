@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tools/claude/peek.sh:*)",
+      "Bash(python3 tools/claude/codemap.py)",
+      "Bash(python3 tools/claude/check_html.py:*)",
+      "Bash(node --check:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)"
+    ],
+    "deny": [
+      "Read(./index_040726.html)",
+      "Read(./index_050726.html)",
+      "Read(./index_bac.html)",
+      "Read(./index_bac_090726.html)",
+      "Read(./index_bac_280626.html)",
+      "Edit(./index_040726.html)",
+      "Edit(./index_050726.html)",
+      "Edit(./index_bac.html)",
+      "Edit(./index_bac_090726.html)",
+      "Edit(./index_bac_280626.html)",
+      "Read(./vendor/**)",
+      "Read(./kidswear-poc/results/**)",
+      "Read(./img/**)"
+    ]
+  }
+}
