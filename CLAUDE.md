@@ -25,6 +25,7 @@ Owner: Pawan Maheshwari (planetAI LLP).
   `aiu-auth.js` / `aiu-auth.css` (Supabase via `vendor/supabase.js`, Cloudflare Turnstile).
   DB: `schema.sql`, `01 certificates.sql`, `mfa-policies.sql`. Edge functions in
   `supabase/functions/` (`badge-assertion`, `create-order`, `issue-certificate`).
+  Workflow `supabase-keepalive.yml` pings the DB twice a week so the free project isn't paused.
 - Credentials: `openbadges/*.json` (one badge class per programme, art in `img/`).
 - `labs/*.ipynb` — Python notebooks (open with `jq '.cells[].source'`, not whole).
 - `kidswear-poc/` — Python retail pipeline (numbered steps `01_…18_`, `run_all.sh`,

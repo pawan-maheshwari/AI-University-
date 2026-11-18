@@ -1,0 +1,52 @@
+# Keeps the AI University Supabase project (free tier) from being paused for inactivity.
+# Supabase pauses free projects after ~7 days with no database activity, so this runs a
+# real PostgREST query twice a week (well inside the window).
+#
+# The query looks up a certificate code that never exists on the public
+# certificate_verification view: it touches Postgres but returns [] and exposes no data.
+# The URL and publishable key are the same public values as aiu-auth.js; set the repo
+# secrets SUPABASE_URL / SUPABASE_ANON_KEY to override them.
+#
+# If a ping fails the run goes red and GitHub emails the repo owner.
+# The last step re-enables this workflow, because GitHub switches off scheduled workflows
+# in repositories with no commits for 60 days.
+name: supabase-keepalive
+on:
+  schedule:
+    - cron: "23 4 * * 1,4"      # Mondays and Thursdays 04:23 UTC
+  workflow_dispatch:
+permissions:
+  actions: write                 # only for the re-enable step
+  contents: read
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://octgqicycwaxfsxaswjf.supabase.co' }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || 'sb_publishable_MzsglSmQRtprAHzhIcOYrw_vYzCaBOZ' }}
+    steps:
+      - name: Query the database
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            code=$(curl -sS -o /tmp/body -w '%{http_code}' --max-time 30 \
+              "$SUPABASE_URL/rest/v1/certificate_verification?select=code&code=eq.keepalive-ping&limit=1" \
+              -H "apikey: $SUPABASE_ANON_KEY" \
+              -H "Authorization: Bearer $SUPABASE_ANON_KEY" || echo 000)
+            echo "Attempt $attempt: HTTP $code"
+            if [ "$code" = "200" ]; then
+              echo "Supabase is awake."
+              exit 0
+            fi
+            head -c 300 /tmp/body 2>/dev/null || true; echo
+            sleep 20
+          done
+          echo "::error::Supabase keep-alive failed. The project may already be paused: restore it in the Supabase dashboard."
+          exit 1
+
+      - name: Keep this schedule switched on
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/supabase-keepalive.yml/enable" || true
