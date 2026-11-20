@@ -27,7 +27,8 @@ SITE = "https://ai-university.co.in"
 UA = "AI-University-weekly-scan/1.0 (+https://ai-university.co.in)"
 KEEP_WEEKS = 26
 N_RESEARCH = 10
-N_POLICY = 14
+N_POLICY = 16
+PER_REGION = 2
 FIXTURES = None
 
 # ------------------------------------------------------------------ fetching
@@ -163,6 +164,14 @@ REGIONS = [
     ("Africa", '"artificial intelligence" (Africa OR "South Africa" OR Nigeria OR Kenya OR "African Union") policy'),
     ("Multilateral", '"artificial intelligence" (OECD OR UNESCO OR "United Nations" OR G7 OR G20) governance'),
 ]
+AI_CS = re.compile(r"\bAI\b|\bA\.I\.|\bAGI\b|\bGenAI\b")
+AI_CI = re.compile(r"artificial intelligence|generative|machine learning|algorithm|\bLLMs?\b|chatbot|deepfake|"
+                   r"super ?intelligence|frontier model|foundation model|automated decision", re.I)
+
+def about_ai(*texts):
+    s = " ".join(x or "" for x in texts)
+    return bool(AI_CS.search(s) or AI_CI.search(s))
+
 POLICY_RX = re.compile(r"\b(law|act|bill|regulat|policy|rule|guidance|guideline|framework|executive order|"
                        r"strategy|govern|standard|code of practice|consultation|ban|compliance|treaty|summit|minist)", re.I)
 
@@ -201,7 +210,9 @@ def federal_register(today):
     q += "&conditions[type][]=PRORULE&conditions[type][]=PRESDOCU&conditions[type][]=NOTICE"
     data = json.loads(fetch("https://www.federalregister.gov/api/v1/documents.json?" + q))
     out = []
-    for r in data.get("results", [])[:6]:
+    for r in data.get("results", []):
+        if not about_ai(r.get("title"), r.get("abstract")):
+            continue
         agencies = ", ".join(a.get("name", "") for a in r.get("agencies", [])[:2])
         out.append({"region": "United States", "title": clean(r.get("title")), "link": r.get("html_url", ""),
                     "source": "Federal Register" + (" · " + agencies if agencies else ""),
@@ -221,6 +232,8 @@ def govuk(today):
         except ValueError:
             pass
         link = e.find("a:link", ns)
+        if not about_ai(e.findtext("a:title", "", ns), e.findtext("a:summary", "", ns)):
+            continue
         out.append({"region": "United Kingdom", "title": clean(e.findtext("a:title", "", ns)),
                     "link": link.get("href") if link is not None else "", "source": "GOV.UK",
                     "date": d, "desc": clean(e.findtext("a:summary", "", ns), 260), "primary": True})
@@ -235,7 +248,7 @@ def collect_policy(today):
             print("  " + name + " failed:", e, file=sys.stderr)
     for region, query in REGIONS:
         try:
-            pool += [x for x in gnews(region, query) if POLICY_RX.search(x["title"])]
+            pool += [x for x in gnews(region, query) if POLICY_RX.search(x["title"]) and about_ai(x["title"], x["desc"])]
         except Exception as e:  # noqa: BLE001
             print("  news", region, "failed:", e, file=sys.stderr)
     since = (today - dt.timedelta(days=8)).isoformat()
@@ -247,7 +260,7 @@ def collect_policy(today):
         k = norm_title(it["title"])
         if not it["title"] or k in seen or (it["date"] and it["date"] < since):
             continue
-        if per.get(it["region"], 0) >= 3:
+        if per.get(it["region"], 0) >= PER_REGION:
             continue
         seen.add(k)
         per[it["region"]] = per.get(it["region"], 0) + 1
