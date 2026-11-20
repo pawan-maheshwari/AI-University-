@@ -9,7 +9,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | File | Size | Lines | Long lines |
 |---|---|---|---|
 | `thinking-shelf.html` | 3.2 MB | 416 | 13 |
-| `index.html` | 2.1 MB | 9662 | 84 |
+| `index.html` | 2.1 MB | 9669 | 84 |
 | `index_university.html` | 1.1 MB | 5758 | 38 |
 | `seven-lanterns.html` | 949 KB | 214 | 9 |
 | `kidswear-planner.html` | 449 KB | 680 | 1 |
@@ -60,6 +60,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `kidswear-poc/11_allocation.py` | 6 KB | 91 |  |
 | `account.js` | 6 KB | 179 |  |
 | `verify.js` | 5 KB | 164 |  |
+| `tools/claude/codemap.py` | 5 KB | 129 |  |
 | `account.html` | 5 KB | 141 |  |
 | `kidswear-poc/tests/test_pipeline.py` | 5 KB | 105 |  |
 | `kidswear-poc/contracts.py` | 5 KB | 124 |  |
@@ -77,7 +78,9 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `mfa-policies.sql` | 3 KB | 99 |  |
 | `kidswear-poc/retrain.py` | 2 KB | 57 |  |
 | `kidswear-poc/16_governance_report.py` | 2 KB | 43 |  |
+| `tools/claude/check_html.py` | 2 KB | 65 |  |
 | `kidswear-poc/02_validate_data.py` | 2 KB | 40 |  |
+| `.github/workflows/supabase-keepalive.yml` | 2 KB | 52 |  |
 | `kidswear-poc/17_departments.py` | 1 KB | 29 |  |
 | `.github/workflows/kidswear-retrain.yml` | 1 KB | 43 |  |
 | `kidswear-poc/paths.py` | 973 B | 23 |  |
@@ -109,78 +112,78 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L143 data `BANNER_KEY`
 - L204 script
 - L243 script
-- L279 data `GREET`
-- L280 data `FALLBACK`
-- L281 data `CHIPS`
-- L292 data `PAGE_LABEL`
-- L297 data `NAV_RE`
-- L385 script
-- L419 script
-- L569 script
-- L689 script
-- L705 data `PAD0`
-- L706 data `PAD1`
-- L1537 data `PATTERN_POSITION_TABLE`
-- L1579 data `G15`
-- L1580 data `G18`
-- L1581 data `G15_MASK`
-- L1808 data `EXP_TABLE`
-- L1809 data `LOG_TABLE`
-- L1927 data `RS_BLOCK_TABLE`
-- L2965 script
-- L2971 data `IMG`
-- L2983 data `ZONES`
-- L3004 data `COURSES`
-- L3026 data `EXCLUSIVE`
-- L3049 data `EXCLUSIVE_READING`
-- L3066 data `TOOLS`
-- L3088 data `PAPERS`
-- L3100 data `POLICY`
-- L3110 data `TEAM`
-- L3115 data `CURRICULUM`
-- L5352 data `CBSE_KIDS_MODULES`
-- L5353 data `CBSE_TEENS_MODULES`
-- L5357 data `VIDS`
-- L5407 data `AIU_COUNT_URL`
-- L5408 data `AIU_COUNT_BASE`
-- L5440 data `QUIZBANK`
-- L5804 data `QUIZ_PER_LESSON`
-- L5824 data `EXAMBANK`
-- L5932 data `EXAMBANK_2`
-- L6124 data `CONTENT_REVIEWED`
-- L6126 data `ASSESS_KEY`
-- L6127 data `ASSESS_QUESTIONS`
-- L6128 data `ASSESS_PASS`
-- L6129 data `ASSESS_MINUTES`
-- L6130 data `ASSESS_ATTEMPTS`
-- L6131 data `ASSESS_RESIT_DAYS`
-- L6339 data `OB_BASE`
-- L6342 data `OB_CRC_TABLE`
-- L6531 data `GOLDC`
-- L7381 data `AIU_SPEAKING`
-- L7431 data `CBSE_PAL`
-- L7974 data `GOLDC`
-- L7975 data `CRIM`
-- L8192 data `KIDS_GAMES`
-- L8215 data `GAME_FILE`
-- L8480 data `AIU_PROGRESS_KEY`
-- L8481 data `AIU_CACHED_USER`
-- L8541 data `AIU_CERT_KEY`
-- L8544 data `AIU_VERIFY_BASE`
-- L8548 data `AIU_SUPABASE_URL`
-- L8549 data `AIU_SUPABASE_ANON_KEY`
-- L8550 data `CERT_FEE_INR`
-- L8605 data `RAZORPAY_SCRIPT`
-- L8612 data `AIU_PAYMENTS_LIVE`
-- L8888 data `PROGRAMS`
-- L8905 data `PROGRAM_COUNTRIES`
-- L8912 data `REGIONS`
-- L8924 data `WORLD_PATH`
-- L9097 data `EXAMPLES`
-- L9415 data `SECTIONS`
-- L9499 data `SECTIONS`
-- L9633 script
-- functions (179): init@144, detectPageName@299, addMsg@312, answer@316, navigate@326, ask@330, buildChips@360, openChat@367, closeChat@372, M@397, D@401, mb@433, oe@449, oj@456, y@496, Df@556, Id@584, Td@630, qrPolynomial@1856, toUTF8Array@2928, totalLessonCount@5316, totalLabCount@5322, fetchVisitorCount@5409, VisitorCounter@5422, shuffle@5799, lessonQuestionPool@5805, localQuiz@6064, QuizView@6078, gen@6081, getAssessments@6133, recordAttempt@6137, assessmentState@6154, assessmentPassed@6174, buildAssessment@6178, fmtClock@6196, AssessmentView@6202, finish@6216, obCrc32@6351, bakeOpenBadge@6362, readOpenBadge@6421, obAssertionUrl@6444, buildOpenBadge@6454, CertModal@6479, qrDataUrl@6510, drawSeal@6530, loadImg@6577, knockoutWhite@6585, buildCanvas@6599, buildOpenBadgeForZone@6693, downloadPNG@6724, downloadPDF@6732, asciiToBytes@6736, renderMarkdown@6911, inline@6916, LabFrame@6976, FlashcardLab@6984, SortLab@7003, place@7006, TrainLab@7050, loss@7055, px@7077, py@7078, TokensLab@7113, sample@7120, ScenarioLab@7151, WeighLab@7193, valueOf@7201, set@7215, WriteLab@7265, review@7273, downloadTakeaway@7332, TakeawayCard@7345, ToolCard@7364, speechAvailable@7382, stripMarkdown@7385, ReadAloud@7398, stop@7401, start@7402, cbseShape@7437, cbseHintBar@7463, PatternLab@7475, StepsLab@7523, add@7527, drop@7529, GridLab@7579, isWall@7584, cbseMini@7665, SpatialLab@7675, ChartLab@7715, bars@7722, line@7735, pie@7750, PredictLab@7807, plot@7813, LabView@7872, LessonView@7892, goTab@7899, zoneBadgeSVG@7973, clampHex@7976, shade@7977, escapeXml@8042, laurel@8043, bez@8050, dbez@8051, ZoneBadge@8071, svgToDataUrl@8078, downloadPNG@8079, shareNative@8099, shareTo@8104, BadgeModal@8129, downloadPNG@8138, shareTo@8158, LearnScreen@8200, toggle@8219, CurriculumPage@8416, ResearchPage@8428, PolicyPage@8442, AboutPage@8453, getUser@8483, clearUser@8488, getProgress@8492, saveProgress@8495, markLessonComplete@8515, zoneCompletedCount@8522, zoneLessonTotal@8527, getCertLicences@8551, hasCertLicence@8554, certLicenceCode@8559, recordCertLicence@8563, syncCertLicences@8576, certPaymentsEnabled@8614, loadRazorpay@8618, fnUrl@8628, startCertCheckout@8630, done@8642, isZoneComplete@8717, AuthModal@8723, ready@8735, friendly@8739, submit@8747, resetPw@8773, onKey@8782, AIShortsFrame@8832, attachVideo@8838, EvolutionMap@8907, EvolutionPage@8976, analysePrompt@9018, add@9023, buildImprovedPrompt@9068, PracticeLabPage@9086, callLLM@9103, run@9122, askAiToImprove@9129, useImproved@9137, ExclusiveBand@9240, open@9242, card@9243, SkillsRail@9276, half@9289, wrap@9290, step@9298, hold@9315, release@9316, open@9318, card@9319, Home@9347, go@9351, TermsPage@9413, PrivacyPage@9497, AIUCopyright@9556, ToolsPage@9564, open@9565, PageShell@9587, App@9598, enter@9610, login@9611, logout@9612, toSiteUser@9637, apply@9647
+- L280 data `GREET`
+- L281 data `FALLBACK`
+- L282 data `CHIPS`
+- L293 data `PAGE_LABEL`
+- L298 data `NAV_RE`
+- L386 script
+- L420 script
+- L570 script
+- L690 script
+- L706 data `PAD0`
+- L707 data `PAD1`
+- L1538 data `PATTERN_POSITION_TABLE`
+- L1580 data `G15`
+- L1581 data `G18`
+- L1582 data `G15_MASK`
+- L1809 data `EXP_TABLE`
+- L1810 data `LOG_TABLE`
+- L1928 data `RS_BLOCK_TABLE`
+- L2966 script
+- L2972 data `IMG`
+- L2984 data `ZONES`
+- L3005 data `COURSES`
+- L3027 data `EXCLUSIVE`
+- L3050 data `EXCLUSIVE_READING`
+- L3067 data `TOOLS`
+- L3095 data `PAPERS`
+- L3107 data `POLICY`
+- L3117 data `TEAM`
+- L3122 data `CURRICULUM`
+- L5359 data `CBSE_KIDS_MODULES`
+- L5360 data `CBSE_TEENS_MODULES`
+- L5364 data `VIDS`
+- L5414 data `AIU_COUNT_URL`
+- L5415 data `AIU_COUNT_BASE`
+- L5447 data `QUIZBANK`
+- L5811 data `QUIZ_PER_LESSON`
+- L5831 data `EXAMBANK`
+- L5939 data `EXAMBANK_2`
+- L6131 data `CONTENT_REVIEWED`
+- L6133 data `ASSESS_KEY`
+- L6134 data `ASSESS_QUESTIONS`
+- L6135 data `ASSESS_PASS`
+- L6136 data `ASSESS_MINUTES`
+- L6137 data `ASSESS_ATTEMPTS`
+- L6138 data `ASSESS_RESIT_DAYS`
+- L6346 data `OB_BASE`
+- L6349 data `OB_CRC_TABLE`
+- L6538 data `GOLDC`
+- L7388 data `AIU_SPEAKING`
+- L7438 data `CBSE_PAL`
+- L7981 data `GOLDC`
+- L7982 data `CRIM`
+- L8199 data `KIDS_GAMES`
+- L8222 data `GAME_FILE`
+- L8487 data `AIU_PROGRESS_KEY`
+- L8488 data `AIU_CACHED_USER`
+- L8548 data `AIU_CERT_KEY`
+- L8551 data `AIU_VERIFY_BASE`
+- L8555 data `AIU_SUPABASE_URL`
+- L8556 data `AIU_SUPABASE_ANON_KEY`
+- L8557 data `CERT_FEE_INR`
+- L8612 data `RAZORPAY_SCRIPT`
+- L8619 data `AIU_PAYMENTS_LIVE`
+- L8895 data `PROGRAMS`
+- L8912 data `PROGRAM_COUNTRIES`
+- L8919 data `REGIONS`
+- L8931 data `WORLD_PATH`
+- L9104 data `EXAMPLES`
+- L9422 data `SECTIONS`
+- L9506 data `SECTIONS`
+- L9640 script
+- functions (179): init@144, detectPageName@300, addMsg@313, answer@317, navigate@327, ask@331, buildChips@361, openChat@368, closeChat@373, M@398, D@402, mb@434, oe@450, oj@457, y@497, Df@557, Id@585, Td@631, qrPolynomial@1857, toUTF8Array@2929, totalLessonCount@5323, totalLabCount@5329, fetchVisitorCount@5416, VisitorCounter@5429, shuffle@5806, lessonQuestionPool@5812, localQuiz@6071, QuizView@6085, gen@6088, getAssessments@6140, recordAttempt@6144, assessmentState@6161, assessmentPassed@6181, buildAssessment@6185, fmtClock@6203, AssessmentView@6209, finish@6223, obCrc32@6358, bakeOpenBadge@6369, readOpenBadge@6428, obAssertionUrl@6451, buildOpenBadge@6461, CertModal@6486, qrDataUrl@6517, drawSeal@6537, loadImg@6584, knockoutWhite@6592, buildCanvas@6606, buildOpenBadgeForZone@6700, downloadPNG@6731, downloadPDF@6739, asciiToBytes@6743, renderMarkdown@6918, inline@6923, LabFrame@6983, FlashcardLab@6991, SortLab@7010, place@7013, TrainLab@7057, loss@7062, px@7084, py@7085, TokensLab@7120, sample@7127, ScenarioLab@7158, WeighLab@7200, valueOf@7208, set@7222, WriteLab@7272, review@7280, downloadTakeaway@7339, TakeawayCard@7352, ToolCard@7371, speechAvailable@7389, stripMarkdown@7392, ReadAloud@7405, stop@7408, start@7409, cbseShape@7444, cbseHintBar@7470, PatternLab@7482, StepsLab@7530, add@7534, drop@7536, GridLab@7586, isWall@7591, cbseMini@7672, SpatialLab@7682, ChartLab@7722, bars@7729, line@7742, pie@7757, PredictLab@7814, plot@7820, LabView@7879, LessonView@7899, goTab@7906, zoneBadgeSVG@7980, clampHex@7983, shade@7984, escapeXml@8049, laurel@8050, bez@8057, dbez@8058, ZoneBadge@8078, svgToDataUrl@8085, downloadPNG@8086, shareNative@8106, shareTo@8111, BadgeModal@8136, downloadPNG@8145, shareTo@8165, LearnScreen@8207, toggle@8226, CurriculumPage@8423, ResearchPage@8435, PolicyPage@8449, AboutPage@8460, getUser@8490, clearUser@8495, getProgress@8499, saveProgress@8502, markLessonComplete@8522, zoneCompletedCount@8529, zoneLessonTotal@8534, getCertLicences@8558, hasCertLicence@8561, certLicenceCode@8566, recordCertLicence@8570, syncCertLicences@8583, certPaymentsEnabled@8621, loadRazorpay@8625, fnUrl@8635, startCertCheckout@8637, done@8649, isZoneComplete@8724, AuthModal@8730, ready@8742, friendly@8746, submit@8754, resetPw@8780, onKey@8789, AIShortsFrame@8839, attachVideo@8845, EvolutionMap@8914, EvolutionPage@8983, analysePrompt@9025, add@9030, buildImprovedPrompt@9075, PracticeLabPage@9093, callLLM@9110, run@9129, askAiToImprove@9136, useImproved@9144, ExclusiveBand@9247, open@9249, card@9250, SkillsRail@9283, half@9296, wrap@9297, step@9305, hold@9322, release@9323, open@9325, card@9326, Home@9354, go@9358, TermsPage@9420, PrivacyPage@9504, AIUCopyright@9563, ToolsPage@9571, open@9572, PageShell@9594, App@9605, enter@9617, login@9618, logout@9619, toSiteUser@9644, apply@9654
 ### `index_university.html`
 - L9 style
 - L100 script
@@ -735,6 +738,8 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L8 data `SUPABASE_URL`
 - L10 data `SUPABASE_ANON_KEY`
 - functions (13): el@16, clear@22, message@24, statusBlock@30, row@39, normalise@47, looksValid@50, formatDate@54, renderValid@62, renderRevoked@76, renderNotFound@89, renderError@99, lookup@107
+### `tools/claude/codemap.py`
+- functions (4): tracked_files@47, human@59, scan@63, main@82
 ### `account.html`
 - L32 h2 `Your account`
 - L38 h2 `Public profile`
@@ -774,5 +779,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L33 table `"confidential`
 ### `kidswear-poc/retrain.py`
 - functions (2): signals@17, decide@34
+### `tools/claude/check_html.py`
+- functions (1): check@16
 ### `kidswear-poc/paths.py`
 - functions (1): res@18
