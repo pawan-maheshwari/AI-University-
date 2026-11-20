@@ -1,0 +1,82 @@
+# Weekly Research & Policy scan for the Research Library and Policy Lab pages.
+#
+# Every Monday it runs tools/research_scan.py, which collects the week's most-discussed AI
+# papers and AI policy updates, writes a dated brief to research-updates/YYYY-MM-DD.html,
+# adds the week to research-updates.json (read by both pages) and lists the brief in
+# sitemap.xml. The changes are committed to main and GitHub Pages is rebuilt.
+#
+# Optional repo secret ANTHROPIC_API_KEY: Claude then writes a short overview and a
+# "why it matters" line per item. Optional repo variable AIU_SCAN_MODEL overrides the model.
+#
+# On pull requests that touch the scanner it does a dry run (no commit) and uploads the
+# brief as an artifact, so changes can be checked before merging.
+name: research-policy-scan
+on:
+  schedule:
+    - cron: "17 5 * * 1"        # Mondays 05:17 UTC (07:17 Johannesburg, 10:47 IST)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["tools/research_scan.py", ".github/workflows/research-policy-scan.yml"]
+  pull_request:
+    paths: ["tools/research_scan.py", ".github/workflows/research-policy-scan.yml"]
+permissions:
+  contents: write
+  pages: write
+  actions: write
+concurrency:
+  group: research-policy-scan
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      AIU_SCAN_MODEL: ${{ vars.AIU_SCAN_MODEL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dry run (pull request)
+        if: github.event_name == 'pull_request'
+        run: python3 tools/research_scan.py --dry-run
+
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: weekly-brief-preview
+          path: /tmp/aiu-scan
+
+      - name: Scan and write this week's brief
+        if: github.event_name != 'pull_request'
+        run: python3 tools/research_scan.py
+
+      - name: Commit and push
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          git config user.name  "aiu-weekly-scan[bot]"
+          git config user.email "aiu-weekly-scan@users.noreply.github.com"
+          git add research-updates.json research-updates sitemap.xml
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git commit -m "Weekly Research & Policy brief $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            sleep 5
+          done
+
+      - name: Rebuild GitHub Pages
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Pages rebuild request skipped"
+
+      # GitHub switches off scheduled workflows after 60 days without commits; this keeps it on.
+      - name: Keep the schedule enabled
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable research-policy-scan.yml --repo "${{ github.repository }}" || true
