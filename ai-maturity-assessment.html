@@ -164,6 +164,8 @@ table.t tr.clk{cursor:pointer} table.t tr.clk:hover td{background:#F7F8FB}
 .heatlegend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
 .prio{border-left:4px solid var(--pc);padding:10px 14px;background:#FAFBFD;border-radius:6px;margin-top:10px;font-size:13.5px}
 .prio b{color:var(--ink)}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.cap{margin-top:14px;min-height:0}
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:7px 10px;border-radius:6px;max-width:260px;z-index:99;opacity:0;transition:opacity .1s}
 
 /* dashboards */
@@ -326,6 +328,8 @@ footer{border-top:1px solid var(--hair);padding:26px 0 40px;font-size:12.5px;col
           <div><label class="f">Work email</label><input class="in" type="email" name="contact_email" maxlength="120"></div>
         </div>
         <label style="display:flex;gap:10px;font-size:13.5px;align-items:flex-start"><input type="checkbox" name="opt_in" style="margin-top:4px"> Add our associates' results, anonymised, to the public country dashboard. Names and the organisation name are never shown publicly.</label>
+        <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="cap" id="capEnrol"></div>
         <button class="btn gold" type="submit">Enrol and get our private link</button>
         <div class="err" id="enrolErr"></div>
       </form>
@@ -456,25 +460,50 @@ function pillarBars(vals,targets){
 function stackBar(lv){var t=lv.reduce(function(a,b){return a+b;},0)||1;return '<div class="stack">'+lv.map(function(c,i){return c?'<span style="width:'+(c/t*100)+'%;background:'+LEVELS[i].c+'" data-tip="'+LEVELS[i].n+': '+c+'"></span>':'';}).join("")+'</div>';}
 function miniBars(p){return '<div class="minibars">'+p.map(function(v,i){return '<i style="height:'+((v||0)/4*26)+'px;background:'+PILLARS[i].c+'" data-tip="'+PILLARS[i].s+': '+fmt(v)+'"></i>';}).join("")+'</div>';}
 
+/* ===================== SPAM PROTECTION =====================
+   The real checks run in Postgres (rate limits, start ticket, honeypot, duplicates).
+   Cloudflare Turnstile is added only when a site key is set in aiu-auth.js. */
+var Captcha={key:"",ready:false,ids:{},tokens:{},
+  on:function(){return Store.mode==="live"&&this.key&&!/^YOUR/i.test(this.key);},
+  load:function(){var self=this;if(!this.on()||document.getElementById("cf-ts"))return;
+    var s=document.createElement("script");s.id="cf-ts";s.async=true;s.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    s.onload=function(){self.ready=true;["capEnrol","capAssess"].forEach(function(id){if(document.getElementById(id))self.render(id);});};document.head.appendChild(s);},
+  render:function(id){var self=this,el=document.getElementById(id);if(!this.on()||!el)return;
+    if(!this.ready||!window.turnstile)return;
+    if(this.ids[id]!==undefined&&el.childElementCount){return;}
+    el.innerHTML="";this.tokens[id]="";
+    this.ids[id]=window.turnstile.render(el,{sitekey:this.key,"refresh-expired":"auto",
+      callback:function(tok){self.tokens[id]=tok;},"expired-callback":function(){self.tokens[id]="";}});},
+  token:function(id){return this.on()?(this.tokens[id]||""):null;},
+  reset:function(id){if(this.on()&&window.turnstile&&this.ids[id]!==undefined){try{window.turnstile.reset(this.ids[id]);}catch(e){}this.tokens[id]="";}},
+  need:function(id){return this.on()&&!this.tokens[id];}
+};
+
 /* ===================== STORE (Supabase live, or local preview) ===================== */
 var Store={mode:"local",sb:null,
   init:function(){var self=this;
-    return import("./aiu-auth.js").then(function(m){self.sb=m.supabase;return self.sb.rpc("aim_public_stats");})
+    return import("./aiu-auth.js").then(function(m){self.sb=m.supabase;Captcha.key=m.TURNSTILE_SITE_KEY;return self.sb.rpc("aim_public_stats");})
       .then(function(r){if(r&&!r.error)self.mode="live";}).catch(function(){})
       .then(function(){var el=$("#mode");el.className="mode "+self.mode;
+        if(self.mode==="live")Captcha.load();
         $("#modeTxt").innerHTML=self.mode==="live"?"Live — results are saved and dashboards update in real time":"Preview mode — results are kept in this browser only until the AI Maturity database is switched on";});},
   rpc:function(fn,args){return this.sb.rpc(fn,args).then(function(r){if(r.error)throw new Error(r.error.message);return r.data;});},
   L:function(){return ls("aim.local")||{orgs:[],responses:[]};},
   save:function(d){ls("aim.local",d);},
+  begin:function(){
+    if(this.mode==="live")return this.rpc("aim_begin",{});
+    return Promise.resolve("local-"+uid(6));},
   enroll:function(o){
-    if(this.mode==="live")return this.rpc("aim_enroll_org",{p_name:o.name,p_country:o.country,p_sector:o.sector,p_contact_name:o.contact_name,p_contact_email:o.contact_email,p_public_opt_in:o.opt_in});
+    if(o.hp)return Promise.reject(new Error("Submission rejected"));
+    if(this.mode==="live")return this.rpc("aim_enroll_org",{p_name:o.name,p_country:o.country,p_sector:o.sector,p_contact_name:o.contact_name,p_contact_email:o.contact_email,p_public_opt_in:o.opt_in,p_hp:o.hp||null,p_captcha:o.captcha||null});
     var d=this.L(),org={id:uid(8),name:o.name,country:o.country,sector:o.sector,invite_code:uid(6),admin_key:uid(18),public_opt_in:o.opt_in,created_at:new Date().toISOString()};
     d.orgs.push(org);this.save(d);return Promise.resolve({org_id:org.id,invite_code:org.invite_code,admin_key:org.admin_key});},
   orgInfo:function(code){
     if(this.mode==="live")return this.rpc("aim_org_info",{p_code:code});
     var o=this.L().orgs.filter(function(x){return x.invite_code===code;})[0];return Promise.resolve(o?{name:o.name,country:o.country,sector:o.sector}:null);},
   submit:function(p){
-    if(this.mode==="live")return this.rpc("aim_submit",{p_code:p.code||null,p_name:p.name,p_country:p.country,p_organisation:p.organisation,p_role:p.role,p_department:p.department,p_scores:p.scores,p_desired:p.desired});
+    if(p.hp)return Promise.reject(new Error("Submission rejected"));
+    if(this.mode==="live")return this.rpc("aim_submit",{p_code:p.code||null,p_name:p.name,p_country:p.country,p_organisation:p.organisation,p_role:p.role,p_department:p.department,p_scores:p.scores,p_desired:p.desired,p_ticket:p.ticket||null,p_hp:p.hp||null,p_captcha:p.captcha||null});
     var d=this.L(),org=p.code?d.orgs.filter(function(x){return x.invite_code===p.code;})[0]:null,pm=pillarMeans(p.scores),ov=Math.round(mean(pm)*100)/100;
     d.responses.push({org_id:org?org.id:null,name:p.name,country:p.country,organisation:org?org.name:p.organisation,role:p.role,department:p.department,scores:p.scores,desired:p.desired,pillars:pm,overall:ov,created_at:new Date().toISOString()});
     this.save(d);return Promise.resolve({overall:ov,pillars:pm});},
@@ -575,10 +604,10 @@ function drawStep(){
       '<div><label class="f">Organisation <em>*</em></label>'+orgField+'</div>'+
       '<div><label class="f">Role / designation</label><input class="in" id="pRole" maxlength="80" value="'+esc(A.profile.role||"")+'" placeholder="e.g. Head of Data"></div>'+
       (INVITE&&ORG?'<div><label class="f">Department / function</label><input class="in" id="pDept" maxlength="80" value="'+esc(A.profile.department||"")+'" placeholder="e.g. Finance, IT, Legal"></div>':'')+
-      '</div><label style="display:flex;gap:10px;font-size:13.5px;margin-top:16px;align-items:flex-start"><input type="checkbox" id="pConsent" '+(A.profile.consent?'checked':'')+' style="margin-top:4px"> '+
+      '</div><div class="hp" aria-hidden="true"><label>Website <input id="pWebsite" tabindex="-1" autocomplete="off"></label></div><label style="display:flex;gap:10px;font-size:13.5px;margin-top:16px;align-items:flex-start"><input type="checkbox" id="pConsent" '+(A.profile.consent?'checked':'')+' style="margin-top:4px"> '+
       (INVITE&&ORG?'I agree that my name and ratings are shared with '+esc(ORG.name)+'’s assessment administrators.':'I agree that my ratings are stored and included, anonymised, in the public country-level dashboard. My name and organisation are never shown publicly.')+'</label></div>';
     var sel=$("#pCountry");fillCountries(sel,A.profile.country||(ORG&&ORG.country)||"");
-    function upd(){A.profile.name=$("#pName").value;A.profile.country=sel.value;if($("#pOrg"))A.profile.organisation=$("#pOrg").value;A.profile.role=$("#pRole").value;if($("#pDept"))A.profile.department=$("#pDept").value;A.profile.consent=$("#pConsent").checked;saveDraft();navState();}
+    function upd(){A.profile.name=$("#pName").value;A.profile.country=sel.value;if($("#pOrg"))A.profile.organisation=$("#pOrg").value;A.profile.role=$("#pRole").value;if($("#pDept"))A.profile.department=$("#pDept").value;A.profile.consent=$("#pConsent").checked;A.hp=$("#pWebsite").value;saveDraft();navState();}
     $$("input,select",b).forEach(function(el){el.addEventListener("input",upd);el.addEventListener("change",upd);});
     upd();return;
   }
@@ -589,7 +618,8 @@ function drawStep(){
     h+='<div class="card qcard" style="--pc:'+P.c+'" id="q'+i+'"><div class="qid">'+c[0]+'</div><h3>'+esc(c[1])+'</h3><p style="font-size:14.5px">'+esc(c[2])+'</p><details><summary>Why it matters</summary><p style="margin-top:6px">'+esc(c[3])+'</p></details><div class="opts">'+
       c[4].map(function(t,l){return '<button type="button" class="opt'+(A.scores[i]===l+1?' on':'')+'" data-q="'+i+'" data-l="'+(l+1)+'" style="--lc:'+LEVELS[l].c+';--lt:'+LEVELS[l].t+'"><b><i>'+(l+1)+'</i>'+LEVELS[l].n+'</b><span class="clip">'+esc(t)+'</span></button>';}).join("")+'</div></div>';});
   h+='<div class="card target" style="--pc:'+P.c+'"><b style="color:var(--ink)">Where should '+esc(P.s)+' be in 12–24 months?</b> <span class="note">(desired maturity — optional)</span><div class="seg" style="margin-top:10px;--pc:'+P.c+'">'+LEVELS.map(function(L,l){return '<button type="button" data-d="'+(l+1)+'" class="'+(A.desired[pi]===l+1?'on':'')+'">'+L.n+'</button>';}).join("")+'</div></div>';
-  b.innerHTML=h;navState();
+  if(st===6)h+='<div class="cap" id="capAssess"></div>';
+  b.innerHTML=h;if(st===6){Captcha.ids.capAssess=undefined;Captcha.render("capAssess");}navState();
 }
 document.addEventListener("click",function(e){
   var o=e.target.closest(".opt[data-q]");
@@ -613,7 +643,13 @@ function navState(){
 $("#aPrev").addEventListener("click",function(){if(A.step>0){A.step--;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);}});
 $("#aNext").addEventListener("click",function(){
   if($("#aNext").disabled)return;
+  if(A.step===0&&(!A.ticket||Date.now()-(A.ticketAt||0)>20*3600e3)){
+    var nb=$("#aNext");nb.disabled=true;
+    Store.begin().then(function(tk){A.ticket=tk;A.ticketAt=Date.now();A.step=1;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);})
+      .catch(function(err){nb.disabled=false;$("#aLeft").innerHTML='<span style="color:var(--cr)">'+esc(err.message)+'</span>';});
+    return;}
   if(A.step<6){A.step++;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);return;}
+  if(Captcha.need("capAssess")){$("#aLeft").innerHTML='<span style="color:var(--cr)">Please complete the \u201cI am human\u201d check above.</span>';return;}
   finish();
 });
 function drawLive(){
@@ -626,11 +662,14 @@ function drawLive(){
 var LAST=null;
 function finish(){
   var nb=$("#aNext");nb.disabled=true;nb.textContent="Saving…";
-  var p={code:INVITE&&ORG?INVITE:null,name:A.profile.name.trim(),country:A.profile.country,organisation:INVITE&&ORG?ORG.name:A.profile.organisation.trim(),role:A.profile.role||"",department:A.profile.department||"",scores:A.scores.slice(),desired:A.desired.every(Boolean)?A.desired.slice():null};
+  var p={code:INVITE&&ORG?INVITE:null,name:A.profile.name.trim(),country:A.profile.country,organisation:INVITE&&ORG?ORG.name:A.profile.organisation.trim(),role:A.profile.role||"",department:A.profile.department||"",scores:A.scores.slice(),desired:A.desired.every(Boolean)?A.desired.slice():null,ticket:A.ticket,hp:A.hp||"",captcha:Captcha.token("capAssess")};
   Store.submit(p).then(function(r){
     LAST={profile:A.profile,scores:p.scores,desired:A.desired.slice(),pillars:pillarMeans(p.scores),org:INVITE&&ORG?ORG.name:p.organisation,date:new Date().toISOString()};
     LAST.overall=mean(LAST.pillars);ls("aim.last",LAST);ls(draftKey(),null);A=null;location.hash="result";
-  }).catch(function(err){nb.disabled=false;nb.textContent="See my results →";$("#aLeft").innerHTML='<span style="color:var(--cr)">Could not save: '+esc(err.message)+'</span>';});
+  }).catch(function(err){nb.disabled=false;nb.textContent="See my results →";Captcha.reset("capAssess");
+    var msg=err.message;
+    if(/expired/i.test(msg)){A.ticket=null;Store.begin().then(function(tk){A.ticket=tk;A.ticketAt=Date.now();saveDraft();}).catch(function(){});msg="Your session was refreshed. Please wait about 90 seconds, then submit again.";}
+    $("#aLeft").innerHTML='<span style="color:var(--cr)">Could not save: '+esc(msg)+'</span>';});
 }
 
 /* ===================== RESULT ===================== */
@@ -664,12 +703,14 @@ function myOrgs(){return ls("aim.myorgs")||[];}
 function rememberOrg(o){var a=myOrgs().filter(function(x){return x.org_id!==o.org_id;});a.unshift(o);ls("aim.myorgs",a.slice(0,10));}
 function renderOrgs(){
   fillCountries($("#enrolForm [data-countries]"),"");
+  if($("#capEnrol")){Captcha.ids.capEnrol=undefined;Captcha.render("capEnrol");}
   var m=myOrgs();
   $("#myOrgs").innerHTML=m.length?m.map(function(o){return '<div class="row" style="justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--hair)"><b style="color:var(--ink)">'+esc(o.name||"Organisation")+'</b><a class="btn sm" href="#dash/'+esc(o.org_id)+'">Dashboard</a></div>';}).join(""):'<p class="note">None yet.</p>';
 }
 $("#enrolForm").addEventListener("submit",function(e){
-  e.preventDefault();var f=e.target,o={name:f.name.value.trim(),country:f.country.value,sector:f.sector.value,contact_name:f.contact_name.value.trim(),contact_email:f.contact_email.value.trim(),opt_in:f.opt_in.checked};
+  e.preventDefault();var f=e.target,o={name:f.name.value.trim(),country:f.country.value,sector:f.sector.value,contact_name:f.contact_name.value.trim(),contact_email:f.contact_email.value.trim(),opt_in:f.opt_in.checked,hp:f.website.value,captcha:Captcha.token("capEnrol")};
   if(!o.name||!o.country){$("#enrolErr").textContent="Organisation name and country are required.";return;}
+  if(Captcha.need("capEnrol")){$("#enrolErr").textContent="Please complete the \u201cI am human\u201d check.";return;}
   var btn=f.querySelector("button");btn.disabled=true;btn.textContent="Enrolling…";
   Store.enroll(o).then(function(r){
     rememberOrg({org_id:r.org_id,admin_key:r.admin_key,invite_code:r.invite_code,name:o.name});
@@ -679,7 +720,7 @@ $("#enrolForm").addEventListener("submit",function(e){
       '<p style="margin:16px 0 6px;font-weight:600;color:var(--ink)">2 · Keep your private dashboard link</p><div class="copybox"><input class="in" readonly value="'+esc(dash)+'"><button class="btn sm" data-copy="'+esc(dash)+'">Copy</button></div>'+
       '<div class="secret">⚠️ <b>Save the dashboard link or admin key now.</b> It is shown once and can’t be recovered. Anyone with it can see your organisation’s results.<br><span style="font-family:ui-monospace,monospace;font-size:12px">Org ID '+esc(r.org_id)+'<br>Admin key '+esc(r.admin_key)+'</span></div>'+
       '<div class="row" style="margin-top:16px"><a class="btn gold" href="#dash/'+esc(r.org_id)+'">Open live dashboard</a></div>';
-  }).catch(function(err){btn.disabled=false;btn.textContent="Enrol and get our private link";$("#enrolErr").textContent="Could not enrol: "+err.message;});
+  }).catch(function(err){btn.disabled=false;btn.textContent="Enrol and get our private link";Captcha.reset("capEnrol");$("#enrolErr").textContent="Could not enrol: "+err.message;});
 });
 document.addEventListener("click",function(e){var c=e.target.closest("[data-copy]");if(c)copy(c.getAttribute("data-copy"));});
 

@@ -23,6 +23,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `cloud-cost-calculator.html` | 129 KB | 1745 |  |
 | `leadership-style.html` | 123 KB | 1358 | 2 |
 | `four-futures.html` | 116 KB | 1059 | 1 |
+| `ai-maturity-assessment.html` | 115 KB | 814 | 1 |
 | `desynced.html` | 109 KB | 2475 |  |
 | `elder-companion.html` | 93 KB | 2051 |  |
 | `pm-prompt-library-v2.html` | 91 KB | 1951 |  |
@@ -35,6 +36,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `05_ethics_guardian.html` | 23 KB | 422 |  |
 | `02_bias_buster.html` | 21 KB | 389 |  |
 | `03_ai_time_travelers.html` | 20 KB | 382 |  |
+| `ai-maturity.sql` | 19 KB | 360 |  |
 | `04_ml_pet_trainer.html` | 18 KB | 315 |  |
 | `labs/lab1_predictive_vs_generative.ipynb` | 14 KB | 324 |  |
 | `kidswear-poc/18_build_planner.py` | 14 KB | 147 |  |
@@ -529,6 +531,33 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L776 data `PLAN`
 - L911 data `CALC`
 - functions (77): $@426, T@447, pick@509, optOf@510, decQ@511, rngOf@514, gauss@515, simulate@516, dem@521, pct@562, recompute@563, conv@573, unconv@574, num@575, money@576, usd@577, riskWord@578, riskCol@579, when@580, cssv@581, show@585, fillForm@593, showB@602, errEl@603, readForm@604, renderFieldIssues@617, setBoundsAttrs@620, estateChecks@622, isExtreme@634, renderChecks@635, renderSnap@641, renderDoors@661, enter@670, goLive@671, snapAt@675, renderStep@676, animateMeters@721, tick@723, runClock@728, tick@731, payback@739, badges@740, best@741, renderSummary@744, fte@769, finale@770, planOf@807, mo@820, ganttHTML@821, X@823, planCard@828, renderStages@844, renderGate@847, renderBuild@860, X@862, buildTick@869, drawBuild@876, block@892, calcOn@913, checkCalc@915, calcQ@922, usdM@923, regionOf@924, sendEstate@927, sendSoon@930, applyCloudName@931, renderCalcBridge@935, renderCompare@960, end@961, verdict@983, by@984, renderFx@1003, refreshScreen@1007, size@1013, set@1014, rr@1015, frame@1016
+### `ai-maturity-assessment.html`
+- L16 style
+- L197 section `tabs`
+- L212 section `v-home`
+- L216 h2 `Where does your organisation`
+- L252 section `v-framework`
+- L254 h2 `Six pillars, twenty-nine categories, four levels`
+- L274 section `v-assess`
+- L279 div# `stepper`
+- L296 section `v-result`
+- L299 section `v-orgs`
+- L303 h2 `Run a private AI maturity assessment`
+- L341 section `v-global`
+- L343 h2 `Global AI maturity by location`
+- L363 section `v-dash`
+- L373 script
+- L377 data `PILLARS`
+- L385 data `SIZES`
+- L386 data `LEVELS`
+- L393 data `CAT_P`
+- L394 data `COUNTRIES`
+- L601 h2 `Before you start`
+- L616 h2 `'+esc(P.n)+'`
+- L662 data `LAST`
+- L683 h2 `'+esc(R.org)+'`
+- L781 h2 `'+esc(org.name)+'`
+- functions (51): $@397, $$@398, esc@399, band@400, fmt@401, mean@402, pillarMeans@403, heatColor@404, chipLvl@410, toast@411, copy@412, ls@413, baseUrl@414, fillCountries@415, uid@416, radar@421, pt@423, donut@435, gauge@445, heatStrip@453, pillarBars@457, stackBar@460, miniBars@461, aggregate@521, pav@523, route@533, renderHome@552, renderFramework@557, draftKey@574, newA@575, saveDraft@576, renderAssess@577, drawStepper@587, pillarIdx@592, pillarDone@593, profileOk@594, drawStep@595, upd@610, navState@637, drawLive@655, finish@663, renderResult@676, myOrgs@702, rememberOrg@703, renderOrgs@704, renderGlobal@729, drawGlobal@732, renderDash@753, load@765, drawDash@770, b0@803
 ### `desynced.html`
 - L9 style
 - L616 script
@@ -674,6 +703,12 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L43 h2 `AI Time Travelers`
 - L92 h2 `Time Travel Master!`
 - L112 script
+### `ai-maturity.sql`
+- L20 table `public.aim_orgs`
+- L33 table `public.aim_responses`
+- L91 table `public.aim_config`
+- L92 table `public.aim_events`
+- L95 table `public.aim_tickets`
 ### `04_ml_pet_trainer.html`
 - L9 style
 - L43 h2 `ML Pet Trainer`
