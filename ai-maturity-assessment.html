@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Maturity Assessment — UNESCO AI Maturity Framework · AI University</title>
+<meta name="description" content="Assess your organisation's AI maturity across UNESCO's six pillars and 29 categories. Open access with a live country-level dashboard, or enrol your organisation for private associate assessments and a live organisational maturity dashboard.">
+<meta name="author" content="Pawan Maheshwari">
+<meta name="publisher" content="planetAI LLP">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#14213D">
+<link rel="canonical" href="https://ai-university.co.in/ai-maturity-assessment.html">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%2314213D"/><path d="M14 46h8V34h-8zM28 46h8V26h-8zM42 46h8V16h-8z" fill="%23C9A24B"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14213D; --body:#3A4254; --mute:#6B7486; --faint:#9AA1B0; --hair:#E5E7EC; --hair2:#D4D8E0;
+  --ivory:#FBF8F2; --paper:#fff; --gold:#B8862B; --gold-w:#FBF4E6; --cr:#8C1515; --ok:#1F7A4D; --warn:#B45309;
+  --p1:#1B5E9E; --p2:#7B2D5E; --p3:#0E7490; --p4:#B45309; --p5:#8C1515; --p6:#2D7D6E;
+  --l1:#E3EAF3; --l2:#A9C3DE; --l3:#4E86BC; --l4:#17457A;
+  --serif:'EB Garamond',Georgia,serif; --sans:'Inter',-apple-system,Segoe UI,sans-serif;
+  --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--body);background:var(--ivory);line-height:1.6;font-size:15.5px;-webkit-font-smoothing:antialiased}
+a{color:var(--p1)}
+button,input,select,textarea{font:inherit}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);line-height:1.15}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+
+/* top bar */
+.top{background:var(--ink);color:#fff;position:sticky;top:0;z-index:40}
+.top .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-family:var(--serif);font-weight:700;font-size:19px;white-space:nowrap}
+.brand svg{width:32px;height:32px}
+.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{color:rgba(255,255,255,.72);text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 12px;border-radius:6px;white-space:nowrap}
+.tabs a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.tabs a.on{color:var(--ink);background:#fff}
+.mode{font-size:12.5px;padding:8px 0;text-align:center}
+.mode.live{background:#E9F5EE;color:var(--ok)} .mode.local{background:var(--gold-w);color:#7A5410}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.live .dot{animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,122,77,.5)}70%{box-shadow:0 0 0 8px rgba(31,122,77,0)}100%{box-shadow:0 0 0 0 rgba(31,122,77,0)}}
+
+/* generic */
+section.view{display:none;padding:34px 0 70px} section.view.on{display:block}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase;color:var(--gold)}
+.lead{font-size:18px;color:var(--body);max-width:760px;margin-top:12px}
+.card{background:var(--paper);border:1px solid var(--hair);border-radius:var(--r);padding:22px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))} .g3{grid-template-columns:repeat(3,minmax(0,1fr))} .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}.g4{grid-template-columns:1fr 1fr}}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);background:var(--ink);color:#fff;padding:11px 18px;border-radius:8px;font-weight:600;font-size:14.5px;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.15)} .btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--ink)} .btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn.sm{padding:7px 12px;font-size:13px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+label.f{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px}
+label.f em{color:var(--cr);font-style:normal}
+.in{width:100%;padding:11px 12px;border:1px solid var(--hair2);border-radius:8px;background:#fff;color:var(--ink)}
+.in:focus{outline:2px solid var(--p1);outline-offset:1px;border-color:var(--p1)}
+.in[readonly]{background:#F3F4F7}
+.hint{font-size:12.5px;color:var(--mute);margin-top:4px}
+.err{color:var(--cr);font-size:13px;margin-top:8px;min-height:1em}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.3px}
+.kpi .n{font-family:var(--serif);font-size:38px;font-weight:700;color:var(--ink);line-height:1}
+.kpi .l{font-size:12px;text-transform:uppercase;letter-spacing:1.6px;color:var(--mute);margin-top:6px;font-weight:600}
+.kpi .s{font-size:13px;color:var(--mute);margin-top:2px}
+h2.sec{font-size:30px;margin:6px 0 4px}
+h3{font-size:21px}
+.note{font-size:12.5px;color:var(--mute)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:14px;transition:.3s;z-index:90;opacity:0;visibility:hidden}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+table.t th{text-align:left;font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--mute);padding:8px 10px;border-bottom:1px solid var(--hair2);font-weight:600;cursor:default}
+table.t td{padding:10px;border-bottom:1px solid var(--hair);vertical-align:middle}
+table.t tr.clk{cursor:pointer} table.t tr.clk:hover td{background:#F7F8FB}
+.scroll{overflow-x:auto}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center}
+.hero h1{font-size:clamp(36px,5vw,56px)}
+.hero h1 span{color:var(--gold)}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.paths{margin-top:26px}
+.path{border-top:4px solid var(--ink);cursor:pointer;transition:.2s}
+.path:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,33,61,.08)}
+.path h3{margin:6px 0}
+.path ul{margin:10px 0 0 18px;font-size:14px}
+
+/* framework explorer */
+.pillars{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:22px}
+@media(max-width:860px){.pillars{grid-template-columns:repeat(3,1fr)}}
+.pbtn{display:flex;flex-direction:column;justify-content:flex-start;border:1px solid var(--hair);background:#fff;border-radius:10px;padding:14px 12px;text-align:left;cursor:pointer;border-top:5px solid var(--pc);transition:.15s}
+.pbtn b{display:block;font-family:var(--serif);font-size:17px;color:var(--ink);line-height:1.15}
+.pbtn small{color:var(--mute);font-size:12px}
+.pbtn.on{background:var(--pc);border-color:var(--pc)} .pbtn.on b,.pbtn.on small{color:#fff}
+.cats{display:grid;grid-template-columns:260px 1fr;gap:16px;margin-top:16px}
+@media(max-width:860px){.cats{grid-template-columns:1fr}}
+.catlist button{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:8px;cursor:pointer;color:var(--body);font-size:14.5px}
+.catlist button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--pc)}
+.ladder{display:grid;gap:10px;margin-top:14px}
+.rung{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start;padding:12px 14px;border-radius:8px;border-left:6px solid var(--lc);background:#FAFBFD}
+.rung b{font-family:var(--serif);font-size:18px;color:var(--ink)}
+.rung small{display:block;color:var(--mute);font-size:11.5px}
+@media(max-width:600px){.rung{grid-template-columns:1fr}}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:18px;counter-reset:s}
+.steps div{padding:14px;border-left:1px solid var(--hair);font-size:13.5px}
+.steps div b{display:block;color:var(--ink);font-size:14px;margin-bottom:3px}
+.steps div::before{counter-increment:s;content:counter(s);font-family:var(--serif);font-size:30px;font-weight:700;color:var(--gold);display:block;line-height:1}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.levels4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:10px;overflow:hidden;margin-top:16px}
+.levels4 div{padding:14px;font-size:13px;color:var(--ink)}
+.levels4 div b{display:block;font-family:var(--serif);font-size:19px}
+@media(max-width:700px){.levels4{grid-template-columns:1fr 1fr}}
+
+/* assessment */
+.alayout{display:grid;grid-template-columns:1fr 290px;gap:22px;align-items:start}
+@media(max-width:960px){.alayout{grid-template-columns:1fr}}
+.aside{position:sticky;top:80px}
+@media(max-width:960px){.aside{position:static}}
+.stepper{display:flex;gap:6px;margin:12px 0 18px;flex-wrap:wrap}
+.stepper span{flex:1;min-width:34px;height:7px;border-radius:4px;background:var(--hair);position:relative;cursor:pointer}
+.stepper span.done{background:var(--sc)} .stepper span.cur{background:var(--sc);box-shadow:0 0 0 2px #fff,0 0 0 4px var(--sc)}
+.phead{border-radius:var(--r);padding:20px 22px;color:#fff;background:var(--pc)}
+.phead h2{color:#fff;font-size:28px}
+.phead p{opacity:.85;font-size:14px;margin-top:4px}
+.qcard{margin-top:14px}
+.qcard .qid{font-size:12px;font-weight:700;color:var(--pc);letter-spacing:1px}
+.qcard h3{margin:2px 0 6px}
+.qcard details{margin:6px 0 12px;font-size:14px}
+.qcard summary{cursor:pointer;color:var(--mute);font-size:13px;font-weight:600}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:800px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;flex-direction:column;justify-content:flex-start;border:1.5px solid var(--hair2);border-radius:9px;background:#fff;padding:12px;text-align:left;cursor:pointer;font-size:13px;line-height:1.45;color:var(--body);transition:.12s;position:relative}
+.opt b{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink);margin-bottom:4px}
+.opt b i{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;background:var(--lc);color:var(--lt)}
+.opt:hover{border-color:var(--pc)}
+.opt.on{border-color:var(--pc);background:color-mix(in srgb,var(--pc) 7%,#fff);box-shadow:0 0 0 1px var(--pc)}
+.opt .clip{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.opt.on .clip,.opt:hover .clip{-webkit-line-clamp:unset}
+.target{margin-top:18px;border-style:dashed}
+.seg{display:inline-flex;border:1px solid var(--hair2);border-radius:8px;overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:#fff;padding:8px 14px;cursor:pointer;font-weight:600;font-size:13.5px;color:var(--body);border-right:1px solid var(--hair2)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--pc,var(--ink));color:#fff}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.orgbanner{background:var(--gold-w);border:1px solid #EAD7AE;border-radius:var(--r);padding:14px 18px;margin-bottom:16px;font-size:14px;color:#5E420C}
+
+/* results */
+.big{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.lvlbadge{font-family:var(--serif);font-size:44px;font-weight:700;line-height:1}
+.bars .b{display:grid;grid-template-columns:150px 1fr 46px;gap:10px;align-items:center;margin:9px 0;font-size:13.5px}
+.bars .track{height:14px;background:#EEF0F4;border-radius:7px;position:relative}
+.bars .fill{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.bars .tgt{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--ink);border-radius:2px}
+.heat{display:grid;grid-template-columns:repeat(29,minmax(0,1fr));gap:3px}
+.heat div{aspect-ratio:1;border-radius:3px;position:relative;cursor:default}
+@media(max-width:700px){.heat{grid-template-columns:repeat(10,1fr)}}
+.heatlegend{display:flex;gap:12px;font-size:12px;color:var(--mute);margin-top:8px;flex-wrap:wrap}
+.heatlegend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.prio{border-left:4px solid var(--pc);padding:10px 14px;background:#FAFBFD;border-radius:6px;margin-top:10px;font-size:13.5px}
+.prio b{color:var(--ink)}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.cap{margin-top:14px;min-height:0}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:7px 10px;border-radius:6px;max-width:260px;z-index:99;opacity:0;transition:opacity .1s}
+
+/* dashboards */
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;background:#EEF0F4;min-width:120px}
+.stack span{display:block;height:100%}
+.minibars{display:flex;gap:2px;align-items:flex-end;height:26px}
+.minibars i{display:block;width:7px;border-radius:2px 2px 0 0}
+.copybox{display:flex;gap:8px}
+.copybox .in{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.secret{background:#FFF7E8;border:1px solid #EAD7AE;border-radius:8px;padding:14px;margin-top:12px;font-size:13.5px}
+.matrix{border-collapse:separate;border-spacing:3px;font-size:12.5px}
+.matrix td{width:64px;height:34px;text-align:center;border-radius:5px;font-weight:600}
+.matrix th{font-weight:600;color:var(--mute);font-size:11.5px;padding:0 6px;text-align:left}
+footer{border-top:1px solid var(--hair);padding:26px 0 40px;font-size:12.5px;color:var(--mute)}
+@media print{
+  .top,.mode,footer,.navbar,.noprint{display:none!important}
+  body{background:#fff} section.view{display:none!important} section.view.on{display:block!important;padding:0}
+  .card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" title="AI University home">
+      <svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" opacity=".1"/><path d="M14 46h8V34h-8zM28 46h8V26h-8zM42 46h8V16h-8z" fill="#C9A24B"/></svg>
+      AI Maturity
+    </a>
+    <nav class="tabs" id="tabs">
+      <a href="#home" data-v="home">Overview</a>
+      <a href="#framework" data-v="framework">Framework</a>
+      <a href="#assess" data-v="assess">Take assessment</a>
+      <a href="#orgs" data-v="orgs">For organisations</a>
+      <a href="#global" data-v="global">Global dashboard</a>
+      <a href="#dash" data-v="dash">Org dashboard</a>
+    </nav>
+  </div>
+</header>
+<div class="mode local" id="mode"><span class="dot"></span><span id="modeTxt">Connecting…</span></div>
+
+<main class="wrap">
+
+<!-- ============ HOME ============ -->
+<section class="view" id="v-home">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Based on the UNESCO AI Maturity Framework (2025)</div>
+      <h1>Where does your organisation <span>really</span> stand on AI?</h1>
+      <p class="lead">A guided self-positioning across <b>6 pillars</b> and <b>29 capability categories</b>, each scored on UNESCO's four maturity levels — Basic, Ready, Dynamic, Advanced. Take it on your own, or enrol your organisation and see everyone's view on one live dashboard.</p>
+      <div class="row" style="margin-top:22px">
+        <a class="btn" href="#assess">Take the assessment →</a>
+        <a class="btn ghost" href="#orgs">Enrol your organisation</a>
+      </div>
+      <p class="note" style="margin-top:12px">About 15–20 minutes · 29 questions · instant report</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div id="heroRadar"></div>
+      <div class="note">Global average by pillar · <a href="#global">open dashboard</a></div>
+    </div>
+  </div>
+
+  <div class="grid g2 paths">
+    <div class="card path" onclick="location.hash='assess'">
+      <div class="eyebrow">Open access</div>
+      <h3>Individual assessment</h3>
+      <p>Enter your name, country and organisation, rate your organisation on 29 categories and get a personal maturity report.</p>
+      <ul><li>Instant radar, heatmap and priority actions</li><li>Your result joins the anonymised country-level dashboard</li><li>No login needed</li></ul>
+    </div>
+    <div class="card path" style="border-top-color:var(--gold)" onclick="location.hash='orgs'">
+      <div class="eyebrow">Organisations &amp; institutions</div>
+      <h3>Private organisational assessment</h3>
+      <p>Enrol once and get a private link to share with your associates, plus a live dashboard of your organisation's maturity.</p>
+      <ul><li>Custom private associate flow</li><li>Live dashboard: pillars, categories, departments, respondents</li><li>Results stay private unless you opt in</li></ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="eyebrow">The four maturity levels</div>
+    <div class="levels4" id="levels4"></div>
+  </div>
+</section>
+
+<!-- ============ FRAMEWORK ============ -->
+<section class="view" id="v-framework">
+  <div class="eyebrow">Explore the framework</div>
+  <h2 class="sec">Six pillars, twenty-nine categories, four levels</h2>
+  <p class="lead">Pick a pillar, then a category, to see what each maturity level looks like in practice. These are the same descriptors you'll rate against in the assessment.</p>
+  <div class="pillars" id="fwPillars"></div>
+  <div class="cats">
+    <div class="catlist card" style="padding:8px" id="fwCats"></div>
+    <div class="card" id="fwDetail"></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <div class="eyebrow">How the self-positioning works</div>
+    <div class="steps">
+      <div><b>Understand</b>Review the pillars, categories and level definitions.</div>
+      <div><b>Rate categories</b>Pick the level that reflects typical practice, on evidence.</div>
+      <div><b>Find gaps</b>Spot strengths, gaps and the level you want to reach.</div>
+      <div><b>Pillar maturity</b>Roll category results up into a level per pillar.</div>
+      <div><b>Act</b>Consolidate into an overall view and set priorities.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ASSESS ============ -->
+<section class="view" id="v-assess">
+  <div class="alayout">
+    <div>
+      <div id="orgBanner"></div>
+      <div class="eyebrow" id="aEyebrow">Self-positioning</div>
+      <div class="stepper" id="stepper"></div>
+      <div id="aBody"></div>
+      <div class="navbar">
+        <button class="btn ghost" id="aPrev">← Back</button>
+        <span class="note" id="aLeft" style="align-self:center"></span>
+        <button class="btn" id="aNext">Continue →</button>
+      </div>
+    </div>
+    <aside class="aside card">
+      <div class="eyebrow">Your live profile</div>
+      <div id="liveRadar" style="margin-top:6px"></div>
+      <div id="liveScore" style="text-align:center;font-size:13px;color:var(--mute)"></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="view" id="v-result"><div id="resBody"></div></section>
+
+<!-- ============ ORGS ============ -->
+<section class="view" id="v-orgs">
+  <div class="grid g2" style="align-items:start">
+    <div>
+      <div class="eyebrow">For organisations &amp; institutions</div>
+      <h2 class="sec">Run a private AI maturity assessment</h2>
+      <p class="lead" style="font-size:16px">The UNESCO guide recommends drawing on diverse perspectives — strategic, operational, technical, legal and domain. Enrol once and every associate rates the organisation independently; the dashboard shows where views converge and where they differ.</p>
+      <div class="steps" style="grid-template-columns:1fr 1fr 1fr">
+        <div><b>Enrol</b>Name, country and sector. Takes a minute.</div>
+        <div><b>Share the link</b>Associates open your private assessment flow.</div>
+        <div><b>Watch it live</b>Your dashboard refreshes as responses arrive.</div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>Already enrolled?</h3>
+        <p class="note" style="margin:4px 0 12px">Organisations enrolled from this browser:</p>
+        <div id="myOrgs"></div>
+        <a class="btn ghost sm" href="#dash" style="margin-top:10px">Open a dashboard with an admin key</a>
+      </div>
+    </div>
+    <div class="card" id="enrolCard">
+      <h3>Enrol your organisation</h3>
+      <form id="enrolForm" style="margin-top:14px;display:grid;gap:12px" autocomplete="on">
+        <div><label class="f">Organisation / institution name <em>*</em></label><input class="in" name="name" required maxlength="120"></div>
+        <div class="grid g2" style="gap:12px">
+          <div><label class="f">Country <em>*</em></label><select class="in" name="country" required data-countries></select></div>
+          <div><label class="f">Sector</label><select class="in" name="sector">
+            <option value="">Select…</option><option>Public administration</option><option>Higher education</option><option>School / K-12</option><option>Healthcare</option><option>Financial services</option><option>Retail &amp; consumer</option><option>Manufacturing</option><option>Technology &amp; IT services</option><option>Telecoms &amp; media</option><option>Energy &amp; utilities</option><option>Non-profit / NGO</option><option>Other</option></select></div>
+        </div>
+        <div class="grid g2" style="gap:12px">
+          <div><label class="f">Your name</label><input class="in" name="contact_name" maxlength="80"></div>
+          <div><label class="f">Work email</label><input class="in" type="email" name="contact_email" maxlength="120"></div>
+        </div>
+        <label style="display:flex;gap:10px;font-size:13.5px;align-items:flex-start"><input type="checkbox" name="opt_in" style="margin-top:4px"> Add our associates' results, anonymised, to the public country dashboard. Names and the organisation name are never shown publicly.</label>
+        <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="cap" id="capEnrol"></div>
+        <button class="btn gold" type="submit">Enrol and get our private link</button>
+        <div class="err" id="enrolErr"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GLOBAL DASHBOARD ============ -->
+<section class="view" id="v-global">
+  <div class="row" style="justify-content:space-between">
+    <div><div class="eyebrow">Live · open-access results</div><h2 class="sec">Global AI maturity by location</h2></div>
+    <div class="note" id="gUpdated"></div>
+  </div>
+  <div class="grid g4" style="margin-top:14px" id="gKpi"></div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>Maturity distribution</h3><p class="note">Respondents by overall level</p><div id="gDonut"></div></div>
+    <div class="card"><h3>Pillar profile</h3><p class="note" id="gRadarNote">Global average, 1 = Basic … 4 = Advanced</p><div id="gRadar"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="row" style="justify-content:space-between">
+      <div><h3>By country</h3><p class="note">Click a country to compare it with the global profile</p></div>
+      <div class="seg" id="gSort" style="--pc:var(--ink)"><button data-s="n" class="on">Most responses</button><button data-s="avg">Highest maturity</button><button data-s="az">A–Z</button></div>
+    </div>
+    <div class="scroll" style="margin-top:10px"><table class="t" id="gTable"></table></div>
+    <div class="heatlegend" id="gLegend"></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Category heatmap</h3><p class="note">Average level for each of the 29 categories, hover for detail</p><div id="gHeat" style="margin-top:12px"></div></div>
+</section>
+
+<!-- ============ ORG DASHBOARD ============ -->
+<section class="view" id="v-dash"><div id="dashBody"></div></section>
+
+</main>
+<footer><div class="wrap">
+  Framework content adapted from <b>UNESCO (2025), <i>AI Maturity Framework: A self-positioning guide for public administrations</i></b>, SHS/REI/AI/FLMAT Rev. 3, authors Stratejai, licensed CC BY-SA 3.0 IGO. Category descriptors are reproduced under that licence; scoring bands, dashboards and recommendations are AI University additions and are not endorsed by UNESCO.
+  <br>Built by Pawan Maheshwari · planetAI LLP · <a href="index.html">AI University</a>
+</div></footer>
+<div class="toast" id="toast"></div>
+<div class="tip" id="tip"></div>
+
+<script>
+/* ===================== DATA ===================== */
+// [id, name, description, importance, [Basic, Ready, Dynamic, Advanced]] — UNESCO 2025, CC BY-SA 3.0 IGO
+var FW = [["1.1","AI Vision & Ambition","This category assesses how clearly the organization defines the intended role and impact of AI in achieving its mission. A well-articulated AI vision provides direction, alignment, and motivation for AI initiatives.","An organization's AI vision sets the foundation for all AI activities. Without a clear vision, AI initiatives can become disjointed, tactical, and fail to deliver strategic value. The vision should articulate how AI will transform the organization's operations and services.",["No defined AI vision exists, or only vague ideas. AI is mentioned without specific goals or is pursued opportunistically without clear direction.","A high-level AI vision is documented and understood by key stakeholders. The organization has articulated some specific ways AI could benefit its mission, though connections to strategic objectives may be limited.","The AI vision is clearly defined, communicated organization wide, and linked to measurable objectives. Specific AI-enabled capabilities are identified with expected outcomes. Leaders across departments understand and support the vision.","The AI vision is integrated into the core organizational strategy and regularly reviewed. It evolves based on results and changing technological landscape. The vision influences budgeting, resource allocation, and prioritization decisions. It has become part of how the organization defines its future state."]],["1.2","Strategic Alignment","This category examines the degree to which AI initiatives are planned and executed in support of core organizational strategies and goals, rather than as siloed technical projects.","Strategic alignment ensures AI investments create value in areas most important to the organization. Without alignment, AI projects may succeed technically but fail to advance strategic priorities or create meaningful impact.",["AI initiatives are ad-hoc, with little connection to organizational goals. Projects are often technology-driven rather than needs-driven, and may be pursued based on individual interests rather than strategic fit.","AI projects are assessed for alignment with strategic goals, but inconsistently. Some effort is made to connect AI initiatives to business needs, though the process may be informal or vary across the organization.","A formal process ensures all significant AI initiatives directly support defined strategic priorities. Business cases include explicit links to strategic objectives. Alignment is tracked and reported. Non-aligned initiatives are deprioritized or redesigned.","AI capabilities proactively shape and enable new strategic goals. The organization regularly evaluates how emerging AI technologies might create new strategic opportunities. Alignment is continuously optimized, with resources dynamically allocated to maximize strategic impact."]],["1.3","Roadmap & Planning","This category evaluates the existence and quality of concrete plans outlining steps, resources, and timelines for AI adoption across the organization.","A well-structured AI roadmap translates vision into actionable plans, helping to sequence investments, prepare for dependencies, and manage expectations. It provides a framework for measuring progress and adjusting course as needed.",["No AI roadmap exists; planning is short-term and project-specific. AI initiatives are approached in isolation, with minimal coordination. Timelines and resource needs are poorly defined.","An initial AI roadmap with key milestones is documented but may lack detail or resources. The organization has identified a sequence of AI initiatives but may not have fully defined the enablers, dependencies, or specific resource requirements.","A detailed, resourced AI roadmap exists, is actively managed, and integrated with organizational planning cycles. It includes capability building, data preparation, and foundational technology investments. Dependencies are identified and managed. Progress is tracked and the roadmap is updated regularly.","The AI roadmap is dynamic, continuously updated based on performance data, changing priorities, and foresight analysis. It includes contingency planning for different scenarios. The roadmap balances short-term wins with long-term capability building and is used to proactively identify and address potential obstacles.."]],["1.4","Value Identification & Measurement","This category assesses the processes for identifying high impact AI use cases and systematically tracking the benefits and return on investment of AI initiatives.","Rigorous value identification and measurement enables organizations to select the most impactful AI investments and demonstrate returns, building confidence and support for continued investment. It also provides feedback to refine future initiatives.",["AI use cases are chosen opportunistically; value is assumed or anecdotal. There's limited evaluation of potential benefits or prioritization based on value. Success metrics are vague or not defined.","A process exists to identify potential AI use cases; basic value metrics (e.g., cost savings) are defined but inconsistently tracked. The organization attempts to estimate benefits but may not have systematic ways to measure or validate them after implementation.","Standardized methodology for evaluating AI use case potential (feasibility, impact); value realization is systematically measured against predefined KPIs. Business cases include quantifiable metrics. Regular reviews assess value delivery against projections and identify optimization opportunities.","Value measurement is sophisticated (including strategic/intangible benefits), integrated into business cases, and used to optimize the AI portfolio continuously. Advanced techniques like A/B testing validate impacts. Value tracking influences resource allocation and future investment decisions. The organization can quantify AI's contribution to strategic objectives."]],["1.5","Innovation & Experimentation","This category examines the mechanisms and cultural support for exploring novel AI applications, including pilot projects and proof-of-concepts.","Innovation and experimentation enable organizations to learn about AI capabilities, test hypotheses at low cost, and identify promising opportunities before committing significant resources. They build organizational learning and reduce risk of larger investments.",["Little or no experimentation with AI. The organization may be reluctant to invest in unproven concepts. Learning about AI is limited to reading or conferences rather than hands-on testing.","Ad-hoc AI pilot projects are conducted; lessons learned are informal. Some teams may experiment with AI technologies but without systematic processes for sharing findings or scaling successful pilots.","A structured process exists for AI experimentation (e.g., sandbox environments, pilot funding); results are documented and inform roadmap decisions. Successful experiments have clear paths to scaling. The organization allocates specific resources for innovation.","Proactive scouting for AI innovations; dedicated resources and processes for rapid experimentation and scaling; culture encourages calculated risk-taking. Innovation activities are linked to strategic priorities. The organization partners with external entities (academia, startups) to access emerging ideas. Failed experiments are valued for learning."]],["2.1","Talent & Skills","This category evaluates the organization's ability to define necessary AI roles, attract qualified personnel, and develop the workforce's AI competencies (both technical and non-technical).","AI success depends heavily on having the right skills and expertise available. Organizations need both specialized technical talent and widespread AI literacy to effectively implement and benefit from AI initiatives.",["AI skills are scarce, roles undefined; reliance on external consultants or individual enthusiasts. The organization has not systematically identified required AI skills or established development paths. AI expertise is isolated.","Key AI roles are defined; initial efforts to hire or train for specific AI skills are underway. The organization recognizes skill gaps and has begun to address them, though approaches may be reactive or inconsistent.","Strategic workforce planning for AI roles; formal training programs and career paths exist; competency gaps are actively managed. Skills inventories are maintained and regularly updated. Development programs address both technical and non-technical AI-related skills.","Continuous AI skill development integrated into HR processes; internal mobility and cross-skilling are fostered; recognized internally/externally for AI talent. The organization has become an employer of choice for AI professionals. Learning is embedded in work processes. Skills development anticipates future needs."]],["2.2","Organizational Structure","This category examines how the entity organizes its AI efforts – defining roles (e.g., AI specialists, data scientists), responsibilities, and team configurations (like Centers of Excellence or embedded teams).","Effective organizational structures provide clear accountability for AI initiatives, ensure appropriate expertise is available where needed, and facilitate knowledge sharing and consistency across the organization.",["No specific structure for AI; efforts are siloed within existing departments. AI responsibilities are not clearly assigned, creating gaps and overlaps. Knowledge sharing is limited or non-existent.","Informal AI working groups or a designated point person exists. The organization has begun to create structures for coordination but may lack formal mandates or resources. Collaboration around AI is emerging but inconsistent.","Formal AI team(s) or a Center of Excellence established with clear mandates and reporting lines. Roles and responsibilities are well-defined. Structures enable both specialized expertise and business integration. Governance bodies oversee cross-organizational AI initiatives.","Flexible, adaptive AI organizational models (e.g., federated, hub-and-spoke) are implemented and optimized based on needs; strong cross-functional collaboration. Structures evolve based on maturity and changing requirements. Interaction between centralized expertise and distributed implementation is seamless."]],["2.3","Leadership & Sponsorship","This category assesses the level of active support, commitment, and advocacy from senior leadership for AI initiatives.","Leadership commitment is crucial for securing resources, removing obstacles, driving change, and signaling organizational priorities. Without strong leadership support, AI initiatives often struggle to gain traction and sustain momentum.",["Leadership awareness of AI is low; no clear sponsorship. Executives may see AI as primarily a technical matter rather than a strategic one. Support is passive or absent.","Some leaders express interest or sponsor specific AI projects reactively. There may be isolated champions but not organization-wide support. Leaders approve resources but may not actively promote AI adoption.","Visible executive sponsorship for the overall AI strategy; leaders actively communicate the importance of AI. Leadership regularly reviews progress of AI initiatives and holds teams accountable. Leaders model data-driven decision-making.","Leadership champions AI transformation, allocates strategic resources, removes barriers, and holds the organization accountable for AI goals. Leaders have a sophisticated understanding of AI's potential and limitations. They anticipate resistance and proactively address cultural challenges. AI leadership extends beyond the C-suite to all management levels."]],["2.4","Change Management & Adoption","This category examines strategies and processes to manage the human and organizational changes resulting from AI implementation and ensure user adoption.","AI often represents significant change to work processes, roles, and decision-making. Effective change management increases acceptance, accelerates adoption, and maximizes the benefits realized from AI investments.",["AI is implemented with minimal consideration for organizational change or user impact. Technical aspects are prioritized over human factors. Users may resist or work around new AI capabilities.","Basic communication and training accompany AI deployments. The organization recognizes the need for change management but approaches may be reactive or focus primarily on training rather than broader adoption factors.","Formal change management methodology applied to AI initiatives, including stakeholder analysis, communication plans, and user support. Change implications are analyzed early in the project lifecycle. Adoption metrics are tracked. Feedback mechanisms exist.","Proactive and continuous change management; user feedback actively solicited and used to improve AI systems and adoption strategies; cultural integration is measured. Change management is tailored to different stakeholder groups. AI adoption is linked to performance management. The organization learns from previous change initiatives."]],["2.5","AI Literacy & Awareness","This category evaluates efforts to build a general understanding of AI concepts, capabilities, limitations, and ethical considerations across the workforce.","Widespread AI literacy enables better identification of opportunities, more realistic expectations, more effective collaboration with AI specialists, and more responsible use of AI capabilities throughout the organization.",["General workforce has little understanding of AI. Misconceptions may be common. AI is seen as mysterious or threatening. Non-technical staff don't recognize potential applications in their work.","Basic AI awareness training is offered or available sporadically. Some educational materials exist. Key stakeholders receive introduction to AI concepts, though depth of understanding varies widely.","Structured AI literacy programs tailored to different roles are implemented across the organization. Training addresses both technical concepts and implications for work processes. Materials are regularly updated. Multiple learning formats are available.","Continuous learning opportunities exist; AI concepts are embedded in relevant business discussions; ethical awareness is widespread. Learning is contextual and applied. Staff at all levels can have informed conversations about AI's role in their work. The organization fosters a culture of curiosity and experimentation with AI."]],["3.1","AI Development Platforms & Tools","This category evaluates the availability, suitability, and effective use of software and tools for the entire AI lifecycle (data preparation, model building, training, testing, deployment).","Appropriate development platforms and tools enable AI practitioners to work efficiently, collaborate effectively, and create high-quality, maintainable AI solutions. They provide structure and consistency to AI development activities.",["Reliance on individual developer tools or basic analytics software; no standardized AI platform. Tools may be chosen ad-hoc by individual practitioners. Limited collaboration capabilities. Workflow automation is minimal.","Some common AI libraries/frameworks are used; exploration of cloud AI services or specific platforms begins. The organization is identifying preferred tools and beginning to standardize. Basic version control may exist, but full lifecycle management is limited.","Standardized AI development platform(s) are adopted and supported, providing core functionalities (data prep, modeling, versioning). Tools support collaboration and knowledge sharing. Governance requirements are addressed. Training and support resources exist.","Integrated, enterprise-grade AI/ML platform supporting the full lifecycle; tools are optimized for productivity, collaboration, and governance; exploration of cutting-edge tools. Platforms integrate with broader IT landscape. Self-service capabilities exist where appropriate. Platform evolves based on user feedback and emerging needs."]],["3.2","Cloud & Compute Infrastructure","This category assesses access to adequate, scalable computing power (CPU, GPU), storage, and network resources, often leveraging cloud services, to support AI workloads.","AI models, particularly deep learning approaches, require significant computing resources. Appropriate infrastructure enables experimentation, efficient training of complex models, and scalable deployment of AI solutions.",["Infrastructure limitations hinder AI experimentation; reliance on local machines. Computing resources are insufficient for serious AI development. Cloud services may be unavailable or restricted.","Basic cloud services (storage, some compute) are used for AI projects; scalability is limited or managed manually. Some GPU resources may be available but access is constrained or inconsistent.","Scalable cloud infrastructure specifically configured for AI workloads (including GPUs/TPUs where needed) is available and managed. Resource allocation processes are defined. Cost monitoring exists. Security requirements are addressed.","Optimized, hybrid/multi-cloud strategy for AI; infrastructure provisioning is automated and elastic; cost and performance are actively managed. Infrastructure decisions balance performance, cost, and sustainability. Specialized hardware accelerators are available where beneficial. Infrastructure adapts to changing workload patterns."]],["3.3","AI-Specific Architectures","This category examines the design of IT systems and infrastructure (e.g., using APIs, microservices) to readily accommodate and integrate AI components","AI-friendly architectures enable faster integration of AI capabilities into operational systems, greater flexibility to evolve AI components, and more efficient data flows to and from AI models.",["Monolithic systems make AI integration difficult. Systems are rigid and closed. Data access requires custom extraction processes. Deploying AI models into production is cumbersome.","Some systems expose data via APIs; initial consideration of AI in new system designs. The organization is beginning to adopt more modular approaches, though legacy constraints remain significant.","Architectural patterns (e.g., microservices, event-driven) facilitating AI integration are adopted; standard interfaces for AI services exist. Reference architectures guide new developments. AI components can be deployed and updated independently.","Enterprise architecture explicitly designed for AI integration; reusable AI components and services are built and leveraged; real-time data streaming architectures support AI. Systems are design for flexibility and experimentation. Architecture enables continuous learning and adaptation of AI systems."]],["3.4","Data Science Environment","This category evaluates the provision of well-equipped, secure, and collaborative environments where data scientists and AI teams can work effectively.","Productive data science environments accelerate development, facilitate collaboration, enable reproducibility, and help attract and retain talent. They reduce time spent on setup and environment management.",["Data scientists use isolated desktop tools; limited collaboration or access to resources. Development environments are individually maintained. Sharing code or results is difficult.","Shared file systems or basic collaborative tools are used; access to some data sources is provided. Teams have mechanisms to share code and results, though workflows may still be largely manual.","Standardized, secure, collaborative data science environment/workbench (cloud-based or on-prem) with access to necessary tools, data, and compute. Environments support version control, experiment tracking, and collaboration. Security requirements are addressed.","Highly optimized, integrated data science platform promoting collaboration, reproducibility, and efficiency; seamless integration with data sources and MLOps pipelines. Self-service capabilities enable rapid onboarding. Environments support specialized needs (e.g., deep learning, NLP). Usage analytics drive continuous improvement."]],["4.1","Model Deployment & Management (MLOps)","This category assesses mature practices for reliably and repeatably deploying, monitoring, versioning, and retraining AI models in production environments.","MLOps practices bring software engineering discipline to AI development, ensuring models are deployed reliably, monitored effectively, and can evolve to maintain performance. They are essential for scaling AI beyond pilot projects.",["Model deployment is manual, infrequent, and ad-hoc; no versioning or monitoring. The transition from development to production is high-friction. Processes are undefined and error-prone.","Basic scripts or manual processes exist for deployment; some model versioning is practiced. The organization recognizes the need for more systematic approaches but implementation is incomplete.","Automated CI/CD pipelines for ML models are implemented; standardized processes for deployment, monitoring, and rollback exist. Models are versioned and tracked. Testing frameworks validate model behavior before deployment.","Mature MLOps practices are fully integrated; automated retraining, A/B testing, comprehensive monitoring, and governance are standard; focus on efficiency and reliability. The full lifecycle from development to retirement is managed. Deployment strategies minimize disruption and enable safe experimentation."]],["4.2","Performance Monitoring & Optimization","This category evaluates continuously tracking the operational performance, accuracy, and fairness of deployed AI systems and making necessary adjustments.","AI models can degrade over time as data patterns change. Effective monitoring ensures models remain accurate, fair, and performant, enabling timely intervention when issues arise.",["No monitoring of deployed AI models. Performance issues are detected only through user complaints or obvious failures. No mechanisms exist to measure ongoing accuracy or detect drift.","Basic technical monitoring (uptime, errors) is in place; performance checked manually and infrequently. Some awareness of the need to verify model accuracy exists, but processes are ad-hoc.","Automated monitoring of key AI performance metrics (accuracy, drift, fairness, latency) with alerting mechanisms. Thresholds are defined for intervention. Regular reporting on model performance is available to stakeholders.","Continuous, holistic monitoring of AI model performance and business impact; automated feedback loops for model retraining and optimization; proactive issue detection. Sophisticated approaches detect subtle changes in data distributions or model behavior. Performance insights drive continuous improvement."]],["4.3","Integration & Interoperability","This category examines ensuring AI systems can effectively exchange data and function within the existing IT landscape and business processes.","Effective integration ensures AI systems can access required data, deliver outputs to where they're needed, and operate as seamless components of broader business processes and technical systems.",["AI models operate in isolation or require manual data transfer. Integration is minimal or highly customized. AI outputs may be manually interpreted and entered into operational systems.","Point-to-point integrations are built for specific AI applications. Some automation exists but may be brittle. The organization recognizes the need for more standardized approaches.","Standardized APIs and integration patterns are used for connecting AI systems with business processes and IT systems. Integration is part of the design process for AI solutions. Technical standards guide implementation.","Seamless integration via an enterprise service bus, event streams, or API gateway; AI services are easily discoverable and consumable across the organization. Integration is automated and monitored. Business processes are designed to leverage AI capabilities natively. Real-time data flows allow AI to be woven throughout operations."]],["4.4","External Collaboration & Partnerships","This category assesses leveraging knowledge, resources, and talent from outside the entity (e.g., academia, research institutions, other government bodies, industry).","External collaboration accelerates learning, provides access to specialized expertise, extends resource capabilities, and brings fresh perspectives. It can be especially valuable for public sector organizations with limited internal AI capabilities.",["No external AI collaborations. The organization operates in isolation, missing opportunities to learn from or leverage external expertise or resources.","Informal contacts or participation in general events; occasional ad hoc collaborations. The organization engages with external entities but without strategic focus or sustained relationships.","Strategic partnerships with academia, research institutions, or other government bodies for specific AI projects or knowledge exchange. Partnerships have defined goals and governance. Benefits flow in both directions.","Active participation and leadership in AI ecosystems; systematic process for identifying, managing, and leveraging external partnerships; co-innovation initiatives. The organization has a reputation as a valuable partner. Partnerships advance strategic goals and create mutual value. Contributing to National Standardization Body AI technical committees and/or participating to AI related regulatory discussions."]],["4.5","Reusability & Shared Components","This category evaluates identifying and promoting the use of common AI platforms, tools, datasets, or model components across different projects or entities to improve efficiency.","Reusable components accelerate development, reduce duplication of effort, promote consistency, and enable smaller projects to benefit from capabilities that would be uneconomical to develop independently.",["Every AI project starts from scratch. There's no awareness of or mechanism for reuse across projects. Knowledge and components remain siloed within teams.","Awareness of potential for reuse; some code or components shared informally. The organization recognizes opportunities but lacks systematic approaches to enabling or promoting reuse.","Processes and platforms exist to share and reuse AI models, data pipelines, features, or tools across teams/projects. Reusable components are documented and discoverable. Governance processes address ownership and maintenance.","Enterprise-wide strategy for building and leveraging reusable AI assets; active curation and promotion of shared components; measured impact of reuse. Architectural decisions consider reusability. Incentives encourage both contribution and use of shared components."]],["5.1","AI Governance Framework","This category examines establishing clear rules, policies, decision-making processes, roles, and accountability structures specifically for AI initiatives. .","Strong governance ensures AI initiatives are developed responsibly, align with organizational values and compliance requirements, and appropriately balance innovation with risk management.",["No specific governance for AI; relies on general IT governance. AI initiatives proceed without specialized oversight, potentially creating unmanaged risks.","Initial AI policies or guidelines are drafted; roles/responsibilities are informally assigned for specific projects. The organization recognizes the need for AI-specific governance but implementation is partial.","Formal AI governance framework established with defined policies, processes, roles (e.g., AI review board), and accountability structures. Decision rights are clear. Governance processes are integrated into the AI lifecycle.","AI governance is integrated across the AI lifecycle, regularly reviewed and updated; proactive monitoring of policy adherence; contributes to external standards. Governance adapts to emerging risks and opportunities. The organization can demonstrate a mature, risk-based approach to AI governance."]],["5.2","Ethical Principles & Guidelines","This category assesses defining, adopting, and operationalizing ethical standards (e.g., fairness, non-discrimination, transparency, human oversight) for AI development and deployment.","Ethical guidelines are drawn from international frameworks and ensure that AI systems align with societal values and agreed ethical standards. They provide practical guidance for addressing ethical dilemmas and aim to protect citizens and users against harmful impacts. Applying ethical principles and guidelines builds trust with users and stakeholders.",["Little awareness of AI ethics. The development and use AI do not start from a citizen-centric vision. Ethical considerations are not explicitly addressed in AI development. The focus is primarily on technical functionality rather than societal impact.","General ethical principles are acknowledged; some discussion occurs for high-risk projects. The organization has started to recognize ethical dimensions but may lack structured processes to address them.","The organisation established a clear framework of ethical principles. Ethical considerations are part of standard review processes, including practices such as bias testing, explainability checks, and ethical impact assessments. Responsibility for ethics is formally assigned, metrics are tracked, and design and deployment decisions are supported by structured stakeholder engagement.","Ethical principles are fully embedded in the organization’s culture, strategy, and throughout the AI lifecycle. The organisation refines its guidelines based on quantitative insights, evolving regulations, and societal expectations. There is internal monitoring via feedback loops and external stakeholders are engaged in ethical oversight. The organisation demonstrates leadership in responsible AI practices and sees trust as a strategic differentiator."]],["5.3","Risk Assessment & Mitigation","This category evaluates systematically identifying, analyzing, and managing potential risks associated with AI systems (e.g., bias amplification, security vulnerabilities, privacy infringements, societal impacts).","Proactive risk management prevents harmful outcomes, protects users and the organization, and enables innovation by creating frameworks for responsibly exploring new capabilities.",["AI risks are not formally considered. Risk awareness is low. The organization may assume that general risk management is sufficient for AI-specific risks.","Basic risk identification occurs for some AI projects, often reactively. Some awareness of AI-specific risks exists, but assessment may be superficial or inconsistent.","Standardized process for AI risk assessment (including bias, fairness, security) aligned with frameworks (e.g., UNESCO RAM); mitigation plans are developed. Risk assessment is integrated into the AI development lifecycle. Different risk categories are recognized.","Proactive and continuous AI risk management integrated with enterprise risk management; quantitative risk analysis where possible; automated monitoring for risk indicators. Risk appetite is defined for different AI applications. Emerging risks are anticipated. Risk management evolves based on experience and external developments."]],["5.4","Compliance & Legal","This category assesses ensuring AI systems and their use comply with all relevant laws and regulations (e.g., EU AI Act, GDPR, sector-specific rules).","Compliance ensures AI systems meet legal requirements, avoiding penalties and reputational damage. It also provides a baseline for responsible AI development that protects individuals' rights and organizational interests.",["Assumed compliance based on general regulations. Limited awareness of AI-specific legal requirements. Compliance verification is reactive or absent.","Awareness of specific AI-related legal requirements (e.g., GDPR, AI Act); compliance checked manually for key projects. The organization has identified relevant regulations but may lack systematic processes to ensure compliance.","Processes established to ensure and document AI compliance, and there are established processes to integrate different sets of expertise into compliance checks and existing legal review processes. Legal expertise is consulted during technical development and deployment. Compliance requirements are integrated into development methodologies. Documentation practices support compliance verification.","Proactive monitoring of the regulatory landscape; automated compliance checks integrated into MLOps; regular audits; active engagement with regulators and awareness of upcoming and emerging legislation around AI. Compliance is seen as an enabler rather than just a constraint but as a way to establish trust."]],["5.5","Transparency & Explainability","This category evaluates implementing techniques and processes to make AI decision-making processes understandable to relevant stakeholders (developers, users, auditors, citizens).","Explainability builds trust with users, enables effective oversight, facilitates debugging, and supports compliance with emerging transparency requirements. It allows humans to appropriately rely on AI systems.",["AI models are treated as black boxes. There's little effort to explain how decisions are made. Documentation is minimal. Users are expected to trust outputs without explanation.","Basic model documentation exists; some awareness of explainability needs. The organization recognizes the importance of transparency but may lack technical approaches to achieve it.","Explainability techniques (e.g., SHAP, LIME) are applied where appropriate; documentation standards include explanations for relevant stakeholders. Appropriate levels of transparency are defined for different use cases and audiences.","Context-appropriate transparency is standard practice; explanations are tailored to different audiences (developers, users, citizens); research into improving explainability. The organization balances transparency with other considerations (e.g., performance, security). User feedback refines explanation approaches."]],["6.1","AI Use Case Data Identification","This category assesses the ability to pinpoint and acquire the specific datasets needed for a particular AI project or application.","Successful AI development depends on having the right data. Effective identification processes ensure teams can find and access the specific data needed for their use cases, reducing delays and improving outcomes.",["Difficulty identifying or accessing data needed for AI. Data discovery is manual and time-consuming. Sources may be unknown or inaccessible. Projects proceed with whatever data is convenient rather than optimal.","Data needs for specific AI projects are identified, but sourcing can be ad-hoc and challenging. The organization has some processes to identify required data, though they may be inconsistent or incomplete.","Systematic process for identifying, evaluating, and sourcing internal/external data relevant to planned AI use cases, leveraging data catalogs. Data requirements are defined early in project planning. Alternative data sources are considered when primary sources are unavailable.","Proactive identification of strategic data assets for future AI opportunities; established data acquisition/sharing partnerships. The organization anticipates data needs and positions itself to meet them. External data sources are continuously evaluated. Data acquisition is aligned with strategic AI priorities."]],["6.2","Data Readiness for AI","This category evaluates assessing and preparing data to meet the specific requirements of AI models, including quality checks, volume assessment, cleaning, transformation, feature engineering, and data labelling.","Data readiness directly impacts model performance. High-quality, well-prepared data enables more accurate, fair, and reliable AI models, while poor data leads to flawed outputs regardless of algorithmic sophistication.",["Data used as-is; minimal cleaning or preparation specifically for AI. Data quality issues are addressed reactively when models fail. Preparation is manual and undocumented.","Basic data cleaning and transformation performed for AI projects; quality issues often discovered late. Some standard preparation steps are followed, but approaches vary across projects.","Standardized data preparation pipelines for AI, including quality checks, feature engineering, and labelling; data suitability is assessed early. Processes address common issues like missing values, outliers, and formatting. Data preparation is documented and reproducible.","Automated, reusable data preparation pipelines; sophisticated feature engineering; active learning for labelling; data quality/suitability continuously monitored for AI needs. The organization continuously improves preparation techniques based on model performance feedback. Advanced approaches like data augmentation are used where beneficial."]],["6.3","Data Access for AI Teams","This category assesses ensuring that AI development teams and operational systems have secure, efficient, and compliant access to the required data.","Efficient data access enables AI teams to develop and deploy models without unnecessary delays or workarounds. Proper access controls ensure compliance with security and privacy requirements while enabling legitimate use.",["Accessing data is slow, manual, and bureaucratic. Access requests require multiple approvals or custom extractions. AI teams may resort to workarounds or use suboptimal data sources due to access barriers.","Procedures exist for requesting data access, but may be inefficient; access granted to copies or extracts. Basic controls are in place, though processes may be cumbersome or inconsistent.","Streamlined, policy-compliant processes for AI teams/systems to access necessary data; use of data platforms or virtualized access. Access is appropriate to sensitivity levels. Request processes are clear and well-documented.","Secure, self-service data access mechanisms (within policy boundaries) for AI teams; fine-grained access control; automated provisioning based on project needs. Access patterns are monitored and analyzed to improve processes. Access controls balance security with efficiency."]],["6.4","Synthetic Data Generation & Use","This category evaluates the capability to create artificial data for training or testing AI models, especially when real data is scarce or sensitive. .","Synthetic data can overcome limitations of real data, including privacy constraints, imbalanced datasets, or scarce examples of edge cases. It enables testing in simulated scenarios and can accelerate development when acquiring real data would be time-consuming.",["No use of synthetic data. The organization relies exclusively on real data, potentially limiting AI capabilities in areas where data is scarce, sensitive, or imbalanced.","Awareness or initial experimentation with synthetic data generation tools for specific problems (e.g., balancing datasets). The organization recognizes potential benefits but lacks systematic approaches.","Capability to generate and validate synthetic data for specific use cases (e.g., privacy preservation, augmenting limited data). Techniques are selected based on data characteristics. The quality and usefulness of synthetic data is evaluated.","Strategic use of synthetic data integrated into data strategy; robust validation processes; exploring advanced generation techniques (e.g., GANs for complex data). The organization leverages synthetic data to address multiple challenges and continuously improves generation techniques."]],["6.5","Domain-Specific Data Understanding","This category assesses possessing the necessary subject matter expertise to interpret the data correctly and ensure its appropriate use within the context of the AI application.","Domain understanding ensures data is interpreted correctly, appropriate features are developed, and model outputs make sense in context. It helps avoid misuse or misinterpretation of data that could lead to flawed models despite technical excellence.",["AI teams lack understanding of the data's business context. Technical staff work in isolation from domain experts. Assumptions about data meaning may be incorrect or oversimplified.","Subject matter experts (SMEs) are consulted sporadically during AI projects. Some effort is made to understand data context, though collaboration is ad-hoc and knowledge transfer is limited.","Close collaboration between AI teams and SMEs throughout the lifecycle; data documentation includes business context. Knowledge transfer is systematic. Domain experts actively participate in model design and evaluation.","AI teams possess strong domain knowledge or have embedded SMEs; data understanding is systematically captured and leveraged (e.g., feature stores with business definitions). Domain context shapes the entire AI development process. Techniques like knowledge graphs may formalize domain understanding."]]];
+var PILLARS = [
+  {n:"Strategy & Value", s:"Strategy", c:"#1B5E9E", d:"AI vision, alignment with organisational goals, planning, use case identification and innovation."},
+  {n:"People & Culture", s:"People", c:"#7B2D5E", d:"The skills, leadership, structures and cultural conditions for AI success."},
+  {n:"Technology & Infrastructure", s:"Technology", c:"#0E7490", d:"Development environments, compute, technical architectures and platforms."},
+  {n:"AI Operations & Ecosystem", s:"Operations", c:"#B45309", d:"Deployment, monitoring, interoperability, partnerships and reuse."},
+  {n:"AI Governance, Ethics & Risk", s:"Governance", c:"#8C1515", d:"Accountability, legal compliance, ethical safeguards and risk mitigation."},
+  {n:"Data (AI-Specific Focus)", s:"Data", c:"#2D7D6E", d:"Data identification, preparation, access, synthetic data and domain understanding."}
+];
+var SIZES=[5,5,4,5,5,5];
+var LEVELS=[
+  {n:"Basic", c:"#E3EAF3", t:"#14213D", d:"Initial and ad-hoc: undocumented, inconsistent, reactive, reliant on individuals. Limited AI awareness or capability."},
+  {n:"Ready", c:"#A9C3DE", t:"#14213D", d:"Managed: processes documented and generally followed at project or team level. Basic standards are repeatable."},
+  {n:"Dynamic", c:"#4E86BC", t:"#fff", d:"Defined and measured: standardised, integrated and applied across the organisation; performance actively managed."},
+  {n:"Advanced", c:"#17457A", t:"#fff", d:"Optimised: continuously improved on quantitative insight and feedback loops; capabilities deeply embedded."}
+];
+// pillar index for every category
+var CAT_P=[]; SIZES.forEach(function(s,i){for(var k=0;k<s;k++)CAT_P.push(i);});
+var COUNTRIES="Afghanistan|Albania|Algeria|Andorra|Angola|Antigua and Barbuda|Argentina|Armenia|Australia|Austria|Azerbaijan|Bahamas|Bahrain|Bangladesh|Barbados|Belarus|Belgium|Belize|Benin|Bhutan|Bolivia|Bosnia and Herzegovina|Botswana|Brazil|Brunei|Bulgaria|Burkina Faso|Burundi|Cabo Verde|Cambodia|Cameroon|Canada|Central African Republic|Chad|Chile|China|Colombia|Comoros|Congo|Costa Rica|Côte d'Ivoire|Croatia|Cuba|Cyprus|Czechia|Democratic Republic of the Congo|Denmark|Djibouti|Dominica|Dominican Republic|Ecuador|Egypt|El Salvador|Equatorial Guinea|Eritrea|Estonia|Eswatini|Ethiopia|Fiji|Finland|France|Gabon|Gambia|Georgia|Germany|Ghana|Greece|Grenada|Guatemala|Guinea|Guinea-Bissau|Guyana|Haiti|Honduras|Hong Kong SAR|Hungary|Iceland|India|Indonesia|Iran|Iraq|Ireland|Israel|Italy|Jamaica|Japan|Jordan|Kazakhstan|Kenya|Kiribati|Kuwait|Kyrgyzstan|Laos|Latvia|Lebanon|Lesotho|Liberia|Libya|Liechtenstein|Lithuania|Luxembourg|Madagascar|Malawi|Malaysia|Maldives|Mali|Malta|Marshall Islands|Mauritania|Mauritius|Mexico|Micronesia|Moldova|Monaco|Mongolia|Montenegro|Morocco|Mozambique|Myanmar|Namibia|Nauru|Nepal|Netherlands|New Zealand|Nicaragua|Niger|Nigeria|North Korea|North Macedonia|Norway|Oman|Pakistan|Palau|Palestine|Panama|Papua New Guinea|Paraguay|Peru|Philippines|Poland|Portugal|Qatar|Romania|Russia|Rwanda|Saint Kitts and Nevis|Saint Lucia|Saint Vincent and the Grenadines|Samoa|San Marino|Sao Tome and Principe|Saudi Arabia|Senegal|Serbia|Seychelles|Sierra Leone|Singapore|Slovakia|Slovenia|Solomon Islands|Somalia|South Africa|South Korea|South Sudan|Spain|Sri Lanka|Sudan|Suriname|Sweden|Switzerland|Syria|Taiwan|Tajikistan|Tanzania|Thailand|Timor-Leste|Togo|Tonga|Trinidad and Tobago|Tunisia|Türkiye|Turkmenistan|Tuvalu|Uganda|Ukraine|United Arab Emirates|United Kingdom|United States|Uruguay|Uzbekistan|Vanuatu|Vatican City|Venezuela|Vietnam|Yemen|Zambia|Zimbabwe".split("|");
+
+/* ===================== HELPERS ===================== */
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function band(x){return x<1.75?0:x<2.5?1:x<3.25?2:3;}
+function fmt(x){return x==null||isNaN(x)?"–":Number(x).toFixed(2);}
+function mean(a){var v=a.filter(function(x){return x!=null&&!isNaN(x);});return v.length?v.reduce(function(s,x){return s+ +x;},0)/v.length:null;}
+function pillarMeans(sc){var out=[],p=0;SIZES.forEach(function(s){var t=0;for(var k=0;k<s;k++)t+=sc[p++];out.push(Math.round(t/s*100)/100);});return out;}
+function heatColor(v){ // 1..4 → blended level colours
+  if(v==null||isNaN(v))return "#F1F2F5";
+  var stops=[[227,234,243],[169,195,222],[78,134,188],[23,69,122]];
+  var x=Math.max(1,Math.min(4,v))-1,i=Math.min(2,Math.floor(x)),f=x-i,a=stops[i],b=stops[i+1];
+  return "rgb("+a.map(function(c,k){return Math.round(c+(b[k]-c)*f);}).join(",")+")";
+}
+function chipLvl(x){var b=band(x),L=LEVELS[b];return '<span class="chip" style="background:'+L.c+';color:'+L.t+'">'+L.n+'</span>';}
+function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove("on");},2200);}
+function copy(txt){(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast("Copied");},function(){prompt("Copy this:",txt);});}
+function ls(k,v){try{if(v===undefined){var r=localStorage.getItem(k);return r?JSON.parse(r):null;}localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
+function baseUrl(){return location.origin+location.pathname;}
+function fillCountries(sel,val){sel.innerHTML='<option value="">Select country…</option>'+COUNTRIES.map(function(c){return '<option'+(c===val?' selected':'')+'>'+esc(c)+'</option>';}).join("");}
+function uid(n){var a=new Uint8Array(n||9);(window.crypto||{}).getRandomValues?crypto.getRandomValues(a):a.forEach(function(_,i){a[i]=Math.random()*256|0;});return Array.prototype.map.call(a,function(b){return ("0"+b.toString(16)).slice(-2);}).join("");}
+// tooltip
+document.addEventListener("mousemove",function(e){var t=$("#tip"),el=e.target.closest&&e.target.closest("[data-tip]");if(!el){t.style.opacity=0;return;}t.innerHTML=el.getAttribute("data-tip");t.style.opacity=1;t.style.left=Math.min(e.clientX+14,innerWidth-270)+"px";t.style.top=(e.clientY+14)+"px";});
+
+/* ===================== CHARTS (SVG) ===================== */
+function radar(series,opt){
+  opt=opt||{};var S=opt.size||300,cx=S/2,cy=S/2+4,R=S/2-64,n=6,out=[];
+  function pt(i,v){var a=-Math.PI/2+i*2*Math.PI/n,r=R*(v-0)/4;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  out.push('<svg viewBox="0 0 '+S+' '+(S+8)+'" width="100%" style="max-width:'+S+'px;display:block;margin:0 auto" role="img" aria-label="Radar chart of pillar maturity">');
+  for(var lv=1;lv<=4;lv++){var ring=[];for(var i=0;i<n;i++)ring.push(pt(i,lv).join(","));out.push('<polygon points="'+ring.join(" ")+'" fill="'+(lv%2?"#F6F7FA":"#fff")+'" stroke="#E1E4EA"/>');}
+  for(i=0;i<n;i++){var e=pt(i,4),l=pt(i,4.4),ca=Math.cos(-Math.PI/2+i*2*Math.PI/n),anc=ca>0.3?"start":ca<-0.3?"end":"middle";if(anc==="middle")l=pt(i,4.55);out.push('<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0]+'" y2="'+e[1]+'" stroke="#E1E4EA"/>');
+    out.push('<text x="'+l[0]+'" y="'+l[1]+'" font-size="11" font-weight="600" fill="'+PILLARS[i].c+'" text-anchor="'+anc+'" dominant-baseline="middle" font-family="Inter,sans-serif">'+PILLARS[i].s+'</text>');}
+  series.forEach(function(s){if(!s.v||s.v.every(function(x){return x==null;}))return;var pts=s.v.map(function(v,i){return pt(i,v==null?0:v).join(",");});
+    out.push('<polygon points="'+pts.join(" ")+'" fill="'+(s.fill||"none")+'" stroke="'+s.c+'" stroke-width="2.2" '+(s.dash?'stroke-dasharray="5 4"':'')+' stroke-linejoin="round"/>');
+    if(!s.dash)s.v.forEach(function(v,i){if(v==null)return;var p=pt(i,v);out.push('<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="'+s.c+'" data-tip="'+esc(PILLARS[i].n)+': '+fmt(v)+' ('+LEVELS[band(v)].n+')"/>');});});
+  out.push('</svg>');
+  if(series.length>1&&!opt.nolegend)out.push('<div class="heatlegend" style="justify-content:center">'+series.map(function(s){return '<span><i style="background:'+s.c+'"></i>'+esc(s.label||"")+'</span>';}).join("")+'</div>');
+  return out.join("");
+}
+function donut(counts){
+  var tot=counts.reduce(function(a,b){return a+b;},0),S=200,r=72,cx=100,cy=100,acc=0,out=['<div class="row" style="gap:24px;justify-content:center;margin-top:10px"><svg viewBox="0 0 200 200" width="190">'];
+  if(!tot)out.push('<circle cx="100" cy="100" r="72" fill="none" stroke="#EEF0F4" stroke-width="30"/>');
+  counts.forEach(function(c,i){if(!c)return;var a0=acc/tot*2*Math.PI-Math.PI/2;acc+=c;var a1=acc/tot*2*Math.PI-Math.PI/2;
+    if(c===tot){out.push('<circle cx="100" cy="100" r="72" fill="none" stroke="'+LEVELS[i].c+'" stroke-width="30" data-tip="'+LEVELS[i].n+': '+c+'"/>');return;}
+    var la=a1-a0>Math.PI?1:0;out.push('<path d="M'+(cx+r*Math.cos(a0))+' '+(cy+r*Math.sin(a0))+' A'+r+' '+r+' 0 '+la+' 1 '+(cx+r*Math.cos(a1))+' '+(cy+r*Math.sin(a1))+'" fill="none" stroke="'+LEVELS[i].c+'" stroke-width="30" data-tip="'+LEVELS[i].n+': '+c+' ('+Math.round(c/tot*100)+'%)"/>');});
+  out.push('<text x="100" y="96" text-anchor="middle" font-family="EB Garamond,serif" font-size="34" font-weight="700" fill="#14213D">'+tot+'</text><text x="100" y="118" text-anchor="middle" font-size="11" fill="#6B7486" font-family="Inter">responses</text></svg><div>');
+  LEVELS.forEach(function(L,i){out.push('<div style="margin:6px 0;font-size:13.5px"><i style="display:inline-block;width:12px;height:12px;border-radius:3px;background:'+L.c+';margin-right:8px;vertical-align:-1px;border:1px solid #D4D8E0"></i><b style="color:#14213D">'+L.n+'</b> · '+counts[i]+(tot?' ('+Math.round(counts[i]/tot*100)+'%)':'')+'</div>');});
+  out.push('</div></div>');return out.join("");
+}
+function gauge(x){
+  var a=Math.PI*(1-(Math.max(1,Math.min(4,x))-1)/3),cx=110,cy=104,r=84,out=['<svg viewBox="0 0 220 124" width="220">'];
+  for(var i=0;i<4;i++){var a0=Math.PI*(1-i/4),a1=Math.PI*(1-(i+1)/4);out.push('<path d="M'+(cx+r*Math.cos(a0))+' '+(cy-r*Math.sin(a0))+' A'+r+' '+r+' 0 0 1 '+(cx+r*Math.cos(a1))+' '+(cy-r*Math.sin(a1))+'" stroke="'+LEVELS[i].c+'" stroke-width="18" fill="none"/>');}
+  // needle: position by score 1..4 across the half circle
+  var ang=Math.PI*(1-(Math.max(1,Math.min(4,x))-1)/3);
+  out.push('<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+(r-6)*Math.cos(ang))+'" y2="'+(cy-(r-6)*Math.sin(ang))+'" stroke="#14213D" stroke-width="3.5" stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="7" fill="#14213D"/></svg>');
+  return out.join("");
+}
+function heatStrip(vals,targets){
+  return '<div class="heat">'+vals.map(function(v,i){var c=FW[i];return '<div style="background:'+heatColor(v)+';box-shadow:inset 0 -3px 0 '+PILLARS[CAT_P[i]].c+'" data-tip="<b>'+c[0]+' '+esc(c[1])+'</b><br>'+(v==null?'No data':fmt(v)+' · '+LEVELS[band(v)].n)+'"></div>';}).join("")+'</div>'+
+    '<div class="heatlegend">'+LEVELS.map(function(L){return '<span><i style="background:'+L.c+'"></i>'+L.n+'</span>';}).join("")+'<span>· bottom stripe = pillar colour</span></div>';
+}
+function pillarBars(vals,targets){
+  return '<div class="bars">'+vals.map(function(v,i){var P=PILLARS[i],t=targets&&targets[i];return '<div class="b"><span style="color:var(--ink);font-weight:600">'+P.s+'</span><div class="track"><div class="fill" style="width:'+((v||0)/4*100)+'%;background:'+P.c+'"></div>'+(t?'<div class="tgt" style="left:calc('+(t/4*100)+'% - 1px)" data-tip="Target: '+LEVELS[Math.round(t)-1].n+'"></div>':'')+'</div><b style="color:var(--ink)">'+fmt(v)+'</b></div>';}).join("")+'</div>';
+}
+function stackBar(lv){var t=lv.reduce(function(a,b){return a+b;},0)||1;return '<div class="stack">'+lv.map(function(c,i){return c?'<span style="width:'+(c/t*100)+'%;background:'+LEVELS[i].c+'" data-tip="'+LEVELS[i].n+': '+c+'"></span>':'';}).join("")+'</div>';}
+function miniBars(p){return '<div class="minibars">'+p.map(function(v,i){return '<i style="height:'+((v||0)/4*26)+'px;background:'+PILLARS[i].c+'" data-tip="'+PILLARS[i].s+': '+fmt(v)+'"></i>';}).join("")+'</div>';}
+
+/* ===================== SPAM PROTECTION =====================
+   The real checks run in Postgres (rate limits, start ticket, honeypot, duplicates).
+   Cloudflare Turnstile is added only when a site key is set in aiu-auth.js. */
+var Captcha={key:"",ready:false,ids:{},tokens:{},
+  on:function(){return Store.mode==="live"&&this.key&&!/^YOUR/i.test(this.key);},
+  load:function(){var self=this;if(!this.on()||document.getElementById("cf-ts"))return;
+    var s=document.createElement("script");s.id="cf-ts";s.async=true;s.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    s.onload=function(){self.ready=true;["capEnrol","capAssess"].forEach(function(id){if(document.getElementById(id))self.render(id);});};document.head.appendChild(s);},
+  render:function(id){var self=this,el=document.getElementById(id);if(!this.on()||!el)return;
+    if(!this.ready||!window.turnstile)return;
+    if(this.ids[id]!==undefined&&el.childElementCount){return;}
+    el.innerHTML="";this.tokens[id]="";
+    this.ids[id]=window.turnstile.render(el,{sitekey:this.key,"refresh-expired":"auto",
+      callback:function(tok){self.tokens[id]=tok;},"expired-callback":function(){self.tokens[id]="";}});},
+  token:function(id){return this.on()?(this.tokens[id]||""):null;},
+  reset:function(id){if(this.on()&&window.turnstile&&this.ids[id]!==undefined){try{window.turnstile.reset(this.ids[id]);}catch(e){}this.tokens[id]="";}},
+  need:function(id){return this.on()&&!this.tokens[id];}
+};
+
+/* ===================== STORE (Supabase live, or local preview) ===================== */
+var Store={mode:"local",sb:null,
+  init:function(){var self=this;
+    return import("./aiu-auth.js").then(function(m){self.sb=m.supabase;Captcha.key=m.TURNSTILE_SITE_KEY;return self.sb.rpc("aim_public_stats");})
+      .then(function(r){if(r&&!r.error)self.mode="live";}).catch(function(){})
+      .then(function(){var el=$("#mode");el.className="mode "+self.mode;
+        if(self.mode==="live")Captcha.load();
+        $("#modeTxt").innerHTML=self.mode==="live"?"Live — results are saved and dashboards update in real time":"Preview mode — results are kept in this browser only until the AI Maturity database is switched on";});},
+  rpc:function(fn,args){return this.sb.rpc(fn,args).then(function(r){if(r.error)throw new Error(r.error.message);return r.data;});},
+  L:function(){return ls("aim.local")||{orgs:[],responses:[]};},
+  save:function(d){ls("aim.local",d);},
+  begin:function(){
+    if(this.mode==="live")return this.rpc("aim_begin",{});
+    return Promise.resolve("local-"+uid(6));},
+  enroll:function(o){
+    if(o.hp)return Promise.reject(new Error("Submission rejected"));
+    if(this.mode==="live")return this.rpc("aim_enroll_org",{p_name:o.name,p_country:o.country,p_sector:o.sector,p_contact_name:o.contact_name,p_contact_email:o.contact_email,p_public_opt_in:o.opt_in,p_hp:o.hp||null,p_captcha:o.captcha||null});
+    var d=this.L(),org={id:uid(8),name:o.name,country:o.country,sector:o.sector,invite_code:uid(6),admin_key:uid(18),public_opt_in:o.opt_in,created_at:new Date().toISOString()};
+    d.orgs.push(org);this.save(d);return Promise.resolve({org_id:org.id,invite_code:org.invite_code,admin_key:org.admin_key});},
+  orgInfo:function(code){
+    if(this.mode==="live")return this.rpc("aim_org_info",{p_code:code});
+    var o=this.L().orgs.filter(function(x){return x.invite_code===code;})[0];return Promise.resolve(o?{name:o.name,country:o.country,sector:o.sector}:null);},
+  submit:function(p){
+    if(p.hp)return Promise.reject(new Error("Submission rejected"));
+    if(this.mode==="live")return this.rpc("aim_submit",{p_code:p.code||null,p_name:p.name,p_country:p.country,p_organisation:p.organisation,p_role:p.role,p_department:p.department,p_scores:p.scores,p_desired:p.desired,p_ticket:p.ticket||null,p_hp:p.hp||null,p_captcha:p.captcha||null});
+    var d=this.L(),org=p.code?d.orgs.filter(function(x){return x.invite_code===p.code;})[0]:null,pm=pillarMeans(p.scores),ov=Math.round(mean(pm)*100)/100;
+    d.responses.push({org_id:org?org.id:null,name:p.name,country:p.country,organisation:org?org.name:p.organisation,role:p.role,department:p.department,scores:p.scores,desired:p.desired,pillars:pm,overall:ov,created_at:new Date().toISOString()});
+    this.save(d);return Promise.resolve({overall:ov,pillars:pm});},
+  publicStats:function(){
+    if(this.mode==="live")return this.rpc("aim_public_stats",{});
+    var d=this.L(),orgs={};d.orgs.forEach(function(o){orgs[o.id]=o;});
+    var r=d.responses.filter(function(x){return !x.org_id||(orgs[x.org_id]&&orgs[x.org_id].public_opt_in);});
+    return Promise.resolve(aggregate(r,d.orgs.length));},
+  orgDash:function(id,key){
+    if(this.mode==="live")return this.rpc("aim_org_dashboard",{p_org:id,p_key:key});
+    var d=this.L(),o=d.orgs.filter(function(x){return x.id===id&&x.admin_key===key;})[0];
+    if(!o)return Promise.reject(new Error("Invalid organisation or admin key"));
+    return Promise.resolve({org:o,responses:d.responses.filter(function(x){return x.org_id===id;}).reverse(),updated:new Date().toISOString()});}
+};
+function aggregate(r,orgCount){
+  var by={};r.forEach(function(x){(by[x.country]=by[x.country]||[]).push(x);});
+  function pav(arr){return [0,1,2,3,4,5].map(function(i){return mean(arr.map(function(x){return x.pillars[i];}));});}
+  return {total:r.length,orgs:orgCount,avg:mean(r.map(function(x){return x.overall;})),pillars:r.length?pav(r):[null,null,null,null,null,null],
+    categories:FW.map(function(_,i){return mean(r.map(function(x){return x.scores[i];}));}),
+    countries:Object.keys(by).map(function(c){var a=by[c],lv=[0,0,0,0];a.forEach(function(x){lv[band(x.overall)]++;});return {country:c,n:a.length,avg:mean(a.map(function(x){return x.overall;})),lv:lv,pillars:pav(a)};}),
+    updated:new Date().toISOString()};
+}
+
+/* ===================== ROUTER ===================== */
+var params=new URLSearchParams(location.search),INVITE=(params.get("org")||"").toLowerCase().replace(/[^a-z0-9]/g,""),ORG=null;
+var timers={};
+function route(){
+  var h=(location.hash||"#home").slice(1),v=h.split("/")[0];
+  if(v==="admin"){var p=h.split("/");if(p[1]&&p[2])rememberOrg({org_id:p[1],admin_key:p[2]});history.replaceState(null,"",location.pathname+location.search+"#dash/"+(p[1]||""));v="dash";}
+  if(["home","framework","assess","orgs","global","dash","result"].indexOf(v)<0)v="home";
+  $$("section.view").forEach(function(s){s.classList.toggle("on",s.id==="v-"+v);});
+  $$("#tabs a").forEach(function(a){a.classList.toggle("on",a.getAttribute("data-v")===v||(v==="result"&&a.getAttribute("data-v")==="assess"));});
+  Object.keys(timers).forEach(function(k){clearInterval(timers[k]);delete timers[k];});
+  if(v==="home")renderHome();
+  if(v==="framework")renderFramework();
+  if(v==="assess")renderAssess();
+  if(v==="orgs")renderOrgs();
+  if(v==="global"){renderGlobal();timers.g=setInterval(renderGlobal,45000);}
+  if(v==="dash"){var id=h.split("/")[1];renderDash(id);}
+  if(v==="result")renderResult();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+
+/* ===================== HOME + FRAMEWORK ===================== */
+function renderHome(){
+  $("#levels4").innerHTML=LEVELS.map(function(L,i){return '<div style="background:'+L.c+';color:'+L.t+'"><small style="opacity:.75">Level '+(i+1)+'</small><b>'+L.n+'</b>'+L.d+'</div>';}).join("");
+  Store.publicStats().then(function(s){$("#heroRadar").innerHTML=radar([{v:s.pillars,c:"#B8862B",fill:"rgba(184,134,43,.16)"}],{size:300})+'<div class="note">'+s.total+' open responses · '+(s.countries||[]).length+' countries</div>';}).catch(function(){$("#heroRadar").innerHTML=radar([{v:[2.2,2,2.4,1.8,2.1,2.3],c:"#B8862B",fill:"rgba(184,134,43,.16)"}]);});
+}
+var fwState={p:0,c:0};
+function renderFramework(){
+  $("#fwPillars").innerHTML=PILLARS.map(function(P,i){return '<button class="pbtn'+(i===fwState.p?' on':'')+'" style="--pc:'+P.c+'" data-p="'+i+'"><small>Pillar '+(i+1)+' · '+SIZES[i]+' categories</small><b>'+esc(P.n)+'</b></button>';}).join("");
+  var P=PILLARS[fwState.p],start=CAT_P.indexOf(fwState.p),idx=[];for(var k=0;k<SIZES[fwState.p];k++)idx.push(start+k);
+  $("#fwCats").style.setProperty("--pc",P.c);
+  $("#fwCats").innerHTML='<p class="note" style="padding:8px 12px">'+esc(P.d)+'</p>'+idx.map(function(i){return '<button data-c="'+i+'" class="'+(i===fwState.c?'on':'')+'">'+FW[i][0]+' '+esc(FW[i][1])+'</button>';}).join("");
+  if(CAT_P[fwState.c]!==fwState.p)fwState.c=start;
+  var c=FW[fwState.c];
+  $("#fwDetail").innerHTML='<div class="eyebrow" style="color:'+P.c+'">Category '+c[0]+'</div><h3 style="font-size:26px;margin:4px 0 8px">'+esc(c[1])+'</h3><p>'+esc(c[2])+'</p><p class="note" style="margin-top:8px"><b>Why it matters.</b> '+esc(c[3])+'</p><div class="ladder">'+
+    c[4].map(function(t,i){return '<div class="rung" style="--lc:'+LEVELS[i].c+'"><div><small>Level '+(i+1)+'</small><b>'+LEVELS[i].n+'</b></div><div style="font-size:14px">'+esc(t)+'</div></div>';}).reverse().join("")+'</div>';
+}
+document.addEventListener("click",function(e){
+  var p=e.target.closest("#fwPillars [data-p]");if(p){fwState.p=+p.getAttribute("data-p");fwState.c=CAT_P.indexOf(fwState.p);renderFramework();}
+  var c=e.target.closest("#fwCats [data-c]");if(c){fwState.c=+c.getAttribute("data-c");renderFramework();}
+});
+
+/* ===================== ASSESSMENT ===================== */
+var A=null; // {step, profile:{}, scores:[29], desired:[6]}
+function draftKey(){return "aim.draft."+(INVITE||"open");}
+function newA(){return {step:0,profile:{},scores:FW.map(function(){return null;}),desired:[null,null,null,null,null,null]};}
+function saveDraft(){ls(draftKey(),A);}
+function renderAssess(){
+  if(!A)A=ls(draftKey())||newA();
+  var bn=$("#orgBanner");
+  if(INVITE){
+    if(!ORG){bn.innerHTML='<div class="orgbanner">Loading your organisation’s private assessment…</div>';
+      Store.orgInfo(INVITE).then(function(o){ORG=o||false;renderAssess();}).catch(function(){ORG=false;renderAssess();});return;}
+    bn.innerHTML=ORG?'<div class="orgbanner">🔒 <b>Private assessment for '+esc(ORG.name)+'</b>. Your responses go to your organisation’s dashboard'+'.</div>':'<div class="orgbanner" style="background:#FCEFEF;color:var(--cr);border-color:#EBC4C4">This private link isn’t valid. You can still take the open assessment below.</div>';
+  } else bn.innerHTML="";
+  drawStepper();drawStep();drawLive();
+}
+function drawStepper(){
+  var h='<span class="'+(A.step===0?'cur':'done')+'" style="--sc:#14213D" data-st="0" data-tip="Your details"></span>';
+  PILLARS.forEach(function(P,i){var s=i+1,done=pillarDone(i);h+='<span class="'+(A.step===s?'cur':done?'done':'')+'" style="--sc:'+P.c+'" data-st="'+s+'" data-tip="'+esc(P.n)+'"></span>';});
+  $("#stepper").innerHTML=h;
+}
+function pillarIdx(i){var s=CAT_P.indexOf(i),a=[];for(var k=0;k<SIZES[i];k++)a.push(s+k);return a;}
+function pillarDone(i){return pillarIdx(i).every(function(k){return A.scores[k];});}
+function profileOk(){var p=A.profile;return p.name&&p.name.trim()&&p.country&&(INVITE&&ORG?true:p.organisation&&p.organisation.trim())&&p.consent;}
+function drawStep(){
+  var b=$("#aBody"),st=A.step;
+  $("#aPrev").style.visibility=st===0?"hidden":"visible";
+  if(st===0){
+    $("#aEyebrow").textContent="Step 1 of 7 · About you";
+    var orgField=INVITE&&ORG?'<input class="in" value="'+esc(ORG.name)+'" readonly>':'<input class="in" id="pOrg" maxlength="120" value="'+esc(A.profile.organisation||"")+'" placeholder="The organisation you are assessing">';
+    b.innerHTML='<div class="card"><h2 class="sec" style="font-size:28px">Before you start</h2><p class="note" style="margin-bottom:16px">Rate the organisation as it typically works today, on evidence you could point to — not its best or worst moment.</p>'+
+      '<div class="grid g2" style="gap:14px"><div><label class="f">Full name <em>*</em></label><input class="in" id="pName" maxlength="80" value="'+esc(A.profile.name||"")+'"></div>'+
+      '<div><label class="f">Country <em>*</em></label><select class="in" id="pCountry"></select></div>'+
+      '<div><label class="f">Organisation <em>*</em></label>'+orgField+'</div>'+
+      '<div><label class="f">Role / designation</label><input class="in" id="pRole" maxlength="80" value="'+esc(A.profile.role||"")+'" placeholder="e.g. Head of Data"></div>'+
+      (INVITE&&ORG?'<div><label class="f">Department / function</label><input class="in" id="pDept" maxlength="80" value="'+esc(A.profile.department||"")+'" placeholder="e.g. Finance, IT, Legal"></div>':'')+
+      '</div><div class="hp" aria-hidden="true"><label>Website <input id="pWebsite" tabindex="-1" autocomplete="off"></label></div><label style="display:flex;gap:10px;font-size:13.5px;margin-top:16px;align-items:flex-start"><input type="checkbox" id="pConsent" '+(A.profile.consent?'checked':'')+' style="margin-top:4px"> '+
+      (INVITE&&ORG?'I agree that my name and ratings are shared with '+esc(ORG.name)+'’s assessment administrators.':'I agree that my ratings are stored and included, anonymised, in the public country-level dashboard. My name and organisation are never shown publicly.')+'</label></div>';
+    var sel=$("#pCountry");fillCountries(sel,A.profile.country||(ORG&&ORG.country)||"");
+    function upd(){A.profile.name=$("#pName").value;A.profile.country=sel.value;if($("#pOrg"))A.profile.organisation=$("#pOrg").value;A.profile.role=$("#pRole").value;if($("#pDept"))A.profile.department=$("#pDept").value;A.profile.consent=$("#pConsent").checked;A.hp=$("#pWebsite").value;saveDraft();navState();}
+    $$("input,select",b).forEach(function(el){el.addEventListener("input",upd);el.addEventListener("change",upd);});
+    upd();return;
+  }
+  var pi=st-1,P=PILLARS[pi],idx=pillarIdx(pi);
+  $("#aEyebrow").textContent="Step "+(st+1)+" of 7 · Pillar "+st;
+  var h='<div class="phead" style="--pc:'+P.c+'"><div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.8;font-weight:700">Pillar '+st+' of 6</div><h2>'+esc(P.n)+'</h2><p>'+esc(P.d)+'</p></div>';
+  idx.forEach(function(i){var c=FW[i];
+    h+='<div class="card qcard" style="--pc:'+P.c+'" id="q'+i+'"><div class="qid">'+c[0]+'</div><h3>'+esc(c[1])+'</h3><p style="font-size:14.5px">'+esc(c[2])+'</p><details><summary>Why it matters</summary><p style="margin-top:6px">'+esc(c[3])+'</p></details><div class="opts">'+
+      c[4].map(function(t,l){return '<button type="button" class="opt'+(A.scores[i]===l+1?' on':'')+'" data-q="'+i+'" data-l="'+(l+1)+'" style="--lc:'+LEVELS[l].c+';--lt:'+LEVELS[l].t+'"><b><i>'+(l+1)+'</i>'+LEVELS[l].n+'</b><span class="clip">'+esc(t)+'</span></button>';}).join("")+'</div></div>';});
+  h+='<div class="card target" style="--pc:'+P.c+'"><b style="color:var(--ink)">Where should '+esc(P.s)+' be in 12–24 months?</b> <span class="note">(desired maturity — optional)</span><div class="seg" style="margin-top:10px;--pc:'+P.c+'">'+LEVELS.map(function(L,l){return '<button type="button" data-d="'+(l+1)+'" class="'+(A.desired[pi]===l+1?'on':'')+'">'+L.n+'</button>';}).join("")+'</div></div>';
+  if(st===6)h+='<div class="cap" id="capAssess"></div>';
+  b.innerHTML=h;if(st===6){Captcha.ids.capAssess=undefined;Captcha.render("capAssess");}navState();
+}
+document.addEventListener("click",function(e){
+  var o=e.target.closest(".opt[data-q]");
+  if(o){var q=+o.getAttribute("data-q"),l=+o.getAttribute("data-l");A.scores[q]=l;saveDraft();
+    $$('.opt[data-q="'+q+'"]').forEach(function(x){x.classList.toggle("on",+x.getAttribute("data-l")===l);});
+    drawLive();drawStepper();navState();
+    var nxt=pillarIdx(A.step-1).filter(function(k){return !A.scores[k];})[0];
+    if(nxt!=null&&window.innerWidth<960){var el=$("#q"+nxt);if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"});},150);}
+    return;}
+  var d=e.target.closest(".target [data-d]");
+  if(d){var pi=A.step-1;A.desired[pi]=+d.getAttribute("data-d");saveDraft();$$(".target [data-d]").forEach(function(x){x.classList.toggle("on",x===d);});drawLive();return;}
+  var s=e.target.closest("#stepper [data-st]");
+  if(s){var t=+s.getAttribute("data-st");if(t===0||profileOk()){A.step=t;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);}}
+});
+function navState(){
+  var st=A.step,nb=$("#aNext"),left="";
+  if(st===0){nb.disabled=!profileOk();left=profileOk()?"":"Fill in the starred fields and tick the consent box";}
+  else{var miss=pillarIdx(st-1).filter(function(k){return !A.scores[k];}).length;nb.disabled=miss>0;left=miss?miss+" categor"+(miss>1?"ies":"y")+" left in this pillar":"";}
+  nb.textContent=st===6?"See my results →":"Continue →";$("#aLeft").textContent=left;
+}
+$("#aPrev").addEventListener("click",function(){if(A.step>0){A.step--;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);}});
+$("#aNext").addEventListener("click",function(){
+  if($("#aNext").disabled)return;
+  if(A.step===0&&(!A.ticket||Date.now()-(A.ticketAt||0)>20*3600e3)){
+    var nb=$("#aNext");nb.disabled=true;
+    Store.begin().then(function(tk){A.ticket=tk;A.ticketAt=Date.now();A.step=1;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);})
+      .catch(function(err){nb.disabled=false;$("#aLeft").innerHTML='<span style="color:var(--cr)">'+esc(err.message)+'</span>';});
+    return;}
+  if(A.step<6){A.step++;saveDraft();drawStepper();drawStep();window.scrollTo(0,0);return;}
+  if(Captcha.need("capAssess")){$("#aLeft").innerHTML='<span style="color:var(--cr)">Please complete the \u201cI am human\u201d check above.</span>';return;}
+  finish();
+});
+function drawLive(){
+  var pm=[0,1,2,3,4,5].map(function(i){var v=pillarIdx(i).map(function(k){return A.scores[k];}).filter(Boolean);return v.length?mean(v):null;});
+  var des=A.desired.map(function(x){return x||null;});
+  $("#liveRadar").innerHTML=radar([{v:des,c:"#B8862B",dash:true,label:"Target"},{v:pm,c:"#14213D",fill:"rgba(20,33,61,.12)",label:"Current"}],{size:260});
+  var done=A.scores.filter(Boolean).length,ov=mean(pm);
+  $("#liveScore").innerHTML=done+" of 29 rated"+(ov?" · running level "+chipLvl(ov):"");
+}
+var LAST=null;
+function finish(){
+  var nb=$("#aNext");nb.disabled=true;nb.textContent="Saving…";
+  var p={code:INVITE&&ORG?INVITE:null,name:A.profile.name.trim(),country:A.profile.country,organisation:INVITE&&ORG?ORG.name:A.profile.organisation.trim(),role:A.profile.role||"",department:A.profile.department||"",scores:A.scores.slice(),desired:A.desired.every(Boolean)?A.desired.slice():null,ticket:A.ticket,hp:A.hp||"",captcha:Captcha.token("capAssess")};
+  Store.submit(p).then(function(r){
+    LAST={profile:A.profile,scores:p.scores,desired:A.desired.slice(),pillars:pillarMeans(p.scores),org:INVITE&&ORG?ORG.name:p.organisation,date:new Date().toISOString()};
+    LAST.overall=mean(LAST.pillars);ls("aim.last",LAST);ls(draftKey(),null);A=null;location.hash="result";
+  }).catch(function(err){nb.disabled=false;nb.textContent="See my results →";Captcha.reset("capAssess");
+    var msg=err.message;
+    if(/expired/i.test(msg)){A.ticket=null;Store.begin().then(function(tk){A.ticket=tk;A.ticketAt=Date.now();saveDraft();}).catch(function(){});msg="Your session was refreshed. Please wait about 90 seconds, then submit again.";}
+    $("#aLeft").innerHTML='<span style="color:var(--cr)">Could not save: '+esc(msg)+'</span>';});
+}
+
+/* ===================== RESULT ===================== */
+function renderResult(){
+  var R=LAST||ls("aim.last"),b=$("#resBody");
+  if(!R){b.innerHTML='<div class="card"><h3>No result yet</h3><p>Take the assessment to see your report.</p><a class="btn" href="#assess" style="margin-top:12px">Start</a></div>';return;}
+  var lv=band(R.overall),L=LEVELS[lv],cats=R.scores.map(function(s,i){var pi=CAT_P[i],t=R.desired&&R.desired[pi]?R.desired[pi]:Math.min(4,s+1);return {i:i,s:s,pi:pi,gap:t-s};});
+  var prio=cats.filter(function(c){return c.s<4;}).sort(function(a,b){return b.gap-a.gap||a.s-b.s;}).slice(0,5);
+  var strong=cats.slice().sort(function(a,b){return b.s-a.s;}).filter(function(c){return c.s>=3;}).slice(0,4);
+  var weakLink=R.pillars.map(function(v,i){var m=Math.min.apply(null,pillarIdx(i).map(function(k){return R.scores[k];}));return band(v)>=2&&m===1?i:-1;}).filter(function(i){return i>=0;});
+  var h='<div class="row noprint" style="justify-content:space-between"><div><div class="eyebrow">AI maturity report</div><h2 class="sec">'+esc(R.org)+'</h2><p class="note">Assessed by '+esc(R.profile.name)+(R.profile.role?' · '+esc(R.profile.role):'')+' · '+esc(R.profile.country)+' · '+new Date(R.date).toLocaleDateString()+'</p></div>'+
+    '<div class="row"><button class="btn ghost sm" onclick="window.print()">Print / save PDF</button><button class="btn ghost sm" id="dlJson">Download data</button><a class="btn sm" href="#global">Global dashboard</a></div></div>'+
+    '<div class="grid g3" style="margin-top:16px">'+
+      '<div class="card" style="text-align:center"><div class="eyebrow">Overall maturity</div>'+gauge(R.overall)+'<div class="lvlbadge" style="color:'+(lv>1?L.c:'#14213D')+'">'+L.n+'</div><div class="note">'+fmt(R.overall)+' on a 1–4 scale</div><p style="font-size:13.5px;margin-top:10px">'+esc(L.d)+'</p></div>'+
+      '<div class="card"><div class="eyebrow">Pillar profile</div>'+radar([{v:R.desired&&R.desired.every(Boolean)?R.desired:null,c:"#B8862B",dash:true,label:"Target"},{v:R.pillars,c:"#14213D",fill:"rgba(20,33,61,.12)",label:"Current"}],{size:290})+'</div>'+
+      '<div class="card"><div class="eyebrow">Pillar levels</div>'+pillarBars(R.pillars,R.desired)+R.pillars.map(function(v,i){return '<div style="display:flex;justify-content:space-between;font-size:13px;margin:4px 0"><span>'+PILLARS[i].s+'</span>'+chipLvl(v)+'</div>';}).join("")+'</div>'+
+    '</div>'+
+    '<div class="card" style="margin-top:16px"><div class="eyebrow">All 29 categories</div>'+heatStrip(R.scores)+'</div>'+
+    (weakLink.length?'<div class="card" style="margin-top:16px;border-left:5px solid var(--warn)"><b style="color:var(--ink)">Weakest-link check.</b> '+weakLink.map(function(i){return PILLARS[i].s;}).join(", ")+' average'+(weakLink.length>1?'':'s')+' Dynamic or higher but contain'+(weakLink.length>1?'':'s')+' a category still at Basic. UNESCO’s guide asks you to consider whether such critical categories should cap the pillar’s maturity.</div>':'')+
+    '<div class="grid g2" style="margin-top:16px"><div class="card"><div class="eyebrow">Priority actions</div><p class="note">Largest gaps to your target (or to the next level). Each shows what the next level looks like.</p>'+
+      prio.map(function(c){var f=FW[c.i],nx=Math.min(4,c.s+1);return '<div class="prio" style="--pc:'+PILLARS[c.pi].c+'"><b>'+f[0]+' '+esc(f[1])+'</b> · '+LEVELS[c.s-1].n+' → <b>'+LEVELS[nx-1].n+'</b><div style="margin-top:4px">'+esc(f[4][nx-1])+'</div></div>';}).join("")+
+    '</div><div class="card"><div class="eyebrow">Strengths to build on</div>'+(strong.length?strong.map(function(c){var f=FW[c.i];return '<div class="prio" style="--pc:'+PILLARS[c.pi].c+'"><b>'+f[0]+' '+esc(f[1])+'</b> · '+LEVELS[c.s-1].n+'</div>';}).join(""):'<p class="note" style="margin-top:8px">No category is at Dynamic or Advanced yet — that’s normal early in the journey. Start with the priority actions.</p>')+
+    '<div style="margin-top:18px"><a class="btn" href="#assess" onclick="localStorage.removeItem(\''+draftKey()+'\')">Retake</a></div></div></div>';
+  b.innerHTML=h;
+  $("#dlJson").addEventListener("click",function(){var o={framework:"UNESCO AI Maturity Framework (2025)",organisation:R.org,assessor:R.profile.name,country:R.profile.country,date:R.date,overall:R.overall,level:L.n,pillars:PILLARS.map(function(P,i){return {pillar:P.n,score:R.pillars[i],level:LEVELS[band(R.pillars[i])].n,target:R.desired&&R.desired[i]?LEVELS[R.desired[i]-1].n:null};}),categories:FW.map(function(f,i){return {id:f[0],category:f[1],level:LEVELS[R.scores[i]-1].n};})};
+    var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:"application/json"}));a.download="ai-maturity-"+(R.org||"report").replace(/\W+/g,"-")+".json";a.click();});
+}
+
+/* ===================== ORGS ===================== */
+function myOrgs(){return ls("aim.myorgs")||[];}
+function rememberOrg(o){var a=myOrgs().filter(function(x){return x.org_id!==o.org_id;});a.unshift(o);ls("aim.myorgs",a.slice(0,10));}
+function renderOrgs(){
+  fillCountries($("#enrolForm [data-countries]"),"");
+  if($("#capEnrol")){Captcha.ids.capEnrol=undefined;Captcha.render("capEnrol");}
+  var m=myOrgs();
+  $("#myOrgs").innerHTML=m.length?m.map(function(o){return '<div class="row" style="justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--hair)"><b style="color:var(--ink)">'+esc(o.name||"Organisation")+'</b><a class="btn sm" href="#dash/'+esc(o.org_id)+'">Dashboard</a></div>';}).join(""):'<p class="note">None yet.</p>';
+}
+$("#enrolForm").addEventListener("submit",function(e){
+  e.preventDefault();var f=e.target,o={name:f.name.value.trim(),country:f.country.value,sector:f.sector.value,contact_name:f.contact_name.value.trim(),contact_email:f.contact_email.value.trim(),opt_in:f.opt_in.checked,hp:f.website.value,captcha:Captcha.token("capEnrol")};
+  if(!o.name||!o.country){$("#enrolErr").textContent="Organisation name and country are required.";return;}
+  if(Captcha.need("capEnrol")){$("#enrolErr").textContent="Please complete the \u201cI am human\u201d check.";return;}
+  var btn=f.querySelector("button");btn.disabled=true;btn.textContent="Enrolling…";
+  Store.enroll(o).then(function(r){
+    rememberOrg({org_id:r.org_id,admin_key:r.admin_key,invite_code:r.invite_code,name:o.name});
+    var link=baseUrl()+"?org="+r.invite_code,dash=baseUrl()+"#admin/"+r.org_id+"/"+r.admin_key;
+    $("#enrolCard").innerHTML='<div class="eyebrow" style="color:var(--ok)">Enrolled</div><h3>'+esc(o.name)+' is set up</h3>'+
+      '<p style="margin:10px 0 6px;font-weight:600;color:var(--ink)">1 · Share this link with your associates</p><div class="copybox"><input class="in" readonly value="'+esc(link)+'"><button class="btn sm" data-copy="'+esc(link)+'">Copy</button></div>'+
+      '<p style="margin:16px 0 6px;font-weight:600;color:var(--ink)">2 · Keep your private dashboard link</p><div class="copybox"><input class="in" readonly value="'+esc(dash)+'"><button class="btn sm" data-copy="'+esc(dash)+'">Copy</button></div>'+
+      '<div class="secret">⚠️ <b>Save the dashboard link or admin key now.</b> It is shown once and can’t be recovered. Anyone with it can see your organisation’s results.<br><span style="font-family:ui-monospace,monospace;font-size:12px">Org ID '+esc(r.org_id)+'<br>Admin key '+esc(r.admin_key)+'</span></div>'+
+      '<div class="row" style="margin-top:16px"><a class="btn gold" href="#dash/'+esc(r.org_id)+'">Open live dashboard</a></div>';
+  }).catch(function(err){btn.disabled=false;btn.textContent="Enrol and get our private link";Captcha.reset("capEnrol");$("#enrolErr").textContent="Could not enrol: "+err.message;});
+});
+document.addEventListener("click",function(e){var c=e.target.closest("[data-copy]");if(c)copy(c.getAttribute("data-copy"));});
+
+/* ===================== GLOBAL DASHBOARD ===================== */
+var gSort="n",gSel=null,gData=null;
+function renderGlobal(){
+  Store.publicStats().then(function(s){gData=s;drawGlobal();}).catch(function(e){$("#gKpi").innerHTML='<div class="card">Could not load: '+esc(e.message)+'</div>';});
+}
+function drawGlobal(){
+  var s=gData,cs=(s.countries||[]).slice(),lvAll=[0,0,0,0];cs.forEach(function(c){c.lv.forEach(function(x,i){lvAll[i]+=+x;});});
+  $("#gUpdated").innerHTML='<span class="dot" style="color:var(--ok)"></span>Updated '+new Date(s.updated||Date.now()).toLocaleTimeString();
+  $("#gKpi").innerHTML=[[s.total,"Responses","open access + opted-in orgs"],[cs.length,"Countries",""],[s.avg?LEVELS[band(s.avg)].n:"–","Average level",s.avg?fmt(s.avg)+" / 4":""],[s.orgs||0,"Organisations enrolled","private assessments"]].map(function(k){return '<div class="card kpi"><div class="n">'+esc(k[0])+'</div><div class="l">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>';}).join("");
+  $("#gDonut").innerHTML=donut(lvAll);
+  var sel=gSel&&cs.filter(function(c){return c.country===gSel;})[0];
+  $("#gRadar").innerHTML=radar(sel?[{v:s.pillars,c:"#B8862B",dash:true,label:"Global"},{v:sel.pillars,c:"#14213D",fill:"rgba(20,33,61,.12)",label:sel.country}]:[{v:s.pillars,c:"#14213D",fill:"rgba(20,33,61,.12)",label:"Global"}],{size:300});
+  $("#gRadarNote").textContent=sel?sel.country+" vs global average":"Global average, 1 = Basic … 4 = Advanced";
+  cs.sort(gSort==="n"?function(a,b){return b.n-a.n;}:gSort==="avg"?function(a,b){return b.avg-a.avg;}:function(a,b){return a.country.localeCompare(b.country);});
+  $("#gTable").innerHTML='<tr><th>Country</th><th>Responses</th><th>Average</th><th>Level</th><th style="min-width:160px">Distribution</th><th>Pillars</th></tr>'+
+    (cs.length?cs.map(function(c){return '<tr class="clk" data-country="'+esc(c.country)+'" style="'+(c.country===gSel?'background:#F3F6FB':'')+'"><td><b style="color:var(--ink)">'+esc(c.country)+'</b></td><td>'+c.n+'</td><td>'+fmt(c.avg)+'</td><td>'+chipLvl(c.avg)+'</td><td>'+stackBar(c.lv.map(Number))+'</td><td>'+miniBars(c.pillars)+'</td></tr>';}).join(""):'<tr><td colspan="6" class="note" style="padding:20px">No responses yet — <a href="#assess">be the first</a>.</td></tr>');
+  $("#gLegend").innerHTML=LEVELS.map(function(L){return '<span><i style="background:'+L.c+'"></i>'+L.n+'</span>';}).join("")+PILLARS.map(function(P){return '<span><i style="background:'+P.c+'"></i>'+P.s+'</span>';}).join("");
+  $("#gHeat").innerHTML=heatStrip(s.categories||[]);
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest("#gSort [data-s]");if(b){gSort=b.getAttribute("data-s");$$("#gSort button").forEach(function(x){x.classList.toggle("on",x===b);});if(gData)drawGlobal();}
+  var r=e.target.closest("#gTable [data-country]");if(r){var c=r.getAttribute("data-country");gSel=gSel===c?null:c;drawGlobal();$("#gRadar").scrollIntoView({behavior:"smooth",block:"center"});}
+});
+
+/* ===================== ORG DASHBOARD ===================== */
+var dFilter="";
+function renderDash(id){
+  var b=$("#dashBody"),m=myOrgs(),o=id?m.filter(function(x){return x.org_id===id;})[0]:m[0];
+  if(!o){
+    b.innerHTML='<div class="card" style="max-width:560px;margin:0 auto"><div class="eyebrow">Organisation dashboard</div><h3>Open your live dashboard</h3><p class="note" style="margin:6px 0 14px">Paste the dashboard link you saved at enrolment, or the org ID and admin key.</p>'+
+      '<label class="f">Dashboard link</label><input class="in" id="dLink" placeholder="https://…#admin/…/…"><p class="note" style="margin:10px 0">or</p>'+
+      '<div class="grid g2" style="gap:10px"><div><label class="f">Org ID</label><input class="in" id="dId" value="'+esc(id||"")+'"></div><div><label class="f">Admin key</label><input class="in" id="dKey" type="password"></div></div>'+
+      '<button class="btn" id="dGo" style="margin-top:14px">Open dashboard</button><div class="err" id="dErr"></div><p class="note" style="margin-top:10px">Not enrolled yet? <a href="#orgs">Enrol your organisation</a>.</p></div>';
+    $("#dGo").addEventListener("click",function(){var l=$("#dLink").value.trim(),mm=l.match(/#admin\/([^/]+)\/([^/\s]+)/),oid=mm?mm[1]:$("#dId").value.trim(),key=mm?mm[2]:$("#dKey").value.trim();
+      if(!oid||!key){$("#dErr").textContent="Enter the link, or both the org ID and admin key.";return;}
+      Store.orgDash(oid,key).then(function(d){rememberOrg({org_id:oid,admin_key:key,name:d.org.name,invite_code:d.org.invite_code});location.hash="dash/"+oid;}).catch(function(e){$("#dErr").textContent=e.message;});});
+    return;
+  }
+  function load(){Store.orgDash(o.org_id,o.admin_key).then(function(d){
+      if(d.org.invite_code&&!o.invite_code){o.invite_code=d.org.invite_code;o.name=d.org.name;rememberOrg(o);}drawDash(d,o);})
+    .catch(function(e){b.innerHTML='<div class="card"><h3>Couldn’t open this dashboard</h3><p class="err">'+esc(e.message)+'</p><button class="btn ghost sm" onclick="localStorage.setItem(\'aim.myorgs\',JSON.stringify((JSON.parse(localStorage.getItem(\'aim.myorgs\')||\'[]\')).filter(function(x){return x.org_id!==\''+esc(o.org_id)+'\'})));location.hash=\'dash\'">Forget and enter a key</button></div>';});}
+  b.innerHTML='<div class="card">Loading dashboard…</div>';load();timers.d=setInterval(load,30000);
+}
+function drawDash(d,o){
+  var R=d.responses||[],org=d.org,link=baseUrl()+"?org="+(org.invite_code||o.invite_code);
+  var depts=[];R.forEach(function(r){var k=r.department||"Unspecified";if(depts.indexOf(k)<0)depts.push(k);});
+  var F=dFilter?R.filter(function(r){return (r.department||"Unspecified")===dFilter;}):R;
+  var pav=[0,1,2,3,4,5].map(function(i){return mean(F.map(function(r){return +r.pillars[i];}));});
+  var dav=[0,1,2,3,4,5].map(function(i){return mean(F.filter(function(r){return r.desired;}).map(function(r){return +r.desired[i];}));});
+  var cav=FW.map(function(_,i){return mean(F.map(function(r){return +r.scores[i];}));});
+  var ov=mean(F.map(function(r){return +r.overall;})),lv=[0,0,0,0];F.forEach(function(r){lv[band(+r.overall)]++;});
+  // spread: std dev per category (where views diverge)
+  var spread=FW.map(function(f,i){var v=F.map(function(r){return +r.scores[i];}),m=mean(v);return {i:i,sd:v.length>1?Math.sqrt(mean(v.map(function(x){return (x-m)*(x-m);}))):0};}).sort(function(a,b){return b.sd-a.sd;}).slice(0,3);
+  var msg="We are assessing our AI maturity using the UNESCO AI Maturity Framework. Please take 15–20 minutes to complete your private assessment for "+org.name+": "+link;
+  var h='<div class="row" style="justify-content:space-between"><div><div class="eyebrow">Private · live organisation dashboard</div><h2 class="sec">'+esc(org.name)+'</h2><p class="note">'+esc(org.country)+(org.sector?' · '+esc(org.sector):'')+' · '+(org.public_opt_in?'contributes anonymised results to the global dashboard':'results private to your organisation')+'</p></div>'+
+    '<div class="note"><span class="dot" style="color:var(--ok)"></span>Live · refreshed '+new Date(d.updated||Date.now()).toLocaleTimeString()+'</div></div>'+
+    '<div class="card noprint" style="margin-top:14px;border-left:5px solid var(--gold)"><div class="grid g2" style="align-items:center"><div><b style="color:var(--ink)">Invite your associates</b><p class="note">Anyone with this link takes the assessment inside your private flow.</p><div class="copybox" style="margin-top:8px"><input class="in" readonly value="'+esc(link)+'"><button class="btn sm" data-copy="'+esc(link)+'">Copy</button></div></div>'+
+    '<div class="row" style="justify-content:flex-end"><a class="btn ghost sm" href="mailto:?subject='+encodeURIComponent("AI maturity assessment — "+org.name)+'&body='+encodeURIComponent(msg)+'">Email</a><a class="btn ghost sm" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(msg)+'">WhatsApp</a><button class="btn ghost sm" data-copy="'+esc(msg)+'">Copy invite text</button><button class="btn ghost sm" id="csv">Export CSV</button></div></div></div>';
+  if(!R.length){b0(h+'<div class="card" style="margin-top:16px;text-align:center;padding:40px"><h3>Waiting for the first response</h3><p class="note">Share the link above. This page refreshes every 30 seconds.</p></div>');return;}
+  h+='<div class="row" style="margin-top:16px"><span class="note">Department:</span><div class="seg" id="dDept" style="--pc:var(--ink)"><button data-dp="" class="'+(dFilter?'':'on')+'">All</button>'+depts.map(function(x){return '<button data-dp="'+esc(x)+'" class="'+(dFilter===x?'on':'')+'">'+esc(x)+'</button>';}).join("")+'</div></div>';
+  h+='<div class="grid g4" style="margin-top:14px">'+[[F.length,"Respondents",depts.length+" department"+(depts.length>1?"s":"")],[ov?LEVELS[band(ov)].n:"–","Organisation level",fmt(ov)+" / 4"],[Math.max.apply(null,pav)===Math.min.apply(null,pav)?"Balanced":PILLARS[pav.indexOf(Math.max.apply(null,pav))].s,"Strongest pillar",fmt(Math.max.apply(null,pav))],[Math.max.apply(null,pav)===Math.min.apply(null,pav)?"Balanced":PILLARS[pav.indexOf(Math.min.apply(null,pav))].s,"Weakest pillar",fmt(Math.min.apply(null,pav))]].map(function(k){return '<div class="card kpi"><div class="n" style="font-size:30px">'+esc(k[0])+'</div><div class="l">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>';}).join("")+'</div>';
+  h+='<div class="grid g3" style="margin-top:16px"><div class="card"><h3>Current vs target</h3>'+radar([{v:dav.some(function(x){return x!=null;})?dav:null,c:"#B8862B",dash:true,label:"Target (avg)"},{v:pav,c:"#14213D",fill:"rgba(20,33,61,.12)",label:"Current (avg)"}],{size:280})+'</div>'+
+     '<div class="card"><h3>Pillar maturity</h3>'+pillarBars(pav,dav.some(function(x){return x!=null;})?dav:null)+'</div>'+
+     '<div class="card"><h3>Respondent levels</h3>'+donut(lv)+'</div></div>';
+  // department × pillar matrix
+  if(depts.length>1){h+='<div class="card" style="margin-top:16px"><h3>Departments × pillars</h3><p class="note">Where functions see the organisation differently</p><div class="scroll" style="margin-top:10px"><table class="matrix"><tr><th></th>'+PILLARS.map(function(P){return '<th style="color:'+P.c+'">'+P.s+'</th>';}).join("")+'<th>n</th></tr>'+
+    depts.map(function(dp){var rr=R.filter(function(r){return (r.department||"Unspecified")===dp;});return '<tr><th>'+esc(dp)+'</th>'+[0,1,2,3,4,5].map(function(i){var v=mean(rr.map(function(r){return +r.pillars[i];}));return '<td style="background:'+heatColor(v)+';color:'+(v>=2.6?'#fff':'#14213D')+'" data-tip="'+esc(dp)+' · '+PILLARS[i].s+': '+fmt(v)+'">'+fmt(v)+'</td>';}).join("")+'<th>'+rr.length+'</th></tr>';}).join("")+'</table></div></div>';}
+  h+='<div class="card" style="margin-top:16px"><h3>Category heatmap</h3><p class="note">Average of '+F.length+' respondent'+(F.length>1?'s':'')+'</p><div style="margin-top:10px">'+heatStrip(cav)+'</div>'+
+    (F.length>1?'<p style="margin-top:12px;font-size:13.5px"><b style="color:var(--ink)">Most disagreement:</b> '+spread.map(function(s){return FW[s.i][0]+' '+esc(FW[s.i][1])+' (±'+s.sd.toFixed(1)+')';}).join(" · ")+' — worth a facilitated conversation, as the UNESCO guide suggests.</p>':'')+'</div>';
+  h+='<div class="card" style="margin-top:16px"><h3>Respondents</h3><div class="scroll"><table class="t"><tr><th>Name</th><th>Department</th><th>Role</th><th>Country</th><th>Overall</th><th>Pillars</th><th>Submitted</th></tr>'+
+    F.map(function(r){return '<tr><td><b style="color:var(--ink)">'+esc(r.name)+'</b></td><td>'+esc(r.department||"–")+'</td><td>'+esc(r.role||"–")+'</td><td>'+esc(r.country)+'</td><td>'+fmt(r.overall)+' '+chipLvl(+r.overall)+'</td><td>'+miniBars(r.pillars.map(Number))+'</td><td class="note">'+new Date(r.created_at).toLocaleString()+'</td></tr>';}).join("")+'</table></div></div>';
+  b0(h);
+  $("#csv").onclick=function(){var rows=[["name","department","role","country","overall"].concat(PILLARS.map(function(P){return P.s;}),FW.map(function(f){return f[0]+" "+f[1];}),["submitted"])];
+    R.forEach(function(r){rows.push([r.name,r.department||"",r.role||"",r.country,r.overall].concat(r.pillars,r.scores,[r.created_at]));});
+    var csv=rows.map(function(x){return x.map(function(v){v=String(v==null?"":v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}).join(",");}).join("\n");
+    var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download=org.name.replace(/\W+/g,"-")+"-ai-maturity.csv";a.click();};
+  function b0(x){$("#dashBody").innerHTML=x;var c=$("#csv");if(c&&!c.onclick)c.onclick=function(){toast("No responses yet");};}
+}
+document.addEventListener("click",function(e){var b=e.target.closest("#dDept [data-dp]");if(b){dFilter=b.getAttribute("data-dp");route();}});
+
+/* ===================== BOOT ===================== */
+Store.init().then(function(){
+  if(INVITE&&!location.hash)location.hash="assess";
+  route();
+});
+</script>
+</body>
+</html>
