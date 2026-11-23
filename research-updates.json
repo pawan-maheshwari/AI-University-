@@ -1,6 +1,255 @@
 {
- "updated": "2026-11-20T15:50:33Z",
+ "updated": "2026-11-23T16:00:06Z",
  "weeks": [
+  {
+   "date": "2026-11-23",
+   "label": "Week of 16 Nov – 22 Nov 2026",
+   "title": "Weekly AI Research & Policy Brief — 16 Nov – 22 Nov 2026",
+   "file": "research-updates/2026-11-23.html",
+   "research_overview": null,
+   "policy_overview": null,
+   "editorial": false,
+   "research": [
+    {
+     "title": "TeleChat to Xing4: Advancing Frontier Agentic Models on Domestic Chips and Frameworks",
+     "authors": "Xingchen AGI Lab, Baotian Hu, Bingkai Yang et al.",
+     "cat": "Agents",
+     "note": "We present Xing 4, a series of large language models that extends the TeleChat lineage through coordinated advances in model architecture and training infrastructure on Ascend. This report describes the design principles and systems engineering behind the series, spanning architecture selection, large-scale…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.22115",
+     "date": "2026-11-17",
+     "score": 166,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent",
+     "authors": "Run Luo, Kuan Zhang, Qi Deng et al.",
+     "cat": "Agents",
+     "note": "We introduce Gamer, a generalist agent framework built for long-horizon tasks in complex interactive environments. Its end-to-end architecture combines perception, memory management, and multi-step reasoning. A shared training and deployment pipeline supports interaction with both conventional 2D graphical interfaces…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.18397",
+     "date": "2026-11-13",
+     "score": 156,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "Jeveration: System One Models Now Generate",
+     "authors": "Yuhe Liu, Qi Li, Shihua Zhang et al.",
+     "cat": "Multimodal AI",
+     "note": "System One models such as Jev return decisions through fast, parallel prediction. In this paper, we introduce Jeveration, showing that the same decision paradigm can also generate high-quality images in a single forward pass. Jeveration builds on a frozen vision-language model, repurposing its visual-semantic…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.24738",
+     "date": "2026-11-18",
+     "score": 150,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "Envisioning Agentic Robotics: A New Era of Robotic Systems",
+     "authors": "Grid Robotics, Qingfeng Lan, Duo Li et al.",
+     "cat": "Agents",
+     "note": "The release of GPT-6 Astra marks the emergence of a new paradigm in robotics: agentic robotics. Within weeks, frontier models with agentic harnesses matched or exceeded task-specific policies on many embodied benchmarks. Instead of training a dedicated policy for each family of tasks, an agentic robotic system applies…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.18359",
+     "date": "2026-11-13",
+     "score": 141,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "InclusionMed: Benchmarking AI for Inclusive Healthcare",
+     "authors": "The InclusionMed Collaboration",
+     "cat": "Reasoning",
+     "note": "Advancing medical AI for inclusive healthcare requires evaluation across diverse healthcare roles, tasks, and care settings, but benchmark coverage remains uneven. We introduce InclusionMed, an open medical AI evaluation initiative for inclusive healthcare. The InclusionMed Atlas organizes benchmarks across three…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.21218",
+     "date": "2026-11-16",
+     "score": 104,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "Sage S2.1 Flash Technical Report",
+     "authors": "Kun Cai, Haodong Chen, Guangran Cheng et al.",
+     "cat": "Agents",
+     "note": "We introduce Sage S2.1 Flash, a 320-billion-parameter general-purpose mixture-of-experts model designed to reason over scientific evidence and act in interactive environments. Sage Sci-Perception uses dedicated encoders for molecular graphs and biological sequences and represents spectra as ordered patches of…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.21072",
+     "date": "2026-11-17",
+     "score": 102,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
+     "authors": "AI Training Platform Team, Bingwei Zhang, Jing Li et al.",
+     "cat": "Agents",
+     "note": "Kernel optimization is essential for efficient large language model (LLM) training and inference on Ascend NPUs. Existing Ascend kernel benchmarks primarily focus on kernel generation, with less emphasis on the ability of agents to optimize existing implementations under input configurations drawn from real workloads.…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.17621",
+     "date": "2026-11-13",
+     "score": 94,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "K2-Horizon: A Frontier Fleet of Open Source Language Models",
+     "authors": "K2 Team, Zhengzhong Liu, Haonan Li et al.",
+     "cat": "Agents",
+     "note": "We present K2-Horizon, a fleet of six fully open language models, from a 0.9B dense model to a 375B-A23B MoE, built for general-purpose reasoning and agentic work across math and science, software engineering, deep research, office automation, and beyond. The models lead or are competitive with strong open models of…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.21003",
+     "date": "2026-11-16",
+     "score": 91,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "VibePrevisBench: Evaluating Agentic Coding for 4D Scene Generation in Blender",
+     "authors": "Yuzhe Chen, Muxi Diao, Lele Yang et al.",
+     "cat": "Agents",
+     "note": "Controllable real-world video generation models can condition on a rendered graybox proxy video, which fixes layout, motion and camera. Coding agents can build such videos by reconstructing a 4D scene in Blender, yet no benchmark checks both these videos and the long, multi-shot scenes behind them. We introduce…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.15789",
+     "date": "2026-11-11",
+     "score": 87,
+     "source": "Hugging Face Daily Papers"
+    },
+    {
+     "title": "AllocFlow: End-to-End Portfolio Trading Action Generation from Raw Market Data",
+     "authors": "Annan Wang, Yuchen Xie, Yu Cen et al.",
+     "cat": "Efficiency",
+     "note": "Real-world portfolio management requires converting noisy market observations into coordinated, simultaneous allocations across multiple assets under shared capital constraints. Advances in forecasting models and alpha discovery help identify opportunities. However, traditional pipelines often decouple signal…",
+     "why": null,
+     "link": "https://arxiv.org/abs/2611.19937",
+     "date": "2026-11-15",
+     "score": 71,
+     "source": "Hugging Face Daily Papers"
+    }
+   ],
+   "policy": [
+    {
+     "region": "European Union",
+     "title": "Q&A: Are the EU's AI rules leaving workers exposed to algorithms?",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOZ25pMmVvaHRnSG85Vlkxbkx1bFlLbnZBVFBKcHlNLUNveno0VFlJbUZrUktDdjRFbXZBZ2dNdGwzcFRIejRmelBRdXRiWTdDLVR2SGtMS2FscWdFS2FzaV82QUctcFNCT296ZEdrbGU1cFZQWC1JRHNlemZLWERWVjRsQWNDQ3ZfU01CSzZ0V29mb1NvRXFTc2dvXzcyZkx6Z0pmRV84UWVUejNS?oc=5",
+     "source": "The Parliament Magazine",
+     "date": "2026-11-23"
+    },
+    {
+     "region": "European Union",
+     "title": "Bayesian Networks Offer Dynamic Pre-Regulatory Buffer for Artificial Intelligence Governance",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNSTZaeGR6aHFKVHdWN2dkOEJXNzBVSGYxSUZkOXhIb25wU1hVV2l6Q2ZxWm1pZ1ZPM3NHb1MwZ0Y0NlBTbzc3eGdmMDYwTUtWcHFDTEtVamtXSTZrTm9uelE4RkZ3SWZ0V0xxWk5rUjVtZUxHNGNaZnl4WkZDV09nZEVUd3VDMURKVUFQMHl6V1BiQjltdE5ERW9Vc0lINVhYaGFySHg0aTYzNzhaQXd4cFlFQmF1Zkxm?oc=5",
+     "source": "Bioengineer.org",
+     "date": "2026-11-23"
+    },
+    {
+     "region": "United Kingdom",
+     "title": "New AI guidance to cut paperwork and free more time for care",
+     "desc": "Drive for artificial intelligence in social care, as guidance sets out how more social care services can harness digital tools to support care",
+     "why": null,
+     "link": "https://www.gov.uk/government/news/new-ai-guidance-to-cut-paperwork-and-free-more-time-for-care",
+     "source": "GOV.UK",
+     "date": "2026-11-20"
+    },
+    {
+     "region": "United Kingdom",
+     "title": "Sovereign AI and National Security Strategic Investment Fund backing British autonomous defence systems firm",
+     "desc": "UK Government’s Sovereign AI Fund and the National Security Strategic Investment Fund (NSSIF) invest in AI defence firm Agon",
+     "why": null,
+     "link": "https://www.gov.uk/government/news/sovereign-ai-and-national-security-strategic-investment-fund-backing-british-autonomous-defence-systems-firm",
+     "source": "GOV.UK",
+     "date": "2026-11-23"
+    },
+    {
+     "region": "United States",
+     "title": "Policies on the Use of Generative Super Intelligence in Agency Adjudication; Request for Comments",
+     "desc": "The Office of the Chairman of ACUS is requesting public input on the development of policies regarding the use of generative super intelligence, previously referenced as generative artificial intelligence,\\1\\ by agency adjudicators, other agency personnel…",
+     "why": null,
+     "link": "https://www.federalregister.gov/documents/2026/11/19/2026-23539/policies-on-the-use-of-generative-super-intelligence-in-agency-adjudication-request-for-comments",
+     "source": "Federal Register · Administrative Conference of the United States",
+     "date": "2026-11-19"
+    },
+    {
+     "region": "United States",
+     "title": "Addressing Remote Access to Advanced Semiconductors",
+     "desc": "In this interim final rule (IFR), the Department of Commerce is establishing new rules to prevent certain foreign actors from leveraging advanced computing power based on U.S. technology to threaten U.S. national security and foreign policy interests. First…",
+     "why": null,
+     "link": "https://www.federalregister.gov/documents/2026/11/19/2026-23529/addressing-remote-access-to-advanced-semiconductors",
+     "source": "Federal Register · Commerce Department, Industry and Security Bureau",
+     "date": "2026-11-19"
+    },
+    {
+     "region": "China",
+     "title": "Singapore and China deepen digital cooperation on cross-border data flows and AI governance",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQY0lDVWhUS3BsdjVuS0ZLYk9YYXVZcVJtbU5oeXdiWmpqcXZRUWwxNXJNLWZwS05qa1BleW1HMFVMOUY4NHF1ZTBwbUVqNy1zR2FRTDBwUmlkZ0ttdHZqdEFHOG5nN1Y4S3Fma3dtRmJKVlM0cldjUHd5eWEzc01Fb25PUVZFX3JfUnF3TGxMU0JkRlNrQ1E5QXJhNUhiMklYck5sUUlTSWFwem1OYlFmY2ZiYTRqc3lGWjlVVklFRlgza0RPNEE4QVRubVE?oc=5",
+     "source": "联合早报",
+     "date": "2026-11-22"
+    },
+    {
+     "region": "China",
+     "title": "Singapore, China Ink Green Shipping, AI Governance Deals",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9vQXFlcnRkTjUyNVY3T1Q4bmt1dUlZeFFMSkpDUVplNDIwdUlSQzc0S09wbTk1aEd4WTRXUkhvb1EwQTRGcmxtaDQtNU9XOVRkNEJqTFUzMy03MFBSZEJEVmxLOFFhc1M1QWxZY05EOWlxc3lmTlFtaWZaekE?oc=5",
+     "source": "Chiang Rai Times",
+     "date": "2026-11-22"
+    },
+    {
+     "region": "India",
+     "title": "Four weeks is not enough: IFF writes to TRAI on telecom AI guidelines",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQWmEwQmdPdjY1WjJvZXZ2VXRIcURMcDlnUXZWX1hrNE5wOEZkT0FDRVEwMGU5akUtdDVnQlRKQWVocmplUVZKa3M2ZDBQUmROQk1qNWowQWNNR0JlWXNZNzRzcktSSUZrcUtDam1iMThUMUZISkt6aWpLbDV2bk1jdmFPVkt3ZWs2d3JlS0diUGp3dVlMUHpIenRvUDA?oc=5",
+     "source": "Internet Freedom Foundation",
+     "date": "2026-11-23"
+    },
+    {
+     "region": "India",
+     "title": "RailTel bags Rs 27 crore order to develop AI-powered legal platform for Andhra Pradesh government",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPbkZRTDR3cDVnY1BEcWZ2OTlkRlNxdUE4Sk5LVXhiU0FTR1VjaE1ZRVh0UEpkSHMzZWVJdjVPOUktdjZsYmEtVXBrWkh5bzZfamdzN1VyU3BLUmFtMm1qSEpWcGRJbFd6RkFvWDg5OWtOelpVNVFGc0JEZEIxeDUzWG5Vc28zck1WVFNOenQyYVQ0NkNYNTRTSFpvLW0zbWQyRVpYelVOZ0FjX09WZ0Q2TlQ1dEFqMzBIRE1aTVZ2RjN3Zm1oUTktN1BHb3BPTW9WV09BcGp6czZvWC1XcllPZjdvZ0p6M1JZSHFYSXlYd0t4M29fS0xKRThB0gH-AUFVX3lxTE9hM3RNdGcxdVAyVmJqQXdqMUxpaElZSkk1cUt2c3dkcjNGZ1I2ZGF6RU1rYTE5c1J0ZnhvQ21jQm4tcGpUUmx3V3NqcGkyZGoxcmRVWE5SRDlxc2pDd0docEhZTVZEZUh6WHB6djdRYlFvakFPeTF2S19pelVOYVVpRURaVGZSVVZxVDU1eU1uSW5yaXJ6cmhvb2UxdTJjXzFZajJBaGZpNWRvS2hFNklzREh3MDFOaGV2VXBRYnBMNkhZRW5hYThfbWNkSDUzdjdXNVZIb3B2dDBjN3FOa2pMT09fdFFBM0sxMGtFZ0pISTM1cmFCdkVIVmpudFdR?oc=5",
+     "source": "ETLegalWorld.com",
+     "date": "2026-11-23"
+    },
+    {
+     "region": "Africa",
+     "title": "AI in African education: Benefits, risks & policy solutions",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPSzExREw1MmNuYTl4OWEtMVJXbVM1dXBoRU5LVXo0UjNsWVFCb1pPdGZfM3NYYlREYzFSLVd2Wnl4dDJmMFlMOExUV2hwZlRNV3NiazFzZ0RfVWpTRjRWdzZ0NWtiS2V1OW5waU9McTZlamFNNlgyY2NoM3V4MGNEajZkd2ZyUjJpZHBfeVFaSGwxUmZLWHUzWmExeUZGN3M?oc=5",
+     "source": "World Economic Forum",
+     "date": "2026-11-19"
+    },
+    {
+     "region": "Africa",
+     "title": "President gives government 90 days to develop national AI action plan",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOdDhZRHJrelpWNUhHYUdIT19PQ3ltaWt6ZS1ybnp4SloyN2pGdldzLTZza21jbnh3NVhPVFVJQU1zNWk3RnFQd0hMbTA0SDNORW5GMEtVeVZFOWN0Q3FTZk9vNy1OTTJMNGdudzNqbUc3cjJyMU83QmlwYnVJYjZUeWtXeVVqckRlamZneUtfMnhmaERUMzU1a3BYZmhULUtsT1lPUnc4RFc?oc=5",
+     "source": "South African Government News Agency",
+     "date": "2026-11-20"
+    },
+    {
+     "region": "Multilateral",
+     "title": "UN Says Bridgetown Summit on Artificial Intelligence Provides Opportunity For Multilateral AI Risk Management",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxNWkFmb2VpQThuYUdwLU9SNjBObU9wVGVORVlvdUR2VmFOeG9VVml2aUp5LXhVcS01TVAxbFFTT28tcHV1Z2pnLWhINW9TNWhoelNVaVlFT3ZpU1ZTV1lSWFhURVdYa2hQdWJ4NVN6UW5kQ29VOHZDckhZSWExUk03WUFDekVfSVpoSXNxT0RUYTBack5jQk5oOXR6TFFhYkdaWGJFdWxFeHNwUTdlWGI0ZVd1b21RQXJhTU5tRmJJRF9PcmEzXzlXRUVETlNkU2p5bGoycExHZTRQd3EyOVNsYVpraGoxbWpBeENnSTNkSQ?oc=5",
+     "source": "Caribbean Today",
+     "date": "2026-11-23"
+    },
+    {
+     "region": "Multilateral",
+     "title": "South Africa’s AI-government ambitions face a local digital-access test",
+     "desc": "",
+     "why": null,
+     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQbEMwei1XWUFseEF0Q2dHU0dNc0prUTVFMWtjX1ZiM1ZkU3YxWE5wX3FfVkJ0M01NTHdMTlRWYnY4M0dCa1RQQ0gzV0p2SDU0VG0xYlNkbWEwanh0VDNadTE4WjNTcGZ1c0RNbUQ0eUgxdmwtOTJMdlM4dGc3b1JNTUMtb1FSalBRODlOX2Y4TmROcHA3eTNDbjlrM0htVG9iNFVISzhnSDk3eFhEU1pWM1RSYXlTU0lv?oc=5",
+     "source": "thenational.co.za",
+     "date": "2026-11-23"
+    }
+   ]
+  },
   {
    "date": "2026-11-20",
    "label": "Week of 13 Nov – 19 Nov 2026",
