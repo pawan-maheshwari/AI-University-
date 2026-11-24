@@ -9,7 +9,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | File | Size | Lines | Long lines |
 |---|---|---|---|
 | `thinking-shelf.html` | 3.2 MB | 416 | 13 |
-| `index.html` | 2.1 MB | 9720 | 85 |
+| `index.html` | 2.1 MB | 9727 | 85 |
 | `index_university.html` | 1.1 MB | 5758 | 38 |
 | `seven-lanterns.html` | 949 KB | 214 | 9 |
 | `kidswear-planner.html` | 449 KB | 680 | 1 |
@@ -25,6 +25,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `four-futures.html` | 116 KB | 1059 | 1 |
 | `ai-maturity-assessment.html` | 115 KB | 814 | 1 |
 | `desynced.html` | 109 KB | 2475 |  |
+| `s4hana-novice-to-expert.html` | 97 KB | 881 |  |
 | `elder-companion.html` | 93 KB | 2051 |  |
 | `pm-prompt-library-v2.html` | 91 KB | 1951 |  |
 | `steer-framework.html` | 89 KB | 1215 |  |
@@ -38,6 +39,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `02_bias_buster.html` | 21 KB | 389 |  |
 | `03_ai_time_travelers.html` | 20 KB | 382 |  |
 | `research-updates/2026-11-20.html` | 20 KB | 49 | 2 |
+| `research-updates/2026-11-23.html` | 20 KB | 49 | 2 |
 | `ai-maturity.sql` | 19 KB | 360 |  |
 | `04_ml_pet_trainer.html` | 18 KB | 315 |  |
 | `labs/lab1_predictive_vs_generative.ipynb` | 14 KB | 324 |  |
@@ -137,58 +139,58 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L1930 data `RS_BLOCK_TABLE`
 - L2968 script
 - L2974 data `IMG`
-- L2986 data `ZONES`
-- L3007 data `COURSES`
-- L3034 data `EXCLUSIVE`
-- L3057 data `EXCLUSIVE_READING`
-- L3074 data `TOOLS`
-- L3102 data `PAPERS`
-- L3114 data `POLICY`
-- L3124 data `TEAM`
-- L3129 data `CURRICULUM`
-- L5366 data `CBSE_KIDS_MODULES`
-- L5367 data `CBSE_TEENS_MODULES`
-- L5371 data `VIDS`
-- L5421 data `AIU_COUNT_URL`
-- L5422 data `AIU_COUNT_BASE`
-- L5454 data `QUIZBANK`
-- L5818 data `QUIZ_PER_LESSON`
-- L5838 data `EXAMBANK`
-- L5946 data `EXAMBANK_2`
-- L6138 data `CONTENT_REVIEWED`
-- L6140 data `ASSESS_KEY`
-- L6141 data `ASSESS_QUESTIONS`
-- L6142 data `ASSESS_PASS`
-- L6143 data `ASSESS_MINUTES`
-- L6144 data `ASSESS_ATTEMPTS`
-- L6145 data `ASSESS_RESIT_DAYS`
-- L6353 data `OB_BASE`
-- L6356 data `OB_CRC_TABLE`
-- L6545 data `GOLDC`
-- L7395 data `AIU_SPEAKING`
-- L7445 data `CBSE_PAL`
-- L7988 data `GOLDC`
-- L7989 data `CRIM`
-- L8206 data `KIDS_GAMES`
-- L8229 data `GAME_FILE`
-- L8538 data `AIU_PROGRESS_KEY`
-- L8539 data `AIU_CACHED_USER`
-- L8599 data `AIU_CERT_KEY`
-- L8602 data `AIU_VERIFY_BASE`
-- L8606 data `AIU_SUPABASE_URL`
-- L8607 data `AIU_SUPABASE_ANON_KEY`
-- L8608 data `CERT_FEE_INR`
-- L8663 data `RAZORPAY_SCRIPT`
-- L8670 data `AIU_PAYMENTS_LIVE`
-- L8946 data `PROGRAMS`
-- L8963 data `PROGRAM_COUNTRIES`
-- L8970 data `REGIONS`
-- L8982 data `WORLD_PATH`
-- L9155 data `EXAMPLES`
-- L9473 data `SECTIONS`
-- L9557 data `SECTIONS`
-- L9691 script
-- functions (180): init@144, detectPageName@302, addMsg@315, answer@319, navigate@329, ask@333, buildChips@363, openChat@370, closeChat@375, M@400, D@404, mb@436, oe@452, oj@459, y@499, Df@559, Id@587, Td@633, qrPolynomial@1859, toUTF8Array@2931, totalLessonCount@5330, totalLabCount@5336, fetchVisitorCount@5423, VisitorCounter@5436, shuffle@5813, lessonQuestionPool@5819, localQuiz@6078, QuizView@6092, gen@6095, getAssessments@6147, recordAttempt@6151, assessmentState@6168, assessmentPassed@6188, buildAssessment@6192, fmtClock@6210, AssessmentView@6216, finish@6230, obCrc32@6365, bakeOpenBadge@6376, readOpenBadge@6435, obAssertionUrl@6458, buildOpenBadge@6468, CertModal@6493, qrDataUrl@6524, drawSeal@6544, loadImg@6591, knockoutWhite@6599, buildCanvas@6613, buildOpenBadgeForZone@6707, downloadPNG@6738, downloadPDF@6746, asciiToBytes@6750, renderMarkdown@6925, inline@6930, LabFrame@6990, FlashcardLab@6998, SortLab@7017, place@7020, TrainLab@7064, loss@7069, px@7091, py@7092, TokensLab@7127, sample@7134, ScenarioLab@7165, WeighLab@7207, valueOf@7215, set@7229, WriteLab@7279, review@7287, downloadTakeaway@7346, TakeawayCard@7359, ToolCard@7378, speechAvailable@7396, stripMarkdown@7399, ReadAloud@7412, stop@7415, start@7416, cbseShape@7451, cbseHintBar@7477, PatternLab@7489, StepsLab@7537, add@7541, drop@7543, GridLab@7593, isWall@7598, cbseMini@7679, SpatialLab@7689, ChartLab@7729, bars@7736, line@7749, pie@7764, PredictLab@7821, plot@7827, LabView@7886, LessonView@7906, goTab@7913, zoneBadgeSVG@7987, clampHex@7990, shade@7991, escapeXml@8056, laurel@8057, bez@8064, dbez@8065, ZoneBadge@8085, svgToDataUrl@8092, downloadPNG@8093, shareNative@8113, shareTo@8118, BadgeModal@8143, downloadPNG@8152, shareTo@8172, LearnScreen@8214, toggle@8233, CurriculumPage@8430, WeeklyUpdates@8443, ResearchPage@8481, PolicyPage@8497, AboutPage@8511, getUser@8541, clearUser@8546, getProgress@8550, saveProgress@8553, markLessonComplete@8573, zoneCompletedCount@8580, zoneLessonTotal@8585, getCertLicences@8609, hasCertLicence@8612, certLicenceCode@8617, recordCertLicence@8621, syncCertLicences@8634, certPaymentsEnabled@8672, loadRazorpay@8676, fnUrl@8686, startCertCheckout@8688, done@8700, isZoneComplete@8775, AuthModal@8781, ready@8793, friendly@8797, submit@8805, resetPw@8831, onKey@8840, AIShortsFrame@8890, attachVideo@8896, EvolutionMap@8965, EvolutionPage@9034, analysePrompt@9076, add@9081, buildImprovedPrompt@9126, PracticeLabPage@9144, callLLM@9161, run@9180, askAiToImprove@9187, useImproved@9195, ExclusiveBand@9298, open@9300, card@9301, SkillsRail@9334, half@9347, wrap@9348, step@9356, hold@9373, release@9374, open@9376, card@9377, Home@9405, go@9409, TermsPage@9471, PrivacyPage@9555, AIUCopyright@9614, ToolsPage@9622, open@9623, PageShell@9645, App@9656, enter@9668, login@9669, logout@9670, toSiteUser@9695, apply@9705
+- L2987 data `ZONES`
+- L3008 data `COURSES`
+- L3035 data `EXCLUSIVE`
+- L3064 data `EXCLUSIVE_READING`
+- L3081 data `TOOLS`
+- L3109 data `PAPERS`
+- L3121 data `POLICY`
+- L3131 data `TEAM`
+- L3136 data `CURRICULUM`
+- L5373 data `CBSE_KIDS_MODULES`
+- L5374 data `CBSE_TEENS_MODULES`
+- L5378 data `VIDS`
+- L5428 data `AIU_COUNT_URL`
+- L5429 data `AIU_COUNT_BASE`
+- L5461 data `QUIZBANK`
+- L5825 data `QUIZ_PER_LESSON`
+- L5845 data `EXAMBANK`
+- L5953 data `EXAMBANK_2`
+- L6145 data `CONTENT_REVIEWED`
+- L6147 data `ASSESS_KEY`
+- L6148 data `ASSESS_QUESTIONS`
+- L6149 data `ASSESS_PASS`
+- L6150 data `ASSESS_MINUTES`
+- L6151 data `ASSESS_ATTEMPTS`
+- L6152 data `ASSESS_RESIT_DAYS`
+- L6360 data `OB_BASE`
+- L6363 data `OB_CRC_TABLE`
+- L6552 data `GOLDC`
+- L7402 data `AIU_SPEAKING`
+- L7452 data `CBSE_PAL`
+- L7995 data `GOLDC`
+- L7996 data `CRIM`
+- L8213 data `KIDS_GAMES`
+- L8236 data `GAME_FILE`
+- L8545 data `AIU_PROGRESS_KEY`
+- L8546 data `AIU_CACHED_USER`
+- L8606 data `AIU_CERT_KEY`
+- L8609 data `AIU_VERIFY_BASE`
+- L8613 data `AIU_SUPABASE_URL`
+- L8614 data `AIU_SUPABASE_ANON_KEY`
+- L8615 data `CERT_FEE_INR`
+- L8670 data `RAZORPAY_SCRIPT`
+- L8677 data `AIU_PAYMENTS_LIVE`
+- L8953 data `PROGRAMS`
+- L8970 data `PROGRAM_COUNTRIES`
+- L8977 data `REGIONS`
+- L8989 data `WORLD_PATH`
+- L9162 data `EXAMPLES`
+- L9480 data `SECTIONS`
+- L9564 data `SECTIONS`
+- L9698 script
+- functions (180): init@144, detectPageName@302, addMsg@315, answer@319, navigate@329, ask@333, buildChips@363, openChat@370, closeChat@375, M@400, D@404, mb@436, oe@452, oj@459, y@499, Df@559, Id@587, Td@633, qrPolynomial@1859, toUTF8Array@2931, totalLessonCount@5337, totalLabCount@5343, fetchVisitorCount@5430, VisitorCounter@5443, shuffle@5820, lessonQuestionPool@5826, localQuiz@6085, QuizView@6099, gen@6102, getAssessments@6154, recordAttempt@6158, assessmentState@6175, assessmentPassed@6195, buildAssessment@6199, fmtClock@6217, AssessmentView@6223, finish@6237, obCrc32@6372, bakeOpenBadge@6383, readOpenBadge@6442, obAssertionUrl@6465, buildOpenBadge@6475, CertModal@6500, qrDataUrl@6531, drawSeal@6551, loadImg@6598, knockoutWhite@6606, buildCanvas@6620, buildOpenBadgeForZone@6714, downloadPNG@6745, downloadPDF@6753, asciiToBytes@6757, renderMarkdown@6932, inline@6937, LabFrame@6997, FlashcardLab@7005, SortLab@7024, place@7027, TrainLab@7071, loss@7076, px@7098, py@7099, TokensLab@7134, sample@7141, ScenarioLab@7172, WeighLab@7214, valueOf@7222, set@7236, WriteLab@7286, review@7294, downloadTakeaway@7353, TakeawayCard@7366, ToolCard@7385, speechAvailable@7403, stripMarkdown@7406, ReadAloud@7419, stop@7422, start@7423, cbseShape@7458, cbseHintBar@7484, PatternLab@7496, StepsLab@7544, add@7548, drop@7550, GridLab@7600, isWall@7605, cbseMini@7686, SpatialLab@7696, ChartLab@7736, bars@7743, line@7756, pie@7771, PredictLab@7828, plot@7834, LabView@7893, LessonView@7913, goTab@7920, zoneBadgeSVG@7994, clampHex@7997, shade@7998, escapeXml@8063, laurel@8064, bez@8071, dbez@8072, ZoneBadge@8092, svgToDataUrl@8099, downloadPNG@8100, shareNative@8120, shareTo@8125, BadgeModal@8150, downloadPNG@8159, shareTo@8179, LearnScreen@8221, toggle@8240, CurriculumPage@8437, WeeklyUpdates@8450, ResearchPage@8488, PolicyPage@8504, AboutPage@8518, getUser@8548, clearUser@8553, getProgress@8557, saveProgress@8560, markLessonComplete@8580, zoneCompletedCount@8587, zoneLessonTotal@8592, getCertLicences@8616, hasCertLicence@8619, certLicenceCode@8624, recordCertLicence@8628, syncCertLicences@8641, certPaymentsEnabled@8679, loadRazorpay@8683, fnUrl@8693, startCertCheckout@8695, done@8707, isZoneComplete@8782, AuthModal@8788, ready@8800, friendly@8804, submit@8812, resetPw@8838, onKey@8847, AIShortsFrame@8897, attachVideo@8903, EvolutionMap@8972, EvolutionPage@9041, analysePrompt@9083, add@9088, buildImprovedPrompt@9133, PracticeLabPage@9151, callLLM@9168, run@9187, askAiToImprove@9194, useImproved@9202, ExclusiveBand@9305, open@9307, card@9308, SkillsRail@9341, half@9354, wrap@9355, step@9363, hold@9380, release@9381, open@9383, card@9384, Home@9412, go@9416, TermsPage@9478, PrivacyPage@9562, AIUCopyright@9621, ToolsPage@9629, open@9630, PageShell@9652, App@9663, enter@9675, login@9676, logout@9677, toSiteUser@9702, apply@9712
 ### `index_university.html`
 - L9 style
 - L100 script
@@ -564,6 +566,34 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 ### `desynced.html`
 - L9 style
 - L616 script
+### `s4hana-novice-to-expert.html`
+- L11 style
+- L215 script
+- L230 h2 `SAP S/4HANA, from first login to expert`
+- L244 section `nav`
+- L246 section `sim`
+- L248 h2 `Watch the workflow, then run it yourself`
+- L281 section `mods`
+- L283 section `playbook`
+- L298 section `sources`
+- L300 h2 `Sources for the case studies`
+- L313 script
+- L403 div# `steps`
+- L580 data `P2P`
+- L586 data `O2C`
+- L600 data `TREE`
+- L608 data `EXT`
+- L622 data `REF`
+- L634 data `SRC`
+- L660 data `TRIAL`
+- L661 data `PRAC`
+- L662 data `LAB`
+- L678 data `SIM`
+- L698 data `CUR`
+- L753 data `KEY`
+- L761 h2 `${m.t}`
+- L821 data `STK`
+- functions (27): $@659, wait@694, steps@696, jeOf@697, renderScreen@700, renderSide@711, renderAll@716, success@718, moveTo@720, playStep@722, play@728, stop@733, trySave@735, save@756, showStep@783, drawSteps@787, tiny@791, sh@792, treeHtml@796, decide@800, draw@808, stk@827, R@830, roi@831, gate@860, runAg@864, sync@873
 ### `elder-companion.html`
 - L11 style
 - L350 section `app`
@@ -711,6 +741,11 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 ### `research-updates/2026-11-20.html`
 - L8 style
 - L40 h2 `Week of 13 Nov – 19 Nov 2026`
+- L45 h2 `Research Library — this week`
+- L46 h2 `Policy Lab — this week`
+### `research-updates/2026-11-23.html`
+- L8 style
+- L40 h2 `Week of 16 Nov – 22 Nov 2026`
 - L45 h2 `Research Library — this week`
 - L46 h2 `Policy Lab — this week`
 ### `ai-maturity.sql`

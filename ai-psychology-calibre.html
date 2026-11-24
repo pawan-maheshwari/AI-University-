@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Psychology and CALIBRE</title>
+<meta name="description" content="AI psychology: why how you think, trust and feel with AI deserves its own stream, and CALIBRE, a seven-dimension self-assessment to measure and improve it.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE thought-leadership article that turns into a working instrument
+   IDEA a lab calibration card: the machine is being measured, the human beside it is not
+   PICTURE live two-body map (model sycophancy x human calibration) with four zones; later a two-lane timeline and a radar profile
+   COLOUR oxford blue band, white panels; magenta = machine side and results, cobalt = human side
+   TYPE Red Hat Display 700 + Red Hat Text
+   LAYOUT band title over the two-body map with its controls beside; article sections full width; phone: title, map, sliders, text */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#070f26);--ink:light-dark(#0b1630,#e8ecf8);--mute:light-dark(#4b5677,#a7b1cf);--band:light-dark(#0b1f4b,#0d2459);--panel:light-dark(#f2f5fc,#0e1a3d);--rule:light-dark(#d5dbeb,#26366a);--blue:light-dark(#1d3f9e,#7fa2ff);--mag:light-dark(#d0105a,#ff4f8f);--on:#ffffff}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Red Hat Text",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Red Hat Display",system-ui,sans-serif;letter-spacing:-.02em;line-height:1.08;margin:0}
+h2{font-size:clamp(30px,4vw,44px);text-wrap:balance;max-width:22ch;margin-bottom:14px}
+h3{font-size:22px}
+p{margin:0 0 14px}
+a{color:var(--blue)}
+.band{padding-block:clamp(36px,5vw,72px);padding-inline:max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.read{max-width:70ch}
+.tint{background:var(--panel)}
+.top{background:var(--band);color:var(--on);padding-bottom:0}
+.top h1{font-size:clamp(34px,5.4vw,56px);font-weight:700;text-wrap:balance;max-width:18ch}
+.dek{margin:14px 0 6px;max-width:60ch;color:#d8e0f7;font-size:19px}
+.by{font-size:14px;color:#aebbe0;margin:0 0 26px}
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(18px,3vw,36px);background:var(--bg);color:var(--ink);border-radius:16px 16px 0 0;padding:clamp(16px,2.4vw,28px)}
+.fig{position:relative;min-height:400px;background:var(--panel);border-radius:14px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+svg text{paint-order:stroke;stroke:var(--panel);stroke-width:4px;font-family:"Red Hat Text",sans-serif}
+.ctrl{display:flex;flex-direction:column;gap:16px}
+.ctrl label{font-weight:600;display:flex;justify-content:space-between;gap:10px;font-size:15px}
+.ctrl label b{font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:44px;accent-color:var(--blue)}
+#sy{accent-color:var(--mag)}
+.zone{background:var(--panel);border-radius:12px;padding:16px}
+.zone h3{margin-bottom:6px}
+.zone p{margin:0;font-size:16px}
+.thesis{font:600 18px/1.4 "Red Hat Display",sans-serif;border-left:4px solid var(--mag);padding-left:14px;margin:0}
+.nav{position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid var(--rule);display:flex;gap:6px;overflow-x:auto;padding:8px max(5vw,16px)}
+.nav a{flex:none;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600;padding:10px 12px;border-radius:8px}
+.nav a:hover{background:var(--panel)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:start}
+.pull{font:700 clamp(24px,3vw,32px)/1.2 "Red Hat Display",sans-serif;letter-spacing:-.02em;margin:0}
+.pull em{font-style:normal;color:var(--mag)}
+.filt{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 22px}
+button{font:600 15px "Red Hat Text",sans-serif;min-height:44px;padding:0 18px;border-radius:10px;border:1.5px solid var(--blue);background:transparent;color:var(--blue);cursor:pointer}
+button.pri,button[aria-pressed=true]{background:var(--blue);color:var(--bg)}
+button:focus-visible,input:focus-visible,input:focus-visible+label,a:focus-visible{outline:3px solid var(--mag);outline-offset:2px}
+.tl{position:relative;display:grid;gap:14px}
+.tl::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--rule);transform:translateX(-1px)}
+.ev{display:grid;grid-template-columns:minmax(0,1fr) 5.5em minmax(0,1fr);align-items:start}
+.ev .yr{grid-column:2;justify-self:center;position:relative;z-index:1;background:var(--bg);border:2px solid currentColor;border-radius:20px;padding:2px 10px;font-weight:700;font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
+.ev .box{background:var(--panel);border-radius:12px;padding:14px 16px;border-top:4px solid currentColor}
+.ev.m{color:var(--mag)}.ev.h{color:var(--blue)}
+.ev.m .box{grid-column:1;grid-row:1}.ev.h .box{grid-column:3;grid-row:1}
+.ev .box *{color:var(--ink)}
+.ev .box h3{font-size:18px;margin-bottom:4px}
+.ev .box p{font-size:15px;margin:0}
+.ev .box p.why{color:var(--mute);margin-top:6px}
+.ev[hidden]{display:none}
+.key{display:flex;gap:18px;flex-wrap:wrap;font-size:15px;font-weight:600}
+.key span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:currentColor}
+.key .m{color:var(--mag)}.key .h{color:var(--blue)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:16px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:"Red Hat Display",sans-serif;font-size:17px}
+th.m{color:var(--mag)}th.h{color:var(--blue)}
+.evid{display:grid;gap:0}
+.row{display:grid;grid-template-columns:11em minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,3vw,36px);padding:22px 0;border-top:1px solid var(--rule);align-items:start}
+.num{font:700 clamp(44px,6vw,64px)/1 "Red Hat Display",sans-serif;color:var(--blue);font-variant-numeric:tabular-nums}
+.num small{display:block;font:500 14px/1.3 "Red Hat Text",sans-serif;color:var(--mute);margin-top:6px}
+.row p{margin:0}
+.row .so{font-weight:600}
+.dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin-top:20px}
+.dimc{display:block;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:14px;padding:18px}
+.dimc:hover{outline:2px solid var(--blue)}
+.dimc i{font:700 30px/1 "Red Hat Display",sans-serif;font-style:normal;color:var(--blue);display:block;margin-bottom:8px}
+.dimc h3{font-size:19px;margin-bottom:4px}
+.dimc p{font-size:15px;margin:0}
+.dimc p.root{color:var(--mute);margin-top:8px;font-size:14px}
+.why4{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:22px;margin-top:10px}
+.why4 h3{font-size:19px;margin-bottom:6px;color:var(--blue)}
+.why4 p{font-size:16px}
+.res{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.side{display:flex;flex-direction:column;gap:14px}
+.score{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.big{font:700 clamp(56px,8vw,80px)/1 "Red Hat Display",sans-serif;color:var(--mag);font-variant-numeric:tabular-nums}
+.score span{color:var(--mute)}
+.bars{display:grid;gap:9px;margin:0;padding:0;list-style:none}
+.bars li{display:grid;grid-template-columns:7.5em minmax(0,1fr) 2.6em;gap:10px;align-items:center;font-size:15px}
+.track{height:12px;background:var(--panel);border-radius:6px;overflow:hidden}
+.fill{height:100%;background:var(--blue);border-radius:6px;transition:width .4s}
+.bars li.focus .fill{background:var(--mag)}
+.bars b{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{font-size:15px;color:var(--mute);margin:0}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.bar{position:sticky;top:61px;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);padding:10px max(5vw,16px);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px}
+.bar b{font-variant-numeric:tabular-nums}
+.qs{max-width:820px;margin:0 auto}
+.dim{margin:0 0 36px;padding:0;border:0}
+.dim h3{font-size:26px;display:flex;gap:12px;align-items:center}
+.dim h3 i{font-style:normal;display:inline-grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--band);color:var(--on);font-size:22px;flex:none}
+.dim>p{margin:8px 0 14px;color:var(--mute)}
+.q{padding:14px 0;border-top:1px solid var(--rule)}
+.q>p{margin:0 0 10px;font-weight:500}
+.scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.scale input{position:absolute;opacity:0;pointer-events:none}
+.scale label{display:grid;place-items:center;min-height:44px;border:1.5px solid var(--rule);border-radius:9px;cursor:pointer;font-weight:600;font-variant-numeric:tabular-nums}
+.scale label:hover{border-color:var(--blue)}
+.scale input:checked+label{background:var(--blue);border-color:var(--blue);color:var(--bg)}
+.ends{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-top:4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px;margin-top:20px}
+.card{background:var(--bg);border-radius:14px;padding:20px}
+.card h3 em{font-style:normal;color:var(--mag)}
+.card ul{margin:10px 0 0;padding-left:20px}
+.card li{margin:6px 0;font-size:16px}
+.road{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:24px;position:relative}
+.stop{padding:0 16px 0 0;position:relative}
+.stop::before{content:"";display:block;height:8px;background:var(--blue);border-radius:4px;margin-bottom:16px;opacity:var(--o,1)}
+.stop .when{font:700 22px "Red Hat Display",sans-serif;color:var(--blue);white-space:nowrap}
+.stop h3{font-size:18px;margin:6px 0}
+.stop p{font-size:15px}
+.stop p.pair{color:var(--mute);font-size:14px}
+.src{font-size:15px;padding-left:20px}
+.src li{margin:8px 0}
+.foot{font-size:14px;color:var(--mute)}
+.toast{min-height:1.5em;font-size:14px;color:var(--mag);margin:0}
+details{margin-top:24px}
+summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+@media(max-width:900px){.road{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
+@media(max-width:800px){.hero,.res,.two{grid-template-columns:minmax(0,1fr)}.fig{min-height:340px}.row{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){body{font-size:16px}.tl::before{left:14px}.ev{grid-template-columns:minmax(0,1fr);padding-left:34px;gap:6px}.ev .yr{grid-column:1;justify-self:start}.ev.m .box,.ev.h .box{grid-column:1;grid-row:2}.road{grid-template-columns:minmax(0,1fr)}table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:4px 0;padding-inline-start:7em}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;font-weight:600}.bars li{grid-template-columns:6.5em minmax(0,1fr) 2.4em}.bar{top:61px}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}html{scroll-behavior:auto}}
+</style><script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script></head><body>
+
+<header class="band top"><div class="wrap">
+<p class="by" style="margin:0 0 18px"><a href="index.html#exclusive-courses" style="color:#d8e0f7">← AI University</a> · Exclusive</p>
+<h1>AI psychology: the missing half of AI's evolution</h1>
+<p class="dek">Researchers now study AI models the way psychologists study people. The mind on the other side of the screen is changing just as fast, yet it is measured only in fragments. This article makes the case for a new stream, gives you a framework, and lets you measure yourself.</p>
+<p class="by">Pawan Maheshwari · Draft v0.1 · November 2026</p>
+<div class="hero">
+<div class="fig" id="mapFig" role="img" aria-label="Map of model sycophancy against human trust calibration, with four zones"><svg id="map"></svg></div>
+<div class="ctrl">
+<p class="thesis">Every AI outcome is a two-body problem: the model's disposition meets yours. Move both and watch the outcome change. (An illustrative model, not measured data.)</p>
+<div><label for="sy">Model sycophancy <b id="syv">65</b></label><input type="range" id="sy" min="0" max="100" value="65"></div>
+<div><label for="ca">Your trust calibration <b id="cav">35</b></label><input type="range" id="ca" min="0" max="100" value="35"></div>
+<div class="zone" aria-live="polite"><h3 id="zt">Echo chamber</h3><p id="zd"></p></div>
+</div>
+</div>
+</div></header>
+
+<nav class="nav" aria-label="Sections"><a href="#stream">A new stream</a><a href="#evolve">How it evolved</a><a href="#sides">Two sides</a><a href="#now">Why now</a><a href="#calibre">CALIBRE</a><a href="#why">Why take it</a><a href="#assess">Assessment</a><a href="#limits">Limits</a><a href="#next">Where it leads</a><a href="#sources">Sources</a></nav>
+
+<section class="band" id="stream"><div class="wrap two">
+<div><h2>AI has a psychology stream. It studies the wrong half.</h2>
+<p class="pull">We are building tools to read the machine's character. For the person using it, we have <em>only fragments</em>.</p></div>
+<div class="read">
+<p>AI's progress has mostly been told as a story about capability: bigger models, better benchmarks, more autonomy. Over the last few years a second story has started. Researchers now study models the way psychologists study people, running experiments on their reasoning, biases and personality. They call it machine psychology.</p>
+<p>That work matters, but it measures only one party. An AI answer becomes a decision only after a person reads it, trusts it, changes it or ignores it. The same model can make one professional sharper and another more passive. The difference sits in the human: how they trust, how much thinking they keep, how they feel about AI, and whether they notice any of it.</p>
+<p>Parts of this are already measured. Validated scales exist for trust in automation, for AI anxiety and for AI literacy. What is missing is one profile that brings them together for an individual and tells them what to do next.</p>
+<p>I call that the person's <strong>AI psychology</strong>. My argument is that it deserves to be a stream of its own: something you can understand, measure and deliberately improve, in the same way we now treat a model's behaviour. My Judgment Imperative framework sets out how organisations should keep oversight of AI. CALIBRE applies the same idea to one person's mind.</p>
+</div>
+</div></section>
+
+<section class="band tint" id="evolve"><div class="wrap">
+<h2>How it evolved: two lanes that are now converging</h2>
+<p class="read">Both lanes started early: one studying how machines behave, the other how people behave around machines. Until recently they ran in parallel. Since 2025 they have been colliding.</p>
+<div class="key"><span class="m">Machine side: studying the model's mind</span><span class="h">Human side: studying the user's mind</span></div>
+<div class="filt" role="group" aria-label="Filter timeline"><button id="f-all" aria-pressed="true">Both lanes</button><button id="f-m" aria-pressed="false">Machine side</button><button id="f-h" aria-pressed="false">Human side</button></div>
+<div class="tl" id="tl"></div>
+</div></section>
+
+<section class="band" id="sides"><div class="wrap">
+<h2>Two sides of one system</h2>
+<p class="read">Machine psychology and human AI psychology ask mirror-image questions. The most important point is where they meet: model sycophancy does damage when it lands on a person who wants approval and trusts fluent answers. That is why fixing models alone is not enough.</p>
+<div class="scroll"><table class="stack">
+<thead><tr><th></th><th class="m">Machine psychology</th><th class="h">Human AI psychology</th></tr></thead>
+<tbody>
+<tr><td><strong>Studies</strong></td><td>The model's behaviour, traits and reasoning</td><td>The person's trust, thinking, emotions and habits with AI</td></tr>
+<tr><td><strong>Core question</strong></td><td>How does this model tend to behave?</td><td>How does this person tend to behave with AI?</td></tr>
+<tr><td><strong>Typical traits</strong></td><td>Sycophancy, hallucination, bias, persona drift</td><td>Over-trust, cognitive offloading, AI anxiety, dependence</td></tr>
+<tr><td><strong>Methods</strong></td><td>Psychology experiments run on models; interpretability (e.g. persona vectors)</td><td>Surveys, validated scales, behavioural logs, EEG studies</td></tr>
+<tr><td><strong>Who acts on it</strong></td><td>AI labs, safety and evaluation teams</td><td>Researchers, one construct at a time (trust, anxiety, literacy). No integrated personal profile yet. That is the gap.</td></tr>
+<tr><td><strong>Goal</strong></td><td>Model alignment</td><td>Human calibration: staying sharp, sceptical and in charge</td></tr>
+</tbody></table></div>
+</div></section>
+
+<section class="band tint" id="now"><div class="wrap">
+<h2>Why now: the evidence is no longer anecdotal</h2>
+<p class="read">Each study below has limits, and most show correlation rather than cause. Together they point one way: how we use AI is reshaping how we think, and that shaping can be steered.</p>
+<div class="evid" id="evid"></div>
+</div></section>
+
+<section class="band" id="calibre"><div class="wrap">
+<h2>The CALIBRE framework</h2>
+<p class="read">Seven dimensions, each rooted in an established line of psychology. Together they describe how healthy your relationship with AI is. Tap a dimension to jump to its questions.</p>
+<div class="dims" id="dims"></div>
+</div></section>
+
+<section class="band tint" id="why"><div class="wrap">
+<h2>Why take the assessment</h2>
+<div class="why4">
+<div><h3>Make the invisible visible</h3><p>Over-trust and offloading feel like productivity while they happen. A score turns a vague feeling into something you can see and discuss.</p></div>
+<div><h3>Find your blind spot</h3><p>Most people are strong on one or two dimensions and exposed on others. The profile shows exactly which, so you work on the right thing.</p></div>
+<div><h3>Leave with three habits, not a lecture</h3><p>Your two lowest dimensions come with small, concrete practices you can start this week.</p></div>
+<div><h3>Set a baseline you can re-test</h3><p>AI tools change every quarter, and so do your habits. Take it again in three months and compare your profiles.</p></div>
+</div>
+</div></section>
+
+<section class="band" id="assess"><div class="wrap">
+<h2>Measure your AI psychology</h2>
+<p class="read">28 statements, about six minutes. Answer for how you actually work, not how you would like to. Your profile redraws as you go.</p>
+<div class="res">
+<div class="fig" id="radFig" role="img" aria-label="Radar chart of your seven CALIBRE scores"><svg id="radar"></svg></div>
+<div class="side">
+<div class="score"><span class="big" id="overall">–</span><span>overall out of 100<br><strong id="band">–</strong></span></div>
+<ul class="bars" id="bars"></ul>
+<p class="note" id="focusNote"></p>
+<p class="note" id="lean"></p>
+<p class="note" id="sampleNote">Sample answers are filled in so you can see a finished profile. Press Start fresh to take it yourself.</p>
+<div class="btns"><button class="pri" id="fresh">Start fresh</button><button id="sample">Load sample</button><button id="copy">Copy my results</button></div>
+<p class="toast" id="toast" aria-live="polite"></p>
+</div>
+</div>
+</div></section>
+<div class="bar"><span>Answered <b id="count">0/28</b></span><span>Overall <b id="overall2">–</b> · Focus on <b id="focus2">–</b></span></div>
+<div class="band"><form class="qs" id="form" onsubmit="return false"></form></div>
+
+<section class="band tint"><div class="wrap">
+<h2>Where to work next</h2>
+<p class="note">Your two lowest dimensions, with three practices each. Small, repeatable habits work better than big resolutions.</p>
+<div class="cards" id="cards"></div>
+<details><summary>All seven dimensions and their practices</summary>
+<div class="scroll"><table class="stack"><thead><tr><th>Dimension</th><th>What it measures</th><th>Practices</th></tr></thead><tbody id="all"></tbody></table></div>
+</details>
+<p class="foot">How to read this: 1–5 answers convert to 0–100 per dimension (some statements are reverse-scored). Below 45 is at risk, 45–69 developing, 70 and above calibrated. CALIBRE v0.1 is a draft, self-reported instrument and has not yet been validated, so the cut-offs are provisional. Answers are kept only in this browser.</p>
+</div></section>
+
+<section class="band" id="limits"><div class="wrap two">
+<div><h2>What this framework cannot do yet</h2>
+<p class="pull">A framework that hides its weak points is <em>marketing</em>. Here are CALIBRE's, and how they will be tested.</p></div>
+<div class="read">
+<p><strong>Self-report has a blind spot.</strong> The people who over-trust AI most may also notice it least, so they may score themselves too kindly. Treat a high score as a claim to check: ask a colleague to rate you on the same statements, or keep a two-week log of how often you verify AI output.</p>
+<p><strong>The statements are new and unvalidated.</strong> Four items per dimension is the practical minimum. Some dimensions, especially Agency, Boundaries and Reflection, may overlap. The 45 and 70 cut-offs are judgement calls, and every dimension carries equal weight.</p>
+<p><strong>Trust is two-sided.</strong> A middle score can hide strong over-trust balanced by strong avoidance, so the results also show which way your trust leans.</p>
+<p><strong>The evidence base is young.</strong> Most studies cited here are correlational or self-reported, and one is an unreviewed preprint with a small sample.</p>
+<p><strong>Validation plan.</strong> A pilot with at least 200 professionals; internal consistency for each dimension (Cronbach's alpha of 0.7 or above); a factor analysis to test whether seven dimensions really separate; a test-retest check; and comparison with established scales, such as the Short Trust in Automation Scale, AI anxiety measures and the Meta AI Literacy Scale.</p>
+</div>
+</div></section>
+
+<section class="band" id="next"><div class="wrap">
+<h2>Where this leads</h2>
+<p class="read">My view of how the stream develops. These are forecasts, not findings. The pattern to watch: each step on the machine side creates a matching need on the human side.</p>
+<div class="road">
+<div class="stop" style="--o:1"><span class="when">2026</span><h3>Self-awareness</h3><p>Individuals take self-checks like CALIBRE and start building deliberate habits.</p><p class="pair">Machine side: labs measure and steer model traits such as sycophancy.</p></div>
+<div class="stop" style="--o:.8"><span class="when">2027–28</span><h3>Adaptive tools</h3><p>AI assistants notice over-reliance and nudge users to think first, check, or take over.</p><p class="pair">Machine side: models that read the user's state as well as their prompt.</p></div>
+<div class="stop" style="--o:.6"><span class="when">2029–30</span><h3>Organisational readiness</h3><p>Firms track the AI psychology of teams the way they track cyber hygiene, as a condition for giving agents more autonomy.</p><p class="pair">Machine side: agents acting with little supervision.</p></div>
+<div class="stop" style="--o:.4"><span class="when">2030+</span><h3>Human alignment</h3><p>Calibration of the human becomes the recognised twin of model alignment, taught in schools and professional training.</p><p class="pair">Machine side: highly capable systems whose safety depends on people who can still judge them.</p></div>
+</div>
+</div></section>
+
+<section class="band tint" id="sources"><div class="wrap read">
+<h2>Sources</h2>
+<ol class="src">
+<li>Rahwan, I. et al. (2019). <a href="https://doi.org/10.1038/s41586-019-1138-y">Machine behaviour</a>. Nature 568.</li>
+<li>Hagendorff, T. et al. (2023–24). <a href="https://arxiv.org/abs/2303.13988">Machine Psychology</a>. arXiv 2303.13988.</li>
+<li>OpenAI (2025). <a href="https://openai.com/index/expanding-on-sycophancy/">Expanding on what we missed with sycophancy</a>.</li>
+<li>Chen, R. et al. / Anthropic (2025). <a href="https://www.anthropic.com/research/persona-vectors">Persona vectors: monitoring and controlling character traits in language models</a>.</li>
+<li>Parasuraman, R. &amp; Riley, V. (1997). Humans and automation: use, misuse, disuse, abuse. Human Factors 39(2).</li>
+<li>Clark, A. &amp; Chalmers, D. (1998). The extended mind. Analysis 58(1).</li>
+<li>Sparrow, B., Liu, J. &amp; Wegner, D. (2011). <a href="https://doi.org/10.1126/science.1207745">Google effects on memory</a>. Science 333. Replication: Camerer, C. et al. (2018), Nature Human Behaviour (first experiment did not replicate).</li>
+<li>Gerlich, M. (2025). AI tools in society: cognitive offloading and critical thinking. Societies. <a href="https://www.psypost.org/ai-tools-may-weaken-critical-thinking-skills-by-encouraging-cognitive-offloading-study-suggests/">Summary (PsyPost)</a>.</li>
+<li>Lee, H.-P. et al. / Microsoft &amp; Carnegie Mellon (2025). Generative AI and critical thinking among knowledge workers. CHI 2025. Reported in <a href="https://www.apa.org/monitor/2026/07-08/ai-job-skills-thinking">APA Monitor (2026)</a>.</li>
+<li>Kosmyna, N. et al. / MIT Media Lab (2025). <a href="https://www.media.mit.edu/publications/your-brain-on-chatgpt/">Your Brain on ChatGPT: accumulation of cognitive debt</a>. arXiv 2506.08872 (preprint). Critique: Stankovic, M. et al. (2026), <a href="https://arxiv.org/abs/2601.00856">Comment on Your Brain on ChatGPT</a>.</li>
+<li><a href="https://www.mdpi.com/3565790">From offloading to engagement: structured prompting and critical reasoning with generative AI</a> (2025). Data (MDPI).</li>
+<li><a href="https://doi.org/10.3389/fpsyt.2025.1641546">Dimensions of AI-related anxiety in adults</a> (2025). Frontiers in Psychiatry.</li>
+<li>Koch, M. J., Carolus, A. et al. (2024). <a href="https://doi.org/10.1016/j.heliyon.2024.e39686">Meta AI Literacy Scale: further validation and a short version</a>. Heliyon.</li>
+<li>McGrath, M. et al. (2025). <a href="https://doi.org/10.3389/frai.2025.1582880">Measuring trust in AI: validation of the Trust in Automation Scale and its short form</a>. Frontiers in AI.</li>
+</ol>
+<p class="foot">CALIBRE and this article are a working draft by Pawan Maheshwari. Feedback and validation partners are welcome.</p>
+</div></section>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- Two-body map ---------- */
+const Z={P:['Partnership','The model is candid and you weigh what it says. Errors get caught early, and your own thinking keeps growing.'],F:['Friction','The model flatters, but you notice and push back. You lose some time, not your judgement.'],Q:['Quiet drift','The model is honest, but you have stopped checking and thinking. Answers are often right, yet your skills fade unnoticed until the day the model is wrong.'],E:['Echo chamber','The model agrees with you and you believe it. Mistakes come back sounding confident and compound. This is where sycophancy does real damage.']};
+const zoneOf=(s,c)=>c>=50?(s<50?'P':'F'):(s<50?'Q':'E');
+const map=$('map');
+function drawMap(){
+const W=map.clientWidth,H=map.clientHeight;if(!W||!H)return;
+const s=+$('sy').value,c=+$('ca').value,sm=W<520;
+const L=sm?34:48,R=14,T=16,B=sm?40:48,w=W-L-R,h=H-T-B,x=v=>L+v/100*w,y=v=>T+(1-v/100)*h;
+const cur=zoneOf(s,c);
+const q=[['P',0,50],['F',50,50],['Q',0,0],['E',50,0]];
+let o='';
+q.forEach(([k,a,b])=>{o+=`<rect x="${x(a)}" y="${y(b+50)}" width="${w/2}" height="${h/2}" fill="${k==='E'?'var(--mag)':'var(--blue)'}" fill-opacity="${k===cur?.16:.05}"/>`});
+o+=`<line x1="${x(50)}" y1="${T}" x2="${x(50)}" y2="${T+h}" stroke="var(--rule)" stroke-width="1.5"/><line x1="${L}" y1="${y(50)}" x2="${L+w}" y2="${y(50)}" stroke="var(--rule)" stroke-width="1.5"/>`;
+o+=`<rect x="${L}" y="${T}" width="${w}" height="${h}" fill="none" stroke="var(--rule)"/>`;
+q.forEach(([k,a,b])=>{o+=`<text x="${x(a+25)}" y="${y(b+25)}" text-anchor="middle" font-size="${sm?14:17}" font-weight="700" fill="${k===cur?(k==='E'?'var(--mag)':'var(--blue)'):'var(--mute)'}">${Z[k][0]}</text>`});
+o+=`<text x="${L+w/2}" y="${H-12}" text-anchor="middle" font-size="14" fill="var(--mag)" font-weight="600">${sm?'Model sycophancy →':'Model sycophancy: candid → flattering'}</text>`;
+o+=`<text transform="translate(${sm?20:26},${T+h/2}) rotate(-90)" text-anchor="middle" font-size="14" fill="var(--blue)" font-weight="600">${sm?'Your calibration →':'Your trust calibration: blind → calibrated'}</text>`;
+const px=x(s),py=y(c);
+o+=`<line x1="${px}" y1="${T+h}" x2="${px}" y2="${py}" stroke="var(--mag)" stroke-dasharray="3 4"/><line x1="${L}" y1="${py}" x2="${px}" y2="${py}" stroke="var(--blue)" stroke-dasharray="3 4"/>`;
+o+=`<circle cx="${px}" cy="${py}" r="13" fill="var(--bg)" stroke="var(--ink)" stroke-width="3"/><circle cx="${px}" cy="${py}" r="5" fill="var(--ink)"/>`;
+map.innerHTML=o;
+$('syv').textContent=s;$('cav').textContent=c;$('zt').textContent=Z[cur][0];$('zd').textContent=Z[cur][1];
+}
+const mo=new ResizeObserver(drawMap);mo.observe($('mapFig'));
+$('sy').addEventListener('input',drawMap);$('ca').addEventListener('input',drawMap);
+
+/* ---------- Timeline ---------- */
+const TL=[
+['h',1966,'The ELIZA effect','A simple script that reflected users’ words back led people to confide in it as if it understood them.','First evidence that people project a mind onto machines, whatever the machine actually is.'],
+['h',1997,'Use, misuse, disuse, abuse','Parasuraman and Riley classify how people over-rely on or wrongly reject automation.','Automation bias, the root of the C (calibrated trust) dimension, gets its name.'],
+['h',1998,'The extended mind','Clark and Chalmers argue that tools we rely on become part of how we think.','If AI is part of your thinking, its quality and your habits with it are part of your mind.'],
+['h',2011,'The Google effect','Lab experiments suggested people remember where information is stored rather than the information itself.','An early offloading claim, but treat it with care: a 2018 replication project could not reproduce its first experiment.'],
+['m',2019,'Machine behaviour','Rahwan and colleagues in Nature call for studying AI systems as agents with behaviour of their own.','The machine-side stream gets its manifesto.'],
+['m',2023,'Machine psychology','Hagendorff and colleagues run psychology experiments on large language models.','Models are treated as subjects with measurable dispositions.'],
+['h',2025,'Cognitive debt and offloading','Survey studies (666 people; 319 knowledge workers) and a small MIT EEG preprint link heavy AI reliance to weaker critical engagement.','The human-side cost starts to show in data, though mostly as correlation and early evidence.'],
+['m',2025,'Sycophancy ships, then is rolled back','OpenAI reverses a GPT-4o update after it became overly flattering and agreeable for millions of users.','A model trait collided with a human trait, our appetite for approval, at global scale.'],
+['m',2025,'Persona vectors','Research led through Anthropic finds patterns inside open-source models that track traits such as sycophancy, and uses them to monitor and steer those traits.','The machine side now has instruments. The human side still does not.'],
+['h',2026,'CALIBRE','A framework to understand, measure and improve an individual’s AI psychology.','The proposal in this article: give the human side an instrument too.']
+];
+$('tl').innerHTML=TL.map(t=>`<div class="ev ${t[0]}" data-lane="${t[0]}"><span class="yr">${t[1]}</span><div class="box"><h3>${t[2]}</h3><p>${t[3]}</p><p class="why">${t[4]}</p></div></div>`).join('');
+const fb={all:$('f-all'),m:$('f-m'),h:$('f-h')};
+Object.entries(fb).forEach(([k,b])=>b.addEventListener('click',()=>{Object.values(fb).forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');document.querySelectorAll('#tl .ev').forEach(e=>{e.hidden=k!=='all'&&e.dataset.lane!==k})}));
+
+/* ---------- Evidence ---------- */
+const EV=[
+['666','people surveyed (Gerlich, 2025)','Frequent AI use was strongly and negatively linked to critical-thinking scores, largely through cognitive offloading. A cross-sectional survey: it shows association, not cause.','So what: the risk is not using AI. It is letting it do the part of the thinking that keeps you sharp.'],
+['319','knowledge workers (Microsoft and CMU, 2025)','The more confident people were in generative AI, the less critical thinking they reported applying to its output. Self-reported, so it measures perceived effort.','So what: trust and scrutiny trade off. Calibrated trust has to be a deliberate skill.'],
+['54','students on EEG (MIT Media Lab preprint, 2025)','Brain connectivity scaled down with AI assistance. In a fourth session (only 18 people), those who wrote unaided first and then used AI showed stronger engagement than those who started with AI. Not yet peer-reviewed; the authors call the results preliminary and other researchers have questioned the design.','So what: a hypothesis worth acting on cheaply. Think first, then prompt.'],
+['150','adults in an experiment (2025)','Unguided AI use increased offloading without better reasoning. Structured prompting reduced offloading and improved reasoning.','So what: AI psychology can be trained. That is why measuring it is worth doing.'],
+['9','dimensions of AI anxiety (N = 1,151, 2025)','AI-related anxiety is not one feeling but several, from job fears to technoparanoia, and users showed more of some than non-users.','So what: the emotional side needs its own dimension, not a footnote.']
+];
+$('evid').innerHTML=EV.map(e=>`<div class="row"><div class="num">${e[0]}<small>${e[1]}</small></div><p>${e[2]}</p><p class="so">${e[3]}</p></div>`).join('');
+
+/* ---------- CALIBRE data ---------- */
+const D=[
+{k:'C',n:'Calibrated trust',s:'Trust',root:'Roots: automation bias; trust in automation',d:'Trusting AI as much as it has earned, task by task: neither over- nor under-relying.',q:[['I check AI output more carefully when the stakes are higher.',0],['When an AI answer sounds confident, I tend to accept it without checking.',1],['I can name tasks where my AI tools are reliable and tasks where they are not.',0],['I avoid AI even for tasks where it has proven reliable for me.',1]],p:['Before relying on an output, ask "what would make this wrong?" and check that one thing.','Keep a short list of tasks where your tools have failed you.','Match checking to stakes: skim drafts, verify anything that drives a decision.']},
+{k:'A',n:'Agency',s:'Agency',root:'Roots: cognitive offloading; extended mind',d:'Doing the thinking yourself and using AI to extend it, not replace it.',q:[['I form my own view before I ask AI.',0],['I start most writing or analysis by prompting AI rather than thinking first.',1],['I could still do my core work well if AI were unavailable for a week.',0],['I sometimes submit AI-assisted work I could not fully explain.',1]],p:['Write your own two-line answer before you prompt.','Once a week, do one core task fully without AI.','Do not send anything you cannot explain line by line.']},
+{k:'L',n:'Load',s:'Load',root:'Roots: technostress; AI anxiety research',d:'Emotional balance about AI, between anxiety and hype.',q:[['Thinking about AI’s impact on my career makes me anxious.',1],['I feel pressure to adopt every new AI tool I hear about.',1],['I can discuss AI’s risks and benefits calmly with colleagues.',0],['I can step away from AI news and launches without feeling I am falling behind.',0]],p:['Replace headlines with a 20-minute hands-on trial.','Adopt one new tool per quarter, not one per launch.','Talk through one AI worry with a colleague and name what you control.']},
+{k:'I',n:'Identity',s:'Identity',root:'Roots: professional identity; identity threat at work',d:'Seeing AI as strengthening your professional self rather than threatening it.',q:[['I see AI as amplifying my strengths rather than replacing them.',0],['I worry that using AI makes my work less mine.',1],['I can clearly describe the value I add that AI does not.',0],['I hide or downplay my AI use from colleagues.',1]],p:['Write down the judgement only you bring to your work.','Be open about how you use AI: treat it as method, not secret.','Put your name only on decisions you genuinely own.']},
+{k:'B',n:'Boundaries',s:'Boundaries',root:'Roots: habit formation; technology dependence',d:'Deliberate limits on where, when and with what data you use AI.',q:[['I have tasks I deliberately keep AI-free.',0],['I reach for AI out of habit even when I do not need it.',1],['I turn to AI for support more readily than to people.',1],['I have decided what personal or client data I will not share with AI.',0]],p:['Name two AI-free zones, such as first drafts of strategy or personal conversations.','Set a data rule: what never goes into a prompt.','When you reach for AI, pause and ask whether you need it.']},
+{k:'R',n:'Reflection',s:'Reflection',root:'Roots: metacognition; reflective practice',d:'Noticing how AI is changing your thinking and your work.',q:[['I notice when AI has changed how I think about a problem.',0],['I review how I used AI after important work.',0],['I rarely ask whether AI made my work better or just faster.',1],['I can recall a time AI misled me and what I learned from it.',0]],p:['After important work, note what AI changed and whether it was better.','Keep a log of times AI misled you.','Ask a colleague to review one AI-assisted piece blind.']},
+{k:'E',n:'Evolution',s:'Evolution',root:'Roots: growth mindset; learning agility',d:'Keeping your AI skills and habits growing as the tools change.',q:[['I deliberately learn how AI tools work, not just what they produce.',0],['My AI habits have changed in the last six months as tools improved.',0],['I rely on the same few prompts and rarely experiment.',1],['I am building skills that stay valuable as AI improves.',0]],p:['Learn one mechanism a month: context windows, retrieval, agents.','Rewrite your three most-used prompts each quarter.','Invest in skills that rise in value with AI: framing, judgement, persuasion.']}
+];
+$('dims').innerHTML=D.map(d=>`<a class="dimc" href="#dim-${d.k.toLowerCase()}"><i>${d.k}</i><h3>${d.n}</h3><p>${d.d}</p><p class="root">${d.root}</p></a>`).join('');
+
+/* ---------- Assessment ---------- */
+const SAMPLE=[4,3,4,2, 3,4,4,3, 3,4,4,4, 4,2,4,2, 2,4,2,3, 3,2,4,3, 5,4,2,5];
+const KEY='calibre-v01';
+const ids=[];D.forEach(d=>d.q.forEach((q,j)=>ids.push('q-'+d.k.toLowerCase()+'-'+(j+1))));
+let ans={},isSample=true;
+function fromSample(){ans={};ids.forEach((id,i)=>ans[id]=SAMPLE[i])}
+function store(){try{localStorage.setItem(KEY,JSON.stringify({ans,sample:isSample}))}catch(e){}}
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&s.ans){ans={};for(const id of ids){const v=+s.ans[id];if(v>=1&&v<=5)ans[id]=v}isSample=!!s.sample}else fromSample()}catch(e){fromSample()}
+
+$('form').innerHTML=D.map(d=>`<fieldset class="dim" id="dim-${d.k.toLowerCase()}"><h3><i aria-hidden="true">${d.k}</i>${d.n}</h3><p>${d.d}</p>${d.q.map((q,j)=>{const id='q-'+d.k.toLowerCase()+'-'+(j+1);return `<div class="q" role="radiogroup" aria-label="${esc(q[0])}"><p>${q[0]}</p><div class="scale">${[1,2,3,4,5].map(v=>`<span><input type="radio" name="${id}" id="${id}-${v}" value="${v}"><label for="${id}-${v}">${v}</label></span>`).join('')}</div><div class="ends"><span>Strongly disagree</span><span>Strongly agree</span></div></div>`}).join('')}</fieldset>`).join('');
+
+function syncInputs(){ids.forEach(id=>{[1,2,3,4,5].forEach(v=>{$(id+'-'+v).checked=ans[id]===v})})}
+function scores(){return D.map(d=>{let t=0,n=0;d.q.forEach((q,j)=>{const v=ans['q-'+d.k.toLowerCase()+'-'+(j+1)];if(v){t+=q[1]?6-v:v;n++}});return n?Math.round((t/n-1)/4*100):null})}
+const bandOf=s=>s==null?'Not yet answered':s>=70?'Calibrated':s>=45?'Developing':'At risk';
+
+const rad=$('radar');
+function drawRadar(){
+const W=rad.clientWidth,H=rad.clientHeight;if(!W||!H)return;
+const sc=scores(),small=W<520,m=small?34:72,cx=W/2,cy=H/2+4,R=Math.max(40,Math.min(W/2-m,H/2-(small?30:40)));
+const N=D.length,pt=(i,f)=>{const a=-Math.PI/2+i*2*Math.PI/N;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
+let o='';
+[.25,.5,.75,1].forEach(f=>{o+=`<polygon points="${D.map((d,i)=>pt(i,f).join(',')).join(' ')}" fill="none" stroke="var(--rule)" stroke-width="${f==1?1.5:1}"/>`});
+D.forEach((d,i)=>{const[x,y]=pt(i,1);o+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--rule)"/>`});
+o+=`<polygon points="${D.map((d,i)=>pt(i,(sc[i]||0)/100).join(',')).join(' ')}" fill="var(--mag)" fill-opacity=".18" stroke="var(--mag)" stroke-width="2.5" stroke-linejoin="round"/>`;
+D.forEach((d,i)=>{const[x,y]=pt(i,(sc[i]||0)/100);o+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--mag)"/>`});
+D.forEach((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/N,c=Math.cos(a),s=Math.sin(a);const lx=cx+c*(R+14),ly=cy+s*(R+14)+(s>.3?12:s<-.3?-6:4);const anc=Math.abs(c)<.25?'middle':c>0?'start':'end';
+o+=`<text x="${lx}" y="${ly}" text-anchor="${anc}" font-size="14" font-weight="600" fill="var(--ink)">${small?d.k:d.s}<tspan fill="var(--mute)" font-weight="500"> ${sc[i]==null?'–':sc[i]}</tspan></text>`});
+rad.innerHTML=o;
+}
+const ro=new ResizeObserver(drawRadar);ro.observe($('radFig'));
+
+function update(){
+const sc=scores(),got=sc.filter(s=>s!=null),ov=got.length?Math.round(got.reduce((a,b)=>a+b,0)/got.length):null;
+const order=D.map((d,i)=>i).filter(i=>sc[i]!=null).sort((a,b)=>sc[a]-sc[b]),low=order.slice(0,2);
+$('overall').textContent=ov==null?'–':ov;$('overall2').textContent=ov==null?'–':ov;$('band').textContent=bandOf(ov);
+$('bars').innerHTML=D.map((d,i)=>`<li class="${low.includes(i)?'focus':''}"><span>${d.n}</span><span class="track"><span class="fill" style="width:${sc[i]||0}%"></span></span><b>${sc[i]==null?'–':sc[i]}</b></li>`).join('');
+$('count').textContent=ids.filter(id=>ans[id]).length+'/28';
+$('focus2').textContent=low.length?low.map(i=>D[i].n).join(', '):'–';
+$('focusNote').textContent=low.length?`Your lowest areas are ${low.map(i=>D[i].n+' ('+sc[i]+')').join(' and ')}; highest is ${D[order[order.length-1]].n} (${sc[order[order.length-1]]}). Magenta bars mark where to work next.`:'Answer the statements below to see your profile.';
+$('sampleNote').style.display=isSample?'':'none';
+const ov1=ans['q-c-2'],un1=ans['q-c-4'];
+$('lean').textContent=(ov1&&un1)?(ov1-un1>=2?'Trust lean: towards over-trust. You accept confident answers more readily than you avoid AI.':un1-ov1>=2?'Trust lean: towards under-trust. You avoid AI even where it has earned some trust.':'Trust lean: balanced between over- and under-trust.'):'';
+$('cards').innerHTML=low.length?low.map(i=>`<article class="card"><h3>${D[i].n} <em>${sc[i]}</em></h3><p class="note">${bandOf(sc[i])}. ${D[i].d}</p><ul>${D[i].p.map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join(''):'<p>Answer at least one dimension to get your plan.</p>';
+drawRadar();
+}
+$('all').innerHTML=D.map(d=>`<tr><td><strong>${d.k}</strong> ${d.n}</td><td>${d.d}</td><td>${d.p.join(' ')}</td></tr>`).join('');
+
+$('form').addEventListener('change',e=>{const t=e.target;if(t.name){ans[t.name]=+t.value;isSample=false;store();update()}});
+$('fresh').addEventListener('click',()=>{ans={};isSample=false;syncInputs();store();update();$('toast').textContent='Cleared. Start with Calibrated trust below.';$('dim-c').scrollIntoView({behavior:'smooth'})});
+$('sample').addEventListener('click',()=>{fromSample();isSample=true;syncInputs();store();update();$('toast').textContent='Sample answers loaded.'});
+$('copy').addEventListener('click',()=>{const sc=scores(),got=sc.filter(s=>s!=null);const ov=got.length?Math.round(got.reduce((a,b)=>a+b,0)/got.length):'–';
+const txt='My CALIBRE profile (AI psychology, v0.1)\nOverall: '+ov+'\n'+D.map((d,i)=>d.k+' '+d.n+': '+(sc[i]==null?'–':sc[i])+' ('+bandOf(sc[i])+')').join('\n');
+Promise.resolve().then(()=>navigator.clipboard.writeText(txt)).then(()=>$('toast').textContent='Results copied.',()=>$('toast').textContent='Copy was blocked here. Select the scores above to copy them.')});
+
+syncInputs();update();drawMap();
+}
+</script>
+</body></html>
