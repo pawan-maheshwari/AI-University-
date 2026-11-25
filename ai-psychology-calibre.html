@@ -137,6 +137,11 @@ summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:
 @media(max-width:900px){.road{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
 @media(max-width:800px){.hero,.res,.two{grid-template-columns:minmax(0,1fr)}.fig{min-height:340px}.row{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){body{font-size:16px}.tl::before{left:14px}.ev{grid-template-columns:minmax(0,1fr);padding-left:34px;gap:6px}.ev .yr{grid-column:1;justify-self:start}.ev.m .box,.ev.h .box{grid-column:1;grid-row:2}.road{grid-template-columns:minmax(0,1fr)}table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:4px 0;padding-inline-start:7em}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;font-weight:600}.bars li{grid-template-columns:6.5em minmax(0,1fr) 2.4em}.bar{top:61px}}
+.namebox{display:grid;gap:6px;margin-top:4px}
+.namebox label{font-weight:600;font-size:15px}
+.namebox input{font:16px "Red Hat Text",sans-serif;min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--rule);background:var(--bg);color:var(--ink);max-width:360px}
+#report{display:none}
+@media print{body>*:not(#report){display:none!important}#report{display:block!important;color:#111;background:#fff}@page{margin:14mm}}
 @media(prefers-reduced-motion:reduce){.fill{transition:none}html{scroll-behavior:auto}}
 </style><script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script></head><body>
 
@@ -226,6 +231,8 @@ summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:
 <p class="note" id="lean"></p>
 <p class="note" id="sampleNote">Sample answers are filled in so you can see a finished profile. Press Start fresh to take it yourself.</p>
 <div class="btns"><button class="pri" id="fresh">Start fresh</button><button id="sample">Load sample</button><button id="copy">Copy my results</button></div>
+<div class="namebox"><label for="uname">Your name, for your personal report</label><input id="uname" type="text" maxlength="60" autocomplete="name" placeholder="e.g. Priya Sharma"></div>
+<div class="btns"><button class="pri" id="dlpdf">Download report (PDF)</button><button id="dlhtml">Save report as file</button></div>
 <p class="toast" id="toast" aria-live="polite"></p>
 </div>
 </div>
@@ -411,7 +418,54 @@ $('copy').addEventListener('click',()=>{const sc=scores(),got=sc.filter(s=>s!=nu
 const txt='My CALIBRE profile (AI psychology, v0.1)\nOverall: '+ov+'\n'+D.map((d,i)=>d.k+' '+d.n+': '+(sc[i]==null?'–':sc[i])+' ('+bandOf(sc[i])+')').join('\n');
 Promise.resolve().then(()=>navigator.clipboard.writeText(txt)).then(()=>$('toast').textContent='Results copied.',()=>$('toast').textContent='Copy was blocked here. Select the scores above to copy them.')});
 
+
+/* ---------- Personal report ---------- */
+const NKEY='calibre-name',ALAB=['','Strongly disagree','Disagree','Neutral','Agree','Strongly agree'];
+try{$('uname').value=localStorage.getItem(NKEY)||''}catch(e){}
+$('uname').addEventListener('input',()=>{try{localStorage.setItem(NKEY,$('uname').value.trim())}catch(e){}});
+function radarSVG(sc){
+const W=460,H=400,cx=230,cy=205,R=140,N=D.length,pt=(i,f)=>{const a=-Math.PI/2+i*2*Math.PI/N;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
+let o=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="Helvetica,Arial,sans-serif">`;
+[.25,.5,.75,1].forEach(f=>{o+=`<polygon points="${D.map((d,i)=>pt(i,f).join(',')).join(' ')}" fill="none" stroke="#d5dbeb"/>`});
+D.forEach((d,i)=>{const[x,y]=pt(i,1);o+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#d5dbeb"/>`});
+o+=`<polygon points="${D.map((d,i)=>pt(i,(sc[i]||0)/100).join(',')).join(' ')}" fill="#d0105a" fill-opacity=".18" stroke="#d0105a" stroke-width="2.5"/>`;
+D.forEach((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/N,c=Math.cos(a),s=Math.sin(a),lx=cx+c*(R+16),ly=cy+s*(R+16)+(s>.3?12:s<-.3?-4:4),an=Math.abs(c)<.25?'middle':c>0?'start':'end';
+o+=`<text x="${lx}" y="${ly}" text-anchor="${an}" font-size="13" font-weight="700" fill="#0b1630">${d.s} ${sc[i]==null?'–':sc[i]}</text>`});
+return o+'</svg>';
+}
+function reportHTML(name){
+const sc=scores(),got=sc.filter(x=>x!=null),ov=got.length?Math.round(got.reduce((a,b)=>a+b,0)/got.length):null;
+const order=D.map((d,i)=>i).filter(i=>sc[i]!=null).sort((a,b)=>sc[a]-sc[b]),low=order.slice(0,2),top=order[order.length-1];
+const n=ids.filter(id=>ans[id]).length,date=new Date().toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
+const msg=ov==null?'Answer the statements to get your profile.':ov>=70?'You already work with AI in a deliberate, healthy way. Your next step is to stay there as tools change, and to help others get there: share your habits, coach a colleague, and re-test every quarter.':ov>=45?'You have solid foundations, but some habits are drifting. Small, weekly practices in your two focus areas will move your profile fastest.':'AI may be shaping your thinking more than you are shaping it. That is common and fixable: start with the two focus areas below, one habit a week.';
+const o1=ans['q-c-2'],u1=ans['q-c-4'];
+const lean=(o1&&u1)?(o1-u1>=2?'Your trust leans towards <b>over-trust</b>: confident answers get through without checking.':u1-o1>=2?'Your trust leans towards <b>under-trust</b>: you avoid AI even where it has earned it.':'Your trust is <b>balanced</b> between over- and under-trust.'):'';
+const rows=D.map((d,i)=>`<tr><td><b>${d.k}</b> ${d.n}</td><td style="text-align:right"><b>${sc[i]==null?'–':sc[i]}</b></td><td>${bandOf(sc[i])}</td></tr>`).join('');
+const focus=low.map(i=>`<div class="box"><h3>${D[i].n} <span class="pk">${sc[i]}</span></h3><p>${D[i].d}</p><ul>${D[i].p.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+const f1=low[0]!=null?D[low[0]]:null,f2=low[1]!=null?D[low[1]]:null;
+const plan=f1?[['Week 1',f1.n,f1.p[0]],['Week 2',f2?f2.n:f1.n,f2?f2.p[0]:f1.p[1]],['Week 3',f1.n,f1.p[1]+' Also start a log of moments when AI misled you.'],['Week 4','Re-test','Retake CALIBRE at ai-university.co.in/calibre and compare this report with your new profile.']]:[];
+const planH=plan.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+const answers=D.map(d=>d.q.map((q,j)=>{const v=ans['q-'+d.k.toLowerCase()+'-'+(j+1)];return `<tr><td>${d.k}</td><td>${q[0]}${q[1]?' <span class="muted">(reverse-scored)</span>':''}</td><td>${v?v+' · '+ALAB[v]:'<span class="muted">Not answered</span>'}</td></tr>`}).join('')).join('');
+return `<div class="rp">
+<div class="hdr"><div><div class="muted">AI University · CALIBRE v0.1 · ${date}</div><h1>AI psychology report</h1><div class="who">${esc(name)}</div></div><div class="ov"><div class="big">${ov==null?'–':ov}</div><div>overall / 100<br><b>${bandOf(ov)}</b></div></div></div>
+${n<28?`<p class="muted">Based on ${n} of 28 statements answered.</p>`:''}
+<h2>Your profile</h2>
+<div class="two"><div>${radarSVG(sc)}</div><div><table><thead><tr><th>Dimension</th><th style="text-align:right">Score</th><th>Band</th></tr></thead><tbody>${rows}</tbody></table>${lean?`<p>${lean}</p>`:''}</div></div>
+<h2>What this means</h2><p>${msg}</p>
+${top!=null?`<p><b>Your anchor strength is ${D[top].n} (${sc[top]}).</b> Lean on it: it is the habit you can use to build the others.</p>`:''}
+<h2>Focus areas: where to grow first</h2>${focus||'<p>Answer the statements to see your focus areas.</p>'}
+${planH?`<h2>Your 30-day plan to scale up</h2><table><thead><tr><th>When</th><th>Dimension</th><th>Practice</th></tr></thead><tbody>${planH}</tbody></table>`:''}
+<h2>All recommendations</h2><table><thead><tr><th>Dimension</th><th>Practices</th></tr></thead><tbody>${D.map(d=>`<tr><td><b>${d.k}</b> ${d.n}</td><td>${d.p.join(' ')}</td></tr>`).join('')}</tbody></table>
+<h2>Your answers</h2><table><thead><tr><th></th><th>Statement</th><th>Your answer</th></tr></thead><tbody>${answers}</tbody></table>
+<p class="muted">Scores: 1–5 answers converted to 0–100 per dimension; below 45 at risk, 45–69 developing, 70+ calibrated. CALIBRE v0.1 is a draft self-report instrument by Pawan Maheshwari and is not yet validated, so treat scores as a starting point for reflection, not a diagnosis. Read the full article at ai-university.co.in/ai-psychology-calibre.html</p>
+</div>`;
+}
+const RCSS=`.rp{font:14px/1.5 Helvetica,Arial,sans-serif;color:#111;max-width:820px;margin:0 auto}.rp h1{font-size:30px;margin:2px 0}.rp h1,.rp h2,.rp h3{max-width:none;letter-spacing:0;font-family:Helvetica,Arial,sans-serif;text-wrap:wrap}.rp td:first-child{white-space:nowrap}.rp h2{font-size:19px;margin:22px 0 8px;color:#0b1f4b;border-bottom:2px solid #0b1f4b;padding-bottom:4px;break-after:avoid}.rp h3{font-size:16px;margin:0 0 4px}.rp .hdr{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:4px solid #d0105a;padding-bottom:12px}.rp .who{font-size:20px;font-weight:700;color:#0b1f4b}.rp .ov{display:flex;gap:10px;align-items:center}.rp .big{font-size:52px;font-weight:800;color:#d0105a;line-height:1}.rp .muted{color:#555;font-size:12px}.rp .pk{color:#d0105a}.rp .two{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}.rp table{border-collapse:collapse;width:100%;margin:6px 0}.rp th,.rp td{text-align:left;padding:6px;border-bottom:1px solid #ddd;vertical-align:top}.rp tr{break-inside:avoid}.rp .box{border:1px solid #d5dbeb;border-left:4px solid #d0105a;padding:10px 14px;margin:8px 0;break-inside:avoid}.rp ul{margin:6px 0 0;padding-left:20px}@media(max-width:640px){.rp .two{grid-template-columns:1fr}.rp svg{max-width:100%;height:auto}}`;
+function needName(){const nm=$('uname').value.trim();if(!nm){$('toast').textContent='Add your name first, so the report is yours.';$('uname').focus();return null}const n=ids.filter(id=>ans[id]).length;$('toast').textContent=n<28?`Report ready. You have answered ${n} of 28; unanswered statements are marked.`:'Report ready.';return nm}
+$('dlpdf').addEventListener('click',()=>{const nm=needName();if(!nm)return;const r=$('report');r.innerHTML=`<style>${RCSS}</style>`+reportHTML(nm);const t=document.title;document.title='CALIBRE report - '+nm;const back=()=>{document.title=t;window.removeEventListener('afterprint',back)};window.addEventListener('afterprint',back);try{window.print()}catch(e){$('toast').textContent='Printing is blocked here. Use Save report as file instead.';back()}});
+$('dlhtml').addEventListener('click',()=>{const nm=needName();if(!nm)return;const doc=`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CALIBRE report - ${esc(nm)}</title><style>body{margin:24px 16px;background:#fff}${RCSS}</style></head><body>${reportHTML(nm)}</body></html>`;try{const u=URL.createObjectURL(new Blob([doc],{type:'text/html'}));const a=document.createElement('a');a.href=u;a.download='CALIBRE-report-'+(nm.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'')||'me')+'.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}catch(e){$('toast').textContent='Download is blocked here. Try Download report (PDF).'}});
 syncInputs();update();drawMap();
 }
 </script>
+<div id="report" aria-hidden="true"></div>
 </body></html>
