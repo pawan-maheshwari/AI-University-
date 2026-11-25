@@ -31,6 +31,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `steer-framework.html` | 89 KB | 1215 |  |
 | `ai-business-flight-simulator.html` | 73 KB | 1284 |  |
 | `proof-framework.html` | 65 KB | 968 |  |
+| `ai-psychology-calibre.html` | 64 KB | 539 | 1 |
 | `kidswear-poc/planner/planner.js` | 52 KB | 541 |  |
 | `kidswear-margin-poc.html` | 40 KB | 514 | 1 |
 | `01_prompt_wizard.html` | 27 KB | 493 |  |
@@ -91,6 +92,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `kidswear-poc/17_departments.py` | 1 KB | 29 |  |
 | `.github/workflows/kidswear-retrain.yml` | 1 KB | 43 |  |
 | `kidswear-poc/paths.py` | 973 B | 23 |  |
+| `calibre/index.html` | 494 B | 8 |  |
 
 ## Backup / snapshot files — IGNORE (never read or edit)
 
@@ -693,6 +695,50 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L555 h2 `Sources`
 - L582 script
 - functions (12): el@590, series@592, draw@605, x@614, y@615, pts@616, render@771, g@801, num@802, h@803, did@805, power@820
+### `ai-psychology-calibre.html`
+- L7 style
+- L169 script
+- L173 h2 `AI psychology: the missing half of AI's evolution`
+- L189 section `stream`
+- L190 h2 `AI has a psychology stream. It studies the wrong half.`
+- L200 section `evolve`
+- L201 h2 `How it evolved: two lanes that are now converging`
+- L208 section `sides`
+- L209 h2 `Two sides of one system`
+- L223 section `now`
+- L224 h2 `Why now: the evidence is no longer anecdotal`
+- L229 section `calibre`
+- L230 h2 `The CALIBRE framework`
+- L235 section `why`
+- L236 h2 `Why take the assessment`
+- L245 section `community`
+- L246 h2 `The AI psychology movement`
+- L253 section `assess`
+- L254 h2 `Measure your AI psychology`
+- L275 h2 `Where to work next`
+- L284 section `limits`
+- L285 h2 `What this framework cannot do yet`
+- L296 section `next`
+- L297 h2 `Where this leads`
+- L307 section `sources`
+- L308 h2 `Sources`
+- L328 script
+- L399 data `SAMPLE`
+- L400 data `KEY`
+- L454 data `NKEY`
+- L481 h2 `AI psychology report`
+- L483 h2 `Your profile`
+- L485 h2 `What this means`
+- L487 h2 `Focus areas: where to grow first`
+- L488 h2 `Your 30-day plan to scale up`
+- L489 h2 `All recommendations`
+- L490 h2 `Your answers`
+- L494 data `RCSS`
+- L496 style
+- L497 style
+- L501 data `ICONS`
+- L502 data `BADGES`
+- functions (20): $@330, esc@331, zoneOf@335, drawMap@337, fromSample@403, store@404, syncInputs@409, scores@410, bandOf@411, drawRadar@414, update@429, radarSVG@457, reportHTML@467, needName@495, fmt@503, rpc@505, renderCommunity@506, pageInfo@519, dots@520, countCompletion@528
 ### `kidswear-poc/planner/planner.js`
 - L80 data `TABS`
 - functions (45): $@4, h@9, s@16, pct@23, spct@24, int@25, rand@26, srand@27, compact@28, sum@29, niceStep@30, svgIn@31, tip@32, kpi@45, was@46, table@47, bars@61, pathColor@73, pathChips@74, download@76, csvCell@77, renderTabs@83, render@90, overview@96, forecast@124, driverCard@174, drawStyleChart@184, x@190, line@197, overridesCard@216, field@224, upd@231, sizes@258, drawCurves@276, markdown@304, drawFrontier@329, x@335, scenarioCard@351, simulate@366, out@374, quality@393, trial@423, sha256@460, ops@461, depts@518
@@ -863,3 +909,5 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - functions (1): check@16
 ### `kidswear-poc/paths.py`
 - functions (1): res@18
+### `calibre/index.html`
+- L8 script

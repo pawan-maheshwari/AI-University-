@@ -137,11 +137,39 @@ summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:
 @media(max-width:900px){.road{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
 @media(max-width:800px){.hero,.res,.two{grid-template-columns:minmax(0,1fr)}.fig{min-height:340px}.row{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){body{font-size:16px}.tl::before{left:14px}.ev{grid-template-columns:minmax(0,1fr);padding-left:34px;gap:6px}.ev .yr{grid-column:1;justify-self:start}.ev.m .box,.ev.h .box{grid-column:1;grid-row:2}.road{grid-template-columns:minmax(0,1fr)}table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:4px 0;padding-inline-start:7em}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;font-weight:600}.bars li{grid-template-columns:6.5em minmax(0,1fr) 2.4em}.bar{top:61px}}
+.brand{display:flex;align-items:center;gap:14px;margin:0 0 20px}
+.brand img{width:72px;height:72px;border-radius:50%;flex:none}
+.brand .bname{font:700 20px "Red Hat Display",sans-serif;color:#fff}
+.brand a{color:#d8e0f7;font-size:14px}
+.cnt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center;margin:8px 0 26px;max-width:820px}
+.cbig{font:900 clamp(56px,8vw,84px)/1 "Red Hat Display",sans-serif;color:var(--mag);font-variant-numeric:tabular-nums}
+.ctrack{height:14px;background:var(--panel);border-radius:7px;overflow:hidden;margin:10px 0 6px}
+.cfill{height:100%;width:0;background:linear-gradient(90deg,#e8ad2c,#f5c542);border-radius:7px;transition:width .6s}
+.badges{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*16px)/4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;scrollbar-width:none}
+.badges::-webkit-scrollbar{display:none}
+.bdg{scroll-snap-align:start;background:var(--panel);border-radius:16px;padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bdg svg{width:84px;height:84px}
+.bdg.lock svg{filter:grayscale(1);opacity:.45}
+.bdg b{font:700 20px "Red Hat Display",sans-serif;font-variant-numeric:tabular-nums}
+.bdg span{font-size:15px}
+.bdg.lock b,.bdg.lock span{color:var(--mute)}
+.bdg.next{outline:2px dashed #e8ad2c;outline-offset:-2px}
+.bnav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:8px}
+.bnav button{min-width:44px;padding:0 12px}
+.dots{display:flex;gap:10px}
+.dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);display:block}
+.dots i.on{background:var(--ink)}
+@media(max-width:600px){.badges{grid-auto-columns:calc((100% - 16px)/2)}.cnt{grid-template-columns:minmax(0,1fr)}}
+.namebox{display:grid;gap:6px;margin-top:4px}
+.namebox label{font-weight:600;font-size:15px}
+.namebox input{font:16px "Red Hat Text",sans-serif;min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--rule);background:var(--bg);color:var(--ink);max-width:360px}
+#report{display:none}
+@media print{body>*:not(#report){display:none!important}#report{display:block!important;color:#111;background:#fff}@page{margin:14mm}}
 @media(prefers-reduced-motion:reduce){.fill{transition:none}html{scroll-behavior:auto}}
 </style><script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script></head><body>
 
 <header class="band top"><div class="wrap">
-<p class="by" style="margin:0 0 18px"><a href="index.html#exclusive-courses" style="color:#d8e0f7">← AI University</a> · Exclusive</p>
+<div class="brand"><a href="index.html" aria-label="AI Academia home"><img src="img/ai-academia-logo.webp" alt="AI Academia crest" width="72" height="72"></a><div><div class="bname">AI Academia</div><a href="index.html#exclusive-courses">← AI University · Exclusive</a></div></div>
 <h1>AI psychology: the missing half of AI's evolution</h1>
 <p class="dek">Researchers now study AI models the way psychologists study people. The mind on the other side of the screen is changing just as fast, yet it is measured only in fragments. This article makes the case for a new stream, gives you a framework, and lets you measure yourself.</p>
 <p class="by">Pawan Maheshwari · Draft v0.1 · November 2026</p>
@@ -156,7 +184,7 @@ summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:
 </div>
 </div></header>
 
-<nav class="nav" aria-label="Sections"><a href="#stream">A new stream</a><a href="#evolve">How it evolved</a><a href="#sides">Two sides</a><a href="#now">Why now</a><a href="#calibre">CALIBRE</a><a href="#why">Why take it</a><a href="#assess">Assessment</a><a href="#limits">Limits</a><a href="#next">Where it leads</a><a href="#sources">Sources</a></nav>
+<nav class="nav" aria-label="Sections"><a href="#stream">A new stream</a><a href="#evolve">How it evolved</a><a href="#sides">Two sides</a><a href="#now">Why now</a><a href="#calibre">CALIBRE</a><a href="#why">Why take it</a><a href="#community">Community</a><a href="#assess">Assessment</a><a href="#limits">Limits</a><a href="#next">Where it leads</a><a href="#sources">Sources</a></nav>
 
 <section class="band" id="stream"><div class="wrap two">
 <div><h2>AI has a psychology stream. It studies the wrong half.</h2>
@@ -214,9 +242,17 @@ summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:
 </div>
 </div></section>
 
+<section class="band" id="community"><div class="wrap">
+<h2>The AI psychology movement</h2>
+<p class="read">Every completed assessment moves the community towards the next badge. Finish all 28 statements and download your report to be counted.</p>
+<div class="cnt"><div class="cbig" id="cnum">–</div><div><strong id="clabel">people have measured their AI psychology</strong><div class="ctrack" role="progressbar" aria-label="Progress to next badge" aria-valuemin="0" aria-valuemax="100" id="cbar"><div class="cfill" id="cfill"></div></div><div class="note" id="cnext">Loading the community count…</div></div></div>
+<div class="badges" id="badges" tabindex="0" aria-label="Community milestone badges"></div>
+<div class="bnav"><button id="bprev" aria-label="Previous badges">←</button><span id="bdots" class="dots"></span><button id="bnext" aria-label="Next badges">→</button></div>
+</div></section>
+
 <section class="band" id="assess"><div class="wrap">
 <h2>Measure your AI psychology</h2>
-<p class="read">28 statements, about six minutes. Answer for how you actually work, not how you would like to. Your profile redraws as you go.</p>
+<p class="read"><strong id="joinLine" hidden></strong> 28 statements, about six minutes. Answer for how you actually work, not how you would like to. Your profile redraws as you go.</p>
 <div class="res">
 <div class="fig" id="radFig" role="img" aria-label="Radar chart of your seven CALIBRE scores"><svg id="radar"></svg></div>
 <div class="side">
@@ -226,6 +262,8 @@ summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:
 <p class="note" id="lean"></p>
 <p class="note" id="sampleNote">Sample answers are filled in so you can see a finished profile. Press Start fresh to take it yourself.</p>
 <div class="btns"><button class="pri" id="fresh">Start fresh</button><button id="sample">Load sample</button><button id="copy">Copy my results</button></div>
+<div class="namebox"><label for="uname">Your name, for your personal report</label><input id="uname" type="text" maxlength="60" autocomplete="name" placeholder="e.g. Priya Sharma"></div>
+<div class="btns"><button class="pri" id="dlpdf">Download report (PDF)</button><button id="dlhtml">Save report as file</button></div>
 <p class="toast" id="toast" aria-live="polite"></p>
 </div>
 </div>
@@ -411,7 +449,91 @@ $('copy').addEventListener('click',()=>{const sc=scores(),got=sc.filter(s=>s!=nu
 const txt='My CALIBRE profile (AI psychology, v0.1)\nOverall: '+ov+'\n'+D.map((d,i)=>d.k+' '+d.n+': '+(sc[i]==null?'–':sc[i])+' ('+bandOf(sc[i])+')').join('\n');
 Promise.resolve().then(()=>navigator.clipboard.writeText(txt)).then(()=>$('toast').textContent='Results copied.',()=>$('toast').textContent='Copy was blocked here. Select the scores above to copy them.')});
 
+
+/* ---------- Personal report ---------- */
+const NKEY='calibre-name',ALAB=['','Strongly disagree','Disagree','Neutral','Agree','Strongly agree'];
+try{$('uname').value=localStorage.getItem(NKEY)||''}catch(e){}
+$('uname').addEventListener('input',()=>{try{localStorage.setItem(NKEY,$('uname').value.trim())}catch(e){}});
+function radarSVG(sc){
+const W=460,H=400,cx=230,cy=205,R=140,N=D.length,pt=(i,f)=>{const a=-Math.PI/2+i*2*Math.PI/N;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
+let o=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="Helvetica,Arial,sans-serif">`;
+[.25,.5,.75,1].forEach(f=>{o+=`<polygon points="${D.map((d,i)=>pt(i,f).join(',')).join(' ')}" fill="none" stroke="#d5dbeb"/>`});
+D.forEach((d,i)=>{const[x,y]=pt(i,1);o+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#d5dbeb"/>`});
+o+=`<polygon points="${D.map((d,i)=>pt(i,(sc[i]||0)/100).join(',')).join(' ')}" fill="#d0105a" fill-opacity=".18" stroke="#d0105a" stroke-width="2.5"/>`;
+D.forEach((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/N,c=Math.cos(a),s=Math.sin(a),lx=cx+c*(R+16),ly=cy+s*(R+16)+(s>.3?12:s<-.3?-4:4),an=Math.abs(c)<.25?'middle':c>0?'start':'end';
+o+=`<text x="${lx}" y="${ly}" text-anchor="${an}" font-size="13" font-weight="700" fill="#0b1630">${d.s} ${sc[i]==null?'–':sc[i]}</text>`});
+return o+'</svg>';
+}
+function reportHTML(name){
+const sc=scores(),got=sc.filter(x=>x!=null),ov=got.length?Math.round(got.reduce((a,b)=>a+b,0)/got.length):null;
+const order=D.map((d,i)=>i).filter(i=>sc[i]!=null).sort((a,b)=>sc[a]-sc[b]),low=order.slice(0,2),top=order[order.length-1];
+const n=ids.filter(id=>ans[id]).length,date=new Date().toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
+const msg=ov==null?'Answer the statements to get your profile.':ov>=70?'You already work with AI in a deliberate, healthy way. Your next step is to stay there as tools change, and to help others get there: share your habits, coach a colleague, and re-test every quarter.':ov>=45?'You have solid foundations, but some habits are drifting. Small, weekly practices in your two focus areas will move your profile fastest.':'AI may be shaping your thinking more than you are shaping it. That is common and fixable: start with the two focus areas below, one habit a week.';
+const o1=ans['q-c-2'],u1=ans['q-c-4'];
+const lean=(o1&&u1)?(o1-u1>=2?'Your trust leans towards <b>over-trust</b>: confident answers get through without checking.':u1-o1>=2?'Your trust leans towards <b>under-trust</b>: you avoid AI even where it has earned it.':'Your trust is <b>balanced</b> between over- and under-trust.'):'';
+const rows=D.map((d,i)=>`<tr><td><b>${d.k}</b> ${d.n}</td><td style="text-align:right"><b>${sc[i]==null?'–':sc[i]}</b></td><td>${bandOf(sc[i])}</td></tr>`).join('');
+const focus=low.map(i=>`<div class="box"><h3>${D[i].n} <span class="pk">${sc[i]}</span></h3><p>${D[i].d}</p><ul>${D[i].p.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+const f1=low[0]!=null?D[low[0]]:null,f2=low[1]!=null?D[low[1]]:null;
+const plan=f1?[['Week 1',f1.n,f1.p[0]],['Week 2',f2?f2.n:f1.n,f2?f2.p[0]:f1.p[1]],['Week 3',f1.n,f1.p[1]+' Also start a log of moments when AI misled you.'],['Week 4','Re-test','Retake CALIBRE at ai-university.co.in/calibre and compare this report with your new profile.']]:[];
+const planH=plan.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+const answers=D.map(d=>d.q.map((q,j)=>{const v=ans['q-'+d.k.toLowerCase()+'-'+(j+1)];return `<tr><td>${d.k}</td><td>${q[0]}${q[1]?' <span class="muted">(reverse-scored)</span>':''}</td><td>${v?v+' · '+ALAB[v]:'<span class="muted">Not answered</span>'}</td></tr>`}).join('')).join('');
+return `<div class="rp">
+<div class="hdr"><img src="https://ai-university.co.in/img/ai-academia-logo.webp" alt="AI Academia" width="64" height="64" style="border-radius:50%"><div style="flex:1"><div class="muted">AI Academia · CALIBRE v0.1 · ${date}</div><h1>AI psychology report</h1><div class="who">${esc(name)}</div></div><div class="ov"><div class="big">${ov==null?'–':ov}</div><div>overall / 100<br><b>${bandOf(ov)}</b></div></div></div>
+${n<28?`<p class="muted">Based on ${n} of 28 statements answered.</p>`:''}
+<h2>Your profile</h2>
+<div class="two"><div>${radarSVG(sc)}</div><div><table><thead><tr><th>Dimension</th><th style="text-align:right">Score</th><th>Band</th></tr></thead><tbody>${rows}</tbody></table>${lean?`<p>${lean}</p>`:''}</div></div>
+<h2>What this means</h2><p>${msg}</p>
+${top!=null?`<p><b>Your anchor strength is ${D[top].n} (${sc[top]}).</b> Lean on it: it is the habit you can use to build the others.</p>`:''}
+<h2>Focus areas: where to grow first</h2>${focus||'<p>Answer the statements to see your focus areas.</p>'}
+${planH?`<h2>Your 30-day plan to scale up</h2><table><thead><tr><th>When</th><th>Dimension</th><th>Practice</th></tr></thead><tbody>${planH}</tbody></table>`:''}
+<h2>All recommendations</h2><table><thead><tr><th>Dimension</th><th>Practices</th></tr></thead><tbody>${D.map(d=>`<tr><td><b>${d.k}</b> ${d.n}</td><td>${d.p.join(' ')}</td></tr>`).join('')}</tbody></table>
+<h2>Your answers</h2><table><thead><tr><th></th><th>Statement</th><th>Your answer</th></tr></thead><tbody>${answers}</tbody></table>
+<p class="muted">Scores: 1–5 answers converted to 0–100 per dimension; below 45 at risk, 45–69 developing, 70+ calibrated. CALIBRE v0.1 is a draft self-report instrument by Pawan Maheshwari and is not yet validated, so treat scores as a starting point for reflection, not a diagnosis. Read the full article at ai-university.co.in/ai-psychology-calibre.html</p>
+</div>`;
+}
+const RCSS=`.rp{font:14px/1.5 Helvetica,Arial,sans-serif;color:#111;max-width:820px;margin:0 auto}.rp h1{font-size:30px;margin:2px 0}.rp h1,.rp h2,.rp h3{max-width:none;letter-spacing:0;font-family:Helvetica,Arial,sans-serif;text-wrap:wrap}.rp td:first-child{white-space:nowrap}.rp h2{font-size:19px;margin:22px 0 8px;color:#0b1f4b;border-bottom:2px solid #0b1f4b;padding-bottom:4px;break-after:avoid}.rp h3{font-size:16px;margin:0 0 4px}.rp .hdr{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:4px solid #d0105a;padding-bottom:12px}.rp .who{font-size:20px;font-weight:700;color:#0b1f4b}.rp .ov{display:flex;gap:10px;align-items:center}.rp .big{font-size:52px;font-weight:800;color:#d0105a;line-height:1}.rp .muted{color:#555;font-size:12px}.rp .pk{color:#d0105a}.rp .two{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}.rp table{border-collapse:collapse;width:100%;margin:6px 0}.rp th,.rp td{text-align:left;padding:6px;border-bottom:1px solid #ddd;vertical-align:top}.rp tr{break-inside:avoid}.rp .box{border:1px solid #d5dbeb;border-left:4px solid #d0105a;padding:10px 14px;margin:8px 0;break-inside:avoid}.rp ul{margin:6px 0 0;padding-left:20px}@media(max-width:640px){.rp .two{grid-template-columns:1fr}.rp svg{max-width:100%;height:auto}}`;
+function needName(){const nm=$('uname').value.trim();if(!nm){$('toast').textContent='Add your name first, so the report is yours.';$('uname').focus();return null}const n=ids.filter(id=>ans[id]).length;$('toast').textContent=n<28?`Report ready. You have answered ${n} of 28; unanswered statements are marked.`:'Report ready.';return nm}
+$('dlpdf').addEventListener('click',()=>{const nm=needName();if(!nm)return;countCompletion();const r=$('report');r.innerHTML=`<style>${RCSS}</style>`+reportHTML(nm);const t=document.title;document.title='CALIBRE report - '+nm;const back=()=>{document.title=t;window.removeEventListener('afterprint',back)};window.addEventListener('afterprint',back);try{window.print()}catch(e){$('toast').textContent='Printing is blocked here. Use Save report as file instead.';back()}});
+$('dlhtml').addEventListener('click',()=>{const nm=needName();if(!nm)return;countCompletion();const doc=`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CALIBRE report - ${esc(nm)}</title><style>body{margin:24px 16px;background:#fff}${RCSS}</style></head><body>${reportHTML(nm)}</body></html>`;try{const u=URL.createObjectURL(new Blob([doc],{type:'text/html'}));const a=document.createElement('a');a.href=u;a.download='CALIBRE-report-'+(nm.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'')||'me')+'.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}catch(e){$('toast').textContent='Download is blocked here. Try Download report (PDF).'}});
+
+/* ---------- Community counter and milestones ---------- */
+const SB='https://octgqicycwaxfsxaswjf.supabase.co/rest/v1/rpc/',SBK='sb_publishable_MzsglSmQRtprAHzhIcOYrw_vYzCaBOZ',CKEY='calibre-counted-at';
+const ICONS={"star": "<path d=\"M32 4l8.6 17.5 19.4 2.8-14 13.6 3.3 19.3L32 48.1 14.7 57.2 18 37.9 4 24.3l19.4-2.8z\" fill=\"#f5c542\"/><path d=\"M32 4v44.1L14.7 57.2 18 37.9 4 24.3l19.4-2.8z\" fill=\"#e8ad2c\"/>", "superstar": "<path d=\"M32 12l6 12.2 13.5 2-9.8 9.5 2.3 13.4L32 42.8l-12 6.3 2.3-13.4-9.8-9.5 13.5-2z\" fill=\"none\" stroke=\"#f0b72f\" stroke-width=\"5\" stroke-linejoin=\"round\"/><path d=\"M32 22l3 6 6.7 1-4.8 4.7 1.1 6.6L32 37.2l-6 3.1 1.1-6.6-4.8-4.7 6.7-1z\" fill=\"#f5c542\"/><path d=\"M10 10l5 5M54 10l-5 5M6 34h6M58 34h-6M14 54l4-4M50 54l-4-4\" stroke=\"#f5c542\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>", "trophy": "<path d=\"M18 8h28v14c0 9-6 16-14 16S18 31 18 22z\" fill=\"#f5c542\"/><path d=\"M32 8h14v14c0 9-6 16-14 16z\" fill=\"#e8ad2c\"/><path d=\"M18 13H8v4c0 7 5 11 11 11M46 13h10v4c0 7-5 11-11 11\" fill=\"none\" stroke=\"#e8ad2c\" stroke-width=\"4\"/><path d=\"M28 38h8v8h-8z\" fill=\"#e8ad2c\"/><path d=\"M20 46h24l3 8H17z\" fill=\"#f5c542\"/><path d=\"M32 15l2.4 4.9 5.4.8-3.9 3.8.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.9-3.8 5.4-.8z\" fill=\"#fff3c4\"/>", "medal": "<path d=\"M20 2h24l-4 22H24z\" fill=\"#f5c542\"/><path d=\"M28 2h8l-2 22h-4z\" fill=\"#e8ad2c\"/><circle cx=\"32\" cy=\"40\" r=\"18\" fill=\"#f5c542\"/><circle cx=\"32\" cy=\"40\" r=\"13\" fill=\"#e8ad2c\"/><path d=\"M32 31l2.6 5.3 5.8.9-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.9z\" fill=\"#fff3c4\"/>", "laurel": "<path d=\"M14 18c-6 10-4 26 8 34M50 18c6 10 4 26-8 34\" fill=\"none\" stroke=\"#e8ad2c\" stroke-width=\"3\"/><ellipse cx=\"12\" cy=\"24\" rx=\"5\" ry=\"3\" transform=\"rotate(-60 12 24)\" fill=\"#f5c542\"/><ellipse cx=\"10\" cy=\"33\" rx=\"5\" ry=\"3\" transform=\"rotate(-80 10 33)\" fill=\"#f5c542\"/><ellipse cx=\"12\" cy=\"42\" rx=\"5\" ry=\"3\" transform=\"rotate(-100 12 42)\" fill=\"#f5c542\"/><ellipse cx=\"17\" cy=\"50\" rx=\"5\" ry=\"3\" transform=\"rotate(-125 17 50)\" fill=\"#f5c542\"/><ellipse cx=\"52\" cy=\"24\" rx=\"5\" ry=\"3\" transform=\"rotate(60 52 24)\" fill=\"#f5c542\"/><ellipse cx=\"54\" cy=\"33\" rx=\"5\" ry=\"3\" transform=\"rotate(80 54 33)\" fill=\"#f5c542\"/><ellipse cx=\"52\" cy=\"42\" rx=\"5\" ry=\"3\" transform=\"rotate(100 52 42)\" fill=\"#f5c542\"/><ellipse cx=\"47\" cy=\"50\" rx=\"5\" ry=\"3\" transform=\"rotate(125 47 50)\" fill=\"#f5c542\"/><path d=\"M24 34h16l-3 8h-10z\" fill=\"#e8ad2c\"/><path d=\"M32 14c5 5 6 10 0 18-6-8-5-13 0-18z\" fill=\"#f5c542\"/><circle cx=\"32\" cy=\"54\" r=\"4\" fill=\"#f5c542\"/>", "shield": "<path d=\"M32 4l24 8v18c0 15-10 25-24 30C18 55 8 45 8 30V12z\" fill=\"#f5c542\"/><path d=\"M32 4l24 8v18c0 15-10 25-24 30z\" fill=\"#e8ad2c\"/><path d=\"M32 20l3.6 7.3 8 1.2-5.8 5.6 1.4 8-7.2-3.8-7.2 3.8 1.4-8-5.8-5.6 8-1.2z\" fill=\"#fff3c4\"/>", "sword": "<path d=\"M29 6h6v32h-6z\" fill=\"#f5c542\"/><path d=\"M22 14h20v5H22z\" fill=\"#e8ad2c\"/><circle cx=\"32\" cy=\"5\" r=\"4\" fill=\"#f5c542\"/><path d=\"M14 58l6-16h24l6 16z\" fill=\"#e8ad2c\"/><path d=\"M20 42h12v16H14z\" fill=\"#f5c542\"/><path d=\"M10 18l5 3M54 18l-5 3M8 30h6M56 30h-6\" stroke=\"#f5c542\" stroke-width=\"3\" stroke-linecap=\"round\"/>", "diamond": "<path d=\"M16 22l8-10h16l8 10-16 30z\" fill=\"#f5c542\"/><path d=\"M16 22h32L32 52z\" fill=\"#e8ad2c\"/><path d=\"M24 12l-2 10 10 30 10-30-2-10\" fill=\"none\" stroke=\"#fff3c4\" stroke-width=\"1.5\"/><path d=\"M32 4v4M18 6l2 4M46 6l-2 4\" stroke=\"#f5c542\" stroke-width=\"3\" stroke-linecap=\"round\"/>", "sun": "<circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"#f5c542\"/><circle cx=\"32\" cy=\"32\" r=\"10\" fill=\"#fff3c4\" opacity=\".5\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(0 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(30 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(60 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(90 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(120 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(150 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(180 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(210 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(240 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(270 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(300 32 32)\"/><path d=\"M32 4l3 9h-6z\" fill=\"#e8ad2c\" transform=\"rotate(330 32 32)\"/>", "planet": "<circle cx=\"32\" cy=\"32\" r=\"15\" fill=\"#f5c542\"/><path d=\"M17 32a15 15 0 0 1 15-15v30a15 15 0 0 1-15-15z\" fill=\"#e8ad2c\"/><ellipse cx=\"32\" cy=\"32\" rx=\"28\" ry=\"9\" fill=\"none\" stroke=\"#e8ad2c\" stroke-width=\"3.5\" transform=\"rotate(-18 32 32)\"/><path d=\"M52 10l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5zM12 48l1 2 2 1-2 1-1 2-1-2-2-1 2-1z\" fill=\"#f5c542\"/>", "galaxy": "<ellipse cx=\"32\" cy=\"32\" rx=\"26\" ry=\"14\" fill=\"none\" stroke=\"#e8ad2c\" stroke-width=\"4\" transform=\"rotate(-20 32 32)\"/><ellipse cx=\"32\" cy=\"32\" rx=\"16\" ry=\"8\" fill=\"none\" stroke=\"#f5c542\" stroke-width=\"4\" transform=\"rotate(-20 32 32)\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#f5c542\"/><path d=\"M50 8l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5zM12 52l1 2 2 1-2 1-1 2-1-2-2-1 2-1z\" fill=\"#f5c542\"/>"};
+const BADGES=[[10,'Star','star'],[25,'Superstar','superstar'],[50,'Champion','trophy'],[100,'Icon','medal'],[250,'Hall of fame','laurel'],[500,'Invincible','shield'],[1000,'Legend','sword'],[2500,'Supreme','diamond'],[5000,'Interstellar','sun'],[10000,'Galactic','planet'],[25000,'Cosmic','galaxy']];
+const fmt=n=>Number(n).toLocaleString('en-US');
+let community=null;
+function rpc(fn){return fetch(SB+fn,{method:'POST',headers:{apikey:SBK,'Content-Type':'application/json'},body:'{}'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(v=>{const n=Number(Array.isArray(v)?v[0]:v);if(!isFinite(n))throw new Error('bad');return n})}
+function renderCommunity(){
+const n=community,known=n!=null,c=known?n:0;
+$('cnum').textContent=known?fmt(c):'–';
+const nxt=BADGES.find(b=>c<b[0]),prev=[...BADGES].reverse().find(b=>c>=b[0]);
+const lo=prev?prev[0]:0,pct=nxt?Math.round((c-lo)/(nxt[0]-lo)*100):100;
+$('cfill').style.width=(known?pct:0)+'%';$('cbar').setAttribute('aria-valuenow',known?pct:0);
+$('cnext').textContent=!known?'The live count is not available right now.':nxt?`${fmt(nxt[0]-c)} more to unlock ${nxt[1]}${prev?' · '+prev[1]+' unlocked':''}`:'Every badge unlocked. Thank you, Cosmic community!';
+$('badges').innerHTML=BADGES.map(b=>{const on=known&&c>=b[0],isNext=nxt&&b[0]===nxt[0];return `<div class="bdg${on?'':' lock'}${isNext?' next':''}"><svg viewBox="0 0 64 64" role="img" aria-label="${b[1]} badge${on?' unlocked':' locked'}">${ICONS[b[2]]}</svg><b>${fmt(b[0])}</b><span>${b[1]}</span></div>`}).join('');
+if(known&&nxt){requestAnimationFrame(()=>{const el=bx.querySelector('.bdg.next');if(el){const per=Math.max(1,Math.round(bx.clientWidth/el.offsetWidth));const idx=[...bx.children].indexOf(el);bx.scrollLeft=Math.floor(idx/per)*bx.clientWidth;dots()}})}
+const jl=$('joinLine');if(known&&c>0){jl.hidden=false;jl.textContent=`Join ${fmt(c)} ${c===1?'person':'people'} who have measured theirs.`}
+dots();
+}
+const bx=$('badges');
+function pageInfo(){const w=bx.clientWidth||1;return{pages:Math.max(1,Math.ceil(bx.scrollWidth/w-0.01)),cur:Math.round(bx.scrollLeft/w)}}
+function dots(){const{pages,cur}=pageInfo();$('bdots').innerHTML=Array.from({length:pages},(_,i)=>`<i class="${i===cur?'on':''}"></i>`).join('')}
+$('bprev').addEventListener('click',()=>bx.scrollBy({left:-bx.clientWidth,behavior:'smooth'}));
+$('bnext').addEventListener('click',()=>bx.scrollBy({left:bx.clientWidth,behavior:'smooth'}));
+bx.addEventListener('keydown',e=>{if(e.key==='ArrowRight')bx.scrollBy({left:bx.clientWidth,behavior:'smooth'});if(e.key==='ArrowLeft')bx.scrollBy({left:-bx.clientWidth,behavior:'smooth'})});
+bx.addEventListener('scroll',()=>{clearTimeout(bx._t);bx._t=setTimeout(dots,80)});
+const bro=new ResizeObserver(dots);bro.observe(bx);
+rpc('calibre_count').then(n=>{community=n;renderCommunity()}).catch(()=>{community=null;renderCommunity()});
+renderCommunity();
+function countCompletion(){
+if(ids.some(id=>!ans[id])||isSample)return;
+let last=0;try{last=+localStorage.getItem(CKEY)||0}catch(e){}
+if(Date.now()-last<864e5)return;
+try{localStorage.setItem(CKEY,String(Date.now()))}catch(e){}
+rpc('calibre_increment').then(n=>{const before=community;community=n;renderCommunity();const hit=BADGES.find(b=>before!=null&&before<b[0]&&n>=b[0]);$('toast').textContent=hit?`You just unlocked the ${hit[1]} badge for the community!`:`You are #${fmt(n)} to complete CALIBRE. Thank you!`}).catch(()=>{try{localStorage.removeItem(CKEY)}catch(e){}});
+}
 syncInputs();update();drawMap();
 }
 </script>
+<div id="report" aria-hidden="true"></div>
 </body></html>
