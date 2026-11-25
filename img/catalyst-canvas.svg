@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5E0E0E"/><stop offset="1" stop-color="#8C1515"/></linearGradient>
+    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#fff" stroke-opacity=".07"/></pattern>
+  </defs>
+  <rect width="480" height="280" fill="url(#bg)"/>
+  <rect width="480" height="280" fill="url(#g)"/>
+  <!-- matrix -->
+  <rect x="236" y="38" width="208" height="176" fill="#FBF7EF" rx="4"/>
+  <rect x="236" y="38" width="104" height="88" fill="#E8F5E9"/>
+  <path d="M340 38v176M236 126h208" stroke="#CFC9C0" stroke-width="2"/>
+  <text x="246" y="56" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#2E7D32" letter-spacing="1">QUICK WINS</text>
+  <text x="434" y="56" text-anchor="end" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#8C1515" letter-spacing="1">STRATEGIC BETS</text>
+  <g transform="rotate(-4 280 90)"><rect x="252" y="68" width="62" height="46" rx="2" fill="#C6EFD3"/><path d="M260 82h44M260 92h34M260 102h40" stroke="#2E7D32" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/></g>
+  <g transform="rotate(3 392 92)"><rect x="362" y="70" width="62" height="46" rx="2" fill="#FFD0DC"/><path d="M370 84h44M370 94h30" stroke="#8C1515" stroke-opacity=".4" stroke-width="3" stroke-linecap="round"/></g>
+  <g transform="rotate(-2 382 170)"><rect x="352" y="148" width="62" height="46" rx="2" fill="#BFE0FF"/><path d="M360 162h44M360 172h36" stroke="#1F6F78" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/></g>
+  <!-- VoC stack -->
+  <g transform="rotate(-8 120 150)"><rect x="70" y="108" width="96" height="84" rx="2" fill="#BFE0FF"/></g>
+  <g transform="rotate(5 130 140)"><rect x="80" y="96" width="96" height="84" rx="2" fill="#FFE58F"/><path d="M92 120h70M92 134h56M92 148h64" stroke="#8A6E1E" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/><rect x="112" y="89" width="34" height="11" fill="#fff" fill-opacity=".6"/></g>
+  <!-- arrow -->
+  <path d="M188 150c18 0 26-12 38-24" fill="none" stroke="#E9C96A" stroke-width="3" stroke-linecap="round"/>
+  <path d="M220 120l8 4-2 9" fill="none" stroke="#E9C96A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- mark -->
+  <g transform="translate(36 30)">
+    <path d="M22 0l19 11v22L22 44 3 33V11z" fill="#8C1515" stroke="#E9C96A" stroke-width="2"/>
+    <path d="M24 9L14 25h7l-2 11 10-17h-7z" fill="#E9C96A"/>
+  </g>
+  <text x="36" y="244" font-family="Georgia,serif" font-size="26" font-weight="700" fill="#fff">Catalyst Canvas</text>
+  <text x="36" y="264" font-family="Arial,sans-serif" font-size="12" fill="#F3E3B5">Voice of customer → ROI matrix → AI canvas</text>
+</svg>
