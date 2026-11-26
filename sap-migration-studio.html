@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAP S/4HANA Migration Studio · AI Academia</title>
+<meta name="description" content="Meridian — an ECC to S/4HANA migration utility: readiness assessment, ABAP custom-code scan, Business Partner data profiling, Excel field and interface mapping to S/4HANA, roadmap, risk register and cutover planner. Co-created by PlanetAI LLP.">
+<link rel="icon" type="image/svg+xml" href="img/sap-migration-studio-icon.svg">
+<style>
+/* VOICE: calm, scholarly, enterprise — AI Academia house style with liquid glass.
+   IDEA: an instrument panel for a system conversion — every module feeds one readiness picture.
+   PICTURE: readiness ring + live countdown to SAP deadlines; the Gantt in Roadmap.
+   COLOUR and TYPE: AI Academia ivory, cardinal #8C1515, gold #B8962E; EB Garamond/Georgia headings, system sans body.
+   LAYOUT: glass sidebar (bottom tab bar on phones), glass cards on a warm ambient light field. */
+:root{color-scheme:light dark;
+--bg:light-dark(#F9F7F4,#120e0c);--ink:light-dark(#1A1917,#f5f1ea);--mute:light-dark(#5f5953,#b9b0a5);
+--glass:light-dark(rgba(255,255,255,.62),rgba(36,28,26,.58));--glass2:light-dark(rgba(255,255,255,.82),rgba(48,38,35,.72));
+--stroke:light-dark(rgba(255,255,255,.9),rgba(255,255,255,.10));--line:light-dark(rgba(60,40,20,.11),rgba(255,240,220,.09));
+--shadow:light-dark(0 12px 40px rgba(90,40,20,.10),0 12px 40px rgba(0,0,0,.5));
+--blue:light-dark(#8C1515,#e0706c);--fill:#8C1515;--gold:#B8962E;--serif:'EB Garamond',Georgia,'Times New Roman',serif;--okT:light-dark(#1a7434,#6fe08f);--warnT:light-dark(#985400,#ffbe5c);--badT:light-dark(#c0261c,#ff8077);--teal:#B8962E;--ok:#30c35a;--warn:#ff9f0a;--bad:#ff453a;--r:22px}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+.ambient{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.ambient i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+.ambient i:nth-child(1){width:46vw;height:46vw;left:-10vw;top:-12vw;background:radial-gradient(circle,#c8494a,transparent 65%);opacity:.32}
+.ambient i:nth-child(2){width:40vw;height:40vw;right:-8vw;top:20vh;background:radial-gradient(circle,#d9b75a,transparent 65%);opacity:.42}
+.ambient i:nth-child(3){width:38vw;height:38vw;left:30vw;bottom:-18vw;background:radial-gradient(circle,#e8c9a0,transparent 65%);opacity:.5}
+@media (prefers-reduced-motion:no-preference){.ambient i{animation:drift 26s ease-in-out infinite alternate}.ambient i:nth-child(2){animation-duration:32s}.ambient i:nth-child(3){animation-duration:38s}}
+@keyframes drift{to{transform:translate(4vw,3vh) scale(1.08)}}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);border:1px solid var(--stroke);border-radius:var(--r);box-shadow:inset 0 1px 0 light-dark(rgba(255,255,255,.9),rgba(255,255,255,.08)),var(--shadow)}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;padding:18px 14px;display:flex;flex-direction:column;gap:6px}
+.side .glass{height:100%;padding:18px 12px;display:flex;flex-direction:column;gap:4px}
+.brand{display:flex;gap:11px;align-items:center;padding:4px 8px 18px}
+.brand svg{width:48px;height:48px;flex:none;filter:drop-shadow(0 6px 14px rgba(140,21,21,.3))}
+.brand b{display:block;font:600 21px/1.1 var(--serif);color:var(--blue)}.brand small{color:var(--mute);font-size:12px}
+.nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:13px;color:var(--ink);text-decoration:none;font-weight:500;min-height:44px;transition:background .2s}
+.nav a svg{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.nav a:hover{background:light-dark(rgba(255,255,255,.6),rgba(255,255,255,.06))}
+.nav a.on{background:var(--fill);color:#fff;box-shadow:0 6px 18px rgba(140,21,21,.32)}
+.nav a.on svg{opacity:1}
+.cocreate{margin-top:auto;padding:12px;font-size:12px;color:var(--mute);border-top:1px solid var(--line)}
+.cocreate b{color:var(--ink);display:block;font-size:13px}
+main{padding:22px clamp(14px,3vw,40px) 60px;max-width:1320px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:8px 0 20px}
+h1{font:600 clamp(28px,3.6vw,42px)/1.08 var(--serif);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font:600 22px/1.2 var(--serif);margin:0 0 4px}
+h3{font-size:15px;margin:0 0 8px}
+.sub{color:var(--mute);margin:6px 0 0;max-width:70ch}
+.view{display:none}.view.on{display:block;animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+@media (prefers-reduced-motion:reduce){.view.on{animation:none}}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}
+.card{padding:20px}
+.kpi{padding:16px 18px}.kpi small{color:var(--mute);font-size:12.5px;display:block}.kpi b{font:600 clamp(26px,2.8vw,34px)/1.1 var(--serif);display:block;margin-top:4px;white-space:nowrap}.kpi span{font-size:12.5px;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;appearance:none;border:0;border-radius:999px;padding:10px 18px;min-height:44px;font:600 14px/1 inherit;font-family:inherit;cursor:pointer;background:var(--fill);color:#fff;box-shadow:0 6px 16px rgba(140,21,21,.28);transition:transform .15s}
+.btn:active{transform:scale(.97)}.btn.ghost{background:var(--glass2);color:var(--ink);box-shadow:none;border:1px solid var(--line)}
+.btn:focus-visible,.nav a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.pill input:focus-visible+span{outline:3px solid rgba(184,150,46,.7);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select,textarea{font:16px/1.4 inherit;font-family:inherit;color:var(--ink);background:var(--glass2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;width:100%}
+textarea{font:13px/1.55 ui-monospace,"SF Mono",Menlo,monospace;min-height:260px;resize:vertical}
+label.f{display:grid;gap:6px;font-size:13px;color:var(--mute);font-weight:500}
+.q{padding:14px 0;border-bottom:1px solid var(--line)}.q:last-child{border:0}
+.q p{margin:0 0 8px;font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{position:relative}.pill input{position:absolute;opacity:0;width:1px;height:1px}
+.pill span{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;border-radius:999px;background:var(--glass2);border:1px solid var(--line);font-size:13.5px;cursor:pointer;transition:all .2s}
+.pill input:checked+span{background:var(--fill);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(140,21,21,.28)}
+.bar{height:8px;border-radius:9px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#8C1515,#B8962E);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.dim{display:grid;grid-template-columns:110px minmax(0,1fr) 42px;gap:10px;align-items:center;font-size:13.5px;margin:9px 0}.dim b{text-align:right}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.High,.t-bad{background:rgba(255,69,58,.15);color:light-dark(#a3170e,#ff8a80)}.Med,.t-warn{background:rgba(255,159,10,.16);color:light-dark(#7f4700,#ffc56e)}.Low,.t-ok{background:rgba(48,195,90,.15);color:light-dark(#145f2b,#7be89a)}.t-info{background:rgba(184,150,46,.18);color:light-dark(#5e4710,#e6c86e)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th{text-align:left;color:var(--mute);font-weight:600;font-size:12.5px;padding:8px 10px;border-bottom:1px solid var(--line)}td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}td.n,th.n{text-align:right;white-space:nowrap}
+td select{min-height:36px;padding:4px 8px;font-size:14px;width:auto}
+.scroll{overflow-x:auto}
+.act{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.act:last-child{border:0}.act .dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex:none}
+.ring{display:grid;place-items:center;position:relative;width:180px;height:180px;flex:none}.ring svg{position:absolute;inset:0}.ring b{font:600 50px/1 var(--serif)}.ring small{display:block;text-align:center;color:var(--mute);font-size:12px}
+.hero{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.big{font:600 25px/1.2 var(--serif)}
+.gantt{position:relative}.gr{display:grid;grid-template-columns:170px minmax(0,1fr);align-items:center;min-height:34px;border-bottom:1px dashed var(--line)}.gr>span{font-size:13px;font-weight:500;padding-right:8px}
+.track{position:relative;height:34px}.gb{position:absolute;top:8px;height:18px;border-radius:9px;background:linear-gradient(90deg,#8C1515,#b8403c);box-shadow:0 3px 10px rgba(140,21,21,.22)}
+.gb.ws{background:linear-gradient(90deg,#B8962E,#dcc278);opacity:.9}.gb.wv{background:linear-gradient(90deg,#ff9f0a,#ffc66b)}
+.ms{position:absolute;top:10px;width:14px;height:14px;transform:translateX(-7px) rotate(45deg);background:var(--ink);border:2px solid var(--bg);border-radius:3px}
+.axis{position:relative;height:22px;margin-left:170px;font-size:11.5px;color:var(--mute)}.axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.dl{position:absolute;top:0;bottom:0;width:0;border-left:2px dashed var(--bad);z-index:1}.dl em{position:absolute;top:-2px;left:4px;font-size:11px;font-style:normal;color:var(--badT);white-space:nowrap;font-weight:600}
+.heat{display:grid;grid-template-columns:28px repeat(5,minmax(0,1fr));gap:5px;font-size:12px}.heat div{aspect-ratio:1.4;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:15px}.heat .ax{background:none;color:var(--mute);font-weight:500;font-size:11.5px;aspect-ratio:auto}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}.chk input{width:22px;height:22px;min-height:0;accent-color:var(--blue);flex:none;margin-top:1px}.chk.done span{color:var(--mute);text-decoration:line-through}
+.wbar{display:flex;height:26px;border-radius:13px;overflow:hidden;margin:12px 0}.wbar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--mute)}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,40px);opacity:0;padding:12px 20px;border-radius:999px;background:rgba(20,22,28,.88);color:#fff;font-weight:600;font-size:14px;transition:all .35s cubic-bezier(.2,.8,.2,1);z-index:50;pointer-events:none}.toast.on{opacity:1;transform:translate(-50%,0)}
+.note{font-size:12.5px;color:var(--mute)}
+.mt{margin-top:16px}
+code{font:12.5px ui-monospace,"SF Mono",Menlo,monospace;overflow-wrap:anywhere}
+.dates{display:grid;gap:10px}.dates div{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:10px 12px;border-radius:14px;background:var(--glass2)}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:900px){
+.app{grid-template-columns:minmax(0,1fr)}
+.side{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;padding:0 8px max(8px,env(safe-area-inset-bottom));z-index:20}
+.side .glass{flex-direction:row;padding:6px;border-radius:24px;overflow-x:auto;gap:2px}
+.brand,.cocreate{display:none}.nav{display:flex;gap:2px}
+.nav{width:100%}.side .glass{overflow:hidden}.nav a{flex:1 1 0;min-width:0;flex-direction:column;gap:2px;font-size:9.5px;padding:7px 0;border-radius:15px;letter-spacing:-.01em}.nav a svg{width:19px;height:19px}.totop{bottom:96px;right:16px}
+main{padding-bottom:110px}.mbrand{display:flex!important}
+.g3,.g2{grid-template-columns:minmax(0,1fr)}
+.gr{grid-template-columns:110px minmax(0,1fr)}.axis{margin-left:110px}.gr>span{font-size:11.5px}
+}
+.dlwrap{left:170px}@media(max-width:900px){.dlwrap{left:110px!important}}
+.rk,.fd{padding:14px 0;border-bottom:1px solid var(--line)}.rk:last-child,.fd:last-child{border:0}
+.rk-h,.fd-h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.fd-h{justify-content:flex-start;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.rk-c{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:10px}.rk-c label{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;color:var(--ink);font-weight:500}
+.rk-c select{width:auto;min-height:38px;padding:4px 10px;font-size:15px}.rk p,.fd p{margin:6px 0 0;font-size:13.5px}
+.conf{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--mute);white-space:nowrap}.conf i{display:inline-block;width:34px;height:5px;border-radius:5px;background:var(--line);overflow:hidden;position:relative}.conf i b{position:absolute;inset:0 auto 0 0;background:var(--blue);border-radius:5px}
+.rec{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) 46px;gap:10px;align-items:center;font-size:13.5px;padding:8px 0;border-bottom:1px solid var(--line)}.rec:last-child{border:0}.rec b{text-align:right}
+.dist{display:flex;height:12px;border-radius:8px;overflow:hidden;margin:10px 0 6px}.dist i{display:block;height:100%}
+.totop{position:fixed;right:22px;bottom:26px;width:48px;height:48px;border-radius:50%;border:1px solid var(--stroke);background:var(--glass2);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:var(--shadow);color:var(--ink);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;transition:all .3s cubic-bezier(.2,.8,.2,1);z-index:30}
+.totop.on{opacity:1;transform:none;pointer-events:auto}.totop svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:900px){.totop{bottom:calc(92px + env(safe-area-inset-bottom));right:16px}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:grid;place-items:center;z-index:60;padding:16px}.modal[hidden]{display:none}.modal .card{width:min(760px,100%);background:var(--glass2)}.modal textarea{min-height:min(50vh,360px)}
+.how{font-size:12.5px;color:var(--mute);margin-top:10px}.how summary{cursor:pointer;font-weight:600;color:var(--ink);min-height:36px;display:flex;align-items:center}
+.home{display:inline-flex;align-items:center;align-self:flex-start;text-decoration:none;color:var(--blue);font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--glass2);border-radius:999px;padding:7px 13px;margin:0 6px 12px;min-height:36px}.home:hover{border-color:var(--gold)}html.framed .home{display:none}
+.eyebrow{font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:light-dark(#6e5513,#d9bd6a);font-weight:700}
+.mbrand .home{margin:0}@media(max-width:900px){.side .home{display:none}}
+.mbrand{display:none;align-items:center;gap:10px;margin-bottom:6px}.mbrand svg{width:34px;height:34px}.mbrand small{color:var(--mute);font-size:12px}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7.5em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7em;margin-inline-start:-7.5em;color:var(--mute);font-size:12px}.stack td:empty{display:none}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.ring{width:150px;height:150px}.ring b{font-size:38px}.dim{grid-template-columns:90px minmax(0,1fr) 38px}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<div class="ambient"><i></i><i></i><i></i></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<linearGradient id="lh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<symbol id="logo" viewBox="0 0 100 100">
+<circle cx="50" cy="50" r="48" fill="#B8962E"/><circle cx="50" cy="50" r="41" fill="#8C1515"/>
+<circle cx="50" cy="50" r="41" fill="url(#lh)"/>
+<path d="M24 62C33 28 67 28 76 62" stroke="#F9F7F4" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+<circle cx="24" cy="62" r="5" fill="#F9F7F4" opacity=".65"/>
+<circle cx="76" cy="62" r="6" fill="#B8962E" stroke="#F9F7F4" stroke-width="2.5"/>
+<circle cx="50" cy="36.5" r="9.5" fill="#F9F7F4"/>
+<path d="M50 29.5l2.2 5 5 2-5 2.1L50 43.5l-2.2-4.9-5-2.1 5-2z" fill="#8C1515"/>
+<text x="50" y="83" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="11" fill="#F9F7F4" letter-spacing="1">S/4</text>
+</symbol>
+</defs>
+</svg>
+<div class="app">
+<aside class="side"><div class="glass">
+<a class="home aiu-back" href="index.html" aria-label="Back to AI Academia home">← AI Academia</a>
+<div class="brand"><svg aria-label="Meridian crest"><use href="#logo"/></svg><div><small class="eyebrow">AI Academia</small><b>Meridian</b><small>ECC → S/4HANA Studio</small></div></div>
+<nav class="nav" id="nav">
+<a href="#overview" data-v="overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Overview</a>
+<a href="#assess" data-v="assess"><svg viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-6"/></svg>Assess</a>
+<a href="#code" data-v="code"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>Code</a>
+<a href="#data" data-v="data"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Data</a>
+<a href="#map" data-v="map"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.5 6H13a3 3 0 0 1 3 3v6.5"/><path d="M13.5 13l2.5 2.5 2.5-2.5"/></svg>Mapping</a>
+<a href="#plan" data-v="plan"><svg viewBox="0 0 24 24"><path d="M4 6h9M7 12h11M10 18h8"/><circle cx="4" cy="12" r="0.5"/></svg>Roadmap</a>
+<a href="#risks" data-v="risks"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>Risks</a>
+<a href="#cutover" data-v="cutover"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Cutover</a>
+</nav>
+<div class="cocreate"><span class="eyebrow">AI Academia</span><br>Co-created by<b>PlanetAI LLP</b>Runs fully in your browser — no data leaves this page.</div>
+</div></aside>
+
+<main>
+<div class="mbrand"><svg aria-label="Meridian crest"><use href="#logo"/></svg><div style="flex:1"><small class="eyebrow">AI Academia · Tools</small><br><b style="font:600 19px var(--serif);color:var(--blue)">Meridian</b> <small>· Co-created by PlanetAI LLP</small></div><a class="home aiu-back" href="index.html" aria-label="Back to AI Academia home">← Academia</a></div>
+
+<!-- OVERVIEW -->
+<section class="view" id="v-overview">
+<div class="top"><div><h1>Migration command centre</h1><p class="sub">Every module feeds this view: readiness, code, data, risks and cutover roll up into one prioritised action list.</p></div>
+<div class="row"><button class="btn ghost" id="copyProj">Copy project JSON</button><button class="btn ghost" id="resetAll">Reset to sample</button></div></div>
+<div class="glass card"><div class="hero">
+<div class="ring" id="ring"></div>
+<div style="flex:1 1 260px">
+<small class="note">Recommended path</small><div class="big" id="ovApproach"></div>
+<p class="sub" id="ovWhy"></p>
+<div class="row mt"><a class="btn" href="#assess">Refine assessment</a><a class="btn ghost" href="#plan">Open roadmap</a></div>
+</div>
+<div class="dates" style="flex:1 1 260px" id="ovDates"></div>
+</div></div>
+<div class="grid g4 mt" id="ovKpi"></div>
+<div class="split mt">
+<div class="glass card"><h2>Recommended actions</h2><p class="note">Ranked by severity across all modules. Updates as you work.</p><div id="ovActs"></div></div>
+<div class="glass card"><h2>Readiness by dimension</h2><div id="ovDims"></div><p class="note mt">Scores come from the Assess module. Dimensions under 60 need a dedicated workstream before Realize.</p></div>
+</div>
+</section>
+
+<!-- ASSESS -->
+<section class="view" id="v-assess">
+<div class="top"><div><h1>Readiness assessment</h1><p class="sub">Answer for your landscape. The engine scores five dimensions, flags blockers and recommends Brownfield, Greenfield or Selective Data Transition, with its reasons.</p></div></div>
+<div class="split">
+<div class="glass card" id="qList"></div>
+<div style="position:sticky;top:20px" class="grid">
+<div class="glass card"><small class="note">Overall readiness</small><div class="big" id="aScore"></div><div id="aDims"></div></div>
+<div class="glass card"><small class="note">Recommended approach</small><div class="big" id="aApproach"></div><ul id="aWhy" class="note" style="padding-left:18px;margin:8px 0 0"></ul><div class="mt" id="aMix"></div></div>
+<div class="glass card"><h3>Blockers and pre-projects</h3><div id="aFlags"></div></div>
+</div></div>
+</section>
+
+<!-- CODE -->
+<section class="view" id="v-code">
+<div class="top"><div><h1>Custom code analyser</h1><p class="sub">Paste ABAP or load a source file. The scanner matches S/4HANA simplification patterns line by line and suggests the fix and effort. It is a fast first look, not a replacement for ATC with the S/4HANA readiness check variant.</p></div></div>
+<div class="split">
+<div class="glass card">
+<div class="row" style="justify-content:space-between"><h3 style="margin:0">ABAP source</h3><div class="row"><label class="btn ghost" style="display:inline-flex;align-items:center">Load file<input type="file" id="codeFile" accept=".abap,.txt,.prog,.aba" hidden></label><button class="btn ghost" id="codeSample">Sample</button><button class="btn" id="codeScan">Scan</button></div></div>
+<textarea id="codeIn" class="mt" spellcheck="false" aria-label="ABAP source code"></textarea>
+<p class="note">Sample program is illustrative. Lines starting with * and text after " are treated as comments.</p>
+</div>
+<div class="grid">
+<div class="grid g2" id="codeKpi"></div>
+<div class="glass card"><h3>Findings by area</h3><div id="codeAreas"></div><details class="how"><summary>How confidence is calculated</summary><p><b>Detection confidence</b> is how precise each matching rule is: exact table or statement matches score 90–95%; heuristics such as LIS table names or SELECT-in-LOOP score 55–75%. <b>Conversion confidence</b> starts at 100 and subtracts 6 per High, 3 per Medium and 1 per Low finding, each weighted by its detection confidence. Above 80 = likely converts with light rework; 50–80 = planned remediation; below 50 = significant rework before conversion.</p></details></div>
+</div></div>
+<div class="glass card mt"><div class="row" style="justify-content:space-between"><h2>Findings</h2><button class="btn ghost" id="codeCopy">Copy report (CSV)</button></div>
+<div id="codeRows"></div></div>
+</section>
+
+<!-- DATA -->
+<section class="view" id="v-data">
+<div class="top"><div><h1>Master data profiler</h1><p class="sub">Paste a customer or vendor extract as CSV. The profiler checks Business Partner readiness: completeness, validity, 40-character name limits and likely duplicates. Fix these before mock loads.</p></div></div>
+<div class="split">
+<div class="glass card">
+<div class="row" style="justify-content:space-between"><h3 style="margin:0">CSV extract</h3><div class="row"><label class="btn ghost" style="display:inline-flex;align-items:center">Load CSV<input type="file" id="dataFile" accept=".csv,.txt" hidden></label><button class="btn ghost" id="dataSample">Sample</button><button class="btn" id="dataRun">Profile</button></div></div>
+<textarea id="dataIn" class="mt" spellcheck="false" aria-label="CSV data"></textarea>
+<p class="note">Columns are detected from headers (name, street, city, postal, country, tax/VAT, email, phone). Sample records are fictional.</p>
+</div>
+<div class="grid"><div class="grid g2" id="dataKpi"></div><div class="glass card"><h3>Column completeness</h3><div id="dataCols"></div></div></div>
+</div>
+<div class="grid g2 mt">
+<div class="glass card"><h2>Likely duplicates</h2><p class="note">Matched on normalised name + postal code, or the same tax number.</p><div id="dataDup"></div></div>
+<div class="glass card"><h2>Cleansing actions</h2><div id="dataActs"></div></div>
+</div>
+<div class="glass card mt"><h2>Record conversion confidence</h2><p class="note">Likelihood each record converts cleanly to a Business Partner, lowest first. Ready ≥ 80 · Review 50–79 · Blocked &lt; 50.</p><div class="dist" id="dataDist"></div><div class="legend" id="dataDistL"></div><div class="mt" id="dataRecs"></div><details class="how"><summary>How confidence is calculated</summary><p>Each record starts at 100. Missing mandatory field −25 each, likely duplicate (not the golden record) −30, invalid country −15, invalid email −10, name over 40 characters −10, missing tax number −10. The dataset confidence is the average across records.</p></details></div>
+<div class="glass card mt"><div class="row" style="justify-content:space-between"><h2>Record issues</h2><button class="btn ghost" id="dataCopy">Copy issues (CSV)</button></div>
+<div id="dataRows"></div></div>
+</section>
+
+<!-- MAP -->
+<section class="view" id="v-map">
+<div class="top"><div><h1>Data and interface mapping</h1><p class="sub">Upload an Excel or CSV of your ECC field mappings or interface inventory. Meridian generates the S/4HANA target for each row and, where the ECC object no longer exists, suggests the nearest S/4HANA equivalent with a confidence score.</p></div></div>
+<div class="split">
+<div class="glass card">
+<h3>Upload</h3>
+<div class="row mt"><label class="btn" style="display:inline-flex;align-items:center">Upload Excel / CSV<input type="file" id="mapFile" accept=".xlsx,.xls,.xlsm,.csv" hidden></label><button class="btn ghost" id="mapSampleD">Sample field mapping</button><button class="btn ghost" id="mapSampleI">Sample interface list</button></div>
+<div class="grid g2 mt"><label class="f">Sheet<select id="mapSheet"></select></label><label class="f">Mapping type<select id="mapKind"><option value="auto">Auto-detect</option><option value="data">Data fields (table/field)</option><option value="int">Interfaces</option></select></label></div>
+<p class="note" id="mapInfo">No file loaded.</p>
+<details class="how"><summary>Expected columns</summary><p><b>Data mapping:</b> Table, Field, Description (optional). Example: BSID · DMBTR.<br><b>Interface inventory:</b> Interface ID, Interface name, Technology (IDoc/BAPI/RFC/File), ECC object (message type, basic type, BAPI or function module), Direction, Partner system. Headers are matched by name, in any order. Files are read in your browser and never uploaded.</p></details>
+</div>
+<div class="grid"><div class="grid g2" id="mapKpi"></div>
+<div class="glass card"><h3>Mapping outcome</h3><div class="dist" id="mapDist"></div><div class="legend" id="mapDistL"></div><details class="how"><summary>How mapping and confidence work</summary><p>Each row is checked against a curated S/4HANA simplification knowledge base (Universal Journal, MATDOC, Business Partner/CVI, PRCD_ELEMENTS, SD status, credit management, output management, released APIs). <b>Direct</b>: object exists or has a 1:1 successor. <b>Nearest</b>: object is removed or not recommended, so the closest successor is proposed. When nothing matches exactly, similar names and business keywords (customer, invoice, stock…) are used, at lower confidence (50–60%). Always validate in an S/4HANA sandbox.</p></details></div>
+</div></div>
+<div class="glass card mt"><div class="row" style="justify-content:space-between"><h2>Generated S/4HANA mapping</h2><div class="row"><input id="mapQ" placeholder="Search" aria-label="Search mapping" style="width:180px"><button class="btn ghost" id="mapCopy">Copy mapping (CSV)</button></div></div>
+<div class="pills mt" id="mapF"></div>
+<div id="mapRows" class="mt"></div></div>
+</section>
+
+<!-- PLAN -->
+<section class="view" id="v-plan">
+<div class="top"><div><h1>Roadmap and project plan</h1><p class="sub">Configure the programme and the SAP Activate phases, workstreams and milestones regenerate. Durations scale with approach and complexity from your assessment.</p></div><button class="btn ghost" id="planCopy">Copy plan (CSV)</button></div>
+<div class="glass card"><div class="grid g4">
+<label class="f">Start date<input type="date" id="pStart"></label>
+<label class="f">Approach<select id="pApp"><option value="auto">Auto (from assessment)</option><option value="brownfield">Brownfield — system conversion</option><option value="greenfield">Greenfield — new implementation</option><option value="selective">Selective data transition</option></select></label>
+<label class="f">Complexity<select id="pSize"><option value="auto">Auto (from assessment)</option><option value="S">Small</option><option value="M">Medium</option><option value="L">Large</option><option value="XL">Extra large</option></select></label>
+<label class="f">Rollout waves<select id="pWaves"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+<label class="f">Hypercare (weeks)<input type="number" id="pHyper" min="2" max="16"></label>
+<label class="f">Mock conversions<select id="pMocks"><option>2</option><option>3</option><option>4</option></select></label>
+<label class="f">Contingency<select id="pBuf"><option value="0">None</option><option value="0.1">10%</option><option value="0.15">15%</option><option value="0.2">20%</option></select></label>
+<div class="kpi" style="padding:0"><small>First go-live</small><b id="pGo" style="font-size:22px"></b><span id="pDur"></span></div>
+</div></div>
+<div class="glass card mt"><div class="row" style="justify-content:space-between"><h2>Programme timeline</h2><div class="legend"><span><i style="background:var(--blue)"></i>Activate phase</span><span><i style="background:var(--gold)"></i>Workstream</span><span><i style="background:var(--warn)"></i>Wave</span><span><i style="background:var(--ink);transform:rotate(45deg)"></i>Milestone</span><span><i style="background:var(--bad)"></i>SAP deadline</span></div></div>
+<div class="scroll"><div style="min-width:640px" class="mt"><div class="axis" id="gAxis"></div><div class="gantt" id="gantt"></div></div></div></div>
+<div class="glass card mt"><h2>Project plan — phases, deliverables, owners</h2>
+<div class="scroll"><table class="stack"><thead><tr><th>Phase</th><th>Start</th><th>End</th><th>Key activities and deliverables</th><th>Owner</th><th>Quality gate</th></tr></thead><tbody id="planRows"></tbody></table></div></div>
+</section>
+
+<!-- RISKS -->
+<section class="view" id="v-risks">
+<div class="top"><div><h1>Risk register</h1><p class="sub">Pre-loaded with risks seen on real ECC → S/4HANA programmes. Adjust likelihood and impact; the heat map and command centre update.</p></div></div>
+<div class="split">
+<div class="glass card"><div class="row" style="justify-content:space-between"><h2>Register</h2><button class="btn ghost" id="riskCopy">Copy (CSV)</button></div>
+<div id="riskRows"></div>
+<details class="mt"><summary style="cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center">Add a risk</summary>
+<form id="riskForm" class="grid g2 mt"><label class="f">Risk<input id="rT" required></label><label class="f">Category<select id="rC"><option>Technical</option><option>Data</option><option>Process</option><option>People</option><option>Programme</option></select></label><label class="f">Likelihood (1–5)<input id="rL" type="number" min="1" max="5" value="3"></label><label class="f">Impact (1–5)<input id="rI" type="number" min="1" max="5" value="3"></label><label class="f" style="grid-column:1/-1">Mitigation<input id="rM"></label><div><button class="btn">Add risk</button></div></form></details>
+</div>
+<div class="grid" style="position:sticky;top:20px">
+<div class="glass card"><h3>Heat map</h3><div class="heat" id="heat"></div><p class="note">Rows: likelihood. Columns: impact. Count of open risks.</p></div>
+<div class="grid g2" id="riskKpi"></div>
+</div></div>
+</section>
+
+<!-- CUTOVER -->
+<section class="view" id="v-cutover">
+<div class="top"><div><h1>Cutover and downtime</h1><p class="sub">Estimate the business downtime window and run the cutover checklist. Calibrate the throughput rates with your own mock-conversion timings.</p></div></div>
+<div class="split">
+<div class="glass card"><h2>Downtime estimator</h2>
+<div class="grid g2 mt">
+<label class="f">Database size (GB)<input type="number" id="cDB" min="1"></label>
+<label class="f">Migration method<select id="cM"><option value="std">SUM DMO — standard</option><option value="dt">Downtime-optimised DMO</option><option value="nz">Downtime-optimised conversion</option></select></label>
+<label class="f">Migration throughput (GB/h)<input type="number" id="cT" min="10"></label>
+<label class="f">Finance documents (millions)<input type="number" id="cF" min="0" step="0.5"></label>
+<label class="f">Finance migration rate (M docs/h)<input type="number" id="cR" min="1"></label>
+<label class="f">Business validation (h)<input type="number" id="cV" min="0"></label>
+<label class="f">Contingency %<input type="number" id="cB" min="0" max="60"></label>
+<label class="f">Approved window (h)<input type="number" id="cW" min="4"></label>
+</div>
+<div class="wbar" id="cBar"></div><div class="legend" id="cLeg"></div>
+<p class="note mt">Planning heuristic only. Defaults reflect common mid-range hardware; replace them with measured times from Mock 1 and Mock 2.</p>
+</div>
+<div class="grid"><div class="grid g2" id="cKpi"></div><div class="glass card"><h3>Ways to shrink the window</h3><div id="cTips" class="note"></div></div></div>
+</div>
+<div class="glass card mt"><div class="row" style="justify-content:space-between"><h2>Cutover runbook</h2><span class="tag t-info" id="rbPct"></span></div><div class="bar mt"><i id="rbBar"></i></div><div class="grid g2 mt" id="runbook"></div></div>
+</section>
+
+<p class="note" style="margin-top:36px;text-align:center"><b style="font:600 15px var(--serif);color:var(--blue)">AI Academia</b> · Executive Tools · Meridian ECC → S/4HANA Migration Studio · Co-created by <b>PlanetAI LLP</b>. SAP, S/4HANA and related names are trademarks of SAP SE; this tool is independent and not endorsed by SAP.</p>
+</main>
+</div>
+<button class="totop" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div class="modal" id="cpM" hidden role="dialog" aria-modal="true" aria-labelledby="cpH"><div class="glass card"><h3 id="cpH">Copy your export</h3><p class="note">Automatic copying was blocked by this browser. Select all, then copy and paste into Excel.</p><textarea id="cpT" readonly aria-label="Export text"></textarea><div class="row mt"><button class="btn" id="cpSel">Select all</button><button class="btn ghost" id="cpX">Close</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{const v=localStorage.getItem('meridian.'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('meridian.'+k,JSON.stringify(v))}catch(e){}}};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1800)};
+const openCp=txt=>{const m=$('#cpM'),t=$('#cpT');t.value=txt;m.hidden=false;t.focus();t.select()};
+const copy=async(txt,msg)=>{try{if(!navigator.clipboard)throw 0;await navigator.clipboard.writeText(txt);toast(msg||'Copied')}catch(e){openCp(txt)}};
+const fmt=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const csvCell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+const WK=6048e5;
+
+/* ---------- ASSESSMENT MODEL ---------- */
+const Q=[
+{id:'ehp',d:'tech',t:'ECC release level',o:[['EHP 0–5',1,'ehp'],['EHP 6–7',3],['EHP 8',5]]},
+{id:'db',d:'tech',t:'Current database',o:[['AnyDB (Oracle, DB2, MSSQL)',3,'anydb'],['Suite on HANA',5]]},
+{id:'uni',d:'tech',t:'Unicode',o:[['Unicode',5],['Non-Unicode',0,'unicode']]},
+{id:'size',d:'data',t:'Database size',o:[['< 1 TB',5],['1–5 TB',4],['5–15 TB',2,'bigdb'],['> 15 TB',1,'bigdb']]},
+{id:'zobj',d:'code',t:'Custom objects (Z/Y)',o:[['< 2,000',5],['2–10k',4],['10–30k',2,'code'],['> 30k',1,'code']]},
+{id:'use',d:'code',t:'Custom code usage measured (SCMON/UPL)',o:[['Yes, < 40% used',5],['Yes, 40–70%',3],['Yes, > 70%',2],['Not measured',1,'scmon']]},
+{id:'cvi',d:'data',t:'Business Partner / CVI',o:[['Completed',5],['In progress',3],['Not started',1,'cvi']]},
+{id:'gl',d:'fin',t:'General ledger and asset accounting',o:[['New GL + new AA',5],['New GL, classic AA',3,'aa'],['Classic GL',1,'gl']]},
+{id:'cr',d:'fin',t:'Credit management',o:[['FSCM Credit Mgmt',5],['Classic (FD32)',2,'credit'],['Not used',5]]},
+{id:'addon',d:'tech',t:'Add-ons and industry solutions',o:[['None',5],['Certified only',4],['Non-certified',1,'addon']]},
+{id:'intg',d:'tech',t:'Interfaces',o:[['< 50',5],['50–200',3],['> 200',1,'intg']]},
+{id:'dq',d:'data',t:'Data governance',o:[['Owners + MDG',5],['Partial',3],['None',1,'dq']]},
+{id:'sp',d:'org',t:'Executive sponsorship',o:[['Strong, decides',5],['Moderate',3],['Weak',1,'sponsor']]},
+{id:'ocm',d:'org',t:'Change and training plan',o:[['Funded',5],['Planned, unfunded',3],['None',1,'ocm']]},
+{id:'proc',d:null,t:'Process ambition',o:[['Keep processes',0],['Selective redesign',0],['Full reimagination',0]]},
+{id:'hist',d:null,t:'Historical data needed',o:[['Full history',0],['Last 2–5 years',0],['Open items only',0]]},
+{id:'cc',d:null,t:'Company codes',o:[['1–5',0],['6–20',0],['> 20',0]]},
+{id:'tgt',d:null,t:'Target deployment',o:[['On-premise',0],['RISE private cloud',0],['Public cloud',0]]}
+];
+const DIMS={tech:'Technical',code:'Custom code',data:'Data',fin:'Finance',org:'Organisation'};
+const FLAGS={
+ehp:['High','EHP below 6: plan the upgrade path in Maintenance Planner; a one-step SUM/DMO may be possible.'],
+anydb:['Med','Database not on HANA: use SUM with Database Migration Option to migrate and convert in one step.'],
+unicode:['High','Non-Unicode system: Unicode conversion is a prerequisite. Schedule it ahead of the conversion.'],
+bigdb:['Med','Large database: start archiving and housekeeping now (IDocs, logs, change docs) to cut downtime and HANA sizing.'],
+code:['High','High custom code volume: run ATC with the S/4HANA readiness variant and set up a remediation factory.'],
+scmon:['Med','Usage not measured: switch on SCMON/UPL for 6–12 months and retire unused code before remediation.'],
+cvi:['High','BP/CVI not started: run CVI as a pre-project. Business Partner is mandatory before conversion.'],
+aa:['Med','Classic Asset Accounting: new Asset Accounting is mandatory. Plan AA migration and check parallel ledgers.'],
+gl:['High','Classic GL: expect a heavier Finance migration. Run FIN reconciliation and close periods early.'],
+credit:['Med','Classic credit management (FD32): migrate to SAP Credit Management (FSCM).'],
+addon:['High','Non-certified add-ons: confirm vendor S/4HANA compatibility; uninstall or replace blockers.'],
+intg:['Med','200+ interfaces: build the interface inventory and plan integration and contract testing.'],
+dq:['Med','No data governance: name data owners, set quality KPIs, cleanse before mock loads.'],
+sponsor:['High','Weak sponsorship: secure an executive sponsor with decision rights over scope deviations.'],
+ocm:['Med','No funded change plan: fund OCM, a champions network and role-based training.']};
+const DEF_A={ehp:2,db:0,uni:0,size:1,zobj:2,use:3,cvi:1,gl:1,cr:1,addon:1,intg:1,dq:1,sp:1,ocm:1,proc:1,hist:1,cc:1,tgt:1};
+
+function evalAssess(a){
+const dims={};for(const k in DIMS)dims[k]=[];const flags=[];
+Q.forEach(q=>{const o=q.o[a[q.id]??0];if(q.d){dims[q.d].push(o[1]);if(o[2])flags.push(o[2])}});
+const ds={};let sum=0,n=0;for(const k in dims){const v=dims[k];ds[k]=Math.round(v.reduce((x,y)=>x+y,0)/v.length/5*100);sum+=ds[k];n++}
+const score=Math.round(sum/n);
+let bf=0,gf=0,sd=0;const why=[];
+const p=a.proc,h=a.hist,u=a.use,cc=a.cc,t=a.tgt,z=a.zobj;
+if(p===0){bf+=3;why.push(['brownfield','Business wants to keep current processes']);}else if(p===1){sd+=2;bf+=1;why.push(['selective','Selective process redesign']);}else{gf+=3;why.push(['greenfield','Ambition to reimagine processes on standard']);}
+if(h===0){bf+=3;sd+=1;why.push(['brownfield','Full history must be retained']);}else if(h===1){sd+=2;why.push(['selective','Only recent history needed — can be carved out']);}else{gf+=2;why.push(['greenfield','Open items only — clean start possible']);}
+if(u===2){bf+=2;why.push(['brownfield','Most custom code is actively used']);}if(u===0){gf+=2;why.push(['greenfield','Most custom code is unused — retire, do not convert']);}
+if(cc===2){sd+=2;why.push(['selective','Many company codes suit phased, selective moves']);}
+if(z===3){gf+=1;sd+=1;}if(z===0){bf+=1;}
+if(a.gl===2){gf+=1;}
+if(t===2){gf+=10;why.unshift(['greenfield','Public cloud target requires a new implementation']);}
+const sc={brownfield:bf,greenfield:gf,selective:sd};
+const app=Object.entries(sc).sort((x,y)=>y[1]-x[1])[0][0];
+let cx=0;cx+=[0,1,2,3][a.size];cx+=[0,1,2,3][a.zobj];cx+=[0,1,3][a.intg];cx+=[0,1,3][a.cc];if(a.addon===2)cx+=1;
+const size=cx<=2?'S':cx<=5?'M':cx<=8?'L':'XL';
+return{ds,score,flags,app,sc,why:why.filter(w=>w[0]===app).map(w=>w[1]),size}}
+const APPN={brownfield:'Brownfield — system conversion',greenfield:'Greenfield — new implementation',selective:'Selective data transition'};
+const SIZEN={S:'Small',M:'Medium',L:'Large',XL:'Extra large'};
+
+/* ---------- CODE RULES ---------- */
+const FI='BSIS|BSAS|BSID|BSAD|BSIK|BSAK|GLT0|FAGLFLEXA|FAGLFLEXT|FAGLFLEXP|COEP|COSP|COSS|ANEP|ANLC|ANLP|FAGL_SPLINFO';
+const RULES=[
+{re:new RegExp('\\b(INSERT|UPDATE|MODIFY|DELETE)\\s+(FROM\\s+)?('+FI+')\\b'),a:'Finance',i:'Universal Journal — writes to obsolete totals/index tables',f:'Remove direct writes. Post through standard APIs (BAPI_ACC_DOCUMENT_POST); tables are now compatibility views.',c:95,s:'High',h:12},
+{re:new RegExp('\\b('+FI+')\\b'),a:'Finance',i:'Universal Journal (ACDOCA)',f:'Read ACDOCA or released CDS views such as I_JournalEntryItem; old index/totals tables are compatibility views.',c:90,s:'Med',h:4,skipIf:0},
+{re:/\b(UPDATE|MODIFY|INSERT)\s+(MARD|MCHB|MKOL|MSKA|MSKU|MSLB|MSPR|MARC)\b/,a:'Logistics',i:'Stock aggregates calculated on the fly',f:'Do not write stock quantities; post goods movements via BAPI_GOODSMVT_CREATE.',c:95,s:'High',h:10},
+{re:/\b(MKPF|MSEG)\b/,a:'Logistics',i:'Material documents → MATDOC',f:'Read MATDOC or I_MaterialDocumentItem; MKPF/MSEG are compatibility views.',c:92,s:'Med',h:4},
+{re:/\b(VBUK|VBUP)\b/,a:'Sales',i:'SD status tables removed',f:'Status fields moved into VBAK/VBAP, LIKP/LIPS, VBRK/VBRP. Read the document tables directly.',c:95,s:'High',h:6},
+{re:/\bKONV\b/,a:'Sales',i:'Pricing conditions → PRCD_ELEMENTS',f:'Replace KONV with PRCD_ELEMENTS; check extended field lengths.',c:92,s:'High',h:5},
+{re:/\b(KONA|S136|VBO1|VBO2)\b/,a:'Sales',i:'SD rebates → condition contracts',f:'Move to Settlement Management condition contracts.',c:75,s:'Med',h:6},
+{re:/'(XD0[123]|XK0[123]|FD0[123]|FK0[123]|VD0[123]|MK0[123])'|\b(BAPI_CUSTOMER_CREATEFROMDATA1|BAPI_VENDOR_CREATE)\b/,a:'Master data',i:'Business Partner mandatory (CVI)',f:'Use transaction BP and the BP API (API_BUSINESS_PARTNER or CL_MD_BP_MAINTAIN).',c:90,s:'High',h:8},
+{re:/\b(INSERT|UPDATE|MODIFY)\s+(KNA1|LFA1|KNB1|LFB1|KNVV|LFM1)\b/,a:'Master data',i:'Direct customer/vendor writes bypass CVI',f:'Maintain via Business Partner API so CVI keeps BP and customer/vendor in sync.',c:92,s:'High',h:8},
+{re:/\b(KNKK|KNKA|S066|S067|FD32|FD33)\b/,a:'Finance',i:'Credit management → SAP Credit Management',f:'Migrate to UKM_* objects; use credit segment APIs.',c:80,s:'Med',h:6},
+{re:/MATNR\s*\+\s*\d+\(\s*\d+\s*\)|\bLENGTH\s+18\b|\bTYPE\s+C\s*\(\s*18\s*\)|\bCHAR18\b/,a:'Master data',i:'Material number extended to 40 characters',f:'Type against MATNR; remove offset/length access and fixed 18-character buffers.',c:70,s:'Med',h:3},
+{re:/\bS(?!06[67]\b)(0\d\d|[1-9]\d\d)\b/,a:'Analytics',i:'LIS statistics tables obsolete',f:'Replace LIS reads with embedded analytics / CDS views.',c:55,s:'Low',h:3},
+{re:/\b(NAST|TNAPR)\b/,a:'Output',i:'Output management (BRF+ based)',f:'Assess move to S/4HANA output management; NAST still supported for some apps.',c:65,s:'Low',h:3},
+{re:/\bEXEC\s+SQL\b|%_HINTS/,a:'Technical',i:'Native SQL / DB-specific hints',f:'Remove DB-specific SQL and hints; use ABAP SQL or AMDP for HANA.',c:95,s:'High',h:6},
+{re:/\bSELECT\b.*\bFROM\s+BSEG\b/,a:'Finance',i:'BSEG reporting — prefer ACDOCA',f:'Use ACDOCA for line-item reporting; BSEG is transparent but not the single source.',c:70,s:'Low',h:2}
+];
+const SAMPLE_ABAP=`REPORT zfi_open_items_monitor.
+* Sample legacy report — illustrative only
+TABLES: bsid, kna1.
+DATA: lt_bsid TYPE TABLE OF bsid,
+      ls_bsid TYPE bsid,
+      lv_mat  TYPE c LENGTH 18,
+      lt_vbuk TYPE TABLE OF vbuk.
+
+SELECT * FROM bsid INTO TABLE lt_bsid WHERE bukrs = p_bukrs.
+READ TABLE lt_bsid INTO ls_bsid WITH KEY kunnr = p_kunnr BINARY SEARCH.
+
+LOOP AT lt_bsid INTO ls_bsid.
+  SELECT SINGLE * FROM kna1 WHERE kunnr = ls_bsid-kunnr.
+  SELECT * FROM konv INTO TABLE @DATA(lt_konv) WHERE knumv = @ls_bsid-xblnr.
+ENDLOOP.
+
+SELECT * FROM vbuk INTO TABLE lt_vbuk WHERE gbstk = 'A'.
+SELECT * FROM mseg INTO TABLE @DATA(lt_mseg) WHERE werks = '1000'.
+UPDATE mard SET labst = 0 WHERE matnr = lv_mat.
+lv_mat = ls_matnr+0(18).
+
+SELECT * FROM knkk INTO TABLE @DATA(lt_credit).
+SELECT * FROM s001 INTO TABLE @DATA(lt_lis).
+CALL TRANSACTION 'XD02' USING lt_bdc.
+
+EXEC SQL.
+  SELECT COUNT(*) FROM GLT0
+ENDEXEC.
+UPDATE faglflext SET hsl01 = 0 WHERE rbukrs = '1000'.`;
+
+function scanCode(src){
+const lines=src.split(/\r?\n/);const out=[];let loop=0;let hasSort=/\bSORT\b/i.test(src);
+lines.forEach((raw,ix)=>{
+let L=raw;if(/^\s*\*/.test(L))return;const qi=L.indexOf('"');if(qi>=0)L=L.slice(0,qi);const U=L.toUpperCase();if(!U.trim())return;
+let hitWrite=false;const Ls=U.replace(/'[^']*'|`[^`]*`|\|[^|]*\|/g,"''");
+RULES.forEach((r,ri)=>{const m=(ri===7?U:Ls).match(r.re);if(!m)return;
+if(ri===0)hitWrite=true;if(ri===1&&hitWrite)return;
+out.push({ln:ix+1,s:r.s,a:r.a,i:r.i,m:m[0].trim().slice(0,40),f:r.f,h:r.h,c:r.c})});
+if(/^\s*LOOP\s+AT\b/.test(U))loop++;if(/^\s*ENDLOOP\b/.test(U))loop=Math.max(0,loop-1);
+if(loop>0&&/\bSELECT\b/.test(Ls))out.push({ln:ix+1,s:'Med',a:'Performance',i:'SELECT inside LOOP',f:'Push down to HANA: one set-based SELECT with JOIN, FOR ALL ENTRIES or a CDS view.',m:'SELECT in LOOP',h:3,c:75});
+if(/BINARY\s+SEARCH/.test(Ls)&&!hasSort)out.push({ln:ix+1,s:'High',a:'Performance',i:'Implicit sort order assumed',f:'HANA does not guarantee primary-key order. Add ORDER BY or SORT before BINARY SEARCH.',m:'BINARY SEARCH',h:2,c:70});
+if(/^\s*ENDSELECT\b/.test(U))out.push({ln:ix+1,s:'Low',a:'Performance',i:'SELECT … ENDSELECT loop',f:'Use INTO TABLE and process in memory.',m:'ENDSELECT',h:1,c:85});
+});
+const rank={High:0,Med:1,Low:2};out.sort((x,y)=>rank[x.s]-rank[y.s]||x.ln-y.ln);return out}
+
+const W_={High:6,Med:3,Low:1};
+function codeSum(F){const hrs=F.reduce((a,b)=>a+b.h,0),hi=F.filter(x=>x.s==='High').length;
+const conv=Math.max(0,Math.round(100-F.reduce((a,b)=>a+W_[b.s]*b.c/100,0)));
+const det=F.length?Math.round(F.reduce((a,b)=>a+b.c,0)/F.length):100;return{hrs,hi,conv,det}}
+const confCol=v=>v>=80?'var(--okT)':v>=50?'var(--warnT)':'var(--badT)';
+const confChip=v=>`<span class="conf" title="Detection confidence"><i><b style="width:${v}%"></b></i>${v}%</span>`;
+/* ---------- DATA PROFILER ---------- */
+const SAMPLE_CSV=`id,name,street,city,postal_code,country,tax_number,email,phone
+C1001,Acme Industrial Supplies (Pty) Ltd,12 Long St,Cape Town,8001,ZA,4120187654,accounts@acme-ind.co.za,+27 21 555 0101
+C1002,ACME Industrial Supplies Pty Ltd,12 Long Street,Cape Town,8001,ZA,4120187654,acme.accounts@acme-ind.co.za,+27215550101
+C1003,Blue Ridge Foods,,Johannesburg,2001,South Africa,4330021987,info@blueridge,+27 11 555 0199
+C1004,Nordwind Logistik GmbH,Hafenstrasse 4,Hamburg,20457,DE,DE811234567,billing@nordwind.de,+49 40 5550 120
+C1005,Sunrise Textiles Pvt Ltd,MG Road 22,Bengaluru,560001,IN,,ap@sunrisetex.in,+91 80 5550 3344
+C1006,Karoo Agricultural Co-operative and Farming Equipment Distributors,3 Main Rd,Beaufort West,6970,ZA,4560098712,karoo@coop.co.za,
+C1007,Harbour View Hotels,1 Beach Rd,Durban,,ZA,4011223344,reservations@harbourview.co.za,+27 31 555 0170
+C1008,Nordwind Logistik,Hafenstraße 4,Hamburg,20457,DE,DE811234567,,+49 40 5550 120
+C1009,Lakeside Pharma Ltd,5 Park Lane,London,W1K 1AA,GB,GB123456789,finance@lakesidepharma.co.uk,+44 20 5550 0188
+C1010,Table Mountain Retail,88 Kloof St,Cape Town,8005,za,4789012345,hello@tmretail.co.za,+27 21 555 0133
+C1011,,7 Fox St,Johannesburg,2001,ZA,4999988877,unknown@,+27 11 555 0111
+C1012,Rio Verde Mining SA,Av. Paulista 1000,São Paulo,01310-100,BR,12.345.678/0001-90,contas@rioverde.com.br,+55 11 5550 2020`;
+function parseCSV(t){t=String(t||'').replace(/^\uFEFF/,'');const l1=t.split(/\r?\n/,1)[0]||'';const cn=ch=>l1.split(ch).length-1;const D=cn('\t')>cn(',')&&cn('\t')>=cn(';')?'\t':cn(';')>cn(',')?';':',';const rows=[];let r=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===D){r.push(f);f=''}else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;r.push(f);f='';if(r.some(x=>x.trim()))rows.push(r);r=[]}else f+=c}r.push(f);if(r.some(x=>x.trim()))rows.push(r);return rows}
+const COLRE={name:/name/,street:/street|address|stras/,city:/city|town/,postal:/postal|zip|pstlz|postcode/,country:/country|land1?$/,tax:/tax|vat|stceg|gst/,email:/mail/,phone:/phone|tel/,id:/^id$|kunnr|lifnr|number|code/};
+function profile(txt){
+const rows=parseCSV(txt.trim());if(rows.length<2)return null;
+const hdr=rows[0].map(h=>h.trim().toLowerCase());const body=rows.slice(1);
+const col={};for(const k in COLRE){const i=hdr.findIndex(h=>COLRE[k].test(h));if(i>=0&&!Object.values(col).includes(i))col[k]=i}
+const g=(r,k)=>col[k]!=null?(r[col[k]]||'').trim():'';
+const issues=[];const mand=['name','street','city','postal','country'];
+body.forEach((r,ix)=>{const rid=g(r,'id')||('#'+(ix+1));const nm=g(r,'name');
+mand.forEach(k=>{if(col[k]!=null&&!g(r,k))issues.push([ix+2,rid,k,'Missing mandatory value','Source from document history or owning team; block load until filled.'])});
+const c=g(r,'country');if(c&&!/^[A-Z]{2}$/.test(c))issues.push([ix+2,rid,'country',`"${c}" is not an ISO 3166 code`,'Map to a 2-letter uppercase ISO code (e.g. ZA).']);
+const e=g(r,'email');if(col.email!=null&&e&&!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(e))issues.push([ix+2,rid,'email','Invalid email format','Correct or remove; BP communication data validates format.']);
+if(nm.length>40)issues.push([ix+2,rid,'name',`Name is ${nm.length} chars (BP field 40)`,'Split across NAME1–NAME4 or abbreviate per naming standard.']);
+if(col.tax!=null&&!g(r,'tax'))issues.push([ix+2,rid,'tax','Tax number missing','Required for many countries’ tax determination and e-invoicing.']);
+});
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ß/g,'ss').replace(/\(.*?\)/g,' ').replace(/\b(pty|ltd|limited|inc|gmbh|llc|co|corp|plc|sa|pvt|ag|bv)\b/g,'').replace(/[^a-z0-9]/g,'');
+const groups={};body.forEach((r,ix)=>{const n=norm(g(r,'name'));if(n){const k='n:'+n+'|'+g(r,'postal').replace(/\s/g,'');(groups[k]=groups[k]||[]).push(ix)}const t=g(r,'tax').replace(/[^A-Za-z0-9]/g,'');if(t){(groups['t:'+t]=groups['t:'+t]||[]).push(ix)}});
+const seen=new Set();const dups=[];Object.values(groups).filter(v=>v.length>1).forEach(v=>{const key=v.slice().sort().join(',');if(seen.has(key))return;seen.add(key);dups.push(v.map(i=>({id:g(body[i],'id')||('#'+(i+1)),name:g(body[i],'name')})))});
+const comp=hdr.map((h,i)=>({h,p:Math.round(body.filter(r=>(r[i]||'').trim()).length/body.length*100)}));
+const mc=mand.filter(k=>col[k]!=null).map(k=>comp[col[k]].p);const compl=mc.length?mc.reduce((a,b)=>a+b,0)/mc.length:100;
+const bad=new Set(issues.filter(x=>x[3].indexOf('Missing mandatory')<0).map(x=>x[0]));const valid=100*(1-bad.size/body.length);
+const dupRows=new Set();dups.forEach(gp=>gp.slice(1).forEach(x=>dupRows.add(x.id)));const uniq=100*(1-dupRows.size/body.length);
+const score=Math.round(compl*.4+valid*.3+uniq*.3);
+const recs=body.map((r,ix)=>{const rid=g(r,'id')||('#'+(ix+1));let c=100;const why=[];
+issues.filter(x=>x[0]===ix+2).forEach(x=>{let p=10;if(x[3].startsWith('Missing'))p=25;else if(x[2]==='country')p=15;c-=p;why.push(x[2]+': '+x[3].replace('Missing mandatory value','missing'))});
+if(dupRows.has(rid)){c-=30;why.push('likely duplicate')}
+return{id:rid,name:g(r,'name')||'(no name)',c:Math.max(0,c),why}}).sort((a,b)=>a.c-b.c);
+const conf=Math.round(recs.reduce((a,b)=>a+b.c,0)/recs.length);
+return{n:body.length,issues,dups,comp,score,dupRows:dupRows.size,col,recs,conf}}
+
+/* ---------- PLAN ---------- */
+const PH=['Discover','Prepare','Explore','Realize','Deploy','Run (hypercare)'];
+const BASE={brownfield:[3,6,8,20,8],greenfield:[4,8,12,28,8],selective:[4,8,10,24,10]};
+const MULT={S:.7,M:1,L:1.35,XL:1.7};
+const PLANTXT={
+brownfield:[
+['Readiness Check, Maintenance Planner, simplification item list, business case, approach decision','Programme sponsor','Business case and approach signed off'],
+['Programme set-up, SI onboarding, sandbox conversion, CVI and FIN pre-checks, ATC baseline, archiving','PMO + Basis lead','Sandbox converted; pre-checks green'],
+['Fit-to-standard on converted sandbox, delta design, custom code triage (retire/adapt/replace), data cleansing plan','Solution architect','Delta design and backlog baselined'],
+['Code remediation, Fiori roles, integration rebuild, mock conversions, SIT, regression, performance tests, UAT','Delivery lead','UAT exit; mock timings within window'],
+['Dress rehearsal, end-user training, cutover runbook, go/no-go, production conversion','Cutover manager','Go/no-go approved'],
+['Hypercare, defect triage, KPI monitoring, handover to run, decommission legacy jobs','Service delivery manager','Hypercare exit criteria met']],
+greenfield:[
+['Value discovery, target operating model, SAP Best Practices scoping, business case','Programme sponsor','Business case and scope signed off'],
+['Programme set-up, starter system, data migration strategy (Migration Cockpit), integration strategy','PMO + data lead','Plan, governance and tools ready'],
+['Fit-to-standard workshops, clean-core extension design on BTP, data mapping, legacy-to-target rules','Process owners','Backlog and design signed off'],
+['Configuration sprints, extensions, integrations, data load cycles, SIT, UAT, security roles','Delivery lead','UAT exit; data loads reconciled'],
+['Dress rehearsal, training, data cutover, go/no-go, go-live','Cutover manager','Go/no-go approved'],
+['Hypercare, adoption tracking, legacy archive and read access, continuous improvement','Service delivery manager','Hypercare exit criteria met']],
+selective:[
+['Scope carve-out options, history and org-unit selection, tool choice for selective transition','Programme sponsor','Selection scope signed off'],
+['Shell creation, transition tooling, CVI/FIN pre-checks, programme set-up','PMO + Basis lead','Shell system ready'],
+['Process redesign for in-scope areas, data selection rules, custom code triage','Solution architect','Design and selection rules baselined'],
+['Code remediation, selective data test migrations, SIT, regression, UAT','Delivery lead','Test migrations reconciled'],
+['Dress rehearsal, training, selective cutover, go/no-go','Cutover manager','Go/no-go approved'],
+['Hypercare, reconciliation, decommissioning of carved-out data','Service delivery manager','Hypercare exit criteria met']]};
+
+function buildPlan(p,ev){
+const app=p.app==='auto'?ev.app:p.app,size=p.size==='auto'?ev.size:p.size,m=MULT[size]*(1+ +p.buf);
+const w=BASE[app].map(x=>Math.max(1,Math.round(x*m)));w.push(Math.min(52,Math.max(1,Math.round(+p.hyper||6))));
+const s0=new Date(p.start+'T00:00:00');const ph=[];let t=s0.getTime();
+w.forEach((wk,i)=>{ph.push({n:PH[i],s:new Date(t),e:new Date(t+wk*WK),w:wk});t+=wk*WK});
+const at=(i,f)=>new Date(ph[i].s.getTime()+(ph[i].e-ph[i].s)*f);
+const ws=[
+['Custom code remediation',ph[1].s,ph[3].e],
+[app==='greenfield'?'Data migration design and loads':'BP/CVI + Finance pre-work',ph[0].e,app==='greenfield'?ph[4].e:ph[2].e],
+['Data cleansing and quality',ph[1].s,ph[4].e],
+['Testing — SIT, regression, UAT',at(3,.45),at(4,.6)],
+['Change management and training',ph[2].s,ph[5].e],
+['Cutover planning and mocks',at(3,.3),ph[4].e]];
+const ms=[];const nm=+p.mocks;for(let k=0;k<nm;k++){ms.push(['Mock '+(k+1),k<nm-1?at(3,.4+k*(.5/(nm-1||1))):at(4,.25)])}
+ms.push(['Dress rehearsal',at(4,.6)]);ms.push(['Go-live',ph[4].e]);ms.push(['Hypercare exit',ph[5].e]);
+const waves=[];const step=Math.round(12*MULT[size])*WK;for(let k=1;k<+p.waves;k++){waves.push(['Wave '+(k+1)+' rollout',new Date(ph[4].e.getTime()+(k-1)*step+2*WK),new Date(ph[4].e.getTime()+k*step+2*WK)])}
+const end=waves.length?Math.max(ph[5].e,waves[waves.length-1][2]):ph[5].e;
+return{app,size,ph,ws,ms,waves,start:s0,end:new Date(end),go:ph[4].e}}
+
+/* ---------- RISKS ---------- */
+const DEF_R=[
+{t:'Custom code remediation effort underestimated',c:'Technical',l:4,i:4,m:'ATC with S/4HANA checks in Discover; SCMON/UPL to retire unused code; remediation factory with quick fixes.',st:'Open'},
+{t:'BP/CVI conversion errors block the technical conversion',c:'Data',l:4,i:5,m:'Run CVI as a pre-project; CVI cockpit; cleanse and synchronise in production months ahead.',st:'Open'},
+{t:'Poor master data quality corrupts migrated data',c:'Data',l:4,i:4,m:'Data owners, quality KPIs, profiling (Data module), cleansing sprints before each mock.',st:'Open'},
+{t:'Finance data inconsistencies stop the FIN migration',c:'Data',l:3,i:5,m:'Close periods, run FIN reconciliation reports early, archive closed years, sign off each mock.',st:'Open'},
+{t:'Business downtime exceeds the approved window',c:'Technical',l:3,i:5,m:'Archive first; downtime-optimised DMO; measure in mocks; rehearse the full runbook.',st:'Open'},
+{t:'Insufficient end-to-end testing leads to supply disruption',c:'Process',l:3,i:5,m:'Automated regression, volume and E2E tests with key users; production-like data. (Lesson from 2018 manufacturer go-lives.)',st:'Open'},
+{t:'Re-customising S/4HANA to mirror legacy processes',c:'Process',l:3,i:5,m:'Fit-to-standard, clean core, design authority; executive approval for every deviation. (Lesson from retail programmes abandoned after years.)',st:'Open'},
+{t:'Interface failures after go-live',c:'Technical',l:3,i:4,m:'Interface inventory, owner per interface, contract tests, integration platform and monitoring.',st:'Open'},
+{t:'Third-party add-ons not S/4HANA compatible',c:'Technical',l:2,i:4,m:'Confirm vendor certification early; uninstall or replace before conversion.',st:'Open'},
+{t:'User resistance and low adoption of Fiori',c:'People',l:3,i:4,m:'OCM plan, champions network, role-based training, adoption KPIs in hypercare.',st:'Open'},
+{t:'Skills shortage and partner capacity near 2027',c:'People',l:3,i:3,m:'Lock SI capacity early; knowledge transfer clauses; internal S/4 academy.',st:'Open'},
+{t:'Scope creep under deadline pressure',c:'Programme',l:4,i:3,m:'Technical-first conversion; innovation backlog after go-live; change control board.',st:'Open'},
+{t:'Authorisations and Fiori roles not ready',c:'Technical',l:3,i:3,m:'Role redesign from Explore; SU25/role mapping; SoD checks; test with real user roles.',st:'Open'},
+{t:'Weak hypercare leads to prolonged instability',c:'Programme',l:3,i:4,m:'Funded 6–12 week hypercare, war room, exit criteria, KPI dashboards. (Lesson from post-merger consolidations.)',st:'Open'},
+{t:'Performance degradation from unoptimised code',c:'Technical',l:2,i:3,m:'SQL Monitor and code pushdown; performance tests on production-size data.',st:'Open'}];
+
+/* ---------- CUTOVER ---------- */
+const DEF_C={db:3000,m:'std',t:350,f:120,r:25,v:8,b:20,w:48};
+const RB=[
+['T−12 weeks','Freeze transport landscape rules and cutover scope'],['T−12 weeks','Complete archiving and housekeeping to target DB size'],['T−12 weeks','Confirm CVI synchronisation is complete in production'],
+['T−8 weeks','Mock conversion timings within window (sign-off)'],['T−8 weeks','Interface owners confirm cutover and restart sequence'],['T−6 weeks','Hardware, backup and restore tested on target'],
+['T−4 weeks','Dress rehearsal executed end-to-end'],['T−4 weeks','Business continuity plan and manual workarounds approved'],['T−2 weeks','End-user training complete; access provisioned'],
+['T−1 week','Go/no-go meeting with criteria evidence'],['T−1 week','Period-end close and reconciliation baselines captured'],
+['Downtime','Lock users, stop jobs and interfaces, final backup'],['Downtime','Run SUM conversion and FIN data migration'],['Downtime','Technical post-processing (SGEN, roles, Fiori, RFCs)'],['Downtime','Financial reconciliation vs baselines signed off'],['Downtime','Business validation and go decision'],
+['Post go-live','Release users and interfaces in sequence'],['Post go-live','Hypercare war room live with KPI dashboard'],['Post go-live','Daily defect triage and stabilisation report']];
+
+/* ---------- STATE ---------- */
+const S={a:store.get('a',{...DEF_A}),code:store.get('code',SAMPLE_ABAP),csv:store.get('csv',SAMPLE_CSV),
+p:store.get('p',{start:'2027-01-11',app:'auto',size:'auto',waves:1,hyper:8,mocks:3,buf:'0.1'}),
+r:store.get('r',DEF_R.map(x=>({...x}))),c:store.get('c',{...DEF_C}),rb:store.get('rb',[]),map:store.get('map',null)};
+{const ok=o=>o&&typeof o==='object'&&!Array.isArray(o),cl=(v,a,b,d)=>{v=+v;return Number.isFinite(v)?Math.min(b,Math.max(a,v)):d};
+const A={...DEF_A,...(ok(S.a)?S.a:{})};Q.forEach(q=>{const v=A[q.id];if(!(Number.isInteger(v)&&v>=0&&v<q.o.length))A[q.id]=DEF_A[q.id]});S.a=A;
+if(typeof S.code!=='string')S.code=SAMPLE_ABAP;if(typeof S.csv!=='string')S.csv=SAMPLE_CSV;
+const DP={start:'2027-01-11',app:'auto',size:'auto',waves:1,hyper:8,mocks:3,buf:'0.1'};S.p={...DP,...(ok(S.p)?S.p:{})};
+if(!/^\d{4}-\d{2}-\d{2}$/.test(S.p.start)||isNaN(Date.parse(S.p.start)))S.p.start=DP.start;
+if(!['auto','brownfield','greenfield','selective'].includes(S.p.app))S.p.app='auto';if(!['auto','S','M','L','XL'].includes(S.p.size))S.p.size='auto';
+S.p.waves=cl(S.p.waves,1,4,1);S.p.hyper=cl(S.p.hyper,1,52,8);S.p.mocks=cl(S.p.mocks,2,4,3);if(!['0','0.1','0.15','0.2'].includes(String(S.p.buf)))S.p.buf='0.1';
+S.r=Array.isArray(S.r)?S.r.filter(r=>ok(r)&&r.t).map(r=>({t:String(r.t),c:String(r.c||'Programme'),l:cl(r.l,1,5,3),i:cl(r.i,1,5,3),m:String(r.m||''),st:['Open','Mitigating','Closed'].includes(r.st)?r.st:'Open'})):DEF_R.map(x=>({...x}));
+const C={...DEF_C,...(ok(S.c)?S.c:{})};for(const k in DEF_C)if(k!=='m')C[k]=cl(C[k],0,1e7,DEF_C[k]);if(!['std','dt','nz'].includes(C.m))C.m='std';C.b=Math.min(100,C.b);S.c=C;
+S.rb=Array.isArray(S.rb)?S.rb.filter(n=>Number.isInteger(n)&&n>=0&&n<RB.length):[];
+if(!(ok(S.map)&&Array.isArray(S.map.rows)&&S.map.rows.every(Array.isArray)))S.map=null;}
+const save=()=>{store.set('a',S.a);store.set('code',S.code);store.set('csv',S.csv);store.set('p',S.p);store.set('r',S.r);store.set('c',S.c);store.set('rb',S.rb)};
+let EV,CODE,PROF,PLAN,CUT;
+
+/* ---------- RENDERERS ---------- */
+const dimBars=ds=>Object.keys(DIMS).map(k=>`<div class="dim"><span>${DIMS[k]}</span><div class="bar"><i style="width:${ds[k]}%;${ds[k]<60?'background:linear-gradient(90deg,#d08a2a,#c0261c)':''}"></i></div><b>${ds[k]}</b></div>`).join('');
+
+function renderAssess(){
+EV=evalAssess(S.a);
+$('#qList').innerHTML=Q.map(q=>`<div class="q"><p>${q.t}${q.d?'':' <span class="tag t-info">shapes approach</span>'}</p><div class="pills">${q.o.map((o,i)=>`<label class="pill"><input type="radio" name="q_${q.id}" value="${i}" ${S.a[q.id]===i?'checked':''}><span>${o[0]}</span></label>`).join('')}</div></div>`).join('');
+paintAssess()}
+function paintAssess(){
+EV=evalAssess(S.a);
+$('#aScore').textContent=EV.score+' / 100';$('#aDims').innerHTML=dimBars(EV.ds);
+$('#aApproach').textContent=APPN[EV.app];$('#aWhy').innerHTML=EV.why.map(w=>`<li>${esc(w)}</li>`).join('')+`<li>Complexity: ${SIZEN[EV.size]}</li>`;
+const tot=Object.values(EV.sc).reduce((a,b)=>a+Math.max(b,0),0)||1;
+$('#aMix').innerHTML=Object.entries(EV.sc).map(([k,v])=>`<div class="dim"><span>${k[0].toUpperCase()+k.slice(1)}</span><div class="bar"><i style="width:${Math.round(Math.max(v,0)/tot*100)}%"></i></div><b>${Math.round(Math.max(v,0)/tot*100)}%</b></div>`).join('');
+$('#aFlags').innerHTML=EV.flags.length?EV.flags.map(f=>`<div class="act"><span class="tag ${FLAGS[f][0]}">${FLAGS[f][0]}</span><span style="font-size:13.5px">${FLAGS[f][1]}</span></div>`).join(''):'<p class="note">No blockers flagged. Still run SAP Readiness Check to confirm.</p>'}
+
+function renderCode(){
+CODE=scanCode(S.code);
+const {hrs,hi,conv,det}=codeSum(CODE);
+$('#codeKpi').innerHTML=`<div class="glass kpi"><small>Conversion confidence</small><b style="color:${confCol(conv)}">${conv}%</b><span>${conv>=80?'Light rework expected':conv>=50?'Planned remediation':'Significant rework'}</span></div><div class="glass kpi"><small>Detection confidence</small><b>${det}%</b><span>avg. precision of matches</span></div><div class="glass kpi"><small>Findings</small><b>${CODE.length}</b><span>${hi} high severity</span></div><div class="glass kpi"><small>Remediation estimate</small><b>${hrs} h</b><span>≈ ${(hrs/8).toFixed(1)} person-days</span></div>`;
+const by={};CODE.forEach(x=>{by[x.a]=(by[x.a]||0)+1});const mx=Math.max(1,...Object.values(by));
+$('#codeAreas').innerHTML=Object.keys(by).length?Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="dim"><span>${esc(k)}</span><div class="bar"><i style="width:${v/mx*100}%"></i></div><b>${v}</b></div>`).join(''):'<p class="note">No simplification patterns matched.</p>';
+const CAP=500;$('#codeRows').innerHTML=CODE.slice(0,CAP).map(x=>`<div class="fd"><div class="fd-h"><span class="tag ${x.s}">${x.s}</span><span class="tag t-info">Line ${x.ln}</span>${confChip(x.c)}<span class="note" style="margin-left:auto;white-space:nowrap">${x.h} h</span></div><b>${esc(x.i)}</b> <span class="note">· ${esc(x.a)}</span><p><code>${esc(x.m)}</code></p><p>${esc(x.f)}</p></div>`).join('')+(CODE.length>CAP?`<p class="note">Showing the first ${CAP} of ${CODE.length} findings. Use Copy report for the full list.</p>`:'')||'<p class="note">Paste ABAP and press Scan.</p>'}
+
+function renderData(){
+PROF=profile(S.csv);
+if(!PROF){$('#dataKpi').innerHTML='<div class="glass kpi"><small>Status</small><b>—</b><span>Need a header row and at least one record</span></div>';['#dataCols','#dataDup','#dataActs','#dataRows','#dataRecs','#dataDist','#dataDistL'].forEach(s=>$(s).innerHTML='');return}
+const P=PROF;const col=P.score>=85?'var(--okT)':P.score>=65?'var(--warnT)':'var(--badT)';
+$('#dataKpi').innerHTML=`<div class="glass kpi"><small>Conversion confidence</small><b style="color:${confCol(P.conf)}">${P.conf}%</b><span>${P.recs.filter(r=>r.c>=80).length} of ${P.n} records ready</span></div><div class="glass kpi"><small>Blocked records</small><b style="color:${P.recs.some(r=>r.c<50)?'var(--badT)':'var(--okT)'}">${P.recs.filter(r=>r.c<50).length}</b><span>confidence below 50%</span></div><div class="glass kpi"><small>BP readiness score</small><b style="color:${col}">${P.score}</b><span>${P.n} records profiled</span></div><div class="glass kpi"><small>Issues · duplicates</small><b>${P.issues.length} · ${P.dups.length}</b><span>${P.dupRows} records to merge</span></div>`;
+const rd=P.recs.filter(r=>r.c>=80).length,rv=P.recs.filter(r=>r.c>=50&&r.c<80).length,bl=P.n-rd-rv;
+$('#dataDist').innerHTML=[[rd,'var(--ok)'],[rv,'var(--warn)'],[bl,'var(--bad)']].map(x=>`<i style="width:${x[0]/P.n*100}%;background:${x[1]}"></i>`).join('');
+$('#dataDistL').innerHTML=`<span><i style="background:var(--ok)"></i>Ready ${rd}</span><span><i style="background:var(--warn)"></i>Review ${rv}</span><span><i style="background:var(--bad)"></i>Blocked ${bl}</span>`;
+$('#dataRecs').innerHTML=P.recs.slice(0,500).map(r=>`<div class="rec"><div><b style="text-align:left">${esc(r.id)}</b> ${esc(r.name)}<br><span class="note">${esc(r.why.join(' · ')||'no issues')}</span></div><div class="bar"><i style="width:${r.c}%;background:${confCol(r.c)}"></i></div><b style="color:${confCol(r.c)}">${r.c}%</b></div>`).join('')+(P.n>500?`<p class="note">Showing the 500 lowest-confidence records of ${P.n}.</p>`:'');
+$('#dataCols').innerHTML=P.comp.map(c=>`<div class="dim"><span>${esc(c.h)}</span><div class="bar"><i style="width:${c.p}%;${c.p<90?'background:linear-gradient(90deg,#d08a2a,#c0261c)':''}"></i></div><b>${c.p}%</b></div>`).join('');
+$('#dataDup').innerHTML=P.dups.length?P.dups.map(g=>`<div class="act"><span class="dot" style="background:var(--warn)"></span><div style="font-size:13.5px">${g.map(x=>`<b>${esc(x.id)}</b> ${esc(x.name)}`).join('<br>')}</div></div>`).join(''):'<p class="note">No likely duplicates found.</p>';
+const cnt=k=>P.issues.filter(x=>x[2]===k||x[3].includes(k)).length;const acts=[];
+if(P.dups.length)acts.push(['High',`Merge ${P.dups.length} duplicate group(s) and pick a golden record before BP conversion.`]);
+const miss=P.issues.filter(x=>x[3].startsWith('Missing')).length;if(miss)acts.push(['High',`Fill ${miss} missing mandatory value(s) — CVI will reject incomplete records.`]);
+if(cnt('ISO'))acts.push(['Med',`Normalise ${cnt('ISO')} country value(s) to ISO codes.`]);
+if(cnt('email'))acts.push(['Med',`Correct ${cnt('email')} invalid email(s).`]);
+if(cnt('BP field'))acts.push(['Med',`Restructure ${cnt('BP field')} name(s) longer than 40 characters.`]);
+if(cnt('tax'))acts.push(['Med',`Collect ${cnt('tax')} missing tax number(s).`]);
+acts.push(['Low','Agree BP grouping, number ranges and role mapping (FLCU00/FLCU01, FLVN00/FLVN01) before the CVI run.']);
+$('#dataActs').innerHTML=acts.map(a=>`<div class="act"><span class="tag ${a[0]}">${a[0]}</span><span style="font-size:13.5px">${esc(a[1])}</span></div>`).join('');
+$('#dataRows').innerHTML=P.issues.slice(0,500).map(x=>`<div class="fd"><div class="fd-h"><span class="tag ${x[3].startsWith('Missing')?'High':'Med'}">${x[3].startsWith('Missing')?'Blocker':'Fix'}</span><span class="tag t-info">Row ${x[0]}</span><b>${esc(x[1])}</b><span class="note">· ${esc(x[2])}</span></div>${esc(x[3])}<p class="note">${esc(x[4])}</p></div>`).join('')+(P.issues.length>500?`<p class="note">Showing 500 of ${P.issues.length} issues. Use Copy issues for the full list.</p>`:'')||'<p class="note">No record-level issues.</p>'}
+
+function renderPlan(){
+EV=evalAssess(S.a);PLAN=buildPlan(S.p,EV);const P=PLAN;
+$('#pGo').textContent=fmt(P.go);const months=Math.round((P.end-P.start)/(30.44*864e5));$('#pDur').textContent=`${APPN[P.app].split(' — ')[0]} · ${SIZEN[P.size]} · ${months} months end to end`;
+const t0=P.start.getTime(),span=(P.end.getTime()-t0)*1.025;const X=d=>((d.getTime()-t0)/span*100);
+const tick=[];const d=new Date(P.start.getFullYear(),P.start.getMonth(),1);const stepM=months>30?6:months>15?3:2;
+while(d<=P.end){if(d>=P.start)tick.push(new Date(d));d.setMonth(d.getMonth()+stepM)}
+$('#gAxis').innerHTML=tick.map(t=>`<span style="left:${X(t)}%">${t.toLocaleDateString('en-GB',{month:'short',year:'2-digit'})}</span>`).join('');
+const bar=(l,s,e,c)=>`<div class="gr"><span>${esc(l)}</span><div class="track"><div class="gb ${c||''}" style="left:${X(s)}%;width:${Math.max(.6,X(e)-X(s))}%" title="${esc(l)}: ${fmt(s)} – ${fmt(e)}"></div></div></div>`;
+let h=P.ph.map(p=>bar(p.n,p.s,p.e)).join('')+P.ws.map(w=>bar(w[0],w[1],w[2],'ws')).join('')+P.waves.map(w=>bar(w[0],w[1],w[2],'wv')).join('');
+h+=`<div class="gr"><span>Milestones</span><div class="track">${P.ms.map(m=>`<i class="ms" style="left:${X(m[1])}%" title="${esc(m[0])}: ${fmt(m[1])}"></i>`).join('')}</div></div>`;
+const dls=[['Mainstream maintenance ends','2027-12-31'],['Extended maintenance ends','2030-12-31']].map(x=>[x[0],new Date(x[1]+'T00:00:00')]).filter(x=>x[1]>P.start&&x[1]<P.end);
+h+=`<div style="position:absolute;top:0;bottom:0;left:170px;right:0;pointer-events:none" class="dlwrap">${dls.map(x=>`<div class="dl" style="left:${X(x[1])}%"><em>${x[0]}</em></div>`).join('')}</div>`;
+$('#gantt').innerHTML=h;
+const txt=PLANTXT[P.app];
+$('#planRows').innerHTML=P.ph.map((p,i)=>`<tr><td><b>${p.n}</b><br><span class="note">${p.w} wks</span></td><td>${fmt(p.s)}</td><td>${fmt(p.e)}</td><td>${txt[i][0]}</td><td>${txt[i][1]}</td><td>${txt[i][2]}</td></tr>`).join('')+P.ms.map(m=>`<tr><td><b>◆ ${esc(m[0])}</b></td><td>${fmt(m[1])}</td><td></td><td class="note">Milestone</td><td></td><td></td></tr>`).join('')}
+
+const rs=r=>r.l*r.i;
+function renderRisks(){
+const R=S.r;const opt=(v)=>[1,2,3,4,5].map(n=>`<option ${n==v?'selected':''}>${n}</option>`).join('');
+$('#riskRows').innerHTML=R.map((r,i)=>{const sc=rs(r);const cl=sc>=15?'High':sc>=8?'Med':'Low';return`<div class="rk"><div class="rk-h"><div><b>${esc(r.t)}</b><br><span class="note">${esc(r.c)}</span></div><span class="tag ${cl}" title="Likelihood × impact">Score ${sc}</span></div><p class="note">${esc(r.m)}</p><div class="rk-c"><label>Likelihood<select data-ri="${i}" data-k="l">${opt(r.l)}</select></label><label>Impact<select data-ri="${i}" data-k="i">${opt(r.i)}</select></label><label>Status<select data-ri="${i}" data-k="st">${['Open','Mitigating','Closed'].map(x=>`<option ${x===r.st?'selected':''}>${x}</option>`).join('')}</select></label><button class="btn ghost" data-del="${i}" aria-label="Delete risk" style="min-height:38px;padding:6px 14px;margin-left:auto">Remove</button></div></div>`}).join('')||'<p class="note">No risks logged.</p>';
+const open=R.filter(r=>r.st!=='Closed');
+let hm='';for(let l=5;l>=1;l--){hm+=`<div class="ax">${l}</div>`;for(let im=1;im<=5;im++){const n=open.filter(r=>r.l==l&&r.i==im).length;const s=l*im;const bg=s>=15?'rgba(255,69,58,':s>=8?'rgba(255,159,10,':'rgba(48,195,90,';hm+=`<div style="background:${bg}${n?.75:.16});color:${n?'#fff':'transparent'}">${n||''}</div>`}}
+hm+='<div class="ax"></div>'+[1,2,3,4,5].map(n=>`<div class="ax">${n}</div>`).join('');$('#heat').innerHTML=hm;
+const hi=open.filter(r=>rs(r)>=15).length;
+$('#riskKpi').innerHTML=`<div class="glass kpi"><small>Open risks</small><b>${open.length}</b><span>of ${R.length} logged</span></div><div class="glass kpi"><small>Critical (≥15)</small><b style="color:${hi?'var(--badT)':'var(--okT)'}">${hi}</b><span>need owner action</span></div>`}
+
+function renderCut(){
+const c=S.c;['db','t','f','r','v','b','w'].forEach(k=>{const el=$('#c'+k.toUpperCase());if(document.activeElement!==el)el.value=c[k]});$('#cM').value=c.m;
+const tech=c.db/Math.max(10,c.t);const fact={std:[1,1],dt:[.45,1],nz:[.3,.6]}[c.m];
+const parts=[['Ramp-down and backup',4,'#a39a8f'],['Database migration',tech*fact[0],'#8C1515'],['SUM downtime phases',6*fact[1],'#c0504d'],['Finance data migration',c.f/Math.max(1,c.r)*fact[1],'#B8962E'],['Validation',+c.v,'#7a6a3a']];
+const base=parts.reduce((a,b)=>a+b[1],0);parts.push(['Contingency',base*c.b/100,'#d9c9a8']);
+const tot=parts.reduce((a,b)=>a+b[1],0);CUT={tot,ok:tot<=c.w};
+$('#cBar').innerHTML=parts.map(p=>`<i style="width:${p[1]/tot*100}%;background:${p[2]}" title="${p[0]}: ${p[1].toFixed(1)} h"></i>`).join('');
+$('#cLeg').innerHTML=parts.map(p=>`<span><i style="background:${p[2]}"></i>${p[0]} ${p[1].toFixed(1)} h</span>`).join('');
+$('#cKpi').innerHTML=`<div class="glass kpi"><small>Estimated downtime</small><b style="color:${CUT.ok?'var(--okT)':'var(--badT)'}">${tot.toFixed(1)} h</b><span>${CUT.ok?'Fits':'Exceeds'} the ${c.w} h window</span></div><div class="glass kpi"><small>Headroom</small><b>${(c.w-tot).toFixed(1)} h</b><span>${(tot/24).toFixed(1)} days of downtime</span></div>`;
+const tips=[];if(c.m==='std')tips.push('Switch to downtime-optimised DMO: tables migrate in uptime, cutting the migration share of downtime by roughly half.');
+if(c.db>2000)tips.push('Archive closed fiscal years and purge IDocs, logs and change documents before Mock 1 — every TB removed saves hours.');
+if(c.f>50)tips.push('Reduce Finance migration time by archiving FI documents of closed years and running the data-consistency checks early.');
+tips.push('Parallelise SUM processes (R3load/migration) to match target CPU; tune using Mock 1 logs.');tips.push('Pre-execute business validation scripts and automate reconciliation reports.');
+$('#cTips').innerHTML=tips.map(t=>`<div class="act"><span class="dot" style="background:var(--gold)"></span><span>${t}</span></div>`).join('');
+$('#runbook').innerHTML=[...new Set(RB.map(r=>r[0]))].map(g=>`<div><h3 class="mt">${g}</h3>${RB.map((r,i)=>r[0]===g?`<label class="chk ${S.rb.includes(i)?'done':''}"><input type="checkbox" data-rb="${i}" ${S.rb.includes(i)?'checked':''}><span>${r[1]}</span></label>`:'').join('')}</div>`).join('');
+const pct=Math.round(S.rb.length/RB.length*100);$('#rbPct').textContent=pct+'% complete';$('#rbBar').style.width=pct+'%'}
+
+function renderOverview(){
+EV=evalAssess(S.a);CODE=CODE||scanCode(S.code);PROF=PROF===undefined?profile(S.csv):PROF;PLAN=buildPlan(S.p,EV);
+const sc=EV.score,R=70,C=2*Math.PI*R,col=sc>=75?'#B8962E':sc>=55?'#c9822a':'#8C1515';
+$('#ring').innerHTML=`<svg viewBox="0 0 180 180"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8C1515"/><stop offset="1" stop-color="${col}"/></linearGradient></defs><circle cx="90" cy="90" r="${R}" fill="none" stroke="currentColor" stroke-opacity=".08" stroke-width="14"/><circle cx="90" cy="90" r="${R}" fill="none" stroke="url(#rg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C*sc/100} ${C}" transform="rotate(-90 90 90)"/></svg><div><b>${sc}</b><small>readiness</small></div>`;
+$('#ovApproach').textContent=APPN[EV.app];$('#ovWhy').textContent=(EV.why.join('. ')||'Balanced profile')+'. Complexity '+SIZEN[EV.size].toLowerCase()+'.';
+const now=new Date();const days=d=>Math.ceil((new Date(d+'T00:00:00')-now)/864e5);
+$('#ovDates').innerHTML=[['Mainstream maintenance ends','2027-12-31'],['Extended maintenance ends','2030-12-31'],['Private edition transition option ends','2033-12-31']].map(x=>`<div><span>${x[0]}</span><b style="white-space:nowrap">${days(x[1])>0?days(x[1]).toLocaleString()+' days':'passed'}</b></div>`).join('')+`<div><span>Planned first go-live</span><b style="white-space:nowrap;color:${PLAN.go>new Date('2027-12-31')?'var(--warnT)':'var(--okT)'}">${fmt(PLAN.go)}</b></div>`;
+const CS=codeSum(CODE),hi=CS.hi,hrs=CS.hrs;const openHi=S.r.filter(r=>r.st!=='Closed'&&rs(r)>=15).length;
+const cut=CUT||{tot:0,ok:true};const rbp=Math.round(S.rb.length/RB.length*100);
+$('#ovKpi').innerHTML=`<a class="glass kpi" href="#code" style="color:inherit;text-decoration:none"><small>Code conversion confidence</small><b style="color:${confCol(CS.conv)}">${CS.conv}%</b><span>${CODE.length} findings · ${hrs} h effort</span></a>
+<a class="glass kpi" href="#data" style="color:inherit;text-decoration:none"><small>Data conversion confidence</small><b style="color:${PROF?confCol(PROF.conf):'inherit'}">${PROF?PROF.conf+'%':'—'}</b><span>${PROF?PROF.recs.filter(r=>r.c<50).length+' blocked · '+PROF.dups.length+' duplicate groups':'No extract'}</span></a>
+<a class="glass kpi" href="#risks" style="color:inherit;text-decoration:none"><small>Critical risks</small><b>${openHi}</b><span>${S.r.filter(r=>r.st!=='Closed').length} open in register</span></a>
+<a class="glass kpi" href="#cutover" style="color:inherit;text-decoration:none"><small>Downtime estimate</small><b>${cut.tot.toFixed(0)} h</b><span>${cut.ok?'within window':'over window'} · runbook ${rbp}%</span></a>`;
+const acts=[];
+EV.flags.forEach(f=>acts.push([FLAGS[f][0],FLAGS[f][1],'Assess']));
+if(hi)acts.push(['High',`Remediate ${hi} high-severity custom code findings (~${hrs} h total effort in scanned code).`,'Code']);
+if(CS.conv<50)acts.push(['High',`Code conversion confidence is ${CS.conv}% — clear high-severity findings before Mock 1.`,'Code']);
+if(PROF&&PROF.conf<80)acts.push([PROF.conf<60?'High':'Med',`Data conversion confidence is ${PROF.conf}% — ${PROF.recs.filter(r=>r.c<50).length} record(s) blocked for BP conversion.`,'Data']);
+if(PROF&&PROF.score<85)acts.push([PROF.score<65?'High':'Med',`Raise master data score from ${PROF.score} to ≥ 85: merge ${PROF.dups.length} duplicate groups, fix ${PROF.issues.length} issues.`,'Data']);
+S.r.filter(r=>r.st!=='Closed'&&rs(r)>=15).forEach(r=>acts.push(['High','Mitigate: '+r.t+' — '+r.m,'Risks']));
+if(!MRES.length&&S.map.rows)runMap();const mn=MRES.filter(r=>MGRP[r.st]==='n').length,mx=MRES.filter(r=>MGRP[r.st]==='x').length;
+if(mn||mx)acts.push([mx?'High':'Med',`${mn} ${MKIND==='int'?'interface(s)':'field(s)'} need a nearest S/4HANA replacement${mx?` and ${mx} have no match`:''} — review the generated mapping.`,'Mapping']);
+if(!cut.ok)acts.push(['High',`Downtime ${cut.tot.toFixed(0)} h exceeds the ${S.c.w} h window — see Cutover levers.`,'Cutover']);
+if(PLAN.go>new Date('2027-12-31T00:00:00'))acts.push(['Med','Go-live falls after mainstream maintenance ends — budget extended maintenance or bring the start forward.','Roadmap']);
+acts.push(['Low','Run SAP Readiness Check and Maintenance Planner on a fresh production copy each quarter.','Assess']);
+const rank={High:0,Med:1,Low:2};acts.sort((a,b)=>rank[a[0]]-rank[b[0]]);
+const dc={High:'var(--bad)',Med:'var(--warn)',Low:'var(--ok)'};
+$('#ovActs').innerHTML=acts.slice(0,9).map(a=>`<div class="act"><span class="dot" style="background:${dc[a[0]]}"></span><div style="font-size:13.5px">${esc(a[1])}<br><span class="note">${a[2]}</span></div></div>`).join('');
+$('#ovDims').innerHTML=dimBars(EV.ds)}
+
+/* ---------- MAPPING ---------- */
+const FI_F={BUKRS:'RBUKRS',RBUKRS:'RBUKRS',HKONT:'RACCT',SAKNR:'RACCT',RACCT:'RACCT',KSTAR:'RACCT',DMBTR:'HSL',WRBTR:'WSL',DMBE2:'KSL',WKGBTR:'HSL',WOGBTR:'OSL',SHKZG:'DRCRK',DRCRK:'DRCRK',WAERS:'RWCUR',RTCUR:'RTCUR',KOSTL:'RCNTR',RCNTR:'RCNTR',PRCTR:'PRCTR',RPRCTR:'PRCTR',AUFNR:'AUFNR',BUDAT:'BUDAT',BLDAT:'BLDAT',BELNR:'BELNR',DOCNR:'BELNR',GJAHR:'GJAHR',RYEAR:'RYEAR',BUZEI:'DOCLN',DOCLN:'DOCLN',KUNNR:'KUNNR',LIFNR:'LIFNR',ZUONR:'ZUONR',SGTXT:'SGTXT',MONAT:'POPER',PERIO:'POPER',POPER:'POPER',HSLVT:'HSL (POPER 000 carry-forward)',OBJNR:'OBJNR',ANLN1:'ANLN1',ANLN2:'ANLN2',AFABE:'AFABE',BWASL:'ANBWA',AUGBL:'AUGBL',AUGDT:'AUGDT',TSL:'TSL',HSL:'HSL',RLDNR:'RLDNR',SEGMENT:'SEGMENT',GSBER:'RBUSA',VBUND:'RASSC'};
+const BP_F=(id,link,grp)=>({[id]:`BUT000-PARTNER (via ${link})`,NAME1:'BUT000-NAME_ORG1',NAME2:'BUT000-NAME_ORG2',NAME3:'BUT000-NAME_ORG3',NAME4:'BUT000-NAME_ORG4',SORTL:'BUT000-BU_SORT1',STRAS:'ADRC-STREET',ORT01:'ADRC-CITY1',PSTLZ:'ADRC-POST_CODE1',LAND1:'ADRC-COUNTRY',REGIO:'ADRC-REGION',SPRAS:'ADRC-LANGU',TELF1:'ADR2-TEL_NUMBER',TELFX:'ADR3-FAX_NUMBER',STCD1:'DFKKBPTAXNUM-TAXNUM',STCD2:'DFKKBPTAXNUM-TAXNUM',STCEG:'DFKKBPTAXNUM-TAXNUM (VAT type)',[grp]:'BUT000-BU_GROUP (via grouping mapping)',ADRNR:'BUT020-ADDRNUMBER',LOEVM:'BUT000-XDELE',SPERR:'BUT000-XBLCK',BRSCH:'BUT0IS-IND_SECTOR'});
+const FMAP={FI:FI_F,KNA1:BP_F('KUNNR','CVI_CUST_LINK','KTOKD'),LFA1:BP_F('LIFNR','CVI_VEND_LINK','KTOKK'),
+KNKK:{KUNNR:'UKMBP_CMS_SGM-PARTNER',KKBER:'UKMBP_CMS_SGM-CREDIT_SGMNT',KLIMK:'UKMBP_CMS_SGM-CREDIT_LIMIT',CTLPC:'UKMBP_CMS-RISK_CLASS',CRBLB:'UKMBP_CMS_SGM-XBLOCKED'}};
+const FIn='Index/totals table is a compatibility view in S/4HANA; the Universal Journal ACDOCA is the single source.';
+const TKB={};
+'BSIS BSAS BSID BSAD BSIK BSAK GLT0 FAGLFLEXA FAGLFLEXT FAGLFLEXP FAGL_SPLINFO COEP COSP COSS'.split(' ').forEach(t=>TKB[t]={t:'ACDOCA',st:'Replaced',fm:'FI',n:FIn,c:92});
+'ANEP ANLC ANLP'.split(' ').forEach(t=>TKB[t]={t:'ACDOCA',st:'Replaced',fm:'FI',n:'Asset values now in the Universal Journal (new Asset Accounting).',c:85});
+Object.assign(TKB,{
+MKPF:{t:'MATDOC',st:'Replaced',same:1,n:'Material document header and items merged into MATDOC.',c:92},MSEG:{t:'MATDOC',st:'Replaced',same:1,n:'Material document header and items merged into MATDOC.',c:92},
+KONV:{t:'PRCD_ELEMENTS',st:'Replaced',same:1,n:'Pricing conditions table; field names kept, some lengths extended.',c:95},
+VBUK:{t:'VBAK',st:'Replaced',same:1,n:'Header status moved to VBAK / LIKP / VBRK according to document category.',c:88},VBUP:{t:'VBAP',st:'Replaced',same:1,n:'Item status moved to VBAP / LIPS / VBRP.',c:88},
+KNA1:{t:'BUT000',st:'Changed',fm:'KNA1',keep:1,n:'Business Partner is the system of record; KNA1 stays in sync through CVI.',c:90},
+LFA1:{t:'BUT000',st:'Changed',fm:'LFA1',keep:1,n:'Business Partner is the system of record; LFA1 stays in sync through CVI.',c:90},
+KNKK:{t:'UKMBP_CMS_SGM',st:'Replaced',fm:'KNKK',n:'Classic credit management replaced by SAP Credit Management (credit segment data).',c:78},
+KNKA:{t:'UKMBP_CMS',st:'Replaced',n:'Central credit data → SAP Credit Management BP data.',c:75},
+S066:{t:'UKM credit exposure (calculated)',st:'Obsolete',n:'Open-order credit exposure is calculated in SAP Credit Management.',c:75},S067:{t:'UKM credit exposure (calculated)',st:'Obsolete',n:'Open-delivery exposure is calculated in SAP Credit Management.',c:75},
+KONA:{t:'WCOCOH',st:'Replaced',n:'SD rebate agreements → condition contracts (Settlement Management).',c:75},
+NAST:{t:'APOC_D_OR_ROOT',st:'Changed',n:'New output management (BRF+); NAST still usable for some applications.',c:65},
+MBEW:{t:'MBEW',st:'Changed',keep:1,n:'Material Ledger is mandatory; actual costs in CKMLCR and ACDOCA.',c:85},
+BSEG:{t:'BSEG',st:'Changed',keep:1,n:'Still exists; use ACDOCA for line-item reporting.',c:90}});
+'MARD MCHB MSKA MSKU MSLB MKOL MSPR'.split(' ').forEach(t=>TKB[t]={t,st:'Changed',keep:1,n:'Stock quantity fields are calculated on the fly from MATDOC — read only.',c:88});
+const UNCH=new Set('BKPF EKKO EKPO EKET EKBE VBAK VBAP VBEP LIKP LIPS VBRK VBRP VBFA VBPA MARA MARC MAKT MVKE MARM T001 T001W T001K CSKS CSKT CEPC AUFK ANLA ANLZ KNB1 KNVV KNVP LFB1 LFM1 JEST STXH T030 SKA1 SKB1 TVKO TVTW EBAN RESB AFKO AFPO PLKO STKO STPO'.split(' '));
+const KW=[[/customer|debtor|sold.?to|ship.?to/i,'API_BUSINESS_PARTNER','Business Partner — customer role'],[/vendor|supplier|creditor/i,'API_BUSINESS_PARTNER','Business Partner — supplier role'],[/supplier invoice|vendor invoice|ap invoice|invoice receipt/i,'API_SUPPLIERINVOICE_PROCESS_SRV','Supplier invoice'],[/invoice|billing/i,'API_BILLING_DOCUMENT_SRV','Billing document'],[/material|product|article|sku/i,'API_PRODUCT_SRV','Product master'],[/goods|stock|inventory|movement|receipt/i,'API_MATERIAL_DOCUMENT_SRV','Material document'],[/sales order|order intake|e-?commerce/i,'API_SALES_ORDER_SRV','Sales order'],[/purchase order|procure|\bpo\b/i,'API_PURCHASEORDER_PROCESS_SRV','Purchase order'],[/deliver|shipment|despatch|dispatch|3pl/i,'API_OUTBOUND_DELIVERY_SRV','Outbound delivery'],[/journal|\bgl\b|ledger|posting|accounting|payroll/i,'JournalEntryCreateRequestConfirmation_In (SOAP)','Journal entry'],[/price|pricing|condition/i,'API_SLSPRICINGCONDITIONRECORD_SRV','Pricing condition records'],[/credit/i,'API_CRDTMBUSINESSPARTNER','SAP Credit Management'],[/payment|bank|remittance|dunning/i,'Payment Medium Workbench (DMEE) / Bank Communication Management','Payments'],[/profitab|co-?pa|margin/i,'CDS views on ACDOCA (account-based CO-PA)','Profitability analysis']];
+const kwNear=txt=>{for(const k of KW)if(k[0].test(txt))return k;return null};
+const lev=(a,b)=>{const m=a.length,n=b.length;if(Math.abs(m-n)>3)return 9;const d=Array.from({length:m+1},(_,i)=>[i]);for(let j=1;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n]};
+function mapField(tab,fld,desc){
+const T=String(tab||'').trim().toUpperCase(),F=String(fld||'').trim().toUpperCase();const src=T+(F?'-'+F:'');
+const len=F==='MATNR'?' MATNR length extended 18 → 40.':'';
+if(!T)return{src:'(blank)',tgt:'—',st:'No match',c:0,n:'Table name missing.'};
+if(/^[ZY]/.test(T))return{src,tgt:src,st:'Custom',c:60,n:'Custom table carried over. Check data elements for extended lengths (MATNR, amounts) and FI/CO references.'+len};
+let K=TKB[T];
+if(!K&&/^CE[1-4]\w+/.test(T))K={t:'ACDOCA',st:'Replaced',n:'Costing-based CO-PA table; account-based CO-PA in ACDOCA is the default. Map value fields to G/L accounts.',c:72};
+if(!K&&/^S\d{3}$/.test(T))K={t:'Analytical CDS view',st:'Obsolete',n:'LIS statistics table; replace with embedded analytics.',c:70};
+if(K){let tg,c=K.c,n=K.n+len;
+if(/^ZZ|^YY/.test(F)){tg=(K.keep?T:K.t)+'-'+F;n='Customer append field: recreate the append on '+(K.keep?T:K.t)+'. '+n;c=Math.min(c,65);return{src,tgt:tg,st:'Custom',c,n}}
+const fm=K.fm&&FMAP[K.fm]&&FMAP[K.fm][F];
+if(fm)tg=fm.includes('-')?fm:K.t+'-'+fm;
+else if(K.fm==='FI'&&/^(HSL|TSL|KSL|OSL|WTG|WKG)\d\d$/.test(F)){tg='ACDOCA-'+F.replace(/\d\d$/,'').replace('WTG','WSL').replace('WKG','HSL')+' (sum by POPER)';c-=5}
+else if(K.same||K.keep){tg=(K.keep?T:K.t)+(F?'-'+F:'');if(K.same)n+=' Same field name assumed — verify.';c-=K.same?4:8}
+else if(!F)tg=K.t;
+else{tg=K.t+'-? (map manually)';c=50;n+=' No field-level rule; map manually.'}
+return{src,tgt:tg,st:K.st,c,n}}
+if(UNCH.has(T))return{src,tgt:src,st:len?'Changed':'Unchanged',c:95,n:len?len.trim():'Table exists in S/4HANA with the same structure.'};
+let best=null,bd=9;[...Object.keys(TKB),...UNCH].forEach(k=>{const d=lev(T,k);if(d<bd){bd=d;best=k}});
+if(bd<=2)return{src,tgt:'?',st:'Nearest',c:50,n:'Not in the knowledge base. Closest known table: '+best+'.',alt:best+(TKB[best]?' → '+TKB[best].t:'')};
+const kw=kwNear(String(desc||''));if(kw)return{src,tgt:'?',st:'Nearest',c:45,n:'Not recognised; suggestion based on the description.',alt:kw[1]+' ('+kw[2]+')'};
+return{src,tgt:'?',st:'No match',c:0,n:'Not recognised. Check SE11 in an S/4HANA sandbox and the Simplification Item list.'}}
+const IKB=[
+[/^DEBMAS/,'DEBMAS (processed via CVI)','Changed','Customer IDoc still works but goes through CVI; the Business Partner must exist. Plan a move to BP replication.','BusinessPartnerSUITEBulkReplicateRequest (SOAP) / API_BUSINESS_PARTNER',88],
+[/^CREMAS/,'CREMAS (processed via CVI)','Changed','Vendor IDoc still works but goes through CVI. Plan a move to BP replication.','BusinessPartnerSUITEBulkReplicateRequest (SOAP) / API_BUSINESS_PARTNER',88],
+[/^MATMAS/,'MATMAS (40-char material)','Changed','Partner must accept the 40-character material number (long fields such as MATNR_LONG).','API_PRODUCT_SRV',90],
+[/^(ORDERS|ORDRSP|ORDCHG)/,'Same IDoc','Unchanged','Standard order IDocs are supported.','API_SALES_ORDER_SRV / API_PURCHASEORDER_PROCESS_SRV',92],
+[/^(DESADV|DELVRY|SHPMNT|SHPCON)/,'Same IDoc','Unchanged','Delivery and shipment IDocs are supported.','API_OUTBOUND_DELIVERY_SRV',90],
+[/^INVOIC/,'Same IDoc','Unchanged','Invoice IDocs are supported; check local e-invoicing rules.','API_SUPPLIERINVOICE_PROCESS_SRV / API_BILLING_DOCUMENT_SRV',90],
+[/^(ACC_DOCUMENT|FIDCC|ACLPAY|ACC_GL_POSTING)/,'Same IDoc','Unchanged','Postings now land in the Universal Journal.','JournalEntryCreateRequestConfirmation_In (SOAP)',90],
+[/^(WMMBXY|MBGMCR)/,'Same IDoc','Unchanged','Goods movements now post to MATDOC.','API_MATERIAL_DOCUMENT_SRV',90],
+[/^COND_A/,'COND_A','Changed','Condition records use the new pricing tables; verify field lengths.','API_SLSPRICINGCONDITIONRECORD_SRV',85],
+[/^(LOIPRO|LOISTD|LOIROU|PROACT|BOMMAS)/,'Same IDoc','Unchanged','Supported.','',88],
+[/^BAPI_(CUSTOMER|VENDOR)_(CREATE|CHANGE)/,'Business Partner API','Replaced','Creating customers/vendors directly bypasses BP and is not recommended in S/4HANA.','API_BUSINESS_PARTNER (OData) / CL_MD_BP_MAINTAIN',90],
+[/^BAPI_(CUSTOMER|VENDOR)_GET/,'Same BAPI (read)','Changed','Read BAPIs still work but do not cover BP-only data.','API_BUSINESS_PARTNER',80],
+[/^BAPI_PO_CREATE$/,'BAPI_PO_CREATE1','Obsolete','Outdated PO BAPI.','API_PURCHASEORDER_PROCESS_SRV',88],
+[/^BAPI_ACC_DOCUMENT_POST/,'Same BAPI','Unchanged','Released and supported.','JournalEntryCreateRequestConfirmation_In (SOAP)',92],
+[/^BAPI_GOODSMVT_CREATE/,'Same BAPI','Unchanged','Released and supported.','API_MATERIAL_DOCUMENT_SRV',92],
+[/^BAPI_SALESORDER_(CREATEFROMDAT2|CHANGE)/,'Same BAPI','Unchanged','Released and supported.','API_SALES_ORDER_SRV',92],
+[/^BAPI_PO_(CREATE1|CHANGE)/,'Same BAPI','Unchanged','Released and supported.','API_PURCHASEORDER_PROCESS_SRV',92],
+[/^BAPI_MATERIAL_SAVEDATA/,'Same BAPI','Changed','Supported; pass the 40-character material fields.','API_PRODUCT_SRV',88],
+[/^BAPI_BILLINGDOC/,'Same BAPI','Unchanged','Released and supported.','API_BILLING_DOCUMENT_SRV',90],
+[/FD32|FD33|KNKK|CREDIT|UKM/,'SAP Credit Management','Replaced','Classic credit management is replaced by SAP Credit Management (FIN-FSCM-CR).','API_CRDTMBUSINESSPARTNER',78],
+[/^RFC_READ_TABLE/,'Released CDS view via OData','Obsolete','Generic table reads are fragile against compatibility views and not recommended.','Released CDS view exposed as an OData API',82],
+[/^LSMW$/,'SAP S/4HANA Migration Cockpit','Obsolete','LSMW is not recommended for S/4HANA data loads.','Migration Cockpit — "Migrate Your Data" app',90],
+[/^CE[1-4]/,'ACDOCA (account-based CO-PA)','Replaced','Costing-based CO-PA extract; account-based CO-PA in the Universal Journal is the default.','CDS views on ACDOCA (e.g. I_GLAccountLineItem)',75],
+[/^S\d{3}$/,'Analytical CDS views','Obsolete','LIS structure; move to CDS-based reporting.','Released analytical CDS views',70],
+[/^2LIS_/,'Same extractor (check)','Changed','Many logistics extractors remain; confirm against SAP\'s supported-extractor list for S/4HANA.','CDS-based extraction via ODP',65]];
+function mapInt(o){const obj=String(o.obj||'').trim().toUpperCase(),txt=(o.name||'')+' '+(o.obj||'');const src=obj||'(no object)';
+for(const k of IKB)if(obj&&k[0].test(obj)){const st=k[2];return{src,tgt:k[1],st,c:k[5],n:k[3],alt:(st==='Replaced'||st==='Obsolete'||st==='Changed')?k[4]:'',api:k[4]}}
+const kw=kwNear(txt);
+if(/^[ZY]/.test(obj))return{src,tgt:'Custom — remediate and retest',st:'Custom',c:kw?62:55,n:'Custom interface object. Check against the Code module and simplification items.',alt:kw?kw[1]+' ('+kw[2]+')':''};
+if(kw)return{src,tgt:'?',st:'Nearest',c:55,n:'Object not recognised; nearest released API based on the interface name.',alt:kw[1]+' ('+kw[2]+')'};
+return{src,tgt:'?',st:'No match',c:0,n:'No rule or keyword match. Search the SAP Business Accelerator Hub for a released API.'}}
+const MGRP={Unchanged:'d',Changed:'d',Custom:'d',Replaced:'n',Obsolete:'n',Nearest:'n','No match':'x'};
+const MCLS={Unchanged:'Low',Changed:'t-info',Custom:'t-info',Replaced:'Med',Obsolete:'High',Nearest:'Med','No match':'High'};
+const SAMPLE_MD=[['Table','Field','Description'],['BSID','BUKRS','Company code'],['BSID','KUNNR','Customer'],['BSID','DMBTR','Amount in local currency'],['BSID','BUZEI','Line item'],['GLT0','HSL01','Period 1 balance'],['FAGLFLEXT','RACCT','Account'],['COEP','WKGBTR','CO amount'],['BSAK','AUGBL','Clearing document'],['KNA1','NAME1','Customer name'],['KNA1','STCD1','Tax number 1'],['KNA1','PSTLZ','Postal code'],['KNA1','ZZLOYALTY','Loyalty tier (append)'],['LFA1','LIFNR','Vendor'],['KONV','KBETR','Condition rate'],['VBUK','GBSTK','Overall status'],['MSEG','MENGE','Quantity'],['MARA','MATNR','Material'],['KNKK','KLIMK','Credit limit'],['EKPO','NETPR','Net price'],['CE11000','VVREV','Revenue value field'],['ZSD_ROUTES','ROUTE','Custom routing table'],['BSIX','DMBTR','Typo test']];
+const SAMPLE_IF=[['Interface ID','Interface name','Technology','ECC object','Direction','Partner system'],['INT-001','Customer master to CRM','IDoc','DEBMAS06','Outbound','CRM'],['INT-002','Vendor creation from sourcing portal','BAPI','BAPI_VENDOR_CREATE','Inbound','Sourcing portal'],['INT-003','Material master to WMS','IDoc','MATMAS05','Outbound','WMS'],['INT-004','Sales orders from e-commerce','IDoc','ORDERS05','Inbound','Web shop'],['INT-005','Goods receipt from WMS','BAPI','BAPI_GOODSMVT_CREATE','Inbound','WMS'],['INT-006','Credit limit update','RFC','Z_FD32_CREDIT_UPDATE','Inbound','Credit bureau'],['INT-007','GL postings from payroll','IDoc','ACC_DOCUMENT03','Inbound','Payroll'],['INT-008','Open items extract','RFC','RFC_READ_TABLE','Outbound','BI tool'],['INT-009','Supplier invoices from OCR','IDoc','INVOIC02','Inbound','OCR scanning'],['INT-010','Price list to POS','File','Z_PRICE_EXTRACT','Outbound','POS'],['INT-011','Legacy data loads','LSMW','LSMW','Inbound','Legacy'],['INT-012','Customer create from portal','BAPI','BAPI_CUSTOMER_CREATEFROMDATA1','Inbound','Portal'],['INT-013','Delivery notifications to 3PL','IDoc','DESADV01','Outbound','3PL'],['INT-014','Profitability extract','File','CE11000','Outbound','Data warehouse'],['INT-015','Purchase orders to suppliers','IDoc','ORDERS05','Outbound','EDI network'],['INT-016','Old PO creation from planning','BAPI','BAPI_PO_CREATE','Inbound','Planning tool'],['INT-017','Fleet telematics feed','File','','Inbound','Telematics']];
+if(!S.map||!S.map.rows)S.map={rows:SAMPLE_IF,name:'Sample interface inventory'};
+let MSHEETS={},MRES=[],MKIND='data',MFILT='all';
+const hIdx=(h,re,used)=>h.findIndex((x,i)=>re.test(x)&&!used.includes(i));
+const HDR=/table|field|interface|object|idoc|bapi|name|desc|^id$|type|direction|partner|system|technology|tab|message/;
+function findHeader(rows){for(let i=0;i<Math.min(15,rows.length);i++){const r=rows[i]||[];const sc=r.filter(c=>HDR.test(String(c).trim().toLowerCase())).length;if(sc>=2)return i}return 0}
+function runMap(){
+let rows=S.map.rows||[];rows=rows.slice(findHeader(rows));if(rows.length<2){MRES=[];paintMap();return}
+const h=rows[0].map(x=>String(x).trim().toLowerCase());let kind=$('#mapKind').value;
+if(kind==='auto')kind=h.some(x=>/idoc|bapi|interface|message|object|technology/.test(x))?'int':'data';MKIND=kind;
+const body=rows.slice(1).filter(r=>r.some(c=>String(c).trim()));
+if(kind==='data'){const u=[];const ti=hIdx(h,/tab|object|entity/,u);u.push(ti);const fi=hIdx(h,/field|feld|column|attribute/,u);u.push(fi);const di=hIdx(h,/desc|text|label|meaning/,u);
+MRES=body.map((r,i)=>({...mapField(r[ti<0?0:ti],r[fi<0?1:fi],di<0?'':r[di]),row:i+2,title:di<0?'':String(r[di]||'')}))}
+else{const u=[];const oi=hIdx(h,/ecc object|object|idoc|message|basic type|bapi|function|rfc|service|program/,u);u.push(oi);const ii=hIdx(h,/^id$|interface id|^int.*id|^no\.?$|number|^ref/,u);u.push(ii);const ni=hIdx(h,/name|interface|desc|title/,u);u.push(ni);const yi=hIdx(h,/tech|type|method|protocol|middleware/,u);u.push(yi);const di=hIdx(h,/direction|^dir/,u);u.push(di);const pi=hIdx(h,/partner|system|target|external|counterpart/,u);
+const g=(r,i)=>i<0?'':String(r[i]||'').trim();
+MRES=body.map((r,i)=>{let obj=g(r,oi);const ty=g(r,yi);if(!obj&&/lsmw/i.test(ty))obj='LSMW';return{...mapInt({obj,name:g(r,ni)}),row:i+2,id:g(r,ii),title:g(r,ni),meta:[ty,g(r,di),g(r,pi)].filter(Boolean).join(' · ')}})}
+MRES.forEach(r=>{r._s=[r.src,r.tgt,r.st,r.n,r.alt,r.title,r.id,r.meta].join(' ').toLowerCase()});paintMap()}
+function paintMap(){
+const R=MRES,n=R.length;$('#mapInfo').textContent=S.map.name?`${S.map.name} — ${MRES.length} rows · detected: ${MKIND==='int'?'interface inventory':'data field mapping'}`:'No file loaded.';
+if(!n){$('#mapKpi').innerHTML='<div class="glass kpi"><small>Rows mapped</small><b>0</b><span>Upload a file or load a sample</span></div>';['#mapDist','#mapDistL','#mapRows','#mapF'].forEach(x=>$(x).innerHTML='');return}
+const cnt=g=>R.filter(r=>MGRP[r.st]===g).length,d=cnt('d'),nn=cnt('n'),x=cnt('x');const avg=Math.round(R.reduce((a,b)=>a+b.c,0)/n);
+$('#mapKpi').innerHTML=`<div class="glass kpi"><small>Mapping confidence</small><b style="color:${confCol(avg)}">${avg}%</b><span>average across ${n} rows</span></div><div class="glass kpi"><small>Direct mapping</small><b>${Math.round(d/n*100)}%</b><span>${d} of ${n} rows</span></div><div class="glass kpi"><small>Nearest suggested</small><b style="color:var(--warnT)">${nn}</b><span>removed or not recommended in S/4</span></div><div class="glass kpi"><small>No match</small><b style="color:${x?'var(--badT)':'var(--okT)'}">${x}</b><span>need manual analysis</span></div>`;
+$('#mapDist').innerHTML=[[d,'var(--ok)'],[nn,'var(--warn)'],[x,'var(--bad)']].map(v=>`<i style="width:${v[0]/n*100}%;background:${v[1]}"></i>`).join('');
+$('#mapDistL').innerHTML=`<span><i style="background:var(--ok)"></i>Direct ${d}</span><span><i style="background:var(--warn)"></i>Nearest ${nn}</span><span><i style="background:var(--bad)"></i>No match ${x}</span>`;
+$('#mapF').innerHTML=[['all','All '+n],['d','Direct '+d],['n','Nearest '+nn],['x','No match '+x]].map(f=>`<label class="pill"><input type="radio" name="mapf" value="${f[0]}" ${MFILT===f[0]?'checked':''}><span>${f[1]}</span></label>`).join('');
+const q=$('#mapQ').value.trim().toLowerCase();
+const vis=R.filter(r=>(MFILT==='all'||MGRP[r.st]===MFILT)&&(!q||r._s.includes(q)));
+$('#mapRows').innerHTML=vis.slice(0,400).map(r=>`<div class="fd"><div class="fd-h"><span class="tag ${MCLS[r.st]}">${r.st}</span>${r.st==='No match'?'':confChip(r.c)}<span class="note" style="margin-left:auto;white-space:nowrap">${r.id?esc(r.id)+' · ':''}row ${r.row}</span></div>${r.title?`<b>${esc(r.title)}</b>${r.meta?` <span class="note">· ${esc(r.meta)}</span>`:''}<br>`:''}<span class="note">ECC</span> <code>${esc(r.src)}</code> <span class="note">→ S/4HANA</span> <code>${esc(r.tgt)}</code><p class="note">${esc(r.n)}</p>${r.alt?`<p><span class="tag t-info">${r.st==='Changed'||r.st==='Custom'?'Recommended':'Nearest'}</span> <code>${esc(r.alt)}</code></p>`:''}</div>`).join('')+(vis.length>400?`<p class="note">Showing 400 of ${vis.length}. Use search or Copy to see all.</p>`:'')||'<p class="note">No rows match the filter.</p>'}
+function loadRows(rows,name){S.map={rows:rows.slice(0,20016).map(r=>r.map(c=>String(c??''))),name};try{store.set('map',S.map)}catch(e){}runMap()}
+let xlsxP=null;const loadXLSX=()=>window.XLSX?Promise.resolve():(xlsxP=xlsxP||new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='vendor/xlsx.full.min.js';sc.onload=ok;sc.onerror=()=>{xlsxP=null;no()};document.head.appendChild(sc)}));
+function readFile(f){if(!/\.csv$/i.test(f.name)&&!window.XLSX){toast('Loading Excel reader…');loadXLSX().then(()=>readFile(f),()=>toast('Excel reader could not load — save the sheet as CSV'));return}const nm=f.name;const isCsv=/\.csv$/i.test(nm);const rd=new FileReader();
+rd.onload=()=>{try{if(isCsv){MSHEETS={[nm]:parseCSV(String(rd.result))}}else{const wb=XLSX.read(new Uint8Array(rd.result),{type:'array'});MSHEETS={};wb.SheetNames.forEach(sn=>MSHEETS[sn]=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:'',raw:false}))}
+const names=Object.keys(MSHEETS);$('#mapSheet').innerHTML=names.map(n=>`<option>${esc(n)}</option>`).join('');const pick=names.find(n=>MSHEETS[n].length>1)||names[0];$('#mapSheet').value=pick;loadRows(MSHEETS[pick],nm+(names.length>1?' / '+pick:''));toast('Loaded '+nm)}catch(e){toast('Could not read this file')}};
+isCsv?rd.readAsText(f):rd.readAsArrayBuffer(f)}
+
+/* ---------- ROUTING ---------- */
+const VIEWS=['overview','assess','code','data','map','plan','risks','cutover'];
+const R_={overview:renderOverview,assess:renderAssess,code:renderCode,data:renderData,map:runMap,plan:renderPlan,risks:renderRisks,cutover:renderCut};
+function route(){let v=(location.hash||'#overview').slice(1);if(!VIEWS.includes(v))v='overview';
+$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+if(v==='overview'){renderCut()}R_[v]();window.scrollTo({top:0});onS&&onS()}
+window.addEventListener('hashchange',route);
+
+/* ---------- EVENTS ---------- */
+$('#qList').addEventListener('change',e=>{const m=e.target.name&&e.target.name.match(/^q_(.+)/);if(m){S.a[m[1]]=+e.target.value;save();paintAssess()}});
+$('#codeIn').value=S.code;
+$('#codeScan').onclick=()=>{S.code=$('#codeIn').value;save();renderCode();toast(CODE.length+' findings')};
+$('#codeSample').onclick=()=>{$('#codeIn').value=S.code=SAMPLE_ABAP;save();renderCode()};
+$('#codeFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{$('#codeIn').value=S.code=String(rd.result);save();renderCode();toast('Loaded '+f.name)};rd.readAsText(f)};
+$('#codeCopy').onclick=()=>copy(['Line,Severity,Confidence %,Area,Item,Matched,Fix,Hours',...CODE.map(x=>[x.ln,x.s,x.c,x.a,x.i,x.m,x.f,x.h].map(csvCell).join(','))].join('\n'),'Code report copied');
+$('#dataIn').value=S.csv;
+$('#dataRun').onclick=()=>{S.csv=$('#dataIn').value;save();renderData();toast('Profiled')};
+$('#dataSample').onclick=()=>{$('#dataIn').value=S.csv=SAMPLE_CSV;save();renderData()};
+$('#dataFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{$('#dataIn').value=S.csv=String(rd.result);save();renderData();toast('Loaded '+f.name)};rd.readAsText(f)};
+$('#dataCopy').onclick=()=>PROF&&copy(['Row,Record,Field,Issue,Fix',...PROF.issues.map(x=>x.map(csvCell).join(','))].join('\n'),'Issues copied');
+const pmap={pStart:'start',pApp:'app',pSize:'size',pWaves:'waves',pHyper:'hyper',pMocks:'mocks',pBuf:'buf'};
+for(const id in pmap){const el=$('#'+id);el.value=S.p[pmap[id]];el.addEventListener('input',()=>{if(id==='pStart'&&!el.value)return;S.p[pmap[id]]=el.value;save();renderPlan()})}
+$('#mapFile').onchange=e=>{const f=e.target.files[0];if(f)readFile(f);e.target.value=''};
+$('#mapSampleD').onclick=()=>{MSHEETS={};$('#mapSheet').innerHTML='<option>Sample</option>';$('#mapKind').value='auto';loadRows(SAMPLE_MD,'Sample field mapping')};
+$('#mapSampleI').onclick=()=>{MSHEETS={};$('#mapSheet').innerHTML='<option>Sample</option>';$('#mapKind').value='auto';loadRows(SAMPLE_IF,'Sample interface inventory')};
+$('#mapSheet').onchange=e=>{const sn=e.target.value;if(MSHEETS[sn])loadRows(MSHEETS[sn],(S.map.name||'').split(' / ')[0]+' / '+sn)};
+$('#mapKind').onchange=runMap;let mqT;$('#mapQ').oninput=()=>{clearTimeout(mqT);mqT=setTimeout(paintMap,120)};
+$('#mapF').addEventListener('change',e=>{if(e.target.name==='mapf'){MFILT=e.target.value;paintMap()}});
+$('#mapCopy').onclick=()=>{if(!MRES.length)return;const hd=MKIND==='int'?'Row,Interface ID,Interface,Details,ECC object,S/4HANA target,Status,Confidence %,Nearest / recommended,Note':'Row,Description,,,ECC table-field,S/4HANA target,Status,Confidence %,Nearest / recommended,Note';copy([hd,...MRES.map(r=>[r.row,r.id||'',MKIND==='int'?r.title:r.title,r.meta||'',r.src,r.tgt,r.st,r.c,r.alt||'',r.n].map(csvCell).join(','))].join('\n'),'Mapping copied — paste into Excel')};
+$('#planCopy').onclick=()=>{const P=PLAN,t=PLANTXT[P.app];copy(['Type,Name,Start,End,Weeks,Activities,Owner,Gate',...P.ph.map((p,i)=>['Phase',p.n,p.s.toISOString().slice(0,10),p.e.toISOString().slice(0,10),p.w,t[i][0],t[i][1],t[i][2]].map(csvCell).join(',')),...P.ws.map(w=>['Workstream',w[0],w[1].toISOString().slice(0,10),w[2].toISOString().slice(0,10),'','','',''].map(csvCell).join(',')),...P.ms.map(m=>['Milestone',m[0],m[1].toISOString().slice(0,10),'','','','',''].map(csvCell).join(','))].join('\n'),'Plan copied — paste into Excel or MS Project')};
+$('#riskRows').addEventListener('change',e=>{const i=e.target.dataset.ri;if(i==null)return;const k=e.target.dataset.k;S.r[i][k]=k==='st'?e.target.value:+e.target.value;save();renderRisks()});
+$('#riskRows').addEventListener('click',e=>{const d=e.target.closest('[data-del]');if(!d)return;const gone=S.r.splice(+d.dataset.del,1)[0];save();renderRisks();toast('Removed: '+gone.t.slice(0,30)+'…')});
+$('#riskForm').addEventListener('submit',e=>{e.preventDefault();const cl=v=>Math.min(5,Math.max(1,+v||3));S.r.unshift({t:$('#rT').value.trim(),c:$('#rC').value,l:cl($('#rL').value),i:cl($('#rI').value),m:$('#rM').value.trim()||'Define mitigation and owner',st:'Open'});save();e.target.reset();renderRisks();toast('Risk added')});
+$('#riskCopy').onclick=()=>copy(['Risk,Category,Likelihood,Impact,Score,Mitigation,Status',...S.r.map(r=>[r.t,r.c,r.l,r.i,rs(r),r.m,r.st].map(csvCell).join(','))].join('\n'),'Register copied');
+['db','t','f','r','v','b','w'].forEach(k=>$('#c'+k.toUpperCase()).addEventListener('input',e=>{let v=parseFloat(e.target.value);if(isNaN(v))return;v=Math.max(0,v);if(k==='b')v=Math.min(100,v);S.c[k]=v;save();renderCut()}));
+$('#cM').onchange=e=>{S.c.m=e.target.value;save();renderCut()};
+$('#runbook').addEventListener('change',e=>{const i=e.target.dataset.rb;if(i==null)return;const n=+i;S.rb=e.target.checked?[...new Set([...S.rb,n])]:S.rb.filter(x=>x!==n);save();renderCut()});
+$('#copyProj').onclick=()=>copy(JSON.stringify({tool:'AI Academia — Meridian ECC→S/4HANA Studio',coCreatedBy:'PlanetAI LLP',exported:new Date().toISOString(),assessment:S.a,result:evalAssess(S.a),plan:S.p,risks:S.r,cutover:S.c,runbookDone:S.rb},null,2),'Project JSON copied');
+let armed=false;$('#resetAll').onclick=e=>{if(!armed){armed=true;e.target.textContent='Tap again to reset';setTimeout(()=>{armed=false;e.target.textContent='Reset to sample'},2500);return}
+Object.assign(S,{a:{...DEF_A},code:SAMPLE_ABAP,csv:SAMPLE_CSV,p:{start:'2027-01-11',app:'auto',size:'auto',waves:1,hyper:8,mocks:3,buf:'0.1'},r:DEF_R.map(x=>({...x})),c:{...DEF_C},rb:[],map:{rows:SAMPLE_IF,name:'Sample interface inventory'}});save();store.set('map',S.map);MRES=[];
+$('#codeIn').value=S.code;$('#dataIn').value=S.csv;for(const id in pmap)$('#'+id).value=S.p[pmap[id]];CODE=scanCode(S.code);PROF=profile(S.csv);armed=false;e.target.textContent='Reset to sample';route();toast('Reset to sample data')};
+
+$('#mapSheet').innerHTML=`<option>${esc((S.map.name||'Sample').split(' / ').pop())}</option>`;
+$('#cpSel').onclick=()=>{const t=$('#cpT');t.focus();t.select();t.setSelectionRange(0,t.value.length)};
+const cpClose=()=>{$('#cpM').hidden=true};$('#cpX').onclick=cpClose;$('#cpM').addEventListener('click',e=>{if(e.target.id==='cpM')cpClose()});document.addEventListener('keydown',e=>{if(e.key==='Escape')cpClose()});
+const tt=$('#toTop');tt.onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+const onS=()=>tt.classList.toggle('on',window.scrollY>320);window.addEventListener('scroll',onS,{passive:true});onS();
+window.__t={mapField,mapInt,scanCode,profile,evalAssess};
+CODE=scanCode(S.code);PROF=profile(S.csv);renderCut();route();
+}
+</script>
+<script>try{if(window.self!==window.top){document.documentElement.classList.add('framed');document.querySelectorAll('.aiu-back').forEach(function(a){a.removeAttribute('href')})}}catch(e){}</script>
+</body>
+</html>

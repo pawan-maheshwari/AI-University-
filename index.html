@@ -265,6 +265,7 @@ em{font-style:italic}
     {k:["practice lab","practice","prompt engineering","prompt","improve my prompt","improve prompt","test my prompt","write a prompt","run prompt","prompt strength","prompt score","ask ai coach"],page:"practice",a:"The Practice Lab is a hands-on Prompt Engineering tool. Type any prompt and get an instant strength score that checks it against best practices (role, task, context, format, examples, and step-by-step reasoning), with highlighted suggestions to improve it. You can run your prompt against a free AI model (GPT-4o-mini, Mistral, or Llama) with no sign-up or API key, tap 'Apply suggestions' to auto-improve it, or 'Ask AI coach' for an AI rewrite. Open it from 'Practice Lab' in the menu."},
     {k:["tools","utilities","tools & utilities","calculator","cloud cost","cloud migration","aws","azure","google cloud","tco","break-even"],page:"tools",a:"Tools & Utilities holds practical working tools. The Cloud Migration Cost Calculator compares AWS, Azure and Google Cloud run-rates, migration cost, timeline, cash flow, sensitivity and break-even from your on-premise estate. Forecast Lab forecasts demand from a sales file you upload, with a train, validation and test split and a confidence score."},
     {k:["planner","kidswear","retail planner","markdown","size curve","size curves","allocation","quality gaps","store trial","overrides"],page:"tools",a:"The Kidswear Planner is in Tools & Utilities. It is built on a retail proof of concept and lets planners review forecasts and override them with reasons (a feedback loop learns how much to trust each reason), compare size curves by store cluster, test markdown paths with what-if scenarios, rank lines losing money to quality problems from return comments, review a store test-versus-control trial, and check model monitoring and a hash-chained audit trail. It uses synthetic sample data."},
+    {k:["sap","s/4hana","s4hana","s/4","ecc","sap migration","brownfield","greenfield","abap","custom code","business partner","cvi","interface mapping","idoc","bapi","cutover","meridian"],page:"tools",a:"The SAP S/4HANA Migration Studio (Meridian) is in Tools & Utilities. Assess ECC readiness and get a recommended approach, scan ABAP for simplification items with confidence scores, profile Business Partner data, upload Excel field or interface lists to generate the S/4HANA mapping with nearest equivalents, and plan the roadmap, risks and cutover. Co-created by PlanetAI LLP; it runs entirely in your browser."},
     {k:["forecast","forecasting","forecast lab","demand forecast","sales forecast","predict sales","train test split","validation","wape","accuracy","kidswear"],page:"tools",a:"Forecast Lab is in Tools & Utilities. Upload a CSV of sales history; it splits the data by time into training, validation and test periods, compares five methods (seasonal naive baseline, moving average, Holt-Winters, gradient-boosted machine learning and an ensemble), forecasts ahead with a tested range, and gives a 0-100 confidence score with every check shown. You can later upload actuals to monitor drift. It runs entirely in your browser, and includes a Kidswear retail case study."},
     {k:["seven lanterns","harvard shelf","iliad","odyssey","aeneid","sappho","kafka","the trial","souls of black folk","du bois","kugel"],page:"home",a:"Seven Lanterns is an illustrated flipbook in the Exclusive reading section of the home page. It retells seven books from a Harvard humanities shelf (The Iliad, The Odyssey, The Aeneid, If Not, Winter, The Trial, How to Read the Bible and The Souls of Black Folk) with core messages, key extracts and a telling in the manner of Shakespeare."},
     {k:["thinking shelf","exclusive reading","flipbook","what should i read","reading list","game theory book","how to lie with statistics"],page:"home",a:"The Thinking Shelf is an interactive flipbook in the Exclusive reading section of the home page. It covers six subjects worth a month each (game theory, cognitive biases, philosophy, why nations diverge, art history and statistics), with a reading plan, key takeaways, AI-era habits and a hands-on experiment for each."},
@@ -2982,6 +2983,7 @@ var IMG = {
   cyber:document.getElementById('i15').src, futures:document.getElementById('i16').src, cloudcost:document.getElementById('i17').src, aiready:document.getElementById('i18').src, forecastlab:document.getElementById('i19').src, planner:document.getElementById('i20').src, aimaturity:"img/ai-maturity.svg", logoNav:document.getElementById('i6').src,
   aipsych:"img/ai-psychology.svg",
   catalyst:"img/catalyst-canvas.svg",
+  sapmigration:"img/sap-migration-studio.svg",
   logoHero:document.getElementById('i7').src, logoCert:document.getElementById('i8').src, logoFull:document.getElementById('i9').src
 };
 
@@ -3109,7 +3111,13 @@ var TOOLS = [
    meta:"Workshop tool \u00B7 Voice of customer \u00B7 Impact vs effort",
    tag:"Run an AI co-creation workshop on one live board. Participants join from any device with a code, post the voice of the customer on sticky notes, vote, and drag opportunities onto an impact-versus-effort matrix. The AI Canvas builds itself from the votes.",
    points:["Live board, no login","One vote per person","Impact \u00D7 effort ROI matrix","Shared phase timers","Canvas export (.md / .json)"],
-   cta:"Open Board"}
+   cta:"Open Board"},
+  {id:"sapmigration", img:"sapmigration", file:"sap-migration-studio.html",
+   label:"SAP S/4HANA Migration Studio",
+   meta:"Executive tool \u00B7 SAP ECC \u2192 S/4HANA \u00B7 Co-created by PlanetAI LLP",
+   tag:"Meridian is a working utility for ECC to S/4HANA programmes. Assess readiness and get a recommended approach, scan ABAP for simplification items, profile Business Partner data, upload Excel field or interface lists to generate the S/4HANA mapping with nearest equivalents, then plan the roadmap, risks and cutover.",
+   points:["Readiness & approach engine","ABAP scan with confidence","Excel field & interface mapping","Activate roadmap & risk heat map","Downtime estimator & runbook"],
+   cta:"Open Studio"}
 ];
 
 // Research papers (newest first)
