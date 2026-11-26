@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#F9F7F4">
+<title>QUEST Lab — AI Academia</title>
+<meta name="description" content="QUEST: an open lab for critical AI literacy. Measure discernment, not distrust — what-if analysis, Monte Carlo simulation, trust gates and a seeded discernment test for learners, educators and institutional leaders.">
+<link rel="canonical" href="https://ai-university.co.in/quest-lab.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE AI Academia, calm and exact; an instrument people trust, not a dashboard that shouts
+   IDEA the academy's own lab bench: one ivory sheet, cardinal and gold, a QUEST route as the spine
+   PICTURE the live trust console (verdict, value per group, value-vs-catch-rate curve) and the test card
+   COLOUR ivory ground, white glass surfaces, ink text; cardinal = Question/bad, indigo = Understand,
+          gold = Evaluate, teal = Simulate/good, ink = Trust (all from the AI Academia palette)
+   TYPE EB Garamond for headings and big figures' labels, Apple system UI for everything else
+   LAYOUT frosted bar + segmented tabs on top; laptop: controls left, result right; phone: one column, result first */
+:root{color-scheme:light;--bg:#F9F7F4;--surface:#ffffff;--panel:#ffffff;--ink:#1A1917;--ink2:#2C2A26;--mute:#6B6560;--line:#E5E0D8;--hair:rgba(26,25,23,.08);
+ --red:#8C1515;--blue:#5B4FCF;--amber:#B8962E;--green:#2D7D6E;--good:#2D7D6E;--warn:#8A6A12;--bad:#8C1515;
+ --r:20px;--shadow:0 1px 2px rgba(26,25,23,.04),0 10px 30px rgba(26,25,23,.07);--serif:'EB Garamond',Georgia,serif;
+ --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,'Helvetica Neue',sans-serif}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:120px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:var(--red)}
+[hidden]{display:none!important}
+.hide{display:none!important}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(249,247,244,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--hair)}
+.tb{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px max(5vw,16px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand i{width:32px;height:32px;border-radius:9px;background:linear-gradient(145deg,#a51c1c,#6e0f0f);display:grid;place-items:center;color:#fff;font:700 17px var(--serif);font-style:normal;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.brand b{font:700 19px var(--serif);letter-spacing:.01em}
+.brand small{display:block;font-size:11px;color:var(--mute);letter-spacing:.02em;margin-top:-3px}
+.home{font:600 14px var(--sans);color:var(--ink);text-decoration:none;padding:8px 14px;border-radius:999px;background:rgba(118,118,128,.12);white-space:nowrap}
+.home:hover{background:rgba(118,118,128,.2)}
+.segwrap{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px) 10px}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.12);max-width:100%;overflow-x:auto}
+.seg a{flex:none;font:600 14px var(--sans);color:var(--ink);text-decoration:none;padding:8px 16px;border-radius:9px;min-height:36px;display:flex;align-items:center;transition:background .25s,box-shadow .25s}
+.seg a[aria-selected=true]{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08),0 3px 8px rgba(0,0,0,.06)}
+/* hero */
+.hero{padding:clamp(28px,5vw,64px) max(5vw,16px) 8px}
+.hero .in{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:end}
+.kick{font:600 12px var(--sans);color:var(--amber);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+h1{font:600 clamp(36px,5vw,60px)/1.02 var(--serif);letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance}
+h1 em{color:var(--red);font-style:italic}
+.hero p{font-size:18px;color:var(--mute);margin:0;max-width:56ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fact{background:var(--surface);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.fact b{display:block;font:600 26px var(--serif);line-height:1.1}
+.fact span{font-size:13px;color:var(--mute);line-height:1.3;display:block}
+/* shared */
+.band{padding-block:clamp(22px,3.2vw,48px);padding-inline:max(5vw,16px)}
+.wrap,.wide{max-width:1240px;margin:0 auto}
+.col{max-width:720px;margin:0 auto}
+h2{font:600 clamp(26px,3vw,36px)/1.08 var(--serif);letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance}
+h2.big{font-size:clamp(30px,3.6vw,44px)}
+h3{font:700 17px var(--sans);margin:0 0 6px;letter-spacing:-.01em}
+p{margin:0 0 12px;max-width:70ch}
+.lede{font-size:17px;color:var(--mute)}
+.mute{color:var(--mute)}
+.small{font-size:14px}
+.panel,.tcard{background:var(--surface);border:0;border-radius:var(--r);box-shadow:var(--shadow);padding:20px}
+.tcard{padding:clamp(18px,3vw,28px)}
+.btn{font:600 16px var(--sans);min-height:44px;padding:10px 22px;border-radius:999px;border:0;background:var(--red);color:#fff;cursor:pointer;transition:transform .15s,background .2s}
+.btn:hover{background:#a51c1c}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:rgba(118,118,128,.12);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:3px solid rgba(91,79,207,.55);outline-offset:2px}
+.roles{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.12);margin:14px 0 4px}
+.roles button{font:600 15px var(--sans);min-height:40px;padding:8px 16px;border-radius:9px;border:0;background:transparent;color:var(--ink);cursor:pointer;transition:background .25s,box-shadow .25s}
+.roles button[aria-pressed=true]{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08),0 3px 8px rgba(0,0,0,.06)}
+/* QUEST route */
+.route{display:flex;align-items:flex-start;position:relative;margin:24px 0 0;overflow-x:auto;padding-bottom:4px}
+.route::before{content:"";position:absolute;left:22px;right:22px;top:20px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--red) 0 20%,var(--blue) 20% 40%,var(--amber) 40% 60%,var(--green) 60% 80%,var(--ink) 80%)}
+.stn{flex:1 0 110px;display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:var(--ink);position:relative;gap:6px}
+.stn b{width:46px;height:46px;border-radius:50%;background:#fff;border:5px solid var(--c);display:grid;place-items:center;font:700 19px var(--serif);box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .2s}
+.stn:hover b{transform:scale(1.08)}
+.stn span{font-weight:700;font-size:15px}
+.stn small{font-size:13px;color:var(--mute);line-height:1.3;max-width:15ch}
+/* lab console */
+.console{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:start}
+.grp{margin-bottom:16px}
+.grp h3{display:flex;align-items:center;gap:8px}
+.grp h3 i{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block}
+.sl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)}
+.sl label{font-size:15px;font-weight:600}
+.sl output{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sl small{grid-column:1/-1;font-size:13px;color:var(--mute);line-height:1.35}
+input[type=range]{grid-column:1/-1;width:100%;height:28px;-webkit-appearance:none;appearance:none;background:transparent;margin:4px 0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--red),var(--red)) 0/var(--p,50%) 100% no-repeat,#e3ded6}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#e3ded6}
+input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--red)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;margin-top:-11px;box-shadow:0 0.5px 4px rgba(0,0,0,.12),0 6px 13px rgba(0,0,0,.12);border:0}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:0;box-shadow:0 0.5px 4px rgba(0,0,0,.12),0 6px 13px rgba(0,0,0,.12)}
+.chk{display:flex;gap:10px;align-items:flex-start;min-height:44px;font-size:15px;font-weight:600;margin:8px 0}
+.chk input{width:22px;height:22px;accent-color:var(--red);flex:none;margin-top:1px}
+.verdict{border-radius:var(--r);padding:20px 22px;color:#fff;background:var(--vc,#333);box-shadow:var(--shadow);transition:background .5s}
+.verdict .v{font:600 clamp(30px,3.6vw,42px)/1.05 var(--serif)}
+.verdict p{margin:8px 0 0;color:#fff;opacity:.95}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.4em,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--surface);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);border-top:0;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c,var(--ink))}
+.kpi .n{font-size:clamp(22px,2.4vw,28px);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1.15;letter-spacing:-.02em}
+.kpi .l{font-size:13px;color:var(--mute);line-height:1.3}
+.gates{list-style:none;padding:0;margin:0 0 6px;display:grid}
+.gates li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:15px;padding:9px 0;border-bottom:1px solid var(--line)}
+.gates li>b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:13px}
+.gates li .val{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fig{position:relative;min-height:300px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+svg text{font:13px var(--sans);fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:4px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.torn{display:grid;gap:8px;margin-top:8px}
+.trow{display:grid;grid-template-columns:7.5em minmax(0,1fr) 5.5em;gap:8px;align-items:center;font-size:14px}
+.ttrack{position:relative;height:20px;background:#efebe4;border-radius:10px}
+.ttrack i{position:absolute;top:0;bottom:0;border-radius:10px}
+.ttrack::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.trow .val{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14em),1fr));gap:14px}
+.card{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--c)}
+.card .s{font:600 15px var(--serif);color:var(--mute)}
+.card q{display:block;font:600 19px/1.3 var(--serif);margin:6px 0 10px;quotes:none}
+.card .num{font-size:14px}
+.card .num b{font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:700}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td input{width:5.5em;font:16px var(--sans);padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);text-align:right}
+.scroll{overflow-x:auto}
+.flag{font-weight:700;white-space:nowrap}
+.f{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:4px 20px;padding:14px 0;border-top:1px solid var(--line)}
+.f code{font:600 14px ui-monospace,'SF Mono',Menlo,Consolas,monospace;overflow-wrap:anywhere;background:#f2efe9;padding:8px 10px;border-radius:10px;display:block}
+.f h3{grid-column:1/-1;margin:0;font:600 19px var(--serif)}
+.secthead{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.secthead b{width:40px;height:40px;flex:none;border-radius:50%;border:5px solid var(--c);background:#fff;display:grid;place-items:center;font:700 17px var(--serif)}
+.secthead h2{margin:0}
+.tbar,.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.alt{background:#F2EFE9}
+/* test */
+.line{display:flex;align-items:center;margin:18px 0 22px}
+.line i{flex:1;height:6px;background:var(--line);border-radius:3px}
+.line i.on{background:var(--ink)}
+.line b{width:30px;height:30px;border-radius:50%;border:5px solid var(--line);background:#fff;flex:none;transition:border-color .3s}
+.line b.on{border-color:var(--c)}
+.stations{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-top:-14px;color:var(--mute)}
+label.lbl{display:block;font-weight:600;margin:14px 0 6px}
+input[type=text],select,textarea{font:16px var(--sans);width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+textarea{min-height:160px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:14px}
+.prog{height:4px;background:var(--line);border-radius:2px;margin:0 0 14px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--red);transition:width .3s}
+.ask{font-size:13px;font-weight:600;color:var(--mute);margin-bottom:4px}
+.q{font:600 21px/1.3 var(--serif);margin:0 0 12px}
+.src{border-left:3px solid var(--amber);padding:10px 14px;background:#faf8f4;border-radius:0 12px 12px 0;margin:0 0 14px;font-size:15px}
+.src table{width:auto;margin-top:4px}
+.src td,.src th{padding:3px 14px 3px 0;border:0;font-variant-numeric:tabular-nums}
+.ai{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;align-items:start;margin:4px 0 18px}
+.ai .av{width:38px;height:38px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+.ai p{font-size:18px;margin:0;background:#f2efe9;border-radius:6px 18px 18px 18px;padding:12px 16px}
+.choices{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.choice{font:700 18px var(--sans);min-height:64px;border-radius:16px;border:2px solid var(--c);background:#fff;color:var(--ink);cursor:pointer;transition:transform .12s,background .2s}
+.choice small{display:block;font-weight:500;font-size:13px;color:var(--mute)}
+.choice:hover{background:color-mix(in srgb,var(--c) 8%,#fff)}
+.choice:active{transform:scale(.97)}
+.code{font:600 14px ui-monospace,'SF Mono',Menlo,Consolas,monospace;overflow-wrap:anywhere;background:#fff;border:1px dashed var(--mute);border-radius:12px;padding:12px;user-select:all}
+.rev{list-style:none;padding:0;margin:0}
+.rev li{border-top:1px solid var(--line);padding:12px 0}
+.rev b{display:block}
+.tag{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff;white-space:nowrap}
+table.d{font-size:14px}
+table.d th,table.d td{padding:8px}
+.brief{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;position:relative;overflow:hidden}
+.brief::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--c)}
+.brief ol{padding-left:22px;margin:6px 0}
+.brief li{margin:4px 0}
+.note{font-size:14px;padding:10px 14px;border-radius:12px;background:rgba(184,150,46,.16)}
+footer.site{background:var(--ink);color:rgba(255,255,255,.7);padding:32px max(5vw,16px);font-size:14px}
+footer.site .in{max-width:1240px;margin:0 auto}
+footer.site em{color:var(--amber);font-family:var(--serif);font-size:16px}
+footer.site a{color:#fff}
+.tabpane{animation:fade .35s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.tabpane{animation:none}.verdict,.seg a,.roles button{transition:none}}
+@media(max-width:900px){.console,.two,.hero .in{grid-template-columns:minmax(0,1fr)}.result{order:-1}}
+@media(max-width:600px){.f{grid-template-columns:minmax(0,1fr)}table{font-size:13px}th,td{padding:6px 4px}.stn small{display:none}.stn{flex-basis:70px}.trow{grid-template-columns:6em minmax(0,1fr) 4.8em}.brand small{display:none}.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.fact b{font-size:22px}.choice{font-size:16px}.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.roles button{padding:8px 6px;font-size:14px;line-height:1.2}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="tb">
+  <a class="brand" href="index.html"><i>A</i><span><b>AI Academia</b><small>Dean's Programme</small></span></a>
+  <a class="home" href="index.html">&larr; Home</a>
+ </div>
+ <div class="segwrap"><nav class="seg" role="tablist" aria-label="QUEST sections">
+  <a href="#lab" role="tab" id="t-lab" aria-controls="tab-lab">Lab</a>
+  <a href="#test" role="tab" id="t-test" aria-controls="tab-test">Discernment test</a>
+  <a href="#facilitator" role="tab" id="t-fac" aria-controls="tab-fac">Facilitator</a>
+ </nav></div>
+</header>
+
+<section class="hero">
+ <div class="in">
+  <div>
+   <div class="kick">Critical AI literacy</div>
+   <h1>Discernment, <em>not distrust</em></h1>
+   <p>QUEST helps learners, educators and institutional leaders question an AI tool, measure their own judgement, and decide whether the tool helps the learners it serves least well.</p>
+  </div>
+  <div class="facts">
+   <div class="fact"><b>5</b><span>trust gates to pass</span></div>
+   <div class="fact"><b>5,000</b><span>Monte Carlo runs per change</span></div>
+   <div class="fact"><b>40</b><span>seeded test items</span></div>
+  </div>
+ </div>
+</section>
+<section id="tab-lab" class="tabpane">
+<header class="band">
+<div class="wrap">
+<h2 class="big">QUEST Lab</h2><p class="lede">Score the AI tool, score the person judging it, then simulate whether the two together add learning value for the least-served students. Choose your role; every number updates as you move a slider.</p>
+<div class="roles" role="group" aria-label="Choose your role">
+<button id="r-learner" data-role="learner">Learner</button>
+<button id="r-educator" data-role="educator">Educator</button>
+<button id="r-leader" data-role="leader">Institutional leader</button>
+</div>
+<p class="small mute" id="scen"></p>
+<nav class="route" aria-label="QUEST route">
+<a class="stn" href="#question" style="--c:var(--red)"><b>Q</b><span>Question</span><small>Ask what the claim rests on</small></a>
+<a class="stn" href="#understand" style="--c:var(--blue)"><b>U</b><span>Understand</span><small>Measure your own discernment</small></a>
+<a class="stn" href="#evaluate" style="--c:var(--amber)"><b>E</b><span>Evaluate</span><small>Test fairness with swaps</small></a>
+<a class="stn" href="#simulate" style="--c:var(--green)"><b>S</b><span>Simulate</span><small>What-if and Monte Carlo</small></a>
+<a class="stn" href="#trust" style="--c:var(--ink)"><b>T</b><span>Trust</span><small>Pass the five gates</small></a>
+</nav>
+</div>
+</header>
+
+<section class="band" id="trust" style="padding-top:0">
+<div class="wrap console">
+<div class="panel" id="controls"></div>
+<div class="result">
+<div class="verdict" id="verdict"><div class="v" id="vtitle"></div><p id="vtext"></p></div>
+<div class="kpis" id="kpis"></div>
+<div class="panel">
+<h3 id="curveTitle">Value per use rises with the user's catch rate</h3>
+<p class="small mute">Net learning minutes per AI interaction, for the majority group (blue) and the least-served group (red). The dot is the minimum viable literacy c*: the catch rate at which the least-served group breaks even.</p>
+<div class="fig" id="curveFig"><svg id="curve" role="img" aria-label="Net value against catch rate"></svg></div>
+</div>
+<div class="panel" style="margin-top:16px">
+<h3>The five trust gates</h3>
+<ul class="gates" id="gates"></ul>
+<p class="small mute">Gates are non-compensatory: a high score on one cannot buy back a failure on another.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="band alt" id="simulate">
+<div class="wrap">
+<div class="secthead" style="--c:var(--green)"><b>S</b><h2 id="mcTitle">Monte Carlo: how sure are we?</h2></div>
+<p>Each run draws 5,000 plausible worlds. Error and catch rates are drawn from Beta distributions whose width comes from your audit sizes, so a small audit gives a wide, honest spread. Value inputs are drawn from triangular distributions with the uncertainty you set.</p>
+<div class="two">
+<div>
+<h3>Net value per use, least-served group</h3>
+<div class="fig" id="histFig" style="min-height:280px"><svg id="hist" role="img" aria-label="Histogram of simulated net value"></svg></div>
+<div class="kpis" id="mcK"></div>
+</div>
+<div>
+<h3>What moves the answer most</h3>
+<p class="small mute">Each input swung 25% down and up, others held. Bars show the change in net value per use for the least-served group; the longest bar is where better evidence or training pays off first.</p>
+<div class="torn" id="torn"></div>
+</div>
+</div>
+<div class="two" style="margin-top:28px">
+<div>
+<h3>What-if: hours of training to reach c*</h3>
+<p class="small mute">Catch rate after T hours of practice: c(T) = c<sub>max</sub> − (c<sub>max</sub> − c<sub>0</sub>)·e<sup>−kT</sup>. Start c<sub>0</sub> is today's catch rate.</p>
+<div class="sl"><label for="cmax">Ceiling c<sub>max</sub></label><output id="o-cmax"></output><input type="range" id="cmax" min="0.5" max="0.98" step="0.01" value="0.85"></div>
+<div class="sl"><label for="kk">Learning speed k per hour</label><output id="o-kk"></output><input type="range" id="kk" min="0.05" max="1" step="0.01" value="0.25"></div>
+</div>
+<div>
+<div class="fig" id="pdFig" style="min-height:260px"><svg id="pd" role="img" aria-label="Training curve"></svg></div>
+<p id="pdNote" class="small"></p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="band" id="question">
+<div class="wrap">
+<div class="secthead" style="--c:var(--red)"><b>Q</b><h2>Five questions, each tied to a number</h2></div>
+<p>Critical literacy starts with a question that has an answer you can check. Each card names the input it feeds and shows its current value.</p>
+<div class="cards" id="cards"></div>
+</div>
+</section>
+
+<section class="band alt" id="understand">
+<div class="wrap two">
+<div>
+<div class="secthead" style="--c:var(--blue)"><b>U</b><h2>Understand your own judgement</h2></div>
+<p>Run a seeded test: mix known-wrong AI outputs with correct ones and record what the person flags. Two rates fall out: catch rate c (wrong outputs flagged) and false-alarm rate r (correct outputs rejected). Signal-detection theory turns them into discernment d′ = z(c) − z(r), which separates real skill from blanket suspicion.</p>
+<p>Three competencies are scored 0–100 from short scenario tasks and combined with a weighted geometric mean, so one weak area pulls the index down instead of being averaged away.</p>
+<div id="lit"></div>
+</div>
+<div>
+<div class="kpis" id="litK"></div>
+<div class="panel"><h3>Reading d′</h3>
+<table><thead><tr><th>d′</th><th>Meaning</th></tr></thead><tbody>
+<tr><td class="r">below 0.5</td><td>Guessing: trusting or doubting without telling right from wrong</td></tr>
+<tr><td class="r">0.5–1.0</td><td>Emerging discernment; needs scaffolding</td></tr>
+<tr><td class="r">1.0–2.0</td><td>Competent; safe for supervised use</td></tr>
+<tr><td class="r">above 2.0</td><td>Expert; can coach others</td></tr>
+</tbody></table></div>
+</div>
+</div>
+</section>
+
+<section class="band" id="evaluate">
+<div class="wrap">
+<div class="secthead" style="--c:var(--amber)"><b>E</b><h2>Evaluate fairness with counterfactual swaps</h2></div>
+<p>Submit the same work twice, changing only one cue: a name, a dialect, a disclosed disability. Count how often the grade band or feedback category flips. Counterfactual consistency CCS = 1 − flips ÷ pairs. Any attribute below 0.95 is flagged; the lowest feeds the fairness gate alongside the disparity ratio.</p>
+<div class="scroll"><table id="swap"><thead><tr><th>Cue changed</th><th class="r">Pairs tested</th><th class="r">Outcome flips</th><th class="r">CCS</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+<p class="small mute" style="margin-top:8px">Sample counts shown; replace with your own test results.</p>
+</div>
+</section>
+
+<section class="band alt" id="formulas">
+<div class="wrap">
+<h2>Formula sheet</h2>
+<div class="tbar"><button class="btn" id="copyF">Copy all formulas</button><span class="small mute" id="copyMsg" aria-live="polite"></span></div>
+<div id="flist"></div>
+</div>
+</section>
+
+</section>
+<section id="tab-test" class="tabpane" hidden>
+<main id="participant" class="band">
+<div class="col">
+<h2 class="big">Can you tell when the AI is wrong?</h2>
+<p class="mute">A 15-minute test of AI discernment from the QUEST framework. You will judge 40 short AI answers in two rounds. Nothing you enter leaves this device unless you choose to share your result code.</p>
+<div class="line" aria-hidden="true"><b id="st1" style="--c:var(--ink)"></b><i id="ln1"></i><b id="st2" style="--c:var(--blue)"></b><i id="ln2"></i><b id="st3" style="--c:var(--amber)"></b><i id="ln3"></i><b id="st4" style="--c:var(--green)"></b></div>
+<div class="stations" aria-hidden="true"><span>Start</span><span>Round 1</span><span>Round 2</span><span>Results</span></div>
+
+<section id="v-start" class="tcard" style="margin-top:20px">
+<h2>Before you begin</h2>
+<p>Each item shows what someone asked an AI and what it answered. Everything you need to check it is on the screen or is common knowledge. Choose <b>Accept</b> if the answer is right, or <b>Flag</b> if it contains an error. About half the answers are correct.</p>
+<label class="lbl" for="role">Your role</label>
+<select id="role"><option value="learner">Learner or student</option><option value="educator">Educator or trainer</option><option value="leader">Institutional leader or manager</option><option value="other">Other professional</option></select>
+<label class="lbl" for="sess">Session code from your facilitator (optional)</label>
+<input type="text" id="sess" maxlength="20" autocomplete="off" placeholder="e.g. CPT-NOV">
+<label class="chk"><input type="checkbox" id="consent"> I agree to take part. My answers are anonymous, I can stop at any time, and I decide whether to share my result code.</label>
+<div class="row"><button class="btn" id="go" disabled>Start round 1</button><span class="small mute" id="armNote"></span></div>
+</section>
+
+<section id="v-item" class="hide">
+<div class="prog"><i id="bar"></i></div>
+<div class="tcard in" id="itemCard"></div>
+<p class="small mute" style="margin-top:10px">Keyboard: A to accept, F to flag.</p>
+</section>
+
+<section id="v-pause" class="tcard hide" style="margin-top:20px">
+<h2>Round 1 done. Pause here.</h2>
+<p>Your facilitator will now run a short session. When they say so, start round 2. It has 20 new items of the same kinds.</p>
+<button class="btn" id="go2">Start round 2</button>
+</section>
+
+<section id="v-res" class="hide" style="margin-top:20px">
+<h2 id="resTitle">Your results</h2>
+<div class="kpis" id="resK"></div>
+<div class="tcard">
+<h3 style="margin-top:0">What the numbers mean</h3>
+<p class="small"><b>Catch rate</b> is the share of wrong answers you flagged. <b>False alarms</b> is the share of correct answers you flagged. <b>Discernment d′</b> combines the two: it rises only if you get better at telling right from wrong, not if you simply flag more. <b>Suspicion</b> above zero means you lean towards flagging; below zero, towards accepting.</p>
+</div>
+<h3>Your result code</h3>
+<p class="small mute">Share it with your facilitator if you want your answers included. It holds your answers, role and session code only.</p>
+<div class="code" id="code"></div>
+<div class="row"><button class="btn" id="copy">Copy code</button><span class="small" id="tCopyMsg" aria-live="polite"></span></div>
+<h3>Items you got wrong</h3>
+<ul class="rev" id="rev"></ul>
+<div class="row"><button class="btn ghost" id="restart">Start again on this device</button></div>
+</section>
+</div>
+</main>
+
+</section>
+<section id="tab-fac" class="tabpane" hidden>
+<section id="facilitator" class="band">
+<div class="wide">
+<h2 class="big">Facilitator view</h2>
+<p class="mute">Run round 1, deliver one briefing, run round 2, then paste the result codes here. Send the arm A group the link ending <b>#arm-a</b> and the arm B group the link ending <b>#arm-b</b>. Half of participants see the forms in reverse order, so practice effects balance out.</p>
+<div class="two">
+<div class="brief" style="--c:var(--red)">
+<h2>Arm A: distrust briefing (10 min)</h2>
+<p>Tells people to be suspicious. This is the usual message in AI awareness sessions.</p>
+<ol><li>Show two well-known AI failures: an invented legal citation, and a confident wrong answer.</li><li>Explain that generative AI predicts plausible text and does not know whether it is true.</li><li>Rule to remember: “Assume it may be wrong. Never trust an AI answer you haven’t verified.”</li><li>Close: “When in doubt, reject it.”</li></ol>
+</div>
+<div class="brief" style="--c:var(--green)">
+<h2>Arm B: discernment briefing (10 min)</h2>
+<p>Teaches moves for checking, with no warnings about AI in general.</p>
+<ol><li><b>Recompute:</b> redo any number, and check what the percentage is out of.</li><li><b>Return to the source:</b> compare a summary line by line, and look for what was dropped.</li><li><b>Test the edges:</b> boundaries, rounding and exceptions in rules.</li><li><b>Reverse the logic:</b> does the conclusion have to follow, or only might it?</li><li><b>Recall the standard:</b> name the rule or definition before judging.</li><li>Close: “Accept what passes the checks. Flag what fails one.”</li></ol>
+</div>
+</div>
+
+<h2 style="margin-top:32px">Cohort results</h2>
+<label class="lbl" for="codes">Paste result codes, one per line</label>
+<textarea id="codes" spellcheck="false"></textarea>
+<div class="row"><button class="btn" id="analyse">Analyse</button><button class="btn ghost" id="demo">Load simulated cohort</button><button class="btn ghost" id="csv">Copy as CSV</button><span class="small" id="fMsg" aria-live="polite"></span></div>
+<p class="note hide" id="simNote">Simulated cohort for checking the dashboard. These are not results and must not be reported.</p>
+<div id="fOut" class="hide">
+<div class="kpis" id="fK"></div>
+<div class="two">
+<div><h3>Discernment d′, round 1 to round 2</h3><div class="fig" id="dFig"><svg id="dSvg" role="img" aria-label="d prime before and after by participant"></svg></div></div>
+<div><h3>Suspicion, round 1 to round 2</h3><div class="fig" id="cFig"><svg id="cSvg" role="img" aria-label="Suspicion before and after by participant"></svg></div></div>
+</div>
+<h3>Change by arm (mean, 95% interval)</h3>
+<div class="scroll"><table class="d" id="armT"></table></div>
+<h3>Participants</h3>
+<div class="scroll"><table class="d" id="pT"></table></div>
+</div>
+</div>
+</section>
+
+</section>
+
+<footer class="site"><div class="in">
+<p><em>Advancing AI literacy across every generation</em></p>
+<p>QUEST is part of AI Academia's work on critical AI literacy, prepared for the EAIE special track (Ethical AI in Education) at SMART ACCESSIBILITY 2027, Lisbon. Role scenarios and starting values in the Lab are illustrative samples, not measured data. The discernment test stores nothing; a participant chooses whether to share a result code.</p>
+<p>2026 AI Academia &middot; Dean's Programme &middot; <a href="index.html">Home</a></p>
+</div></footer>
+<script>
+
+{
+const $=id=>document.getElementById(id);
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+const fmt=(x,d=2)=>Number.isFinite(x)?x.toFixed(d):'–';
+
+const ROLES={
+learner:{name:'Learner',scen:'Scenario: a student using an AI study helper for essay feedback across one term.',w:[0.3,0.4,0.3],
+ p:{h:.15,G:1.6,pd:.3,n:40,c:.35,r:.10,m:20,B:5,S:25,t:.5,u:.3,N:200,L:1,AX:.85,ov:true,ap:false,U:55,Q:40,E:45},
+ vs:['Use it, with your usual checks','Use it, but verify every answer','Don’t rely on it yet'],
+ q:[['Q','What would I need to check to know this answer is right?','c'],['U','What can this tool not know about my course or my teacher’s marking?','h'],['E','Does it work as well for students who write like me?','G'],['S','Over a whole term, how many wrong answers would I accept?','leak'],['T','Am I using it to think more, or to think less?','B']]},
+educator:{name:'Educator',scen:'Scenario: a teacher using automated essay feedback for a class of 35 across one term.',w:[0.3,0.35,0.35],
+ p:{h:.12,G:1.6,pd:.3,n:120,c:.55,r:.10,m:30,B:6,S:30,t:1,u:.3,N:40,L:35,AX:.92,ov:true,ap:true,U:70,Q:62,E:58},
+ vs:['Use in class','Pilot with safeguards','Don’t use it for this task'],
+ q:[['Q','Where does the vendor’s error rate come from, and on whose students?','n'],['U','Which judgements does it now make that I used to make?','ov'],['E','Do grades change when I swap only a name or a dialect?','ccs'],['S','How much checking time can I honestly give each output?','t'],['T','Can a student contest an AI-supported grade, and who answers?','ap']]},
+leader:{name:'Institutional leader',scen:'Scenario: an institution deciding whether to buy an AI tutor for 4,000 learners for one year.',w:[0.25,0.3,0.45],
+ p:{h:.08,G:2,pd:.25,n:60,c:.5,r:.12,m:40,B:8,S:40,t:.8,u:.35,N:150,L:4000,AX:.88,ov:true,ap:true,U:65,Q:55,E:60},
+ vs:['Adopt','Pilot with conditions','Do not adopt yet'],
+ q:[['Q','What independent audit, on our own learners, backs the vendor’s claims?','n'],['U','Who carries the harm when it fails, and are they in the room?','pd'],['E','Does it meet WCAG 2.2 AA and our four-fifths fairness floor?','AX'],['S','How likely is it to add value for the least-served group?','pv'],['T','What literacy must staff reach before go-live, and how many training hours is that?','cs']]}
+};
+
+const SL=[
+{g:'Tool evidence',c:'var(--amber)',items:[
+ ['h','AI error rate h',0.01,0.5,0.01,v=>pct(v),'Share of outputs that are wrong, from your own audit.'],
+ ['G','Error multiplier for least-served group G',1,3,0.05,v=>'×'+v.toFixed(2),'How much more often it errs for e.g. second-language or disabled learners.'],
+ ['pd','Share of learners in that group p',0.05,0.6,0.01,v=>pct(v),''],
+ ['n','Outputs audited n',10,500,5,v=>v.toFixed(0),'Bigger audits narrow the Monte Carlo spread.']]},
+{g:'Human judgement',c:'var(--blue)',items:[
+ ['c','Catch rate c',0.05,0.98,0.01,v=>pct(v),'Share of wrong outputs the user flags (seeded test).'],
+ ['r','False-alarm rate r',0.01,0.6,0.01,v=>pct(v),'Share of correct outputs the user wrongly rejects.'],
+ ['m','Seeded test items m',5,200,5,v=>v.toFixed(0),'']]},
+{g:'Value, in learning minutes',c:'var(--green)',items:[
+ ['B','Benefit of a correct, used output B',0.5,20,0.5,v=>v.toFixed(1)+' min',''],
+ ['S','Harm of an accepted error S',1,80,1,v=>v.toFixed(0)+' min','Misconception, unfair mark or time to unlearn.'],
+ ['t','Checking time per output t',0,5,0.1,v=>v.toFixed(1)+' min',''],
+ ['u','Uncertainty on B, S, t',0,0.6,0.05,v=>'±'+pct(v),'']]},
+{g:'Scale',c:'var(--ink)',items:[
+ ['N','Interactions per learner per term N',10,500,10,v=>v.toFixed(0),''],
+ ['L','Learners L',1,10000,1,v=>v.toLocaleString(),'']]},
+{g:'Accessibility and agency',c:'var(--red)',items:[
+ ['AX','WCAG 2.2 AA checks passed AX',0.5,1,0.01,v=>pct(v),'Passed ÷ applicable success criteria.']]}
+];
+function pct(v){return (v*100).toFixed(0)+'%'}
+
+let role='educator',P={};
+const SWAP=[['Name signalling ethnicity',40,2],['Dialect or second-language English',40,6],['Disability disclosed',40,3],['Gender cue',40,1],['School or postcode',40,4]];
+
+function buildControls(){
+ let h='';
+ for(const g of SL){
+  h+=`<div class="grp" style="--c:${g.c}"><h3><i></i>${g.g}</h3>`;
+  for(const [id,lab,mn,mx,st,,help] of g.items){
+   h+=`<div class="sl"><label for="s-${id}">${lab}</label><output id="o-${id}"></output><input type="range" id="s-${id}" min="${mn}" max="${mx}" step="${st}">${help?`<small>${help}</small>`:''}</div>`;
+  }
+  if(g.g==='Accessibility and agency')h+=`<label class="chk"><input type="checkbox" id="s-ov"> A human can override any AI output</label><label class="chk"><input type="checkbox" id="s-ap"> Learners have a named appeal route</label>`;
+  h+='</div>';
+ }
+ $('controls').innerHTML=h;
+ for(const g of SL)for(const it of g.items){$('s-'+it[0]).addEventListener('input',e=>{P[it[0]]=+e.target.value;update()})}
+ for(const k of ['ov','ap'])$('s-'+k).addEventListener('change',e=>{P[k]=e.target.checked;update()});
+ let l='';
+ for(const [id,lab] of [['U','Understand: how it works, data, limits'],['Q','Question: spotting errors, gaps, persuasion'],['E','Evaluate: evidence, equity, consequences']])
+  l+=`<div class="sl"><label for="s-${id}">${lab}</label><output id="o-${id}"></output><input type="range" id="s-${id}" min="5" max="100" step="1"></div>`;
+ $('lit').innerHTML=l;
+ for(const id of ['U','Q','E'])$('s-'+id).addEventListener('input',e=>{P[id]=+e.target.value;update()});
+ $('swap').tBodies[0].innerHTML=SWAP.map((s,i)=>`<tr><td>${s[0]}</td><td class="r"><input type="number" id="sp${i}" min="1" value="${s[1]}" aria-label="Pairs for ${s[0]}"></td><td class="r"><input type="number" id="sf${i}" min="0" value="${s[2]}" aria-label="Flips for ${s[0]}"></td><td class="r" id="sc${i}"></td><td id="ss${i}"></td></tr>`).join('');
+ SWAP.forEach((s,i)=>{for(const k of ['sp','sf'])$(k+i).addEventListener('input',e=>{const v=Math.max(0,+e.target.value||0);if(k==='sp')s[1]=Math.max(1,v);else s[2]=v;update()})});
+ for(const id of ['cmax','kk'])$(id).addEventListener('input',update);
+}
+
+function setRole(r){
+ role=r;P={...ROLES[r].p};
+ document.querySelectorAll('.roles button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.role===r));
+ $('scen').textContent=ROLES[r].scen+' Starting values are samples.';
+ for(const g of SL)for(const it of g.items)$('s-'+it[0]).value=P[it[0]];
+ $('s-ov').checked=P.ov;$('s-ap').checked=P.ap;
+ for(const id of ['U','Q','E'])$('s-'+id).value=P[id];
+ try{localStorage.setItem('quest-role',r)}catch(e){}
+ update();
+}
+
+// core model
+const nev=(h,c,r,B,S,t)=>(1-h)*(1-r)*B-h*(1-c)*S-t;
+const cstar=(h,r,B,S,t)=>1-((1-h)*(1-r)*B-t)/(h*S);
+function zinv(p){p=clamp(p,1e-4,1-1e-4);const a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924],b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857],c=[-7.78489400243029e-3,-.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878],d=[7.78469570904146e-3,.32246712907004,2.445134137143,3.75440866190742];let q,r;if(p<.02425){q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}if(p>1-.02425){q=Math.sqrt(-2*Math.log(1-p));return-(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}q=p-.5;r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+
+// seeded RNG + samplers
+function rng(seed){let s=seed%2147483647;return()=>(s=s*16807%2147483647)/2147483647}
+function gauss(R){let u=0,v=0;while(!u)u=R();v=R();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function gamma(a,R){if(a<1)return gamma(a+1,R)*Math.pow(R(),1/a);const d=a-1/3,c=1/Math.sqrt(9*d);for(;;){let x,v;do{x=gauss(R);v=1+c*x}while(v<=0);v=v*v*v;const u=R();if(u<1-.0331*x**4||Math.log(u)<.5*x*x+d*(1-v+Math.log(v)))return d*v}}
+function beta(a,b,R){const x=gamma(a,R),y=gamma(b,R);return x/(x+y)}
+function tri(lo,mo,hi,R){if(hi<=lo)return mo;const u=R(),f=(mo-lo)/(hi-lo);return u<f?lo+Math.sqrt(u*(hi-lo)*(mo-lo)):hi-Math.sqrt((1-u)*(hi-lo)*(hi-mo))}
+
+function monteCarlo(){
+ const R=rng(20270418),K=5000,out=new Float64Array(K);let pos=0,dirOK=0,sumA=0,sumD=0;
+ for(let i=0;i<K;i++){
+  const h=beta(P.h*P.n+1,(1-P.h)*P.n+1,R);
+  const c=beta(P.c*P.m+1,(1-P.c)*P.m+1,R);
+  const r=beta(P.r*P.m+1,(1-P.r)*P.m+1,R);
+  const G=1+(P.G-1)*tri(.5,1,1.5,R);
+  const u=P.u,B=tri(P.B*(1-u),P.B,P.B*(1+u),R),S=tri(P.S*(1-u),P.S,P.S*(1+u),R),t=tri(P.t*(1-u),P.t,P.t*(1+u),R);
+  const hd=Math.min(.99,h*G);
+  const a=nev(h,c,r,B,S,t),d=nev(hd,c,r,B,S,t);
+  out[i]=d;sumA+=a;sumD+=d;if(d>0)pos++;if((1-hd)/(1-h)>=.8)dirOK++;
+ }
+ const s=Array.from(out).sort((x,y)=>x-y);
+ return{s,pv:pos/K,pdir:dirOK/K,p5:s[Math.floor(K*.05)],p50:s[Math.floor(K*.5)],p95:s[Math.floor(K*.95)],mA:sumA/K,mD:sumD/K};
+}
+
+let M={},D={};
+function update(){
+ for(const g of SL)for(const it of g.items)$('o-'+it[0]).textContent=it[5](P[it[0]]);
+ for(const id of ['U','Q','E'])$('o-'+id).textContent=P[id];
+ const hd=Math.min(.99,P.h*P.G);
+ const nA=nev(P.h,P.c,P.r,P.B,P.S,P.t),nD=nev(hd,P.c,P.r,P.B,P.S,P.t);
+ const cs=cstar(hd,P.r,P.B,P.S,P.t);
+ const dp=zinv(P.c)-zinv(P.r);
+ const DIR=(1-hd)/(1-P.h);
+ const w=ROLES[role].w,cali=100*Math.pow(P.U/100,w[0])*Math.pow(P.Q/100,w[1])*Math.pow(P.E/100,w[2]);
+ const ccs=SWAP.map(s=>1-Math.min(s[2],s[1])/s[1]),ccsMin=Math.min(...ccs);
+ const leakRate=(1-P.pd)*P.h*(1-P.c)+P.pd*hd*(1-P.c);
+ const uses=P.N*P.L,leak=uses*leakRate,netH=uses*((1-P.pd)*nA+P.pd*nD)/60;
+ M=monteCarlo();
+ const cmax=+$('cmax').value,k=+$('kk').value;$('o-cmax').textContent=pct(cmax);$('o-kk').textContent=k.toFixed(2);
+ let Tstar;if(cs<=P.c)Tstar=0;else if(cs>=cmax)Tstar=Infinity;else Tstar=-Math.log((cmax-cs)/(cmax-P.c))/k;
+ D={hd,nA,nD,cs,dp,DIR,cali,ccsMin,leak,netH,Tstar,cmax,k};
+
+ const gates=[
+  ['Value for the least-served group','P(net value > 0) ≥ 90%',M.pv>=.9,pct(M.pv)],
+  ['Fairness','DIR ≥ 0.80 and swap CCS ≥ 0.90',DIR>=.8&&ccsMin>=.9,fmt(DIR)+' / '+fmt(ccsMin)],
+  ['Accessibility','WCAG 2.2 AA ≥ 90% of criteria',P.AX>=.9,pct(P.AX)],
+  ['Human agency','Override and appeal both exist',P.ov&&P.ap,(P.ov?'override ':'')+(P.ap?'appeal':'')||'none'],
+  ['User literacy','Discernment d′ ≥ 1.0',dp>=1,fmt(dp)]];
+ $('gates').innerHTML=gates.map(g=>`<li><b style="background:${g[2]?'var(--good)':'var(--bad)'}">${g[2]?'✓':'✕'}</b><span><b style="all:unset;font-weight:700">${g[0]}</b><br><span class="small mute">${g[1]}</span></span><span class="val">${g[3]}</span></li>`).join('');
+ const fails=gates.filter(g=>!g[2]).map(g=>g[0].toLowerCase());
+ const vs=ROLES[role].vs;let vi,vt;
+ if(!fails.length){vi=0;vt='All five gates pass. Keep auditing each term: the gates are only as good as the evidence behind them.'}
+ else if(M.pv>=.6){vi=1;vt='Fix before scaling: '+fails.join(', ')+'.'}
+ else{vi=2;vt=Tstar===0?'The value case fails even at today’s literacy: the tool errs too often or costs too much checking time.':Number.isFinite(Tstar)?`Value is not yet likely for the least-served group. About ${Tstar.toFixed(1)} hours of practice would lift catch rate to c* = ${pct(cs)}.`:'Literacy alone cannot rescue this: c* is above the training ceiling. The tool itself must improve.'}
+ $('verdict').style.setProperty('--vc',['var(--good)','var(--warn)','var(--bad)'][vi]);
+ $('vtitle').textContent=vs[vi];$('vtext').textContent=vt;
+
+ const kp=[['var(--blue)',fmt(nA,1)+' min','Net value per use, majority'],['var(--red)',fmt(nD,1)+' min','Net value per use, least-served'],['var(--green)',cs<=0?'0%':cs>1?'>100%':pct(cs),'Minimum viable literacy c*'],['var(--ink)',Math.round(leak).toLocaleString(),'Wrong outputs accepted per term'],['var(--amber)',(netH>=0?'+':'')+Math.round(netH).toLocaleString()+' h','Net learning hours per term']];
+ $('kpis').innerHTML=kp.map(x=>`<div class="kpi" style="--c:${x[0]}"><div class="n">${x[1]}</div><div class="l">${x[2]}</div></div>`).join('');
+ $('mcK').innerHTML=[['var(--green)',pct(M.pv),'P(value > 0), least-served'],['var(--ink)',fmt(M.p5,1)+' to '+fmt(M.p95,1),'90% interval, min per use'],['var(--amber)',pct(M.pdir),'P(DIR ≥ 0.80)']].map(x=>`<div class="kpi" style="--c:${x[0]}"><div class="n">${x[1]}</div><div class="l">${x[2]}</div></div>`).join('');
+ $('mcTitle').textContent=`Monte Carlo: ${pct(M.pv)} of simulated worlds add value for the least-served group`;
+ $('litK').innerHTML=[['var(--blue)',fmt(dp),'Discernment d′'],['var(--blue)',fmt(cali,0),'Critical AI Literacy Index'],['var(--red)',pct(1-P.c),'Automation bias (wrong accepted)']].map(x=>`<div class="kpi" style="--c:${x[0]}"><div class="n">${x[1]}</div><div class="l">${x[2]}</div></div>`).join('');
+ SWAP.forEach((s,i)=>{$('sc'+i).textContent=fmt(ccs[i]);$('ss'+i).innerHTML=ccs[i]<.95?'<span class="flag" style="color:var(--bad)">Investigate</span>':'<span class="flag" style="color:var(--good)">Consistent</span>'});
+ $('pdNote').textContent=Tstar===0?`Today’s catch rate (${pct(P.c)}) already meets c* (${pct(Math.max(0,cs))}). Training still widens the safety margin.`:Number.isFinite(Tstar)?`Reaching c* = ${pct(cs)} from ${pct(P.c)} takes about ${Tstar.toFixed(1)} hours of deliberate practice at this learning speed.`:`c* = ${cs>1?'over 100%':pct(cs)} sits above the ceiling, so no amount of training closes the gap. Demand a better tool.`;
+ tornado();cards();draws();
+}
+
+function tornado(){
+ const hd=x=>Math.min(.99,x.h*x.G),f=x=>nev(hd(x),x.c,x.r,x.B,x.S,x.t),base=f(P);
+ const keys=[['h','Error rate h'],['c','Catch rate c'],['r','False alarms r'],['B','Benefit B'],['S','Harm S'],['t','Check time t'],['G','Group gap G']];
+ const rows=keys.map(([k,l])=>{const lo={...P},hi={...P};lo[k]=P[k]*.75;hi[k]=P[k]*1.25;if(['h','c','r'].includes(k)){lo[k]=clamp(lo[k],.005,.99);hi[k]=clamp(hi[k],.005,.99)}if(k==='G'){lo.G=Math.max(1,1+(P.G-1)*.75);hi.G=1+(P.G-1)*1.25}const a=f(lo)-base,b=f(hi)-base;return{l,a,b,sw:Math.abs(a-b)}}).sort((x,y)=>y.sw-x.sw);
+ const mx=Math.max(...rows.map(r=>Math.max(Math.abs(r.a),Math.abs(r.b))),1e-6);
+ $('torn').innerHTML=rows.map(r=>{const lo=Math.min(r.a,r.b),hi=Math.max(r.a,r.b);const L=50+lo/mx*50,W=(hi-lo)/mx*50;return`<div class="trow"><span>${r.l}</span><div class="ttrack"><i style="left:${L}%;width:${Math.max(W,.5)}%;background:${r.b>=r.a?'var(--green)':'var(--red)'}"></i></div><span class="val">±${fmt(r.sw/2,1)}</span></div>`}).join('')+'<p class="small mute">Green: value rises as the input rises. Red: value falls.</p>';
+}
+
+function cards(){
+ const v={c:pct(P.c),h:pct(P.h),G:'×'+P.G.toFixed(2),leak:Math.round(D.leak).toLocaleString(),B:P.B.toFixed(1)+' min',n:P.n+' outputs audited',ov:P.ov?'override: yes':'override: no',ccs:'lowest CCS '+fmt(D.ccsMin),t:P.t.toFixed(1)+' min',ap:P.ap?'appeal: yes':'appeal: no',pd:pct(P.pd)+' of learners, ×'+P.G.toFixed(2)+' errors',AX:pct(P.AX)+' WCAG, DIR '+fmt(D.DIR),pv:pct(M.pv),cs:'c* '+(D.cs<=0?'0%':D.cs>1?'>100%':pct(D.cs))+', '+(D.Tstar===0?'0 h':Number.isFinite(D.Tstar)?D.Tstar.toFixed(1)+' h':'not reachable')};
+ const C={Q:'var(--red)',U:'var(--blue)',E:'var(--amber)',S:'var(--green)',T:'var(--ink)'},N={Q:'Question',U:'Understand',E:'Evaluate',S:'Simulate',T:'Trust'};
+ $('cards').innerHTML=ROLES[role].q.map(([s,q,k])=>`<div class="card" style="--c:${C[s]}"><div class="s">${N[s]}</div><q>${q}</q><div class="num">Feeds: <b>${v[k]}</b></div></div>`).join('');
+}
+
+function axisY(lo,hi){const span=hi-lo,st=[.5,1,2,5,10,20,50][[.5,1,2,5,10,20,50].findIndex(s=>span/s<=6)]||100;const t=[];for(let v=Math.ceil(lo/st)*st;v<=hi+1e-9;v+=st)t.push(+v.toFixed(2));return t}
+
+function drawCurve(){
+ const s=$('curve'),W=s.clientWidth,H=s.clientHeight;if(!W)return;
+ const m={l:44,r:16,t:14,b:36},iw=W-m.l-m.r,ih=H-m.t-m.b;
+ const hd=D.hd,fA=c=>nev(P.h,c,P.r,P.B,P.S,P.t),fD=c=>nev(hd,c,P.r,P.B,P.S,P.t);
+ const ys=[fA(0),fA(1),fD(0),fD(1),0];let lo=Math.min(...ys),hi=Math.max(...ys);const pad=(hi-lo)*.08||1;lo-=pad;hi+=pad;
+ const X=c=>m.l+c*iw,Y=v=>m.t+(hi-v)/(hi-lo)*ih;
+ let g='';for(const v of axisY(lo,hi))g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${m.l-6}" y="${Y(v)+4}" text-anchor="end">${v}</text>`;
+ for(let c=0;c<=1.001;c+=W<520?.25:.1)g+=`<text x="${X(c)}" y="${H-14}" text-anchor="middle">${Math.round(c*100)}%</text>`;
+ g+=`<text x="${m.l+iw/2}" y="${H}" text-anchor="middle" style="fill:var(--mute)">Catch rate c</text>`;
+ g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--ink)" stroke-width="1.5"/>`;
+ g+=`<line x1="${X(0)}" x2="${X(1)}" y1="${Y(fA(0))}" y2="${Y(fA(1))}" stroke="var(--blue)" stroke-width="4"/>`;
+ g+=`<line x1="${X(0)}" x2="${X(1)}" y1="${Y(fD(0))}" y2="${Y(fD(1))}" stroke="var(--red)" stroke-width="4"/>`;
+ g+=`<line x1="${X(P.c)}" x2="${X(P.c)}" y1="${m.t}" y2="${m.t+ih}" stroke="var(--ink)" stroke-dasharray="4 4"/><text x="${X(P.c)+(P.c>.7?-6:6)}" y="${m.t+12}" text-anchor="${P.c>.7?'end':'start'}">today ${pct(P.c)}</text>`;
+ if(D.cs>0&&D.cs<1)g+=`<circle cx="${X(D.cs)}" cy="${Y(0)}" r="7" fill="var(--green)" stroke="var(--panel)" stroke-width="3"/><text x="${X(D.cs)}" y="${Y(0)+22}" text-anchor="middle">c* ${pct(D.cs)}</text>`;
+ s.innerHTML=g;
+}
+function drawHist(){
+ const s=$('hist'),W=s.clientWidth,H=s.clientHeight;if(!W||!M.s)return;
+ const m={l:12,r:12,t:24,b:30},iw=W-m.l-m.r,ih=H-m.t-m.b,a=M.s,lo=Math.min(a[Math.floor(a.length*.005)],0),hi=Math.max(a[Math.floor(a.length*.995)],0),nb=W<520?24:40,bw=(hi-lo)/nb||1,bins=new Array(nb).fill(0);
+ for(const v of a){const i=Math.floor((v-lo)/bw);if(i>=0&&i<nb)bins[i]++}
+ const mx=Math.max(...bins),X=v=>m.l+(v-lo)/(hi-lo||1)*iw;let g='';
+ bins.forEach((b,i)=>{const x0=lo+i*bw,h=b/mx*ih;g+=`<rect x="${X(x0)+1}" y="${m.t+ih-h}" width="${Math.max(iw/nb-2,1)}" height="${h}" fill="${x0+bw/2>=0?'var(--green)':'var(--red)'}"/>`});
+ g+=`<line x1="${X(0)}" x2="${X(0)}" y1="${m.t-8}" y2="${m.t+ih}" stroke="var(--ink)" stroke-width="2"/><text x="${X(0)+6}" y="${m.t-10}">0: break-even</text>`;
+ g+=`<text x="${m.l}" y="${H-8}">${fmt(lo,1)} min</text><text x="${W-m.r}" y="${H-8}" text-anchor="end">${fmt(hi,1)} min</text>`;
+ s.innerHTML=g;
+}
+function drawPD(){
+ const s=$('pd'),W=s.clientWidth,H=s.clientHeight;if(!W)return;
+ const m={l:44,r:16,t:16,b:36},iw=W-m.l-m.r,ih=H-m.t-m.b,Tm=Math.max(10,Math.min(40,Number.isFinite(D.Tstar)?Math.ceil(D.Tstar*1.6/5)*5:20));
+ const cT=T=>D.cmax-(D.cmax-P.c)*Math.exp(-D.k*T),X=T=>m.l+T/Tm*iw,Y=v=>m.t+(1-v)*ih;
+ let g='';for(const v of [0,.25,.5,.75,1])g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${m.l-6}" y="${Y(v)+4}" text-anchor="end">${v*100}%</text>`;
+ const step=Tm/(W<520?4:8);for(let T=0;T<=Tm+1e-9;T+=step)g+=`<text x="${X(T)}" y="${H-14}" text-anchor="middle">${Math.round(T)}h</text>`;
+ let d='';for(let i=0;i<=60;i++){const T=Tm*i/60;d+=(i?'L':'M')+X(T).toFixed(1)+' '+Y(cT(T)).toFixed(1)}
+ g+=`<path d="${d}" fill="none" stroke="var(--blue)" stroke-width="4"/>`;
+ if(D.cs>0&&D.cs<1){g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(D.cs)}" y2="${Y(D.cs)}" stroke="var(--green)" stroke-width="2" stroke-dasharray="6 4"/><text x="${W-m.r}" y="${Y(D.cs)-6}" text-anchor="end">c* ${pct(D.cs)}</text>`;
+  if(Number.isFinite(D.Tstar)&&D.Tstar>0&&D.Tstar<=Tm)g+=`<circle cx="${X(D.Tstar)}" cy="${Y(D.cs)}" r="7" fill="var(--green)" stroke="var(--panel)" stroke-width="3"/>`}
+ s.innerHTML=g;
+}
+function draws(){drawCurve();drawHist();drawPD()}
+const ro=new ResizeObserver(()=>{if(D.hd!==undefined)draws()});
+for(const id of ['curveFig','histFig','pdFig'])ro.observe($(id));
+
+const F=[
+['Critical AI Literacy Index','CALI = 100 · (U/100)^wU · (Q/100)^wQ · (E/100)^wE','Weighted geometric mean of Understand, Question, Evaluate scores. Role weights: learner .30/.40/.30, educator .30/.35/.35, leader .25/.30/.45.'],
+['Discernment','d′ = Φ⁻¹(c) − Φ⁻¹(r)','From a seeded test: c = wrong outputs flagged, r = correct outputs rejected. Separates skill from blanket distrust.'],
+['Automation bias','AB = P(accept | AI wrong) = 1 − c','Share of AI errors the person lets through.'],
+['Error leakage','Λ = h · (1 − c)','Share of all interactions where a wrong output is accepted. Literacy multiplies, it does not add.'],
+['Net Educational Value','NEV = (1 − h)(1 − r)·B − h(1 − c)·S − t','Learning minutes per interaction: benefit of correct outputs used, minus harm of errors accepted, minus checking time.'],
+['Least-served group','h_d = min(0.99, G · h);  NEV_d = NEV(h_d)','G is the error multiplier for the disadvantaged group. Decisions are judged on NEV_d, not the average.'],
+['Minimum Viable Literacy','c* = 1 − [(1 − h_d)(1 − r)·B − t] / (h_d · S)','The catch rate at which NEV_d = 0. If c* > c_max, no training can make the tool worth using.'],
+['Disparity ratio','DIR = (1 − h_d) / (1 − h)','Accuracy of least-served group over majority. Four-fifths floor: DIR ≥ 0.80.'],
+['Counterfactual consistency','CCS_a = 1 − flips_a / pairs_a','Swap one cue a (name, dialect, disability) and count changed outcomes. Flag any below 0.95.'],
+['Training curve','c(T) = c_max − (c_max − c₀)·e^(−kT);  T* = −ln[(c_max − c*)/(c_max − c₀)] / k','Hours of deliberate practice needed to reach c*.'],
+['Monte Carlo inputs','h ~ Beta(k+1, n−k+1); c, r ~ Beta(x+1, m−x+1); B, S, t ~ Tri(−u, mode, +u)','5,000 draws. Report P(NEV_d > 0), the 5th–95th percentile, and P(DIR ≥ 0.8).'],
+['Trust gates','Adopt ⇔ P(NEV_d>0) ≥ .90 ∧ DIR ≥ .80 ∧ CCS_min ≥ .90 ∧ AX ≥ .90 ∧ override ∧ appeal ∧ d′ ≥ 1','Non-compensatory. Pilot if P(NEV_d>0) ≥ .60 with gates failing; otherwise do not adopt yet.']
+];
+$('flist').innerHTML=F.map(f=>`<div class="f"><h3>${f[0]}</h3><code>${f[1]}</code><span class="small">${f[2]}</span></div>`).join('');
+$('copyF').addEventListener('click',()=>{const txt=F.map(f=>`${f[0]}: ${f[1]}\n  ${f[2]}`).join('\n\n');navigator.clipboard.writeText(txt).then(()=>$('copyMsg').textContent='Copied',()=>$('copyMsg').textContent='Copy blocked here; select the text instead')});
+
+buildControls();
+document.querySelectorAll('.roles button').forEach(b=>b.addEventListener('click',()=>setRole(b.dataset.role)));
+let start='educator';try{const s=localStorage.getItem('quest-role');if(ROLES[s])start=s}catch(e){}
+setRole(start);
+}
+
+</script>
+<script>
+
+{
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const RUB='Rubric: Distinction 75 and above; Merit 60–74; Pass 50–59; Fail below 50.';
+// [id, type, ask, source(html or ''), ai answer, correct?, explanation]
+const A=[
+['A1','Percentage','A class of 32 students; 24 passed. What is the pass rate?','','24 out of 32 passed, so the pass rate is 75%.',1,'24 ÷ 32 = 0.75, so 75% is right.'],
+['A2','Percentage','Fees rose from R40,000 to R46,000. What is the percentage increase?','','The increase is R6,000, which is 13% of R46,000, so fees rose by 13%.',0,'A change is measured against the starting value: 6,000 ÷ 40,000 = 15%.'],
+['A3','Fact','What is the boiling point of water at sea level in Fahrenheit?','','212 °F, which is 100 °C.',1,'Correct.'],
+['A4','Fact','Who wrote the autobiography Long Walk to Freedom?','','Desmond Tutu wrote it; it was published in 1994.',0,'Nelson Mandela wrote it (published 1994).'],
+['A5','Summary','Summarise this notice in one line.','The school will close at 12:00 on Friday 14 March for staff training. Buses will leave at 12:15. Aftercare runs as normal until 17:30.','Early closing at 12:00 on Friday 14 March for staff training; buses at 12:15; aftercare as normal until 17:30.',1,'Every fact is kept.'],
+['A6','Summary','Summarise the late-work rule.','Assignment 2 is due on 5 May. Late submissions lose 10% per day, for up to three days; after that they receive zero. Students with an approved extension are exempt.','Assignment 2 is due 5 May. Late work loses 10% per day, and after three days the mark is capped at 70%.',0,'After three days the mark is zero, not capped at 70%, and the exemption for extensions was dropped.'],
+['A7','Source claim','What does the passage say about weekly use?','In the pilot, 18 of 60 teachers used the tool weekly.','According to the passage, 30% of teachers in the pilot used the tool weekly.',1,'18 ÷ 60 = 30%.'],
+['A8','Source claim','Who were most of the respondents?','The survey had 400 respondents; 120 were students and the rest were parents.','The passage states that most respondents were students.',0,'120 of 400 were students; 280 were parents.'],
+['A9','Rubric',RUB+' What band is a mark of 74?','','74 is a Merit.',1,'Merit is 60–74.'],
+['A10','Rubric',RUB+' A mark of 59.5 is rounded to the nearest whole number first. What band is it?','','59.5 rounds to 60, which is a Pass.',0,'60 is in the Merit band (60–74), not Pass.'],
+['A11','Accessibility','Under WCAG 2.x level AA, what is the minimum contrast ratio for normal body text?','','4.5:1, or 3:1 for large text.',1,'This is WCAG success criterion 1.4.3.'],
+['A12','Accessibility','Can I show right and wrong answers using only red and green?','','Yes. As long as the red and green contrast enough with the background, colour alone meets WCAG.',0,'WCAG 1.4.1 forbids using colour as the only way to convey information. Add icons or text.'],
+['A13','Data','What is the average mark, and which term was highest?','<table><tr><th>Term 1</th><td>62</td></tr><tr><th>Term 2</th><td>68</td></tr><tr><th>Term 3</th><td>65</td></tr></table>','The average is 65, and the highest was Term 2.',1,'(62 + 68 + 65) ÷ 3 = 65.'],
+['A14','Data','What is the combined mean of both classes?','<table><tr><th>Class A</th><td>28 students, mean 70</td></tr><tr><th>Class B</th><td>12 students, mean 50</td></tr></table>','The combined mean is 60, the average of 70 and 50.',0,'Weight by class size: (28×70 + 12×50) ÷ 40 = 64.'],
+['A15','Dates and time','A course starts on Monday 3 March and runs for six weeks. On what date does week 6 start?','','Week 6 starts on Monday 7 April.',1,'3 March + 35 days = 7 April.'],
+['A16','Dates and time','A 90-minute exam gets 25% extra time as an accommodation. How long is it?','','90 minutes plus 25% is 115 minutes.',0,'25% of 90 is 22.5, so the answer is 112.5 minutes.'],
+['A17','Definition','What does formative assessment mean?','','Assessment during learning, used to give feedback and adjust teaching rather than to grade final achievement.',1,'Correct.'],
+['A18','Definition','What is a false positive in an AI plagiarism detector?','','It is when the detector misses work that really was plagiarised.',0,'That describes a false negative. A false positive flags honest work as plagiarised.'],
+['A19','Logic','All students in Group X passed. Thandi did not pass. What follows?','','Thandi is not in Group X.',1,'Valid: if she were in Group X, she would have passed.'],
+['A20','Logic','If it rains, the outdoor lesson is cancelled. The lesson was cancelled. What follows?','','It rained.',0,'The lesson could have been cancelled for another reason. This error is called affirming the consequent.']];
+const B=[
+['B1','Percentage','Fees fell from R50,000 to R45,000. What is the percentage decrease?','','R5,000 out of R50,000 is a 10% decrease.',1,'5,000 ÷ 50,000 = 10%.'],
+['B2','Percentage','18 of 24 students submitted on time. What is the on-time rate?','','18 out of 24 is 72%.',0,'18 ÷ 24 = 75%.'],
+['B3','Fact','Which gas do plants take in from the air for photosynthesis?','','Carbon dioxide.',1,'Correct.'],
+['B4','Fact','In which year did South Africa hold its first democratic general election?','','1990, the year Nelson Mandela was released.',0,'Mandela was released in 1990, but the first democratic election was in April 1994.'],
+['B5','Summary','Summarise the exam-period library hours.','Library hours change during exams: Monday to Friday 07:00–22:00, Saturday 09:00–17:00, closed Sunday.','During exams the library is open 07:00–22:00 on weekdays and 09:00–17:00 on Saturday, and is closed on Sunday.',1,'Every fact is kept.'],
+['B6','Summary','Summarise the AI-use policy.','Students may use AI tools to brainstorm and check grammar, but must not submit AI-generated text as their own. Any AI use must be declared.','Students may use AI tools for any task, as long as they declare it.',0,'The ban on submitting AI-generated text as your own was dropped, and use is limited to brainstorming and grammar.'],
+['B7','Source claim','What does the passage say about daily use?','Of 250 learners, 50 used the reading app daily.','The passage says one in five learners used the app daily.',1,'50 ÷ 250 = 1/5.'],
+['B8','Source claim','Where did the pilot run?','The pilot ran in 6 schools in Gauteng and 2 in the Western Cape.','The pilot ran in 8 schools, most of them in the Western Cape.',0,'Most (6 of 8) were in Gauteng.'],
+['B9','Rubric',RUB+' What band is a mark of 50?','','50 is a Pass.',1,'Pass is 50–59.'],
+['B10','Rubric',RUB+' A mark of 74.6 is rounded to the nearest whole number first. What band is it?','','74.6 rounds to 75, which is a Merit.',0,'75 is a Distinction (75 and above).'],
+['B11','Accessibility','Do images that carry information need alt text?','','Yes. Informative images need a text alternative that conveys the same information; purely decorative images can have empty alt text.',1,'This is WCAG success criterion 1.1.1.'],
+['B12','Accessibility','Can a screen reader read a PDF made by scanning paper pages?','','Yes. Screen readers can read any PDF, including scanned page images.',0,'A scanned page is an image. It needs OCR and tagging before a screen reader can read it.'],
+['B13','Data','How did study time change, and what was the total?','<table><tr><th>Week 1</th><td>40 min</td></tr><tr><th>Week 2</th><td>55 min</td></tr><tr><th>Week 3</th><td>70 min</td></tr></table>','Study time rose by 15 minutes each week, to 165 minutes in total.',1,'40 + 55 + 70 = 165.'],
+['B14','Data','What is the overall pass rate for both schools?','<table><tr><th>School A</th><td>200 learners, 80% passed</td></tr><tr><th>School B</th><td>50 learners, 60% passed</td></tr></table>','The overall pass rate is 70%, the average of 80% and 60%.',0,'(160 + 30) ÷ 250 = 76%.'],
+['B15','Dates and time','An assignment is set on Wednesday 10 September and is due 14 days later. When is it due?','','Wednesday 24 September.',1,'10 + 14 = 24, and two full weeks later is the same weekday.'],
+['B16','Dates and time','At 150 words per minute, how long does a 4,500-word chapter take to read?','','4,500 ÷ 150 = 45 minutes.',0,'4,500 ÷ 150 = 30 minutes.'],
+['B17','Definition','What is a false negative in an AI plagiarism detector?','','It is when the detector fails to flag work that really was plagiarised.',1,'Correct.'],
+['B18','Definition','What does summative assessment mean?','','Ongoing low-stakes checks during learning, used to adjust teaching.',0,'That describes formative assessment. Summative assessment judges achievement at the end of a unit or course.'],
+['B19','Logic','If a learner scores below 50, a support plan is created. Sipho scored 42. What follows?','','A support plan is created for Sipho.',1,'Valid: 42 is below 50.'],
+['B20','Logic','Some teachers in the pilot used the tool daily. Ms Naidoo is a teacher in the pilot. What follows?','','Ms Naidoo used the tool daily.',0,'“Some” does not mean “all”, so nothing follows about her.']];
+const FORMS={A,B};
+
+// maths
+function zinv(p){const a=[-39.6968302866538,220.946098424521,-275.928510446969,138.357751867269,-30.6647980661472,2.50662827745924],b=[-54.4760987982241,161.585836858041,-155.698979859887,66.8013118877197,-13.2806815528857],c=[-7.78489400243029e-3,-.322396458041136,-2.40075827716184,-2.54973253934373,4.37466414146497,2.93816398269878],d=[7.78469570904146e-3,.32246712907004,2.445134137143,3.75440866190742];let q,r;if(p<.02425){q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}if(p>1-.02425){q=Math.sqrt(-2*Math.log(1-p));return-(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}q=p-.5;r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+// resp: string of '1' (flag) / '0' (accept) in form order
+function score(form,resp){const it=FORMS[form];let hit=0,fa=0,nw=0,nc=0;it.forEach((x,i)=>{const f=resp[i]==='1';if(x[5]){nc++;if(f)fa++}else{nw++;if(f)hit++}});
+ const H=(hit+.5)/(nw+1),F=(fa+.5)/(nc+1),zH=zinv(H),zF=zinv(F);return{hit,fa,nw,nc,c:hit/nw,r:fa/nc,d:zH-zF,C:(zH+zF)/2,acc:(hit+nc-fa)/(nw+nc)}}
+// suspicion = (zH+zF)/2 : positive = leans to flag (equals -criterion c in SDT)
+const f2=x=>Number.isFinite(x)?(x>=0?'':'−')+Math.abs(x).toFixed(2):'–';
+const pc=x=>Math.round(x*100)+'%';
+
+// participant state
+let S;const KEY='quest-dt-v1';
+function fresh(){return{stage:'start',role:'learner',sess:'',arm:armFromHash(),order:Math.random()<.5?'AB':'BA',r1:'',r2:'',seq1:shuffle(20),seq2:shuffle(20),pos:0}}
+function shuffle(n){const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function armFromHash(){const h=location.hash;return h==='#arm-a'?'A':h==='#arm-b'?'B':'-'}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.stage)return s}catch(e){}return null}
+
+function setLine(n){['st1','st2','st3','st4'].forEach((id,i)=>$(id).classList.toggle('on',i<n));['ln1','ln2','ln3'].forEach((id,i)=>$(id).classList.toggle('on',i<n-1))}
+function show(v){for(const id of ['v-start','v-item','v-pause','v-res'])$(id).classList.toggle('hide',id!==v)}
+
+function render(){
+ if(S.stage==='start'){show('v-start');setLine(1);$('role').value=S.role;$('sess').value=S.sess;$('armNote').textContent=S.arm==='-'?'':'Group '+S.arm}
+ else if(S.stage==='r1'||S.stage==='r2'){show('v-item');setLine(S.stage==='r1'?2:3);item()}
+ else if(S.stage==='pause'){show('v-pause');setLine(2)}
+ else{show('v-res');setLine(4);results()}
+}
+function cur(){const round=S.stage==='r1'?0:1,form=S.order[round],seq=round?S.seq2:S.seq1;return{round,form,idx:seq[S.pos]}}
+function item(){
+ const {round,form,idx}=cur(),x=FORMS[form][idx];
+ $('bar').style.width=((round*20+S.pos)/40*100)+'%';
+ const card=$('itemCard');card.classList.remove('in');void card.offsetWidth;card.classList.add('in');
+ card.innerHTML=`<div class="ask">Round ${round+1} · item ${S.pos+1} of 20 · ${x[1]}</div><p class="q">${x[2]}</p>${x[3]?`<div class="src">${x[3]}</div>`:''}<div class="ai"><div class="av" aria-hidden="true">AI</div><p>${x[4]}</p></div><div class="choices"><button class="choice" id="acc" style="--c:var(--blue)">Accept<small>The answer is right</small></button><button class="choice" id="flg" style="--c:var(--red)">Flag<small>It contains an error</small></button></div>`;
+ $('acc').onclick=()=>answer('0');$('flg').onclick=()=>answer('1');
+}
+function answer(v){
+ const {round,idx}=cur(),key=round?'r2':'r1';
+ const arr=(S[key]||'.'.repeat(20)).split('');arr[idx]=v;S[key]=arr.join('');S.pos++;
+ if(S.pos>=20){S.pos=0;S.stage=round?'done':'pause'}
+ save();render();
+}
+function encode(){const o={v:1,g:S.arm,ro:S.role,s:S.sess,o:S.order,a:S.order[0]==='A'?S.r1:S.r2,b:S.order[0]==='A'?S.r2:S.r1};return 'QST1-'+btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
+function decode(t){try{t=t.trim();if(!t.startsWith('QST1-'))return null;const o=JSON.parse(decodeURIComponent(escape(atob(t.slice(5)))));if(!/^[01]{20}$/.test(o.a)||!/^[01]{20}$/.test(o.b)||!/^(AB|BA)$/.test(o.o))return null;return o}catch(e){return null}}
+function results(){
+ const s1=score(S.order[0],S.r1),s2=score(S.order[1],S.r2);
+ const k=[['var(--red)',pc(s1.c)+' → '+pc(s2.c),'Catch rate'],['var(--blue)',pc(s1.r)+' → '+pc(s2.r),'False alarms'],['var(--green)',f2(s1.d)+' → '+f2(s2.d),'Discernment d′'],['var(--amber)',f2(s1.C)+' → '+f2(s2.C),'Suspicion']];
+ $('resK').innerHTML=k.map(x=>`<div class="kpi" style="--c:${x[0]}"><div class="n">${x[1]}</div><div class="l">${x[2]}, round 1 → 2</div></div>`).join('');
+ const dd=s2.d-s1.d,dc=s2.C-s1.C;
+ $('resTitle').textContent=dd>.3?'Your discernment improved':dc>.3&&dd<=.3?'You became more suspicious, not more discerning':'Your results';
+ $('code').textContent=encode();
+ const wrong=[];[[S.order[0],S.r1],[S.order[1],S.r2]].forEach(([f,r])=>FORMS[f].forEach((x,i)=>{const fl=r[i]==='1';if(fl===!!x[5])wrong.push([x,fl])}));
+ $('rev').innerHTML=wrong.length?wrong.map(([x,fl])=>`<li><span class="tag" style="background:${fl?'var(--red)':'var(--blue)'}">You ${fl?'flagged':'accepted'}</span> <b>${x[2]}</b><span class="small">AI: ${x[4]}</span><br><span class="small mute">${x[6]}</span></li>`).join(''):'<li>None. Every judgement was right.</li>';
+}
+
+$('consent').addEventListener('change',e=>{$('go').disabled=!e.target.checked});
+$('role').addEventListener('change',e=>{S.role=e.target.value;save()});
+$('sess').addEventListener('input',e=>{S.sess=e.target.value.replace(/[^\w\- ]/g,'').slice(0,20);save()});
+$('go').addEventListener('click',()=>{S.stage='r1';S.pos=0;save();render();window.scrollTo(0,0)});
+$('go2').addEventListener('click',()=>{S.stage='r2';S.pos=0;save();render();window.scrollTo(0,0)});
+$('restart').addEventListener('click',()=>{S=fresh();save();$('consent').checked=false;$('go').disabled=true;render()});
+$('copy').addEventListener('click',()=>{navigator.clipboard.writeText($('code').textContent).then(()=>$('tCopyMsg').textContent='Copied',()=>$('tCopyMsg').textContent='Copy blocked; select the code and copy it')});
+document.addEventListener('keydown',e=>{if(!['r1','r2'].includes(S.stage)||$('tab-test').hidden)return;if(e.target.matches('input,textarea,select'))return;const k=e.key.toLowerCase();if(k==='a')answer('0');else if(k==='f')answer('1')});
+
+// facilitator
+let P=[];
+function analyse(){
+ const lines=$('codes').value.split(/\s+/).filter(Boolean);let bad=0;P=[];
+ lines.forEach((l,i)=>{const o=decode(l);if(!o){bad++;return}const pre=score(o.o[0],o.o[0]==='A'?o.a:o.b),post=score(o.o[1],o.o[1]==='A'?o.a:o.b);P.push({n:P.length+1,arm:['A','B'].includes(o.g)?o.g:'-',role:String(o.ro||''),sess:String(o.s||''),order:o.o,pre,post})});
+ $('fMsg').textContent=P.length+' valid'+(bad?', '+bad+' unreadable':'');
+ $('fOut').classList.toggle('hide',!P.length);if(!P.length)return;
+ const m=f=>P.reduce((s,p)=>s+f(p),0)/P.length;
+ $('fK').innerHTML=[['var(--ink)',P.length,'Participants'],['var(--green)',f2(m(p=>p.post.d-p.pre.d)),'Mean change in d′'],['var(--amber)',f2(m(p=>p.post.C-p.pre.C)),'Mean change in suspicion'],['var(--blue)',(m(p=>p.post.r-p.pre.r)>=0?'+':'−')+Math.abs(Math.round(m(p=>p.post.r-p.pre.r)*100))+' pts','Mean change in false alarms']].map(x=>`<div class="kpi" style="--c:${x[0]}"><div class="n">${x[1]}</div><div class="l">${x[2]}</div></div>`).join('');
+ const T=[1e9,12.71,4.30,3.18,2.78,2.57,2.45,2.36,2.31,2.26,2.23,2.20,2.18,2.16,2.14,2.13,2.12,2.11,2.10,2.09,2.09,2.08,2.07,2.07,2.06,2.06,2.06,2.05,2.05,2.05,2.04];
+ const ci=v=>{const n=v.length,mu=v.reduce((a,b)=>a+b,0)/n;if(n<2)return[mu,NaN];const sd=Math.sqrt(v.reduce((a,b)=>a+(b-mu)**2,0)/(n-1));return[mu,(T[Math.min(n-1,30)]||1.96)*sd/Math.sqrt(n)]};
+ const arms=[...new Set(P.map(p=>p.arm))].sort();
+ const cell=([mu,h])=>{const big=Math.abs(mu)>=5||Math.abs(h)>=5,d=big?0:2,fm=x=>(x<0?'−':'')+Math.abs(x).toFixed(d);return Number.isFinite(h)?`${fm(mu)} ± ${Math.abs(h).toFixed(d)}`:fm(mu)};
+ $('armT').innerHTML='<thead><tr><th>Arm</th><th class="r">n</th><th class="r">Δ d′</th><th class="r">Δ suspicion</th><th class="r">Δ catch rate (pts)</th><th class="r">Δ false alarms (pts)</th></tr></thead><tbody>'+arms.map(a=>{const g=P.filter(p=>p.arm===a);return`<tr><td>${a==='A'?'A · distrust':a==='B'?'B · discernment':'No arm'}</td><td class="r">${g.length}</td><td class="r">${cell(ci(g.map(p=>p.post.d-p.pre.d)))}</td><td class="r">${cell(ci(g.map(p=>p.post.C-p.pre.C)))}</td><td class="r">${cell(ci(g.map(p=>100*(p.post.c-p.pre.c))))}</td><td class="r">${cell(ci(g.map(p=>100*(p.post.r-p.pre.r))))}</td></tr>`}).join('')+'</tbody>';
+ $('pT').innerHTML='<thead><tr><th class="r">#</th><th>Arm</th><th>Role</th><th>Order</th><th class="r">d′ 1 → 2</th><th class="r">Suspicion 1 → 2</th><th class="r">Catch 1 → 2</th><th class="r">False alarm 1 → 2</th></tr></thead><tbody>'+P.map(p=>`<tr><td class="r">${p.n}</td><td>${p.arm}</td><td>${esc(p.role)}</td><td>${p.order}</td><td class="r">${f2(p.pre.d)} → ${f2(p.post.d)}</td><td class="r">${f2(p.pre.C)} → ${f2(p.post.C)}</td><td class="r">${pc(p.pre.c)} → ${pc(p.post.c)}</td><td class="r">${pc(p.pre.r)} → ${pc(p.post.r)}</td></tr>`).join('')+'</tbody>';
+ draw();
+}
+function dumb(svg,key,lo,hi){
+ const W=svg.clientWidth,H=svg.clientHeight;if(!W)return;
+ const m={l:34,r:16,t:20,b:30},iw=W-m.l-m.r,ih=H-m.t-m.b,rows=[...P].sort((a,b)=>(a.arm>b.arm?1:a.arm<b.arm?-1:0)||(b.post[key]-b.pre[key])-(a.post[key]-a.pre[key]));
+ const X=v=>m.l+(v-lo)/(hi-lo)*iw,rh=ih/rows.length;let g='';
+ for(let v=Math.ceil(lo);v<=hi;v++)g+=`<line x1="${X(v)}" x2="${X(v)}" y1="${m.t}" y2="${m.t+ih}" stroke="var(--line)" ${v===0?'stroke-width="2" style="stroke:var(--mute)"':''}/><text x="${X(v)}" y="${H-8}" text-anchor="middle">${v}</text>`;
+ rows.forEach((p,i)=>{const y=m.t+rh*(i+.5),a=X(Math.max(lo,Math.min(hi,p.pre[key]))),b=X(Math.max(lo,Math.min(hi,p.post[key]))),col=p.arm==='A'?'var(--red)':p.arm==='B'?'var(--green)':'var(--mute)',r=Math.max(2.5,Math.min(6,rh/3));
+  g+=`<line x1="${a}" x2="${b}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="${Math.max(2,Math.min(4,rh/4))}"/><circle cx="${a}" cy="${y}" r="${r}" fill="var(--bg)" stroke="${col}" stroke-width="2"/><circle cx="${b}" cy="${y}" r="${r}" fill="${col}"/>`});
+ g+=`<text x="${m.l}" y="12">Hollow: round 1 · filled: round 2 · <tspan style="fill:var(--red)">A distrust</tspan> · <tspan style="fill:var(--green)">B discernment</tspan></text>`;
+ svg.innerHTML=g;
+}
+function draw(){if(!P.length)return;dumb($('dSvg'),'d',-1,3);dumb($('cSvg'),'C',-2,2)}
+const ro=new ResizeObserver(draw);ro.observe($('dFig'));ro.observe($('cFig'));
+
+function simulate(){
+ let s=7;const R=()=>(s=s*16807%2147483647)/2147483647;const out=[];
+ for(let i=0;i<24;i++){const arm=i%2?'B':'A',order=R()<.5?'AB':'BA',roles=['learner','educator','leader','other'];
+  const gen=(form,pc,pf)=>FORMS[form].map(x=>x[5]?(R()<pf?'1':'0'):(R()<pc?'1':'0')).join('');
+  const c0=.45+R()*.2,r0=.12+R()*.1,c1=arm==='A'?c0+.12:c0+.2,r1=arm==='A'?r0+.2:r0-.02;
+  const pre=gen(order[0],c0,r0),post=gen(order[1],Math.min(.95,c1),Math.max(.02,r1));
+  const o={v:1,g:arm,ro:roles[i%4],s:'SIM',o:order,a:order[0]==='A'?pre:post,b:order[0]==='A'?post:pre};
+  out.push('QST1-'+btoa(JSON.stringify(o)))}
+ $('codes').value=out.join('\n');$('simNote').classList.remove('hide');analyse();
+}
+function csv(){if(!P.length){$('fMsg').textContent='Analyse codes first';return}
+ const h='id,arm,role,session,order,pre_catch,pre_false_alarm,pre_dprime,pre_suspicion,post_catch,post_false_alarm,post_dprime,post_suspicion';
+ const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+ const rows=P.map(p=>[p.n,p.arm,q(p.role),q(p.sess),p.order,p.pre.c,p.pre.r,p.pre.d.toFixed(3),p.pre.C.toFixed(3),p.post.c,p.post.r,p.post.d.toFixed(3),p.post.C.toFixed(3)].join(','));
+ navigator.clipboard.writeText([h,...rows].join('\n')).then(()=>$('fMsg').textContent='CSV copied',()=>$('fMsg').textContent='Copy blocked here')}
+$('analyse').addEventListener('click',()=>{$('simNote').classList.add('hide');analyse()});
+$('demo').addEventListener('click',simulate);
+$('csv').addEventListener('click',csv);
+
+S=load()||fresh();
+window.QT={enter:function(){const a=armFromHash();if(a!=='-'&&S.stage==='start'){S.arm=a;save()}render()},draw:draw};
+}
+
+</script>
+<script>
+{
+const tabs={lab:['t-lab','tab-lab'],test:['t-test','tab-test'],fac:['t-fac','tab-fac']};
+const labAnchors=['question','understand','evaluate','simulate','trust','formulas'];
+function which(){const h=location.hash.slice(1);if(['test','arm-a','arm-b','start'].includes(h))return'test';if(h==='facilitator')return'fac';return'lab'}
+let cur=null;
+function route(){const t=which();
+ for(const k in tabs){const on=k===t;document.getElementById(tabs[k][1]).hidden=!on;document.getElementById(tabs[k][0]).setAttribute('aria-selected',on)}
+ if(t==='test'&&window.QT)QT.enter();
+ if(t==='fac'&&window.QT)QT.draw();
+ const h=location.hash.slice(1);
+ if(t!==cur){if(!(t==='lab'&&labAnchors.includes(h)))window.scrollTo({top:0});cur=t}
+ fill();
+}
+function fill(){document.querySelectorAll('input[type=range]').forEach(r=>{const mn=+r.min||0,mx=+r.max||100;r.style.setProperty('--p',((r.value-mn)/(mx-mn)*100)+'%')})}
+document.addEventListener('input',e=>{if(e.target.type==='range')fill()});
+document.addEventListener('click',()=>requestAnimationFrame(fill));
+window.addEventListener('hashchange',route);
+route();
+}
+</script>
+</body>
+</html>
