@@ -31,9 +31,9 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `pm-prompt-library-v2.html` | 91 KB | 1951 |  |
 | `steer-framework.html` | 89 KB | 1215 |  |
 | `ai-business-flight-simulator.html` | 73 KB | 1284 |  |
+| `catalyst-canvas.html` | 66 KB | 917 |  |
 | `proof-framework.html` | 65 KB | 968 |  |
 | `ai-psychology-calibre.html` | 64 KB | 539 | 1 |
-| `catalyst-canvas.html` | 53 KB | 749 |  |
 | `kidswear-poc/planner/planner.js` | 52 KB | 541 |  |
 | `kidswear-margin-poc.html` | 40 KB | 514 | 1 |
 | `01_prompt_wizard.html` | 27 KB | 493 |  |
@@ -747,6 +747,22 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L495 data `RIVAL_PERSONAS`
 - L792 data `LEVERS`
 - functions (51): clamp@481, round@482, mulberry32@484, gain@502, newState@504, makeRival@533, jitter@536, strength@548, valuation@550, stepRival@560, simulateQuarter@584, maybeEvent@702, cardCatalog@729, snapshot@764, qlabel@768, $@778, R@779, boot@818, renderAll@837, renderHUD@839, renderReadouts@846, renderInstruments@865, renderBudget@903, renderCards@932, renderRivals@950, renderLog@973, renderCommit@979, dealHand@990, finalizeAfterEvents@1022, multiNext@1042, showEventModal@1066, openModal@1088, grade@1093, reasonText@1102, verdictText@1110, showDebrief@1124, showMultiDebrief@1145, drawTrajectory@1166, drawTrajectoryMulti@1170, lineChart@1177, X@1186, Y@1187, startADI@1208, stopADI@1210, loopADI@1211, drawADI@1212, startHum@1255, stopHum@1265, blip@1267, fmt@1273, toast@1274
+### `catalyst-canvas.html`
+- L11 style
+- L290 h2 `Catalyst`
+- L302 section `lobby`
+- L305 h2 `From the customer's words to a`
+- L363 div# `app`
+- L388 h2 `Voice of Customer`
+- L405 h2 `Transformation opportunities × ROI`
+- L434 h2 `AI Canvas`
+- L484 script
+- L488 data `LANES`
+- L494 data `QUADS`
+- L495 data `PHASE_MIN`
+- L504 data `VOTER`
+- L749 data `QORDER`
+- functions (46): ls@498, rid@499, slug@500, validCode@501, quad@502, toast@503, remember@523, fail@524, load@529, schedulePoll@546, saveNote@548, addNote@555, patch@559, toggleVote@560, removeNote@566, saveSess@571, showTab@598, stickyEl@605, updateSticky@631, placeOpp@647, startDrag@655, list@674, render@676, fill@693, byQ@697, renderSess@703, timerState@709, tick@710, summary@736, sec@739, download@745, el@750, nowLabel@751, rankedOpps@752, buildReport@753, openPrintView@817, closePrintView@818, doPrint@819, emailText@820, top@823, emailParticipants@832, copyText@864, showWho@880, join@887, renderRecent@891, route@895
 ### `proof-framework.html`
 - L10 style
 - L337 section `origin`
@@ -811,21 +827,6 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L501 data `ICONS`
 - L502 data `BADGES`
 - functions (20): $@330, esc@331, zoneOf@335, drawMap@337, fromSample@403, store@404, syncInputs@409, scores@410, bandOf@411, drawRadar@414, update@429, radarSVG@457, reportHTML@467, needName@495, fmt@503, rpc@505, renderCommunity@506, pageInfo@519, dots@520, countCompletion@528
-### `catalyst-canvas.html`
-- L11 style
-- L232 h2 `Catalyst`
-- L244 section `lobby`
-- L247 h2 `From the customer's words to a`
-- L305 div# `app`
-- L330 h2 `Voice of Customer`
-- L347 h2 `Transformation opportunities × ROI`
-- L376 h2 `AI Canvas`
-- L413 script
-- L417 data `LANES`
-- L423 data `QUADS`
-- L424 data `PHASE_MIN`
-- L433 data `VOTER`
-- functions (36): ls@427, rid@428, slug@429, validCode@430, quad@431, toast@432, remember@452, fail@453, load@458, schedulePoll@475, saveNote@477, addNote@484, patch@488, toggleVote@489, removeNote@495, saveSess@500, showTab@527, stickyEl@534, updateSticky@560, placeOpp@576, startDrag@584, list@603, render@605, fill@622, byQ@626, renderSess@632, timerState@638, tick@639, summary@665, sec@668, download@674, copyText@696, showWho@712, join@719, renderRecent@723, route@727
 ### `kidswear-poc/planner/planner.js`
 - L80 data `TABS`
 - functions (45): $@4, h@9, s@16, pct@23, spct@24, int@25, rand@26, srand@27, compact@28, sum@29, niceStep@30, svgIn@31, tip@32, kpi@45, was@46, table@47, bars@61, pathColor@73, pathChips@74, download@76, csvCell@77, renderTabs@83, render@90, overview@96, forecast@124, driverCard@174, drawStyleChart@184, x@190, line@197, overridesCard@216, field@224, upd@231, sizes@258, drawCurves@276, markdown@304, drawFrontier@329, x@335, scenarioCard@351, simulate@366, out@374, quality@393, trial@423, sha256@460, ops@461, depts@518
