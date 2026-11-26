@@ -164,14 +164,15 @@ async def main():
         # 7. Logic correctness spot checks
         pg = await newpage(b)
         res = await pg.evaluate("""()=>{
-          const m=(t,f)=>window.__t.mapField(t,f,'');const i=o=>window.__t.mapInt({obj:o,name:''});
+          const m=(t,f)=>window.__t.mapField(t,f,'');const i=o=>window.__t.mapInt({obj:o,name:''});const i2=(n,t,d)=>window.__t.mapInt({obj:'',name:n,tech:t,dir:d});
           return {bsid:m('BSID','DMBTR').tgt, kna1:m('KNA1','NAME1').tgt, konv:m('KONV','KBETR').tgt, mara:m('MARA','MATNR').st, z:m('ZTAB','F').st,
            deb:i('DEBMAS07').st, bapi:i('BAPI_CUSTOMER_CREATEFROMDATA1').st, lsmw:i('LSMW').st,
            codeComment:window.__t.scanCode('* SELECT * FROM konv.').length, codeString:window.__t.scanCode("WRITE 'KONV is gone'.").length,
-           codeVar:window.__t.scanCode('DATA lv_konv TYPE i.').length, codeReal:window.__t.scanCode('SELECT * FROM konv INTO TABLE lt.').length}}""")
-        exp = {'bsid': 'ACDOCA-HSL', 'kna1': 'BUT000-NAME_ORG1', 'konv': 'PRCD_ELEMENTS-KBETR', 'mara': 'Changed', 'z': 'Custom', 'deb': 'Changed', 'bapi': 'Replaced', 'lsmw': 'Obsolete', 'codeComment': 0, 'codeVar': 0, 'codeReal': 1}
+           codeVar:window.__t.scanCode('DATA lv_konv TYPE i.').length, codeReal:window.__t.scanCode('SELECT * FROM konv INTO TABLE lt.').length,
+           asn:i2('Create ACS ASN','SOAP over HTTPs','in').obj, prop:i2('FF DC Order Proposals','File Transfer - CIFS','').mod, tlog:i2('TLOG upload','SFTP','in').obj, bank:i2('Payment file to bank','SFTP','out').mod, cifs:/SFTP/.test(i2('X order proposals','File Transfer - CIFS','').pat), misc:i2('Misc data feed','File','').st}}""")
+        exp = {'bsid': 'ACDOCA-HSL', 'kna1': 'BUT000-NAME_ORG1', 'konv': 'PRCD_ELEMENTS-KBETR', 'mara': 'Changed', 'z': 'Custom', 'deb': 'Changed', 'bapi': 'Replaced', 'lsmw': 'Obsolete', 'codeComment': 0, 'codeVar': 0, 'codeReal': 1, 'asn': 'Inbound delivery (supplier ASN)', 'prop': 'RT', 'tlog': 'POS sales / transaction log', 'bank': 'TR', 'cifs': True, 'misc': 'No match'}
         bad_ = {k: (res.get(k), v) for k, v in exp.items() if res.get(k) != v}
-        rec('Logic', 'Mapping and scanner rules give expected results (11 checks)', not bad_, str(bad_))
+        rec('Logic', 'Mapping, target-state inference and scanner rules give expected results (17 checks)', not bad_, str(bad_))
         rec('Logic', 'Scanner ignores table names inside string literals', res['codeString'] == 0, f"findings={res['codeString']}")
         await pg.context.close()
 

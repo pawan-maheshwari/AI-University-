@@ -210,6 +210,17 @@ The scanner checks each line with regular expressions. Comment lines (starting w
 - BAPI_CUSTOMER/VENDOR_CREATE → **Replaced** by the Business Partner API · BAPI_PO_CREATE → BAPI_PO_CREATE1 · RFC_READ_TABLE → released CDS/OData · LSMW → **Migration Cockpit** · credit (FD32/KNKK) → **API_CRDTMBUSINESSPARTNER**
 - Custom (Z/Y) or unrecognised objects: the interface name is checked for business keywords (customer, supplier, invoice, stock, sales order, purchase order, delivery, journal, price, credit, payment, profitability) to propose the nearest released API at 55–62% confidence
 
+
+**Target-state inference (S/4HANA module understanding).** Many real inventories list only an interface *name*, technology and direction, with no ECC object (for example "FF DC Order Proposals · File Transfer – CIFS"). For every interface row Meridian now infers the **probable S/4HANA target**:
+- **Business-object model:** about 60 objects across 18 areas (Sales, Procurement, Inventory, Logistics execution, EWM, TM, Retail, Finance, Treasury, Controlling, Manufacturing, Quality, Maintenance, Master data, HR/SuccessFactors, Tax, Analytics, CX). Each has weighted keywords, a preferred direction, a target released API, an IDoc alternative and an S/4 note.
+- **Retail vocabulary:** ASN, DC, STO, SOH, GRN, POS, PLU, TLOG, RTV and others are expanded before matching. "Order proposals" → *Retail replenishment → purchase requisitions / POs / STOs*; "ASN" inbound → *Inbound delivery (API_INBOUND_DELIVERY_SRV)*, outbound → *Outbound delivery*.
+- **Direction:** read from the direction column, from source/target system columns (SAP/ECC on one side), or from phrases like "to POS" / "from bank". A matching direction raises the score; a contradicting one lowers it.
+- **Technology → integration pattern:** CIFS/SMB → Integration Suite SFTP (CIFS shares aren't reachable in RISE); file → SFTP + released API; SOAP/PI → SOAP API via Integration Suite; IDoc/EDI → B2B/TPM; RFC/BAPI → released API; JDBC → API/CDS; MQ/Kafka → advanced event mesh.
+- **Output per row:** module, target business object, target API (flagged "confirm on Business Accelerator Hub" where the API name is not pinned), IDoc alternative, integration pattern, up to two alternatives with their own confidence, and a "why" line naming the matched words.
+- **Confidence:** 30 + 7 × (top two keyword weights + direction fit) + a margin bonus over the runner-up, capped at 88% for inferred rows. Typical spread: vague names (e.g. "Pick confirmation") ≈ 47%, unambiguous ones (e.g. "Create ACS ASN", inbound) ≈ 88%.
+- **Module landscape panel:** counts of target rows per S/4HANA module; tap one to filter. The CSV export adds module, target object, API, IDoc, pattern, alternatives and why.
+- On a 90-name retail test set with no ECC objects, 89 of 90 rows get a probable target (the miss, "Misc data feed", is correctly left as No match).
+
 All suggestions should be validated in an S/4HANA sandbox and against the SAP Business Accelerator Hub. Excel files are read in the browser with SheetJS; nothing is uploaded anywhere.
 
 ---
