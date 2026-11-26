@@ -9427,8 +9427,8 @@ function SkillsRail(){
 function Home(props){
   var m=useState(false);var menuOpen=m[0],setMenu=m[1];
   var c=useState(false);var showCert=c[0],setShowCert=c[1];
-  var navItems=[["curriculum","Curriculum"],["exclusive","Exclusive"],["practice","Practice Lab"],["evolution","AI Evolution"],["research","Research"],["tools","Tools & Utilities"],["ai-library","AI Library"],["policy","Policy Lab"],["about","About"],["terms","Terms"],["privacy","Privacy"]];
-  function go(p){setMenu(false);if(p==="ai-library"){window.open("ai-library.html","_blank","noopener");return;}if(p==="exclusive"){var ex=document.getElementById("exclusive-courses");if(ex){ex.scrollIntoView({behavior:"smooth"});return;}}props.onNav(p);}
+  var navItems=[["curriculum","Curriculum"],["exclusive","Exclusive"],["practice","Practice Lab"],["evolution","AI Evolution"],["research","Research"],["tools","Tools & Utilities"],["ai-library","AI Library"],["policy","Policy Lab"],["quest","QUEST Lab"],["about","About"],["terms","Terms"],["privacy","Privacy"]];
+  function go(p){setMenu(false);if(p==="quest"){window.location.href="quest-lab.html";return;}if(p==="ai-library"){window.open("ai-library.html","_blank","noopener");return;}if(p==="exclusive"){var ex=document.getElementById("exclusive-courses");if(ex){ex.scrollIntoView({behavior:"smooth"});return;}}props.onNav(p);}
   return h("div",{style:{minHeight:"100vh",background:IVORY}},
     showCert?h(CertModal,{zone:null,onClose:function(){setShowCert(false);}}):null,
     // Nav
