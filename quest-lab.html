@@ -75,12 +75,12 @@ p{margin:0 0 12px;max-width:70ch}
 .roles button{font:600 15px var(--sans);min-height:40px;padding:8px 16px;border-radius:9px;border:0;background:transparent;color:var(--ink);cursor:pointer;transition:background .25s,box-shadow .25s}
 .roles button[aria-pressed=true]{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08),0 3px 8px rgba(0,0,0,.06)}
 /* QUEST route */
-.route{display:flex;align-items:flex-start;position:relative;margin:24px 0 0;overflow-x:auto;padding-bottom:4px}
+.route{display:flex;align-items:flex-start;position:relative;margin:24px 0 0;padding-bottom:4px}
 .route::before{content:"";position:absolute;left:22px;right:22px;top:20px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--red) 0 20%,var(--blue) 20% 40%,var(--amber) 40% 60%,var(--green) 60% 80%,var(--ink) 80%)}
-.stn{flex:1 0 110px;display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:var(--ink);position:relative;gap:6px}
+.stn{flex:1 1 0;display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:var(--ink);position:relative;gap:6px;padding:0 2px}
 .stn b{width:46px;height:46px;border-radius:50%;background:#fff;border:5px solid var(--c);display:grid;place-items:center;font:700 19px var(--serif);box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .2s}
 .stn:hover b{transform:scale(1.08)}
-.stn span{font-weight:700;font-size:15px}
+.stn span{font-weight:700;font-size:15px;white-space:nowrap}
 .stn small{font-size:13px;color:var(--mute);line-height:1.3;max-width:15ch}
 /* lab console */
 .console{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:start}
@@ -180,15 +180,20 @@ table.d th,table.d td{padding:8px}
 .brief ol{padding-left:22px;margin:6px 0}
 .brief li{margin:4px 0}
 .note{font-size:14px;padding:10px 14px;border-radius:12px;background:rgba(184,150,46,.16)}
+.totop{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:30;width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:var(--ink);background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.14);opacity:0;transform:translateY(12px) scale(.9);pointer-events:none;transition:opacity .25s,transform .25s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:active{transform:scale(.92)}
+.totop svg{width:22px;height:22px}
 footer.site{background:var(--ink);color:rgba(255,255,255,.7);padding:32px max(5vw,16px);font-size:14px}
 footer.site .in{max-width:1240px;margin:0 auto}
 footer.site em{color:var(--amber);font-family:var(--serif);font-size:16px}
 footer.site a{color:#fff}
 .tabpane{animation:fade .35s ease-out}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:370px){.route{margin-inline:-10px}.stn span{font-size:11.5px}}
 @media(prefers-reduced-motion:reduce){.tabpane{animation:none}.verdict,.seg a,.roles button{transition:none}}
 @media(max-width:900px){.console,.two,.hero .in{grid-template-columns:minmax(0,1fr)}.result{order:-1}}
-@media(max-width:600px){.f{grid-template-columns:minmax(0,1fr)}table{font-size:13px}th,td{padding:6px 4px}.stn small{display:none}.stn{flex-basis:70px}.trow{grid-template-columns:6em minmax(0,1fr) 4.8em}.brand small{display:none}.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.fact b{font-size:22px}.choice{font-size:16px}.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.roles button{padding:8px 6px;font-size:14px;line-height:1.2}}
+@media(max-width:600px){.f{grid-template-columns:minmax(0,1fr)}table{font-size:13px}th,td{padding:6px 4px}.stn small{display:none}.stn b{width:38px;height:38px;border-width:4px;font-size:16px}.route::before{top:17px;height:5px;left:18px;right:18px}.stn span{font-size:12.5px;font-weight:600;letter-spacing:-.02em}.trow{grid-template-columns:6em minmax(0,1fr) 4.8em}.brand small{display:none}.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.fact b{font-size:22px}.choice{font-size:16px}.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.roles button{padding:8px 6px;font-size:14px;line-height:1.2}}
 </style>
 </head>
 <body>
@@ -425,6 +430,7 @@ footer.site a{color:#fff}
 
 </section>
 
+<button class="totop" id="totop" aria-label="Back to top" title="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <footer class="site"><div class="in">
 <p><em>Advancing AI literacy across every generation</em></p>
 <p>QUEST is part of AI Academia's work on critical AI literacy, prepared for the EAIE special track (Ethical AI in Education) at SMART ACCESSIBILITY 2027, Lisbon. Role scenarios and starting values in the Lab are illustrative samples, not measured data. The discernment test stores nothing; a participant chooses whether to share a result code.</p>
@@ -562,7 +568,7 @@ function update(){
   ['Value for the least-served group','P(net value > 0) ≥ 90%',M.pv>=.9,pct(M.pv)],
   ['Fairness','DIR ≥ 0.80 and swap CCS ≥ 0.90',DIR>=.8&&ccsMin>=.9,fmt(DIR)+' / '+fmt(ccsMin)],
   ['Accessibility','WCAG 2.2 AA ≥ 90% of criteria',P.AX>=.9,pct(P.AX)],
-  ['Human agency','Override and appeal both exist',P.ov&&P.ap,(P.ov?'override ':'')+(P.ap?'appeal':'')||'none'],
+  ['Human agency','Override and appeal both exist',P.ov&&P.ap,P.ov&&P.ap?'both':P.ov?'override only':P.ap?'appeal only':'none'],
   ['User literacy','Discernment d′ ≥ 1.0',dp>=1,fmt(dp)]];
  $('gates').innerHTML=gates.map(g=>`<li><b style="background:${g[2]?'var(--good)':'var(--bad)'}">${g[2]?'✓':'✕'}</b><span><b style="all:unset;font-weight:700">${g[0]}</b><br><span class="small mute">${g[1]}</span></span><span class="val">${g[3]}</span></li>`).join('');
  const fails=gates.filter(g=>!g[2]).map(g=>g[0].toLowerCase());
@@ -851,6 +857,14 @@ document.addEventListener('input',e=>{if(e.target.type==='range')fill()});
 document.addEventListener('click',()=>requestAnimationFrame(fill));
 window.addEventListener('hashchange',route);
 route();
+}
+
+{
+const t=document.getElementById('totop');let tick=false;
+const upd=()=>{t.classList.toggle('show',window.scrollY>500);tick=false};
+window.addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+t.addEventListener('click',()=>{const r=matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:r?'auto':'smooth'})});
+upd();
 }
 </script>
 </body>
