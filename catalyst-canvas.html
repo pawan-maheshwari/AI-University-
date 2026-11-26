@@ -214,6 +214,64 @@ footer .wrap{padding-top:18px;padding-bottom:26px;color:var(--muted);font-size:1
   .brand h1{font-size:25px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- print view (on-screen preview + paper) ---------- */
+.pv{position:fixed;inset:0;z-index:90;background:#E9E5DE;overflow:auto;-webkit-overflow-scrolling:touch}
+.pv-bar{position:sticky;top:0;z-index:2;background:var(--ink);color:#fff;padding-top:max(10px,env(safe-area-inset-top,0px));padding-bottom:10px}
+.pv-bar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pv-bar strong{font-family:var(--serif);font-size:19px;font-weight:600;margin-right:auto}
+.pv-bar .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.pv-bar .btn:hover{border-color:var(--gold)}
+.pv-bar .btn.primary{background:var(--gold);border-color:var(--gold);color:#1A1917}
+.pv-hint{width:100%;font-size:12px;color:rgba(255,255,255,.7)}
+.sheet{background:#fff;color:#1A1917;width:min(100% - 24px,1120px);margin:18px auto 40px;padding:28px 32px;box-shadow:0 6px 30px rgba(0,0,0,.15);font-size:12px;line-height:1.45}
+.rp-head{display:flex;gap:16px;align-items:flex-start;border-bottom:2px solid var(--gold);padding-bottom:12px}
+.rp-head svg{flex:none}
+.rp-head .t{flex:1;min-width:0}
+.rp-head .k{font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;font-weight:700;color:var(--gold-d)}
+.rp-head h1{font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.1;margin:2px 0 3px}
+.rp-head .m{color:var(--muted);font-size:11.5px}
+.rp-stats{display:flex;gap:18px;text-align:right}
+.rp-stats b{display:block;font-family:var(--serif);font-size:24px;color:var(--cardinal);line-height:1;font-variant-numeric:tabular-nums}
+.rp-stats span{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.rp-sec{margin-top:16px;break-inside:avoid;page-break-inside:avoid}
+.rp-sec>h2{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:8px;display:flex;align-items:baseline;gap:8px}
+.rp-sec>h2 small{font-family:var(--sans);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-d);font-weight:700}
+.rp-voc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.rp-col{border:1px solid var(--line);border-top:3px solid var(--c);border-radius:3px;padding:8px 10px}
+.rp-col h3{font-size:11.5px;font-weight:700;margin-bottom:5px}
+.rp-col ol,.rp-col ul{margin:0;padding-left:16px;display:grid;gap:3px}
+.rp-col li{overflow-wrap:anywhere}
+.rp-col .v,.rp-tbl .v{color:var(--cardinal);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rp-col .none{list-style:none;margin-left:-16px;color:var(--muted)}
+.rp-opp{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
+.rp-opp svg{width:100%;height:auto;display:block}
+.rp-tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+.rp-tbl th{text-align:left;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--line2);padding:4px 6px}
+.rp-tbl td{border-bottom:1px solid var(--line);padding:5px 6px;vertical-align:top}
+.rp-tbl td:first-child{width:26px}
+.rp-n{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;color:#fff;font-size:10px;font-weight:700}
+.rp-cls{font-weight:700;font-size:10.5px;white-space:nowrap}
+.rp-tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rp-box{border:1px solid var(--line);border-radius:3px;padding:8px 10px;min-height:70px}
+.rp-box h3{font-size:11.5px;font-weight:700;margin-bottom:4px}
+.rp-box p{white-space:pre-wrap;overflow-wrap:anywhere}
+.rp-box .none{color:var(--muted)}
+.rp-foot{margin-top:16px;border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:10px}
+@media (max-width:760px){.sheet{padding:18px}.rp-voc,.rp-tri{grid-template-columns:1fr 1fr}.rp-opp{grid-template-columns:1fr}.rp-head{flex-wrap:wrap}.rp-stats{text-align:left}}
+@media (max-width:480px){.rp-voc,.rp-tri{grid-template-columns:1fr}}
+
+@page{size:A4 landscape;margin:11mm}
+@media print{
+  html,body{background:#fff!important}
+  html.rp-ready .mast,html.rp-ready #lobby,html.rp-ready #app,html.rp-ready footer,.toast,.pv-bar{display:none!important}
+  html.rp-ready .pv{display:block!important;position:static;overflow:visible;background:#fff}
+  .sheet{width:auto;margin:0;padding:0;box-shadow:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rp-voc{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .rp-tri{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .rp-opp{grid-template-columns:300px minmax(0,1fr)!important}
+}
 </style>
 </head>
 <body>
@@ -396,7 +454,9 @@ footer .wrap{padding-top:18px;padding-bottom:26px;color:var(--muted);font-size:1
       <div class="cv"><h3>Next steps · 30 days</h3><div class="s">Owners and dates · shared</div><textarea id="nextSteps" placeholder="Owner and date for each quick win&#10;Deep-dive on the top strategic bet&#10;Send the canvas to sponsors"></textarea></div>
     </div>
     <div class="actions">
-      <button class="btn primary" id="exportMd">Download canvas (.md)</button>
+      <button class="btn primary" id="printView">Print view / PDF</button>
+      <button class="btn" id="emailBtn">Email participants</button>
+      <button class="btn" id="exportMd">Download canvas (.md)</button>
       <button class="btn" id="copySum">Copy summary</button>
       <button class="btn" id="exportJson">Save board file (.json)</button>
       <label class="btn" for="importJson" style="display:inline-flex;align-items:center">Load board file…</label>
@@ -405,6 +465,17 @@ footer .wrap{padding-top:18px;padding-bottom:26px;color:var(--muted);font-size:1
       <span class="row" id="confirmClear" hidden><span class="tiny">Delete every note on this board for everyone?</span><button class="btn primary sm" id="yesClear">Delete all</button><button class="btn sm" id="noClear">Keep</button></span>
     </div>
   </main>
+</div>
+
+<div class="pv" id="pv" hidden role="dialog" aria-modal="true" aria-label="AI Canvas print view">
+  <div class="pv-bar"><div class="wrap">
+    <strong>Print view</strong>
+    <button class="btn primary" id="pvPrint">Print / Save as PDF</button>
+    <button class="btn" id="pvEmail">Email participants</button>
+    <button class="btn" id="pvClose">Close</button>
+    <div class="pv-hint">To send it: choose <b>Save as PDF</b> as the printer, then use <b>Email participants</b> to open a draft with the summary and attach the PDF.</div>
+  </div></div>
+  <article class="sheet" id="report"></article>
 </div>
 
 <footer><div class="wrap"><span>Catalyst Canvas · AI Academia</span><span>ai-university.co.in</span></div></footer>
@@ -674,6 +745,103 @@ function summary(){
 function download(name,text,type){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)}
 $("#exportMd").onclick=function(){download("catalyst-canvas-"+code+".md",summary(),"text/markdown")};
 $("#copySum").onclick=function(){copyText(summary(),"Summary copied.")};
+/* ---------- print view ---------- */
+var QORDER={qw:0,sb:1,fi:2,dp:3};
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function nowLabel(){try{return new Date().toLocaleString(undefined,{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"})}catch(e){return new Date().toString()}}
+function rankedOpps(){return list(function(d){return d.board==="opp"}).sort(function(a,b){return QORDER[quad(a[1])]-QORDER[quad(b[1])]})}
+function buildReport(){
+  var r=$("#report");r.textContent="";document.documentElement.classList.add("rp-ready");
+  var all=Object.keys(notes).map(function(k){return notes[k]});
+  var voc=all.filter(function(d){return d.board==="voc"}).length,opps=rankedOpps(),qw=opps.filter(function(p){return quad(p[1])==="qw"}).length;
+  var votes=all.reduce(function(s,d){return s+(d.votes||0)},0);
+  var people={};all.forEach(function(d){if(d.author)people[d.author]=1});var names=Object.keys(people).sort();
+
+  // header
+  var hd=el("header","rp-head");
+  hd.innerHTML='<svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 3l25 14.5v29L32 61 7 46.5v-29z" fill="#8C1515"/><path d="M35 14L22 36h9l-3 14 14-23h-9z" fill="#E9C96A"/></svg>';
+  var t=el("div","t");t.appendChild(el("div","k","Catalyst Canvas · AI Canvas"));
+  t.appendChild(el("h1",null,title||"Co-creation workshop"));
+  t.appendChild(el("div","m",nowLabel()+"  ·  Board "+code+(names.length?"  ·  "+names.length+" contributor"+(names.length===1?"":"s"):"")));
+  hd.appendChild(t);
+  var st=el("div","rp-stats");
+  [[voc,"Customer notes"],[opps.length,"Opportunities"],[qw,"Quick wins"],[votes,"Votes"]].forEach(function(x){var d=el("div");d.appendChild(el("b",null,String(x[0])));d.appendChild(el("span",null,x[1]));st.appendChild(d)});
+  hd.appendChild(st);r.appendChild(hd);
+
+  // voice of customer
+  var s1=el("section","rp-sec");var h=el("h2",null,"Voice of Customer ");h.appendChild(el("small",null,"ranked by votes"));s1.appendChild(h);
+  var g=el("div","rp-voc");
+  LANES.forEach(function(l,i){
+    var c=el("div","rp-col");c.style.setProperty("--c",l.dot);c.appendChild(el("h3",null,l.name));
+    var items=list(function(d){return d.board==="voc"&&(d.lane||0)===i}),ol=el(i===2?"ul":"ol");
+    if(!items.length)ol.appendChild(el("li","none","No notes"));
+    items.slice(0,8).forEach(function(p){var d=p[1],li=el("li",null,i===2?"“"+d.text.replace(/^["“]|["”]$/g,"")+"”":d.text);
+      if(d.votes&&i!==2){li.appendChild(document.createTextNode(" "));li.appendChild(el("span","v","▲"+d.votes))}ol.appendChild(li)});
+    if(items.length>8)ol.appendChild(el("li","none","+ "+(items.length-8)+" more"));
+    c.appendChild(ol);g.appendChild(c);
+  });
+  s1.appendChild(g);r.appendChild(s1);
+
+  // opportunities
+  var s2=el("section","rp-sec");h=el("h2",null,"Opportunities × ROI ");h.appendChild(el("small",null,"impact vs effort"));s2.appendChild(h);
+  var wrap=el("div","rp-opp");
+  var W=300,H=210,svg='<svg viewBox="0 0 '+W+' '+(H+20)+'" role="img" aria-label="Impact versus effort matrix"><rect x="18" y="0" width="'+(W-18)+'" height="'+H+'" fill="#fff" stroke="#CFC9C0"/>'+
+    '<rect x="18" y="0" width="'+((W-18)/2)+'" height="'+(H/2)+'" fill="#E8F5E9"/><rect x="'+(18+(W-18)/2)+'" y="0" width="'+((W-18)/2)+'" height="'+(H/2)+'" fill="#F8ECEC"/><rect x="'+(18+(W-18)/2)+'" y="'+(H/2)+'" width="'+((W-18)/2)+'" height="'+(H/2)+'" fill="#E8F2F3"/>'+
+    '<path d="M'+(18+(W-18)/2)+' 0V'+H+'M18 '+(H/2)+'H'+W+'" stroke="#CFC9C0" stroke-width="1.5"/>'+
+    '<g font-family="Inter,Arial,sans-serif" font-size="8" font-weight="700" letter-spacing=".8"><text x="24" y="11" fill="#2E7D32">QUICK WINS</text><text x="'+(W-6)+'" y="11" text-anchor="end" fill="#8C1515">STRATEGIC BETS</text><text x="24" y="'+(H-5)+'" fill="#7A736B">DEPRIORITISE</text><text x="'+(W-6)+'" y="'+(H-5)+'" text-anchor="end" fill="#1F6F78">FILL-INS</text>'+
+    '<text x="'+(18+(W-18)/2)+'" y="'+(H+14)+'" text-anchor="middle" fill="#8A6E1E">EFFORT TO DELIVER →</text><text transform="translate(10 '+(H/2)+') rotate(-90)" text-anchor="middle" fill="#8A6E1E">IMPACT →</text></g>';
+  opps.forEach(function(p,i){var d=p[1],q=quad(d),x=18+(d.rx==null?.5:d.rx)*(W-18),y=(d.ry==null?.5:d.ry)*H;
+    x=Math.max(28,Math.min(W-10,x));y=Math.max(20,Math.min(H-14,y));
+    svg+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="8" fill="'+QUADS[q].c+'" stroke="#fff" stroke-width="1.5"/><text x="'+x.toFixed(1)+'" y="'+(y+3).toFixed(1)+'" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="8.5" font-weight="700" fill="#fff">'+(i+1)+'</text>'});
+  svg+='</svg>';
+  var fig=el("div");fig.innerHTML=svg;wrap.appendChild(fig);
+  var tbl=el("table","rp-tbl"),th=el("thead"),tr=el("tr");["#","Opportunity","ROI class","Votes"].forEach(function(x){tr.appendChild(el("th",null,x))});th.appendChild(tr);tbl.appendChild(th);
+  var tb=el("tbody");
+  if(!opps.length){var er=el("tr"),td=el("td",null,"No opportunities placed yet");td.colSpan=4;td.style.color="var(--muted)";er.appendChild(td);tb.appendChild(er)}
+  opps.forEach(function(p,i){var d=p[1],q=quad(d),row=el("tr"),n=el("span","rp-n",String(i+1));n.style.background=QUADS[q].c;
+    var c0=el("td");c0.appendChild(n);row.appendChild(c0);
+    var c1=el("td",null,d.text);if(d.author){c1.appendChild(el("div","tiny",d.author))}row.appendChild(c1);
+    var c2=el("td");var cl=el("span","rp-cls",QUADS[q].t);cl.style.color=QUADS[q].c;c2.appendChild(cl);row.appendChild(c2);
+    row.appendChild(el("td","v",d.votes?"▲"+d.votes:"–"));tb.appendChild(row)});
+  tbl.appendChild(tb);wrap.appendChild(tbl);s2.appendChild(wrap);r.appendChild(s2);
+
+  // scope, next steps, contributors
+  var s3=el("section","rp-sec");s3.appendChild(el("h2",null,"Agreements"));
+  var tri=el("div","rp-tri");
+  [["Scope",sess.scope],["Next steps · 30 days",sess.next],["Contributors",names.join(", ")]].forEach(function(x){
+    var b=el("div","rp-box");b.appendChild(el("h3",null,x[0]));b.appendChild(x[1]&&String(x[1]).trim()?el("p",null,String(x[1]).trim()):el("p","none","Not recorded"));tri.appendChild(b)});
+  s3.appendChild(tri);r.appendChild(s3);
+
+  var ft=el("footer","rp-foot");ft.appendChild(el("span",null,"Generated with Catalyst Canvas · AI Academia · ai-university.co.in"));ft.appendChild(el("span",null,"Board code "+code));r.appendChild(ft);
+}
+function openPrintView(){buildReport();$("#pv").hidden=false;document.body.style.overflow="hidden";$("#pvPrint").focus()}
+function closePrintView(){$("#pv").hidden=true;document.body.style.overflow="";$("#printView").focus()}
+function doPrint(){buildReport();try{window.print()}catch(e){toast("Printing isn't available here. Use your browser's Print menu.")}}
+function emailText(){
+  var L=[],t=title||"Co-creation workshop";
+  L.push("Hello all,","","Thank you for joining the "+t+" workshop. Here is a summary of what we agreed. The full AI Canvas is attached as a PDF.","");
+  function top(h,items,n){if(!items.length)return;L.push(h);items.slice(0,n).forEach(function(p,i){L.push((i+1)+". "+p[1].text+(p[1].votes?" ("+p[1].votes+" votes)":""))});L.push("")}
+  top("Top pain points",list(function(d){return d.board==="voc"&&(d.lane||0)===0}),3);
+  top("Quick wins",rankedOpps().filter(function(p){return quad(p[1])==="qw"}),5);
+  top("Strategic bets",rankedOpps().filter(function(p){return quad(p[1])==="sb"}),3);
+  if(sess.next&&sess.next.trim()){L.push("Next steps (30 days)",sess.next.trim(),"")}
+  L.push("Board code: "+code+" (Catalyst Canvas, ai-university.co.in)");
+  var body=L.join("\n");if(body.length>1600)body=body.slice(0,1580)+"\n\n[See the attached PDF for the full canvas.]";
+  return {subject:"AI Canvas: "+t,body:body};
+}
+function emailParticipants(){
+  var m=emailText(),href="mailto:?subject="+encodeURIComponent(m.subject)+"&body="+encodeURIComponent(m.body);
+  copyText(m.subject+"\n\n"+m.body,"Email draft opened. The summary is also on your clipboard. Attach the PDF before sending.");
+  location.href=href;
+}
+$("#printView").onclick=openPrintView;
+$("#pvClose").onclick=closePrintView;
+$("#pvPrint").onclick=doPrint;
+$("#emailBtn").onclick=emailParticipants;
+$("#pvEmail").onclick=emailParticipants;
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("#pv").hidden)closePrintView()});
+window.addEventListener("beforeprint",function(){if(code)buildReport()});
+
 $("#exportJson").onclick=function(){
   var out={format:"catalyst-canvas/1",code:code,title:title,session:sess,notes:Object.keys(notes).map(function(id){var d=notes[id];return {id:id,board:d.board,lane:d.lane||0,color:d.color||0,text:d.text,rx:d.rx==null?null:d.rx,ry:d.ry==null?null:d.ry,author:d.author||null,votes:d.votes||0}})};
   download("catalyst-canvas-"+code+".json",JSON.stringify(out,null,1),"application/json");
@@ -737,7 +905,7 @@ function route(){
       load().then(function(){remember(code,title);schedulePoll()});
     }
   }else{
-    $("#lobby").hidden=false;$("#app").hidden=true;code=null;clearTimeout(pollT);renderRecent();
+    $("#lobby").hidden=false;$("#app").hidden=true;code=null;document.documentElement.classList.remove("rp-ready");clearTimeout(pollT);renderRecent();
   }
 }
 try{if(window.self!==window.top){document.documentElement.classList.add("framed");document.querySelectorAll(".aiu-back").forEach(function(a){a.removeAttribute("href")})}}catch(e){}
