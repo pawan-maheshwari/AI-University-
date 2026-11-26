@@ -20,6 +20,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `communicating-with-impact-course.html` | 156 KB | 1848 |  |
 | `horizon-strategy-simulator.html` | 149 KB | 2893 |  |
 | `ai-library.html` | 142 KB | 1307 | 2 |
+| `sap-migration-studio.html` | 134 KB | 986 |  |
 | `cloud-cost-calculator.html` | 129 KB | 1745 |  |
 | `leadership-style.html` | 123 KB | 1358 | 2 |
 | `four-futures.html` | 116 KB | 1059 | 1 |
@@ -45,6 +46,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `ai-maturity.sql` | 19 KB | 360 |  |
 | `04_ml_pet_trainer.html` | 18 KB | 315 |  |
 | `labs/lab1_predictive_vs_generative.ipynb` | 14 KB | 324 |  |
+| `docs/sap-migration-studio/stress_test.py` | 14 KB | 200 |  |
 | `kidswear-poc/18_build_planner.py` | 14 KB | 147 |  |
 | `kidswear-poc/01_generate_data.py` | 14 KB | 226 |  |
 | `labs/lab2_custom_vs_automl.ipynb` | 14 KB | 288 |  |
@@ -420,6 +422,73 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L1087 h2 `${c.t}`
 - L1193 data `QUICKS`
 - functions (18): $@888, shade@891, openBook@1017, renderCover@1028, buildTOC@1071, renderChapter@1082, loadVoices@1118, fill@1126, speakParagraph@1145, stopTTS@1176, resetChat@1194, addMsg@1202, offlineAnswer@1208, summary@1210, askClaude@1226, sendChat@1249, scrollY@1281, updateToTop@1284
+### `sap-migration-studio.html`
+- L9 style
+- L133 script
+- L156 section `nav`
+- L173 section `v-overview`
+- L174 h2 `Migration command centre`
+- L187 h2 `Recommended actions`
+- L188 h2 `Readiness by dimension`
+- L193 section `v-assess`
+- L194 h2 `Readiness assessment`
+- L205 section `v-code`
+- L206 h2 `Custom code analyser`
+- L217 h2 `Findings`
+- L222 section `v-data`
+- L223 h2 `Master data profiler`
+- L233 h2 `Likely duplicates`
+- L234 h2 `Cleansing actions`
+- L236 h2 `Record conversion confidence`
+- L237 h2 `Record issues`
+- L242 section `v-map`
+- L243 h2 `Data and interface mapping`
+- L255 h2 `Generated S/4HANA mapping`
+- L261 section `v-plan`
+- L262 h2 `Roadmap and project plan`
+- L273 h2 `Programme timeline`
+- L275 h2 `Project plan — phases, deliverables, owners`
+- L280 section `v-risks`
+- L281 h2 `Risk register`
+- L283 h2 `Register`
+- L295 section `v-cutover`
+- L296 h2 `Cutover and downtime`
+- L298 h2 `Downtime estimator`
+- L314 h2 `Cutover runbook`
+- L324 script
+- L357 data `DIMS`
+- L358 data `FLAGS`
+- L374 data `DEF_A`
+- L395 data `APPN`
+- L396 data `SIZEN`
+- L400 data `RULES`
+- L417 data `SAMPLE_ABAP`
+- L469 data `SAMPLE_CSV`
+- L483 data `COLRE`
+- L514 data `BASE`
+- L515 data `MULT`
+- L516 data `PLANTXT`
+- L559 data `DEF_R`
+- L577 data `DEF_C`
+- L625 data `CAP`
+- L723 data `FI_F`
+- L725 data `FMAP`
+- L728 data `TKB`
+- L745 data `UNCH`
+- L771 data `IKB`
+- L798 data `MODN`
+- L799 data `ABBR`
+- L801 data `TKS`
+- L882 data `TMOD`
+- L891 data `MGRP`
+- L892 data `MCLS`
+- L893 data `SAMPLE_MD`
+- L894 data `SAMPLE_IF`
+- L896 data `MSHEETS`
+- L898 data `HDR`
+- L933 data `VIEWS`
+- L984 script
+- functions (53): $@326, esc@327, toast@329, openCp@330, copy@331, fmt@332, csvCell@333, evalAssess@376, scanCode@447, codeSum@463, confCol@466, confChip@467, parseCSV@482, profile@484, g@488, norm@497, buildPlan@539, at@544, save@601, dimBars@605, renderAssess@607, paintAssess@611, renderCode@619, renderData@627, cnt@638, renderPlan@649, bar@656, rs@665, renderRisks@666, renderCut@675, renderOverview@692, BP_F@724, kwNear@747, lev@748, mapField@749, normT@860, dirOf@861, techPat@865, inferTarget@875, tabMod@883, mapInt@884, hIdx@897, findHeader@899, runMap@900, g@908, paintMap@911, cnt@914, tgtBox@923, loadRows@925, readFile@927, route@935, cpClose@977, onS@979
 ### `cloud-cost-calculator.html`
 - L9 style
 - L252 h2 `Cloud Migration`
@@ -823,6 +892,8 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L43 h2 `ML Pet Trainer`
 - L73 h2 `Training 100% Complete!`
 - L99 script
+### `docs/sap-migration-studio/stress_test.py`
+- functions (5): rec@12, newpage@18, go@35, make_fixtures@38, main@49
 ### `kidswear-poc/18_build_planner.py`
 - functions (1): clean@126
 ### `kidswear-poc/01_generate_data.py`
