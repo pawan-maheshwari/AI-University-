@@ -16,7 +16,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `certificate-course-cybersecurity.html` | 321 KB | 1715 | 3 |
 | `certificate-course-ai-ready-organisation.html` | 297 KB | 938 | 2 |
 | `AI Spark Quest Teachers.html` | 177 KB | 3063 | 1 |
-| `forecast-lab.html` | 161 KB | 2995 |  |
+| `forecast-lab.html` | 165 KB | 3054 |  |
 | `communicating-with-impact-course.html` | 156 KB | 1848 |  |
 | `horizon-strategy-simulator.html` | 149 KB | 2893 |  |
 | `ai-library.html` | 142 KB | 1307 | 2 |
@@ -30,6 +30,7 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `elder-companion.html` | 93 KB | 2051 |  |
 | `pm-prompt-library-v2.html` | 91 KB | 1951 |  |
 | `steer-framework.html` | 89 KB | 1215 |  |
+| `quest-lab.html` | 76 KB | 871 |  |
 | `ai-business-flight-simulator.html` | 73 KB | 1284 |  |
 | `catalyst-canvas.html` | 66 KB | 917 |  |
 | `proof-framework.html` | 65 KB | 968 |  |
@@ -358,10 +359,11 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L1758 script
 - L1879 script
 - L1880 script
-- L1956 data `DAY`
-- L1985 data `MON`
-- L2512 script
-- functions (60): periodKey@1968, nextPeriod@1975, seasonPos@1992, sum@2063, mean@2064, sd@2065, quantile@2066, driverAt@2072, hwFit@2107, features@2150, gbmTrain@2162, build@2173, predBin@2198, treePred@2209, anchor@2219, fit@2226, model@2235, fit@2244, seriesWape@2278, normResiduals@2285, conformalQ@2293, clamp@2362, P@2409, S@2410, nameOf@2432, $@2515, h@2521, s@2528, pct@2535, spct@2536, int@2537, compact@2538, sum@2539, niceStep@2540, svgIn@2541, tip@2542, errBox@2555, unlock@2556, download@2557, csvCell@2563, loadText@2574, fill@2581, readFile@2600, drawSplit@2644, drawSplitControls@2665, seriesArrays@2694, renderResults@2703, kpi@2710, drawMain@2793, y@2799, zone@2801, line@2820, drawBacktest@2846, y@2851, drawFcTable@2866, downloadForecast@2874, downloadReport@2879, runMonitor@2891, x@2912, drawGuide@2953
+- L1978 data `DAY`
+- L2007 data `MON`
+- L2548 script
+- L2616 data `RES_SUB`
+- functions (64): ymd@1929, periodKey@1990, nextPeriod@1997, seasonPos@2014, sum@2091, mean@2092, sd@2093, quantile@2094, driverAt@2100, hwFit@2135, features@2178, gbmTrain@2190, build@2201, predBin@2226, treePred@2237, anchor@2247, fit@2260, model@2269, fit@2278, seriesWape@2312, normResiduals@2319, conformalQ@2327, score@2348, clamp@2397, P@2445, S@2446, nameOf@2468, $@2551, h@2557, s@2564, pct@2571, spct@2572, int@2573, compact@2574, sum@2575, niceStep@2576, svgIn@2577, tip@2578, errBox@2591, unlock@2592, download@2593, csvCell@2599, clearResults@2617, loadText@2623, fill@2631, readFile@2650, drawSplit@2695, drawSplitControls@2716, seriesArrays@2745, renderResults@2754, kpi@2761, drawMain@2844, y@2850, zone@2852, line@2871, drawBacktest@2897, y@2902, drawFcTable@2917, downloadForecast@2925, downloadReport@2930, runMonitor@2942, x@2963, validSnap@2980, drawGuide@3012
 ### `communicating-with-impact-course.html`
 - L11 style
 - L249 h2 `Communicating with Impact: The Human Advantage in Every Room`
@@ -726,6 +728,47 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L865 script
 - L1140 style
 - functions (29): $@868, val@869, esc@870, phaseScore@887, scores@888, tierFor@889, refresh@890, cycle@911, resetAll@920, open@941, tUpdate@955, orgEcho@971, prio@978, renderSys@988, renderStk@996, renderRL@1003, renderTO@1008, renderDR@1015, renderMC@1022, renderAC@1029, renderVision@1037, renderAllWS@1041, snapshot@1092, restore@1102, buildReportHTML@1125, row@1129, tbl@1130, download@1181, slug@1189
+### `quest-lab.html`
+- L13 style
+- L216 h2 `Discernment,`
+- L226 section `tab-lab`
+- L229 h2 `QUEST Lab`
+- L246 section `trust`
+- L266 section `simulate`
+- L268 h2 `Monte Carlo: how sure are we?`
+- L297 section `question`
+- L299 h2 `Five questions, each tied to a number`
+- L305 section `understand`
+- L308 h2 `Understand your own judgement`
+- L326 section `evaluate`
+- L328 h2 `Evaluate fairness with counterfactual swaps`
+- L335 section `formulas`
+- L337 h2 `Formula sheet`
+- L344 section `tab-test`
+- L345 section `participant`
+- L347 h2 `Can you tell when the AI is wrong?`
+- L352 section `v-start`
+- L353 h2 `Before you begin`
+- L363 section `v-item`
+- L369 section `v-pause`
+- L370 h2 `Round 1 done. Pause here.`
+- L375 section `v-res`
+- L376 h2 `Your results`
+- L394 section `tab-fac`
+- L395 section `facilitator`
+- L397 h2 `Facilitator view`
+- L401 h2 `Arm A: distrust briefing (10 min)`
+- L406 h2 `Arm B: discernment briefing (10 min)`
+- L412 h2 `Cohort results`
+- L439 script
+- L446 data `ROLES`
+- L485 data `SWAP`
+- L557 data `DIR`
+- L674 script
+- L679 data `RUB`
+- L723 data `FORMS`
+- L841 script
+- functions (61): $@442, clamp@443, fmt@444, pct@482, buildControls@487, setRole@510, nev@522, cstar@523, zinv@524, rng@527, gauss@528, gamma@529, beta@530, tri@531, monteCarlo@533, update@550, tornado@592, hd@593, cards@600, axisY@606, drawCurve@608, X@613, drawHist@624, drawPD@634, cT@637, draws@646, $@677, esc@678, zinv@726, score@728, f2@731, pc@732, fresh@736, shuffle@737, armFromHash@738, save@739, load@740, setLine@742, show@743, render@745, cur@751, item@752, answer@759, encode@765, decode@766, results@767, analyse@789, m@794, ci@797, cell@799, dumb@804, X@807, draw@814, simulate@817, gen@820, csv@827, q@829, which@845, route@847, fill@855, upd@864
 ### `ai-business-flight-simulator.html`
 - L10 style
 - L299 section `s-start`
