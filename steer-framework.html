@@ -284,6 +284,10 @@ a:focus-visible,button:focus-visible,.ck-item:focus-visible,.chip:focus-visible,
 @media(max-width:860px){.uplan{grid-template-columns:1fr}}
 .uplan .ucol{border-right:1px solid var(--hair);min-height:90px}
 .uplan .ucol:last-child{border-right:none}
+.uplan,.plan{grid-template-columns:repeat(3,minmax(0,1fr))}.pi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:860px){.uplan,.plan{grid-template-columns:minmax(0,1fr)}}
+.plan-item,.redline p,.pi-cell,.ucol,td{overflow-wrap:anywhere}
+.plan-item .pill{white-space:normal;max-width:100%;overflow-wrap:anywhere}
 .uplan .ucol h5{padding:12px 18px;border-bottom:1px solid var(--hair);background:var(--paper2);font-family:var(--serif);font-weight:700;font-size:19px;color:var(--crimson)}
 .vision-echo{display:none}
 .vision-echo.has{display:block;border-left:5px solid var(--crimson);padding:8px 0 8px 26px;margin-top:18px}
@@ -880,6 +884,7 @@ const tiers=[
 
 /* ───────── state ───────── */
 const S={systems:[],stakeholders:[],redlines:[],tradeoffs:[],rights:[],actions:[]};
+let dirty=false;
 
 /* ───────── scoring ───────── */
 const phaseEls=[...document.querySelectorAll('.check')];
@@ -1099,26 +1104,43 @@ function snapshot(){
     checks:phaseEls.map(ph=>[...ph.querySelectorAll('.ck-item')].map(i=>+i.dataset.s))
   };
 }
-function restore(d){
-  if(!d||typeof d!=='object')throw new Error('Invalid data');
-  $('orgName').value=(d.org&&d.org.name)||'';
-  $('orgSector').value=(d.org&&d.org.sector)||'';
-  $('orgRegions').value=(d.org&&d.org.regions)||'';
-  $('orgReg').value=(d.org&&d.org.reg)||'';
-  $('visText').value=d.vision||'';
-  S.systems=Array.isArray(d.systems)?d.systems:[];
-  S.stakeholders=Array.isArray(d.stakeholders)?d.stakeholders:[];
-  S.redlines=Array.isArray(d.redlines)?d.redlines:[];
-  S.tradeoffs=Array.isArray(d.tradeoffs)?d.tradeoffs:[];
-  S.rights=Array.isArray(d.rights)?d.rights:[];
-  S.actions=Array.isArray(d.actions)?d.actions:[];
+/* imported files are untrusted: coerce every field to the shape the app itself writes */
+const str=(v,max)=>(typeof v==='string'||typeof v==='number')?String(v).slice(0,max||500):'';
+const int=(v,lo,hi,def)=>{v=Math.round(Number(v));return Number.isFinite(v)&&v>=lo&&v<=hi?v:def};
+const pick=(v,list,def)=>list.includes(v)?v:def;
+const objs=a=>Array.isArray(a)?a.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)):[];
+const PHASES=Object.keys(phasePill), TIERS=Object.keys(tierCls);
+function clean(d){
+  if(!d||typeof d!=='object'||Array.isArray(d))throw new Error('Not a S.T.E.E.R. data file');
+  const o=(d.org&&typeof d.org==='object')?d.org:{};
+  return {
+    org:{name:str(o.name,200),sector:str(o.sector,200),regions:str(o.regions,200),reg:str(o.reg,300)},
+    vision:str(d.vision,2000),
+    systems:objs(d.systems).map(x=>({name:str(x.name,200),auth:str(x.auth,200),imp:int(x.imp,1,5,3),over:int(x.over,1,5,3),mc:int(x.mc,0,2,0)})).filter(x=>x.name),
+    stakeholders:objs(d.stakeholders).map(x=>({name:str(x.name,200),pow:pick(x.pow,['High','Low'],'Low'),int:pick(x.int,['High','Low'],'Low')})).filter(x=>x.name),
+    redlines:(Array.isArray(d.redlines)?d.redlines:[]).map(x=>str(x,500)).filter(Boolean),
+    tradeoffs:objs(d.tradeoffs).map(x=>({tension:str(x.tension,500),decision:str(x.decision,500)||'—',owner:str(x.owner,200)||'—'})).filter(x=>x.tension),
+    rights:objs(d.rights).map(x=>({d:str(x.d,300),a:str(x.a,200),v:str(x.v,200)||'—',t:pick(x.t,TIERS,'Tier 2')})).filter(x=>x.d),
+    actions:objs(d.actions).map(x=>({text:str(x.text,500),owner:str(x.owner,200),win:int(x.win,0,2,0),phase:pick(x.phase,PHASES,PHASES[0])})).filter(x=>x.text),
+    checks:Array.isArray(d.checks)?d.checks:null
+  };
+}
+function restore(raw){
+  const d=clean(raw);
+  $('orgName').value=d.org.name;
+  $('orgSector').value=d.org.sector;
+  $('orgRegions').value=d.org.regions;
+  $('orgReg').value=d.org.reg;
+  $('visText').value=d.vision;
+  S.systems=d.systems;S.stakeholders=d.stakeholders;S.redlines=d.redlines;
+  S.tradeoffs=d.tradeoffs;S.rights=d.rights;S.actions=d.actions;
   if(Array.isArray(d.checks))phaseEls.forEach((ph,pi)=>{
     [...ph.querySelectorAll('.ck-item')].forEach((it,ii)=>{
-      const v=d.checks[pi]&&[0,1,2].includes(d.checks[pi][ii])?d.checks[pi][ii]:0;
+      const v=Array.isArray(d.checks[pi])&&[0,1,2].includes(d.checks[pi][ii])?d.checks[pi][ii]:0;
       it.dataset.s=v;it.querySelector('.ck-state').textContent=labels[v];
     });
   });
-  renderAllWS();refresh();
+  renderAllWS();refresh();dirty=false;
 }
 
 /* ───────── report builder ───────── */
@@ -1186,7 +1208,7 @@ function download(name,content,type){
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
-function slug(){return (val('orgName')||'steer').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'steer'}
+function slug(){return (val('orgName')||'steer').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-|-$/g,'').slice(0,60)||'steer'}
 $('dlReport').addEventListener('click',()=>download(slug()+'-steer-board-report.html',buildReportHTML(),'text/html'));
 $('dlData').addEventListener('click',()=>download(slug()+'-steer-data.json',JSON.stringify(snapshot(),null,2),'application/json'));
 $('importBtn').addEventListener('click',()=>$('importFile').click());
@@ -1196,7 +1218,7 @@ $('importFile').addEventListener('change',e=>{
   const r=new FileReader();
   r.onload=()=>{
     try{restore(JSON.parse(r.result));$('importMsg').textContent='Imported \u2713';}
-    catch(err){$('importMsg').textContent='Import failed — invalid JSON file.';}
+    catch(err){$('importMsg').textContent='Import failed — not a valid S.T.E.E.R. .json file. Nothing was changed.';}
     setTimeout(()=>{$('importMsg').textContent=''},4000);
   };
   r.readAsText(f);
@@ -1205,6 +1227,12 @@ $('importFile').addEventListener('change',e=>{
 
 renderAllWS();
 refresh();
+
+/* session-only data: warn before a refresh/close throws work away */
+document.addEventListener('input',()=>{dirty=true},true);
+document.addEventListener('click',e=>{if(e.target instanceof Element&&e.target.closest('.ck-item,.addbtn,.rm,.mc-status'))dirty=true},true);
+$('dlData').addEventListener('click',()=>{dirty=false});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
 
 /* test/automation API */
 window.STEER={state:S,snapshot,restore,refresh,scores,buildReportHTML,download,prio,reset:resetAll,cycle};

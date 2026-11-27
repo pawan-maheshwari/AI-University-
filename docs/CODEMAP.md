@@ -22,14 +22,14 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `ai-library.html` | 142 KB | 1307 | 2 |
 | `sap-migration-studio.html` | 134 KB | 986 |  |
 | `cloud-cost-calculator.html` | 129 KB | 1745 |  |
-| `leadership-style.html` | 123 KB | 1358 | 2 |
+| `leadership-style.html` | 124 KB | 1368 | 2 |
 | `four-futures.html` | 116 KB | 1059 | 1 |
 | `ai-maturity-assessment.html` | 115 KB | 814 | 1 |
 | `desynced.html` | 109 KB | 2475 |  |
 | `s4hana-novice-to-expert.html` | 97 KB | 881 |  |
 | `elder-companion.html` | 93 KB | 2051 |  |
+| `steer-framework.html` | 92 KB | 1243 |  |
 | `pm-prompt-library-v2.html` | 91 KB | 1951 |  |
-| `steer-framework.html` | 89 KB | 1215 |  |
 | `quest-lab.html` | 76 KB | 871 |  |
 | `ai-business-flight-simulator.html` | 73 KB | 1284 |  |
 | `catalyst-canvas.html` | 66 KB | 917 |  |
@@ -556,36 +556,36 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - functions (86): clone@623, num@624, fin@625, clamp@626, $@627, esc@628, sum@629, round@630, estimateCosts@633, applyPreset@650, fieldBounds@655, sanitize@656, estateTotals@714, groupsFromMix@723, model@735, shareBy@742, g@801, lump@847, cum@871, beOf@873, supportCost@894, ranges@907, sensitivity@917, money@928, trim@938, full@939, pct@940, rel@941, mrange@942, beTxt@943, fieldHTML@948, buildForm@969, cellState@981, buildRateTables@986, onField@1009, fmtRange@1022, syncForm@1026, isGrpField@1051, clearPreset@1052, renderGroups@1055, niceMax@1080, niceMin@1081, runRateChart@1083, billMixChart@1103, cumChart@1120, X@1128, tornado@1146, X@1150, gantt@1166, X@1176, update@1193, showIssues@1281, renderMix@1297, confidenceOf@1310, renderQuoteCount@1319, renderCashFlow@1333, row@1341, renderMigTable@1354, renderInsights@1379, refScenario@1418, renderConfidence@1422, snapshot@1440, exportDoc@1446, loadInputs@1455, readStore@1467, writeStore@1468, renderScenarios@1469, download@1476, b64e@1480, b64d@1481, toast@1482, csvAll@1484, row@1496, runTests@1521, T@1523, base@1524, M@1526, allFinite@1527, close@1533, init@1654, costs@1710, load@1711, cl@1713, post@1728, height@1735, soon@1736
 ### `leadership-style.html`
 - L15 style
-- L491 h2 `LPI`
-- L519 section `view-profile`
-- L521 h2 `Respondent Profile`
-- L540 section `view-assessment`
-- L542 h2 `Self Assessment`
-- L553 section `view-report`
-- L556 section `view-reading`
-- L558 h2 `Suggested Reading`
-- L572 section `view-leaders`
-- L574 h2 `Global Leaders &amp; Their Leadership Style`
-- L629 script
-- L631 data `QUESTIONS`
-- L664 data `PRACTICES`
-- L683 data `READING`
-- L719 data `SCALE`
-- L720 data `TABS`
-- L723 data `SAMPLE_RESPONSES`
-- L724 data `SAMPLE_PROFILE`
-- L731 data `MONTHS`
-- L732 data `LS_KEY`
-- L1063 data `ICON_SVG`
-- L1099 h2 `${p.num}. ${p.label}`
-- L1128 h2 `LPI®: Leadership Practices Inventory®`
-- L1140 h2 `The Five Practices — Summary`
-- L1145 h2 `Percentile Ranking`
-- L1149 h2 `Leadership Behaviours Ranking`
-- L1155 h2 `Practice Detail, Reflections &amp; Suggestions`
-- L1158 h2 `Suggested Reading — With Key Learnings`
-- L1265 data `LIMGS`
-- functions (36): $@728, esc@729, pOf@730, persist@733, restore@734, clearSaved@743, prettyDate@748, profile@749, profileOk@750, approxPct@751, scoresFrom@752, rankedFrom@753, scores@754, ranked@755, answered@756, complete@757, renderNav@760, setTab@775, renderAssessment@787, done@829, moderatorHTML@861, reportLogoBar@882, buildReportSections@897, renderReport@990, percentileSVG@1045, y@1048, triggerDownload@1066, downloadIcon@1072, downloadReport@1076, renderReading@1202, lsvg@1249, lBuildSidebar@1278, lLoadPhotos@1293, lPaintImpact@1313, lPaintStyle@1319, lPick@1328
+- L492 h2 `LPI`
+- L520 section `view-profile`
+- L522 h2 `Respondent Profile`
+- L541 section `view-assessment`
+- L543 h2 `Self Assessment`
+- L554 section `view-report`
+- L557 section `view-reading`
+- L559 h2 `Suggested Reading`
+- L573 section `view-leaders`
+- L575 h2 `Global Leaders &amp; Their Leadership Style`
+- L630 script
+- L632 data `QUESTIONS`
+- L665 data `PRACTICES`
+- L684 data `READING`
+- L720 data `SCALE`
+- L721 data `TABS`
+- L724 data `SAMPLE_RESPONSES`
+- L725 data `SAMPLE_PROFILE`
+- L732 data `MONTHS`
+- L733 data `LS_KEY`
+- L1070 data `ICON_SVG`
+- L1106 h2 `${p.num}. ${p.label}`
+- L1135 h2 `LPI®: Leadership Practices Inventory®`
+- L1147 h2 `The Five Practices — Summary`
+- L1152 h2 `Percentile Ranking`
+- L1156 h2 `Leadership Behaviours Ranking`
+- L1162 h2 `Practice Detail, Reflections &amp; Suggestions`
+- L1165 h2 `Suggested Reading — With Key Learnings`
+- L1274 data `LIMGS`
+- functions (37): $@729, esc@730, pOf@731, persist@734, restore@735, cleanResponses@747, clearSaved@749, prettyDate@754, profile@755, profileOk@756, approxPct@757, scoresFrom@758, rankedFrom@759, scores@760, ranked@761, answered@762, complete@763, renderNav@766, setTab@782, renderAssessment@794, done@836, moderatorHTML@868, reportLogoBar@889, buildReportSections@904, renderReport@997, percentileSVG@1052, y@1055, triggerDownload@1073, downloadIcon@1079, downloadReport@1083, renderReading@1211, lsvg@1258, lBuildSidebar@1287, lLoadPhotos@1302, lPaintImpact@1322, lPaintStyle@1328, lPick@1337
 ### `four-futures.html`
 - L1 style
 - L5 style
@@ -700,6 +700,24 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L2003 script
 - L2007 data `SIZES`
 - functions (69): blank@366, load@379, save@388, $@393, el@394, esc@404, uid@406, pad@407, todayKey@408, toMin@409, pretty@410, partOfDay@415, mealNow@421, firstName@426, chooseVoice@431, speak@442, hush@453, listen@457, flatten@476, postOnce@493, getOnce@517, wait@535, askAI@539, askAIWithPhoto@552, grabJSON@559, readImage@567, pickPhoto@586, dosesPerDay@595, daysLeft@596, takenToday@601, markTaken@602, scheduleToday@620, nextDue@628, lowStockMeds@635, go@647, back@654, render@660, dayRibbon@676, paint@963, stepPhoto@976, gotPhoto@995, stepCheck@1046, field@1060, paintTimes@1085, stepConfirm@1122, paintList@1187, gotShelf@1219, suggest@1262, fallbackIdeas@1294, paintIdeas@1307, stepSeconds@1334, paint@1344, fmt@1389, beep@1390, breathe@1440, apply@1474, finish@1481, runScript@1534, end@1563, crisisReply@1676, paintChat@1726, toggleMic@1759, send@1772, peopleContext@1816, writeIt@1907, paintPh@1962, field@1974, applySize@2009, applyVoice@2012
+### `steer-framework.html`
+- L10 style
+- L399 section `situate`
+- L403 h2 `Situate`
+- L492 section `tension`
+- L496 h2 `Tension-test`
+- L577 section `establish`
+- L581 h2 `Establish`
+- L649 section `evidence`
+- L653 h2 `Evidence`
+- L731 section `rollout`
+- L735 h2 `Roll out &amp; review`
+- L820 section `scorecard`
+- L823 h2 `Governance health scorecard`
+- L869 script
+- L1112 data `PHASES`
+- L1162 style
+- functions (34): $@872, val@873, esc@874, phaseScore@892, scores@893, tierFor@894, refresh@895, cycle@916, resetAll@925, open@946, tUpdate@960, orgEcho@976, prio@983, renderSys@993, renderStk@1001, renderRL@1008, renderTO@1013, renderDR@1020, renderMC@1027, renderAC@1034, renderVision@1042, renderAllWS@1046, snapshot@1097, str@1108, int@1109, pick@1110, objs@1111, clean@1113, restore@1128, buildReportHTML@1147, row@1151, tbl@1152, download@1203, slug@1211
 ### `pm-prompt-library-v2.html`
 - L8 style
 - L502 h2 `PM Prompt`
@@ -711,23 +729,6 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L1675 data `PERSONAS`
 - L1719 data `ROI_DATA`
 - functions (10): renderPrompts@1740, toggleCard@1795, copyPrompt@1803, renderPersonas@1817, jumpToPrompt@1841, renderROI@1861, animateBars@1887, switchTab@1894, filterAndRender@1918, countUp@1932
-### `steer-framework.html`
-- L10 style
-- L395 section `situate`
-- L399 h2 `Situate`
-- L488 section `tension`
-- L492 h2 `Tension-test`
-- L573 section `establish`
-- L577 h2 `Establish`
-- L645 section `evidence`
-- L649 h2 `Evidence`
-- L727 section `rollout`
-- L731 h2 `Roll out &amp; review`
-- L816 section `scorecard`
-- L819 h2 `Governance health scorecard`
-- L865 script
-- L1140 style
-- functions (29): $@868, val@869, esc@870, phaseScore@887, scores@888, tierFor@889, refresh@890, cycle@911, resetAll@920, open@941, tUpdate@955, orgEcho@971, prio@978, renderSys@988, renderStk@996, renderRL@1003, renderTO@1008, renderDR@1015, renderMC@1022, renderAC@1029, renderVision@1037, renderAllWS@1041, snapshot@1092, restore@1102, buildReportHTML@1125, row@1129, tbl@1130, download@1181, slug@1189
 ### `quest-lab.html`
 - L13 style
 - L216 h2 `Discernment,`
