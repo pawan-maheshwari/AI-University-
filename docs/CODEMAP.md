@@ -28,8 +28,9 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `desynced.html` | 109 KB | 2475 |  |
 | `s4hana-novice-to-expert.html` | 97 KB | 881 |  |
 | `elder-companion.html` | 93 KB | 2051 |  |
+| `steer-framework.html` | 92 KB | 1243 |  |
 | `pm-prompt-library-v2.html` | 91 KB | 1951 |  |
-| `steer-framework.html` | 89 KB | 1215 |  |
+| `quest-lab.html` | 76 KB | 871 |  |
 | `ai-business-flight-simulator.html` | 73 KB | 1284 |  |
 | `catalyst-canvas.html` | 66 KB | 917 |  |
 | `proof-framework.html` | 65 KB | 968 |  |
@@ -698,6 +699,24 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L2003 script
 - L2007 data `SIZES`
 - functions (69): blank@366, load@379, save@388, $@393, el@394, esc@404, uid@406, pad@407, todayKey@408, toMin@409, pretty@410, partOfDay@415, mealNow@421, firstName@426, chooseVoice@431, speak@442, hush@453, listen@457, flatten@476, postOnce@493, getOnce@517, wait@535, askAI@539, askAIWithPhoto@552, grabJSON@559, readImage@567, pickPhoto@586, dosesPerDay@595, daysLeft@596, takenToday@601, markTaken@602, scheduleToday@620, nextDue@628, lowStockMeds@635, go@647, back@654, render@660, dayRibbon@676, paint@963, stepPhoto@976, gotPhoto@995, stepCheck@1046, field@1060, paintTimes@1085, stepConfirm@1122, paintList@1187, gotShelf@1219, suggest@1262, fallbackIdeas@1294, paintIdeas@1307, stepSeconds@1334, paint@1344, fmt@1389, beep@1390, breathe@1440, apply@1474, finish@1481, runScript@1534, end@1563, crisisReply@1676, paintChat@1726, toggleMic@1759, send@1772, peopleContext@1816, writeIt@1907, paintPh@1962, field@1974, applySize@2009, applyVoice@2012
+### `steer-framework.html`
+- L10 style
+- L399 section `situate`
+- L403 h2 `Situate`
+- L492 section `tension`
+- L496 h2 `Tension-test`
+- L577 section `establish`
+- L581 h2 `Establish`
+- L649 section `evidence`
+- L653 h2 `Evidence`
+- L731 section `rollout`
+- L735 h2 `Roll out &amp; review`
+- L820 section `scorecard`
+- L823 h2 `Governance health scorecard`
+- L869 script
+- L1112 data `PHASES`
+- L1162 style
+- functions (34): $@872, val@873, esc@874, phaseScore@892, scores@893, tierFor@894, refresh@895, cycle@916, resetAll@925, open@946, tUpdate@960, orgEcho@976, prio@983, renderSys@993, renderStk@1001, renderRL@1008, renderTO@1013, renderDR@1020, renderMC@1027, renderAC@1034, renderVision@1042, renderAllWS@1046, snapshot@1097, str@1108, int@1109, pick@1110, objs@1111, clean@1113, restore@1128, buildReportHTML@1147, row@1151, tbl@1152, download@1203, slug@1211
 ### `pm-prompt-library-v2.html`
 - L8 style
 - L502 h2 `PM Prompt`
@@ -709,23 +728,47 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L1675 data `PERSONAS`
 - L1719 data `ROI_DATA`
 - functions (10): renderPrompts@1740, toggleCard@1795, copyPrompt@1803, renderPersonas@1817, jumpToPrompt@1841, renderROI@1861, animateBars@1887, switchTab@1894, filterAndRender@1918, countUp@1932
-### `steer-framework.html`
-- L10 style
-- L395 section `situate`
-- L399 h2 `Situate`
-- L488 section `tension`
-- L492 h2 `Tension-test`
-- L573 section `establish`
-- L577 h2 `Establish`
-- L645 section `evidence`
-- L649 h2 `Evidence`
-- L727 section `rollout`
-- L731 h2 `Roll out &amp; review`
-- L816 section `scorecard`
-- L819 h2 `Governance health scorecard`
-- L865 script
-- L1140 style
-- functions (29): $@868, val@869, esc@870, phaseScore@887, scores@888, tierFor@889, refresh@890, cycle@911, resetAll@920, open@941, tUpdate@955, orgEcho@971, prio@978, renderSys@988, renderStk@996, renderRL@1003, renderTO@1008, renderDR@1015, renderMC@1022, renderAC@1029, renderVision@1037, renderAllWS@1041, snapshot@1092, restore@1102, buildReportHTML@1125, row@1129, tbl@1130, download@1181, slug@1189
+### `quest-lab.html`
+- L13 style
+- L216 h2 `Discernment,`
+- L226 section `tab-lab`
+- L229 h2 `QUEST Lab`
+- L246 section `trust`
+- L266 section `simulate`
+- L268 h2 `Monte Carlo: how sure are we?`
+- L297 section `question`
+- L299 h2 `Five questions, each tied to a number`
+- L305 section `understand`
+- L308 h2 `Understand your own judgement`
+- L326 section `evaluate`
+- L328 h2 `Evaluate fairness with counterfactual swaps`
+- L335 section `formulas`
+- L337 h2 `Formula sheet`
+- L344 section `tab-test`
+- L345 section `participant`
+- L347 h2 `Can you tell when the AI is wrong?`
+- L352 section `v-start`
+- L353 h2 `Before you begin`
+- L363 section `v-item`
+- L369 section `v-pause`
+- L370 h2 `Round 1 done. Pause here.`
+- L375 section `v-res`
+- L376 h2 `Your results`
+- L394 section `tab-fac`
+- L395 section `facilitator`
+- L397 h2 `Facilitator view`
+- L401 h2 `Arm A: distrust briefing (10 min)`
+- L406 h2 `Arm B: discernment briefing (10 min)`
+- L412 h2 `Cohort results`
+- L439 script
+- L446 data `ROLES`
+- L485 data `SWAP`
+- L557 data `DIR`
+- L674 script
+- L679 data `RUB`
+- L723 data `FORMS`
+- L841 script
+- functions (61): $@442, clamp@443, fmt@444, pct@482, buildControls@487, setRole@510, nev@522, cstar@523, zinv@524, rng@527, gauss@528, gamma@529, beta@530, tri@531, monteCarlo@533, update@550, tornado@592, hd@593, cards@600, axisY@606, drawCurve@608, X@613, drawHist@624, drawPD@634, cT@637, draws@646, $@677, esc@678, zinv@726, score@728, f2@731, pc@732, fresh@736, shuffle@737, armFromHash@738, save@739, load@740, setLine@742, show@743, render@745, cur@751, item@752, answer@759, encode@765, decode@766, results@767, analyse@789, m@794, ci@797, cell@799, dumb@804, X@807, draw@814, simulate@817, gen@820, csv@827, q@829, which@845, route@847, fill@855, upd@864
 ### `ai-business-flight-simulator.html`
 - L10 style
 - L299 section `s-start`
