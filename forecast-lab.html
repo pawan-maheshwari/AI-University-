@@ -1912,27 +1912,49 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
 
   FL.toNumber = function (v) {
     if (v === null || v === undefined) return NaN;
-    let s = String(v).trim().replace(/[\s ]/g, '').replace(/^[R$€£₹]/, '').replace(/%$/, '');
+    let s = String(v).trim().replace(/[\s ]/g, '');
+    let neg = false;
+    if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }          // accounting negative: (1,230)
+    s = s.replace(/^[R$€£₹]/, '').replace(/%$/, '');
     if (s === '') return NaN;
     if (/^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, '');
+    else if (/^-?\d{1,3}(\.\d{3})+,\d+$/.test(s) || /^-?\d{1,3}(\.\d{3}){2,}$/.test(s)) s = s.replace(/\./g, '').replace(',', '.');   // 1.234,56 / 1.234.567
     else if (/^-?\d+,\d+$/.test(s)) s = s.replace(',', '.');
+    if (neg) s = '-' + s;
     const n = Number(s);
     return Number.isFinite(n) ? n : NaN;
   };
 
   /* Dates: ISO (2025-03-01, 2025-03-01T..), YYYY-MM, DD/MM/YYYY, YYYY/MM/DD. Returns UTC ms or NaN. */
-  FL.parseDate = function (v) {
+  function ymd(y, mo, d) {   // NaN for impossible dates such as 31 Feb (Date.UTC would roll them over)
+    if (mo < 1 || mo > 12 || d < 1 || d > 31) return NaN;
+    const t = Date.UTC(y, mo - 1, d), x = new Date(t);
+    return x.getUTCMonth() === mo - 1 && x.getUTCDate() === d ? t : NaN;
+  }
+  /* order: 'dmy' (default) or 'mdy' for the NN/NN/YYYY form; FL.dateOrder picks it per column. */
+  FL.parseDate = function (v, order) {
     const s = String(v || '').trim();
     let m;
-    if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
-    if ((m = s.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/))) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
-    if ((m = s.match(/^(\d{4})-(\d{1,2})$/))) return Date.UTC(+m[1], +m[2] - 1, 1);
+    if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return ymd(+m[1], +m[2], +m[3]);
+    if ((m = s.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/))) return ymd(+m[1], +m[2], +m[3]);
+    if ((m = s.match(/^(\d{4})-(\d{1,2})$/))) return ymd(+m[1], +m[2], 1);
     if ((m = s.match(/^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})$/))) {
       let d = +m[1], mo = +m[2];
-      if (mo > 12 && d <= 12) { const t = d; d = mo; mo = t; }
-      return Date.UTC(+m[3], mo - 1, d);
+      if (order === 'mdy' ? d <= 12 || mo > 12 : mo > 12 && d <= 12) { const t = d; d = mo; mo = t; }
+      return ymd(+m[3], mo, d);
     }
     return NaN;
+  };
+  /* A column is month-first when some value has a second part above 12 and none has a first part above 12. */
+  FL.dateOrder = function (vals) {
+    let firstBig = false, secondBig = false;
+    for (const v of vals) {
+      const m = String(v || '').trim().match(/^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})$/);
+      if (!m) continue;
+      if (+m[1] > 12) firstBig = true;
+      if (+m[2] > 12) secondBig = true;
+    }
+    return secondBig && !firstBig ? 'mdy' : 'dmy';
   };
 
   FL.guessColumns = function (headers, rows) {
@@ -2001,6 +2023,8 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
 
   /* ---------------- prepare ---------------- */
   FL.MAX_SERIES = 30;
+  FL.MAX_PERIODS = 3000;
+  FL.GBM_MAX_ROWS = 12000;
   FL.prepare = function (parsed, map) {
     const H = parsed.headers, idx = (n) => H.indexOf(n);
     const iD = idx(map.date), iY = idx(map.target), iS = map.series ? idx(map.series) : -1;
@@ -2009,8 +2033,10 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
     if (iD < 0 || iY < 0) throw new Error('Choose a date column and a column to forecast.');
     let bad = 0;
     const recs = [];
+    const order = FL.dateOrder(parsed.rows.map((r) => r[iD]));
+    if (order === 'mdy') notes.push('Dates read as month/day/year.');
     parsed.rows.forEach((r) => {
-      const t = FL.parseDate(r[iD]), y = FL.toNumber(r[iY]);
+      const t = FL.parseDate(r[iD], order), y = FL.toNumber(r[iY]);
       if (!Number.isFinite(t) || !Number.isFinite(y)) { bad++; return; }
       recs.push({ t, y, s: iS >= 0 ? String(r[iS]).trim() || '(blank)' : 'All', x: iX.map((i) => FL.toNumber(r[i])) });
     });
@@ -2025,11 +2051,13 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
       if (!m.has(k)) m.set(k, { y: 0, x: r.x.map(() => 0), n: 0 });
       const c = m.get(k); c.y += r.y; c.n++; r.x.forEach((v, j) => { c.x[j] += Number.isFinite(v) ? v : 0; });
     });
-    let keys = [];
-    byS.forEach((m) => m.forEach((_, k) => keys.push(k)));
-    const t0 = Math.min.apply(null, keys), t1 = Math.max.apply(null, keys);
+    let t0 = Infinity, t1 = -Infinity;
+    byS.forEach((m) => m.forEach((_, k) => { if (k < t0) t0 = k; if (k > t1) t1 = k; }));
     const periods = [];
-    for (let k = t0; k <= t1 && periods.length < 5000; k = nextPeriod(k, freq)) periods.push(k);
+    for (let k = t0; k <= t1; k = nextPeriod(k, freq)) {
+      if (periods.length >= FL.MAX_PERIODS) throw new Error('The dates span ' + FL.label(t0, freq) + ' to ' + FL.label(t1, freq) + ', more than ' + FL.MAX_PERIODS.toLocaleString('en') + ' ' + freq.unit + 's. Check for a stray or mistyped date, or summarise the data to a longer period (e.g. weekly).');
+      periods.push(k);
+    }
     let ids = Array.from(byS.keys());
     const vol = new Map(ids.map((id) => { let v = 0; byS.get(id).forEach((c) => { v += c.y; }); return [id, v]; }));
     ids.sort((a, b) => vol.get(b) - vol.get(a));
@@ -2221,6 +2249,12 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
         const yFn = (k) => s.y[k];
         for (let t = first; t < end; t++) { X.push(features(data, si, t, scales[si], yFn)); Y.push(s.y[t] / scales[si] - anchor(t, scales[si], yFn)); }
       });
+      // Large files: train on an even sample of rows (most recent always kept) so the browser stays responsive.
+      if (X.length > FL.GBM_MAX_ROWS) {
+        const step = X.length / FL.GBM_MAX_ROWS, Xs = [], Ys = [];
+        for (let i = X.length - 1; i >= 0; i -= step) { const j = Math.floor(i); Xs.push(X[j]); Ys.push(Y[j]); }
+        X.length = 0; Y.length = 0; X.push(...Xs.reverse()); Y.push(...Ys.reverse());
+      }
       const opt = { rounds: 120, lr: 0.08, depth: 4, minLeaf: Math.max(5, Math.floor(X.length / 200)), bins: 24 };
       const trees = gbmTrain(X, Y, opt);
       const fit = (steps, xFuture) => data.series.map((s, si) => {
@@ -2311,7 +2345,8 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
     // A. train -> validation (model selection)
     const val = {}, valPreds = {};
     models.forEach((k) => { const p = Models[k].fit(data, trainEnd)(valLen); valPreds[k] = p; val[k] = FL.metrics(data, trainEnd, p, trainEnd); });
-    const best = models.slice().sort((a, b) => val[a].wape - val[b].wape)[0];
+    const score = (k) => (Number.isFinite(val[k].wape) ? val[k].wape : Number.isFinite(val[k].rmse) ? 1e6 + val[k].rmse : Infinity);
+    const best = models.slice().sort((a, b) => score(a) - score(b))[0];
 
     // B. train + validation -> test (scored once)
     const test = {}, testPreds = {};
@@ -2375,6 +2410,7 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
       { k: 'consistent', name: 'Validation and test agree', weight: 10, score: clamp(1 - gap / 0.5), value: gap, fmt: 'pct', detail: 'Gap between validation and test error. A big gap suggests the model was tuned to one period.' },
       { k: 'data', name: 'Enough history', weight: 10, score: clamp(seasons / 2), value: seasons, fmt: 'x', detail: 'Seasons of history. Two or more full seasons earns full marks.' },
     ];
+    parts.forEach((p) => { if (!Number.isFinite(p.score)) p.score = 0; });
     const score = Math.round(sum(parts.map((p) => p.weight * p.score)));
     const band = score >= 75 ? 'High' : score >= 50 ? 'Medium' : 'Low';
     const advice = band === 'High' ? 'Reliable enough to plan with. Keep monitoring against new actuals.' :
@@ -2560,7 +2596,11 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
     a.download = name; document.body.appendChild(a); a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
-  const csvCell = (v) => (/[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v));
+  const csvCell = (v) => {
+    let t = String(v);
+    if (/^[=+\-@\t\r]/.test(t) && !Number.isFinite(Number(t))) t = "'" + t;   // stop Excel/Sheets running a series name as a formula
+    return /[",\n\r]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+  };
 
   /* ---------- tabs ---------- */
   const tabs = [['tab-run', 'p-run'], ['tab-guide', 'p-guide'], ['tab-case', 'p-case']];
@@ -2571,11 +2611,21 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
   }));
 
   /* ---------- step 1: load ---------- */
+  /* New data or new column choices make any earlier results stale: hide them until the next run.
+     A saved forecast (step 4) is kept: it is checked against actuals, not against this data. */
+  const RES_SUB = $('res-sub').textContent;
+  function clearResults() {
+    st.res = null; st.view = -1;
+    $('results').replaceChildren(); $('res-sub').textContent = RES_SUB; $('run-status').textContent = ''; errBox('run-err', '');
+    $('s3').classList.add('locked');
+    if (!st.snap) $('s4').classList.add('locked');
+  }
   function loadText(text, name) {
     errBox('prep-err', '');
     const parsed = FL.parseCSV(text);
     if (parsed.headers.length < 2 || parsed.rows.length < 2) { $('load-status').textContent = ''; errBox('prep-err', 'That file has no usable table. It needs a header row and at least two columns.'); return; }
     st.parsed = parsed; st.sourceName = name;
+    clearResults();
     $('load-status').textContent = `${name}: ${parsed.rows.length.toLocaleString('en')} rows, ${parsed.headers.length} columns. Check the columns below.`;
     const g = FL.guessColumns(parsed.headers, parsed.rows);
     const fill = (sel, val, blank) => {
@@ -2619,7 +2669,8 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
       drivers: Array.from($('m-drivers').querySelectorAll('input:checked')).map((i) => i.value) };
     map.drivers = map.drivers.filter((d) => d !== map.date && d !== map.target && d !== map.series);
     if (!map.date || !map.target || map.date === map.target) { errBox('prep-err', 'Choose different columns for the date and the value to forecast.'); return; }
-    try { st.data = FL.prepare(st.parsed, map); } catch (e) { errBox('prep-err', e.message); return; }
+    clearResults();
+    try { st.data = FL.prepare(st.parsed, map); } catch (e) { st.data = null; errBox('prep-err', e.message); return; }
     st.map = map;
     const d = st.data, n = d.periods.length;
     const msg = $('load-status');
@@ -2926,6 +2977,14 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
       h('td', { style: 'color:' + (flag ? C.warn : C.good) + ';font-weight:700' }, tr, flag ? (p.ts > 0 ? 'Forecast too low' : 'Forecast too high') : lean ? 'OK (small, one-way)' : 'OK');
     });
   }
+  function validSnap(sn) {
+    const num = Number.isFinite, freqs = ['daily', 'weekly', 'monthly', 'quarterly'];
+    return !!(sn && typeof sn === 'object' && sn.v === 1 && typeof sn.created === 'string' &&
+      sn.freq && freqs.includes(sn.freq.name) && num(sn.testWape) && num(sn.coverageTarget) &&
+      sn.map && typeof sn.map.date === 'string' && typeof sn.map.target === 'string' &&
+      Array.isArray(sn.series) && sn.series.length && sn.series.every((x) => x && typeof x.id === 'string' &&
+        Array.isArray(x.fc) && x.fc.every((p) => Array.isArray(p) && p.length === 4 && p.every(num))));
+  }
   $('file-act').addEventListener('change', (e) => readFile(e.target.files[0], runMonitor));
   $('use-act').addEventListener('click', () => {
     if (st.sourceName.indexOf('Kidswear sample') !== 0) { $('monitor').replaceChildren(); h('div', { class: 'err' }, $('monitor'), 'The sample actuals match the Kidswear sample. Load the sample in step 1 and run it first.'); return; }
@@ -2941,12 +3000,12 @@ tr.pick td{background:var(--gold-bg);font-weight:600}
   $('file-snap').addEventListener('change', (e) => readFile(e.target.files[0], (text, name) => {
     try {
       const sn = JSON.parse(text);
-      if (!sn || sn.v !== 1 || !sn.series || !sn.map) throw new Error('bad');
+      if (!validSnap(sn)) throw new Error('bad');
       st.snap = sn; unlock('s4');
       $('mon-status').textContent = `Loaded ${name}: ${sn.series.length} series, made ${sn.created.slice(0, 10)}. Now upload the actuals.`;
     } catch (err) { $('monitor').replaceChildren(); h('div', { class: 'err' }, $('monitor'), 'That is not a Forecast Lab snapshot file.'); }
   }));
-  try { const saved = localStorage.getItem('forecastLab.lastForecast'); if (saved) { const sn = JSON.parse(saved); if (sn && sn.v === 1 && sn.map) { st.snap = sn; unlock('s4'); $('mon-status').textContent = `Your last saved forecast (${sn.created.slice(0, 10)}, ${sn.series.length} series) is ready to check against new actuals.`; } } } catch (e) { /* ignore */ }
+  try { const saved = localStorage.getItem('forecastLab.lastForecast'); if (saved) { const sn = JSON.parse(saved); if (validSnap(sn)) { st.snap = sn; unlock('s4'); $('mon-status').textContent = `Your last saved forecast (${sn.created.slice(0, 10)}, ${sn.series.length} series) is ready to check against new actuals.`; } } } catch (e) { /* ignore */ }
 
   /* ---------- guide ---------- */
   let gFold = 0;

@@ -16,13 +16,13 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 | `certificate-course-cybersecurity.html` | 321 KB | 1715 | 3 |
 | `certificate-course-ai-ready-organisation.html` | 297 KB | 938 | 2 |
 | `AI Spark Quest Teachers.html` | 177 KB | 3063 | 1 |
-| `forecast-lab.html` | 161 KB | 2995 |  |
+| `forecast-lab.html` | 165 KB | 3054 |  |
 | `communicating-with-impact-course.html` | 156 KB | 1848 |  |
 | `horizon-strategy-simulator.html` | 149 KB | 2893 |  |
 | `ai-library.html` | 142 KB | 1307 | 2 |
 | `sap-migration-studio.html` | 134 KB | 986 |  |
 | `cloud-cost-calculator.html` | 129 KB | 1745 |  |
-| `leadership-style.html` | 123 KB | 1358 | 2 |
+| `leadership-style.html` | 124 KB | 1368 | 2 |
 | `four-futures.html` | 116 KB | 1059 | 1 |
 | `ai-maturity-assessment.html` | 115 KB | 814 | 1 |
 | `desynced.html` | 109 KB | 2475 |  |
@@ -359,10 +359,11 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - L1758 script
 - L1879 script
 - L1880 script
-- L1956 data `DAY`
-- L1985 data `MON`
-- L2512 script
-- functions (60): periodKey@1968, nextPeriod@1975, seasonPos@1992, sum@2063, mean@2064, sd@2065, quantile@2066, driverAt@2072, hwFit@2107, features@2150, gbmTrain@2162, build@2173, predBin@2198, treePred@2209, anchor@2219, fit@2226, model@2235, fit@2244, seriesWape@2278, normResiduals@2285, conformalQ@2293, clamp@2362, P@2409, S@2410, nameOf@2432, $@2515, h@2521, s@2528, pct@2535, spct@2536, int@2537, compact@2538, sum@2539, niceStep@2540, svgIn@2541, tip@2542, errBox@2555, unlock@2556, download@2557, csvCell@2563, loadText@2574, fill@2581, readFile@2600, drawSplit@2644, drawSplitControls@2665, seriesArrays@2694, renderResults@2703, kpi@2710, drawMain@2793, y@2799, zone@2801, line@2820, drawBacktest@2846, y@2851, drawFcTable@2866, downloadForecast@2874, downloadReport@2879, runMonitor@2891, x@2912, drawGuide@2953
+- L1978 data `DAY`
+- L2007 data `MON`
+- L2548 script
+- L2616 data `RES_SUB`
+- functions (64): ymd@1929, periodKey@1990, nextPeriod@1997, seasonPos@2014, sum@2091, mean@2092, sd@2093, quantile@2094, driverAt@2100, hwFit@2135, features@2178, gbmTrain@2190, build@2201, predBin@2226, treePred@2237, anchor@2247, fit@2260, model@2269, fit@2278, seriesWape@2312, normResiduals@2319, conformalQ@2327, score@2348, clamp@2397, P@2445, S@2446, nameOf@2468, $@2551, h@2557, s@2564, pct@2571, spct@2572, int@2573, compact@2574, sum@2575, niceStep@2576, svgIn@2577, tip@2578, errBox@2591, unlock@2592, download@2593, csvCell@2599, clearResults@2617, loadText@2623, fill@2631, readFile@2650, drawSplit@2695, drawSplitControls@2716, seriesArrays@2745, renderResults@2754, kpi@2761, drawMain@2844, y@2850, zone@2852, line@2871, drawBacktest@2897, y@2902, drawFcTable@2917, downloadForecast@2925, downloadReport@2930, runMonitor@2942, x@2963, validSnap@2980, drawGuide@3012
 ### `communicating-with-impact-course.html`
 - L11 style
 - L249 h2 `Communicating with Impact: The Human Advantage in Every Room`
@@ -555,36 +556,36 @@ Files with *long lines* contain inline base64/minified blobs — never print tho
 - functions (86): clone@623, num@624, fin@625, clamp@626, $@627, esc@628, sum@629, round@630, estimateCosts@633, applyPreset@650, fieldBounds@655, sanitize@656, estateTotals@714, groupsFromMix@723, model@735, shareBy@742, g@801, lump@847, cum@871, beOf@873, supportCost@894, ranges@907, sensitivity@917, money@928, trim@938, full@939, pct@940, rel@941, mrange@942, beTxt@943, fieldHTML@948, buildForm@969, cellState@981, buildRateTables@986, onField@1009, fmtRange@1022, syncForm@1026, isGrpField@1051, clearPreset@1052, renderGroups@1055, niceMax@1080, niceMin@1081, runRateChart@1083, billMixChart@1103, cumChart@1120, X@1128, tornado@1146, X@1150, gantt@1166, X@1176, update@1193, showIssues@1281, renderMix@1297, confidenceOf@1310, renderQuoteCount@1319, renderCashFlow@1333, row@1341, renderMigTable@1354, renderInsights@1379, refScenario@1418, renderConfidence@1422, snapshot@1440, exportDoc@1446, loadInputs@1455, readStore@1467, writeStore@1468, renderScenarios@1469, download@1476, b64e@1480, b64d@1481, toast@1482, csvAll@1484, row@1496, runTests@1521, T@1523, base@1524, M@1526, allFinite@1527, close@1533, init@1654, costs@1710, load@1711, cl@1713, post@1728, height@1735, soon@1736
 ### `leadership-style.html`
 - L15 style
-- L491 h2 `LPI`
-- L519 section `view-profile`
-- L521 h2 `Respondent Profile`
-- L540 section `view-assessment`
-- L542 h2 `Self Assessment`
-- L553 section `view-report`
-- L556 section `view-reading`
-- L558 h2 `Suggested Reading`
-- L572 section `view-leaders`
-- L574 h2 `Global Leaders &amp; Their Leadership Style`
-- L629 script
-- L631 data `QUESTIONS`
-- L664 data `PRACTICES`
-- L683 data `READING`
-- L719 data `SCALE`
-- L720 data `TABS`
-- L723 data `SAMPLE_RESPONSES`
-- L724 data `SAMPLE_PROFILE`
-- L731 data `MONTHS`
-- L732 data `LS_KEY`
-- L1063 data `ICON_SVG`
-- L1099 h2 `${p.num}. ${p.label}`
-- L1128 h2 `LPI®: Leadership Practices Inventory®`
-- L1140 h2 `The Five Practices — Summary`
-- L1145 h2 `Percentile Ranking`
-- L1149 h2 `Leadership Behaviours Ranking`
-- L1155 h2 `Practice Detail, Reflections &amp; Suggestions`
-- L1158 h2 `Suggested Reading — With Key Learnings`
-- L1265 data `LIMGS`
-- functions (36): $@728, esc@729, pOf@730, persist@733, restore@734, clearSaved@743, prettyDate@748, profile@749, profileOk@750, approxPct@751, scoresFrom@752, rankedFrom@753, scores@754, ranked@755, answered@756, complete@757, renderNav@760, setTab@775, renderAssessment@787, done@829, moderatorHTML@861, reportLogoBar@882, buildReportSections@897, renderReport@990, percentileSVG@1045, y@1048, triggerDownload@1066, downloadIcon@1072, downloadReport@1076, renderReading@1202, lsvg@1249, lBuildSidebar@1278, lLoadPhotos@1293, lPaintImpact@1313, lPaintStyle@1319, lPick@1328
+- L492 h2 `LPI`
+- L520 section `view-profile`
+- L522 h2 `Respondent Profile`
+- L541 section `view-assessment`
+- L543 h2 `Self Assessment`
+- L554 section `view-report`
+- L557 section `view-reading`
+- L559 h2 `Suggested Reading`
+- L573 section `view-leaders`
+- L575 h2 `Global Leaders &amp; Their Leadership Style`
+- L630 script
+- L632 data `QUESTIONS`
+- L665 data `PRACTICES`
+- L684 data `READING`
+- L720 data `SCALE`
+- L721 data `TABS`
+- L724 data `SAMPLE_RESPONSES`
+- L725 data `SAMPLE_PROFILE`
+- L732 data `MONTHS`
+- L733 data `LS_KEY`
+- L1070 data `ICON_SVG`
+- L1106 h2 `${p.num}. ${p.label}`
+- L1135 h2 `LPI®: Leadership Practices Inventory®`
+- L1147 h2 `The Five Practices — Summary`
+- L1152 h2 `Percentile Ranking`
+- L1156 h2 `Leadership Behaviours Ranking`
+- L1162 h2 `Practice Detail, Reflections &amp; Suggestions`
+- L1165 h2 `Suggested Reading — With Key Learnings`
+- L1274 data `LIMGS`
+- functions (37): $@729, esc@730, pOf@731, persist@734, restore@735, cleanResponses@747, clearSaved@749, prettyDate@754, profile@755, profileOk@756, approxPct@757, scoresFrom@758, rankedFrom@759, scores@760, ranked@761, answered@762, complete@763, renderNav@766, setTab@782, renderAssessment@794, done@836, moderatorHTML@868, reportLogoBar@889, buildReportSections@904, renderReport@997, percentileSVG@1052, y@1055, triggerDownload@1073, downloadIcon@1079, downloadReport@1083, renderReading@1211, lsvg@1258, lBuildSidebar@1287, lLoadPhotos@1302, lPaintImpact@1322, lPaintStyle@1328, lPick@1337
 ### `four-futures.html`
 - L1 style
 - L5 style
