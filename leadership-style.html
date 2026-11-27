@@ -209,6 +209,7 @@ table.rtbl{width:100%;border-collapse:collapse;font-size:.85rem;background:var(-
   text-align:left;padding:.65rem;background:var(--stone);border-bottom:1px solid var(--hairline)}
 .rtbl td{padding:.52rem .65rem;border-bottom:1px solid var(--hairline);vertical-align:middle}
 .rtbl tr:last-child td{border-bottom:none}
+@media(max-width:620px){.rtbl{font-size:.78rem}.rtbl th:nth-child(5),.rtbl td:nth-child(5){display:none}.rtbl th,.rtbl td{padding:.45rem .4rem}.rtbl .badge{white-space:normal;display:inline-block}}
 .rtbl .top10 td{background:var(--green-bg)}
 .rtbl .bot10 td{background:var(--red-bg)}
 .badge{font-size:.61rem;font-weight:700;padding:.14rem .45rem;color:#fff;white-space:nowrap;border-radius:2px}
@@ -726,20 +727,25 @@ const SAMPLE_PROFILE={name:"Amanda Lopez",role:"Sample Participant",org:"Leaders
 /* ═══════════════════════ STATE ═══════════════════════ */
 const state={tab:"profile",responses:{},pFilter:"ALL",readFilter:"ALL",reflections:{}};
 const $=id=>document.getElementById(id);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const pOf=id=>PRACTICES.find(p=>p.id===id);
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const LS_KEY="lpi.selfreport.v2";
 function persist(){try{localStorage.setItem(LS_KEY,JSON.stringify({p:profile(),r:state.responses,f:state.reflections}));}catch(e){}}
 function restore(){try{
   const d=JSON.parse(localStorage.getItem(LS_KEY)||"null"); if(!d)return false;
-  if(d.p){const P=d.p;
+  if(d.p&&typeof d.p==="object"){const P=d.p;
     if(P.name)$("f-name").value=P.name; if(P.role)$("f-role").value=P.role;
     if(P.org)$("f-org").value=P.org;   if(P.email)$("f-email").value=P.email;
     if(P.sector)$("f-sector").value=P.sector; if(P.date)$("f-date").value=P.date;}
-  state.responses=d.r||{}; state.reflections=d.f||{};
+  state.responses=cleanResponses(d.r);
+  state.reflections={};
+  if(d.f&&typeof d.f==="object")for(const k in d.f)if(typeof d.f[k]==="string")state.reflections[k]=d.f[k];
   return true;
 }catch(e){return false;}}
+/* keep only items 1–30 rated with whole numbers 1–10 (guards against old/corrupt saves) */
+function cleanResponses(r){const out={};if(!r||typeof r!=="object"||Array.isArray(r))return out;
+  QUESTIONS.forEach(q=>{const v=Number(r[q.id]);if(Number.isInteger(v)&&v>=1&&v<=10)out[q.id]=v;});return out;}
 function clearSaved(){
   if(!confirm("Clear your saved profile, ratings and reflections from this browser?"))return;
   try{localStorage.removeItem(LS_KEY);}catch(e){}
@@ -753,13 +759,13 @@ function scoresFrom(resp){return PRACTICES.map(p=>{const qs=QUESTIONS.filter(q=>
 function rankedFrom(resp){return QUESTIONS.map(q=>({...q,score:resp[q.id]||0})).sort((a,b)=>b.score-a.score||a.id-b.id);}
 function scores(){return scoresFrom(state.responses);}
 function ranked(){return rankedFrom(state.responses);}
-const answered=()=>Object.keys(state.responses).length;
+const answered=()=>QUESTIONS.filter(q=>state.responses[q.id]).length;
 const complete=()=>answered()===30;
 
 /* ═══════════════════════ NAV ═══════════════════════ */
 function renderNav(){
   const guest=!profileOk();
-  $("nav").innerHTML=TABS.map(([k,l])=>{
+  const html=TABS.map(([k,l])=>{
     let suffix="";
     if(k==="profile" && profileOk()) suffix=" ✓";
     if(k==="assessment"){
@@ -770,7 +776,8 @@ function renderNav(){
     if(k==="report" && guest) suffix=`<span class="sbadge">SAMPLE</span>`;
     return `<button class="ntab${state.tab===k?" on":""}" data-tab="${k}">${l}${suffix}</button>`;
   }).join("");
-  $("nav").querySelectorAll(".ntab").forEach(b=>b.onclick=()=>{setTab(b.dataset.tab);});
+  /* only rebuild when something changed: a rebuild on blur/change used to swallow the first tab click */
+  if(renderNav._last!==html){$("nav").innerHTML=html;renderNav._last=html;}
 }
 function setTab(t){
   state.tab=t;
@@ -1164,7 +1171,7 @@ ${readHtml}
 </div>
 </body></html>`;
 
-  triggerDownload(`LPI-Self-Report-${(pr.name||"report").replace(/\s+/g,"-")}.html`,html,"text/html");
+  triggerDownload(`LPI-Self-Report-${((pr.name||"report").replace(/[^\p{L}\p{N}]+/gu,"-").replace(/^-+|-+$/g,"").slice(0,60)||"report")}.html`,html,"text/html");
 }
 
 /* ═══════════════════════ EMAIL ═══════════════════════ */
@@ -1193,7 +1200,9 @@ Pawan Maheshwari  |  Founder, planetAI LLP
 world-of-ai.co.in
 https://www.linkedin.com/in/pawan-maheshwari-4b9b4715
 Based on Kouzes & Posner · Developmental use only.`);
-  window.open(`mailto:${$("email-to").value}?subject=${encodeURIComponent("LPI Self-Assessment Report — "+(pr.name||"Participant"))}&body=${body}`,"_blank");
+  const to=$("email-to").value.trim();
+  if(to&&!/^[^\s@?&,;<>]+@[^\s@?&,;<>]+\.[^\s@?&,;<>]+$/.test(to)){$("email-status").textContent="Please enter a valid email address.";return;}
+  window.open(`mailto:${encodeURIComponent(to).replace(/%40/g,"@")}?subject=${encodeURIComponent("LPI Self-Assessment Report — "+(pr.name||"Participant"))}&body=${body}`,"_blank");
   $("email-status").textContent="✓ Email client opened with the report summary.";
   setTimeout(()=>$("email-status").textContent="",4000);
 };
@@ -1352,6 +1361,7 @@ $("btn-profile-next").onclick=()=>{
   setTab("assessment");
 };
 $("btn-finish").onclick=()=>setTab("report");
+$("nav").addEventListener("click",e=>{const b=e.target.closest(".ntab");if(b)setTab(b.dataset.tab);});
 renderNav();
 </script>
 </body>
